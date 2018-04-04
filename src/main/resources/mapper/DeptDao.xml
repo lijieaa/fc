@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.we.fc.dept.dao.DeptDao">
+
+    <resultMap id="deptMap" type="Dept">
+        <id property="id" column="dept_id"></id>
+        <result property="name" column="dept_name"></result>
+        <result property="sortd" column="dept_sortd"></result>
+        <result property="createTime" column="dept_create_time"></result>
+        <result property="updateTime" column="dept_update_time"></result>
+        <result property="company.id" column="company_id"></result>
+        <result property="parent.id" column="dept_parent_id"/>
+        <collection property="children" column="dept_id" select="findChildren"/>
+    </resultMap>
+
+    <select id="findById" resultMap="deptMap">
+        SELECT * FROM sys_dept WHERE dept_id = #{0}
+    </select>
+
+    <select id="findByCompanyId" resultMap="deptMap">
+        SELECT * FROM sys_dept WHERE company_id = #{0}
+    </select>
+    
+    <select id="findChildren" resultMap="deptMap">
+        SELECT * FROM sys_dept WHERE dept_parent_id = #{0}
+    </select>
+</mapper>

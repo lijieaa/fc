@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<div th:replace="import::hdr"></div>
+<body class="hold-transition skin-blue sidebar-mini">
+<div th:replace="import::bdy-befor">
+</div>
+<div class="wrapper">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        组织管理
+      </h1>
+    </section>
+
+    <div class="row">
+      <div class="col-md-4">
+        <section class="content">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <a href="#" onclick="clickType(0)">
+                <h3 class="box-title" id="company-name"
+                    th:text="${session.user.company.name} + ' ( ' + ${userCount} + ' )'">
+                </h3>
+              </a>
+              <div class="box-tools pull-right">
+              </div>
+            </div>
+            <div class="box-body">
+              <ul data-widget="tree" id="dept-tree">
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="col-md-8">
+        <section class="content">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title" id="right-text" th:text="${session.user.company.name}"></h3>
+              <button type="button" style="width:70px;margin-top:-6px" class="btn btn-xs btn-primary" id="edit-company-btn" data-toggle="modal" data-target="#modal-default">编辑公司</button>
+              <div class="box-tools pull-right">
+              </div>
+            </div>
+            <div class="box-body">
+              <ul data-widget="tree" id="dept-tree2">
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </div>
+    <!-- /.content -->
+  </div>
+</div>
+<div th:replace="import::scipt"></div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var contextRoot = /*[[@{/}]]*/;
+    loadDeptTree(0);
+    function loadDeptTree(parentId){
+        $.ajax({
+            url : contextRoot + "company/getDeptTree?parentId=" + parentId,
+            success : function (depts) {
+                var pend = [];
+                for(var i=0;i<depts.length;i++){
+                    dd(depts[i]);
+                }
+
+                function dd(dept){
+                    pend.push('<li class="treeview" style="list-style-type: none">');
+                    pend.push('<a href="#">');
+                    pend.push('<i class="fa fa-bars"></i> <span>'+dept.name);
+                    pend.push('</span>');
+                    pend.push(" ( " + dept.userCount + " ) ");
+                    if(dept.children.length > 0){
+                        pend.push('<span class="pull-right-container">');
+                        pend.push('<i class="fa fa-angle-left pull-right"></i>');
+                        pend.push('</span>');
+                    }
+                    pend.push('</a>');
+                    if(dept.children.length > 0){
+                        pend.push('<ul class="treeview-menu">');
+                        for(var i=0;i<dept.children.length;i++){
+                            dd(dept.children[i]);
+                        }
+                        pend.push('</ul>');
+                    }
+                }
+                $("#dept-tree").empty().append(pend.join(""));
+            }
+        });
+    }
+    function clickType(type){
+        if(type === 0){ //公司
+            var companyName = $("#company-name").text();
+            var idx = companyName.indexOf("(");
+            companyName = companyName.substring(0, idx);
+            $("#right-text").text(companyName);
+            $.ajax({
+                url : contextRoot + "company/getDeptTree?parentId=" + 0,
+                success : function (dept) {
+                    var pend = [];
+                    $.each(dept, function (i,v) {
+                        pend.push('<li class="treeview" style="list-style-type: none">');
+                        pend.push('<a href="#">');
+                        pend.push('<i class="fa fa-bars"></i> <span>'+v.name);
+                        pend.push('</span>');
+                        pend.push(" ( " + v.userCount + " ) ");
+                        pend.push('</a>');
+                    })
+                    $("#dept-tree2").empty().append(pend.join(""));
+                }
+            });
+        }else if(type === 1){ //部门
+
+        }
+    }
+    $(function () {
+        $("#company-name").click();
+    });
+    function GetUrlRelativePath() {
+        var url = document.location.toString();
+        var arrUrl = url.split("//");
+        var start = arrUrl[1].indexOf("/");
+        var relUrl = arrUrl[1].substring(start);//stop省略，截取从start开始到结尾的所有字符
+
+        if(relUrl.indexOf("?") != -1){
+            relUrl = relUrl.split("?")[0];
+        }
+        return relUrl.replace("#","");
+    }
+  /*]]>*/
+</script>
+</body>
+</html>

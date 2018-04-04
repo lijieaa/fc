@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.we.fc.menu.dao.MenuDao">
+
+    <resultMap id="menuMap" type="Menu">
+        <id property="id" column="menu_id"></id>
+        <result property="name" column="menu_name"></result>
+        <result property="url" column="menu_url"></result>
+        <result property="permission" column="menu_prmission"></result>
+        <result property="sortd" column="menu_sortd"></result>
+        <result property="display" column="menu_display"></result>
+        <result property="parent.id" column="menu_parent_id"></result>
+    </resultMap>
+
+    <select id="findDisplay" resultMap="menuMap">
+        SELECT * FROM sys_menu WHERE menu_display = 1
+    </select>
+
+    <select id="findByRoleId" resultMap="menuMap">
+        SELECT m.*
+        FROM sys_menu m, sys_role r, sys_role_menu srm
+        WHERE r.role_id = srm.role_id
+        AND srm.menu_id = m.menu_id
+        AND r.role_id = #{0}
+    </select>
+
+</mapper>

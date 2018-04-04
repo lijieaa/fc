@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="callSettersOnNulls" value="true"/>
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+    <typeAliases>
+        <typeAlias type="com.we.fc.user.entity.User" alias="User"></typeAlias>
+        <typeAlias type="com.we.fc.menu.entity.Menu" alias="Menu"></typeAlias>
+        <typeAlias type="com.we.fc.company.entity.Company" alias="Company"></typeAlias>
+        <typeAlias type="com.we.fc.role.entity.Role" alias="Role"></typeAlias>
+        <typeAlias type="com.we.fc.dept.entity.Dept" alias="Dept"></typeAlias>
+    </typeAliases>
+</configuration>
