@@ -25,6 +25,9 @@ public class MenuUtils {
         for (Menu menu : top){
             for(Menu m : all){
                 if(m.getParent().getId().equals(menu.getId())){
+                    if(m.getUrl() != null && m.getUrl().length() > 0){
+                        m.setUrl(m.getUrl() + "?menuId=" + m.getId());
+                    }
                     menu.getChildren().add(m);
                 }
             }

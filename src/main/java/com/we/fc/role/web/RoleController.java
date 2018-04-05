@@ -2,8 +2,11 @@ package com.we.fc.role.web;
 
 import com.we.fc.base.BaseController;
 import com.we.fc.base.BaseService;
+import com.we.fc.menu.service.MenuService;
 import com.we.fc.role.entity.Role;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,13 +20,16 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("role")
 public class RoleController extends BaseController<Role> {
 
+    @Autowired private MenuService menuService;
+
     @Override
     public BaseService<Role> getService() {
         return null;
     }
 
     @GetMapping("index")
-    public String index(HttpSession session){
+    public String index(Integer menuId, HttpSession session, Model model){
+        model.addAttribute("loopMenu", menuService.findById(menuId));
         return "sys/role/index";
     }
 }

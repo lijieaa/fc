@@ -14,6 +14,10 @@
         <result property="parent.id" column="menu_parent_id"></result>
     </resultMap>
 
+    <select id="findById" resultMap="menuMap">
+        SELECT * FROM sys_menu WHERE menu_id = #{0}
+    </select>
+
     <select id="findDisplay" resultMap="menuMap">
         SELECT * FROM sys_menu WHERE menu_display = 1
     </select>

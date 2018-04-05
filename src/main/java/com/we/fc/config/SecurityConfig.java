@@ -59,4 +59,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .userDetailsService(myUserDetailService)
                 .passwordEncoder(passwordEncoder());
     }
+
+
 }

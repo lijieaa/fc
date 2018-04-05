@@ -4,3 +4,4 @@ target
 *.log
 *.class
 fc.iml
+.gitignore

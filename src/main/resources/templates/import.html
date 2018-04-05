@@ -70,15 +70,15 @@
             </div>
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
-                <li th:each="menu,sta: ${session.user.menus}" th:class="${#httpServletRequest.getAttribute('uri')==menu.url?'active menu-open':''}+' treeview'">
-                    <a href="#">
+                <li th:each="menu,sta: ${session.user.menus}" th:class="${loopMenu !=null and loopMenu.parent.id==menu.id?'active menu-open':''}+' treeview'">
+                    <a href="javascript:;">
                         <i class="fa fa-dashboard"></i> <span th:text="${menu.name}"></span>
                         <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-                    <ul th:if="${#lists.size(menu.children) > 0}" class="treeview-menu">
-                        <li th:each="child,st : ${menu.children}" class="active">
+                    <ul th:if="${#lists.size(menu.children) > 0}" class="treeview-menu" th:style="'display:'+${loopMenu !=null and loopMenu.parent.id==menu.id?'block':'none'}">
+                        <li th:each="child,st : ${menu.children}" th:class="${loopMenu !=null and loopMenu.id==child.id?'active':''}">
                             <a th:href="@{(${child.url})}" th:inline="text">
                             <i class="fa fa-circle-o"></i> [[${child.name}]]</a>
                         </li>

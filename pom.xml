@@ -6,7 +6,7 @@
 	<groupId>com.we</groupId>
 	<artifactId>fc</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>fc</name>
 	<description>飞创科技物联网项目</description>
