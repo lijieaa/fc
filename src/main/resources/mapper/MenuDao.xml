@@ -12,6 +12,7 @@
         <result property="sortd" column="menu_sortd"></result>
         <result property="display" column="menu_display"></result>
         <result property="parent.id" column="menu_parent_id"></result>
+        <result property="icon" column="icon"></result>
     </resultMap>
 
     <select id="findById" resultMap="menuMap">

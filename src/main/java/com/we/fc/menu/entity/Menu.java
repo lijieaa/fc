@@ -31,8 +31,19 @@ public class Menu extends BaseEntity implements Comparable<Menu>{
     //是否显示为菜单
     private Integer display;
 
+    // 图标
+    private String icon;
+
     // 子菜单
     private Set<Menu> children = new HashSet<>();
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
     public String getName() {
         return name;
@@ -99,6 +110,7 @@ public class Menu extends BaseEntity implements Comparable<Menu>{
                 ", permission='" + permission + '\'' +
                 ", sortd=" + sortd +
                 ", display=" + display +
+                ", icon='" + icon + '\'' +
                 ", children=" + children +
                 '}';
     }

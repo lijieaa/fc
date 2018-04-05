@@ -70,10 +70,10 @@
             </div>
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
-                <li th:each="menu,sta: ${session.user.menus}" th:class="${loopMenu !=null and loopMenu.parent.id==menu.id?'active menu-open':''}+' treeview'">
+                <li th:each="menu,sta: ${session.user.menus}" th:class="${#lists.size(menu.children)>0?'treeview '+(loopMenu !=null and loopMenu.parent.id==menu.id?'active menu-open':''):loopMenu !=null and loopMenu.id==menu.id?'active':''}">
                     <a href="javascript:;">
-                        <i class="fa fa-dashboard"></i> <span th:text="${menu.name}"></span>
-                        <span class="pull-right-container">
+                        <i th:class="${menu.icon}"></i> <span th:text="${menu.name}"></span>
+                        <span th:if="${menu.children != null and #lists.size(menu.children) > 0}" class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
