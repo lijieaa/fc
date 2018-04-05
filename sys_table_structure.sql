@@ -58,14 +58,14 @@ CREATE TABLE `sys_menu` (
   `menu_display` tinyint(4) NOT NULL DEFAULT '1' COMMENT '是否显示1:显示，0不显示',
   `icon` varchar(50) DEFAULT NULL COMMENT '菜单图标',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 /*Data for the table `sys_menu` */
 
 insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (1,'设备管理',0,'/device/index',NULL,0,1,'fa fa-steam');
 insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (2,'查看',1,'','device:list',100,0,NULL);
 insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (3,'管理',1,'','device:create',200,0,NULL);
-insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (4,'中间商管理',0,'/intermediary/index',NULL,300,1,'fa fa-odnoklassniki-square');
+insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (4,'中间商管理',0,'/intermediary/index',NULL,300,1,'fa fa-street-view');
 insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (5,'查看',4,'','intermediary:list',400,0,NULL);
 insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (6,'管理',4,'','intermediary:create',500,0,NULL);
 insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (7,'项目管理',0,'/project/index','',600,1,'fa fa-th-list');
@@ -90,6 +90,7 @@ insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_
 insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (26,'人员[添加/删除/修改]',25,NULL,'person:manage',2500,0,NULL);
 insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (27,'数据备份',16,'/backup/index','backup',2600,1,'fa fa-database');
 insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (28,'数据统计',0,'/statistics/index','statistics',2700,1,'fa fa-bar-chart');
+insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (30,'线索管理',0,'/clues/index','clues',2800,1,'fa fa-stumbleupon');
 
 /*Table structure for table `sys_role` */
 
