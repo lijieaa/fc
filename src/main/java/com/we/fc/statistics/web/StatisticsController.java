@@ -1,7 +1,7 @@
 package com.we.fc.statistics.web;
 
-import com.we.fc.menu.service.MenuService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.we.fc.base.BaseController;
+import com.we.fc.base.BaseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +16,16 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("statistics")
-public class StatisticsController {
-
-    @Autowired private MenuService menuService;
+public class StatisticsController extends BaseController {
 
     @GetMapping("index")
     public String index(Integer menuId, HttpSession session, Model model){
-        model.addAttribute("loopMenu", menuService.findById(menuId));
+        model.addAttribute("loopMenu", getMenuById(menuId));
         return "sys/statistics/index";
+    }
+
+    @Override
+    public BaseService getService() {
+        return null;
     }
 }

@@ -1,31 +1,27 @@
-package com.we.fc.role.web;
+package com.we.fc.project.web;
 
 import com.we.fc.base.BaseController;
 import com.we.fc.base.BaseService;
-import com.we.fc.role.entity.Role;
+import com.we.fc.project.entity.Project;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpSession;
-
 /**
  * @author zdc
- * @since 2018-04-04 21:50
+ * @since 2018-04-05 21:43
  */
 @Controller
-@RequestMapping("role")
-public class RoleController extends BaseController<Role> {
-
+@RequestMapping("project")
+public class ProjectController extends BaseController<Project> {
     @Override
-    public BaseService<Role> getService() {
+    public BaseService<Project> getService() {
         return null;
     }
-
     @GetMapping("index")
-    public String index(Integer menuId, HttpSession session, Model model){
+    public String index(Integer menuId, Model model){
         model.addAttribute("loopMenu", getMenuById(menuId));
-        return "sys/role/index";
+        return "project/index";
     }
 }

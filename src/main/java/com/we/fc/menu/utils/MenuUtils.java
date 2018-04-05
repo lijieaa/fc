@@ -36,6 +36,12 @@ public class MenuUtils {
     }
 
     public static Set<Menu> getLevelMenu(Set<Menu> set){
-        return getChildren(getTopMenus(set), set);
+        Set<Menu> menuSet = getChildren(getTopMenus(set), set);
+        for(Menu menu : menuSet){
+            if(menu.getChildren().size() == 0){
+                menu.setUrl(menu.getUrl() + "?menuId=" + menu.getId());
+            }
+        }
+        return menuSet;
     }
 }
