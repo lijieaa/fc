@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
-<div th:replace="import::hdr"></div>
+<head>
+  <div th:replace="import::hdr"></div>
+</head>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="import::bdy-befor">
 </div>
@@ -66,6 +69,14 @@
               <div class="row">
                 <div class="col-md-12">
                   <table id="user-data" class="display" style="width:100%">
+                    <thead>
+                    <tr>
+                      <th>姓名</th>
+                      <th>职位</th>
+                      <th>工号</th>
+                      <th>联系电话</th>
+                    </tr>
+                    </thead>
                   </table>
                 </div>
               </div>
