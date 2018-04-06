@@ -1,5 +1,6 @@
 package com.we.fc.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.we.fc.base.BaseEntity;
 import com.we.fc.company.entity.Company;
 import com.we.fc.dept.entity.Dept;
@@ -75,6 +76,7 @@ public class User extends BaseEntity implements UserDetails{
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<SimpleGrantedAuthority> collection = new ArrayList<>();
         for(Role role : roles){
@@ -84,6 +86,7 @@ public class User extends BaseEntity implements UserDetails{
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -94,21 +97,25 @@ public class User extends BaseEntity implements UserDetails{
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }

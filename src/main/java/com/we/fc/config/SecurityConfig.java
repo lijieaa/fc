@@ -28,7 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         web.ignoring()
                 .antMatchers("/bower_components/**")
                 .antMatchers("/plugins/**")
-                .antMatchers("/dist/**");
+                .antMatchers("/dist/**")
+                .antMatchers("/druid2/**");
     }
 
     @Override

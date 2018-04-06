@@ -4,6 +4,8 @@ import com.we.fc.base.BaseDao;
 import com.we.fc.user.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author zdc
  * @since 2018-03-27 22:40
@@ -26,4 +28,18 @@ public interface UserDao extends BaseDao<User> {
      * @return
      */
     Integer findCountByDeptId(Integer deptId);
+
+    /**
+     * 按部门ID查询
+     * @param deptId
+     * @return
+     */
+    List<User> findByDeptId(Integer deptId);
+
+    /**
+     * 按公司ID查询
+     * @param companyId
+     * @return
+     */
+    List<User> findByCompanyId(Integer companyId);
 }

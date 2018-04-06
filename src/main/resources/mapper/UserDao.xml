@@ -39,4 +39,12 @@
         SELECT COUNT(*) FROM  sys_user WHERE dept_id =  #{0}
     </select>
 
+    <select id="findByDeptId" resultMap="userMap">
+        SELECT * FROM sys_user WHERE dept_id = #{0}
+    </select>
+
+    <select id="findByCompanyId" resultMap="userMap">
+        SELECT * FROM sys_user WHERE company_id = #{0}
+    </select>
+
 </mapper>

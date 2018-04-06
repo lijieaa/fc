@@ -19,9 +19,9 @@
         <section class="content">
           <div class="box box-primary">
             <div class="box-header with-border">
-              <a href="#" onclick="clickType(0)">
+              <a href="javascript:;" onclick="clickType(0)">
                 <h3 class="box-title" id="company-name"
-                    th:text="${session.user.company.name} + ' ( ' + ${userCount} + ' )'">
+                    th:text="${session.user.company.name} + ' (' + ${userCount} + '人)'">
                 </h3>
               </a>
               <div class="box-tools pull-right">
@@ -44,8 +44,31 @@
               </div>
             </div>
             <div class="box-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <i class="fa fa-sitemap"></i> 下级部门
+                  <div style="padding:4px 4px;margin:10px 10px;width:98%;height:30px;background-color:#ECEFF4">
+                    <button type="button" class="btn btn-xs btn-default">添加部门</button>
+                  </div>
+                </div>
+              </div>
               <ul data-widget="tree" id="dept-tree2">
               </ul>
+              <div class="row">
+                <div class="col-md-12">
+                  <i class="fa fa-user"></i> 部门人员
+                  <div style="padding:4px 4px;margin:10px 10px;width:98%;height:30px;background-color:#ECEFF4">
+                    <button type="button" class="btn btn-xs btn-default">添加成员</button>
+                    <button type="button" class="btn btn-xs btn-default">批量删除</button>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <table id="user-data" class="display" style="width:100%">
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -54,6 +77,28 @@
     </div>
     <!-- /.content -->
   </div>
+</div>
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">编辑公司</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          <input class="form-control" type="text" id="companyName" placeholder="公司名称"/>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" onclick="saveCompany()">保存</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
 </div>
 <div th:replace="import::scipt"></div>
 <script th:inline="javascript">
@@ -71,10 +116,10 @@
 
                 function dd(dept){
                     pend.push('<li class="treeview" style="list-style-type: none">');
-                    pend.push('<a href="#">');
+                    pend.push('<a href="javascript:;" onclick="clickType(1,'+dept.id+')">');
                     pend.push('<i class="fa fa-bars"></i> <span>'+dept.name);
                     pend.push('</span>');
-                    pend.push(" ( " + dept.userCount + " ) ");
+                    pend.push(" (" + dept.userCount + "人) ");
                     if(dept.children.length > 0){
                         pend.push('<span class="pull-right-container">');
                         pend.push('<i class="fa fa-angle-left pull-right"></i>');
@@ -93,33 +138,57 @@
             }
         });
     }
-    function clickType(type){
+    function clickType(type, deptId){
         if(type === 0){ //公司
             var companyName = $("#company-name").text();
             var idx = companyName.indexOf("(");
             companyName = companyName.substring(0, idx);
             $("#right-text").text(companyName);
-            $.ajax({
-                url : contextRoot + "company/getDeptTree?parentId=" + 0,
-                success : function (dept) {
-                    var pend = [];
-                    $.each(dept, function (i,v) {
-                        pend.push('<li class="treeview" style="list-style-type: none">');
-                        pend.push('<a href="#">');
-                        pend.push('<i class="fa fa-bars"></i> <span>'+v.name);
-                        pend.push('</span>');
-                        pend.push(" ( " + v.userCount + " ) ");
-                        pend.push('</a>');
-                    })
-                    $("#dept-tree2").empty().append(pend.join(""));
-                }
-            });
+            loadRightDept(0);
         }else if(type === 1){ //部门
-
+            loadRightDept(deptId);
         }
+    }
+    function loadRightDept(parentId){
+        $.ajax({
+            url : contextRoot + "company/getDeptTree?parentId=" + parentId,
+            success : function (dept) {
+                var pend = [];
+                $.each(dept, function (i,v) {
+                    pend.push('<li class="treeview" style="list-style-type: none">');
+                    pend.push('<a href="#">');
+                    pend.push('<i class="fa fa-bars"></i> <span>'+v.name);
+                    pend.push('</span>');
+                    pend.push(" (" + v.userCount + "人) ");
+                    pend.push('</a>');
+                })
+                $("#dept-tree2").empty().append(pend.join(""));
+            }
+        });
+    }
+    function saveCompany(){
+        var companyName = $("#companyName").val();
+        $.ajax({
+            url:contextRoot + "company/update",
+            type:"post",
+            dataType:"json",
+            data:{companyName:companyName},
+            success:function (data) {
+                $("#company-name").text(companyName);
+            }
+        });
     }
     $(function () {
         $("#company-name").click();
+        $('#user-data').DataTable( {
+            "ajax": contextRoot + "user/findByCompanyId",
+            "columns": [
+                { "data": "realName" },
+                { "data": "position" },
+                { "data": "jobNumber" },
+                { "data": "telephone" }
+            ]
+        } );
     });
   /*]]>*/
 </script>
