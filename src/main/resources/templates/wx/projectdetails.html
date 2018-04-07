@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>项目详情</title>
-    <link type="text/css" rel="stylesheet" href="css/main.css">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/main.css}">
 </head>
 
 <body>
 <header class="project-detail-header">
-    <img src="images/projectlist.jpg">
+    <img th:src="@{/images/projectlist.jpg}">
 </header>
 <ul class="project-detail">
     <li><span>项目编号</span><span>1235184531</span></li>
@@ -24,7 +24,7 @@
     <ul class="discuss-list">
         <li>
             <div class="portrait">
-                <img src="images/portrait1.png">
+                <img th:src="@{/images/portrait1.png}">
             </div>
             <ul class="discuss-content">
                 <li class="name">钱万里</li>
@@ -35,7 +35,7 @@
         <li class="discuss-text-box display-none"><textarea placeholder="来说两句吧。。。" class="discuss-text-container" name="discuss" id="" cols="30" rows="5"></textarea><span class="send-discuss">发送</span></li>
         <li>
             <div class="portrait">
-                <img src="images/portrait2.png">
+                <img th:src="@{/images/portrait2.png}">
             </div>
             <ul class="discuss-content">
                 <li class="name">钱富贵</li>
@@ -46,7 +46,7 @@
         <li class="discuss-text-box display-none"><textarea placeholder="来说两句吧。。。" class="discuss-text-container" name="discuss" id="" cols="30" rows="5"></textarea><span class="send-discuss">发送</span></li>
         <li>
             <div class="portrait">
-                <img src="images/portrait3.png">
+                <img th:src="@{/images/portrait3.png}">
             </div>
             <ul class="discuss-content">
                 <li class="name">韩立</li>
@@ -57,7 +57,7 @@
         <li class="discuss-text-box display-none"><textarea placeholder="来说两句吧。。。" class="discuss-text-container" name="discuss" id="" cols="30" rows="5"></textarea><span class="send-discuss">发送</span></li>
         <li>
             <div class="portrait">
-                <img src="images/portrait4.png">
+                <img th:src="@{/images/portrait4.png}">
             </div>
             <ul class="discuss-content">
                 <li class="name">钱万里</li>
@@ -68,7 +68,7 @@
         <li class="discuss-text-box display-none"><textarea placeholder="来说两句吧。。。" class="discuss-text-container" name="discuss" id="" cols="30" rows="5"></textarea><span class="send-discuss">发送</span></li>
         <li>
             <div class="portrait">
-                <img src="images/portrait5.png">
+                <img th:src="@{/images/portrait5.png}">
             </div>
             <ul class="discuss-content">
                 <li class="name">钱万里</li>
@@ -81,7 +81,7 @@
 </section>
 <button class="device-details-list">查看设备列表</button>
 
-<script src="js/jquery-2.0.3.min.js"></script>
+<script th:src="@{/js/jquery-2.0.3.min.js}"></script>
 
 <script>
     $(function(){

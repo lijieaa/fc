@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller
-@RequestMapping("wechat")
-public class WeChatController extends BaseController {
+@RequestMapping("wx")
+public class WechatController extends BaseController {
     @Override
     public BaseService getService() {
         return null;
@@ -23,6 +23,6 @@ public class WeChatController extends BaseController {
     @GetMapping("index")
     public String index(Integer menuId, Model model){
         model.addAttribute("loopMenu", getMenuById(menuId));
-        return "wechat/index";
+        return "wx/index";
     }
 }

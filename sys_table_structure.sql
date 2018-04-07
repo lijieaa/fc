@@ -2,7 +2,8 @@
 SQLyog 
 MySQL - 5.7.21 : Database - fc
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -72,11 +73,11 @@ insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_
 insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (8,'查看',7,'','project:list',700,0,NULL);
 insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (9,'管理',7,'','project:create',800,0,NULL);
 insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (10,'添加设备',7,'','project:device:add',900,0,NULL);
-insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (11,'微信公众号管理',0,'/wechat/index','',1000,1,'fa fa-wechat');
-insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (12,'基本设置',11,'','wechat:basic',1100,0,NULL);
-insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (13,'自定义菜单',11,'','wechat:menu',1200,0,NULL);
-insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (14,'用户管理',11,'','wechat:user',1300,0,NULL);
-insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (15,'消息管理',11,'','wechat:message',1400,0,NULL);
+insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (11,'微信公众号管理',0,'/wx/index','',1000,1,'fa fa-wx');
+insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (12,'基本设置',11,'','wx:basic',1100,0,NULL);
+insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (13,'自定义菜单',11,'','wx:menu',1200,0,NULL);
+insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (14,'用户管理',11,'','wx:user',1300,0,NULL);
+insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (15,'消息管理',11,'','wx:message',1400,0,NULL);
 insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (16,'系统设置',0,'',NULL,1500,1,'fa fa-gear ');
 insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (17,'组织管理',16,'/company/index','company:index',1600,1,NULL);
 insert  into `sys_menu`(`menu_id`,`menu_name`,`menu_parent_id`,`menu_url`,`menu_prmission`,`menu_sortd`,`menu_display`,`icon`) values (18,'编辑公司名称',17,'','company:editname',1700,0,NULL);
