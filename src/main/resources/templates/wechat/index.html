@@ -7,60 +7,145 @@
 <div class="wrapper">
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+    <!--公众号列表页面-->
+   <div id="gzh-index">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+     <section class="content-header">
       <h1>
-        微信公众号管理
+        公众号列表
       </h1>
     </section>
-    <!--<div>-->
-      <!--<table id="example" class="display" cellspacing="0" width="100%">-->
-        <!--<thead>-->
-        <!--<tr>-->
-          <!--<th>Name</th>-->
-          <!--<th>Position</th>-->
-          <!--<th>Office</th>-->
-          <!--<th>Extn.</th>-->
-          <!--<th>Start date</th>-->
-          <!--<th>Salary</th>-->
-          <!--<th>exit</th>-->
-        <!--</tr>-->
-        <!--</thead>-->
-      <!--</table>-->
-    <!--</div>-->
-    <!-- /.content -->
+    <!--搜索公众号一栏-->
+     <section class="content-header change-content" style="margin-top: 30px;">
+      <div class="row">
+        <div class="col-md-10 col-sm-10  col-xs-12">
+          <strong class="form-group float-left" style="margin: 7px 5px 0 0;">公众号名称：</strong>
+          <div class="input-group">
+            <span class="input-group-addon ">
+               <i class="fa fa-search"></i>
+            </span>
+            <input type="text" class="form-control">
+            <button type="button" class="btn btn-block btn-info search">搜索</button>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-2  col-xs-12">
+          <button type="button" class="btn btn-block btn-info" id="add-gzh">添加公众号</button>
+        </div>
+      </div>
+    </section>
+    <!--公众号列表表格-->
+     <section class="content-list" style="margin-top: 25px;">
+      <div class="row">
+        <div class="col-md-12">
+          <table id="deviceForm" class="display table table-bordered table-hover dataTable" style="width:100%">
+            <thead>
+            <tr>
+              <th>公众号名称</th>
+              <th>原始ID</th>
+              <th>开发者ID</th>
+              <th>开发者密码</th>
+              <th>登录邮箱</th>
+              <th>操作</th>
+            </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </section>
+    <!--添加公众号弹窗-->
+     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+             <div class="modal-dialog" role="document">
+                 <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title text-center" id="myModalLabel">添加公众号</h4>
+                    </div>
+                     <div class="modal-body">
+                         <div class="form-group">
+                             <label class="" for="txt_name">公众号名称</label>
+                             <input type="text" name="txt_departmentname" class="form-control " id="txt_name"  placeholder="公众号名称">
+                         </div>
+                         <div class="form-group">
+                             <label for="txt_firstID">原始ID</label>
+                            <input type="text" name="txt_parentdepartment" class="form-control" id="txt_firstID" placeholder="原始ID">
+                        </div>
+                        <div class="form-group">
+                             <label for="txt_departmentlevel">开发者ID</label>
+                             <input type="text" name="txt_departmentlevel" class="form-control" id="txt_departmentlevel" placeholder="开发者ID">
+                         </div>
+                         <div class="form-group">
+                             <label for="txt_psd">开发者密码</label>
+                             <input type="text" name="txt_statu" class="form-control" id="txt_psd" placeholder="开发者密码">
+                         </div>
+                         <div class="form-group">
+                             <label for="txt_email">登录邮箱</label>
+                             <input type="text" name="txt_statu" class="form-control" id="txt_email" placeholder="开发者密码">
+                         </div>
+                     </div>
+                     <div class="modal-footer">
+                         <button type="button" id="btn_sure" class="btn btn-primary text-center" data-dismiss="modal">确定</button>
+                         <button type="button" id="btn_cancel" class="btn btn-primary text-center" data-dismiss="modal">取消</button>
+                       <button type="button" id="btn_reset" class="btn btn-primary text-center" data-dismiss="modal">重置</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+   </div>
+    <!--公众号管理页面-->
+   <div style="display: none" id="gzh-manage">
+     <section class="content-header">
+       <h1>
+         公众号管理页面
+       </h1>
+     </section>
+    </div>
+     <!--/.content-->
   </div>
 </div>
 <div th:replace="import::scipt"></div>
 <script th:inline="javascript">
 </script>
-<!--<script>-->
-    <!--$(document).ready(function() {-->
-        <!--$('#example').DataTable( {-->
-            <!--"ajax": "../dist/data/11.json",-->
-            <!--"bJQueryUI":false,-->
-            <!--"columns": [-->
-                <!--{ "data": "name" },-->
-                <!--{ "data": "position" },-->
-                <!--{ "data": "office" },-->
-                <!--{ "data": "extn" },-->
-                <!--{ "data": "start_date" },-->
-                <!--{ "data": "salary" }-->
-            <!--],-->
-            <!--"columnDefs" : [ {-->
-<!--// 定义操作列,######以下是重点########-->
-                <!--"targets" : 6,//操作按钮目标列-->
-                <!--"data" : null,-->
-                <!--"render" : function(data, type,row) {-->
-                    <!--var id = '"' + row.id + '"';-->
-                    <!--var html = "<a href='javascript:void(0);'  class='delete btn btn-default btn-xs'  ><i class='fa fa-times'></i> 查看</a>"-->
-                    <!--html += "<a href='javascript:void(0);' class='up btn btn-default btn-xs'><i class='fa fa-arrow-up'></i> 编辑</a>"-->
-                    <!--html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser("+ id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 删除</a>"-->
-                    <!--return html;-->
-                <!--}-->
-            <!--} ]-->
-        <!--} );-->
-    <!--} );-->
-<!--</script>-->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#deviceForm').DataTable( {
+            "ajax": "../dist/data/gzh.json",
+            "info":false,
+            "searching": false,
+            "lengthChange": false,
+            "ordering": false,
+            // "pagingType": "full_numbers",
+            "language": {
+                "paginate": {
+                    "next": "下一页",
+                    "previous": "上一页"
+                }
+            },
+            "columns": [
+                { "data": "name" },
+                { "data": "position" },
+                { "data": "office" },
+                { "data": "Extn" },
+                { "data": "Start" },
+                { "data": "", "render": function(data, type, row, meta){
+                        var html = "<button type='button' class='Normal margin-right-4 btn btn-primary'>编辑</button>" +
+                            "<button type='button' class='Normal margin-right-4 btn btn-primary'>删除</button>" +
+                            "<button type='button' class='Normal margin-right-4 btn btn-primary table-manage'>管理</button>"
+                        return html;
+                    }}
+
+            ],
+            "fnInitComplete": function() {//初始化完毕事件
+                $(".table-manage").click(function () {
+                    $("#gzh-index").hide();
+                    $("#gzh-manage").show();
+                });
+            }
+        } );
+        // 添加公众号
+        $("#add-gzh").click(function () {
+            $('#myModal').modal();
+        });
+    } );
+</script>
 </body>
 </html>
