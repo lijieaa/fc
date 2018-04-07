@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>产品列表</title>
-    <link type="text/css" rel="stylesheet" href="css/main.css">
-    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="css/mui.min.css">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/main.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/mui.min.css}">
     <style>
         .mui-col-xs-4 {
             width: calc((100% - 1.2rem) / 3);
@@ -25,7 +25,7 @@
     <li class="mui-col-xs-4 mui-col-sm-3">
         <div>FGGD_1</div>
         <div class="product-icon">
-            <img src="images/dropicon_style.png">
+            <img th:src="@{/images/dropicon_style.png}">
         </div>
         <div class="product-info">
             <div><span class="display-block">所属项目:</span><span>成都华西</span></div>
@@ -36,7 +36,7 @@
     <li class="mui-col-xs-4 mui-col-sm-3">
         <div>FGGD_1</div>
         <div class="product-icon">
-            <img src="images/dropicon_style.png">
+            <img th:src="@{/images/dropicon_style.png}">
         </div>
         <div class="product-info">
             <div><span class="display-block">所属项目:</span><span>成都华西</span></div>
@@ -47,7 +47,7 @@
     <li class="mui-col-xs-4 mui-col-sm-3">
         <div>FGGD_1</div>
         <div class="product-icon">
-            <img src="images/dropicon_style.png">
+            <img th:src="@{/images/dropicon_style.png}">
         </div>
         <div class="product-info">
             <div><span class="display-block">所属项目:</span><span>成都华西</span></div>
@@ -58,7 +58,7 @@
     <li class="mui-col-xs-4 mui-col-sm-3">
         <div>FGGD_1</div>
         <div class="product-icon">
-            <img src="images/dropicon_style.png">
+            <img th:src="@{/images/dropicon_style.png}">
         </div>
         <div class="product-info">
             <div><span class="display-block">所属项目:</span><span>成都华西</span></div>
@@ -69,7 +69,7 @@
     <li class="mui-col-xs-4 mui-col-sm-3">
         <div>FGGD_1</div>
         <div class="product-icon">
-            <img src="images/dropicon_style.png">
+            <img th:src="@{/images/dropicon_style.png}">
         </div>
         <div class="product-info">
             <div><span class="display-block">所属项目:</span><span>成都华西</span></div>
@@ -79,7 +79,7 @@
     </li>
 </ul>
 
-<script src="js/jquery-2.0.3.min.js"></script>
+<script th:src="@{/js/jquery-2.0.3.min.js}"></script>
 
 <script>
     $(function(){
