@@ -37,4 +37,9 @@ public class WxCommonController {
     public String projectlist(){
         return "wx/projectlist";
     }
+
+    @GetMapping("productdetails")
+    public String productdetails(){
+        return "wx/productdetails";
+    }
 }
