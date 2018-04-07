@@ -47,13 +47,11 @@ table.dataTable td, table.dataTable th{
 div.dataTables_wrapper div.dataTables_paginate{
     text-align: left!important;
 }
-
 .table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
     border: 1px solid #d2d6de;
+    border-bottom: none;
 }
-.odd>td{
-    border-top: none!important;
-}
+
 #deviceForm .btn{
     padding: 5px 8px;
 }
