@@ -205,12 +205,67 @@ header.project-detail-header>img {
     text-align: center;
 }
 .product-list>li>div:last-child {
-    background: #0496d6;
     padding: .1rem;
-    color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+}
+.product-list>li>div:last-child.active {
+    background: #d6e9c6;
+    border: 1px solid #d6e9c6;
+    color: #333;
 }
 .product-icon>img {
+    width: 60px;
     max-width: 100%;
+}
+/* 产品详情 */
+.product-details {
+    padding: .2rem;
+}
+.product-details>li {
+    line-height: 40px;
+    border-bottom: 1px solid #ccc;
+}
+.product-details>li>span:first-child {
+    display: inline-block;
+    width: 1.2rem;
+    margin-right: .2rem;
+}
+.product-details>li input {
+    display: inline-block;
+    height: .8rem;
+    width: calc(100% - 1.4rem);
+    border: 0;
+}
+p.edit-info {
+    text-align: center;
+    background: #ddd;
+    padding: .1rem;
+}
+.product-details-status {
+    display: inline-block;
+    padding: 0 .4rem;
+    border: 1px solid #ccc;
+    height: .6rem;
+    line-height: .6rem;
+    border-radius: .1rem;
+}
+.product-details-status.active {
+    background: #d6e9c6;
+    border: 1px solid #d6e9c6;
+    margin-right: .2rem;
+}
+.submit-btn {
+    height: .8rem;
+    width: 90%;
+    line-height: .8rem;
+    text-align: center;
+    background: #367fa9;
+    color: #fff;
+    border: 0;
+    border-radius: .2rem;
+    margin-left: 5%;
+    margin-bottom: .5rem;
 }
 /*登录页*/
 .login {
