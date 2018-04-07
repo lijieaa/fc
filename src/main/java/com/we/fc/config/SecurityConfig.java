@@ -29,6 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/bower_components/**")
                 .antMatchers("/plugins/**")
                 .antMatchers("/dist/**")
+                .antMatchers("/js/**")
+                .antMatchers("/images/**")
+                .antMatchers("/css/**")
                 .antMatchers("/druid2/**")
                 .antMatchers("/wx/**");
     }
