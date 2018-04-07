@@ -1,0 +1,57 @@
+.float-left{
+    float: left;
+}
+.float-right{
+    float: right;
+}
+.width-80{
+    width: 80px;
+}
+.height-34{
+    height: 34px;
+}
+.font-size-18{
+    font-size: 18px;
+}
+.margin-right-4{
+    margin-right: 4px;
+}
+/*头部公用的样式*/
+.content-wrapper{
+    background: #fff;
+}
+.change-content .input-group .form-control{
+    width:50%;
+}
+.change-content .input-group .search{
+    width: 60px;
+    position: relative;
+    left: 12px;
+}
+.content-header .sel-option{
+    border-color: #d2d6de;
+    border-right: none;
+}
+
+/*包含通用表格的div*/
+.content-list{
+    padding: 0px 15px 0 15px;
+}
+/*表格通用样式*/
+.table-bordered {
+    border: 1px solid #d2d6de;
+}
+table.dataTable td, table.dataTable th{
+    text-align: center;
+}
+div.dataTables_wrapper div.dataTables_paginate{
+    text-align: left!important;
+}
+.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+    border: 1px solid #d2d6de;
+    border-bottom: none;
+}
+
+#deviceForm .btn{
+    padding: 5px 8px;
+}
