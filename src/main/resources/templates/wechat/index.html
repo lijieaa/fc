@@ -13,12 +13,54 @@
         微信公众号管理
       </h1>
     </section>
-
+    <!--<div>-->
+      <!--<table id="example" class="display" cellspacing="0" width="100%">-->
+        <!--<thead>-->
+        <!--<tr>-->
+          <!--<th>Name</th>-->
+          <!--<th>Position</th>-->
+          <!--<th>Office</th>-->
+          <!--<th>Extn.</th>-->
+          <!--<th>Start date</th>-->
+          <!--<th>Salary</th>-->
+          <!--<th>exit</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+      <!--</table>-->
+    <!--</div>-->
     <!-- /.content -->
   </div>
 </div>
 <div th:replace="import::scipt"></div>
 <script th:inline="javascript">
 </script>
+<!--<script>-->
+    <!--$(document).ready(function() {-->
+        <!--$('#example').DataTable( {-->
+            <!--"ajax": "../dist/data/11.json",-->
+            <!--"bJQueryUI":false,-->
+            <!--"columns": [-->
+                <!--{ "data": "name" },-->
+                <!--{ "data": "position" },-->
+                <!--{ "data": "office" },-->
+                <!--{ "data": "extn" },-->
+                <!--{ "data": "start_date" },-->
+                <!--{ "data": "salary" }-->
+            <!--],-->
+            <!--"columnDefs" : [ {-->
+<!--// 定义操作列,######以下是重点########-->
+                <!--"targets" : 6,//操作按钮目标列-->
+                <!--"data" : null,-->
+                <!--"render" : function(data, type,row) {-->
+                    <!--var id = '"' + row.id + '"';-->
+                    <!--var html = "<a href='javascript:void(0);'  class='delete btn btn-default btn-xs'  ><i class='fa fa-times'></i> 查看</a>"-->
+                    <!--html += "<a href='javascript:void(0);' class='up btn btn-default btn-xs'><i class='fa fa-arrow-up'></i> 编辑</a>"-->
+                    <!--html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser("+ id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 删除</a>"-->
+                    <!--return html;-->
+                <!--}-->
+            <!--} ]-->
+        <!--} );-->
+    <!--} );-->
+<!--</script>-->
 </body>
 </html>
