@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>项目详情</title>
+    <link type="text/css" rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+<header class="project-detail-header">
+    <img src="images/projectlist.jpg">
+</header>
+<ul class="project-detail">
+    <li><span>项目编号</span><span>1235184531</span></li>
+    <li><span>项目名称</span><span>北京项目</span></li>
+    <li><span>项目负责人</span><span>张三</span></li>
+    <li><span>业主名</span><span>王达</span></li>
+    <li><span>业主联系电话</span><span><a href="tel:028-12335234">028-12335234</a></span></li>
+</ul>
+<section class="discuss">
+    <p>项目评论</p>
+    <ul class="discuss-list">
+        <li>
+            <div class="portrait">
+                <img src="images/portrait1.png">
+            </div>
+            <ul class="discuss-content">
+                <li class="name">钱万里</li>
+                <li><p>电解水处理器是针对冷却循环水系统中普遍存在的四大问题：腐蚀、结垢、菌藻污染、粘泥污染，而研制的电解过滤一体化型综合处理器，由单台设备代替了需要多台设备才能完成的处理过程，从而取代了传统的处理方式。</p></li>
+                <li><span>04-05&nbsp;06:06</span><span  class="reply">回复</span></li>
+            </ul>
+        </li>
+        <li class="discuss-text-box display-none"><textarea placeholder="来说两句吧。。。" class="discuss-text-container" name="discuss" id="" cols="30" rows="5"></textarea><span class="send-discuss">发送</span></li>
+        <li>
+            <div class="portrait">
+                <img src="images/portrait2.png">
+            </div>
+            <ul class="discuss-content">
+                <li class="name">钱富贵</li>
+                <li><p>而研制的电解过滤一体化型综合处理器，由单台设备代替了需要多台设备才能完成的处理过程，从而取代了传统的处理方式。</p></li>
+                <li><span>04-05&nbsp;06:06</span><span  class="reply">回复</span></li>
+            </ul>
+        </li>
+        <li class="discuss-text-box display-none"><textarea placeholder="来说两句吧。。。" class="discuss-text-container" name="discuss" id="" cols="30" rows="5"></textarea><span class="send-discuss">发送</span></li>
+        <li>
+            <div class="portrait">
+                <img src="images/portrait3.png">
+            </div>
+            <ul class="discuss-content">
+                <li class="name">韩立</li>
+                <li><p>电解水处理器是针对冷却循环水系统中普遍存在的四大问题：腐蚀、结垢、菌藻污染、粘泥污染，而研制的电解过滤一体化型综合处理器，由单台设备代替了需要多台设备才能完成的处理过程，从而取代了传统的处理方式。</p></li>
+                <li><span>04-05&nbsp;06:06</span><span  class="reply">回复</span></li>
+            </ul>
+        </li>
+        <li class="discuss-text-box display-none"><textarea placeholder="来说两句吧。。。" class="discuss-text-container" name="discuss" id="" cols="30" rows="5"></textarea><span class="send-discuss">发送</span></li>
+        <li>
+            <div class="portrait">
+                <img src="images/portrait4.png">
+            </div>
+            <ul class="discuss-content">
+                <li class="name">钱万里</li>
+                <li><p>电解水处理器是针对冷却循环水系统中普遍存在的四大问题：腐蚀、结垢、菌藻污染、粘泥污染，而研制的电解过滤一体化型综合处理器，由单台设备代替了需要多台设备才能完成的处理过程，从而取代了传统的处理方式。</p></li>
+                <li><span>04-05&nbsp;06:06</span><span  class="reply">回复</span></li>
+            </ul>
+        </li>
+        <li class="discuss-text-box display-none"><textarea placeholder="来说两句吧。。。" class="discuss-text-container" name="discuss" id="" cols="30" rows="5"></textarea><span class="send-discuss">发送</span></li>
+        <li>
+            <div class="portrait">
+                <img src="images/portrait5.png">
+            </div>
+            <ul class="discuss-content">
+                <li class="name">钱万里</li>
+                <li><p>电解水处理器是针对冷却循环水系统中普遍存在的四大问题：腐蚀、结垢、菌藻污染、粘泥污染，而研制的电解过滤一体化型综合处理器，由单台设备代替了需要多台设备才能完成的处理过程，从而取代了传统的处理方式。</p></li>
+                <li><span>04-05&nbsp;06:06</span><span  class="reply">回复</span></li>
+            </ul>
+        </li>
+        <li class="discuss-text-box display-none"><textarea placeholder="来说两句吧。。。" class="discuss-text-container" name="discuss" id="" cols="30" rows="5"></textarea><span class="send-discuss">发送</span></li>
+    </ul>
+</section>
+<button class="device-details-list">查看设备列表</button>
+
+<script src="js/jquery-2.0.3.min.js"></script>
+
+<script>
+    $(function(){
+        $(".reply").on("click", function () {
+            $(this).parents().parents().parents().css("border", "0");
+            $(this).parents().parents().parents().next(".discuss-text-box").slideToggle({
+                duration: 'fast',
+                step: function() {
+                    if ($(this).css('display') == 'list-item') {
+                        $(this).css('display', 'flex');
+                    }
+                },
+                complete: function() {
+                    if ($(this).css('display') == 'list-item') {
+                        $(this).css('display', 'flex');
+                    }
+                }
+            });
+        });
+    })
+</script>
+</body>
+
+</html>
