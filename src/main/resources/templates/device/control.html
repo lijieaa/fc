@@ -1,10 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <div th:replace="import::hdr"></div>
 </head>
-<body>
+<style>
+    .page-content{
+        border: 1px solid black;
+        padding: 10px;
+    }
+    .page-content>p{
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .page-content .control-btn{
+        width: 80px;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid black;
+        line-height: 30px;
+        text-align: center;
+        margin-left: 25px;
+    }
+</style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div th:replace="import::bdy-befor">
+</div>
+<div class="wrapper" id="myDevice">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header change-content">
+            <div class="row">
+                <div class="col-md-10 col-sm-10  col-xs-12">
+                    <div class="form-group float-left">
+                        <span class="font-size-18">设备控制</span>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-2  col-xs-12">
+                    <!--<button type="button" class="btn btn-block btn-info">添加设备</button>-->
+                    <button type="button" class="btn btn-info btn-block"
+                            data-toggle="modal" data-target="#modal-info">
+                        返回
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section class="content-list">
+            <div class="page-content">
+                <p>设备信息</p>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3">
+                        <label>生产编号</label>
+                        <span>1235184531</span>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <label>所属项目</label>
+                        <span>成都华西</span>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <label>操作员</label>
+                        <span>张三</span>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <label>状态</label>
+                        <span>在线</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3">
+                        <label>型号</label>
+                        <span>FGGD_1</span>
+                    </div>
+                    <div class="col-md-3  col-sm-3">
+                        <label>指定中间商</label>
+                        <span>中间商xxxxxx公司</span>
+                    </div>
+                    <div class="col-md-3  col-sm-3">
+                        <label>抄表员</label>
+                        <span>张三</span>
+                    </div>
+                </div>
+            </div>
+            <div class="page-content margin-top-50">
+                <p>操作控制</p>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                       <div class="control-btn">设备关机</div>
+                        <div></div>
+                    </div>
+                </div>
+                <div class="row margin-top-15">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="control-btn">设备开机</div>
+                        <div></div>
+                    </div>
+                </div>
+                <div class="row margin-top-15">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="control-btn">设备操作</div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
+</div>
+
+<div th:replace="import::scipt"></div>
+<script th:inline="javascript">
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        Vue.component('option-item', {
+            props: ['todo'],
+            template: '<option>{{todo.name}}</option>'
+        });
+        new Vue({
+            el:"#myDevice",
+            data:{
+                deviceName:"添加设备",
+                selected:"3",
+                projectList:[
+                    {val:1,name:"成都华西"},
+                    {val:2,name:"成都龙泉"},
+                    {val:3,name:"项目二"}
+                ]
+            },
+            methods:{
+
+            },
+            mounted:function(){
+                var _this = this;
+
+            }
+        });
+
+
+
+    } );
+</script>
 </body>
 </html>
