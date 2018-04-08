@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <div th:replace="import::hdr"></div>
+</head>
+<style>
+    .modal-dialog{
+        margin-top: 70px;
+    }
+</style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div th:replace="import::bdy-befor">
+</div>
+<div class="wrapper" id="myDevice">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header change-content">
+            <span class="font-size-18">设备日志</span>
+            <div class="row margin-top-6">
+                <div class="col-md-10 col-sm-10  col-xs-12">
+                    <div class="form-group float-left">
+                        <select name="" id="" class="sel-option height-34">
+                            <option value="1">发生时间</option>
+                            <option value="2">发生时间</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon "><i class="fa fa-search"></i></span>
+                        <input type="text" class="form-control">
+                        <button type="button" class="btn btn-block btn-info search">搜索</button>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-2  col-xs-12">
+                    <!--<button type="button" class="btn btn-block btn-info">添加设备</button>-->
+                    <button type="button" class="btn btn-info btn-block"
+                            data-toggle="modal" data-target="#modal-info" >
+                        返回
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section class="content-list display-none">
+            <div class="row">
+                <div class="col-md-12">
+                    <table id="deviceForm" class="display table table-bordered table-hover dataTable" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>发生时间</th>
+                            <th>设备生产编号</th>
+                            <th>操作内容</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <div class="overlay">
+        <i class="fa fa-refresh fa-spin"></i>
+    </div>
+</div>
+
+<div th:replace="import::scipt"></div>
+<script th:inline="javascript">
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#deviceForm').DataTable( {
+            "ajax": "../dist/data/device.json",
+            "info":false,
+            "searching": false,
+            "lengthChange": false,
+            "ordering": false,
+            // "pagingType": "full_numbers",
+            "language": {
+                "paginate": {
+                    "next": "下一页",
+                    "previous": "上一页"
+                }
+            },
+            "columns": [
+                { "data": "name" },
+                { "data": "position" },
+                { "data": "office" }
+            ],
+            "pageLength": 50,
+            "stateLoadParams": function (settings, data) {
+                alert(1);
+            }
+        } );
+
+
+    } );
+</script>
+</body>
+</html>
