@@ -4,6 +4,9 @@
 .float-right{
     float: right;
 }
+.text-align{
+    text-align: center;
+}
 .width-80{
     width: 80px;
 }
@@ -15,6 +18,15 @@
 }
 .margin-right-4{
     margin-right: 4px;
+}
+.margin-top-15{
+     margin-top: 15px;
+ }
+.margin-top-6{
+    margin-top: 6px;
+}
+.color-red{
+    color: red;
 }
 /*头部公用的样式*/
 .content-wrapper{
@@ -51,7 +63,6 @@ div.dataTables_wrapper div.dataTables_paginate{
     border: 1px solid #d2d6de;
     border-bottom: none;
 }
-
 #deviceForm .btn{
     padding: 5px 8px;
 }
