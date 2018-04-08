@@ -66,3 +66,14 @@ div.dataTables_wrapper div.dataTables_paginate{
 #deviceForm .btn{
     padding: 5px 8px;
 }
+/*弹窗样式*/
+/*label样式*/
+.modal-body .label-pop-style{
+    display: inline-block;
+    width: 15%;
+    text-align: left;
+}
+.modal-body .form-style-pop{
+    display: inline-block;
+    width: 60%;
+}

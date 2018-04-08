@@ -28,4 +28,9 @@ public class DeviceController extends BaseController<Device> {
         model.addAttribute("loopMenu", getMenuById(menuId));
         return "device/index";
     }
+
+    @GetMapping("log")
+    public String log(Integer menuId){
+        return "device/log";
+    }
 }
