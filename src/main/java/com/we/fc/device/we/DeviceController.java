@@ -33,4 +33,9 @@ public class DeviceController extends BaseController<Device> {
     public String log(Integer menuId){
         return "device/log";
     }
+
+    @GetMapping("control")
+    public String control(Integer menuId){
+        return "device/control";
+    }
 }

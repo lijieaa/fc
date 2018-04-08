@@ -162,6 +162,11 @@
 
                 $(document).on("click","#log",function(){
                     window.location.href = "log?menuId=1";
+                });
+
+                //
+                $(document).on("click","#control",function(){
+                    window.location.href = "control?menuId=1";
                 })
             }
         });
@@ -188,8 +193,8 @@
                 { "data": "Salary" },
                 { "data": "", "render": function(data, type, row, meta){
                         var html = "<button type='button' class='Normal margin-right-4 btn btn-primary' id='editDevice'>编辑</button>" +
-                            "<button type='button' class='Normal margin-right-4 btn btn-primary'>删除</button>" +
-                            "<button type='button' class='Normal margin-right-4 btn btn-primary'>控制</button>" +
+                            "<button type='button' class='Normal margin-right-4 btn btn-primary' id='delete'>删除</button>" +
+                            "<button type='button' class='Normal margin-right-4 btn btn-primary' id='control'>控制</button>" +
                             "<button type='button' class='Normal margin-right-4 btn btn-primary' id='log'>日志</button>";
                         return html;
                     }}
