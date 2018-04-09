@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
-<div th:replace="import::hdr"></div>
+<head>
+  <div th:replace="import::hdr"></div>
+</head>
+<style>
+  .modal-dialog{
+    margin-top: 70px;
+  }
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="import::bdy-befor">
 </div>
@@ -8,78 +15,106 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        设备管理
-      </h1>
-      <section class="content-header change-content">
-        <span class="font-size-18">设备列表</span>
-        <div class="row">
-          <div class="col-md-10 col-sm-10  col-xs-12">
-            <div class="form-group float-left">
-              <select name="" id="" class="sel-option height-34">
-                <option value="1">生产编号</option>
-                <option value="2">所属项目</option>
-              </select>
-            </div>
-            <div class="input-group">
+    <section class="content-header change-content">
+      <span class="font-size-18">设备列表</span>
+      <div class="row margin-top-6">
+        <div class="col-md-10 col-sm-10  col-xs-12">
+          <div class="form-group float-left">
+            <select name="" id="" class="sel-option height-34">
+              <option value="1">生产编号</option>
+              <option value="2">所属项目</option>
+            </select>
+          </div>
+          <div class="input-group">
 
             <span class="input-group-addon ">
                <i class="fa fa-search"></i>
             </span>
-              <input type="text" class="form-control">
-              <button type="button" class="btn btn-block btn-info search">搜索</button>
-            </div>
-          </div>
-          <div class="col-md-2 col-sm-2  col-xs-12">
-            <!--<button type="button" class="btn btn-block btn-info">添加设备</button>-->
-            <button type="button" class="btn btn-info btn-block"
-                    data-toggle="modal" data-target="#modal-info" @click="addDevice">
-              添加设备
-            </button>
+            <input type="text" class="form-control">
+            <button type="button" class="btn btn-block btn-info search">搜索</button>
           </div>
         </div>
-      </section>
-      <section class="content-list display-none">
-        <div class="row">
-          <div class="col-md-12">
-            <table id="deviceForm" class="display table table-bordered table-hover dataTable" style="width:100%">
-              <thead>
-              <tr>
-                <th>生产编号</th>
-                <th>型号</th>
-                <th>所属项目</th>
-                <th>操作员</th>
-                <th>抄表员</th>
-                <th>状态</th>
-                <th>指定中间商</th>
-                <th>功能</th>
-              </tr>
-              </thead>
-            </table>
-          </div>
+        <div class="col-md-2 col-sm-2  col-xs-12">
+          <!--<button type="button" class="btn btn-block btn-info">添加设备</button>-->
+          <button type="button" class="btn btn-info btn-block"
+                  data-toggle="modal" data-target="#modal-info" @click="addDevice">
+            添加设备
+          </button>
         </div>
-      </section>
-      <div class="modal fade" id="modal-default">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span></button>
-              <h4 class="modal-title">Default Modal</h4>
-            </div>
-            <div class="modal-body">
-              <p>One fine body…</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
       </div>
+    </section>
+    <section class="content-list display-none">
+      <div class="row">
+        <div class="col-md-12">
+          <table id="deviceForm" class="display table table-bordered table-hover dataTable" style="width:100%">
+            <thead>
+            <tr>
+              <th>生产编号</th>
+              <th>型号</th>
+              <th>所属项目</th>
+              <th>操作员</th>
+              <th>抄表员</th>
+              <th>状态</th>
+              <th>指定中间商</th>
+              <th>功能</th>
+            </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </section>
+    <div class="modal fade" id="modal-default">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" @click="closePop">×</span></button>
+            <h4 class="modal-title text-align">{{deviceName}}</h4>
+          </div>
+          <div class="modal-body text-align">
+            <form action="" id="deviceSubmit">
+              <div class="pop-box">
+                <label for="" class="label-pop-style">
+                  <span class="color-red margin-right-4">*</span>所属项目:</label>
+                <select class="form-style-pop" name=""  v-model='selected'>
+                  <option v-for="item in projectList"  v-bind:value="item.val">{{item.name}}</option>
+                </select>
+              </div>
+              <div class="pop-box margin-top-15">
+                <label for="" class="label-pop-style ">
+                  <span class="color-red margin-right-4">*</span>操作员:</label>
+                <input type="text" class="form-style-pop">
+              </div>
+              <div class="pop-box margin-top-15">
+                <label for="" class="label-pop-style">
+                  <span class="color-red margin-right-4">*</span>抄表员:</label>
+                <input type="text" class="form-style-pop">
+              </div>
+              <div class="pop-box margin-top-15">
+                <label for="" class="label-pop-style">指定中间商:</label>
+                <select name="" class="form-style-pop">
+                  <option value="">中间商xxx公司</option>
+                  <option value="">中间商xxx公司</option>
+                  <option value="">中间商xxx公司</option>
+                  <option value="">中间商xxx公司</option>
+                  <option value="">中间商xxx公司</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer text-align">
+            <!--<input type="submit" value="确定">-->
+            <!--<button>取消</button>-->
+            <button type="submit" class="btn btn-info search">确定</button>
+            <button type="button" @click="closePop" class="btn btn-info search">取消</button>
+            <button type="button" class="btn btn-info search">重置</button>
+            <!--<input type="reset" value="重置">-->
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
       <!-- /.content -->
   </div>
 
@@ -94,13 +129,45 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
+        Vue.component('option-item', {
+            props: ['todo'],
+            template: '<option>{{todo.name}}</option>'
+        });
         new Vue({
             el:"#myDevice",
-            data:{},
+            data:{
+                deviceName:"添加设备",
+                selected:"3",
+                projectList:[
+                    {val:1,name:"成都华西"},
+                    {val:2,name:"成都龙泉"},
+                    {val:3,name:"项目二"}
+                ]
+            },
             methods:{
                 addDevice:function(){
-                    $("#modal-default").addClass("in")
+                    this.deviceName = "添加设备";
+                    $("#modal-default").addClass("in").css("display","block")
+                },
+                closePop:function(){
+                    $("#modal-default").removeClass("in").css("display","none")
                 }
+            },
+            mounted:function(){
+                var _this = this;
+                $(document).on("click","#editDevice",function(){
+                    _this.deviceName = "编辑设备";
+                    $("#modal-default").addClass("in").css("display","block")
+                });
+
+                $(document).on("click","#log",function(){
+                    window.location.href = "log?menuId=1";
+                });
+
+                //
+                $(document).on("click","#control",function(){
+                    window.location.href = "control?menuId=1";
+                })
             }
         });
         $('#deviceForm').DataTable( {
@@ -125,10 +192,10 @@
                 { "data": "status" },
                 { "data": "Salary" },
                 { "data": "", "render": function(data, type, row, meta){
-                        var html = "<button type='button' class='Normal margin-right-4 btn btn-primary'>编辑</button>" +
-                            "<button type='button' class='Normal margin-right-4 btn btn-primary'>删除</button>" +
-                            "<button type='button' class='Normal margin-right-4 btn btn-primary'>控制</button>" +
-                            "<button type='button' class='Normal margin-right-4 btn btn-primary'>日志</button>";
+                        var html = "<button type='button' class='Normal margin-right-4 btn btn-primary' id='editDevice'>编辑</button>" +
+                            "<button type='button' class='Normal margin-right-4 btn btn-primary' id='delete'>删除</button>" +
+                            "<button type='button' class='Normal margin-right-4 btn btn-primary' id='control'>控制</button>" +
+                            "<button type='button' class='Normal margin-right-4 btn btn-primary' id='log'>日志</button>";
                         return html;
                     }}
 
