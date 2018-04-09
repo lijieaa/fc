@@ -1,24 +1,145 @@
 <!DOCTYPE html>
 <html>
-<div th:replace="import::hdr"></div>
+<head>
+  <div th:replace="import::hdr"></div>
+  <link rel="stylesheet" th:href="@{/css/webuploader.css}">
+</head>
+<style>
+  .modal-dialog{
+    margin-top: 70px;
+  }
+  #mediaryAddEdit{
+    display: none;
+  }
+  .modal-body .label-pop-style{
+    width: 30%;
+  }
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="import::bdy-befor">
 </div>
-<div class="wrapper">
+<div class="wrapper" id="myMediary">
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper" id="mediaryList">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        中间商管理
-      </h1>
-    </section>
+    <section class="content-header change-content">
+      <span class="font-size-18">中间商列表</span>
+      <div class="row margin-top-6">
+        <div class="col-md-10 col-sm-10  col-xs-12">
+          <div class="form-group float-left">
+            <select name="" id="" class="sel-option height-34">
+              <option value="1">中间商</option>
+              <option value="2">地区</option>
+              <option value="3">联系人</option>
+              <option value="4">联系方式</option>
+            </select>
+          </div>
+          <div class="input-group">
 
+            <span class="input-group-addon ">
+               <i class="fa fa-search"></i>
+            </span>
+            <input type="text" class="form-control">
+            <button type="button" class="btn btn-block btn-info search">搜索</button>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-2  col-xs-12">
+          <!--<button type="button" class="btn btn-block btn-info">添加设备</button>-->
+          <button type="button" class="btn btn-info btn-block"
+                  data-toggle="modal" data-target="#modal-info" @click="redirectMediary">添加中间商</button>
+        </div>
+      </div>
+    </section>
+    <section class="content-list display-none">
+      <div class="row">
+        <div class="col-md-12">
+          <table id="deviceForm" class="display table table-bordered table-hover dataTable" style="width:100%">
+            <thead>
+            <tr>
+              <th>中间商</th>
+              <th>地区</th>
+              <th>联系人</th>
+              <th>联系方式</th>
+              <th>平台对接人</th>
+              <th>联系方式</th>
+              <!--<th>指定中间商</th>-->
+              <th>功能</th>
+            </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </section>
     <!-- /.content -->
   </div>
+
+  <div class="content-wrapper" id="mediaryAddEdit">
+    <section class="content-header change-content">
+      <div class="row">
+        <div class="col-md-10 col-sm-10  col-xs-12">
+          <div class="form-group float-left">
+            <span class="font-size-18">新增中间商</span>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-2  col-xs-12">
+          <!--<button type="button" class="btn btn-block btn-info">添加设备</button>-->
+          <button type="button" class="btn btn-info btn-block"
+                  data-toggle="modal" data-target="#modal-info">
+            返回
+          </button>
+        </div>
+      </div>
+    </section>
+    <section class="content-list">
+      <div class="row modal-body">
+        <div class="col-sm-4 col-xs-12">
+          <div id="uploader-demo">
+            <!--用来存放item-->
+            <div id="fileList" class="uploader-list"></div>
+            <div id="filePicker">选择图片</div>
+          </div>
+        </div>
+        <div class="col-sm-4 col-xs-6">
+          <div class="pop-box ">
+            <label for="" class="label-pop-style ">中间商名称:</label>
+            <input type="text" class="form-style-pop">
+          </div>
+          <div class="pop-box ">
+            <label for="" class="label-pop-style ">联系人:</label>
+            <input type="text" class="form-style-pop">
+          </div>
+          <div class="pop-box ">
+            <label for="" class="label-pop-style ">联系电话:</label>
+            <input type="text" class="form-style-pop">
+          </div>
+        </div>
+        <div class="col-sm-4 col-xs-6">
+          <div class="pop-box ">
+            <label for="" class="label-pop-style ">所属地区:</label>
+            <input type="text" class="form-style-pop">
+          </div>
+          <div class="pop-box ">
+            <label for="" class="label-pop-style ">平台对接人:</label>
+            <input type="text" class="form-style-pop">
+          </div>
+          <div class="pop-box ">
+            <label for="" class="label-pop-style ">联系方式:</label>
+            <input type="text" class="form-style-pop">
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+  <div class="overlay">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
 </div>
+
 <div th:replace="import::scipt"></div>
-<script th:inline="javascript">
-</script>
+<script type="text/javascript" th:src="@{/js/webuploader.js}"></script>
+<script th:inline="javascript"></script>
+
+<script type="text/javascript" th:src="@{/js/intermediary.js}"></script>
 </body>
 </html>
