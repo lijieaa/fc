@@ -1,0 +1,75 @@
+/*公众号列表*/
+
+
+
+
+
+
+/*公众号管理*/
+#gzh-manage{
+    display: none;
+}
+.gzh-manage-menu{
+    margin-left: 1%;
+}
+.gzh-manage-menu a{
+    cursor: pointer;
+    padding: 0 20px;
+}
+.gzh-search{
+    outline: 1px #4d4d4d solid;
+    width: 23%;
+    min-height:300px;
+    margin-left: 2%;
+    margin-top: 3%;
+}
+.gzh-ul-manage{
+    width: 91%;
+    margin: 5% 0 0 3%;
+    max-height:600px;
+    overflow: auto;
+}
+.gzh-ul-manage li{
+    margin: 15px 0px;
+   }
+.gzh-ul-manage li:nth-of-type(1){
+    background: #54d5d5;
+    cursor: pointer;
+}
+.gzh-chat{
+    outline: 1px #4d4d4d solid;
+    width: 72%;
+    margin-left: 2%;
+    margin-top: 2.5%;
+}
+.chat-type{
+    height: 35px;
+    line-height: 35px;
+}
+.chat-type span{
+    padding: 0 15px;
+}
+.chat-type span i{
+    padding: 0 5px;
+}
+.chat-history-ul{
+    display: inline-block;
+    width: 85%;
+    margin-left: 2%;
+}
+.chat-history-ul a{
+    display: block;
+}
+.chat-ul li{
+    margin: 15px 0;
+}
+/*公用样式*/
+.margin-30{
+    margin-top:30px;
+}
+.marginLeft-1{
+    margin-left: 1%;
+}
+.marginTop-2{
+    margin-top: 2%;
+}
