@@ -40,6 +40,21 @@ $(document).ready(function() {
                 window.location.href = "control?menuId=1";
             });
 
+        //   编辑器
+            CKEDITOR.replace( 'editor1', {
+                customConfig: '',
+                toolbarGroups: [
+                    {"name":"basicstyles","groups":["basicstyles"]},
+                    {"name":"links","groups":["links"]},
+                    {"name":"paragraph","groups":["list","blocks"]},
+                    {"name":"document","groups":["mode"]},
+                    {"name":"insert","groups":["insert"]},
+//                {"name":"styles","groups":["styles"]},
+                    {"name":"about","groups":["about"]}
+                ],
+//            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
+            });
+
         //    创建上传图片
             var uploader = WebUploader.create({
                 // 选完文件后，是否自动上传。
@@ -70,16 +85,6 @@ $(document).ready(function() {
                     $("#fileList").addClass("active");
                 });
             });
-            var editor = new wysihtml5.Editor(
-                "id-page-editor-a794381c",{
-                    name: "page-editor-a794381c",
-                    style: true,
-                    toolbar:  "page-toolbar-a794381c",
-                    parserRules:  ToolBarRules,
-                    useLineBreaks: false,
-                    stylesheets: href
-                });
-
         }
     });
     $('#deviceForm').DataTable( {
