@@ -151,13 +151,13 @@
          <h5 style="margin-left: 1%;">与公众号1聊天中</h5>
          <div class="marginLeft-1" style="width: 98%;border: 1px #4d4d4d solid;">
              <div class="chat-type">
-                 <span><i class="glyphicon glyphicon-film"></i>图文消息</span>
-                 <span><i class="glyphicon glyphicon-pencil"></i>文字</span>
-                 <span><i class="glyphicon glyphicon-picture"></i>图片</span>
-                 <span><i class="glyphicon glyphicon-ice-lolly"></i>语音</span>
-                 <span><i class="glyphicon glyphicon-hd-video"></i>视频</span>
+                 <span data-id="1"><i class="glyphicon glyphicon-film"></i>图文消息</span>
+                 <span data-id="2"><i class="glyphicon glyphicon-pencil"></i>文字</span>
+                 <span data-id="3"><i class="glyphicon glyphicon-picture"></i>图片</span>
+                 <span data-id="4"><i class="glyphicon glyphicon-ice-lolly"></i>语音</span>
+                 <span data-id="5"><i class="glyphicon glyphicon-hd-video"></i>视频</span>
              </div>
-             <textarea class="form-control" rows="7"></textarea>
+             <textarea class="form-control" rows="7" id="textInput"></textarea>
          </div>
          <button type="button" class="btn btn-info search marginLeft-1" style="margin-top:2%;width: 100px;display: inline-block;">发送</button>
          <div style="display: inline-block;">还可以输入100字</div>
@@ -222,53 +222,36 @@
          </ul>
      </section>
     </div>
+      <!--素材库弹窗-->
+      <div class="modal fade" id="sourceRoom" tabindex="-1" role="dialog" aria-labelledby="mySource" style="position: absolute;top:12%;">
+          <div class="modal-dialog" role="document" style="width: 50%;">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title text-left" id="mySource">选择素材</h4>
+                      <button type="button" class="btn btn-info float-right" id="new-source">新建图文消息</button>
+
+                  </div>
+                  <div class="modal-body" style="height: 400px;">
+                       毫无素材
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" id="btn-sure-source" class="btn btn-primary text-center" data-dismiss="modal">确定</button>
+                      <button type="button" id="btn-cancel-source" class="btn btn-primary text-center" data-dismiss="modal">取消</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!--素材库新建页面-->
+      <div id="source-bulid">
+
+      </div>
      <!--/.content-->
   </div>
 </div>
 <div th:replace="import::scipt"></div>
+<script th:src="@{/dist/js/gzh/gzh.js}"></script>
 <script th:inline="javascript">
-</script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#deviceForm').DataTable( {
-            "ajax": "../dist/data/gzh.json",
-            "info":false,
-            "searching": false,
-            "lengthChange": false,
-            "ordering": false,
-            // "pagingType": "full_numbers",
-            "language": {
-                "paginate": {
-                    "next": "下一页",
-                    "previous": "上一页"
-                }
-            },
-            "columns": [
-                { "data": "name" },
-                { "data": "position" },
-                { "data": "office" },
-                { "data": "Extn" },
-                { "data": "Start" },
-                { "data": "", "render": function(data, type, row, meta){
-                        var html = "<button type='button' class='Normal margin-right-4 btn btn-primary'>编辑</button>" +
-                            "<button type='button' class='Normal margin-right-4 btn btn-primary'>删除</button>" +
-                            "<button type='button' class='Normal margin-right-4 btn btn-primary table-manage'>管理</button>"
-                        return html;
-                    }}
-
-            ],
-            "fnInitComplete": function() {//初始化完毕事件
-                $(".table-manage").click(function () {
-                    $("#gzh-index").hide();
-                    $("#gzh-manage").show();
-                });
-            }
-        } );
-        // 添加公众号
-        $("#add-gzh").click(function () {
-            $('#myModal').modal();
-        });
-    } );
 </script>
 </body>
 </html>

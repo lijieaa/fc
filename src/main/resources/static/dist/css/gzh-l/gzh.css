@@ -48,6 +48,7 @@
 }
 .chat-type span{
     padding: 0 15px;
+    cursor: pointer;
 }
 .chat-type span i{
     padding: 0 5px;
@@ -72,4 +73,7 @@
 }
 .marginTop-2{
     margin-top: 2%;
+}
+.modal{
+    background: none!important;
 }
