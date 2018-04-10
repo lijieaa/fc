@@ -7,6 +7,9 @@
 .text-align{
     text-align: center;
 }
+.text-align-right{
+    text-align: right;
+}
 .width-80{
     width: 80px;
 }
@@ -18,6 +21,9 @@
 }
 .margin-right-4{
     margin-right: 4px;
+}
+.padding-right-15{
+    padding-right: 15px;
 }
 .margin-top-15{
      margin-top: 15px;

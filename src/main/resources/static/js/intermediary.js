@@ -67,9 +67,18 @@ $(document).ready(function() {
                 uploader.makeThumb(file, function (error, src) {
                     console.log(src);
                     $("img").attr("src",src);
+                    $("#fileList").addClass("active");
                 });
             });
-
+            var editor = new wysihtml5.Editor(
+                "id-page-editor-a794381c",{
+                    name: "page-editor-a794381c",
+                    style: true,
+                    toolbar:  "page-toolbar-a794381c",
+                    parserRules:  ToolBarRules,
+                    useLineBreaks: false,
+                    stylesheets: href
+                });
 
         }
     });

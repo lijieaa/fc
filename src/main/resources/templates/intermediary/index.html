@@ -14,6 +14,19 @@
   .modal-body .label-pop-style{
     width: 30%;
   }
+  #fileList{
+    margin: 0 auto;
+    width: 55%;
+    min-height: 110px;
+   outline: 1px solid black;
+  }
+  #fileList img{
+    width: 70%;
+  }
+  #fileList.active {
+    outline: none;
+    border:none!important;
+  }
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="import::bdy-befor">
@@ -25,7 +38,7 @@
     <section class="content-header change-content">
       <span class="font-size-18">中间商列表</span>
       <div class="row margin-top-6">
-        <div class="col-md-10 col-sm-10  col-xs-12">
+        <div class="col-md-9 col-sm-9">
           <div class="form-group float-left">
             <select name="" id="" class="sel-option height-34">
               <option value="1">中间商</option>
@@ -43,9 +56,8 @@
             <button type="button" class="btn btn-block btn-info search">搜索</button>
           </div>
         </div>
-        <div class="col-md-2 col-sm-2  col-xs-12">
-          <!--<button type="button" class="btn btn-block btn-info">添加设备</button>-->
-          <button type="button" class="btn btn-info btn-block"
+        <div class="col-md-3 col-sm-3 text-align-right">
+          <button type="button" class="btn btn-info padding-right-15"
                   data-toggle="modal" data-target="#modal-info" @click="redirectMediary">添加中间商</button>
         </div>
       </div>
@@ -76,59 +88,60 @@
   <div class="content-wrapper" id="mediaryAddEdit">
     <section class="content-header change-content">
       <div class="row">
-        <div class="col-md-10 col-sm-10  col-xs-12">
+        <div class="col-md-9 col-sm-9">
           <div class="form-group float-left">
             <span class="font-size-18">新增中间商</span>
           </div>
         </div>
-        <div class="col-md-2 col-sm-2  col-xs-12">
-          <!--<button type="button" class="btn btn-block btn-info">添加设备</button>-->
-          <button type="button" class="btn btn-info btn-block"
-                  data-toggle="modal" data-target="#modal-info">
-            返回
+        <div class="col-md-3 col-sm-3 text-align-right">
+          <button type="button" class="btn btn-info padding-right-15"
+                  data-toggle="modal" data-target="#modal-info">返回
           </button>
         </div>
       </div>
     </section>
     <section class="content-list">
       <div class="row modal-body">
-        <div class="col-sm-4 col-xs-12">
+        <div class="col-md-4 col-xs-12 text-align">
           <div id="uploader-demo">
             <!--用来存放item-->
             <div id="fileList" class="uploader-list"></div>
-            <div id="filePicker">选择图片</div>
+            <div id="filePicker" class="margin-top-6">选择图片</div>
           </div>
         </div>
-        <div class="col-sm-4 col-xs-6">
-          <div class="pop-box ">
+        <div class="col-md-4 col-xs-6">
+          <div class="pop-box margin-top-15">
             <label for="" class="label-pop-style ">中间商名称:</label>
             <input type="text" class="form-style-pop">
           </div>
-          <div class="pop-box ">
+          <div class="pop-box margin-top-15">
             <label for="" class="label-pop-style ">联系人:</label>
             <input type="text" class="form-style-pop">
           </div>
-          <div class="pop-box ">
+          <div class="pop-box margin-top-15">
             <label for="" class="label-pop-style ">联系电话:</label>
             <input type="text" class="form-style-pop">
           </div>
         </div>
-        <div class="col-sm-4 col-xs-6">
-          <div class="pop-box ">
+        <div class="col-md-4 col-xs-6">
+          <div class="pop-box margin-top-15">
             <label for="" class="label-pop-style ">所属地区:</label>
             <input type="text" class="form-style-pop">
           </div>
-          <div class="pop-box ">
+          <div class="pop-box margin-top-15">
             <label for="" class="label-pop-style ">平台对接人:</label>
             <input type="text" class="form-style-pop">
           </div>
-          <div class="pop-box ">
+          <div class="pop-box margin-top-15">
             <label for="" class="label-pop-style ">联系方式:</label>
             <input type="text" class="form-style-pop">
           </div>
         </div>
       </div>
-
+      <div class="row">
+        <div class="col-md-12">
+        </div>
+      </div>
     </section>
   </div>
   <div class="overlay">
