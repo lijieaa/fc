@@ -1,5 +1,7 @@
 package com.we.fc.intermediary.web;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.we.fc.base.BaseController;
 import com.we.fc.base.BaseService;
 import com.we.fc.intermediary.entity.Intermediary;
@@ -10,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author zdc
@@ -20,11 +23,11 @@ import java.util.Arrays;
 public class IntermediaryController extends BaseController<Intermediary> {
 
     @Autowired
-    IntermediaryService intermediaryService;
+    IntermediaryService service;
 
     @Override
     public BaseService<Intermediary> getService() {
-        return intermediaryService;
+        return service;
     }
     @GetMapping("index")
     public String index(Integer menuId, Model model){
@@ -32,12 +35,57 @@ public class IntermediaryController extends BaseController<Intermediary> {
         return "intermediary/index";
     }
 
-    @GetMapping("findById")
+    /**
+     * 查询单个数据
+     * @param id
+     * @return
+     */
+    @GetMapping("operator")
     public ResponseEntity findById(Integer id){
         ResponseEntity responseEntity = new ResponseEntity();
-        Intermediary intermediary = intermediaryService.findById(id);
+        Intermediary intermediary = service.findById(id);
         responseEntity.setData(Arrays.asList(intermediary));
         return responseEntity;
     }
+
+    /**
+     * 添加中间商
+     * @param intermediary
+     * @return
+     */
+    @PostMapping("operator")
+    public ResponseEntity add(Intermediary intermediary){
+        ResponseEntity responseEntity = new ResponseEntity();
+        try {
+            service.add(intermediary);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity.setMessages("添加失败！");
+        }
+        return responseEntity;
+    }
+
+    @PutMapping(value = "operator")
+    public ResponseEntity update(Intermediary intermediary){
+        ResponseEntity responseEntity = new ResponseEntity();
+        try {
+            service.update(intermediary);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity.setMessages("修改失败！");
+        }
+        return responseEntity;
+    }
+
+    @GetMapping(value = "queryPage")
+    public ResponseEntity querPage(Integer page,Integer rows){
+        ResponseEntity responseEntity = new ResponseEntity();
+        PageHelper.startPage(1,5);
+        List<Intermediary> list = service.findAll();
+        PageInfo pageInfo = new PageInfo(list);
+        responseEntity.setData(Arrays.asList(pageInfo));
+        return  responseEntity;
+    }
+
 
 }
