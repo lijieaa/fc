@@ -11,7 +11,7 @@
         <result property="updateTime" column="company_update_time"></result>
     </resultMap>
 
-    <select id="findById" resultMap="companyMap">
+    <select id="selectByPrimaryKey" resultMap="companyMap">
         SELECT * FROM sys_company WHERE company_id = #{0}
     </select>
 </mapper>
