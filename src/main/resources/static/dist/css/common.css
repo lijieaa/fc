@@ -22,6 +22,9 @@
 .margin-right-4{
     margin-right: 4px;
 }
+.padding-18{
+    padding: 18px 0;
+}
 .padding-right-15{
     padding-right: 15px;
 }
@@ -86,4 +89,5 @@ div.dataTables_wrapper div.dataTables_paginate{
 .modal-body .form-style-pop{
     display: inline-block;
     width: 60%;
+    text-indent: 6px;
 }

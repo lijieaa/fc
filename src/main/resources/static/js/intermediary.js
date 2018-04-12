@@ -8,27 +8,129 @@ $(document).ready(function() {
     new Vue({
         el:"#myMediary",
         data:{
-            deviceName:"添加设备",
+            companyName:"新增中间商",
             selected:"3",
             projectList:[
                 {val:1,name:"成都华西"},
                 {val:2,name:"成都龙泉"},
                 {val:3,name:"项目二"}
-            ]
+            ],
+            facList:[
+                { id:1, pId:0, name:"四川", t:"id=1", open:true},
+                { id:11, pId:1, name:"成都", t:"id=11"},
+                { id:12, pId:1, name:"自贡", t:"id=12"},
+                { id:13, pId:1, name:"眉山", t:"id=13"},
+                { id:14, pId:1, name:"巴中", t:"id=14"},
+                { id:2, pId:0, name:"北京", t:"id=2"}
+            ],
+            treeIsShow:false
         },
         methods:{
             redirectMediary:function(){
                 $("#mediaryList").hide();
                 $("#mediaryAddEdit").show();
+                _this.companyName = "新增中间商";
             },
             closePop:function(){
                 $("#modal-default").removeClass("in").css("display","none")
+            },
+            editorFun:function(){
+                CKEDITOR.replace( 'editor1', {
+                    customConfig: '',
+                    filebrowserImageUploadUrl:"skins",
+                    removeDialogTabs:"image:advanced;image:Link",
+                    toolbarGroups: [
+                        {"name":"basicstyles","groups":["basicstyles"]},
+                        {"name":"links","groups":["links"]},
+                        {"name":"paragraph","groups":["list","blocks"]},
+                        // {"name":"document","groups":["mode"]},
+                        {"name":"insert","groups":["insert"]},
+//                {"name":"styles","groups":["styles"]},
+                        {"name":"about","groups":["about"]}
+                    ],
+                    removePlugins:"elementspath"
+//            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
+                });
+            },
+            uploaderFun:function(){
+                //    创建上传图片
+                var uploader = WebUploader.create({
+                    // 选完文件后，是否自动上传。
+                    auto: false,
+                    // swf文件路径
+                    swf: '../js/dist/Uploader.swf',
+                    pick: '#filePicker',
+                    // 只允许选择图片文件。
+                    accept: {
+                        title: 'Images',
+                        extensions: 'gif,jpg,jpeg,bmp,png',
+                        mimeTypes: 'image/*'
+                    }
+                });
+                // 当有文件添加进来的时候
+                uploader.on( 'fileQueued', function( file ) {
+                    var $li = $(
+                        '<div id="' + file.id + '" class="file-item thumbnail">' +
+                        '<img>' +
+                        '<div class="info">' + file.name + '</div>' +
+                        '</div>'
+                    );
+                    $("#fileList").html($li);
+                    uploader.makeThumb(file, function (error, src) {
+                        console.log(src);
+                        $("img").attr("src",src);
+                        $("#fileList").addClass("active");
+                    });
+                });
+
+
+            },
+            treeShow:function(){
+                var _this = this;
+                _this.treeIsShow = true;
+            },
+            treeHide:function(){
+                var _this = this;
+                // _this.treeIsShow = false;
+            },
+            zTreeInit:function(){
+                var _this = this;
+                return {
+                    useTree : function(ele,zNodes,inputEle){
+                    var setting = {
+                        data: {
+                            simpleData: {
+                                enable: true
+                            }
+                        },
+                        callback: {
+                            beforeClick: zTreeBeforeClick
+                        },
+                        view: {
+                            fontCss: getFontCss,
+                            showLine: false,
+                            showIcon:false
+                        }
+                    };
+                    function getFontCss(treeId, treeNode) {
+                        return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
+                    }
+                    function zTreeBeforeClick(treeId, treeNode, clickFlag) {
+                        $(inputEle).val(treeNode.name).attr("data-id",treeNode.id);
+                        _this.treeIsShow = false;
+                    }
+                    $.fn.zTree.init(ele, setting, zNodes);
+                }
+                }
+
             }
         },
         mounted:function(){
             var _this = this;
             $(document).on("click","#editDevice",function(){
-                _this.deviceName = "编辑设备";
+                _this.companyName = "编辑中间商";
+                $("#mediaryList").hide();
+                $("#mediaryAddEdit").show();
             });
 
             $(document).on("click","#log",function(){
@@ -40,51 +142,9 @@ $(document).ready(function() {
                 window.location.href = "control?menuId=1";
             });
 
-        //   编辑器
-            CKEDITOR.replace( 'editor1', {
-                customConfig: '',
-                toolbarGroups: [
-                    {"name":"basicstyles","groups":["basicstyles"]},
-                    {"name":"links","groups":["links"]},
-                    {"name":"paragraph","groups":["list","blocks"]},
-                    {"name":"document","groups":["mode"]},
-                    {"name":"insert","groups":["insert"]},
-//                {"name":"styles","groups":["styles"]},
-                    {"name":"about","groups":["about"]}
-                ],
-//            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
-            });
-
-        //    创建上传图片
-            var uploader = WebUploader.create({
-                // 选完文件后，是否自动上传。
-                auto: false,
-                // swf文件路径
-                swf: '../js/dist/Uploader.swf',
-                pick: '#filePicker',
-                // 只允许选择图片文件。
-                accept: {
-                    title: 'Images',
-                    extensions: 'gif,jpg,jpeg,bmp,png',
-                    mimeTypes: 'image/*'
-                }
-            });
-            // 当有文件添加进来的时候
-            uploader.on( 'fileQueued', function( file ) {
-                console.log(file);
-                var $li = $(
-                    '<div id="' + file.id + '" class="file-item thumbnail">' +
-                    '<img>' +
-                    '<div class="info">' + file.name + '</div>' +
-                    '</div>'
-                    );
-                $("#fileList").html($li);
-                uploader.makeThumb(file, function (error, src) {
-                    console.log(src);
-                    $("img").attr("src",src);
-                    $("#fileList").addClass("active");
-                });
-            });
+            _this.editorFun(); //初始化生成编辑器
+            _this.uploaderFun();  //上传图片
+            _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");
         }
     });
     $('#deviceForm').DataTable( {

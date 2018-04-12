@@ -13,6 +13,7 @@
   }
   .modal-body .label-pop-style{
     width: 30%;
+    position:relative;
   }
   #fileList{
     margin: 0 auto;
@@ -26,6 +27,17 @@
   #fileList.active {
     outline: none;
     border:none!important;
+  }
+  #treeDemo{
+    position: absolute;
+    width: 60%;
+    left: 33%;
+    background: #fff;
+    outline: 1px solid #3c8dbc;
+    z-index: 3;
+  }
+  #editor1{
+    resize: none;
   }
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -90,7 +102,7 @@
       <div class="row">
         <div class="col-md-9 col-sm-9">
           <div class="form-group float-left">
-            <span class="font-size-18">新增中间商</span>
+            <span class="font-size-18" v-text="companyName">新增中间商</span>
           </div>
         </div>
         <div class="col-md-3 col-sm-3 text-align-right">
@@ -101,53 +113,58 @@
       </div>
     </section>
     <section class="content-list">
-      <div class="row modal-body">
-        <div class="col-md-4 col-xs-12 text-align">
-          <div id="uploader-demo">
-            <!--用来存放item-->
-            <div id="fileList" class="uploader-list"></div>
-            <div id="filePicker" class="margin-top-6">选择图片</div>
+      <form action="">
+        <div class="row modal-body">
+          <div class="col-md-4 col-xs-12 text-align">
+            <div id="uploader-demo">
+              <!--用来存放item-->
+              <div id="fileList" class="uploader-list"></div>
+              <div id="filePicker" class="margin-top-6">选择图片</div>
+            </div>
+          </div>
+          <div class="col-md-4 col-xs-6">
+            <div class="pop-box margin-top-15">
+              <label for="" class="label-pop-style ">中间商名称:</label>
+              <input type="text" class="form-style-pop">
+            </div>
+            <div class="pop-box margin-top-15">
+              <label for="" class="label-pop-style ">联系人:</label>
+              <input type="text" class="form-style-pop">
+            </div>
+            <div class="pop-box margin-top-15">
+              <label for="" class="label-pop-style ">联系电话:</label>
+              <input type="text" class="form-style-pop">
+            </div>
+          </div>
+          <div class="col-md-4 col-xs-6">
+            <div class="pop-box margin-top-15">
+              <label for="" class="label-pop-style">所属地区:</label>
+              <input type="text" class="form-style-pop" id="address"  @blur="treeHide"  @focus="treeShow">
+              <ul id="treeDemo" class="ztree"  v-show="treeIsShow"></ul>
+            </div>
+            <div class="pop-box margin-top-15">
+              <label for="" class="label-pop-style ">平台对接人:</label>
+              <input type="text" class="form-style-pop">
+            </div>
+            <div class="pop-box margin-top-15">
+              <label for="" class="label-pop-style ">联系方式:</label>
+              <input type="text" class="form-style-pop">
+            </div>
           </div>
         </div>
-        <div class="col-md-4 col-xs-6">
-          <div class="pop-box margin-top-15">
-            <label for="" class="label-pop-style ">中间商名称:</label>
-            <input type="text" class="form-style-pop">
-          </div>
-          <div class="pop-box margin-top-15">
-            <label for="" class="label-pop-style ">联系人:</label>
-            <input type="text" class="form-style-pop">
-          </div>
-          <div class="pop-box margin-top-15">
-            <label for="" class="label-pop-style ">联系电话:</label>
-            <input type="text" class="form-style-pop">
-          </div>
-        </div>
-        <div class="col-md-4 col-xs-6">
-          <div class="pop-box margin-top-15">
-            <label for="" class="label-pop-style ">所属地区:</label>
-            <input type="text" class="form-style-pop">
-          </div>
-          <div class="pop-box margin-top-15">
-            <label for="" class="label-pop-style ">平台对接人:</label>
-            <input type="text" class="form-style-pop">
-          </div>
-          <div class="pop-box margin-top-15">
-            <label for="" class="label-pop-style ">联系方式:</label>
-            <input type="text" class="form-style-pop">
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <form>
-             <textarea name="editor1" id="editor1" rows="10" cols="80">
-            This is my textarea to be replaced with CKEditor.
-          </textarea>
-          </form>
+        <div class="row">
+          <div class="col-md-12">
+            <form>
+              <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
+            </form>
 
+          </div>
         </div>
-      </div>
+        <div class="text-align padding-18">
+          <button type="submit" class="btn btn-info search margin-right-4">确定</button>
+          <button type="reset" class="btn btn-info search">重置</button>
+        </div>
+      </form>
     </section>
   </div>
   <div class="overlay">
