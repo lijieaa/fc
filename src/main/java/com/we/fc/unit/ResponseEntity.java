@@ -34,4 +34,5 @@ public class ResponseEntity {
     public void setData(List data) {
         this.data = data;
     }
+
 }

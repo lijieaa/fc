@@ -45,7 +45,7 @@ public class IntermediaryController extends BaseController<Intermediary> {
     @ResponseBody
     public ResponseEntity findById(Integer id){
         ResponseEntity responseEntity = new ResponseEntity();
-        Intermediary intermediary = service.findById(id);
+        Intermediary intermediary = service.selectByPrimaryKey(id);
         responseEntity.setData(Arrays.asList(intermediary));
         return responseEntity;
     }
@@ -60,7 +60,7 @@ public class IntermediaryController extends BaseController<Intermediary> {
     public ResponseEntity add(Intermediary intermediary){
         ResponseEntity responseEntity = new ResponseEntity();
         try {
-            service.add(intermediary);
+            service.insert(intermediary);
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity.setMessages("添加失败！");
@@ -73,7 +73,7 @@ public class IntermediaryController extends BaseController<Intermediary> {
     public ResponseEntity update(Intermediary intermediary){
         ResponseEntity responseEntity = new ResponseEntity();
         try {
-            service.update(intermediary);
+            service.updateByPrimaryKey(intermediary);
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity.setMessages("修改失败！");
@@ -85,8 +85,8 @@ public class IntermediaryController extends BaseController<Intermediary> {
     @ResponseBody
     public ResponseEntity querPage(Integer page,Integer rows){
         ResponseEntity responseEntity = new ResponseEntity();
-        PageHelper.startPage(1,5);
-        List<Intermediary> list = service.findAll();
+        PageHelper.startPage(page,rows);
+        List<Intermediary> list = service.selectAll();
         PageInfo pageInfo = new PageInfo(list);
         responseEntity.setData(Arrays.asList(pageInfo));
         return  responseEntity;
