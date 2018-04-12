@@ -83,10 +83,10 @@ public class IntermediaryController extends BaseController<Intermediary> {
 
     @GetMapping(value = "queryPage")
     @ResponseBody
-    public ResponseEntity querPage(Integer page,Integer rows){
+    public ResponseEntity querPage(Integer page,Integer rows,String intermediaryName){
         ResponseEntity responseEntity = new ResponseEntity();
         PageHelper.startPage(1,5);
-        List<Intermediary> list = service.findAll();
+        List<Intermediary> list = service.queryPage(intermediaryName);
         PageInfo pageInfo = new PageInfo(list);
         responseEntity.setData(Arrays.asList(pageInfo));
         return  responseEntity;

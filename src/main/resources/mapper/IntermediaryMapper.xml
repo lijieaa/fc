@@ -74,7 +74,14 @@
     area_id, user_id, intermediary_logo_url, intermediary_create_time, intermediary_update_time,
     intermediary_introduction
     from intermediary
+  </select>
+
+  <select id="queryPage" resultMap="BaseResultMap">
+     select intermediary_id, intermediary_name, intermediary_contact, intermediary_contact_tel,
+    area_id, user_id, intermediary_logo_url, intermediary_create_time, intermediary_update_time,
+    intermediary_introduction
+     FROM intermediary
     WHERE 1=1
-    <if test="intermediaryName!=NULL"> and 2=2</if>
+    <if test="intermediaryName !=null"> and 2=2</if>
   </select>
 </mapper>
