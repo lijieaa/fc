@@ -26,6 +26,11 @@ public class IntermediaryController extends BaseController<Intermediary> {
     @Autowired
     IntermediaryService service;
 
+    @GetMapping("detail")
+    public String IntermediaryDetail(){
+        return "IntermediaryDetail";
+    }
+
     @Override
     public BaseService<Intermediary> getService() {
         return service;
@@ -45,7 +50,7 @@ public class IntermediaryController extends BaseController<Intermediary> {
     @ResponseBody
     public ResponseEntity findById(Integer id){
         ResponseEntity responseEntity = new ResponseEntity();
-        Intermediary intermediary = service.findById(id);
+        Intermediary intermediary = service.selectByPrimaryKey(id);
         responseEntity.setData(Arrays.asList(intermediary));
         return responseEntity;
     }
@@ -58,35 +63,21 @@ public class IntermediaryController extends BaseController<Intermediary> {
     @PostMapping("operator")
     @ResponseBody
     public ResponseEntity add(Intermediary intermediary){
-        ResponseEntity responseEntity = new ResponseEntity();
-        try {
-            service.add(intermediary);
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity.setMessages("添加失败！");
-        }
-        return responseEntity;
+        return super.add(intermediary);
     }
 
     @PutMapping(value = "operator")
     @ResponseBody
     public ResponseEntity update(Intermediary intermediary){
-        ResponseEntity responseEntity = new ResponseEntity();
-        try {
-            service.update(intermediary);
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity.setMessages("修改失败！");
-        }
-        return responseEntity;
+        return super.update(intermediary);
     }
 
     @GetMapping(value = "queryPage")
     @ResponseBody
-    public ResponseEntity querPage(Integer page,Integer rows){
+    public ResponseEntity querPage(Integer page,Integer rows,String intermediaryName){
         ResponseEntity responseEntity = new ResponseEntity();
         PageHelper.startPage(1,5);
-        List<Intermediary> list = service.findAll();
+        List<Intermediary> list = service.queryPage(intermediaryName);
         PageInfo pageInfo = new PageInfo(list);
         responseEntity.setData(Arrays.asList(pageInfo));
         return  responseEntity;

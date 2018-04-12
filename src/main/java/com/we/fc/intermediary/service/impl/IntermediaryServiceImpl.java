@@ -8,6 +8,8 @@ import com.we.fc.intermediary.service.IntermediaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by mayn on 2018/4/11.
  */
@@ -22,4 +24,8 @@ public class IntermediaryServiceImpl extends BaseServiceImpl<Intermediary> imple
         return intermediaryMapper;
     }
 
+    @Override
+    public List<Intermediary> queryPage(String intermediaryName) {
+        return intermediaryMapper.queryPage(intermediaryName);
+    }
 }
