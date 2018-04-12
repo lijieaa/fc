@@ -26,6 +26,11 @@ public class IntermediaryController extends BaseController<Intermediary> {
     @Autowired
     IntermediaryService service;
 
+    @GetMapping("detail")
+    public String IntermediaryDetail(){
+        return "IntermediaryDetail";
+    }
+
     @Override
     public BaseService<Intermediary> getService() {
         return service;
