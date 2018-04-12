@@ -9,14 +9,14 @@ import java.util.List;
  */
 public interface BaseDao<T> {
 
-    void add(T t) throws Exception;
+    void insert(T t) throws Exception;
 
-    void delete(Integer id) throws Exception;
+    void deleteByPrimaryKey(Integer id) throws Exception;
 
-    void update(T t) throws Exception;
+    void updateByPrimaryKey(T t) throws Exception;
 
-    T findById(Integer id);
+    T selectByPrimaryKey(Integer id);
 
-    List<T> findAll();
+    List<T> selectAll();
 
 }

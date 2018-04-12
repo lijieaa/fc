@@ -15,7 +15,7 @@
         <collection property="children" column="dept_id" select="findChildren"/>
     </resultMap>
 
-    <select id="findById" resultMap="deptMap">
+    <select id="selectByPrimaryKey" resultMap="deptMap">
         SELECT * FROM sys_dept WHERE dept_id = #{0}
     </select>
 

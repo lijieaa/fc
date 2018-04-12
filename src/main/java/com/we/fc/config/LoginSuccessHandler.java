@@ -52,8 +52,8 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             user.setMenus(MenuUtils.getLevelMenu(new TreeSet<>(menus)));
         }
         // 查询公司部门
-        user.setCompany(companyDao.findById(user.getCompany().getId()));
-        user.setDept(deptDao.findById(user.getDept().getId()));
+        user.setCompany(companyDao.selectByPrimaryKey(user.getCompany().getId()));
+        user.setDept(deptDao.selectByPrimaryKey(user.getDept().getId()));
         request.getSession().setAttribute("user", user);
         super.getRedirectStrategy().sendRedirect(request, response, "/index");
     }

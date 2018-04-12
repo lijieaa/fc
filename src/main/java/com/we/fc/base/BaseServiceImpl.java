@@ -13,26 +13,26 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 
     @Override
     public void add(T t) throws Exception {
-        getDao().add(t);
+        getDao().insert(t);
     }
 
     @Override
     public void delete(Integer id) throws Exception {
-        getDao().delete(id);
+        getDao().deleteByPrimaryKey(id);
     }
 
     @Override
     public void update(T t) throws Exception {
-        getDao().update(t);
+        getDao().updateByPrimaryKey(t);
     }
 
     @Override
     public T findById(Integer id) {
-        return getDao().findById(id);
+        return getDao().selectByPrimaryKey(id);
     }
 
     @Override
     public List<T> findAll() {
-        return getDao().findAll();
+        return getDao().selectAll();
     }
 }
