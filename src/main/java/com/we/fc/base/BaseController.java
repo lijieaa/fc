@@ -98,7 +98,7 @@ public abstract class BaseController<T> {
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity.setStatus("500");
-            responseEntity.setMessages("添加失败");
+            responseEntity.setMessages("获取失败");
             return responseEntity;
         }
     }
