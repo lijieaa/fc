@@ -15,7 +15,7 @@
         <result property="icon" column="icon"></result>
     </resultMap>
 
-    <select id="findById" resultMap="menuMap">
+    <select id="selectByPrimaryKey" resultMap="menuMap">
         SELECT * FROM sys_menu WHERE menu_id = #{0}
     </select>
 
