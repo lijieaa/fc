@@ -8,6 +8,7 @@ import com.we.fc.intermediary.entity.Intermediary;
 import com.we.fc.intermediary.service.IntermediaryService;
 import com.we.fc.unit.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ import java.util.List;
  * @author zdc
  * @since 2018-04-05 21:40
  */
-@RestController
+@Controller
 @RequestMapping("intermediary")
 public class IntermediaryController extends BaseController<Intermediary> {
 
@@ -41,6 +42,7 @@ public class IntermediaryController extends BaseController<Intermediary> {
      * @return
      */
     @GetMapping("operator")
+    @ResponseBody
     public ResponseEntity findById(Integer id){
         ResponseEntity responseEntity = new ResponseEntity();
         Intermediary intermediary = service.findById(id);
@@ -54,6 +56,7 @@ public class IntermediaryController extends BaseController<Intermediary> {
      * @return
      */
     @PostMapping("operator")
+    @ResponseBody
     public ResponseEntity add(Intermediary intermediary){
         ResponseEntity responseEntity = new ResponseEntity();
         try {
@@ -66,6 +69,7 @@ public class IntermediaryController extends BaseController<Intermediary> {
     }
 
     @PutMapping(value = "operator")
+    @ResponseBody
     public ResponseEntity update(Intermediary intermediary){
         ResponseEntity responseEntity = new ResponseEntity();
         try {
@@ -78,6 +82,7 @@ public class IntermediaryController extends BaseController<Intermediary> {
     }
 
     @GetMapping(value = "queryPage")
+    @ResponseBody
     public ResponseEntity querPage(Integer page,Integer rows){
         ResponseEntity responseEntity = new ResponseEntity();
         PageHelper.startPage(1,5);
