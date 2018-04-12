@@ -45,7 +45,7 @@ public class IntermediaryController extends BaseController<Intermediary> {
     @ResponseBody
     public ResponseEntity findById(Integer id){
         ResponseEntity responseEntity = new ResponseEntity();
-        Intermediary intermediary = service.findById(id);
+        Intermediary intermediary = service.selectByPrimaryKey(id);
         responseEntity.setData(Arrays.asList(intermediary));
         return responseEntity;
     }
@@ -58,27 +58,13 @@ public class IntermediaryController extends BaseController<Intermediary> {
     @PostMapping("operator")
     @ResponseBody
     public ResponseEntity add(Intermediary intermediary){
-        ResponseEntity responseEntity = new ResponseEntity();
-        try {
-            service.add(intermediary);
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity.setMessages("添加失败！");
-        }
-        return responseEntity;
+        return super.add(intermediary);
     }
 
     @PutMapping(value = "operator")
     @ResponseBody
     public ResponseEntity update(Intermediary intermediary){
-        ResponseEntity responseEntity = new ResponseEntity();
-        try {
-            service.update(intermediary);
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity.setMessages("修改失败！");
-        }
-        return responseEntity;
+        return super.update(intermediary);
     }
 
     @GetMapping(value = "queryPage")
