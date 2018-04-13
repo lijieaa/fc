@@ -27,7 +27,7 @@
         SELECT * FROM sys_user WHERE username = #{0}
     </select>
 
-    <select id="findById" resultMap="userMap">
+    <select id="selectByPrimaryKey" resultMap="userMap">
         SELECT * FROM sys_user WHERE user_id = #{0}
     </select>
 
