@@ -41,47 +41,4 @@ public class IntermediaryController extends BaseController<Intermediary> {
         return "intermediary/index";
     }
 
-    /**
-     * 查询单个数据
-     * @param id
-     * @return
-     */
-    @GetMapping("operator")
-    @ResponseBody
-    public ResponseEntity findById(Integer id){
-        ResponseEntity responseEntity = new ResponseEntity();
-        Intermediary intermediary = service.selectByPrimaryKey(id);
-        responseEntity.setData(Arrays.asList(intermediary));
-        return responseEntity;
-    }
-
-    /**
-     * 添加中间商
-     * @param intermediary
-     * @return
-     */
-    @PostMapping("operator")
-    @ResponseBody
-    public ResponseEntity add(Intermediary intermediary){
-        return super.add(intermediary);
-    }
-
-    @PutMapping(value = "operator")
-    @ResponseBody
-    public ResponseEntity update(Intermediary intermediary){
-        return super.update(intermediary);
-    }
-
-    @GetMapping(value = "queryPage")
-    @ResponseBody
-    public ResponseEntity querPage(Integer page,Integer rows,String intermediaryName){
-        ResponseEntity responseEntity = new ResponseEntity();
-        PageHelper.startPage(1,5);
-        List<Intermediary> list = service.queryPage(intermediaryName);
-        PageInfo pageInfo = new PageInfo(list);
-        responseEntity.setData(Arrays.asList(pageInfo));
-        return  responseEntity;
-    }
-
-
 }
