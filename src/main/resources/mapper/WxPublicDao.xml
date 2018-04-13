@@ -18,4 +18,15 @@
     <select id="selectByPrimaryKey" resultMap="wxPublicMap">
         SELECT * FROM wx_public WHERE public _id = #{0}
     </select>
+
+    <insert id="insert">
+        INSERT INTO wx_public(public_name, source_id, app_id, app_secret, public_email)
+        VALUES (
+          #{publicName},
+          #{sourceId},
+          #{appId},
+          #{appSecret},
+          #{publicEmail}
+        )
+    </insert>
 </mapper>
