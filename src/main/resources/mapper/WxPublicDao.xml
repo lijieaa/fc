@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.we.fc.wechat.dao.WxPublicDao">
+
+    <resultMap id="wxPublicMap" type="WxPublic">
+        <id property="id" column="public _id"></id>
+        <result property="publicName" column="public_name"></result>
+        <result property="sourceId" column="source_id"></result>
+        <result property="appId" column="app_id"></result>
+        <result property="appSecret" column="app_secret"></result>
+        <result property="publicEmail" column="public_email"></result>
+        <result property="createTime" column="wx_public_create_time"></result>
+        <result property="updateTime" column="wx_public_update_time"></result>
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="wxPublicMap">
+        SELECT * FROM wx_public WHERE public _id = #{0}
+    </select>
+</mapper>
