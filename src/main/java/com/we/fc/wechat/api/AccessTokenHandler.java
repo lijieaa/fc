@@ -1,5 +1,6 @@
 package com.we.fc.wechat.api;
 
+import com.we.fc.exception.AccessTokenException;
 import com.we.fc.http.RequestTools;
 import com.we.fc.utils.GsonUtils;
 import com.we.fc.wechat.api.response.AccessTokenResponse;
@@ -12,7 +13,7 @@ import com.we.fc.wechat.api.response.ResponseStatus;
 
 public class AccessTokenHandler {
 
-    public static String getAccessToken(String appId, String appSecret) throws Exception{
+    public static String getAccessToken(String appId, String appSecret) throws AccessTokenException{
         String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=";
         url += appId;
         url += "&secret=";
@@ -21,7 +22,7 @@ public class AccessTokenHandler {
         if(ResponseStatus.isInvokeSuccess(result)){
             return GsonUtils.toBean(result, AccessTokenResponse.class).getAccess_token();
         }else{
-            throw new Exception("appId或appSecret错误，无法获取accessToken");
+            throw new AccessTokenException("appId或appSecret错误，无法获取accessToken");
         }
     }
 
