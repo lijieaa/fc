@@ -7,8 +7,10 @@ import com.we.fc.wechat.api.AccessTokenHandler;
 import com.we.fc.wechat.api.WxApiHandler;
 import com.we.fc.wechat.api.response.OpenIdResponse;
 import com.we.fc.wechat.dao.WxPublicDao;
+import com.we.fc.wechat.dao.WxUserDetailDao;
 import com.we.fc.wechat.dao.WxUserOpenIdDao;
 import com.we.fc.wechat.entity.WxPublic;
+import com.we.fc.wechat.entity.WxUserDetail;
 import com.we.fc.wechat.entity.WxUserOpenId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -35,6 +37,8 @@ public class WxPublicServiceImpl extends BaseServiceImpl<WxPublic> implements Wx
 
     @Autowired private WxUserOpenIdDao wxUserOpenIdDao;
 
+    @Autowired private WxUserDetailDao wxUserDetailDao;
+
     @Override
     public BaseDao<WxPublic> getDao() {
         return wxPublicDao;
@@ -57,10 +61,11 @@ public class WxPublicServiceImpl extends BaseServiceImpl<WxPublic> implements Wx
             List<String> openIds = response.getData().getOpenid();
             for(String openId : openIds){
                 list.add(new WxUserOpenId(openId, wxPublic));
+                WxUserDetail wxUserDetail = wxApiHandler.loadUserDetail(accessToken, openId);
+                wxUserDetail.setWxPublic(wxPublic);
+                wxUserDetailDao.insert(wxUserDetail);
             }
             wxUserOpenIdDao.batchInsert(list);
-
-
         } catch (AccessTokenException e) {
             throw e;
         }
