@@ -20,17 +20,6 @@ public class WxPublic extends BaseEntity {
 
     private String publicEmail;
 
-    private Company company;
-
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
     public String getPublicName() {
         return publicName;
     }

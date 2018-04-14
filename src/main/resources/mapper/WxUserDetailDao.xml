@@ -25,7 +25,7 @@
     </resultMap>
 
     <select id="selectAll" resultMap="wxUserDetailMap">
-        SELECT * FROM wx_user_detail WHERE company_id = #{0}
+        SELECT * FROM wx_user_detail WHERE company_id = #{company.id}
     </select>
 
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
