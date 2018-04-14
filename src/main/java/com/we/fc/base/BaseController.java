@@ -36,13 +36,13 @@ public abstract class BaseController<T> {
 
     @GetMapping("{id}")
     @ResponseBody
-    public T selectByPrimaryKey(@PathVariable("id") Integer id){
+    public T selectByPrimaryKey(@PathVariable("id") Integer id,HttpSession session){
         return getService().selectByPrimaryKey(id);
     }
 
     @DeleteMapping("{id}")
     @ResponseBody
-    public ResponseEntity delete(@PathVariable("id") Integer id){
+    public ResponseEntity delete(@PathVariable("id") Integer id,HttpSession session){
         ResponseEntity responseEntity = new ResponseEntity();
         try {
             getService().deleteByPrimaryKey(id);
@@ -57,7 +57,7 @@ public abstract class BaseController<T> {
 
     @PutMapping
     @ResponseBody
-    public ResponseEntity update(@RequestBody T t){
+    public ResponseEntity update(@RequestBody T t,HttpSession session){
         ResponseEntity responseEntity = new ResponseEntity();
         try {
             getService().updateByPrimaryKey(t);
@@ -72,7 +72,7 @@ public abstract class BaseController<T> {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity add(@RequestBody T t){
+    public ResponseEntity add(@RequestBody T t,HttpSession session){
         ResponseEntity responseEntity = new ResponseEntity();
         try {
             getService().insert(t);
@@ -87,7 +87,9 @@ public abstract class BaseController<T> {
 
     @GetMapping("page")
     @ResponseBody
-    public ResponseEntity pageList(@RequestParam("page") Integer page, @RequestParam("rows")Integer rows){
+    public ResponseEntity pageList(@RequestParam("page") Integer page,
+                                   @RequestParam("rows")Integer rows
+                                   ,HttpSession session){
         ResponseEntity responseEntity = new ResponseEntity();
         try {
             PageHelper.startPage(page,rows);
