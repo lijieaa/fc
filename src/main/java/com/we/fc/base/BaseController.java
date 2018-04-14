@@ -101,7 +101,7 @@ public abstract class BaseController<T> {
         ResponseEntity responseEntity = new ResponseEntity();
         try {
             PageHelper.startPage(page,rows);
-            List<T> list = getService().selectAll();
+            List<T> list = getService().selectAll(t);
             PageInfo pageInfo = new PageInfo(list);
             responseEntity.setData(Arrays.asList(pageInfo));
             return responseEntity;
