@@ -41,4 +41,17 @@ public class IntermediaryController extends BaseController<Intermediary> {
         return "intermediary/index";
     }
 
+
+    @GetMapping("queryPage")
+    @ResponseBody
+    public ResponseEntity pageList(@RequestParam("page") Integer page, @RequestParam("rows") Integer rows,@RequestParam(required = false)String name,
+                                   @RequestParam(required = false)String area,@RequestParam(required = false)String contact,@RequestParam(required = false)String tel) {
+        ResponseEntity responseEntity = new ResponseEntity();
+       PageHelper.startPage(page,rows);
+        List<Intermediary> list = service.queryPage(name, area, contact, tel);
+        PageInfo pageInfo = new PageInfo(list);
+        responseEntity.setData(Arrays.asList(pageInfo));
+        return responseEntity;
+    }
+
 }
