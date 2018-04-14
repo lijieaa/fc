@@ -26,6 +26,9 @@
 
     <select id="selectAll" resultMap="wxUserDetailMap">
         SELECT * FROM wx_user_detail WHERE company_id = #{company.id}
+        <if test="nickname != null and nickname !=''">
+            and nickname LIKE CONTACT('%',#{nickname},'%')
+        </if>
     </select>
 
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
