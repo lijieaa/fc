@@ -17,9 +17,6 @@ public class Dept extends BaseEntity {
     // 部门名称
     private String name;
 
-    // 所属公司
-    private Company company;
-
     // 部门成员
     private List<User> users;
 
@@ -55,14 +52,6 @@ public class Dept extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
     }
 
     public List<User> getUsers() {

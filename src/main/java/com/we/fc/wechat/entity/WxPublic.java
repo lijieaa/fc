@@ -1,6 +1,7 @@
 package com.we.fc.wechat.entity;
 
 import com.we.fc.base.BaseEntity;
+import com.we.fc.company.entity.Company;
 
 /**
  * @author zdc

@@ -17,6 +17,6 @@ public interface BaseDao<T> {
 
     T selectByPrimaryKey(Integer id);
 
-    List<T> selectAll();
+    List<T> selectAll(T t);
 
 }

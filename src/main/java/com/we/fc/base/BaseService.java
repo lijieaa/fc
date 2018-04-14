@@ -16,5 +16,5 @@ public interface BaseService<T> {
 
     T selectByPrimaryKey(Integer id);
 
-    List<T> selectAll();
+    List<T> selectAll(T t);
 }

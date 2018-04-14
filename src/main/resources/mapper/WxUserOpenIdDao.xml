@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.we.fc.wechat.dao.WxUserOpenIdDao">
+
+    <resultMap id="wxUserOpenIdMap" type="WxUserOpenId">
+        <id property="id" column="openid_id"></id>
+        <result property="openId" column="openid"></result>
+        <result property="wxPublic.id" column="public_id"></result>
+    </resultMap>
+
+    <insert id="batchInsert">
+        INSERT INTO wx_user_openid(openid, public_id)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.openId},#{item.wxPublic.id})
+        </foreach>
+    </insert>
+</mapper>

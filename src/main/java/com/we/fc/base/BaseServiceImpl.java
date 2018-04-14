@@ -32,7 +32,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
-    public List<T> selectAll() {
-        return getDao().selectAll();
+    public List<T> selectAll(T t) {
+        return getDao().selectAll(t);
     }
 }
