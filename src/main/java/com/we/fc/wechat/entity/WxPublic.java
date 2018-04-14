@@ -1,6 +1,7 @@
 package com.we.fc.wechat.entity;
 
 import com.we.fc.base.BaseEntity;
+import com.we.fc.company.entity.Company;
 
 /**
  * @author zdc
@@ -18,6 +19,17 @@ public class WxPublic extends BaseEntity {
     private String appSecret;
 
     private String publicEmail;
+
+    private Company company;
+
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
     public String getPublicName() {
         return publicName;

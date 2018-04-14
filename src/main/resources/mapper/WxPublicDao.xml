@@ -11,6 +11,7 @@
         <result property="appId" column="app_id"></result>
         <result property="appSecret" column="app_secret"></result>
         <result property="publicEmail" column="public_email"></result>
+        <result property="company.id" column="company_id"></result>
         <result property="createTime" column="wx_public_create_time"></result>
         <result property="updateTime" column="wx_public_update_time"></result>
     </resultMap>
