@@ -4,6 +4,7 @@ package com.we.fc.base;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import com.we.fc.company.entity.Company;
 import com.we.fc.menu.entity.Menu;
 import com.we.fc.menu.service.MenuService;
 import com.we.fc.unit.ResponseEntity;
@@ -21,7 +22,7 @@ import java.util.List;
  * @since 2018-03-31 23:52
  */
 
-public abstract class BaseController<T> {
+public abstract class BaseController<T extends BaseEntity> {
 
     public abstract BaseService<T> getService();
 
@@ -101,6 +102,7 @@ public abstract class BaseController<T> {
         ResponseEntity responseEntity = new ResponseEntity();
         try {
             PageHelper.startPage(page,rows);
+            t.setCompany(getSelf(session).getCompany());
             List<T> list = getService().selectAll(t);
             PageInfo pageInfo = new PageInfo(list);
             responseEntity.setData(Arrays.asList(pageInfo));
