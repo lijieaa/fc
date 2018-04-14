@@ -14,5 +14,6 @@
         <typeAlias type="com.we.fc.role.entity.Role" alias="Role"></typeAlias>
         <typeAlias type="com.we.fc.dept.entity.Dept" alias="Dept"></typeAlias>
         <typeAlias type="com.we.fc.wechat.entity.WxPublic" alias="WxPublic"></typeAlias>
+        <typeAlias type="com.we.fc.wechat.entity.WxUserOpenId" alias="WxUserOpenId"></typeAlias>
     </typeAliases>
 </configuration>

@@ -3,11 +3,13 @@ package com.we.fc.base;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.we.fc.menu.entity.Menu;
 import com.we.fc.menu.service.MenuService;
 import com.we.fc.unit.ResponseEntity;
 import com.we.fc.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -77,10 +79,15 @@ public abstract class BaseController<T> {
         try {
             getService().insert(t);
             return responseEntity;
-        } catch (Exception e) {
+        } catch (DuplicateKeyException e) {
             e.printStackTrace();
             responseEntity.setStatus("500");
-            responseEntity.setMessages("添加失败");
+            responseEntity.setMessages("已存在的实体");
+            return responseEntity;
+        } catch (Exception e){
+            e.printStackTrace();
+            responseEntity.setStatus("500");
+            responseEntity.setMessages(e.getMessage());
             return responseEntity;
         }
     }

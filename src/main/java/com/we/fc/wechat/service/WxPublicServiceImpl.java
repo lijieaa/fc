@@ -4,11 +4,20 @@ import com.we.fc.base.BaseDao;
 import com.we.fc.base.BaseServiceImpl;
 import com.we.fc.exception.AccessTokenException;
 import com.we.fc.wechat.api.AccessTokenHandler;
+import com.we.fc.wechat.api.WxApiHandler;
+import com.we.fc.wechat.api.response.OpenIdResponse;
 import com.we.fc.wechat.dao.WxPublicDao;
+import com.we.fc.wechat.dao.WxUserOpenIdDao;
 import com.we.fc.wechat.entity.WxPublic;
+import com.we.fc.wechat.entity.WxUserOpenId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author zdc
@@ -20,6 +29,12 @@ public class WxPublicServiceImpl extends BaseServiceImpl<WxPublic> implements Wx
 
     @Autowired private WxPublicDao wxPublicDao;
 
+    @Autowired private StringRedisTemplate stringRedisTemplate;
+
+    @Autowired private WxApiHandler wxApiHandler;
+
+    @Autowired private WxUserOpenIdDao wxUserOpenIdDao;
+
     @Override
     public BaseDao<WxPublic> getDao() {
         return wxPublicDao;
@@ -29,13 +44,26 @@ public class WxPublicServiceImpl extends BaseServiceImpl<WxPublic> implements Wx
     public void insert(WxPublic wxPublic) throws Exception {
 
         // 验证是否能正确获取access_token
+        String accessToken = null;
         try {
-            AccessTokenHandler.getAccessToken(wxPublic.getAppId(), wxPublic.getAppSecret());
-        } catch (AccessTokenException e) {
-            e.printStackTrace();
-        }
+            accessToken = AccessTokenHandler.getAccessToken(wxPublic.getAppId(), wxPublic.getAppSecret());
+            stringRedisTemplate
+                    .opsForValue()
+                    .set(wxPublic.getCompany().getId().toString(), accessToken,7200L, TimeUnit.SECONDS);
+            super.insert(wxPublic);
+            //查询公从号的订阅用户的OPENID
+            OpenIdResponse response = wxApiHandler.loadUserOpenId(accessToken);
+            List<WxUserOpenId> list = new ArrayList<>();
+            List<String> openIds = response.getData().getOpenid();
+            for(String openId : openIds){
+                list.add(new WxUserOpenId(openId, wxPublic));
+            }
+            wxUserOpenIdDao.batchInsert(list);
 
-        super.insert(wxPublic);
+
+        } catch (AccessTokenException e) {
+            throw e;
+        }
 
     }
 }

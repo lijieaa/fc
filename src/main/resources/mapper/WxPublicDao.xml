@@ -20,14 +20,15 @@
         SELECT * FROM wx_public WHERE public _id = #{0}
     </select>
 
-    <insert id="insert">
-        INSERT INTO wx_public(public_name, source_id, app_id, app_secret, public_email)
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO wx_public(public_name, source_id, app_id, app_secret, public_email, company_id)
         VALUES (
           #{publicName},
           #{sourceId},
           #{appId},
           #{appSecret},
-          #{publicEmail}
+          #{publicEmail},
+          #{company.id}
         )
     </insert>
 </mapper>
