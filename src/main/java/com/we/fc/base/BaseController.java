@@ -95,8 +95,9 @@ public abstract class BaseController<T> {
     @GetMapping("page")
     @ResponseBody
     public ResponseEntity pageList(@RequestParam("page") Integer page,
-                                   @RequestParam("rows")Integer rows
-                                   ,HttpSession session){
+                                   @RequestParam("rows")Integer rows,
+                                   T t,
+                                   HttpSession session){
         ResponseEntity responseEntity = new ResponseEntity();
         try {
             PageHelper.startPage(page,rows);

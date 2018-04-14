@@ -17,7 +17,10 @@
     </resultMap>
 
     <select id="selectAll" resultMap="wxPublicMap">
-        SELECT * FROM wx_public
+        SELECT * FROM wx_public WHERE 1=1
+        <if test="publicName != null and publicName != ''">
+            and public_name LIKE CONTACT('%',#{publicName}, '%')
+        </if>
     </select>
 
     <select id="selectByPrimaryKey" resultMap="wxPublicMap">
