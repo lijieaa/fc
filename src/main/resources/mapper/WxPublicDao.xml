@@ -16,6 +16,10 @@
         <result property="updateTime" column="wx_public_update_time"></result>
     </resultMap>
 
+    <select id="selectAll" resultMap="wxPublicMap">
+        SELECT * FROM wx_public
+    </select>
+
     <select id="selectByPrimaryKey" resultMap="wxPublicMap">
         SELECT * FROM wx_public WHERE public _id = #{0}
     </select>
