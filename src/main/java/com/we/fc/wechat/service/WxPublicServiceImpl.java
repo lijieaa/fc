@@ -63,6 +63,7 @@ public class WxPublicServiceImpl extends BaseServiceImpl<WxPublic> implements Wx
                 list.add(new WxUserOpenId(openId, wxPublic));
                 WxUserDetail wxUserDetail = wxApiHandler.loadUserDetail(accessToken, openId);
                 wxUserDetail.setWxPublic(wxPublic);
+                wxUserDetail.setCompany(wxPublic.getCompany());
                 wxUserDetailDao.insert(wxUserDetail);
             }
             wxUserOpenIdDao.batchInsert(list);

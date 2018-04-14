@@ -21,7 +21,12 @@
         <result property="groupid" column="groupid"></result>
         <result property="subscribe_scene" column="subscribe_scene"></result>
         <result property="wxPublic.id" column="public_id"></result>
+        <result property="company.id" column="company_id"></result>
     </resultMap>
+
+    <select id="selectAll" resultMap="wxUserDetailMap">
+
+    </select>
 
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO
@@ -40,7 +45,8 @@
           remark,
           groupid,
           subscribe_scene,
-          public_id
+          public_id,
+          company_id
         ) VALUES (
           #{subscribe},
           #{openid},
@@ -56,7 +62,8 @@
           #{remark},
           #{groupid},
           #{subscribe_scene},
-          #{wxPublic.id}
+          #{wxPublic.id},
+          #{company.id}
         )
     </insert>
 </mapper>

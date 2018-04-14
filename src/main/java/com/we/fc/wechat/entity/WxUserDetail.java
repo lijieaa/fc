@@ -1,6 +1,7 @@
 package com.we.fc.wechat.entity;
 
 import com.we.fc.base.BaseEntity;
+import com.we.fc.company.entity.Company;
 
 /**
  * @author zdc
@@ -38,6 +39,16 @@ public class WxUserDetail extends BaseEntity {
     private String subscribe_scene;
 
     private WxPublic wxPublic;
+
+    private Company company;
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
     public Integer getSubscribe() {
         return subscribe;
