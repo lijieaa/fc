@@ -129,7 +129,7 @@ $(document).ready(function() {
                         _this.treeIsShow = false;
                     }
                     function getUrl(treeId, treeNode){
-                        return contextPath +"/area/condition?level="+parseInt(treeNode.level+2)+"&parent="+parseInt(treeNode.id);
+                        return contextPath +"area/condition?level="+parseInt(treeNode.level+2)+"&parent="+parseInt(treeNode.id);
                     }
                     function beforeExpand(treeId, treeNode) {
                         if (!treeNode.isAjaxing) {
@@ -167,7 +167,7 @@ $(document).ready(function() {
 
             _this.editorFun(); //初始化生成编辑器
             _this.uploaderFun();  //上传图片
-            $.axspost(contextPath+"/area/condition?level=1","get","",function(data){
+            $.axspost(contextPath + "area/condition?level=1","get","",function(data){
                 _this.facList = data.data;
                 _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
             },function (data) {

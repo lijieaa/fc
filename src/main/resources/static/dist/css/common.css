@@ -16,6 +16,9 @@ html,body{
 .text-align-right{
     text-align: right;
 }
+.text-align-left{
+    text-align: left;
+}
 .display-block{
     display: inline-block;
 }
