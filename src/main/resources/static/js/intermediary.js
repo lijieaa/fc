@@ -16,12 +16,12 @@ $(document).ready(function() {
                 {val:3,name:"项目二"}
             ],
             facList:[
-                { id:1, pId:0, name:"四川", t:"id=1", open:true},
-                { id:11, pId:1, name:"成都", t:"id=11"},
-                { id:12, pId:1, name:"自贡", t:"id=12"},
-                { id:13, pId:1, name:"眉山", t:"id=13"},
-                { id:14, pId:1, name:"巴中", t:"id=14"},
-                { id:2, pId:0, name:"北京", t:"id=2"}
+                { id:1, pId:0, name:"四川",icon:"/images/parent.png", open:true},
+                { id:11, pId:1, name:"成都",icon:"/images/leaf.png"},
+                { id:12, pId:1, name:"自贡",icon:"/images/leaf.png"},
+                { id:13, pId:1, name:"眉山",icon:"/images/leaf.png"},
+                { id:14, pId:1, name:"巴中", icon:"/images/leaf.png"},
+                { id:2, pId:0, name:"北京", icon:"/images/leaf.png"}
             ],
             treeIsShow:false
         },
@@ -87,7 +87,8 @@ $(document).ready(function() {
 
 
             },
-            treeShow:function(){
+            treeShow:function(e){
+                // e.stopPropagation()
                 var _this = this;
                 _this.treeIsShow = true;
             },
@@ -138,7 +139,10 @@ $(document).ready(function() {
             $(document).on("click","#detail",function(){
                 window.location.href = "detail?menuId=4";
             });
-
+            $(document).bind("click",function(){
+                // _this.treeIsShow = false;
+                // console.log( _this.treeIsShow);
+            });
 
             _this.editorFun(); //初始化生成编辑器
             _this.uploaderFun();  //上传图片
