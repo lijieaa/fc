@@ -119,7 +119,7 @@ public abstract class BaseController<T extends BaseEntity> {
     @ResponseBody
     public ResponseEntity all(@RequestBody(required = false) T t, HttpSession session){
         ResponseEntity responseEntity = new ResponseEntity();
-        t.setCompany(getSelf(session).getCompany());
+        if(t != null) t.setCompany(getSelf(session).getCompany());
         responseEntity.setData(getService().selectAll(t));
         return responseEntity;
     }
