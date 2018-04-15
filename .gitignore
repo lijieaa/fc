@@ -5,3 +5,4 @@ target
 *.class
 fc.iml
 .gitignore
+src/main/resources/mybatis-generator/generatorConfig.xml

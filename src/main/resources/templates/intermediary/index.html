@@ -13,7 +13,7 @@
   }
   .modal-body .label-pop-style {
       position: relative;
-      width: 92px;
+      width: 74px;
       margin-right: 4px;
   }
   .modal-body {
@@ -39,13 +39,16 @@
   #treeDemo{
     position: absolute;
     width: 60%;
-    left: 33%;
+    left: 82px;
     background: #fff;
     outline: 1px solid #3c8dbc;
     z-index: 3;
   }
   #editor1{
     resize: none;
+  }
+  .modal-body .col-md-6{
+    padding: 0!important;
   }
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -132,7 +135,7 @@
           </div>
         </div>
         <div class="row modal-body margin-top-15">
-          <div class="col-md-6 col-xs-6">
+          <div class="col-md-6 col-sm-12 col-xs-12">
             <div class="pop-box margin-top-15">
               <label for="" class="label-pop-style text-align-right">中间商名称:</label>
               <input type="text" class="form-control form-style-pop">
@@ -146,8 +149,8 @@
               <input type="text" class="form-control form-style-pop">
             </div>
           </div>
-          <div class="col-md-6 col-xs-6">
-            <div class="pop-box margin-top-15">
+          <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="pop-box margin-top-15 positon-relative">
               <label for="" class="label-pop-style text-align-right">所属地区:</label>
               <input type="text" class="form-control form-style-pop" id="address"  @blur="treeHide"  @focus="treeShow">
               <ul id="treeDemo" class="ztree"  v-show="treeIsShow"></ul>

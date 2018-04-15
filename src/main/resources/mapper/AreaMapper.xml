@@ -72,4 +72,9 @@
     select ID, PARENT_ID, `NAME`, SHORT_NAME, LONGITUDE, LATITUDE, `LEVEL`, SORT, `STATUS`
     from area
   </select>
+
+  <select id="findByLP" resultMap="BaseResultMap">
+    SELECT * FROM area WHERE level = #{level}
+    <if test="parent !=null"> and parent_id = #{parent}</if>
+  </select>
 </mapper>
