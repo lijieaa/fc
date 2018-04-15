@@ -10,14 +10,133 @@
 <div class="wrapper">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                项目管理
-            </h1>
+        <section class="content-header change-content">
+            <div class="row">
+                <div class="col-md-10 col-sm-10  col-xs-12">
+                    <div class="form-group float-left">
+                        <span class="font-size-18">供应商详情</span>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-2  col-xs-12">
+                    <!--<button type="button" class="btn btn-block btn-info">添加设备</button>-->
+                    <button type="button" class="btn btn-info btn-block"
+                            data-toggle="modal" data-target="#modal-info" @click="backIndex">
+                        返回
+                    </button>
+                </div>
+            </div>
         </section>
+        <section class="content-list">
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12 page-content">
+                        <div class="logo-detail border-black padding-10">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-4 col-xs-6 ">
+                                    <img src="images/timg.jpg" alt="" width="" id="logo">
+                                </div>
+                                <div class="col-md-6 col-sm-8 col-xs-6 ">
+                                    <div>
+                                        <label for="">中间商名称</label>
+                                        <span>中间商xxxxxxx公司</span>
+                                    </div>
+                                    <div>
+                                        <label for="">所属地区：</label>
+                                        <span>安徽省</span>
+                                    </div>
+                                    <div>
+                                        <label for="">联系人</label>
+                                        <span>张三</span>
+                                    </div>
+                                    <div>
+                                        <label for="">联系方式</label>
+                                        <span>139xxxxxxxx</span>
+                                    </div>
+                                    <div>
+                                        <label for="">平台对接人</label>
+                                        <span>张三</span>
+                                    </div>
+                                    <div>
+                                        <label for="">联系电话</label>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row padding-10">
+                            <div class="col-md-12 padding-left-15">
+                                图片资料
+                            </div>
+                            <div class="col-md-12 company-content padding-left-15">
+                                中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息
+                                中间商简要信息中间商
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 company-right-content">
+                        <div class="row head">
+                            <div class="col-md-7 height-35 col-xs-7 padding-left-15 back-gainsboro">
+                                中间商跟进
+                            </div>
+                            <div class="col-md-5 col-xs-5 back-gainsboro text-right padding-right-25">
+                                <button type="button" class="btn  btn-default ">新增改进</button>
 
-        <!-- /.content -->
+                            </div>
+                        </div>
+                        <div class="border-left-black">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="direct-chat-msg right padding-left-15">
+                                        <div class="direct-chat-text ">
+                                            <div>
+                                                <label>图文名称</label>
+                                                <span>XXXXXXXXXX</span>
+                                            </div>
+                                            <div>
+                                                <label>图文信息</label>
+                                                <span>XXXXXXXXXX</span>
+                                            </div>
+                                            <div>
+                                                <label>时间</label>
+                                                <span>2015-09-23</span>
+                                            </div>
+                                            <div>
+                                                <label>时间</label>
+                                                <span>2015-09-23</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="direct-chat-msg right padding-left-15">
+                                        <div class="direct-chat-text ">
+                                            <div>
+                                                <label>图文名称</label>
+                                                <span>XXXXXXXXXX</span>
+                                            </div>
+                                            <div>
+                                                <label>图文信息</label>
+                                                <span>XXXXXXXXXX</span>
+                                            </div>
+                                            <div>
+                                                <label>时间</label>
+                                                <span>2015-09-23</span>
+                                            </div>
+                                            <div>
+                                                <label>时间</label>
+                                                <span>2015-09-23</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </div>
 <div th:replace="import::scipt"></div>
