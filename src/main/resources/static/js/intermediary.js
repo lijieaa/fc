@@ -27,9 +27,14 @@ $(document).ready(function() {
         },
         methods:{
             redirectMediary:function(){
+                var _this = this;
                 $("#mediaryList").hide();
                 $("#mediaryAddEdit").show();
                 _this.companyName = "新增中间商";
+            },
+            backMediary:function(){
+                $("#mediaryList").show();
+                $("#mediaryAddEdit").hide();
             },
             closePop:function(){
                 $("#modal-default").removeClass("in").css("display","none")
@@ -71,13 +76,10 @@ $(document).ready(function() {
                 uploader.on( 'fileQueued', function( file ) {
                     var $li = $(
                         '<div id="' + file.id + '" class="file-item thumbnail">' +
-                        '<img>' +
-                        '<div class="info">' + file.name + '</div>' +
-                        '</div>'
+                        '<img></div>'
                     );
                     $("#fileList").html($li);
                     uploader.makeThumb(file, function (error, src) {
-                        console.log(src);
                         $("img").attr("src",src);
                         $("#fileList").addClass("active");
                     });
@@ -133,14 +135,10 @@ $(document).ready(function() {
                 $("#mediaryAddEdit").show();
             });
 
-            $(document).on("click","#log",function(){
-                window.location.href = "log?menuId=1";
+            $(document).on("click","#detail",function(){
+                window.location.href = "detail?menuId=4";
             });
 
-            //
-            $(document).on("click","#control",function(){
-                window.location.href = "control?menuId=1";
-            });
 
             _this.editorFun(); //初始化生成编辑器
             _this.uploaderFun();  //上传图片
