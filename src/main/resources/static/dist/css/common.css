@@ -118,14 +118,20 @@ div.dataTables_wrapper div.dataTables_paginate{
 }
 .ztree li span.button.ico_open{
     margin-right: 5px;
+    background-position: -167px -41px!important;
 }
 .ztree li a{
     height: 20px!important;
 }
-.ztree li a.curSelectedNode{
+.ztree li a.curSelectedNode {
     border: 1px #d1d1d1 solid;
     background: #fff;
-
+}
+.ztree li span.button.ico_close {
+    background-position: -167px -41px!important;
+}
+.ztree li span.button.ico_docu {
+    background-position: -167px -41px!important;
 }
 .ztree li a:hover{
     text-decoration: none!important;

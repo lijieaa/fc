@@ -15,14 +15,7 @@ $(document).ready(function() {
                 {val:2,name:"成都龙泉"},
                 {val:3,name:"项目二"}
             ],
-            facList:[
-                { id:1, pId:0, name:"四川",icon:"/images/parent.png", open:true},
-                { id:11, pId:1, name:"成都",icon:"/images/leaf.png"},
-                { id:12, pId:1, name:"自贡",icon:"/images/leaf.png"},
-                { id:13, pId:1, name:"眉山",icon:"/images/leaf.png"},
-                { id:14, pId:1, name:"巴中", icon:"/images/leaf.png"},
-                { id:2, pId:0, name:"北京", icon:"/images/leaf.png"}
-            ],
+            facList:[],
             treeIsShow:false
         },
         methods:{
@@ -101,13 +94,21 @@ $(document).ready(function() {
                 return {
                     useTree : function(ele,zNodes,inputEle){
                     var setting = {
+                        async: {
+                            enable: true,
+                            url: getUrl,
+                            type: "get"
+                        },
                         data: {
                             simpleData: {
                                 enable: true
                             }
                         },
                         callback: {
-                            beforeClick: zTreeBeforeClick
+                            // beforeClick: zTreeBeforeClick,
+                            onClick:zTreeOnclick,
+                            beforeExpand: beforeExpand
+                            // onAsyncSuccess:onAsyncSuccess
                         },
                         view: {
                             fontCss: getFontCss,
@@ -118,9 +119,35 @@ $(document).ready(function() {
                     function getFontCss(treeId, treeNode) {
                         return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
                     }
-                    function zTreeBeforeClick(treeId, treeNode, clickFlag) {
-                        $(inputEle).val(treeNode.name).attr("data-id",treeNode.id);
-                        _this.treeIsShow = false;
+                    function zTreeOnclick(event, treeId, treeNode) {
+                        // $(inputEle).val(treeNode.name).attr("data-id",treeNode.id);
+                        // _this.treeIsShow = false;
+                        // console.log(treeNode);
+                        // $.axspost("/area/condition?level="+parseInt(treeNode.level+2)+"&parent="+parseInt(treeNode.id),"get","",function(data){
+                            // _this.facList = data.data;
+                            // _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");
+                        // });
+                    }
+                    function getUrl(treeId, treeNode){
+
+                        return "/area/condition?level="+parseInt(treeNode.level+2)+"&parent="+parseInt(treeNode.id);
+                    }
+                    function beforeExpand(treeId, treeNode) {
+                        console.log(treeNode);
+
+                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                        // var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                        // var nodes = treeObj.getNodes();
+                        // console.log(nodes[0]);
+                        treeObj.updateNode(nodes[0]);
+                        treeObj.reAsyncChildNodes(nodes[0], "refresh");
+                        // zTree.reAsyncChildNodes(treeNode, reloadType, true);
+
+
+                        // if (!treeNode.isAjaxing) {
+                        // } else {
+                        //
+                        // }
                     }
                     $.fn.zTree.init(ele, setting, zNodes);
                 }
@@ -146,7 +173,13 @@ $(document).ready(function() {
 
             _this.editorFun(); //初始化生成编辑器
             _this.uploaderFun();  //上传图片
-            _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");
+            $.axspost("/area/condition?level=1","get","",function(data){
+                _this.facList = data.data;
+                _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");
+            },function (data) {
+
+            });
+
         }
     });
     $('#deviceForm').DataTable( {
