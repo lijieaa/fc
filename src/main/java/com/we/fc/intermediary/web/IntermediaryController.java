@@ -1,7 +1,5 @@
 package com.we.fc.intermediary.web;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.we.fc.base.BaseController;
 import com.we.fc.base.BaseService;
 import com.we.fc.intermediary.entity.Intermediary;
@@ -25,7 +23,7 @@ public class IntermediaryController extends BaseController<Intermediary> {
 
     @GetMapping("detail")
     public String IntermediaryDetail(){
-        return "IntermediaryDetail";
+        return "intermediary/detail";
     }
 
     @Override
