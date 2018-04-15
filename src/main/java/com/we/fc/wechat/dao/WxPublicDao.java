@@ -10,4 +10,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface WxPublicDao extends BaseDao<WxPublic> {
+
+    WxPublic findByCompanyId(Integer companyId);
 }

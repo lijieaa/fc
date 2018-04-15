@@ -37,7 +37,8 @@
         $("#add-gzh").click(function () {
             $('#myModal').modal();
         });
-        $(".chat-type span").click(function () {
+     //聊天点击点击跳转不同弹窗
+        $(".chat-type>span").click(function () {
             var data_id=$(this).attr("data-id");
             if(data_id==2){
                 $("#textInput").focus();
@@ -45,17 +46,44 @@
                 $('#sourceRoom').modal();
                 if(data_id==1){
                     $("#mySource").text("选择素材");
-                    $("#new-source").text("新建图文消息");
+                    $(".new-source").text("新建图文消息").attr("data-id","1");
                 }else if(data_id==3){
                     $("#mySource").text("选择图片");
-                    $("#new-source").text("上传图片");
+                    $(".new-source").text("上传图片").attr("data-id","2");
                 }else if(data_id==4){
                     $("#mySource").text("选择语音");
-                    $("#new-source").text("上传语音");
+                    $(".new-source").text("上传语音").attr("data-id","3");
                 }else if(data_id==5){
                     $("#mySource").text("选择视频");
-                    $("#new-source").text("上传视频");
+                    $(".new-source").text("上传视频").attr("data-id","4");
                 }
             }
         })
+     $(".new-source").click(function () {
+         var cliText=$(this).attr("data-id");
+         $("#gzh-index").hide();
+         $("#gzh-manage").hide();
+         $("#source-bulid").show();
+         $("#sourceRoom").modal("hide");
+         if(cliText=="1"){
+             $(".gzh-source-type a:eq(0)").addClass("cli-color").siblings().removeClass("cli-color");
+             $(".new-type-name").text("图文消息");
+             $(".btn-new-check").text("新建图文素材");
+         }
+         if(cliText=="2"){
+             $(".gzh-source-type a:eq(1)").addClass("cli-color").siblings().removeClass("cli-color");
+             $(".new-type-name").text("图片");
+             $(".btn-new-check").text("上传");
+         }
+         if(cliText=="3"){
+             $(".gzh-source-type a:eq(2)").addClass("cli-color").siblings().removeClass("cli-color");
+             $(".new-type-name").text("语音");
+             $(".btn-new-check").text("添加");
+         }
+         if(cliText=="4"){
+             $(".gzh-source-type a:eq(3)").addClass("cli-color").siblings().removeClass("cli-color");
+             $(".new-type-name").text("视频");
+             $(".btn-new-check").text("添加");
+         }
+     })
     } );
