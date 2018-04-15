@@ -96,7 +96,8 @@ $(document).ready(function() {
                     var setting = {
                         async: {
                             enable: true,
-                             url: getUrl
+                            url: getUrl,
+                            type: "get"
                         },
                         data: {
                             simpleData: {
@@ -105,7 +106,9 @@ $(document).ready(function() {
                         },
                         callback: {
                             // beforeClick: zTreeBeforeClick,
-                            onClick:zTreeOnclick
+                            onClick:zTreeOnclick,
+                            beforeExpand: beforeExpand
+                            // onAsyncSuccess:onAsyncSuccess
                         },
                         view: {
                             fontCss: getFontCss,
@@ -126,7 +129,25 @@ $(document).ready(function() {
                         // });
                     }
                     function getUrl(treeId, treeNode){
-                        console.log(treeId, treeNode)
+
+                        return "/area/condition?level="+parseInt(treeNode.level+2)+"&parent="+parseInt(treeNode.id);
+                    }
+                    function beforeExpand(treeId, treeNode) {
+                        console.log(treeNode);
+
+                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                        // var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                        // var nodes = treeObj.getNodes();
+                        // console.log(nodes[0]);
+                        treeObj.updateNode(nodes[0]);
+                        treeObj.reAsyncChildNodes(nodes[0], "refresh");
+                        // zTree.reAsyncChildNodes(treeNode, reloadType, true);
+
+
+                        // if (!treeNode.isAjaxing) {
+                        // } else {
+                        //
+                        // }
                     }
                     $.fn.zTree.init(ele, setting, zNodes);
                 }
