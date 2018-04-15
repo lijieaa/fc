@@ -3,6 +3,7 @@ package com.we.fc.base;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.we.fc.company.entity.Company;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  * @since 2018-03-27 21:53
  */
 
-public class BaseEntity {
+public class BaseEntity implements Serializable{
 
     private Integer id;
 
