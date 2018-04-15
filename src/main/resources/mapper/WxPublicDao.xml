@@ -38,4 +38,8 @@
           #{company.id}
         )
     </insert>
+
+    <select id="findByCompanyId" resultMap="wxPublicMap">
+        SELECT * FROM wx_public WHERE company_id = #{0}
+    </select>
 </mapper>
