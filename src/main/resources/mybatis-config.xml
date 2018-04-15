@@ -16,5 +16,6 @@
         <typeAlias type="com.we.fc.wechat.entity.WxPublic" alias="WxPublic"></typeAlias>
         <typeAlias type="com.we.fc.wechat.entity.WxUserOpenId" alias="WxUserOpenId"></typeAlias>
         <typeAlias type="com.we.fc.wechat.entity.WxUserDetail" alias="WxUserDetail"></typeAlias>
+        <typeAlias type="com.we.fc.wechat.entity.WxMessage" alias="WxMessage"></typeAlias>
     </typeAliases>
 </configuration>
