@@ -10,6 +10,7 @@ $(document).ready(function() {
         data:{
             companyName:"新增中间商",
             selected:"3",
+            address:"",
             projectList:[
                 {val:1,name:"成都华西"},
                 {val:2,name:"成都龙泉"},
@@ -97,7 +98,8 @@ $(document).ready(function() {
                         async: {
                             enable: true,
                             url: getUrl,
-                            type: "get"
+                            type: "get",
+                            dataFilter: ajaxDataFilter
                         },
                         data: {
                             simpleData: {
@@ -105,10 +107,9 @@ $(document).ready(function() {
                             }
                         },
                         callback: {
-                            // beforeClick: zTreeBeforeClick,
                             onClick:zTreeOnclick,
-                            beforeExpand: beforeExpand
-                            // onAsyncSuccess:onAsyncSuccess
+                            beforeExpand: beforeExpand,
+                            onAsyncSuccess:onAsyncSuccess
                         },
                         view: {
                             fontCss: getFontCss,
@@ -119,35 +120,28 @@ $(document).ready(function() {
                     function getFontCss(treeId, treeNode) {
                         return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
                     }
+                    //异步加载返回的数据
+                    function ajaxDataFilter(treeId, parentNode, responseData) {
+                        return responseData.data;
+                    }
                     function zTreeOnclick(event, treeId, treeNode) {
-                        // $(inputEle).val(treeNode.name).attr("data-id",treeNode.id);
-                        // _this.treeIsShow = false;
-                        // console.log(treeNode);
-                        // $.axspost("/area/condition?level="+parseInt(treeNode.level+2)+"&parent="+parseInt(treeNode.id),"get","",function(data){
-                            // _this.facList = data.data;
-                            // _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");
-                        // });
+                        _this.address = treeNode.name;
+                        _this.treeIsShow = false;
                     }
                     function getUrl(treeId, treeNode){
-
-                        return "/area/condition?level="+parseInt(treeNode.level+2)+"&parent="+parseInt(treeNode.id);
+                        return contextPath +"/area/condition?level="+parseInt(treeNode.level+2)+"&parent="+parseInt(treeNode.id);
                     }
                     function beforeExpand(treeId, treeNode) {
-                        console.log(treeNode);
-
+                        if (!treeNode.isAjaxing) {
+                            return true;
+                        } else {
+                            alert("zTree 正在下载数据中，请稍后展开节点。。。");
+                            return false;
+                        }
+                    }
+                    function onAsyncSuccess(event, treeId, treeNode, msg) {
                         var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-                        // var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-                        // var nodes = treeObj.getNodes();
-                        // console.log(nodes[0]);
-                        treeObj.updateNode(nodes[0]);
-                        treeObj.reAsyncChildNodes(nodes[0], "refresh");
-                        // zTree.reAsyncChildNodes(treeNode, reloadType, true);
-
-
-                        // if (!treeNode.isAjaxing) {
-                        // } else {
-                        //
-                        // }
+                        treeObj.updateNode(treeNode);
                     }
                     $.fn.zTree.init(ele, setting, zNodes);
                 }
@@ -173,9 +167,9 @@ $(document).ready(function() {
 
             _this.editorFun(); //初始化生成编辑器
             _this.uploaderFun();  //上传图片
-            $.axspost("/area/condition?level=1","get","",function(data){
+            $.axspost(contextPath+"/area/condition?level=1","get","",function(data){
                 _this.facList = data.data;
-                _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");
+                _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
             },function (data) {
 
             });

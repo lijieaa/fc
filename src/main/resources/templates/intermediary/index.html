@@ -154,7 +154,7 @@
           <div class="col-md-6 col-sm-12 col-xs-12">
             <div class="pop-box margin-top-15 positon-relative">
               <label for="" class="label-pop-style text-align-right">所属地区:</label>
-              <input type="text" class="form-control form-style-pop" id="address"  @blur="treeHide"  @focus="treeShow">
+              <input type="text" class="form-control form-style-pop" id="address" v-model="address"  @blur="treeHide"  @focus="treeShow">
               <ul id="treeDemo" class="ztree"  v-show="treeIsShow"></ul>
             </div>
             <div class="pop-box margin-top-15">
