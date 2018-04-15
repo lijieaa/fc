@@ -26,6 +26,11 @@ public class AreaController {
     public ResponseEntity findByLP(@RequestParam Integer level,@RequestParam(required = false)Integer parent){
         ResponseEntity responseEntity = new ResponseEntity();
         List<Area>  areas = dao.findByLP(level, parent);
+        if(level.intValue()==1){
+            for (Area area:areas){
+                area.setIsParent(true);
+            }
+        }
         responseEntity.setData(areas);
         return responseEntity;
     }

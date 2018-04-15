@@ -1,8 +1,10 @@
-package com.we.fc.device.we;
+package com.we.fc.device.controller;
 
 import com.we.fc.base.BaseController;
 import com.we.fc.base.BaseService;
 import com.we.fc.device.entity.Device;
+import com.we.fc.device.service.DeviceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +20,12 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("device")
 public class DeviceController extends BaseController<Device> {
 
+    @Autowired
+    DeviceService service;
+
     @Override
     public BaseService<Device> getService() {
-        return null;
+        return service;
     }
 
     @GetMapping("index")
@@ -38,4 +43,5 @@ public class DeviceController extends BaseController<Device> {
     public String control(Integer menuId){
         return "device/control";
     }
+
 }
