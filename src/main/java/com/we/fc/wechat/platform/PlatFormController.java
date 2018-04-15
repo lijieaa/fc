@@ -1,9 +1,16 @@
 package com.we.fc.wechat.platform;
 
+import com.we.fc.utils.XmlUtils;
+import com.we.fc.wechat.service.WxMessageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * @author zdc
@@ -13,13 +20,34 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("wx")
 public class PlatFormController {
 
+    @Autowired private WxMessageService wxMessageService;
+
     @GetMapping
     @ResponseBody
     public String valid(Token token){
         if(TokenUtils.checkSignature(token))
             return token.getEchostr();
         else
-            return null;
+            return "";
+    }
+
+    @PostMapping
+    @ResponseBody
+    public String recevieMsg(HttpServletRequest request) throws IOException {
+        InputStream inputStream = request.getInputStream();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+        String c = null;
+        StringBuilder sb = new StringBuilder();
+        while((c = bufferedReader.readLine()) != null){
+            sb.append(c);
+        }
+        try {
+            wxMessageService.insert(XmlUtils.fromXmlString(sb.toString()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("微信消息接收异常："+e.getMessage());
+        }
+        return "";
     }
 
 }
