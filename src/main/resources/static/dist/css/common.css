@@ -10,6 +10,9 @@
 .text-align-right{
     text-align: right;
 }
+.display-block{
+    display: inline-block;
+}
 .width-80{
     width: 80px;
 }
@@ -21,6 +24,9 @@
 }
 .margin-right-4{
     margin-right: 4px;
+}
+.margin-left-10{
+    margin-left: 10px;
 }
 .padding-18{
     padding: 18px 0;
@@ -39,6 +45,17 @@
 }
 .color-red{
     color: red;
+}
+.webuploader-pick{
+    background: #666e95!important;
+}
+.reset-btn{
+    background: #5b6990;
+    color: white;
+}
+.reset-btn:hover{
+    background: #5b6990;
+    color: white;
 }
 /*头部公用的样式*/
 .content-wrapper{
@@ -84,10 +101,8 @@ div.dataTables_wrapper div.dataTables_paginate{
 .modal-body .label-pop-style{
     display: inline-block;
     width: 15%;
-    text-align: left;
 }
 .modal-body .form-style-pop{
     display: inline-block;
     width: 60%;
-    text-indent: 6px;
 }

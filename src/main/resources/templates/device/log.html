@@ -34,7 +34,7 @@
                 <div class="col-md-2 col-sm-2  col-xs-12">
                     <!--<button type="button" class="btn btn-block btn-info">添加设备</button>-->
                     <button type="button" class="btn btn-info btn-block"
-                            data-toggle="modal" data-target="#modal-info" >
+                            data-toggle="modal" data-target="#modal-info" @click="backIndex">
                         返回
                     </button>
                 </div>
@@ -92,9 +92,21 @@
 
             }
         } );
-
-
     } );
+    new Vue({
+        el:"#myDevice",
+        data:{
+        },
+        methods:{
+            backIndex:function(){
+                window.location.href = "index?menuId=1"
+            }
+        },
+        mounted:function(){
+            var _this = this;
+
+        }
+    });
 </script>
 </body>
 </html>

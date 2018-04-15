@@ -11,15 +11,23 @@
   #mediaryAddEdit{
     display: none;
   }
-  .modal-body .label-pop-style{
-    width: 30%;
-    position:relative;
+  .modal-body .label-pop-style {
+      position: relative;
+      width: 92px;
+      margin-right: 4px;
+  }
+  .modal-body {
+      position: relative;
+      outline: 1px solid #ececec;
+      margin-right: 2px;
+      margin-left: -2px;
   }
   #fileList{
-    margin: 0 auto;
     width: 55%;
     min-height: 110px;
-   outline: 1px solid black;
+    outline: 1px solid #ececec;
+    background: #eee;
+
   }
   #fileList img{
     width: 70%;
@@ -107,52 +115,54 @@
         </div>
         <div class="col-md-3 col-sm-3 text-align-right">
           <button type="button" class="btn btn-info padding-right-15"
-                  data-toggle="modal" data-target="#modal-info">返回
+                  data-toggle="modal" data-target="#modal-info" @click="backMediary">返回
           </button>
         </div>
       </div>
     </section>
     <section class="content-list">
       <form action="">
-        <div class="row modal-body">
-          <div class="col-md-4 col-xs-12 text-align">
+        <div class="row">
+          <div class="col-md-12 col-xs-12">
             <div id="uploader-demo">
               <!--用来存放item-->
-              <div id="fileList" class="uploader-list"></div>
-              <div id="filePicker" class="margin-top-6">选择图片</div>
-            </div>
-          </div>
-          <div class="col-md-4 col-xs-6">
-            <div class="pop-box margin-top-15">
-              <label for="" class="label-pop-style ">中间商名称:</label>
-              <input type="text" class="form-style-pop">
-            </div>
-            <div class="pop-box margin-top-15">
-              <label for="" class="label-pop-style ">联系人:</label>
-              <input type="text" class="form-style-pop">
-            </div>
-            <div class="pop-box margin-top-15">
-              <label for="" class="label-pop-style ">联系电话:</label>
-              <input type="text" class="form-style-pop">
-            </div>
-          </div>
-          <div class="col-md-4 col-xs-6">
-            <div class="pop-box margin-top-15">
-              <label for="" class="label-pop-style">所属地区:</label>
-              <input type="text" class="form-style-pop" id="address"  @blur="treeHide"  @focus="treeShow">
-              <ul id="treeDemo" class="ztree"  v-show="treeIsShow"></ul>
-            </div>
-            <div class="pop-box margin-top-15">
-              <label for="" class="label-pop-style ">平台对接人:</label>
-              <input type="text" class="form-style-pop">
-            </div>
-            <div class="pop-box margin-top-15">
-              <label for="" class="label-pop-style ">联系方式:</label>
-              <input type="text" class="form-style-pop">
+              <div id="fileList" class="uploader-list display-block"></div>
+              <div id="filePicker" class="margin-top-6 display-block backgroud-purple margin-left-10">选择图片</div>
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row modal-body margin-top-15">
+          <div class="col-md-6 col-xs-6">
+            <div class="pop-box margin-top-15">
+              <label for="" class="label-pop-style text-align-right">中间商名称:</label>
+              <input type="text" class="form-control form-style-pop">
+            </div>
+            <div class="pop-box margin-top-15">
+              <label for="" class="label-pop-style text-align-right">联系人:</label>
+              <input type="text" class="form-control form-style-pop">
+            </div>
+            <div class="pop-box margin-top-15">
+              <label for="" class="label-pop-style text-align-right">联系电话:</label>
+              <input type="text" class="form-control form-style-pop">
+            </div>
+          </div>
+          <div class="col-md-6 col-xs-6">
+            <div class="pop-box margin-top-15">
+              <label for="" class="label-pop-style text-align-right">所属地区:</label>
+              <input type="text" class="form-control form-style-pop" id="address"  @blur="treeHide"  @focus="treeShow">
+              <ul id="treeDemo" class="ztree"  v-show="treeIsShow"></ul>
+            </div>
+            <div class="pop-box margin-top-15">
+              <label for="" class="label-pop-style text-align-right">平台对接人:</label>
+              <input type="text" class="form-control form-style-pop">
+            </div>
+            <div class="pop-box margin-top-15">
+              <label for="" class="label-pop-style text-align-right">联系方式:</label>
+              <input type="text" class="form-control form-style-pop">
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-15">
           <div class="col-md-12">
             <form>
               <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
@@ -162,7 +172,7 @@
         </div>
         <div class="text-align padding-18">
           <button type="submit" class="btn btn-info search margin-right-4">确定</button>
-          <button type="reset" class="btn btn-info search">重置</button>
+          <button type="reset" class="btn reset-btn search">重置</button>
         </div>
       </form>
     </section>
