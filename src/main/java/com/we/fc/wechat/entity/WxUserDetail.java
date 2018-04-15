@@ -1,6 +1,7 @@
 package com.we.fc.wechat.entity;
 
 import com.we.fc.base.BaseEntity;
+import com.we.fc.company.entity.Company;
 
 /**
  * @author zdc
@@ -34,8 +35,6 @@ public class WxUserDetail extends BaseEntity {
     private String remark;
 
     private Integer groupid;
-
-    private String tagid_list;
 
     private String subscribe_scene;
 
@@ -143,14 +142,6 @@ public class WxUserDetail extends BaseEntity {
 
     public void setGroupid(Integer groupid) {
         this.groupid = groupid;
-    }
-
-    public String getTagid_list() {
-        return tagid_list;
-    }
-
-    public void setTagid_list(String tagid_list) {
-        this.tagid_list = tagid_list;
     }
 
     public String getSubscribe_scene() {

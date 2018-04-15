@@ -6,14 +6,11 @@ import com.we.fc.base.BaseController;
 import com.we.fc.base.BaseService;
 import com.we.fc.intermediary.entity.Intermediary;
 import com.we.fc.intermediary.service.IntermediaryService;
-import com.we.fc.unit.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author zdc

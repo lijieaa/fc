@@ -42,8 +42,6 @@ public class User extends BaseEntity implements UserDetails{
     private String workAddress;
     // 入职时间
     private Date entryTime;
-    //所属公司
-    private Company company;
 
     private Set<Menu> menus;
 
@@ -200,11 +198,4 @@ public class User extends BaseEntity implements UserDetails{
         this.entryTime = entryTime;
     }
 
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
 }

@@ -28,4 +28,9 @@ public class WxUserOpenId extends BaseEntity{
     public void setWxPublic(WxPublic wxPublic) {
         this.wxPublic = wxPublic;
     }
+
+    public WxUserOpenId(String openId, WxPublic wxPublic) {
+        this.openId = openId;
+        this.wxPublic = wxPublic;
+    }
 }

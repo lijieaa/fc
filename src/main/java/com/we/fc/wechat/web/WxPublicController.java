@@ -2,13 +2,15 @@ package com.we.fc.wechat.web;
 
 import com.we.fc.base.BaseController;
 import com.we.fc.base.BaseService;
+import com.we.fc.unit.ResponseEntity;
 import com.we.fc.wechat.entity.WxPublic;
 import com.we.fc.wechat.service.WxPublicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * 公从号Controller
@@ -30,5 +32,13 @@ public class WxPublicController extends BaseController<WxPublic>{
     @Override
     public BaseService<WxPublic> getService() {
         return wxPublicService;
+    }
+
+    @Override
+    @PostMapping
+    @ResponseBody
+    public ResponseEntity add(@RequestBody WxPublic wxPublic, HttpSession session) {
+        wxPublic.setCompany(getSelf(session).getCompany());
+        return super.add(wxPublic, session);
     }
 }

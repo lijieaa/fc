@@ -3,11 +3,14 @@ package com.we.fc.base;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import com.we.fc.company.entity.Company;
 import com.we.fc.menu.entity.Menu;
 import com.we.fc.menu.service.MenuService;
 import com.we.fc.unit.ResponseEntity;
 import com.we.fc.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -19,7 +22,7 @@ import java.util.List;
  * @since 2018-03-31 23:52
  */
 
-public abstract class BaseController<T> {
+public abstract class BaseController<T extends BaseEntity> {
 
     public abstract BaseService<T> getService();
 
@@ -36,13 +39,13 @@ public abstract class BaseController<T> {
 
     @GetMapping("{id}")
     @ResponseBody
-    public T selectByPrimaryKey(@PathVariable("id") Integer id){
+    public T selectByPrimaryKey(@PathVariable("id") Integer id,HttpSession session){
         return getService().selectByPrimaryKey(id);
     }
 
     @DeleteMapping("{id}")
     @ResponseBody
-    public ResponseEntity delete(@PathVariable("id") Integer id){
+    public ResponseEntity delete(@PathVariable("id") Integer id,HttpSession session){
         ResponseEntity responseEntity = new ResponseEntity();
         try {
             getService().deleteByPrimaryKey(id);
@@ -57,7 +60,7 @@ public abstract class BaseController<T> {
 
     @PutMapping
     @ResponseBody
-    public ResponseEntity update(@RequestBody T t){
+    public ResponseEntity update(@RequestBody T t,HttpSession session){
         ResponseEntity responseEntity = new ResponseEntity();
         try {
             getService().updateByPrimaryKey(t);
@@ -72,26 +75,35 @@ public abstract class BaseController<T> {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity add(@RequestBody T t){
+    public ResponseEntity add(@RequestBody T t,HttpSession session){
         ResponseEntity responseEntity = new ResponseEntity();
         try {
             getService().insert(t);
             return responseEntity;
-        } catch (Exception e) {
+        } catch (DuplicateKeyException e) {
             e.printStackTrace();
             responseEntity.setStatus("500");
-            responseEntity.setMessages("添加失败");
+            responseEntity.setMessages("已存在的实体");
+            return responseEntity;
+        } catch (Exception e){
+            e.printStackTrace();
+            responseEntity.setStatus("500");
+            responseEntity.setMessages(e.getMessage());
             return responseEntity;
         }
     }
 
     @GetMapping("page")
     @ResponseBody
-    public ResponseEntity pageList(@RequestParam("page") Integer page, @RequestParam("rows")Integer rows){
+    public ResponseEntity pageList(@RequestParam("page") Integer page,
+                                   @RequestParam("rows")Integer rows,
+                                   T t,
+                                   HttpSession session){
         ResponseEntity responseEntity = new ResponseEntity();
         try {
             PageHelper.startPage(page,rows);
-            List<T> list = getService().selectAll();
+            t.setCompany(getSelf(session).getCompany());
+            List<T> list = getService().selectAll(t);
             PageInfo pageInfo = new PageInfo(list);
             responseEntity.setData(Arrays.asList(pageInfo));
             return responseEntity;

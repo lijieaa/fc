@@ -1,6 +1,7 @@
 package com.we.fc.base;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.we.fc.company.entity.Company;
 
 import java.util.Date;
 
@@ -12,6 +13,8 @@ import java.util.Date;
 public class BaseEntity {
 
     private Integer id;
+
+    private Company company;
 
     private Date createTime;
 
@@ -41,5 +44,13 @@ public class BaseEntity {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
