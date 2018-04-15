@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<link type="text/css" rel="stylesheet" th:href="@{/css/usermanagement.css}">
 <div th:replace="import::hdr"></div>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="import::bdy-befor">
@@ -9,11 +10,297 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        人员管理
-      </h1>
+      <h1>人员管理</h1>
     </section>
+    <div class="row">
+      <div class="col-md-4">
+        <section class="content">
+          <div class="c_left_box">
+            <div style="padding:22px 10px 10px 10px;">
+              <div class="c_search_content"><i class="iconfont search"></i><input value="" type="text"
+                                                                                   class="c_ding_input"
+                                                                                   placeholder="搜索"><span></span></div>
+            </div>
+            <div class="c_ding_btn_inline_group" style="padding:10px;">
+              <div class="item checked">组织架构</div>
+              <div class="item">角色</div>
+            </div>
+            <div>
+              <li class="angular-ui-tree-node">
+                <div style="position:relative;width:100%;" class="area"><a style="color:;" class="dep-name dep-name-hl"
+                                                                           href="javascript:void(0)"><i
+                        class="iconfont icon-dept" style="font-size:18px;"></i><span>&nbsp;</span><span>飞创科技开发团队</span><span
+                        class="count"><span> (</span><span>7</span><span>人)</span></span></a><a class="dep-tree-pos-btn"
+                                                                                                href="javascript:void(0)"><span
+                        class="iconfont icon-collapsed" style="color:#ffffff;"></span></a></div>
+                <ul style="margin-left:15px;">
+                  <li class="angular-ui-tree-node">
+                    <div style="position:relative;width:100%;" class="area"><a style="color:;" class="dep-name"
+                                                                               href="javascript:void(0)"><i
+                            class="iconfont icon-dept"></i><span>&nbsp;</span><span>nn</span><span class="count"><span> (</span><span>2</span><span>人)</span></span></a><a
+                            class="dep-tree-pos-btn" href="javascript:void(0)"><span class="iconfont icon-collapsed"
+                                                                                     style="color:#7D8790;"></span></a>
+                    </div>
+                    <ul style="margin-left:15px;">
+                      <li class="angular-ui-tree-node">
+                        <div style="position:relative;width:100%;" class="area"><a style="color:;" class="dep-name"
+                                                                                   href="javascript:void(0)"><i
+                                class="iconfont icon-dept"></i><span>&nbsp;</span><span>你呢</span><span
+                                class="count"><span> (</span><span>0</span><span>人)</span></span></a><a
+                                class="dep-tree-pos-btn" href="javascript:void(0)"><span class="iconfont icon-collapsed"
+                                                                                         style="color:#7D8790;"></span></a>
+                        </div>
+                        <ul style="margin-left:15px;">
+                          <li class="angular-ui-tree-node">
+                            <div style="position:relative;width:100%;" class="area"><a style="color:;" class="dep-name"
+                                                                                       href="javascript:void(0)"><i
+                                    class="iconfont icon-dept"></i><span>&nbsp;</span><span>a</span><span
+                                    class="count"><span> (</span><span>0</span><span>人)</span></span></a><a
+                                    class="dep-tree-pos-btn" href="javascript:void(0)"><span
+                                    class="iconfont icon-collapsed" style="color:#7D8790;"></span></a></div>
+                            <ul style="margin-left:15px;">
+                              <li class="angular-ui-tree-node">
+                                <div style="position:relative;width:100%;" class="area"><a style="color:;"
+                                                                                           class="dep-name"
+                                                                                           href="javascript:void(0)"><i
+                                        class="iconfont icon-dept"></i><span>&nbsp;</span><span>b</span><span
+                                        class="count"><span> (</span><span>0</span><span>人)</span></span></a><a
+                                        class="dep-tree-pos-btn" href="javascript:void(0)"><span
+                                        class="iconfont icon-collapsed" style="color:#7D8790;"></span></a></div>
+                                <span></span></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="angular-ui-tree-node">
+                    <div style="position:relative;width:100%;" class="area"><a style="color:;" class="dep-name"
+                                                                               href="javascript:void(0)"><i
+                            class="iconfont icon-dept"></i><span>&nbsp;</span><span>aa</span><span class="count"><span> (</span><span>2</span><span>人)</span></span></a><span></span>
+                    </div>
+                    <span></span></li>
+                  <li class="angular-ui-tree-node">
+                    <div style="position:relative;width:100%;" class="area"><a style="color:;" class="dep-name"
+                                                                               href="javascript:void(0)"><i
+                            class="iconfont icon-dept"></i><span>&nbsp;</span><span>cc</span><span class="count"><span> (</span><span>1</span><span>人)</span></span></a><span></span>
+                    </div>
+                    <span></span></li>
+                  <li class="angular-ui-tree-node">
+                    <div style="position:relative;width:100%;" class="area"><a style="color:;" class="dep-name"
+                                                                               href="javascript:void(0)"><i
+                            class="iconfont icon-dept"></i><span>&nbsp;</span><span>ee</span><span class="count"><span> (</span><span>1</span><span>人)</span></span></a><span></span>
+                    </div>
+                    <span></span></li>
+                  <li class="angular-ui-tree-node">
+                    <div style="position:relative;width:100%;" class="area"><a style="color:;" class="dep-name"
+                                                                               href="javascript:void(0)"><i
+                            class="iconfont icon-dept"></i><span>&nbsp;</span><span>tt</span><span class="count"><span> (</span><span>1</span><span>人)</span></span></a><span></span>
+                    </div>
+                    <span></span></li>
+                  <li class="angular-ui-tree-node">
+                    <div style="position:relative;width:100%;" class="area"><a style="color:;" class="dep-name"
+                                                                               href="javascript:void(0)"><i
+                            class="iconfont icon-dept"></i><span>&nbsp;</span><span>bb</span><span class="count"><span> (</span><span>1</span><span>人)</span></span></a><span></span>
+                    </div>
+                    <span></span></li>
+                  <li class="angular-ui-tree-node">
+                    <div style="position:relative;width:100%;" class="area"><a style="color:;" class="dep-name"
+                                                                               href="javascript:void(0)"><i
+                            class="iconfont icon-dept"></i><span>&nbsp;</span><span>vv</span><span class="count"><span> (</span><span>2</span><span>人)</span></span></a><span></span>
+                    </div>
+                    <span></span></li>
+                  <li class="angular-ui-tree-node">
+                    <div style="position:relative;width:100%;" class="area"><a style="color:;" class="dep-name"
+                                                                               href="javascript:void(0)"><i
+                            class="iconfont icon-dept"></i><span>&nbsp;</span><span>xx</span><span class="count"><span> (</span><span>0</span><span>人)</span></span></a><span></span>
+                    </div>
+                    <span></span></li>
+                </ul>
+              </li>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="col-md-8">
+        <section class="content">
+          <div class="c_right_box">
+            <div class="c_title_1 contact_header" style="padding:0px;"><span>飞创科技开发团队</span>
+              <div class="c_ding_tag c_ding_tag_success c_ding_tag_sm tag c_ding_tag_xs">全员群</div>
+              <span></span><span></span>
+              <div class="c_ding_btn c_ding_btn_xs contact_btn">设置</div>
+            </div>
+            <div></div>
+            <div style="margin-bottom:10px;">
+              <div class="c_title_1"><i class="iconfont"></i><span>下级部门</span></div>
+              <div class="c_action_content">
+                <div class="c_ding_btn c_ding_btn_xs">添加子部门</div>
+                <div class="c_ding_btn c_ding_btn_xs">调整排序</div>
+              </div>
+              <div class=""><span></span>
+                <div class="dragDropDept">
+                  <div>
+                    <div class="c_drag_drop_dept_item"><span></span>
+                      <div class="name"><span>nn</span><span>&nbsp;（</span><span>2</span><span>人）</span></div>
+                      <div class="number"><i class="iconfont" style="color:#b9babc;"></i></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="c_drag_drop_dept_item"><span></span>
+                      <div class="name"><span>aa</span><span>&nbsp;（</span><span>2</span><span>人）</span></div>
+                      <div class="number"><i class="iconfont" style="color:#b9babc;"></i></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="c_drag_drop_dept_item"><span></span>
+                      <div class="name"><span>cc</span><span>&nbsp;（</span><span>1</span><span>人）</span></div>
+                      <div class="number"><i class="iconfont" style="color:#b9babc;"></i></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="c_drag_drop_dept_item"><span></span>
+                      <div class="name"><span>ee</span><span>&nbsp;（</span><span>1</span><span>人）</span></div>
+                      <div class="number"><i class="iconfont" style="color:#b9babc;"></i></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="c_drag_drop_dept_item"><span></span>
+                      <div class="name"><span>tt</span><span>&nbsp;（</span><span>1</span><span>人）</span></div>
+                      <div class="number"><i class="iconfont" style="color:#b9babc;"></i></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="c_drag_drop_dept_item"><span></span>
+                      <div class="name"><span>bb</span><span>&nbsp;（</span><span>1</span><span>人）</span></div>
+                      <div class="number"><i class="iconfont" style="color:#b9babc;"></i></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="c_drag_drop_dept_item"><span></span>
+                      <div class="name"><span>vv</span><span>&nbsp;（</span><span>2</span><span>人）</span></div>
+                      <div class="number"><i class="iconfont" style="color:#b9babc;"></i></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="c_drag_drop_dept_item"><span></span>
+                      <div class="name"><span>xx</span><span>&nbsp;（</span><span>0</span><span>人）</span></div>
+                      <div class="number"><i class="iconfont" style="color:#b9babc;"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span></span><span></span></div>
+            <div>
+              <div class="c_title_1"><i style="position:relative;top:-3px;" class="iconfont"></i><span>部门人员</span>
+              </div>
+              <div class="c_action_content">
+                <div class="c_ding_btn c_ding_btn_primary c_ding_btn_xs">添加成员</div>
+                <div class="c_ding_btn c_ding_btn_xs"><i
+                        style="color:#1bc863;position:absolute;top:-20px;font-size:23px;right:-5px;"
+                        class="iconfont"></i><span>批量导入/导出/修改</span></div>
+                <div class="c_ding_btn c_ding_btn_xs">团队邀请</div>
+                <div class="c_ding_btn c_ding_btn_xs">调整部门</div>
+                <div class="c_ding_btn c_ding_btn_xs">调整排序</div>
+                <div class="c_ding_btn c_ding_btn_error c_ding_btn_xs">批量删除</div>
+              </div>
+              <div style="overflow:hidden;" class="">
+                <div>
+                  <div class="c_warning animated slideInDown c_warning_box">
+                    <div class="c_warning_item"><span>企业内有4人未激活</span><a class="c_link">通知激活</a></div>
+                  </div>
+                </div>
+                <span></span>
+                <table class="c_table">
+                  <thead>
+                  <tr>
+                    <th><input type="checkbox"></th>
+                    <th>姓名</th>
+                    <th>职位</th>
+                    <th>工号</th>
+                    <th>手机号</th>
+                    <th>邮箱</th>
+                  </tr>
+                  </thead>
+                  <tbody class="dragDropStaff">
+                  <tr class="">
+                    <td class="hidden_staffId" style="display:none;">437035359</td>
+                    <td style="padding-top:4px;"><input type="checkbox"></td>
+                    <td title="李杰"><span>李杰</span><span>&nbsp;</span><span></span><span></span></td>
+                    <td></td>
+                    <td></td>
+                    <td title="17740199520">17740199520</td>
+                    <td style="padding-right:65px;position:relative;"><span></span></td>
+                  </tr>
+                  <tr class="">
+                    <td class="hidden_staffId" style="display:none;">124725761</td>
+                    <td style="padding-top:4px;"><input type="checkbox"></td>
+                    <td title="彭松涛"><span>彭松涛</span><span>&nbsp;</span><span></span><span></span></td>
+                    <td title=""></td>
+                    <td title=""></td>
+                    <td title="18782918307">18782918307</td>
+                    <td title="" style="padding-right:65px;position:relative;"><span></span><span></span></td>
+                  </tr>
+                  <tr class="">
+                    <td class="hidden_staffId" style="display:none;">437070311</td>
+                    <td style="padding-top:4px;"><input type="checkbox"></td>
+                    <td title="刘磊"><span>刘磊</span><span>&nbsp;</span><span></span><span></span></td>
+                    <td></td>
+                    <td></td>
+                    <td title="18780116091">18780116091</td>
+                    <td style="padding-right:65px;position:relative;">
+                      <div class="c_ding_btn c_ding_btn_xxs c_ding_btn_primary_border"
+                           style="position:absolute;top:5px;right:10px;">邀请
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="">
+                    <td class="hidden_staffId" style="display:none;">437599663</td>
+                    <td style="padding-top:4px;"><input type="checkbox"></td>
+                    <td title="abc"><span>abc</span><span>&nbsp;</span><span></span><span></span></td>
+                    <td title=""></td>
+                    <td title=""></td>
+                    <td title="15345981359">15345981359</td>
+                    <td title="" style="padding-right:65px;position:relative;"><span></span>
+                      <div class="c_ding_btn c_ding_btn_xxs c_ding_btn_primary_border"
+                           style="position:absolute;top:5px;right:10px;">邀请
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="">
+                    <td class="hidden_staffId" style="display:none;">202704321</td>
+                    <td style="padding-top:4px;"><input type="checkbox"></td>
+                    <td title="xxx"><span>xxx</span><span>&nbsp;</span><span></span><span></span></td>
+                    <td title="dccc">dccc</td>
+                    <td title=""></td>
+                    <td title="13540608760">13540608760</td>
+                    <td title="" style="padding-right:65px;position:relative;"><span></span>
+                      <div class="c_ding_btn c_ding_btn_xxs c_ding_btn_primary_border"
+                           style="position:absolute;top:5px;right:10px;">邀请
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="">
+                    <td class="hidden_staffId" style="display:none;">437563740</td>
+                    <td style="padding-top:4px;"><input type="checkbox"></td>
+                    <td title="ddd"><span>ddd</span><span>&nbsp;</span><span></span><span></span></td>
+                    <td title=""></td>
+                    <td title=""></td>
+                    <td title="15369879876">15369879876</td>
+                    <td title="" style="padding-right:65px;position:relative;"><span></span>
+                      <div class="c_ding_btn c_ding_btn_xxs c_ding_btn_primary_border"
+                           style="position:absolute;top:5px;right:10px;">邀请
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
 
+    </div>
     <!-- /.content -->
   </div>
 </div>
