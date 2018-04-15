@@ -30,6 +30,7 @@ public class IntermediaryController extends BaseController<Intermediary> {
     public BaseService<Intermediary> getService() {
         return service;
     }
+
     @GetMapping("index")
     public String index(Integer menuId, Model model){
         model.addAttribute("loopMenu", getMenuById(menuId));
