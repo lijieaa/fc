@@ -2,6 +2,7 @@
 
 $(document).ready(function() {
     console.log(" menu init");
+    console.log(contextPath)
     var zTreeObj;
     // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
     var setting = {
