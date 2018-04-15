@@ -1,8 +1,14 @@
+html,body{
+    font-family: "微软雅黑";
+}
 .float-left{
     float: left;
 }
 .float-right{
     float: right;
+}
+.positon-relative{
+    position: relative;
 }
 .text-align{
     text-align: center;
@@ -96,6 +102,34 @@ div.dataTables_wrapper div.dataTables_paginate{
     padding: 5px 8px;
 }
 
+/*z-tree公用的样式*/
+.ztree *{
+    font-size: 14px;
+}
+.ztree li span.button.noline_close{
+    background-position: -166px 1px!important;
+}
+.ztree li span.button.noline_open {
+    background-position: -169px -20px!important;
+}
+.ztree li span.button{
+    width: 22px!important;
+    height: 22px!important;
+}
+.ztree li span.button.ico_open{
+    margin-right: 5px;
+}
+.ztree li a{
+    height: 20px!important;
+}
+.ztree li a.curSelectedNode{
+    border: 1px #d1d1d1 solid;
+    background: #fff;
+
+}
+.ztree li a:hover{
+    text-decoration: none!important;
+}
 /*弹窗样式*/
 /*label样式*/
 .modal-body .label-pop-style{

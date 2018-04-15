@@ -8,6 +8,7 @@
 /*公众号管理*/
 #gzh-manage{
     display: none;
+    height: auto;
 }
 .gzh-manage-menu{
     margin-left: 1%;
@@ -17,16 +18,15 @@
     padding: 0 20px;
 }
 .gzh-search{
-    outline: 1px #4d4d4d solid;
-    width: 23%;
-    min-height:300px;
-    margin-left: 2%;
-    margin-top: 3%;
+    border: 1px #4d4d4d solid;
+    width: 24%;
+    height:100%;
 }
 .gzh-ul-manage{
     width: 91%;
     margin: 5% 0 0 3%;
-    max-height:600px;
+    /*max-height:600px;*/
+    height: 80%;
     overflow: auto;
 }
 .gzh-ul-manage li{
@@ -37,10 +37,10 @@
     cursor: pointer;
 }
 .gzh-chat{
-    outline: 1px #4d4d4d solid;
-    width: 72%;
-    margin-left: 2%;
-    margin-top: 2.5%;
+    border: 1px #4d4d4d solid;
+    width: 73%;
+    height: 100%;
+    margin-left: 3%;
 }
 .chat-type{
     height: 35px;
@@ -63,6 +63,31 @@
 }
 .chat-ul li{
     margin: 15px 0;
+}
+/*素材库管理*/
+.source-title{
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "微软雅黑 Light";
+    margin-left: 15px;
+    letter-spacing: 2px;
+}
+.gzh-source-type{
+    margin-top: 2%;
+    height: 35px;
+    line-height: 5px;
+    width: 95%;
+    border-bottom: 1px #e3e3e3 solid;
+    margin-left: 15px;
+}
+.gzh-source-type a{
+  font-size: 16px;
+    color:#000000;
+    padding: 0 5px;
+    cursor: pointer;
+}
+.cli-color{
+    color:#00c0ef!important;
 }
 /*公用样式*/
 .margin-30{
