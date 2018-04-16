@@ -3,9 +3,12 @@ package com.we.fc.wechat.api;
 import com.we.fc.exception.AccessTokenException;
 import com.we.fc.http.RequestTools;
 import com.we.fc.utils.GsonUtils;
+import com.we.fc.wechat.api.response.AccessTokenResponse;
 import com.we.fc.wechat.api.response.OpenIdResponse;
 import com.we.fc.wechat.api.response.ResponseStatus;
 import com.we.fc.wechat.entity.WxUserDetail;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,7 +19,23 @@ import org.springframework.stereotype.Component;
 public class WxApiHandler {
 
 
-    // 查询公从号订阅者的OPENID列表
+    @Autowired private StringRedisTemplate stringRedisTemplate;
+
+    public String getAccessToken(String appId, String appSecret) throws Exception{
+
+        String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=";
+        url += appId;
+        url += "&secret=";
+        url += appSecret;
+        String result = RequestTools.processHttpRequest(url, "get", null);
+        if(ResponseStatus.isInvokeSuccess(result)){
+            return GsonUtils.toBean(result, AccessTokenResponse.class).getAccess_token();
+        }else{
+            throw new AccessTokenException("appId或appSecret错误，无法获取accessToken");
+        }
+    }
+
+    // 查询公从号的订阅者OPENID列表
     public OpenIdResponse loadUserOpenId(String accessToken) throws Exception {
 
         String url = "https://api.weixin.qq.com/cgi-bin/user/get?access_token="+accessToken;

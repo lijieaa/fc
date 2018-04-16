@@ -1,6 +1,8 @@
 package com.we.fc.wechat.platform;
 
 import com.we.fc.utils.XmlUtils;
+import com.we.fc.wechat.entity.WxMessage;
+import com.we.fc.wechat.entity.WxMessageType;
 import com.we.fc.wechat.service.WxMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,7 +44,19 @@ public class PlatFormController {
             sb.append(c);
         }
         try {
-            wxMessageService.insert(XmlUtils.fromXmlString(sb.toString()));
+            WxMessage wxMessage = XmlUtils.fromXmlString(sb.toString());
+            String msgType = (wxMessage.getMsgType());
+            if(msgType.equalsIgnoreCase(WxMessageType.EVENT)){
+                String event = wxMessage.getEvent();
+                if(event.equalsIgnoreCase(WxMessageType.EVENT_SUBSCRIBE)){
+
+                }else if (event.equalsIgnoreCase(WxMessageType.EVENT_UNSUBSCRIBE)){
+                    wxMessageService.unSubscribe(wxMessage.getToUserName(), wxMessage.getFromUserName());
+                    System.out.println(wxMessage.getFromUserName() + "取消订阅" + wxMessage.getToUserName());
+                }
+            }else{
+                wxMessageService.insert(wxMessage);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("微信消息接收异常："+e.getMessage());
