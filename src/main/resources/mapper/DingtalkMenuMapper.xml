@@ -1,15 +1,103 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.we.fc.menu.dao.DingtalkMenuMapper" >
-  <resultMap id="BaseResultMap" type="com.we.fc.menu.entity.DingtalkMenu" >
-    <id column="menu_id" property="id" jdbcType="INTEGER" />
-    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
-    <result column="menu_parent_id" property="menuParentId" jdbcType="INTEGER" />
-    <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
-    <result column="menu_prmission" property="menuPrmission" jdbcType="VARCHAR" />
-    <result column="menu_sortd" property="menuSortd" jdbcType="INTEGER" />
-    <result column="menu_display" property="menuDisplay" jdbcType="TINYINT" />
-    <result column="icon" property="icon" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.we.fc.menu.dao.DingtalkMenuMapper">
+  <resultMap id="BaseResultMap" type="com.we.fc.menu.entity.DingtalkMenu">
+    <id column="menu_id" jdbcType="INTEGER" property="menuId" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="menu_parent_id" jdbcType="INTEGER" property="menuParentId" />
+    <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
+    <result column="menu_prmission" jdbcType="VARCHAR" property="menuPrmission" />
+    <result column="menu_sortd" jdbcType="INTEGER" property="menuSortd" />
+    <result column="menu_display" jdbcType="TINYINT" property="menuDisplay" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dingtalk_menu
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.we.fc.menu.entity.DingtalkMenu">
+    insert into dingtalk_menu (menu_id, menu_name, menu_parent_id, 
+      menu_url, menu_prmission, menu_sortd, 
+      menu_display, icon)
+    values (#{menuId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, #{menuParentId,jdbcType=INTEGER}, 
+      #{menuUrl,jdbcType=VARCHAR}, #{menuPrmission,jdbcType=VARCHAR}, #{menuSortd,jdbcType=INTEGER}, 
+      #{menuDisplay,jdbcType=TINYINT}, #{icon,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.we.fc.menu.entity.DingtalkMenu">
+    update dingtalk_menu
+    set menu_name = #{menuName,jdbcType=VARCHAR},
+      menu_parent_id = #{menuParentId,jdbcType=INTEGER},
+      menu_url = #{menuUrl,jdbcType=VARCHAR},
+      menu_prmission = #{menuPrmission,jdbcType=VARCHAR},
+      menu_sortd = #{menuSortd,jdbcType=INTEGER},
+      menu_display = #{menuDisplay,jdbcType=TINYINT},
+      icon = #{icon,jdbcType=VARCHAR}
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select menu_id, menu_name, menu_parent_id, menu_url, menu_prmission, menu_sortd, 
+    menu_display, icon
+    from dingtalk_menu
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select menu_id, menu_name, menu_parent_id, menu_url, menu_prmission, menu_sortd, 
+    menu_display, icon
+    from dingtalk_menu
+  </select>
+  <resultMap id="BaseResultMap" type="com.we.fc.menu.entity.DingtalkMenu">
+    <id column="menu_id" jdbcType="INTEGER" property="menuId" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="menu_parent_id" jdbcType="INTEGER" property="menuParentId" />
+    <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
+    <result column="menu_prmission" jdbcType="VARCHAR" property="menuPrmission" />
+    <result column="menu_sortd" jdbcType="INTEGER" property="menuSortd" />
+    <result column="menu_display" jdbcType="TINYINT" property="menuDisplay" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dingtalk_menu
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.we.fc.menu.entity.DingtalkMenu">
+    insert into dingtalk_menu (menu_id, menu_name, menu_parent_id, 
+      menu_url, menu_prmission, menu_sortd, 
+      menu_display, icon)
+    values (#{menuId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, #{menuParentId,jdbcType=INTEGER}, 
+      #{menuUrl,jdbcType=VARCHAR}, #{menuPrmission,jdbcType=VARCHAR}, #{menuSortd,jdbcType=INTEGER}, 
+      #{menuDisplay,jdbcType=TINYINT}, #{icon,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.we.fc.menu.entity.DingtalkMenu">
+    update dingtalk_menu
+    set menu_name = #{menuName,jdbcType=VARCHAR},
+      menu_parent_id = #{menuParentId,jdbcType=INTEGER},
+      menu_url = #{menuUrl,jdbcType=VARCHAR},
+      menu_prmission = #{menuPrmission,jdbcType=VARCHAR},
+      menu_sortd = #{menuSortd,jdbcType=INTEGER},
+      menu_display = #{menuDisplay,jdbcType=TINYINT},
+      icon = #{icon,jdbcType=VARCHAR}
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select menu_id, menu_name, menu_parent_id, menu_url, menu_prmission, menu_sortd, 
+    menu_display, icon
+    from dingtalk_menu
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select menu_id, menu_name, menu_parent_id, menu_url, menu_prmission, menu_sortd, 
+    menu_display, icon
+    from dingtalk_menu
+  </select>
+  <resultMap id="BaseResultMap" type="com.we.fc.menu.entity.DingtalkMenu">
+    <id column="menu_id" jdbcType="INTEGER" property="id" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="menu_parent_id" jdbcType="INTEGER" property="menuParentId" />
+    <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
+    <result column="menu_prmission" jdbcType="VARCHAR" property="menuPrmission" />
+    <result column="menu_sortd" jdbcType="INTEGER" property="menuSortd" />
+    <result column="menu_display" jdbcType="TINYINT" property="menuDisplay" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
 <!--
     <collection column="menu_id" property="children" ofType="com.we.fc.menu.entity.DingtalkMenu" javaType="java.util.ArrayList" select="selectChildrenById"/>
 -->
@@ -22,11 +110,11 @@
   </select>-->
 
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from dingtalk_menu
     where menu_id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.we.fc.menu.entity.DingtalkMenu" >
+  <insert id="insert" parameterType="com.we.fc.menu.entity.DingtalkMenu">
     insert into dingtalk_menu (menu_id, menu_name, menu_parent_id, 
       menu_url, menu_prmission, menu_sortd, 
       menu_display, icon)
@@ -34,7 +122,7 @@
       #{menuUrl,jdbcType=VARCHAR}, #{menuPrmission,jdbcType=VARCHAR}, #{menuSortd,jdbcType=INTEGER}, 
       #{menuDisplay,jdbcType=TINYINT}, #{icon,jdbcType=VARCHAR})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.we.fc.menu.entity.DingtalkMenu" >
+  <update id="updateByPrimaryKey" parameterType="com.we.fc.menu.entity.DingtalkMenu">
     update dingtalk_menu
     set menu_name = #{menuName,jdbcType=VARCHAR},
       menu_parent_id = #{menuParentId,jdbcType=INTEGER},
@@ -45,13 +133,13 @@
       icon = #{icon,jdbcType=VARCHAR}
     where menu_id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select menu_id, menu_name, menu_parent_id, menu_url, menu_prmission, menu_sortd, 
     menu_display, icon
     from dingtalk_menu
     where menu_id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
+  <select id="selectAll" resultMap="BaseResultMap">
     select menu_id, menu_name, menu_parent_id, menu_url, menu_prmission, menu_sortd, 
     menu_display, icon
     from dingtalk_menu

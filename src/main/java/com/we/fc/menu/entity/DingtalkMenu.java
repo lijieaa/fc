@@ -1,11 +1,9 @@
 package com.we.fc.menu.entity;
 
-import com.we.fc.base.BaseEntity;
+import java.io.Serializable;
 
-import java.util.Collection;
-
-
-public class DingtalkMenu extends BaseEntity  {
+public class DingtalkMenu implements Serializable {
+    private Integer menuId;
 
     private String menuName;
 
@@ -21,19 +19,15 @@ public class DingtalkMenu extends BaseEntity  {
 
     private String icon;
 
-/*    public Collection<DingtalkMenu> getChildren() {
-        return children;
-    }
-
-    public void setChildren(Collection<DingtalkMenu> children) {
-        this.children = children;
-    }
-
-    private Collection<DingtalkMenu> children;*/
-
     private static final long serialVersionUID = 1L;
 
+    public Integer getMenuId() {
+        return menuId;
+    }
 
+    public void setMenuId(Integer menuId) {
+        this.menuId = menuId;
+    }
 
     public String getMenuName() {
         return menuName;
@@ -97,7 +91,7 @@ public class DingtalkMenu extends BaseEntity  {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", menuId=").append(this.getId());
+        sb.append(", menuId=").append(menuId);
         sb.append(", menuName=").append(menuName);
         sb.append(", menuParentId=").append(menuParentId);
         sb.append(", menuUrl=").append(menuUrl);
