@@ -7,7 +7,7 @@
     <resultMap id="userMap" type="User">
         <id property="id" column="user_id"></id>
         <result property="username" column="username"></result>
-        <result property="password" column="password"></result>
+        <result property="pwd" column="pwd"></result>
         <result property="realName" column="user_real_name"></result>
         <result property="admin" column="is_admin"></result>
         <result property="platformAdmin" column="is_platform_admin"></result>

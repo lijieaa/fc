@@ -37,7 +37,7 @@
         </commentGenerator>
 
         <!-- jdbc连接 -->
-        <jdbcConnection driverClass="${jdbc_driver}" connectionURL="${jdbc_url}" userId="${jdbc_user}" password="${jdbc_password}" />
+        <jdbcConnection driverClass="${jdbc_driver}" connectionURL="${jdbc_url}" userId="${jdbc_user}" pwd="${jdbc_password}" />
         <!-- 类型转换 -->
         <javaTypeResolver>
             <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
@@ -45,7 +45,7 @@
         </javaTypeResolver>
 
         <!-- 生成实体类地址 -->
-        <javaModelGenerator targetPackage="com.we.fc.dept.entity" targetProject="${project}" >
+        <javaModelGenerator targetPackage="com.we.fc.menu.entity" targetProject="${project}" >
 
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
@@ -56,11 +56,11 @@
         </sqlMapGenerator>
         <!-- 生成mapxml对应client，也就是接口dao -->
 
-        <javaClientGenerator targetPackage="com.we.fc.dept.dao" targetProject="${project}" type="XMLMAPPER" >
+        <javaClientGenerator targetPackage="com.we.fc.menu.dao" targetProject="${project}" type="XMLMAPPER" >
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <!-- table可以有多个,每个数据库中的表都可以写一个table，tableName表示要匹配的数据库表,也可以在tableName属性中通过使用%通配符来匹配所有数据库表,只有匹配的表才会自动生成文件 -->
-        <table tableName="dingtalk_dept" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
+        <table tableName="dingtalk_menu" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
 
             <property name="useActualColumnNames" value="false" />
             <!-- 数据库表主键 -->

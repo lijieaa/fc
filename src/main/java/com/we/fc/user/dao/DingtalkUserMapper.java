@@ -6,5 +6,10 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface DingtalkUserMapper extends BaseDao<DingtalkUser>{
-
+    /**
+     * 通过手机号查询用户
+     * @param tel
+     * @return
+     */
+    DingtalkUser findByTel(String tel);
 }

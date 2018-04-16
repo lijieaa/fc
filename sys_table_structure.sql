@@ -144,7 +144,7 @@ CREATE TABLE `sys_role_menu` (
 CREATE TABLE `sys_user` (
   `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(32) NOT NULL COMMENT '登录名',
-  `password` varchar(128) NOT NULL COMMENT '登录密码',
+  `pwd` varchar(128) NOT NULL COMMENT '登录密码',
   `is_admin` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否管理员0：否，1：是',
   `is_platform_admin` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否是平台管理员0否，1是',
   `user_real_name` varchar(20) NOT NULL COMMENT '真实姓名',
@@ -163,7 +163,7 @@ CREATE TABLE `sys_user` (
 
 /*Data for the table `sys_user` */
 
-insert  into `sys_user`(`user_id`,`username`,`password`,`is_admin`,`is_platform_admin`,`user_real_name`,`company_id`,`dept_id`,`user_telephone`,`user_position`,`user_job_number`,`user_email`,`user_work_address`,`user_entry_time`,`user_create_time`,`user_update_time`) values (1,'zdc','$2a$10$ICPn3Ar/NmzQFSJjBRbSZe5r.F/y9UZfe8fwUAknUD2Bc8e31Bjpm',1,1,'zdc',1,1,'1592517460',NULL,NULL,NULL,NULL,NULL,'2018-03-27 23:10:35','2018-03-31 22:16:02');
+insert  into `sys_user`(`user_id`,`username`,`pwd`,`is_admin`,`is_platform_admin`,`user_real_name`,`company_id`,`dept_id`,`user_telephone`,`user_position`,`user_job_number`,`user_email`,`user_work_address`,`user_entry_time`,`user_create_time`,`user_update_time`) values (1,'zdc','$2a$10$ICPn3Ar/NmzQFSJjBRbSZe5r.F/y9UZfe8fwUAknUD2Bc8e31Bjpm',1,1,'zdc',1,1,'1592517460',NULL,NULL,NULL,NULL,NULL,'2018-03-27 23:10:35','2018-03-31 22:16:02');
 
 /*Table structure for table `sys_user_role` */
 

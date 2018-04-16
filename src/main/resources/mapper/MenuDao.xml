@@ -23,6 +23,10 @@
         SELECT * FROM sys_menu WHERE menu_display = 1
     </select>
 
+    <select id="selectAll" resultMap="menuMap">
+        SELECT * FROM sys_menu
+    </select>
+
     <select id="findByRoleId" resultMap="menuMap">
         SELECT m.*
         FROM sys_menu m, sys_role r, sys_role_menu srm

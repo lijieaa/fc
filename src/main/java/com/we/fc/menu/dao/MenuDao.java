@@ -16,4 +16,6 @@ public interface MenuDao extends BaseDao<Menu> {
     List<Menu> findDisplay();
 
     List<Menu> findByRoleId(Integer roleId);
+
+    List<Menu> selectAll();
 }
