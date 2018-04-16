@@ -13,6 +13,6 @@ public interface DingtalkDeptMapper extends BaseDao<DingtalkDept>{
 
 
 
-    
+
 
 }
