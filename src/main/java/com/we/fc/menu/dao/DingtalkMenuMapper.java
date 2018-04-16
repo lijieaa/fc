@@ -1,16 +1,9 @@
 package com.we.fc.menu.dao;
 
+import com.we.fc.base.BaseDao;
 import com.we.fc.menu.entity.DingtalkMenu;
 import java.util.List;
 
-public interface DingtalkMenuMapper {
-    int deleteByPrimaryKey(Integer menuId);
+public interface DingtalkMenuMapper extends BaseDao<DingtalkMenu>{
 
-    int insert(DingtalkMenu record);
-
-    DingtalkMenu selectByPrimaryKey(Integer menuId);
-
-    List<DingtalkMenu> selectAll();
-
-    int updateByPrimaryKey(DingtalkMenu record);
 }

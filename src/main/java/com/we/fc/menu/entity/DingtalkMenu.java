@@ -1,8 +1,11 @@
 package com.we.fc.menu.entity;
 
+import com.we.fc.base.BaseDao;
+import com.we.fc.base.BaseEntity;
+
 import java.io.Serializable;
 
-public class DingtalkMenu implements Serializable {
+public class DingtalkMenu extends BaseEntity {
     private Integer menuId;
 
     private String menuName;
