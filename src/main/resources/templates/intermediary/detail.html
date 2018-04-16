@@ -4,23 +4,103 @@
     <div th:replace="import::hdr"></div>
     <link rel="stylesheet" th:href="@{/css/webuploader.css}">
 </head>
+<style>
+    .border-black{
+        border: 1px solid black;
+    }
+    .border-left-black{
+        border-left: 1px solid black;
+    }
+    .padding-10{
+        padding: 10px;
+    }
+    .padding-right-25{
+        padding-right: 25px;
+    }
+    .text-right{
+        text-align: right;
+    }
+    .back-gainsboro{
+        background: gainsboro;
+    }
+    .height-35{
+        height: 35px;
+    }
+    .padding-left-15{
+        padding-left: 15px;
+    }
+    #logo{
+        width:60%;
+    }
+    .company-content{
+        text-indent: 6px;
+    }
+    .company-right-content>.head{
+        line-height: 34px;
+    }
+
+
+    .direct-chat-msg:before{
+        position: absolute;
+        right: auto;
+        z-index: 1;
+        background: #a0a0a0;
+        /*bottom: auto;*/
+        content: "";
+        left: 6px;
+        bottom: -5px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+    }
+    .content-msg{
+        position: absolute;
+        border-left: 1px solid red;
+        left:10px;
+    }
+
+
+    .direct-chat-text:after, .direct-chat-text:before {
+        position: absolute;
+        right: 100%;
+        bottom: -7px!important;
+        top:auto!important;
+        border: solid transparent;
+        border-bottom-color: #d2d6de;
+        content: ' ';
+        height: 0;
+        width: 0;
+        pointer-events: none;
+    }
+    .right .direct-chat-text:after, .right .direct-chat-text:before {
+        right: auto;
+        left: 10%;
+        border-bottom-color: transparent;
+        border-top-color: #d2d6de;
+    }
+    .modal-body{
+        padding-top: 0!important;
+    }
+    .right .direct-chat-text{
+        margin-right: 0;
+    }
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
-<div th:replace="import::bdy-befor">
-</div>
-<div class="wrapper">
+<div th:replace="import::bdy-befor"></div>
+<div class="wrapper" id="company">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <section class="content-header change-content">
             <div class="row">
-                <div class="col-md-10 col-sm-10  col-xs-12">
+                <div class="col-md-9 col-sm-9">
                     <div class="form-group float-left">
                         <span class="font-size-18">供应商详情</span>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-2  col-xs-12">
+                <div class="col-md-3 col-sm-3 text-align-right">
                     <!--<button type="button" class="btn btn-block btn-info">添加设备</button>-->
-                    <button type="button" class="btn btn-info btn-block"
-                            data-toggle="modal" data-target="#modal-info" @click="backIndex">
+                    <button type="button" class="btn btn-info padding-right-15"
+                            data-toggle="modal" data-target="#modal-info">
                         返回
                     </button>
                 </div>
@@ -79,8 +159,7 @@
                                 中间商跟进
                             </div>
                             <div class="col-md-5 col-xs-5 back-gainsboro text-right padding-right-25">
-                                <button type="button" class="btn  btn-default ">新增改进</button>
-
+                                <button type="button" class="btn  btn-default" @click="addGJ">新增改进</button>
                             </div>
                         </div>
                         <div class="border-left-black">
@@ -137,10 +216,83 @@
                 </div>
             </div>
         </section>
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" @click="closePop">×</span></button>
+                        <h4 class="modal-title text-align">新增改进</h4>
+                    </div>
+                    <div class="modal-body text-align">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form>
+                                    <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
+                                    <div class="pop-box margin-top-15 text-align-left">
+                                        <label for="">项目状态: </label>
+                                        <select name="" class="form-style-pop form-control">
+                                            <option value="1">已处理</option>
+                                            <option value="2">正在处理</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer text-align">
+                        <!--<input type="submit" value="确定">-->
+                        <!--<button>取消</button>-->
+                        <button type="submit" class="btn btn-info search">确定</button>
+                        <button type="button" @click="closePop" class="btn btn-info search">取消</button>
+                        <button type="button" class="btn btn-info search">重置</button>
+                        <!--<input type="reset" value="重置">-->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <div th:replace="import::scipt"></div>
 <script th:inline="javascript">
+</script>
+<script>
+    new Vue({
+        el:"#company",
+        data:{
+
+        },
+        methods:{
+            addGJ:function(){
+                $("#modal-default").addClass("in").css("display","block")
+            },
+            closePop:function(){
+                $("#modal-default").removeClass("in").css("display","none")
+            },
+            editorFun:function(){
+                CKEDITOR.replace( 'editor1', {
+                    customConfig: '',
+                    filebrowserImageUploadUrl:"skins",
+                    removeDialogTabs:"image:advanced;image:Link",
+                    toolbarGroups: [
+                        {"name":"basicstyles","groups":["basicstyles"]},
+                        {"name":"links","groups":["links"]},
+                        {"name":"paragraph","groups":["list","blocks"]},
+                        // {"name":"document","groups":["mode"]},
+                        {"name":"insert","groups":["insert"]},
+//                {"name":"styles","groups":["styles"]},
+                        {"name":"about","groups":["about"]}
+                    ],
+                    removePlugins:"elementspath"
+//            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
+                });
+            }
+        },
+        mounted:function () {
+            var _this = this;
+            _this.editorFun(); //初始化生成编辑器
+        }
+    })
 </script>
 </body>
 </html>
