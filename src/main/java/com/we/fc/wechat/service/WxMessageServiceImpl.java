@@ -52,6 +52,8 @@ public class WxMessageServiceImpl extends BaseServiceImpl<WxMessage> implements 
         String accessToken = wxApiHandler.getAccessToken(wxPublic.getAppId(), wxPublic.getAppSecret());
         WxUserDetail wxUserDetail = wxApiHandler.loadUserDetail(accessToken, openId);
         wxUserOpenIdDao.insert(new WxUserOpenId(openId, wxPublic));
+        wxUserDetail.setWxPublic(wxPublic);
+        wxUserDetail.setCompany(wxPublic.getCompany());
         wxUserDetailDao.insert(wxUserDetail);
     }
 
