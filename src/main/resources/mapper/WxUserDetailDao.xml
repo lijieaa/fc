@@ -69,4 +69,10 @@
           #{company.id}
         )
     </insert>
+
+    <delete id="deleteByOpenIdAndSourceId">
+        DELETE FROM wx_user_detail
+        WHERE open_id = #{openId}
+        AND public_id = (SELECT public_id FROM wx_public WHERE source_id = #{sourceId})
+    </delete>
 </mapper>

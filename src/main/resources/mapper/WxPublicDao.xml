@@ -42,4 +42,8 @@
     <select id="findByCompanyId" resultMap="wxPublicMap">
         SELECT * FROM wx_public WHERE company_id = #{0}
     </select>
+
+    <select id="findBySourceId" resultMap="wxPublicMap">
+        SELECT * FROM wx_public WHERE source_id = #{0}
+    </select>
 </mapper>
