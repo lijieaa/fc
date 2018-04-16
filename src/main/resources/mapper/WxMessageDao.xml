@@ -69,4 +69,8 @@
         SELECT * FROM wx_message WHERE to_user = #{sourceId} AND from_user = #{openId}
     </select>
 
+    <delete id="deleteByFromUserAndToUser">
+        DELETE FROM wx_message WHERE to_user = #{toUser} and from_user = #{fromUser}
+    </delete>
+
 </mapper>

@@ -24,7 +24,7 @@
 
     <delete id="deleteByOpenIdAndSourceId">
         DELETE FROM wx_user_openid
-        WHERE openid = #{openId}
+        WHERE openid_id = #{openId}
         AND public_id = (SELECT public_id FROM wx_public WHERE source_id = #{sourceId})
     </delete>
 </mapper>
