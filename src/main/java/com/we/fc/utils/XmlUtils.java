@@ -60,6 +60,8 @@ public class XmlUtils {
                 wxMessage.setDescription(data);
             }else if(name.equalsIgnoreCase("Url")) {
                 wxMessage.setUrl(data);
+            }else if(name.equalsIgnoreCase("Event")) {
+                wxMessage.setEvent(data);
             }
         }
         return wxMessage;
