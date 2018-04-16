@@ -44,16 +44,6 @@ public class WxMessage{
 
     private String Url;
 
-    private String Event;
-
-    public String getEvent() {
-        return Event;
-    }
-
-    public void setEvent(String event) {
-        Event = event;
-    }
-
     public String getPicUrl() {
         return PicUrl;
     }

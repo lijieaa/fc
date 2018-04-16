@@ -10,10 +10,6 @@
         <result property="wxPublic.id" column="public_id"></result>
     </resultMap>
 
-    <insert id="insert">
-        INSERT INTO wx_user_openid(openid, public_id) VALUES (#{openId}, #{wxPublic.id})
-    </insert>
-
     <insert id="batchInsert">
         INSERT INTO wx_user_openid(openid, public_id)
         VALUES
@@ -21,10 +17,4 @@
             (#{item.openId},#{item.wxPublic.id})
         </foreach>
     </insert>
-
-    <delete id="deleteByOpenIdAndSourceId">
-        DELETE FROM wx_user_openid
-        WHERE openid = #{openId}
-        AND public_id = (SELECT public_id FROM wx_public WHERE source_id = #{sourceId})
-    </delete>
 </mapper>

@@ -22,14 +22,4 @@ public interface WxMessageDao extends BaseDao<WxMessage> {
      */
     List<WxMessage> findBySourceIdAndOpenId(@Param("sourceId") String sourceId,
                                             @Param("openId") String openId);
-
-    /**
-     * 按订阅者openId和公从号sourceId删除
-     * @param fromUser
-     * @param toUser
-     * @throws Exception
-     */
-    void deleteByFromUserAndToUser(@Param("fromUser") String fromUser,
-                                   @Param("toUser")String toUser) throws Exception;
-
 }
