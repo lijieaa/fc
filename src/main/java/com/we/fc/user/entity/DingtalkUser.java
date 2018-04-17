@@ -1,5 +1,6 @@
 package com.we.fc.user.entity;
 import com.we.fc.base.BaseEntity;
+import com.we.fc.intermediary.entity.Intermediary;
 import com.we.fc.menu.entity.Menu;
 import com.we.fc.role.entity.Role;
 import org.springframework.security.core.GrantedAuthority;
@@ -116,7 +117,7 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
      *
      * @mbggenerated
      */
-    private Integer interimediaryId;
+    private Integer intermediaryId;
 
 
 
@@ -409,8 +410,8 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
      *
      * @mbggenerated
      */
-    public Integer getInterimediaryId() {
-        return interimediaryId;
+    public Integer getIntermediaryId() {
+        return intermediaryId;
     }
 
     /**
@@ -422,7 +423,7 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
      * @mbggenerated
      */
     public void setInterimediaryId(Integer interimediaryId) {
-        this.interimediaryId = interimediaryId;
+        this.intermediaryId = interimediaryId;
     }
 
 
@@ -474,7 +475,7 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
         sb.append(", jobnumber=").append(jobnumber);
         sb.append(", ishide=").append(ishide);
         sb.append(", issenior=").append(issenior);
-        sb.append(", interimediaryId=").append(interimediaryId);
+        sb.append(", interimediaryId=").append(intermediaryId);
         sb.append(", createTime=").append(this.getCreateTime());
         sb.append(", updateTime=").append(this.getCreateTime());
         sb.append(", extattr=").append(extattr);
@@ -539,4 +540,15 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
     }
 
     private Set<Menu> menus;
+
+
+    public Intermediary getIntermediary() {
+        return intermediary;
+    }
+
+    public void setIntermediary(Intermediary intermediary) {
+        this.intermediary = intermediary;
+    }
+
+    private Intermediary intermediary;
 }
