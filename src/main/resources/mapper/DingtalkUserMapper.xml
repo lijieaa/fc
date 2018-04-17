@@ -23,7 +23,9 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="extattr" property="extattr" jdbcType="LONGVARCHAR" />
+    <collection property="roles" column="userid" fetchType="lazy" select="com.we.fc.role.dao.RoleDao.findByUserId"></collection>
   </resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated

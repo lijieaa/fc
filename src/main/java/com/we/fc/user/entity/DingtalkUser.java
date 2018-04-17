@@ -1,9 +1,13 @@
 package com.we.fc.user.entity;
 import com.we.fc.base.BaseEntity;
+import com.we.fc.menu.entity.Menu;
+import com.we.fc.role.entity.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 public class DingtalkUser extends BaseEntity implements UserDetails{
 
@@ -513,4 +517,26 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
+
+    private List<Role> roles;
+
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+
+    public Set<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(Set<Menu> menus) {
+        this.menus = menus;
+    }
+
+    private Set<Menu> menus;
 }

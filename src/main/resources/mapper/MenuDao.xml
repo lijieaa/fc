@@ -13,7 +13,14 @@
         <result property="display" column="menu_display"></result>
         <result property="parent.id" column="menu_parent_id"></result>
         <result property="icon" column="icon"></result>
+<!--
+        <collection property="children" column="menu_id" fetchType="lazy" select="findByParentId" ofType="Menu" ></collection>
+-->
     </resultMap>
+
+    <select id="findByParentId" resultMap="menuMap">
+        SELECT * FROM sys_menu WHERE menu_parent_id = #{0}
+    </select>
 
     <select id="selectByPrimaryKey" resultMap="menuMap">
         SELECT * FROM sys_menu WHERE menu_id = #{0}

@@ -8,10 +8,11 @@
         <id property="id" column="role_id"></id>
         <result property="name" column="role_name"></result>
         <result property="description" column="role_description"></result>
-        <result property="group.id" column="role_group_id"></result>
+        <result property="roleGroup.id" column="role_group_id"></result>
         <result property="company.id" column="company_id"></result>
         <result property="createTime" column="role_create_time"></result>
         <result property="updateTime" column="role_update_time"></result>
+        <collection property="menus" column="role_id" fetchType="lazy" select="com.we.fc.menu.dao.MenuDao.findByRoleId"></collection>
     </resultMap>
 
     <select id="findByUserId" resultMap="roleMap">
