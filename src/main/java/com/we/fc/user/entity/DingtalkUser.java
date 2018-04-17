@@ -4,8 +4,10 @@ import com.we.fc.intermediary.entity.Intermediary;
 import com.we.fc.menu.entity.Menu;
 import com.we.fc.role.entity.Role;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -484,9 +486,27 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
         return sb.toString();
     }
 
+    private Collection<SimpleGrantedAuthority> authorities =new ArrayList<>();
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<Role> roles = this.getRoles();
+        if (roles.size()>0){
+            for (Role role : roles) {
+                List<Menu> menus = role.getMenus();
+                if (menus.size()>0){
+                    for (Menu menu : menus) {
+                        String permission = menu.getPermission();
+                        if(null==permission||permission.equals("")){
+                            permission="no permission";
+                        }
+                        SimpleGrantedAuthority simpleGrantedAuthority=new SimpleGrantedAuthority(permission);
+                        authorities.add(simpleGrantedAuthority);
+                    }
+                }
+            }
+        }
+        return authorities;
     }
 
     @Override
