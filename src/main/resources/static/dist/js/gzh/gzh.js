@@ -1,4 +1,5 @@
  $(document).ready(function() {
+     //公众号列表
         $('#deviceForm').DataTable( {
             "ajax": "../dist/data/gzh.json",
             "info":false,
@@ -59,6 +60,7 @@
                 }
             }
         })
+     // 点击弹窗新建跳转到不同的页面
      $(".new-source").click(function () {
          var cliText=$(this).attr("data-id");
          $("#gzh-index").hide();
@@ -69,21 +71,38 @@
              $(".gzh-source-type a:eq(0)").addClass("cli-color").siblings().removeClass("cli-color");
              $(".new-type-name").text("图文消息");
              $(".btn-new-check").text("新建图文素材");
-         }
-         if(cliText=="2"){
+         } else if(cliText=="2"){
              $(".gzh-source-type a:eq(1)").addClass("cli-color").siblings().removeClass("cli-color");
              $(".new-type-name").text("图片");
              $(".btn-new-check").text("上传");
-         }
-         if(cliText=="3"){
+         } else if(cliText=="3"){
              $(".gzh-source-type a:eq(2)").addClass("cli-color").siblings().removeClass("cli-color");
              $(".new-type-name").text("语音");
              $(".btn-new-check").text("添加");
-         }
-         if(cliText=="4"){
+         } else if(cliText=="4"){
              $(".gzh-source-type a:eq(3)").addClass("cli-color").siblings().removeClass("cli-color");
              $(".new-type-name").text("视频");
              $(".btn-new-check").text("添加");
          }
      })
+     //在素材页面操作按钮
+     $(".gzh-source-type a").click(function () {
+         var cliID=$(this).attr("data-id");
+         $(this).addClass("cli-color").siblings().removeClass("cli-color");
+         if(cliID=="1"){
+             $(".new-type-name").text("图文消息");
+             $(".btn-new-check").text("新建图文素材");
+         } else if(cliID=="2"){
+             $(".new-type-name").text("图片");
+             $(".btn-new-check").text("上传");
+         } else if(cliID=="3"){
+             $(".new-type-name").text("语音");
+             $(".btn-new-check").text("添加");
+         } else if(cliID=="4"){
+             $(".new-type-name").text("视频");
+             $(".btn-new-check").text("添加");
+         }
+     })
+     // 新建选择素材操作
+
     } );

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" th:href="@{/dist/css/gzh-l/gzh.css}">
+<link rel="stylesheet" th:href="@{/dist/css/gzh-l/gzh.css}"/>
+<link rel="stylesheet" th:href="@{/dist/css/gzh-l/webuploader.css}"/>
 <div th:replace="import::hdr"></div>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="import::bdy-befor">
@@ -248,25 +249,56 @@
       <div id="source-bulid" style="display: none;">
           <div class="source-title">素材管理</div>
           <div class="content-header gzh-source-type">
-              <a class="">图文消息</a>
-              <a class="">图片</a>
-              <a class="">语音</a>
-              <a class="">视频</a>
+              <a class="" data-id="1">图文消息</a>
+              <a class="" data-id="2">图片</a>
+              <a class="" data-id="3">语音</a>
+              <a class="" data-id="4">视频</a>
           </div>
           <div style="margin-top: 2%;">
-              <span style="margin-left: 2%"><a class="new-type-name">图文消息</a><a>（共85条）</a></span>
+              <span style="margin-left: 2%"><a class="new-type-name">图文消息</a><a>（共1条）</a></span>
               <div class="col-md-2 col-sm-2  col-xs-12 float-right">
-                  <button type="button" class="btn btn-block btn-info btn-new-check">新建图文消息</button>
+                  <button type="button" class="btn btn-block btn-info btn-new-check" id="newAdd" style="min-width:120px;">新建图文消息</button>
               </div>
           </div>
-          <div style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;"></div>
+          <div style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;">
+              <div style="width: 100%;height: 40%;">
+                  <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;"></div>
+                  <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;"></div>
+                  <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;"></div>
+              </div>
+              <div style="width: 100%;height: 40%;">
+                  <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;"></div>
+                  <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;"></div>
+                  <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;"></div>
+              </div>
+          </div>
       </div>
      <!--/.content-->
   </div>
 </div>
 <div th:replace="import::scipt"></div>
 <script th:src="@{/dist/js/gzh/gzh.js}"></script>
+<script th:src="@{/dist/js/gzh/webuploader.js}"></script>
 <script th:inline="javascript">
+</script>
+<script>
+    $(function () {
+            var uploader = WebUploader.create({
+                auto: false,//是否自动上传
+                swf: "wechat/Uploader.swf",
+                pick: '#newAdd',
+                server: '@Url.Action("Upload")',//传到服务器的链接
+                accept: {
+                    title: 'Images',
+                    extensions: 'gif,jpg,jpeg,bmp,png,mp4,flv',
+                    mimeTypes: 'image/*'
+                }
+            });
+            uploader.on('fileQueued',function(file) {
+                console.log(file);
+            });
+        })
+
 </script>
 </body>
 </html>
