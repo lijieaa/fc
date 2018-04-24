@@ -61,7 +61,7 @@ public class PlatFormController {
             e.printStackTrace();
             System.out.println("微信消息接收异常："+e.getMessage());
         }
-        return "";
+        return "success";
     }
 
 }
