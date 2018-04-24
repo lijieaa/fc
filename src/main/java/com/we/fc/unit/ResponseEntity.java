@@ -9,7 +9,8 @@ import java.util.List;
 public class ResponseEntity {
     private String status = "200";
     private String messages = "操作成功！";
-    private List data;
+    private List list;
+    private Object data;
 
     public String getStatus() {
         return status;
@@ -27,11 +28,19 @@ public class ResponseEntity {
         this.messages = messages;
     }
 
-    public List getData() {
+    public List getList() {
+        return list;
+    }
+
+    public void setList(List list) {
+        this.list = list;
+    }
+
+    public Object getData() {
         return data;
     }
 
-    public void setData(List data) {
+    public void setData(Object data) {
         this.data = data;
     }
 }

@@ -105,7 +105,7 @@ public abstract class BaseController<T extends BaseEntity> {
             t.setCompany(getSelf(session).getCompany());
             List<T> list = getService().selectAll(t);
             PageInfo pageInfo = new PageInfo(list);
-            responseEntity.setData(Arrays.asList(pageInfo));
+            responseEntity.setData(pageInfo);
             return responseEntity;
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,7 +120,7 @@ public abstract class BaseController<T extends BaseEntity> {
     public ResponseEntity all(@RequestBody(required = false) T t, HttpSession session){
         ResponseEntity responseEntity = new ResponseEntity();
         if(t != null) t.setCompany(getSelf(session).getCompany());
-        responseEntity.setData(getService().selectAll(t));
+        responseEntity.setList(getService().selectAll(t));
         return responseEntity;
     }
 
