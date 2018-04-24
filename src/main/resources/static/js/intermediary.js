@@ -113,8 +113,8 @@ $(document).ready(function() {
                         },
                         view: {
                             fontCss: getFontCss,
-                            showLine: false,
-                            showIcon:false
+                            showLine: false
+                            // showIcon:false
                         }
                     };
                     function getFontCss(treeId, treeNode) {
@@ -177,7 +177,19 @@ $(document).ready(function() {
         }
     });
     $('#deviceForm').DataTable( {
-        "ajax": "../dist/data/device.json",
+        "ajax": {
+             url: contextPath +"intermediary/page",
+             type:"get",
+             dataSrc: "data.list",
+             "data": {
+                "page":1,
+                 "rows":10
+             },
+             success:function (data) {
+                 console.log(data);
+             }
+
+        },
         "info":false,
         "searching": false,
         "lengthChange": false,
@@ -190,12 +202,12 @@ $(document).ready(function() {
             }
         },
         "columns": [
-            { "data": "name" },
+            { "data": "intermediaryName" },
             { "data": "position" },
-            { "data": "office" },
-            { "data": "Extn" },
-            { "data": "Start" },
-            { "data": "status" },
+            { "data": "intermediaryContact" },
+            { "data": "intermediaryContactTel" },
+            { "data": "intermediaryIntroduction" },
+            { "data": "intermediaryLogoUrl" },
             // { "data": "Salary" },
             { "data": "", "render": function(data, type, row, meta){
                     var html = "<button type='button' class='Normal margin-right-4 btn btn-primary' id='editDevice'>编辑</button>" +

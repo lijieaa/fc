@@ -170,8 +170,11 @@
                 })
             }
         });
-        $('#deviceForm').DataTable( {
-            "ajax": "../dist/data/device.json",
+        $('#deviceForm').DataTable({
+            "ajax":{
+                url:"../dist/data/device.json",
+                dataSrc:"data.list"
+            },
             "info":false,
             "searching": false,
             "lengthChange": false,
@@ -200,7 +203,7 @@
                     }}
 
             ],
-            "pageLength": 50,
+            "pageLength": 10,
             "stateLoadParams": function (settings, data) {
                 alert(1);
             }
