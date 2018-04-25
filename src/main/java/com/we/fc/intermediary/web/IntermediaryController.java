@@ -47,6 +47,7 @@ public class IntermediaryController extends BaseController<Intermediary> {
         Intermediary intermediary = getService().selectByPrimaryKey(id);
         if (null!=intermediary&&intermediary.getIsPlat()==1){
             responseEntity.setMessages("该条数据不能被删除");
+            responseEntity.setStatus("500");
             return responseEntity;
         }
         return super.delete(id, session);
