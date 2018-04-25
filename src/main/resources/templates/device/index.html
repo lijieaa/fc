@@ -172,8 +172,13 @@
         });
         $('#deviceForm').DataTable({
             "ajax":{
-                url:"../dist/data/device.json",
-                dataSrc:"data.list"
+                // url:"../dist/data/device.json",
+                url: contextPath +"intermediary/page",
+                dataSrc:"data.list",
+                "data": {
+                   "page":1,
+                    "rows":10
+                }
             },
             "info":false,
             "searching": false,
