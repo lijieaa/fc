@@ -18,7 +18,7 @@
   }
   .modal-body {
       position: relative;
-      outline: 1px solid #ececec;
+      /*outline: 1px solid #ececec;*/
       margin-right: 2px;
       margin-left: -2px;
   }
@@ -99,7 +99,6 @@
               <th>联系方式</th>
               <th>平台对接人</th>
               <th>联系方式</th>
-              <!--<th>指定中间商</th>-->
               <th>功能</th>
             </tr>
             </thead>
@@ -140,30 +139,30 @@
           <div class="col-md-6 col-sm-12 col-xs-12">
             <div class="pop-box margin-top-15">
               <label for="" class="label-pop-style text-align-right">中间商名称:</label>
-              <input type="text" class="form-control form-style-pop">
+              <input type="text" class="form-control form-style-pop" v-model="intermediaryName">
             </div>
             <div class="pop-box margin-top-15">
               <label for="" class="label-pop-style text-align-right">联系人:</label>
-              <input type="text" class="form-control form-style-pop">
+              <input type="text" class="form-control form-style-pop" v-model = "intermediaryContact">
             </div>
             <div class="pop-box margin-top-15">
               <label for="" class="label-pop-style text-align-right">联系电话:</label>
-              <input type="text" class="form-control form-style-pop">
+              <input type="text" class="form-control form-style-pop" v-model = "intermediaryContactTel">
             </div>
           </div>
           <div class="col-md-6 col-sm-12 col-xs-12">
             <div class="pop-box margin-top-15 positon-relative">
               <label for="" class="label-pop-style text-align-right">所属地区:</label>
-              <input type="text" class="form-control form-style-pop" id="address" v-model="address"  @blur="treeHide"  @focus="treeShow">
+              <input type="text" class="form-control form-style-pop" id="address" v-bind:data-id="addRessId" v-model="address"  @blur="treeHide"  @focus="treeShow">
               <ul id="treeDemo" class="ztree"  v-show="treeIsShow"></ul>
             </div>
             <div class="pop-box margin-top-15">
               <label for="" class="label-pop-style text-align-right">平台对接人:</label>
-              <input type="text" class="form-control form-style-pop">
+              <input type="text" class="form-control form-style-pop" v-model="broker">
             </div>
             <div class="pop-box margin-top-15">
               <label for="" class="label-pop-style text-align-right">联系方式:</label>
-              <input type="text" class="form-control form-style-pop">
+              <input type="text" class="form-control form-style-pop" v-model="brokerPhone">
             </div>
           </div>
         </div>
@@ -175,11 +174,25 @@
           </div>
         </div>
         <div class="text-align padding-18">
-          <button type="submit" class="btn btn-info search margin-right-4">确定</button>
+          <button type="button" @click="sureSubmit" class="btn btn-info search margin-right-4">确定</button>
           <button type="reset" class="btn reset-btn search">重置</button>
         </div>
       </form>
     </section>
+  </div>
+
+  <div class="modal fade" id="canDelate">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body text-align" v-text="delErrorMsg">
+          是否删除当前信息？
+        </div>
+        <div class="modal-footer text-align">
+          <button type="button" class="btn btn-info search margin-right-4" @click="sureDel">确定</button>
+          <button type="button" class="btn reset-btn search" @click = "closeDelPop">取消</button>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="overlay">
     <i class="fa fa-refresh fa-spin"></i>
@@ -189,10 +202,10 @@
 <div th:replace="import::scipt"></div>
 <script type="text/javascript" th:src="@{/js/webuploader.js}"></script>
 <script th:inline="javascript"></script>
-<!--ck-editor-->
-
-<!--<script type="text/javascript" th:src="@{/dist/js/sample.js}"></script>-->
-<!--<script th:src="@{/plugins/zTree/jquery.ztree.excheck.js}"></script>-->
 <script type="text/javascript" th:src="@{/js/intermediary.js}"></script>
+<script type="text/javascript">
+
+
+</script>
 </body>
 </html>

@@ -11,13 +11,23 @@ $(document).ready(function() {
             companyName:"新增中间商",
             selected:"3",
             address:"",
+            addRessId:"",
             projectList:[
                 {val:1,name:"成都华西"},
                 {val:2,name:"成都龙泉"},
                 {val:3,name:"项目二"}
             ],
             facList:[],
-            treeIsShow:false
+            treeIsShow:false,
+            intermediaryName:"",
+            intermediaryContact:"",
+            intermediaryContactTel:"",
+            broker:"",
+            brokerPhone:"",
+            editor:"" ,//文本编辑器
+            editorId:"",
+            delId:"",
+            delErrorMsg:"是否删除当前信息?"
         },
         methods:{
             redirectMediary:function(){
@@ -27,14 +37,15 @@ $(document).ready(function() {
                 _this.companyName = "新增中间商";
             },
             backMediary:function(){
-                $("#mediaryList").show();
-                $("#mediaryAddEdit").hide();
+                // $("#mediaryList").show();
+                // $("#mediaryAddEdit").hide();
+                location.reload();
             },
             closePop:function(){
                 $("#modal-default").removeClass("in").css("display","none")
             },
-            editorFun:function(){
-                CKEDITOR.replace( 'editor1', {
+            editorFun:function(){ //文本框编辑
+                this.editor = CKEDITOR.replace( 'editor1', {
                     customConfig: '',
                     filebrowserImageUploadUrl:"skins",
                     removeDialogTabs:"image:advanced;image:Link",
@@ -126,6 +137,7 @@ $(document).ready(function() {
                     }
                     function zTreeOnclick(event, treeId, treeNode) {
                         _this.address = treeNode.name;
+                        _this.addRessId = treeNode.id;
                         _this.treeIsShow = false;
                     }
                     function getUrl(treeId, treeNode){
@@ -147,82 +159,115 @@ $(document).ready(function() {
                 }
                 }
 
+            },
+            closeDelPop:function(){
+                $("#canDelate").removeClass("in").css("display","none")
+            },
+            sureSubmit:function(){ //添加中间商
+                var _this = this;
+                var postData = {
+                    intermediaryName:_this.intermediaryName, //中间商名称
+                    intermediaryContact:_this.intermediaryContact,//中间商联系人
+                    intermediaryContactTel:_this.intermediaryContactTel, //中间商联系方式
+                    area:{
+                        id:_this.addRessId
+                    },
+                    broker:_this.broker,
+                    brokerPhone:_this.brokerPhone,
+                    intermediaryLogoUrl:"",
+                    intermediaryIntroduction: CKEDITOR.instances.editor1.getData()
+                };
+                var type;
+                if(_this.editorId.length !=0 ){
+                    type = "put";
+                    postData.id = _this.editorId;
+                }else{
+                    type = "post"
+                }
+                $.axspost(contextPath + "intermediary",type,postData,function(data){
+
+                },function(data){})
+            },
+            sureDel:function(){
+                $.axspost(contextPath + "intermediary/"+this.delId+"","delete","",function(data){
+                },function(data){})
             }
         },
         mounted:function(){
             var _this = this;
-            $(document).on("click","#editDevice",function(){
-                _this.companyName = "编辑中间商";
-                $("#mediaryList").hide();
-                $("#mediaryAddEdit").show();
-            });
-
-            $(document).on("click","#detail",function(){
-                window.location.href = "detail?menuId=4";
-            });
-            $(document).bind("click",function(){
-                // _this.treeIsShow = false;
-                // console.log( _this.treeIsShow);
-            });
 
             _this.editorFun(); //初始化生成编辑器
             _this.uploaderFun();  //上传图片
             $.axspost(contextPath + "area/condition?level=1","get","",function(data){
                 _this.facList = data.data;
                 _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
-            },function (data) {
+            },function (data) {});
 
+            $('#deviceForm').DataTable({
+                "ajax":{
+                    // url:"../dist/data/device.json",
+                    url: contextPath +"intermediary/page",
+                    dataSrc:"data.list",
+                    "data": {
+                        "page":1,
+                        "rows":10
+                    }
+                },
+                "info":false,
+                "searching": false,
+                "lengthChange": false,
+                "ordering": false,
+                // "pagingType": "full_numbers",
+                "language": {
+                    "paginate": {
+                        "next": "下一页",
+                        "previous": "上一页"
+                    }
+                },
+                "columns": [
+                    { "data": "intermediaryName" },
+                    { "data": "area.name" },
+                    { "data": "intermediaryContact" },
+                    { "data": "intermediaryContactTel" },
+                    { "data": "intermediaryIntroduction" },
+                    { "data": "intermediaryContactTel" },
+                    { "data": "", "render": function(data, type, row, meta){
+                            var html = "<button type='button' class='Normal margin-right-4 btn btn-primary' data-id='"+row.id+"' id='editInter'>编辑</button>" +
+                                "<button type='button' class='Normal margin-right-4 btn btn-primary' data-id='"+row.id+"' id='delete'>删除</button>" +
+                                "<button type='button' class='Normal margin-right-4 btn btn-primary' data-id='"+row.id+"' id='detail'>详情</button>";
+                            return html;
+                        }}
+
+                ],
+                "pageLength": 10,
+                "stateLoadParams": function (settings, data) {
+                    alert(1);
+                }
             });
 
+            $(document).on("click","#editInter",function(){
+                _this.editorId = $(this).attr("data-id");
+                // console.log(_this.editorId);
+                _this.companyName = "编辑中间商";
+                $("#mediaryList").hide();
+                $("#mediaryAddEdit").show();
+            });
+
+            //删除
+            $(document).on("click","#delete",function(){
+                var id = $(this).attr("data-id");
+                _this.delId = id;
+                $("#canDelate").show();
+                $("#canDelate").addClass("in").css("display","block")
+
+            });
+            $(document).on("click","#detail",function(){
+                window.location.href = "detail?menuId=4";
+            });
         }
     });
-    $('#deviceForm').DataTable( {
-        "ajax": {
-            url:"\"../dist/data/device.json\"",
-            dataSrc:"data.list",
-        },
-        "info":false,
-        "searching": false,
-        "lengthChange": false,
-        "ordering": false,
-        // "pagingType": "full_numbers",
-        "language": {
-            "paginate": {
-                "next": "下一页",
-                "previous": "上一页"
-            }
-        },
-        "columns": [
-            { "data": "name" },
-            { "data": "position" },
-            { "data": "office" },
-            { "data": "Extn" },
-            { "data": "Start" },
-            { "data": "status" },
-            { "data": "Salary" },
-            // { "data": "Salary" },
-            { "data": "", "render": function(data, type, row, meta){
-                    var html = "<button type='button' class='Normal margin-right-4 btn btn-primary' id='editDevice'>编辑</button>" +
-                        "<button type='button' class='Normal margin-right-4 btn btn-primary' id='delete'>删除</button>" +
-                        "<button type='button' class='Normal margin-right-4 btn btn-primary' id='detail'>详情</button>";
 
-                    return html;
-                }}
 
-        ],
-        "pageLength": 50,
-        "stateLoadParams": function (settings, data) {
-            alert(1);
-        }
-    } );
-    $("#deviceForm").on( 'init.dt', function ( e, settings ) {
-        //在此给变量赋值
-        // console.log(1);
-        $(".content-list").removeClass("display-none")
-    });
-    $("#deviceForm").on( 'draw', function () {
-        alert( 'Table redrawn' );
-    } );
 
 
 } );
