@@ -260,17 +260,67 @@
                   <button type="button" class="btn btn-block btn-info btn-new-check" id="newAdd" style="min-width:120px;">新建图文消息</button>
               </div>
           </div>
-          <div style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;">
-              <div style="width: 100%;height: 40%;">
-                  <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;"></div>
-                  <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;"></div>
-                  <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;"></div>
+          <!--素材库图文消息内容-->
+          <div>
+              <div style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;" id="photo-tx">
+                  <div style="width: 100%;height: 44%;">
+                      <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;">
+                          <label>标题</label><br/>
+                          <label>作者</label><br/>
+                          <label>图片</label><br/>
+                          <label>23333</label>
+                      </div>
+                      <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;"></div>
+                      <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;"></div>
+                  </div>
+                  <div style="width: 100%;height: 44%;">
+                      <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;"></div>
+                      <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;"></div>
+                      <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;"></div>
+                  </div>
               </div>
-              <div style="width: 100%;height: 40%;">
-                  <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;"></div>
-                  <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;"></div>
-                  <div style="height: 100%;width: 33%;border: 1px #e0e0e0 solid;float: left;"></div>
+              <!--图片-->
+              <div id="photo-show" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;">
+                  <img src="../dist/img/avatar.png" class="" alt="123"  width="200" height="200" style="border: 1px #3b3b3b solid;">
               </div>
+              <!--语音-->
+              <div id="source" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;">
+                  语音
+              </div>
+              <!--视频-->
+              <div id="vid" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;">
+                  视频
+              </div>
+          </div>
+      </div>
+      <!--新建图文素材-->
+      <div id="new-photo-text" style="display: none;">
+          <div class="source-title">素材库 / 新建图文消息</div>
+          <button>返回</button>
+          <div style="margin-left: 10%;margin-top:3%;width: 95%;height: 85%;">
+              <section class="float-left" style="width: 50%;height: 700px;border: 1px #bcbcbc solid;">
+                  <div style="height: 100px;width: 100%;"></div>
+                  <div>
+                      <input type="text" placeholder="请在这里输入标题" style="width: 100%;height: 80px;border: none;font-size: 18px;outline: none;"/>
+                  </div>
+                  <div>
+                      <input type="text" placeholder="请输入标题" style="width: 100%;height: 40px;border: none;font-size: 14px;outline: none;"/>
+                  </div>
+                  <div style="width: 100%;border-bottom: 1px #8e8e8e solid;"></div>
+                  <div style="margin-top: 15px;">
+                      <textarea placeholder="从这里开始写正文" style="width: 100%;height: 400px;border: none;font-size: 14px;outline: none;"></textarea>
+                  </div>
+              </section>
+              <section class="float-left" style="width: 15%;height: 700px;border: 1px #bcbcbc solid;margin-left: 1.5%">
+                  <label style="width:100%;margin-top: 15px;" class="text-center;">多媒体</label>
+                  <div style="width: 60%;margin-left: 20%;margin-top: 20px;">
+                      <div style="width: 100%;height: 50px;line-height:50px;text-align: center;border: 1px #bcbcbc solid;font-size: 16px;border-bottom: none;">图片</div>
+                      <div style="width: 100%;height: 50px;line-height:50px;text-align: center;border: 1px #bcbcbc solid;font-size: 16px;border-bottom: none;">视频</div>
+                      <div style="width: 100%;height: 50px;line-height:50px;text-align: center;border: 1px #bcbcbc solid;font-size: 16px;border-bottom: none;">音频</div>
+                      <div style="width: 100%;height: 50px;line-height:50px;text-align: center;border: 1px #bcbcbc solid;font-size: 16px;border-bottom: none;">投票</div>
+                      <div style="width: 100%;height: 50px;line-height:50px;text-align: center;border: 1px #bcbcbc solid;font-size: 16px;">小程序</div>
+                  </div>
+              </section>
           </div>
       </div>
      <!--/.content-->
