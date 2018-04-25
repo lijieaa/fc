@@ -1,16 +1,12 @@
 package com.we.fc.deviceLog.dao;
 
+import com.we.fc.base.BaseDao;
 import com.we.fc.deviceLog.entity.DeviceLog;
+import org.apache.ibatis.annotations.Mapper;
+
 import java.util.List;
 
-public interface DeviceLogMapper {
-    int deleteByPrimaryKey(Integer deviceLogId);
+@Mapper
+public interface DeviceLogMapper extends BaseDao<DeviceLog> {
 
-    int insert(DeviceLog record);
-
-    DeviceLog selectByPrimaryKey(Integer deviceLogId);
-
-    List<DeviceLog> selectAll();
-
-    int updateByPrimaryKey(DeviceLog record);
 }
