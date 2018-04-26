@@ -32,4 +32,6 @@ public interface WxMessageDao extends BaseDao<WxMessage> {
     void deleteByFromUserAndToUser(@Param("fromUser") String fromUser,
                                    @Param("toUser")String toUser) throws Exception;
 
+//    void insert() throws Exception;
+
 }

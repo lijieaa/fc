@@ -1,6 +1,7 @@
 package com.we.fc.wechat.service;
 
 import com.we.fc.base.BaseService;
+import com.we.fc.wechat.api.msg.Msg;
 import com.we.fc.wechat.entity.WxMessage;
 
 import java.util.List;
@@ -34,4 +35,12 @@ public interface WxMessageService extends BaseService<WxMessage> {
      * @throws Exception
      */
     void unSubscribe(String sourceId, String openId) throws Exception;
+
+    /**
+     * 向用户发送消息
+     * @param openId
+     * @param msg
+     * @throws Exception
+     */
+    void sendMsg2user(String openId, Msg msg) throws Exception;
 }

@@ -3,12 +3,12 @@ package com.we.fc.wechat.api;
 import com.we.fc.exception.AccessTokenException;
 import com.we.fc.http.RequestTools;
 import com.we.fc.utils.GsonUtils;
+import com.we.fc.wechat.api.msg.Msg;
 import com.we.fc.wechat.api.response.AccessTokenResponse;
 import com.we.fc.wechat.api.response.OpenIdResponse;
 import com.we.fc.wechat.api.response.ResponseStatus;
+import com.we.fc.wechat.api.response.SubmitResponse;
 import com.we.fc.wechat.entity.WxUserDetail;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,8 +18,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class WxApiHandler {
 
-
-    @Autowired private StringRedisTemplate stringRedisTemplate;
 
     public String getAccessToken(String appId, String appSecret) throws Exception{
 
@@ -58,6 +56,19 @@ public class WxApiHandler {
         }else{
             throw new AccessTokenException("accessToken或openid错误");
         }
+    }
+
+    // 向用户发送消息
+    public SubmitResponse sendMsg2user(String accessToken, Msg msg) throws Exception{
+
+        String url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=" + accessToken;
+        String result = RequestTools.processPostJson(url, GsonUtils.toJson(msg));
+        if(ResponseStatus.isInvokeSuccess(result)){
+            return GsonUtils.toBean(result, SubmitResponse.class);
+        }else{
+            throw new AccessTokenException("accessToken或openid错误");
+        }
+
     }
 
 }
