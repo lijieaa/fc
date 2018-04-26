@@ -18,6 +18,7 @@
     <association property="user" javaType="com.we.fc.user.entity.User">
       <id property="id" column="user_id"></id>
       <result property="realName" column="user_real_name"></result>
+      <result property="telephone" column="user_telephone"></result>
     </association>
     <association property="area" javaType="com.we.fc.area.entity.Area">
       <id property="id" column="area_id"></id>
