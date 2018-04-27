@@ -73,7 +73,7 @@
                 <div class="pull-left" style="width:1px;height:50px;">
                 </div>
                 <div class="pull-left info" style="left:0px;width:100%">
-                    <p th:inline="text">你好，[[${session.user.realName}]]</p>
+                    <p th:inline="text">你好，[[${session.user.name}]]</p>
                     <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
                     <a th:href="@{/logout}" class="btn btn-xs btn-success" style="float:right;margin-top:-4px;">退出系统</a>
                 </div>
