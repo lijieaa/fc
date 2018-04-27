@@ -1,4 +1,5 @@
 package com.we.fc.user.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.we.fc.base.BaseEntity;
 import com.we.fc.intermediary.entity.Intermediary;
 import com.we.fc.menu.entity.Menu;
@@ -486,6 +487,7 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
         return sb.toString();
     }
 
+    @JsonIgnore
     private Collection<SimpleGrantedAuthority> authorities =new ArrayList<>();
 
     @Override
@@ -571,4 +573,5 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
     }
 
     private Intermediary intermediary;
+
 }
