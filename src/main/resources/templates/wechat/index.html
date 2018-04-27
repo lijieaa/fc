@@ -99,21 +99,21 @@
        <a class="font-size-18 text-blue">用户管理</a>
        <a class="font-size-18 text-black">菜单管理</a>
        <a class="font-size-18 text-black">消息管理</a>
-       <button class="btn btn-info search text-center pull-right">返回</button>
+       <button class="btn btn-info search text-center pull-right" id="backUl">返回</button>
      </section>
      <div style="margin-left: 2.5%;margin-top:3%;width: 95%;height: 85%;">
-         <section class="float-left gzh-search">
-             <div class="input-group" style="margin: 3% 0px 0px 3%;">
-             <span class="input-group-addon ">
-             <i class="fa fa-search"></i>
-             </span>
-             <input type="text" class="form-control" style="width: 80%;">
-             <button type="button" class="btn  btn-info search">搜索</button>
+         <section class="float-left gzh-search" style="width: 100%;">
+             <div class="input-group" style="margin: 1% 0px 0px 1%;">
+               <span class="input-group-addon ">
+               <i class="fa fa-search"></i>
+               </span>
+               <input type="text" class="form-control" style="width: 20%;">
+               <button type="button" class="btn  btn-info search">搜索</button>
              </div>
              <ul class="list-group gzh-ul-manage">
              <li class="list-group-item">
-             <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;">
-             <span>公众号1</span>
+              <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;">
+              <span>公众号1</span>
              </li>
              <li class="list-group-item">
              <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;">
@@ -149,84 +149,88 @@
              </li>
              </ul>
          </section>
-         <section class="float-left gzh-chat">
-             <h5 style="margin-left: 1%;">与公众号1聊天中</h5>
-             <div class="marginLeft-1" style="width: 98%;border: 1px #4d4d4d solid;">
-             <div class="chat-type">
-             <span data-id="1"><i class="glyphicon glyphicon-film"></i>图文消息</span>
-             <span data-id="2"><i class="glyphicon glyphicon-pencil"></i>文字</span>
-             <span data-id="3"><i class="glyphicon glyphicon-picture"></i>图片</span>
-             <span data-id="4"><i class="glyphicon glyphicon-ice-lolly"></i>语音</span>
-             <span data-id="5"><i class="glyphicon glyphicon-hd-video"></i>视频</span>
-             </div>
-             <textarea class="form-control" rows="7" id="textInput"></textarea>
-             </div>
-             <button type="button" class="btn btn-info search marginLeft-1" style="margin-top:2%;width: 100px;display: inline-block;">发送</button>
-             <div style="display: inline-block;">还可以输入100字</div>
-             <h5 class="marginTop-2 marginLeft-1">最近20条聊天记录</h5>
-             <ul class="list-group chat-ul" style="width: 98%;margin: 1% 0 0 1%;height:45%;overflow: auto;">
-             <li class="list-group-item">
-             <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
-             <span class="chat-history-ul">
-             <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
-             <a>你好，晚上好</a>
-             <a>今天都干了什么</a>
-             </span>
-             </li>
-             <li class="list-group-item">
-             <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
-             <span class="chat-history-ul">
-             <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
-             <a>你好，晚上好</a>
-             <a>今天都干了什么</a>
-             </span>
-             </li>
-             <li class="list-group-item">
-             <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
-             <span class="chat-history-ul">
-             <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
-             <a>你好，晚上好</a>
-             <a>今天都干了什么</a>
-             </span>
-             </li>
-             <li class="list-group-item">
-             <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
-             <span class="chat-history-ul">
-             <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
-             <a>你好，晚上好</a>
-             <a>今天都干了什么</a>
-             </span>
-             </li>
-             <li class="list-group-item">
-             <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
-             <span class="chat-history-ul">
-             <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
-             <a>你好，晚上好</a>
-             <a>今天都干了什么</a>
-             </span>
-             </li>
-             <li class="list-group-item">
-             <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
-             <span class="chat-history-ul">
-             <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
-             <a>你好，晚上好</a>
-             <a>今天都干了什么</a>
-             </span>
-             </li>
-             <li class="list-group-item">
-             <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
-             <span class="chat-history-ul">
-             <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
-             <a>你好，晚上好</a>
-             <a>今天都干了什么</a>
-             </span>
-             </li>
-             </ul>
-         </section>
      </div>
     </div>
+      <!--公众号聊天页面-->
+    <div id="chating-per" style="height: 768px;display: none;">
+          <section class="float-left gzh-chat">
+              <button class="btn btn-info search text-center pull-right" id="backUlManage">返回</button>
+              <h5 style="margin-left: 1%;">与<span class="chat-user">公众号1</span>聊天中</h5>
+              <div class="marginLeft-1" style="width: 98%;border: 1px #4d4d4d solid;">
+                  <div class="chat-type">
+                      <span data-id="1"><i class="glyphicon glyphicon-film"></i>图文消息</span>
+                      <span data-id="2"><i class="glyphicon glyphicon-pencil"></i>文字</span>
+                      <span data-id="3"><i class="glyphicon glyphicon-picture"></i>图片</span>
+                      <span data-id="4"><i class="glyphicon glyphicon-ice-lolly"></i>语音</span>
+                      <span data-id="5"><i class="glyphicon glyphicon-hd-video"></i>视频</span>
+                  </div>
+                  <textarea class="form-control" rows="7" id="textInput"></textarea>
+              </div>
+              <button type="button" class="btn btn-info search marginLeft-1" style="margin-top:1%;width: 100px;display: inline-block;">发送</button>
+              <div style="display: inline-block;">还可以输入100字</div>
+              <h5 class="marginTop-2 marginLeft-1">最近20条聊天记录</h5>
+              <ul class="list-group chat-ul" style="width: 98%;margin: 0.5% 0 0 1%;height:50%;overflow: auto;">
+                  <li class="list-group-item">
+                     <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
+                     <span class="chat-history-ul">
+                      <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
+                      <a>你好，晚上好</a>
+                      <a>今天都干了什么</a>
+                     </span>
+                  </li>
+                  <li class="list-group-item">
+                      <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
+                      <span class="chat-history-ul">
+                      <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
+                      <a>你好，晚上好</a>
+                      <a>今天都干了什么</a>
+                      </span>
+                  </li>
+                  <li class="list-group-item">
+                      <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
+                      <span class="chat-history-ul">
+                      <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
+                      <a>你好，晚上好</a>
+                      <a>今天都干了什么</a>
+                      </span>
+                  </li>
+                  <li class="list-group-item">
+                      <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
+                      <span class="chat-history-ul">
+                      <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
+                      <a>你好，晚上好</a>
+                      <a>今天都干了什么</a>
+                      </span>
+                  </li>
+                  <li class="list-group-item">
+                      <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
+                      <span class="chat-history-ul">
+                      <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
+                      <a>你好，晚上好</a>
+                      <a>今天都干了什么</a>
+                       </span>
+                  </li>
+                  <li class="list-group-item">
+                      <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
+                      <span class="chat-history-ul">
+                      <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
+                      <a>你好，晚上好</a>
+                      <a>今天都干了什么</a>
+                       </span>
+                  </li>
+                  <li class="list-group-item">
+                      <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
+                      <span class="chat-history-ul">
+                      <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
+                      <a>你好，晚上好</a>
+                      <a>今天都干了什么</a>
+                       </span>
+                  </li>
+              </ul>
+          </section>
+    </div>
       <!--素材库弹窗-->
-      <div class="modal fade" id="sourceRoom" tabindex="-1" role="dialog" aria-labelledby="mySource" style="position: absolute;top:12%;">
+    <div class="modal fade" id="sourceRoom" tabindex="-1" role="dialog" aria-labelledby="mySource" style="position: absolute;top:12%;">
           <div class="modal-dialog" role="document" style="width: 50%;">
               <div class="modal-content">
                   <div class="modal-header">
@@ -246,7 +250,7 @@
           </div>
       </div>
       <!--素材库新建页面-->
-      <div id="source-bulid" style="display: none;">
+    <div id="source-bulid" style="display: none;">
           <div class="source-title">素材管理</div>
           <div class="content-header gzh-source-type">
               <a class="" data-id="1">图文消息</a>
@@ -294,9 +298,9 @@
           </div>
       </div>
       <!--新建图文素材-->
-      <div id="new-photo-text" style="display: none;">
+    <div id="new-photo-text" style="display: none;">
           <div class="source-title">素材库 / 新建图文消息</div>
-          <button>返回</button>
+        <button class="btn btn-info search text-center pull-right" id="backStore">返回</button>
           <div style="margin-left: 10%;margin-top:3%;width: 95%;height: 85%;">
               <section class="float-left" style="width: 50%;height: 700px;border: 1px #bcbcbc solid;">
                   <div style="height: 100px;width: 100%;"></div>
