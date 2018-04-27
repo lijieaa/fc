@@ -52,7 +52,7 @@ public class PlatFormController {
                     wxMessageService.subscribe(wxMessage.getToUserName(), wxMessage.getFromUserName());
                 }else if (event.equalsIgnoreCase(WxMessageType.EVENT_UNSUBSCRIBE)){
                     wxMessageService.unSubscribe(wxMessage.getToUserName(), wxMessage.getFromUserName());
-                    System.out.println(wxMessage.getFromUserName() + "取消订阅" + wxMessage.getToUserName());
+                    System.out.println(wxMessage.getFromUserName() + "取消订阅->" + wxMessage.getToUserName());
                 }
             }else{
                 wxMessageService.insert(wxMessage);
@@ -60,6 +60,8 @@ public class PlatFormController {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("微信消息接收异常："+e.getMessage());
+        } finally {
+            bufferedReader.close();
         }
         return "success";
     }

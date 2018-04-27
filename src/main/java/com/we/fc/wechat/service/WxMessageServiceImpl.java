@@ -3,6 +3,7 @@ package com.we.fc.wechat.service;
 import com.we.fc.base.BaseDao;
 import com.we.fc.base.BaseServiceImpl;
 import com.we.fc.wechat.api.WxApiHandler;
+import com.we.fc.wechat.api.msg.Msg;
 import com.we.fc.wechat.dao.WxMessageDao;
 import com.we.fc.wechat.dao.WxPublicDao;
 import com.we.fc.wechat.dao.WxUserDetailDao;
@@ -62,5 +63,12 @@ public class WxMessageServiceImpl extends BaseServiceImpl<WxMessage> implements 
         wxMessageDao.deleteByFromUserAndToUser(openId, sourceId);
         wxUserDetailDao.deleteByOpenIdAndSourceId(openId, sourceId);
         wxUserOpenIdDao.deleteByOpenIdAndSourceId(openId, sourceId);
+    }
+
+    @Override
+    public void sendMsg2user(String openId, Msg msg) throws Exception {
+
+//        wxMessageDao.insert();
+
     }
 }
