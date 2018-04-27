@@ -65,7 +65,7 @@
       <div class="row margin-top-6">
         <div class="col-md-9 col-sm-9">
           <div class="form-group float-left">
-            <select name="" id="" class="sel-option height-34">
+            <select name="" id="limitSelect" class="sel-option height-34">
               <option value="1">中间商</option>
               <option value="2">地区</option>
               <option value="3">联系人</option>
@@ -77,8 +77,8 @@
             <span class="input-group-addon ">
                <i class="fa fa-search"></i>
             </span>
-            <input type="text" class="form-control">
-            <button type="button" class="btn btn-block btn-info search">搜索</button>
+            <input type="text" class="form-control" v-model="inputLimit">
+            <button type="button" class="btn btn-block btn-info search" @click="searchLimit">搜索</button>
           </div>
         </div>
         <div class="col-md-3 col-sm-3 text-align-right">

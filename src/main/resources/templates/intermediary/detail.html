@@ -30,7 +30,9 @@
         padding-left: 15px;
     }
     #logo{
-        width:60%;
+        /*width:60%;*/
+        width: 100px;
+        height: 300px;
     }
     .company-content{
         text-indent: 6px;
@@ -113,32 +115,33 @@
                         <div class="logo-detail border-black padding-10">
                             <div class="row">
                                 <div class="col-md-6 col-sm-4 col-xs-6 ">
-                                    <img src="images/timg.jpg" alt="" width="" id="logo">
+                                    <img src="" alt="">
+                                    <!--<img src="" alt=""  id="logo">-->
                                 </div>
                                 <div class="col-md-6 col-sm-8 col-xs-6 ">
                                     <div>
                                         <label for="">中间商名称</label>
-                                        <span>中间商xxxxxxx公司</span>
+                                        <span v-text="dataList.intermediaryName"></span>
                                     </div>
                                     <div>
                                         <label for="">所属地区：</label>
-                                        <span>安徽省</span>
+                                        <span v-text="dataList.area.name">安徽省</span>
                                     </div>
                                     <div>
-                                        <label for="">联系人</label>
+                                        <label for="">联系人：</label>
+                                        <span v-text="dataList.intermediaryContact"></span>
+                                    </div>
+                                    <div>
+                                        <label for="">联系方式：</label>
+                                        <span  v-text="dataList.intermediaryContactTel"></span>
+                                    </div>
+                                    <div>
+                                        <label for="">平台对接人：</label>
                                         <span>张三</span>
                                     </div>
                                     <div>
-                                        <label for="">联系方式</label>
-                                        <span>139xxxxxxxx</span>
-                                    </div>
-                                    <div>
-                                        <label for="">平台对接人</label>
-                                        <span>张三</span>
-                                    </div>
-                                    <div>
-                                        <label for="">联系电话</label>
-                                        <span></span>
+                                        <label for="">联系方式：</label>
+                                        <span  v-text="dataList.user.telephone"></span>
                                     </div>
                                 </div>
                             </div>
@@ -260,7 +263,41 @@
     new Vue({
         el:"#company",
         data:{
-
+            dataList:{
+                area:{
+                    name:"",
+                    id:""
+                },
+                company: null,
+                createTime: "",
+                id: 1,
+                intermediaryContact: "",
+                intermediaryContactTel: "",
+                intermediaryIntroduction: "",
+                intermediaryLogoUrl: "",
+                intermediaryName: "",
+                isPlat: 1,
+                updateTime: "",
+                user:{
+                    admin:"",
+                    company:"",
+                    createTime:"",
+                    dept: "",
+                    email: "",
+                    entryTime: "",
+                    id: 1,
+                    jobNumber: "",
+                    menus: "",
+                    platformAdmin: "",
+                    position: "",
+                    realName: "",
+                    roles: "",
+                    telephone: "",
+                    updateTime: "",
+                    username: "",
+                    workAddress: ""
+                }
+            }
         },
         methods:{
             addGJ:function(){
@@ -291,6 +328,12 @@
         mounted:function () {
             var _this = this;
             _this.editorFun(); //初始化生成编辑器
+            var detailID  = location.search.substring(1).split("&")[1];
+            $.axspost(contextPath + "intermediary/"+detailID+"","get","",function(data){
+                _this.dataList = data;
+            },function(data){
+
+            })
         }
     })
 </script>
