@@ -12,6 +12,7 @@ $(document).ready(function() {
             selected:"3",
             address:"",
             addRessId:"",
+            inputLimit:"", //搜索框
             projectList:[
                 {val:1,name:"成都华西"},
                 {val:2,name:"成都龙泉"},
@@ -191,6 +192,28 @@ $(document).ready(function() {
             sureDel:function(){
                 $.axspost(contextPath + "intermediary/"+this.delId+"","delete","",function(data){
                 },function(data){})
+            },
+            searchLimit:function(){ //按条件进行搜索
+                var val = $("#limitSelect").val();
+                var postData = {
+                    "page":1,
+                    "rows":10
+                };
+                switch (val){
+                    case 1 :{
+                        postData.intermediaryName = _this.inputLimit;
+                        break;
+                    }
+                    case 2:{
+                        postData.area.name = _this.inputLimit;
+                        break;
+                    }
+                }
+                $('#deviceForm').DataTable({
+                    "ajax":{
+                        data:postData
+                    }
+                }).ajax.reload();
             }
         },
         mounted:function(){
@@ -229,8 +252,8 @@ $(document).ready(function() {
                     { "data": "area.name" },
                     { "data": "intermediaryContact" },
                     { "data": "intermediaryContactTel" },
-                    { "data": "intermediaryIntroduction" },
-                    { "data": "intermediaryContactTel" },
+                    { "data": "user.realName" },
+                    { "data": "user.telephone"},
                     { "data": "", "render": function(data, type, row, meta){
                             var html = "<button type='button' class='Normal margin-right-4 btn btn-primary' data-id='"+row.id+"' id='editInter'>编辑</button>" +
                                 "<button type='button' class='Normal margin-right-4 btn btn-primary' data-id='"+row.id+"' id='delete'>删除</button>" +
@@ -262,7 +285,7 @@ $(document).ready(function() {
 
             });
             $(document).on("click","#detail",function(){
-                window.location.href = "detail?menuId=4";
+                window.location.href = "detail?menuId=4&"+$(this).attr("data-id");
             });
         }
     });

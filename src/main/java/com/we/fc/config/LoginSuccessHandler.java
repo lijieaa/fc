@@ -7,6 +7,7 @@ import com.we.fc.menu.entity.Menu;
 import com.we.fc.menu.utils.MenuUtils;
 import com.we.fc.role.dao.RoleDao;
 import com.we.fc.role.entity.Role;
+import com.we.fc.user.entity.DingtalkUser;
 import com.we.fc.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -37,9 +38,9 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
 
-        User user = (User)authentication.getPrincipal();
+        DingtalkUser user = (DingtalkUser)authentication.getPrincipal();
 
-        // 查询菜单
+       /* // 查询菜单
         if(user.getPlatformAdmin().equals(1)){
             List<Menu> allMenus = menuDao.findDisplay();
             Set<Menu> menuSet = MenuUtils.getLevelMenu(new TreeSet<>(allMenus));
@@ -53,7 +54,14 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         }
         // 查询公司部门
         user.setCompany(companyDao.selectByPrimaryKey(user.getCompany().getId()));
-        user.setDept(deptDao.selectByPrimaryKey(user.getDept().getId()));
+        user.setDept(deptDao.selectByPrimaryKey(user.getDept().getId()));*/
+
+        List<Role> roles = user.getRoles();
+        List<Menu> menus=new ArrayList<>();
+        for (Role role : roles) {
+            menus.addAll(role.getMenus());
+        }
+        user.setMenus(MenuUtils.getLevelMenu(new TreeSet<>(menus)));
         request.getSession().setAttribute("user", user);
         super.getRedirectStrategy().sendRedirect(request, response, "/index");
     }
