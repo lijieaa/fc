@@ -8,6 +8,7 @@ import com.we.fc.company.entity.Company;
 import com.we.fc.menu.entity.Menu;
 import com.we.fc.menu.service.MenuService;
 import com.we.fc.unit.ResponseEntity;
+import com.we.fc.user.entity.DingtalkUser;
 import com.we.fc.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -29,8 +30,8 @@ public abstract class BaseController<T extends BaseEntity> {
     @Autowired
     private MenuService menuService;
 
-    protected User getSelf(HttpSession session){
-        return (User)session.getAttribute("user");
+    protected DingtalkUser getSelf(HttpSession session){
+        return (DingtalkUser)session.getAttribute("user");
     }
 
     protected Menu getMenuById(Integer menuId){
@@ -102,7 +103,7 @@ public abstract class BaseController<T extends BaseEntity> {
         ResponseEntity responseEntity = new ResponseEntity();
         try {
             PageHelper.startPage(page,rows);
-            t.setCompany(getSelf(session).getCompany());
+            //t.setCompany(getSelf(session).getCompany());
             List<T> list = getService().selectAll(t);
             PageInfo pageInfo = new PageInfo(list);
             responseEntity.setData(pageInfo);
