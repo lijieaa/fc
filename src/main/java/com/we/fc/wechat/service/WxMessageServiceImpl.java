@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -66,9 +67,9 @@ public class WxMessageServiceImpl extends BaseServiceImpl<WxMessage> implements 
     }
 
     @Override
-    public void sendMsg2user(String openId, Msg msg) throws Exception {
-
-//        wxMessageDao.insert();
-
+    public void sendMsg2user(String accessToken, Msg msg, WxMessage wxMessage) throws Exception {
+        wxApiHandler.sendMsg2user(accessToken, msg);
+        wxMessage.setCreateTime(new Date().getTime());
+        wxMessageDao.insert(wxMessage);
     }
 }
