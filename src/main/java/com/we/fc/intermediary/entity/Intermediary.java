@@ -3,10 +3,8 @@ package com.we.fc.intermediary.entity;
 import com.we.fc.area.entity.Area;
 import com.we.fc.base.BaseEntity;
 import com.we.fc.user.entity.DingtalkUser;
-import com.we.fc.user.entity.User;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 中间商

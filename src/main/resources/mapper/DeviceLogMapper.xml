@@ -8,10 +8,10 @@
     <result column="operate_command_desc" property="operateCommandDesc" jdbcType="VARCHAR" />
     <result column="device_log_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="device_log_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <association property="user" javaType="com.we.fc.user.entity.User">
-      <id property="id" column="user_id"></id>
-      <result property="realName" column="user_real_name"></result>
-    </association>
+    <!--<association property="user" javaType="com.we.fc.user.entity.User">-->
+      <!--<id property="id" column="user_id"></id>-->
+      <!--<result property="realName" column="user_real_name"></result>-->
+    <!--</association>-->
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from device_log

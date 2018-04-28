@@ -4,18 +4,15 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.we.fc.base.BaseTokenController;
 import com.we.fc.unit.ResponseEntity;
-import com.we.fc.user.entity.User;
 import com.we.fc.utils.GsonUtils;
 import com.we.fc.wechat.api.msg.*;
 import com.we.fc.wechat.entity.WxMessage;
 import com.we.fc.wechat.entity.WxPublic;
 import com.we.fc.wechat.service.WxMessageService;
-import com.we.fc.wechat.service.WxPublicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
