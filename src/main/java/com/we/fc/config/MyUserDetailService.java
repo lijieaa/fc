@@ -18,12 +18,12 @@ import java.util.List;
 @Component
 public class MyUserDetailService implements UserDetailsService {
 
-    @Autowired
+  /*  @Autowired
     private UserDao userDao;
 
     @Autowired
     private RoleDao roleDao;
-
+*/
 
 
     @Autowired
@@ -32,16 +32,16 @@ public class MyUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
-        //DingtalkUser user = dingtalkUserService.findByTel(s);
+        DingtalkUser user = dingtalkUserService.findByTel(s);
 
-        User user = userDao.findByUsername(s);
+        //User user = userDao.findByUsername(s);
         if(user == null){
             throw new UsernameNotFoundException("用户名不存在！");
-        }else{
+        }/*else{
             // 查询角色
             List<Role> roles = roleDao.findByUserId(user.getId());
             user.setRoles(roles);
-        }
+        }*/
         return user;
     }
 }

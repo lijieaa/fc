@@ -1,9 +1,17 @@
 package com.we.fc.user.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.we.fc.base.BaseEntity;
+import com.we.fc.intermediary.entity.Intermediary;
+import com.we.fc.menu.entity.Menu;
+import com.we.fc.role.entity.Role;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 public class DingtalkUser extends BaseEntity implements UserDetails{
 
@@ -112,7 +120,7 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
      *
      * @mbggenerated
      */
-    private Integer interimediaryId;
+    private Integer intermediaryId;
 
 
 
@@ -405,8 +413,8 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
      *
      * @mbggenerated
      */
-    public Integer getInterimediaryId() {
-        return interimediaryId;
+    public Integer getIntermediaryId() {
+        return intermediaryId;
     }
 
     /**
@@ -418,7 +426,7 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
      * @mbggenerated
      */
     public void setInterimediaryId(Integer interimediaryId) {
-        this.interimediaryId = interimediaryId;
+        this.intermediaryId = interimediaryId;
     }
 
 
@@ -470,7 +478,7 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
         sb.append(", jobnumber=").append(jobnumber);
         sb.append(", ishide=").append(ishide);
         sb.append(", issenior=").append(issenior);
-        sb.append(", interimediaryId=").append(interimediaryId);
+        sb.append(", interimediaryId=").append(intermediaryId);
         sb.append(", createTime=").append(this.getCreateTime());
         sb.append(", updateTime=").append(this.getCreateTime());
         sb.append(", extattr=").append(extattr);
@@ -479,9 +487,28 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
         return sb.toString();
     }
 
+    @JsonIgnore
+    private Collection<SimpleGrantedAuthority> authorities =new ArrayList<>();
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<Role> roles = this.getRoles();
+        if (roles.size()>0){
+            for (Role role : roles) {
+                List<Menu> menus = role.getMenus();
+                if (menus.size()>0){
+                    for (Menu menu : menus) {
+                        String permission = menu.getPermission();
+                        if(null==permission||permission.equals("")){
+                            permission="no permission";
+                        }
+                        SimpleGrantedAuthority simpleGrantedAuthority=new SimpleGrantedAuthority(permission);
+                        authorities.add(simpleGrantedAuthority);
+                    }
+                }
+            }
+        }
+        return authorities;
     }
 
     @Override
@@ -513,4 +540,38 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
+
+    private List<Role> roles;
+
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+
+    public Set<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(Set<Menu> menus) {
+        this.menus = menus;
+    }
+
+    private Set<Menu> menus;
+
+
+    public Intermediary getIntermediary() {
+        return intermediary;
+    }
+
+    public void setIntermediary(Intermediary intermediary) {
+        this.intermediary = intermediary;
+    }
+
+    private Intermediary intermediary;
+
 }

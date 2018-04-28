@@ -24,7 +24,7 @@ public class MenuUtils {
     public static Set<Menu> getChildren(Set<Menu> top, Set<Menu> all){
         for (Menu menu : top){
             for(Menu m : all){
-                if(m.getParent().getId().equals(menu.getId())){
+                if(m.getParent().getId().equals(menu.getId())&&m.getDisplay()==1){
                     if(m.getUrl() != null && m.getUrl().length() > 0){
                         m.setUrl(m.getUrl() + "?menuId=" + m.getId());
                     }

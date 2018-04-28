@@ -12,6 +12,7 @@
         <result property="company.id" column="company_id"></result>
         <result property="createTime" column="role_create_time"></result>
         <result property="updateTime" column="role_update_time"></result>
+        <collection property="menus" column="role_id" fetchType="lazy" select="com.we.fc.menu.dao.MenuDao.findByRoleId"></collection>
     </resultMap>
 
     <select id="findByUserId" resultMap="roleMap">
