@@ -10,7 +10,6 @@
         <result property="sortd" column="dept_sortd"></result>
         <result property="createTime" column="dept_create_time"></result>
         <result property="updateTime" column="dept_update_time"></result>
-        <result property="company.id" column="company_id"></result>
         <result property="parent.id" column="dept_parent_id"/>
         <collection property="children" column="dept_id" select="findChildren"/>
     </resultMap>
@@ -20,7 +19,6 @@
     </select>
 
     <select id="findByCompanyId" resultMap="deptMap">
-        SELECT * FROM sys_dept WHERE company_id = #{0}
     </select>
     
     <select id="findChildren" resultMap="deptMap">
