@@ -62,6 +62,7 @@ public class WxApiHandler {
     public SubmitResponse sendMsg2user(String accessToken, Msg msg) throws Exception{
 
         String url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=" + accessToken;
+        System.out.println(GsonUtils.toJson(msg));
         String result = RequestTools.processPostJson(url, GsonUtils.toJson(msg));
         if(ResponseStatus.sendMsgStatus(result)){
             return GsonUtils.toBean(result, SubmitResponse.class);

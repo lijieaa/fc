@@ -1,9 +1,7 @@
 package com.we.fc.utils;
 
 import com.google.gson.Gson;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.google.gson.GsonBuilder;
 
 /**
  * @author zdc
@@ -12,7 +10,7 @@ import java.util.Date;
 
 public class GsonUtils {
 
-    private static Gson gson = new Gson();
+    private static Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
     public static<T> T toBean(String json, Class<T> c){
         return gson.fromJson(json, c);
