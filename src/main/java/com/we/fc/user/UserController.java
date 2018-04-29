@@ -31,11 +31,7 @@ public class UserController extends BaseController<User> {
         return userService;
     }
 
-    @GetMapping("index")
-    public String index(Integer menuId, HttpSession session, Model model){
-        model.addAttribute("loopMenu", getMenuById(menuId));
-        return "sys/user/index";
-    }
+
 
     @GetMapping("findByDeptId")
     @ResponseBody

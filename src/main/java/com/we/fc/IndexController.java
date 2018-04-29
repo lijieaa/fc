@@ -1,6 +1,7 @@
 package com.we.fc;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,9 +19,16 @@ public class IndexController {
         }
         return "login";
     }
+
     @GetMapping("index")
     public String index(){
         return "index";
+    }
+
+
+    @GetMapping("admin/test")
+    public @ResponseBody String test(){
+        return "test";
     }
 
 }
