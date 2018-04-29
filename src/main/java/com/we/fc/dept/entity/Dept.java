@@ -1,8 +1,7 @@
 package com.we.fc.dept.entity;
 
 import com.we.fc.base.BaseEntity;
-import com.we.fc.company.entity.Company;
-import com.we.fc.user.entity.User;
+import com.we.fc.user.entity.DingtalkUser;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class Dept extends BaseEntity {
     private String name;
 
     // 部门成员
-    private List<User> users;
+    private List<DingtalkUser> users;
 
     // 排序
     private Integer sortd;
@@ -54,11 +53,11 @@ public class Dept extends BaseEntity {
         this.name = name;
     }
 
-    public List<User> getUsers() {
+    public List<DingtalkUser> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(List<DingtalkUser> users) {
         this.users = users;
     }
 

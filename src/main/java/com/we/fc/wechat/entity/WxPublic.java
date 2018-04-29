@@ -1,7 +1,7 @@
 package com.we.fc.wechat.entity;
 
 import com.we.fc.base.BaseEntity;
-import com.we.fc.company.entity.Company;
+import com.we.fc.intermediary.entity.Intermediary;
 
 /**
  * @author zdc
@@ -19,6 +19,8 @@ public class WxPublic extends BaseEntity {
     private String appSecret;
 
     private String publicEmail;
+
+    private Intermediary intermediary;
 
     public String getPublicName() {
         return publicName;
@@ -58,5 +60,15 @@ public class WxPublic extends BaseEntity {
 
     public void setPublicEmail(String publicEmail) {
         this.publicEmail = publicEmail;
+    }
+
+    @Override
+    public Intermediary getIntermediary() {
+        return intermediary;
+    }
+
+    @Override
+    public void setIntermediary(Intermediary intermediary) {
+        this.intermediary = intermediary;
     }
 }

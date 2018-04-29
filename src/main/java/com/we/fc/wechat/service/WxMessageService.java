@@ -40,7 +40,8 @@ public interface WxMessageService extends BaseService<WxMessage> {
      * 向用户发送消息
      * @param openId
      * @param msg
+     * @param wxMessage
      * @throws Exception
      */
-    void sendMsg2user(String openId, Msg msg) throws Exception;
+    void sendMsg2user(String accessToken, Msg msg, WxMessage wxMessage) throws Exception;
 }

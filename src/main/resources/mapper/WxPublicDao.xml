@@ -11,7 +11,7 @@
         <result property="appId" column="app_id"></result>
         <result property="appSecret" column="app_secret"></result>
         <result property="publicEmail" column="public_email"></result>
-        <result property="company.id" column="company_id"></result>
+        <result property="intermediary.id" column="intermediary_id"></result>
         <result property="createTime" column="wx_public_create_time"></result>
         <result property="updateTime" column="wx_public_update_time"></result>
     </resultMap>
@@ -24,23 +24,23 @@
     </select>
 
     <select id="selectByPrimaryKey" resultMap="wxPublicMap">
-        SELECT * FROM wx_public WHERE public _id = #{0}
+        SELECT * FROM wx_public WHERE public_id = #{0}
     </select>
 
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        INSERT INTO wx_public(public_name, source_id, app_id, app_secret, public_email, company_id)
+        INSERT INTO wx_public(public_name, source_id, app_id, app_secret, public_email, intermediary_id)
         VALUES (
           #{publicName},
           #{sourceId},
           #{appId},
           #{appSecret},
           #{publicEmail},
-          #{company.id}
+          #{intermediary.id}
         )
     </insert>
 
     <select id="findByCompanyId" resultMap="wxPublicMap">
-        SELECT * FROM wx_public WHERE company_id = #{0}
+        SELECT * FROM wx_public WHERE intermediary_id = #{0}
     </select>
 
     <select id="findBySourceId" resultMap="wxPublicMap">

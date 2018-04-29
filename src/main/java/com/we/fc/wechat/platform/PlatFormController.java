@@ -55,6 +55,8 @@ public class PlatFormController {
                     System.out.println(wxMessage.getFromUserName() + "取消订阅->" + wxMessage.getToUserName());
                 }
             }else{
+                // 将微信消息时间转换成标准时间
+                wxMessage.setCreateTime(wxMessage.getCreateTime() * 1000L);
                 wxMessageService.insert(wxMessage);
             }
         } catch (Exception e) {

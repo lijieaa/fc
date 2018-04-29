@@ -5,10 +5,12 @@ import com.we.fc.base.BaseService;
 import com.we.fc.intermediary.entity.Intermediary;
 import com.we.fc.intermediary.service.IntermediaryService;
 import com.we.fc.unit.ResponseEntity;
+import com.we.fc.utils.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,7 +27,7 @@ public class IntermediaryController extends BaseController<Intermediary> {
     IntermediaryService service;
 
     @GetMapping("detail")
-    public String IntermediaryDetail(){
+    public String IntermediaryDetail() {
         return "intermediary/detail";
     }
 
@@ -35,7 +37,7 @@ public class IntermediaryController extends BaseController<Intermediary> {
     }
 
     @GetMapping("index")
-    public String index(Integer menuId, Model model){
+    public String index(Integer menuId, Model model) {
         model.addAttribute("loopMenu", getMenuById(menuId));
         return "intermediary/index";
     }
@@ -45,12 +47,18 @@ public class IntermediaryController extends BaseController<Intermediary> {
     public ResponseEntity delete(@PathVariable("id") Integer id, HttpSession session) {
         ResponseEntity responseEntity = new ResponseEntity();
         Intermediary intermediary = getService().selectByPrimaryKey(id);
-        if (null!=intermediary&&intermediary.getIsPlat()==1){
+        if (null != intermediary && intermediary.getIsPlat() == 1) {
             responseEntity.setMessages("该条数据不能被删除");
             responseEntity.setStatus("500");
             return responseEntity;
         }
         return super.delete(id, session);
+    }
+
+    @PostMapping("upload")
+    @ResponseBody
+    public String upload(MultipartFile file) {
+       return FileUpload.fileUpload(file);
     }
 
 }

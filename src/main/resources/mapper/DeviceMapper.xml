@@ -13,13 +13,13 @@
     <result column="device_location_y" property="deviceLocationY" jdbcType="VARCHAR" />
     <result column="device_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="device_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <association property="operateUser" javaType="com.we.fc.user.entity.User">
-      <id property="id" column="operate_user_id"></id>
-      <result property="realName" column="user_real_name"></result>
+    <association property="operateUser" javaType="com.we.fc.user.entity.DingtalkUser">
+      <id property="id" column="o_user_id"></id>
+      <result property="name" column="o_user_name"></result>
     </association>
-    <association property="transcribeUser" javaType="com.we.fc.user.entity.User">
-      <id property="id" column="transcribe_user_id"></id>
-      <result property="realName" column="user_real_name"></result>
+    <association property="transcribeUser" javaType="com.we.fc.user.entity.DingtalkUser">
+      <id property="id" column="t_user_id"></id>
+      <result property="name" column="t_user_name"></result>
     </association>
     <association property="intermediary" javaType="com.we.fc.intermediary.entity.Intermediary">
       <id property="id" column="intermediary_id"></id>

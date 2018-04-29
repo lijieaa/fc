@@ -2,19 +2,16 @@ package com.we.fc.wechat.web;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.we.fc.base.BaseTokenController;
 import com.we.fc.unit.ResponseEntity;
-import com.we.fc.user.entity.User;
+import com.we.fc.utils.GsonUtils;
 import com.we.fc.wechat.api.msg.*;
 import com.we.fc.wechat.entity.WxMessage;
 import com.we.fc.wechat.entity.WxPublic;
 import com.we.fc.wechat.service.WxMessageService;
-import com.we.fc.wechat.service.WxPublicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
@@ -27,11 +24,9 @@ import java.util.List;
 
 @Controller
 @RequestMapping("message")
-public class WxMessageController{
+public class WxMessageController extends BaseTokenController{
 
     @Autowired private WxMessageService wxMessageService;
-
-    @Autowired private WxPublicService wxPublicService;
 
     @GetMapping("page")
     @ResponseBody
@@ -41,8 +36,7 @@ public class WxMessageController{
                                HttpSession session){
         ResponseEntity responseEntity = new ResponseEntity();
         try {
-            User user = (User)session.getAttribute("user");
-            WxPublic wxPublic = wxPublicService.findByCompanyId(user.getCompany().getId());
+            WxPublic wxPublic = getWxPublic(session);
             PageHelper.startPage(page,rows);
             List<WxMessage> list = wxMessageService.findBySourceIdAndOpenId(wxPublic.getSourceId(), openId);
             PageInfo pageInfo = new PageInfo(list);
@@ -56,11 +50,24 @@ public class WxMessageController{
         }
     }
 
-    @PostMapping("text")
+    @PostMapping
     @ResponseBody
-    public ResponseEntity sendMsg(WxMessage wxMessage){
-
-        return null;
+    public ResponseEntity sendMsg(@RequestParam("json") String json, HttpSession session){
+        ResponseEntity responseEntity = new ResponseEntity();
+        WxMessage wxMessage = GsonUtils.toBean(json, WxMessage.class);
+        String accessToken = getAccessToken(session);
+        try {
+            WxPublic wxPublic = getWxPublic(session);
+            wxMessage.setFromUserName(wxPublic.getSourceId());
+            wxMessageService.sendMsg2user(accessToken, getMsg(wxMessage), wxMessage);
+            responseEntity.setMessages("发送成功");
+            responseEntity.setStatus("200");
+        } catch (Exception e) {
+            responseEntity.setMessages(e.getMessage());
+            responseEntity.setStatus("500");
+            e.printStackTrace();
+        }
+        return responseEntity;
     }
 
     private Msg getMsg(WxMessage wxMessage){
@@ -81,9 +88,18 @@ public class WxMessageController{
             videoMsgContent.setThumb_media_id(wxMessage.getThumbMediaId());
             videoMsgContent.setTitle(wxMessage.getTitle());
             msg = new VideoMsg(videoMsgContent);
-        }else if(wxMessage.getMsgType().equalsIgnoreCase("")){
+        }else if(wxMessage.getMsgType().equalsIgnoreCase("news")){
+            ImageTextMsgContentArticle imageTextMsgContentArticle = new ImageTextMsgContentArticle();
+            imageTextMsgContentArticle.setDescription(wxMessage.getDescription());
+            imageTextMsgContentArticle.setPicurl(wxMessage.getPicUrl());
+            imageTextMsgContentArticle.setTitle(wxMessage.getTitle());
+            imageTextMsgContentArticle.setUrl(wxMessage.getUrl());
+            ImageTextMsgContent imageTextMsgContent = new ImageTextMsgContent(Arrays.asList(imageTextMsgContentArticle));
+            msg = new ImageTextMsg(imageTextMsgContent);
             return msg;
         }
-        return null;
+        msg.setTouser(wxMessage.getToUserName());
+        msg.setMsgtype(wxMessage.getMsgType());
+        return msg;
     }
 }

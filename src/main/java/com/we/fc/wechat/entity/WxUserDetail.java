@@ -1,7 +1,7 @@
 package com.we.fc.wechat.entity;
 
 import com.we.fc.base.BaseEntity;
-import com.we.fc.company.entity.Company;
+import com.we.fc.intermediary.entity.Intermediary;
 
 /**
  * @author zdc
@@ -39,6 +39,8 @@ public class WxUserDetail extends BaseEntity {
     private String subscribe_scene;
 
     private WxPublic wxPublic;
+
+    private Intermediary intermediary;
 
     public Integer getSubscribe() {
         return subscribe;
@@ -158,5 +160,15 @@ public class WxUserDetail extends BaseEntity {
 
     public void setWxPublic(WxPublic wxPublic) {
         this.wxPublic = wxPublic;
+    }
+
+    @Override
+    public Intermediary getIntermediary() {
+        return intermediary;
+    }
+
+    @Override
+    public void setIntermediary(Intermediary intermediary) {
+        this.intermediary = intermediary;
     }
 }

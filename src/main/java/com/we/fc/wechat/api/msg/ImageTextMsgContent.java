@@ -18,4 +18,9 @@ public class ImageTextMsgContent {
     public void setArticles(List<ImageTextMsgContentArticle> articles) {
         this.articles = articles;
     }
+
+    public ImageTextMsgContent(List<ImageTextMsgContentArticle> articles) {
+        this.articles = articles;
+    }
+    public ImageTextMsgContent(){}
 }

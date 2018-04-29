@@ -53,4 +53,6 @@ public class ImageTextMsgContentArticle {
         this.url = url;
         this.picurl = picurl;
     }
+
+    public ImageTextMsgContentArticle(){}
 }

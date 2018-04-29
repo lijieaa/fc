@@ -38,7 +38,7 @@ public class WxPublicController extends BaseController<WxPublic>{
     @PostMapping
     @ResponseBody
     public ResponseEntity add(@RequestBody WxPublic wxPublic, HttpSession session) {
-        wxPublic.setCompany(getSelf(session).getCompany());
+        wxPublic.setIntermediary(getSelf(session).getIntermediary());
         return super.add(wxPublic, session);
     }
 }
