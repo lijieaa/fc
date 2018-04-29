@@ -100,6 +100,7 @@ public abstract class BaseController<T extends BaseEntity> {
         try {
             PageHelper.startPage(page,rows);
             //t.setCompany(getSelf(session).getCompany());
+            t.setIntermediary(getSelf(session).getIntermediary());
             List<T> list = getService().selectAll(t);
             PageInfo pageInfo = new PageInfo(list);
             responseEntity.setData(pageInfo);
