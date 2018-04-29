@@ -8,6 +8,8 @@ import com.we.fc.dept.service.DingtalkDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 模拟钉钉部门
  */
@@ -24,5 +26,10 @@ public class DingtalkDeptServiceImpl extends BaseServiceImpl<DingtalkDept> imple
     @Override
     public BaseDao<DingtalkDept> getDao() {
         return dingtalkDeptMapper;
+    }
+
+    @Override
+    public List<DingtalkDept> findByParentId(Integer id) {
+        return dingtalkDeptMapper.findByParentId(id);
     }
 }

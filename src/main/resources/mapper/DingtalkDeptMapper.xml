@@ -64,4 +64,11 @@
     update_time
     from dingtalk_dept
   </select>
+
+  <select id="findByParentId" resultMap="BaseResultMap" >
+    select id, `name`, parentid, `order`, createDeptGroup, deptHiding, deptPerimits,
+    userPerimits, outerDept, outerPermitUsers, sourceIdentifier, intermediary_id, create_time,
+    update_time
+    from dingtalk_dept WHERE parentid=#{id,jdbcType=INTEGER}
+  </select>
 </mapper>
