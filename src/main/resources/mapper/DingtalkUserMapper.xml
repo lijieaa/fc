@@ -111,4 +111,15 @@
     jobnumber, isHide, isSenior, intermediary_id, create_time, update_time, extattr
     from dingtalk_user WHERE  mobile=#{tel,jdbcType=VARCHAR}
   </select>
+
+
+  <select id="findByDeptId" resultMap="BaseResultMap" >
+    SELECT u.userid,u.name,u.position,u.mobile,u.email,u.jobnumber
+from dingtalk_user u,dingtalk_user_dept ud,dingtalk_dept d
+where u.userid=ud.user_id
+      and d.id=ud.dept_id
+and d.id=#{id,jdbcType=INTEGER}
+  </select>
+
+
 </mapper>

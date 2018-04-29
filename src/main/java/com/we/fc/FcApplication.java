@@ -1,5 +1,7 @@
 package com.we.fc;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.we.fc.config.SpringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -33,5 +35,10 @@ public class FcApplication extends SpringBootServletInitializer {
         MultipartConfigFactory factory = new MultipartConfigFactory();
         factory.setLocation("/");
         return factory.createMultipartConfig();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper().disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
     }
 }
