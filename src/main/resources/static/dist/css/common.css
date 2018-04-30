@@ -66,6 +66,20 @@ html,body{
     background: #5b6990;
     color: white;
 }
+.padding-left-0{
+    padding-left: 0;
+}
+.margin-left-0{
+    margin-left: 0;
+}
+.background-g{
+    background: rgb(228,228,228);
+    padding: 3px 4px;
+}
+.background-w{
+    background: rgb(242,242,242);
+    padding: 3px 4px;
+}
 /*头部公用的样式*/
 .content-wrapper{
     background: #fff;

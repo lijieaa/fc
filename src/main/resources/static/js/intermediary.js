@@ -1,5 +1,15 @@
 //中间商管理
+function changeImg() {
+    alert(1);
+    var reads = new FileReader();
+    var file = document.getElementById("file").files[0];
+    reads.readAsDataURL(file);
 
+    reads.onload = function(e){
+        console.log(this.result);
+        document.getElementById("imgInter").src = this.result;
+    }
+}
 $(document).ready(function() {
     Vue.component('option-item', {
         props: ['todo'],
@@ -63,6 +73,9 @@ $(document).ready(function() {
 //            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
                 });
             },
+            // changeImg:function(){
+            //
+            // },
             uploaderFun:function(){
                 //    创建上传图片
                 var uploader = WebUploader.create({
@@ -296,9 +309,10 @@ $(document).ready(function() {
             $(document).on("click","#detail",function(){
                 window.location.href = "detail?menuId=4&"+$(this).attr("data-id");
             });
+
+
         }
     });
-
 
 
 
