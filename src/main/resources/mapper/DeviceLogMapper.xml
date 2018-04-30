@@ -9,8 +9,8 @@
     <result column="device_log_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="device_log_update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <association property="user" javaType="com.we.fc.user.entity.DingtalkUser">
-      <id property="id" column="user_id"></id>
-      <result property="name" column="user_real_name"></result>
+      <id property="id" column="userid"></id>
+      <result property="name" column="name"></result>
     </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -37,13 +37,17 @@
     where device_log_id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select *
-    from device_log d LEFT JOIN sys_user u ON d.user_id = u.user_id
+    select d.*,u.userid,u.name
+    from device_log d
+    LEFT JOIN dingtalk_user u
+    ON d.user_id = u.userid
     where device_log_id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select *
-    from device_log d LEFT JOIN sys_user u ON d.user_id = u.user_id
+    select d.*,u.userid,u.name
+    from device_log d
+    LEFT JOIN dingtalk_user u
+    ON d.user_id = u.userid
     WHERE d.device_log_create_time = #{createTime}
   </select>
 </mapper>

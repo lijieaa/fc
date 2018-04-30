@@ -57,8 +57,15 @@ public class IntermediaryController extends BaseController<Intermediary> {
 
     @PostMapping("upload")
     @ResponseBody
-    public String upload(MultipartFile file) {
-       return FileUpload.fileUpload(file);
+    public ResponseEntity upload(MultipartFile file) {
+        ResponseEntity responseEntity = new ResponseEntity();
+        String path = FileUpload.fileUpload(file);
+        if (path == null || path.length() < 0) {
+            responseEntity.setStatus("500");
+            return responseEntity;
+        }
+        responseEntity.setData(path);
+        return responseEntity;
     }
 
 }

@@ -1,4 +1,5 @@
 package com.we.fc.user.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.we.fc.base.BaseEntity;
 import com.we.fc.intermediary.entity.Intermediary;
