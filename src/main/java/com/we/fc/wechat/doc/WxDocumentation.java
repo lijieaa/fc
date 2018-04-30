@@ -15,6 +15,13 @@ package com.we.fc.wechat.doc;
  *      "MsgType":"text",
  *      "Content":"hello world"
  * }
+ * @apiSuccessExample Result-Example:
+ * {
+ *   "status": "200",
+ *   "messages": "发送成功",
+ *   "list": null,
+ *   "data": null
+ * }
  */
 
 /**
@@ -27,6 +34,13 @@ package com.we.fc.wechat.doc;
  *      "ToUserName":"o2IG5wpS7Ju6FPg6LW1OIuxKUgI0",
  *      "MsgType":"image",
  *      "MediaId":"f1QOuU_OT4Hrt8abnY9n2F8ssl_ni6Y1HbRbR4HRkU0"
+ * }
+ * @apiSuccessExample Result-Example:
+ * {
+ *   "status": "200",
+ *   "messages": "发送成功",
+ *   "list": null,
+ *   "data": null
  * }
  */
 
@@ -41,6 +55,13 @@ package com.we.fc.wechat.doc;
  *      "MsgType":"voice",
  *      "MediaId":"f1QOuU_OT4Hrt8abnY9n2F8ssl_ni6Y1HbRbR4HRkU0"
  * }
+ * @apiSuccessExample Result-Example:
+ * {
+ *   "status": "200",
+ *   "messages": "发送成功",
+ *   "list": null,
+ *   "data": null
+ * }
  */
 
 /**
@@ -53,6 +74,13 @@ package com.we.fc.wechat.doc;
  *      "ToUserName":"o2IG5wpS7Ju6FPg6LW1OIuxKUgI0",
  *      "MsgType":"video",
  *      "MediaId":"f1QOuU_OT4Hrt8abnY9n2F8ssl_ni6Y1HbRbR4HRkU0"
+ * }
+ * @apiSuccessExample Result-Example:
+ * {
+ *   "status": "200",
+ *   "messages": "发送成功",
+ *   "list": null,
+ *   "data": null
  * }
  */
 
@@ -69,6 +97,13 @@ package com.we.fc.wechat.doc;
  * 	"Description": "图文描述",
  * 	"Url": "http://www.baidu.com",
  * 	"PicUrl": "http://mmbiz.qpic.cn/mmbiz_jpg/FwRDKpzzTCMo4Aqfw3kQwq3Dn8Sq1amp3RhaHjaSZIb1qus6RibUP8gyF8DvqgL6VkEfSnMCtdB3e6c9BG6SACQ/0?wx_fmt=jpeg"
+ * }
+ * @apiSuccessExample Result-Example:
+ * {
+ *   "status": "200",
+ *   "messages": "发送成功",
+ *   "list": null,
+ *   "data": null
  * }
  */
 
@@ -403,6 +438,60 @@ package com.we.fc.wechat.doc;
  * @apiExample Request-Example:
  * openId:用户的OPENID
  * localhost:8080/message/page?page=1&rows=10&openId=o2IG5wpS7Ju6FPg6LW1OIuxKUgI0
+ * @apiSuccessExample Result-Example:
+ * {
+ *   "status": "200",
+ *   "messages": "操作成功！",
+ *   "list": null,
+ *   "data": [
+ *     {
+ *       "pageNum": 1,
+ *       "pageSize": 10,
+ *       "size": 1,
+ *       "startRow": 1,
+ *       "endRow": 1,
+ *       "total": 1,
+ *       "pages": 1,
+ *       "list": [
+ *         {
+ *           "id": 57,
+ *           "content": "？我",
+ *           "format": null,
+ *           "description": null,
+ *           "scale": null,
+ *           "url": null,
+ *           "msgType": "text",
+ *           "event": null,
+ *           "toUserName": "gh_f5a46974c0f6",
+ *           "fromUserName": "o2IG5wpS7Ju6FPg6LW1OIuxKUgI0",
+ *           "createTime": 1524994169,
+ *           "mediaId": null,
+ *           "thumbMediaId": null,
+ *           "title": null,
+ *           "picUrl": null,
+ *           "location_X": null,
+ *           "location_Y": null,
+ *           "label": null,
+ *           "msgId": 6549800082899336157
+ *         }
+ *       ],
+ *       "prePage": 0,
+ *       "nextPage": 0,
+ *       "isFirstPage": true,
+ *       "isLastPage": true,
+ *       "hasPreviousPage": false,
+ *       "hasNextPage": false,
+ *       "navigatePages": 8,
+ *       "navigatepageNums": [
+ *         1
+ *       ],
+ *       "navigateFirstPage": 1,
+ *       "navigateLastPage": 1,
+ *       "firstPage": 1,
+ *       "lastPage": 1
+ *     }
+ *   ]
+ * }
  */
 
 public class WxDocumentation {
