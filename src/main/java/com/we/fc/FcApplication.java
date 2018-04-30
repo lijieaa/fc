@@ -34,13 +34,8 @@ public class FcApplication extends SpringBootServletInitializer {
     MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
         factory.setLocation("/");
-        //文件最大
-        factory.setMaxFileSize("10240KB"); //KB,MB
-        /// 设置总上传数据总大小
-        factory.setMaxRequestSize("102400KB");
         return factory.createMultipartConfig();
     }
-
 
     @Bean
     public ObjectMapper objectMapper() {
