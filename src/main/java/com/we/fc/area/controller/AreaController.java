@@ -23,15 +23,24 @@ public class AreaController {
 
     @GetMapping("condition")
     @ResponseBody
-    public ResponseEntity findByLP(@RequestParam Integer level,@RequestParam(required = false)Integer parent){
+    public ResponseEntity findByLP(@RequestParam Integer level, @RequestParam(required = false) Integer parent) {
         ResponseEntity responseEntity = new ResponseEntity();
-        List<Area>  areas = dao.findByLP(level, parent);
-        if(level.intValue()==1){
-            for (Area area:areas){
+        List<Area> areas = dao.findByLP(level, parent);
+        if (level.intValue() == 1) {
+            for (Area area : areas) {
                 area.setIsParent(true);
             }
         }
         responseEntity.setData(areas);
         return responseEntity;
+    }
+
+    @GetMapping("/")
+    @ResponseBody
+    public ResponseEntity findByShortName(String shortName){
+        ResponseEntity responseEntity = new ResponseEntity();
+    List<Area> areas = dao.findByShortName(shortName);
+    responseEntity.setData(areas);
+    return responseEntity;
     }
 }

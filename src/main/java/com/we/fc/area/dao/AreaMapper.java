@@ -12,4 +12,6 @@ import java.util.List;
 public interface AreaMapper extends BaseDao<Area> {
 
     List<Area> findByLP(@Param("level") Integer level, @Param("parent") Integer parent);
+
+    List<Area> findByShortName(String shortName);
 }
