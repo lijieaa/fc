@@ -4,6 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * Created by mayn on 2018/4/26.
@@ -16,7 +17,11 @@ public class FileUpload {
         if (file.isEmpty()) {
             return name;
         }
-        String fileName = file.getOriginalFilename();
+        String fileCompleteName = file.getOriginalFilename();
+        String fileType = fileCompleteName.substring(fileCompleteName.lastIndexOf(".",fileCompleteName.length()));
+        UUID uuid = UUID.randomUUID();
+        String fileName = uuid+fileType;
+
         int size = (int) file.getSize();
 
         String path = "c:\\images";
