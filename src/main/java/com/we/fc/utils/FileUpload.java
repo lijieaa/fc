@@ -10,7 +10,7 @@ import java.io.IOException;
  */
 public class FileUpload {
 
-    public static String fileUpload(MultipartFile file) {
+    public static String fileUpload(MultipartFile file){
         //List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("fileName");
         String name = null;
         if (file.isEmpty()) {
@@ -19,7 +19,7 @@ public class FileUpload {
         String fileName = file.getOriginalFilename();
         int size = (int) file.getSize();
 
-        String path = "c:/images";
+        String path = "c:\\images";
         File dest = new java.io.File(path+File.separator+fileName);
         if (!dest.getParentFile().exists()) { //判断文件目录是否存在
             dest.getParentFile().mkdirs();
