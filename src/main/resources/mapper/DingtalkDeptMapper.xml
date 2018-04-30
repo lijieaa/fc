@@ -19,7 +19,9 @@
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from dingtalk_dept
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER};
+
+    delete from dingtalk_user_dept  where dept_id=#{id,jdbcType=INTEGER};
   </delete>
   <insert id="insert" parameterType="com.we.fc.dept.entity.DingtalkDept" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >

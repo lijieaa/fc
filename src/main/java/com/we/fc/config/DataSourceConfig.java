@@ -18,7 +18,7 @@ public class DataSourceConfig {
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setUsername("fc");
         druidDataSource.setPassword("123456");
-        druidDataSource.setUrl("jdbc:mysql://47.104.144.238:6666/fc?characterEncoding=utf-8&useSSL=false&zeroDateTimeBehavior=convertToNull");
+        druidDataSource.setUrl("jdbc:mysql://47.104.144.238:6666/fc?characterEncoding=utf-8&useSSL=false&zeroDateTimeBehavior=convertToNull&&allowMultiQueries=true");
         druidDataSource.setDriverClassName("com.mysql.jdbc.Driver");
         druidDataSource.setInitialSize(5);
         druidDataSource.setMaxActive(200);

@@ -5,7 +5,9 @@ import com.we.fc.base.BaseServiceImpl;
 import com.we.fc.dept.dao.DingtalkDeptMapper;
 import com.we.fc.dept.entity.DingtalkDept;
 import com.we.fc.dept.service.DingtalkDeptService;
+import com.we.fc.user.entity.DingtalkUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +28,14 @@ public class DingtalkDeptServiceImpl extends BaseServiceImpl<DingtalkDept> imple
     @Override
     public BaseDao<DingtalkDept> getDao() {
         return dingtalkDeptMapper;
+    }
+
+    @Override
+    public void insert(DingtalkDept dingtalkDept) throws Exception {
+        DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Integer intermediaryId = user.getIntermediaryId();
+        dingtalkDept.setIntermediaryId(intermediaryId);
+        super.insert(dingtalkDept);
     }
 
     @Override
