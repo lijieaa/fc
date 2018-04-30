@@ -34,9 +34,4 @@ public class FcApplication extends SpringBootServletInitializer {
         factory.setLocation("/");
         return factory.createMultipartConfig();
     }
-
-    @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper().disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-    }
 }
