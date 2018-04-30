@@ -96,7 +96,9 @@ public class WxMessageController extends BaseTokenController{
             imageTextMsgContentArticle.setUrl(wxMessage.getUrl());
             ImageTextMsgContent imageTextMsgContent = new ImageTextMsgContent(Arrays.asList(imageTextMsgContentArticle));
             msg = new ImageTextMsg(imageTextMsgContent);
-            return msg;
+        }else if(wxMessage.getMsgType().equalsIgnoreCase("mpnews")){
+            ImageText2MsgContent imageText2MsgContent = new ImageText2MsgContent(wxMessage.getMediaId());
+            msg = new ImageText2Msg(imageText2MsgContent);
         }
         msg.setTouser(wxMessage.getToUserName());
         msg.setMsgtype(wxMessage.getMsgType());
