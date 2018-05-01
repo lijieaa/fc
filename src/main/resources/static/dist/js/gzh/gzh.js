@@ -29,8 +29,7 @@
             ],
             "fnInitComplete": function() {//初始化完毕事件
                 $(".table-manage").click(function () {
-                    $("#gzh-index").hide();
-                    $("#gzh-manage").show();
+                    $("#gzh-manage").show().siblings().hide();
                 });
             }
         } );
@@ -38,6 +37,20 @@
         $("#add-gzh").click(function () {
             $('#myModal').modal();
         });
+        // 返回公众号管理列表
+       $("#backUl").click(function () {
+           $("#gzh-index").show().siblings().hide();
+       })
+       //点击公众号列表
+       $(".gzh-ul-manage li").click(function () {
+           var per=$(this).find("span").text();
+           $(".chat-user").text(per);
+           $("#chating-per").show().siblings().hide();
+       })
+     //返回公众号列表
+     $("#backUlManage").click(function () {
+         $("#gzh-manage").show().siblings().hide();
+     })
      //聊天点击点击跳转不同弹窗
         $(".chat-type>span").click(function () {
             var data_id=$(this).attr("data-id");
@@ -63,9 +76,7 @@
      // 点击弹窗新建跳转到不同的页面
      $(".new-source").click(function () {
          var cliText=$(this).attr("data-id");
-         $("#gzh-index").hide();
-         $("#gzh-manage").hide();
-         $("#source-bulid").show();
+         $("#source-bulid").show().siblings().hide();
          $("#sourceRoom").modal("hide");
          if(cliText=="1"){
              $(".gzh-source-type a:eq(0)").addClass("cli-color").siblings().removeClass("cli-color");

@@ -3,10 +3,13 @@ package com.we.fc.role.web;
 import com.we.fc.base.BaseController;
 import com.we.fc.base.BaseService;
 import com.we.fc.role.entity.Role;
+import com.we.fc.role.service.RoleService;
+import com.we.fc.unit.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,9 +21,12 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("role")
 public class RoleController extends BaseController<Role> {
 
+    @Autowired
+    RoleService service;
+
     @Override
     public BaseService<Role> getService() {
-        return null;
+        return service;
     }
 
     @GetMapping("index")
