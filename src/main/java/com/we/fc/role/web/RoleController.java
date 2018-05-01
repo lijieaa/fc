@@ -3,6 +3,8 @@ package com.we.fc.role.web;
 import com.we.fc.base.BaseController;
 import com.we.fc.base.BaseService;
 import com.we.fc.role.entity.Role;
+import com.we.fc.role.service.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +20,12 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("role")
 public class RoleController extends BaseController<Role> {
 
+    @Autowired
+    RoleService service;
+
     @Override
     public BaseService<Role> getService() {
-        return null;
+        return service;
     }
 
     @GetMapping("index")
