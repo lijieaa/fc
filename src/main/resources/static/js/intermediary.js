@@ -1,16 +1,6 @@
 //中间商管理
-function changeImg() {
-    alert(1);
-    var reads = new FileReader();
-    var file = document.getElementById("file").files[0];
-    reads.readAsDataURL(file);
-
-    reads.onload = function(e){
-        console.log(this.result);
-        document.getElementById("imgInter").src = this.result;
-    }
-}
 $(document).ready(function() {
+    var uploader;
     Vue.component('option-item', {
         props: ['todo'],
         template: '<option>{{todo.name}}</option>'
@@ -19,9 +9,10 @@ $(document).ready(function() {
         el:"#myMediary",
         data:{
             companyName:"新增中间商",
+            searchVal:"",
             selected:"3",
-            address:"",
-            addRessId:"",
+            // address:"",
+            // addRessId:"",
             inputLimit:"", //搜索框
             projectList:[
                 {val:1,name:"成都华西"},
@@ -30,15 +21,33 @@ $(document).ready(function() {
             ],
             facList:[],
             treeIsShow:false,
-            intermediaryName:"",
-            intermediaryContact:"",
-            intermediaryContactTel:"",
             broker:"",
             brokerPhone:"",
             editor:"" ,//文本编辑器
             editorId:"",
             delId:"",
-            delErrorMsg:"是否删除当前信息?"
+            delErrorMsg:"",
+            editList:{
+                area:{
+                    name:"",
+                    id:""
+                },
+                company: null,
+                createTime: "",
+                id: 1,
+                intermediaryContact: "",
+                intermediaryContactTel: "",
+                intermediaryIntroduction: "",
+                intermediaryLogoUrl: "",
+                intermediaryName: "",
+                isPlat: 1,
+                updateTime: "",
+                user:{
+                    id: 1,
+                    name: "",
+                    mobile: ""
+                }
+            }
         },
         methods:{
             redirectMediary:function(){
@@ -72,18 +81,20 @@ $(document).ready(function() {
                     removePlugins:"elementspath"
 //            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
                 });
-            },
+            }
             // changeImg:function(){
             //
             // },
+            ,
             uploaderFun:function(){
                 //    创建上传图片
-                var uploader = WebUploader.create({
+                uploader = WebUploader.create({
                     // 选完文件后，是否自动上传。
                     auto: false,
                     // swf文件路径
                     swf: '../js/dist/Uploader.swf',
-                    pick: '#filePicker',
+                    server: contextPath + 'intermediary/upload',
+                    pick: '#picker',
                     // 只允许选择图片文件。
                     accept: {
                         title: 'Images',
@@ -98,12 +109,15 @@ $(document).ready(function() {
                         '<img></div>'
                     );
                     $("#fileList").html($li);
+                    var size = parseInt(file.size)/1024;
+                    var sizeSub = size.toString().substr(0,5);
+                    console.log(file);
+                    $("#size").text(sizeSub+"kb");
                     uploader.makeThumb(file, function (error, src) {
-                        $("img").attr("src",src);
+                        $("#imgInter").attr("src",src);
                         $("#fileList").addClass("active");
                     });
                 });
-
 
             },
             treeShow:function(e){
@@ -114,6 +128,16 @@ $(document).ready(function() {
             treeHide:function(){
                 var _this = this;
                 // _this.treeIsShow = false;
+            },
+            searchZtree:function(){
+                // localhost:8080/area/?shortName=天
+                console.log(11);
+                var searchVal = this.searchVal;
+                $.axspost(contextPath + "area/?shortName="+searchVal,"get","",function (data) {
+
+                },function (data) {
+
+                })
             },
             zTreeInit:function(){
                 var _this = this;
@@ -150,8 +174,8 @@ $(document).ready(function() {
                         return responseData.data;
                     }
                     function zTreeOnclick(event, treeId, treeNode) {
-                        _this.address = treeNode.name;
-                        _this.addRessId = treeNode.id;
+                        _this.editList.area.name = treeNode.name;
+                        _this.editList.area.id = treeNode.id;
                         _this.treeIsShow = false;
                     }
                     function getUrl(treeId, treeNode){
@@ -175,16 +199,16 @@ $(document).ready(function() {
 
             },
             closeDelPop:function(){
-                $("#canDelate").removeClass("in").css("display","none")
+                $(".modalAll").removeClass("in").css("display","none");
             },
             sureSubmit:function(){ //添加中间商
                 var _this = this;
                 var postData = {
-                    intermediaryName:_this.intermediaryName, //中间商名称
-                    intermediaryContact:_this.intermediaryContact,//中间商联系人
-                    intermediaryContactTel:_this.intermediaryContactTel, //中间商联系方式
+                    intermediaryName:_this.editList.intermediaryName, //中间商名称
+                    intermediaryContact:_this.editList.intermediaryContact,//中间商联系人
+                    intermediaryContactTel:_this.editList.intermediaryContactTel, //中间商联系方式
                     area:{
-                        id:_this.addRessId
+                        id:_this.editList.area.id
                     },
                     broker:_this.broker,
                     brokerPhone:_this.brokerPhone,
@@ -203,13 +227,27 @@ $(document).ready(function() {
                 },function(data){})
             },
             sureDel:function(){
-                $.axspost(contextPath + "intermediary/"+this.delId+"","delete","",function(data){
+                var _this = this;
+                $.axspost(contextPath + "intermediary/"+_this.delId+"","delete","",function(data){
+                    if(data.status == "200"){
+                        $("#canDelate").removeClass("in").css("display","none");
+                        _this.tableInit(true);
+                    }else{
+                        $("#canDelate").removeClass("in").css("display","none");
+                        $("#errorMsg").addClass("in").css("display","block");
+                        _this.delErrorMsg = data.messages;
+                        // console.log( _this.delErrorMsg);
+                    }
                 },function(data){})
             },
             searchLimit:function(){ //按条件进行搜索
                 var _this = this;
+
+                _this.tableInit(true);
+            },
+            tableInit : function(flag){
+                var _this = this;
                 var val = parseInt($("#limitSelect").val());
-                console.log(val);
                 var postData = {
                     "page":1,
                     "rows":10
@@ -232,15 +270,12 @@ $(document).ready(function() {
                         break;
                     }
                 }
-                _this.tableInit(postData,true);
-            },
-            tableInit : function(data,flag){
                 $('#deviceForm').DataTable({
                     "ajax":{
                         // url:"../dist/data/device.json",
                         url: contextPath +"intermediary/page",
                         dataSrc:"data.list",
-                        "data":data
+                        "data":postData
                     },
                     "info":false,
                     "searching": false,
@@ -274,6 +309,9 @@ $(document).ready(function() {
                         alert(1);
                     }
                 });
+            },
+            postImg:function(){
+                uploader.upload();
             }
         },
         mounted:function(){
@@ -284,18 +322,21 @@ $(document).ready(function() {
                 _this.facList = data.data;
                 _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
             },function (data) {});
-            var data =  {
-                "page":1,
-                "rows":10
-            };
-           _this.tableInit(data,false);
-
+            // var data =  {
+            //     "page":1,
+            //     "rows":10
+            // };
+           _this.tableInit(false);
             $(document).on("click","#editInter",function(){
                 _this.editorId = $(this).attr("data-id");
                 // console.log(_this.editorId);
                 _this.companyName = "编辑中间商";
                 $("#mediaryList").hide();
                 $("#mediaryAddEdit").show();
+                $.axspost(contextPath + "intermediary/"+$(this).attr("data-id")+"","get","",function(data){
+                    _this.editList = data;
+                    CKEDITOR.instances.editor1.setData(data.intermediaryIntroduction);
+                },function(data){})
             });
 
             //删除
@@ -313,7 +354,4 @@ $(document).ready(function() {
 
         }
     });
-
-
-
 } );

@@ -5,6 +5,7 @@
 //封装ajax
 jQuery.axspost=function(url,type, data, successfn, errorfn) {
     $.ajax({
+        // contentType:"multipart/form-data",
         url: url,
         type: type,
         data: data,
