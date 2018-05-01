@@ -31,11 +31,22 @@ public class DingtalkDeptServiceImpl extends BaseServiceImpl<DingtalkDept> imple
     }
 
     @Override
-    public void insert(DingtalkDept dingtalkDept) throws Exception {
+    public int insert(DingtalkDept dingtalkDept) throws Exception {
         DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Integer intermediaryId = user.getIntermediaryId();
         dingtalkDept.setIntermediaryId(intermediaryId);
-        super.insert(dingtalkDept);
+        int insert = super.insert(dingtalkDept);
+        dingtalkDept.setPath(dingtalkDept.getPath()+","+dingtalkDept.getId());
+        dingtalkDeptMapper.updatePath(dingtalkDept);
+        return insert;
+    }
+
+    @Override
+    public void updateByPrimaryKey(DingtalkDept dingtalkDept) throws Exception {
+        DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Integer intermediaryId = user.getIntermediaryId();
+        dingtalkDept.setIntermediaryId(intermediaryId);
+        super.updateByPrimaryKey(dingtalkDept);
     }
 
     @Override

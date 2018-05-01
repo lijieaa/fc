@@ -13,28 +13,28 @@
     <result column="outerDept" property="outerdept" jdbcType="BIT" />
     <result column="outerPermitUsers" property="outerpermitusers" jdbcType="VARCHAR" />
     <result column="sourceIdentifier" property="sourceidentifier" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
     <result column="intermediary_id" property="intermediaryId" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from dingtalk_dept
-    where id = #{id,jdbcType=INTEGER};
-
-    delete from dingtalk_user_dept  where dept_id=#{id,jdbcType=INTEGER};
+    where path LIKE concat('%',#{id,jdbcType=INTEGER},'%');
+    delete from dingtalk_user_dept  where dept_id in (SELECT id FROM  dingtalk_dept where  path LIKE concat('%',#{id,jdbcType=INTEGER},'%'));
   </delete>
   <insert id="insert" parameterType="com.we.fc.dept.entity.DingtalkDept" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
-      SELECT LAST_INSERT_ID()
+      SELECT LAST_INSERT_ID();
     </selectKey>
     insert into dingtalk_dept (`name`, parentid, `order`, 
       createDeptGroup, deptHiding, deptPerimits, 
       userPerimits, outerDept, outerPermitUsers, 
-      sourceIdentifier, intermediary_id)
+      sourceIdentifier, intermediary_id,path)
     values (#{name,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}, #{order,jdbcType=INTEGER}, 
       #{createdeptgroup,jdbcType=BIT}, #{depthiding,jdbcType=BIT}, #{deptperimits,jdbcType=VARCHAR}, 
       #{userperimits,jdbcType=VARCHAR}, #{outerdept,jdbcType=BIT}, #{outerpermitusers,jdbcType=VARCHAR}, 
-      #{sourceidentifier,jdbcType=VARCHAR}, #{intermediaryId,jdbcType=INTEGER})
+      #{sourceidentifier,jdbcType=VARCHAR}, #{intermediaryId,jdbcType=INTEGER},#{path,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.we.fc.dept.entity.DingtalkDept" >
     update dingtalk_dept
@@ -48,21 +48,29 @@
       outerDept = #{outerdept,jdbcType=BIT},
       outerPermitUsers = #{outerpermitusers,jdbcType=VARCHAR},
       sourceIdentifier = #{sourceidentifier,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
       intermediary_id = #{intermediaryId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="updatePath" parameterType="com.we.fc.dept.entity.DingtalkDept" >
+    update dingtalk_dept
+    set path = #{path,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select id, `name`, parentid, `order`, createDeptGroup, deptHiding, deptPerimits, 
-    userPerimits, outerDept, outerPermitUsers, sourceIdentifier, intermediary_id, create_time, 
+    userPerimits, outerDept, outerPermitUsers, sourceIdentifier, intermediary_id, path,create_time,
     update_time
     from dingtalk_dept
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, `name`, parentid, `order`, createDeptGroup, deptHiding, deptPerimits, 
-    userPerimits, outerDept, outerPermitUsers, sourceIdentifier, intermediary_id, create_time, 
+    userPerimits, outerDept, outerPermitUsers, sourceIdentifier, intermediary_id, path,create_time,
     update_time
     from dingtalk_dept
   </select>

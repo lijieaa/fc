@@ -30,6 +30,17 @@ public class DingtalkDept extends BaseEntity {
     private Integer intermediaryId;
 
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    private String path;
+
+
 
     private static final long serialVersionUID = 1L;
 

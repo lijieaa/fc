@@ -8,4 +8,5 @@ import java.util.List;
 public interface DingtalkDeptService extends BaseService<DingtalkDept>{
 
     List<DingtalkDept> findByParentId(Integer id);
+
 }

@@ -31,10 +31,10 @@ public class DingtalkServiceImpl extends BaseServiceImpl<DingtalkUser> implement
     }
 
     @Override
-    public void insert(DingtalkUser dingtalkUser) throws Exception {
+    public int insert(DingtalkUser dingtalkUser) throws Exception {
         //dingtalkUser.get
         dingtalkUser.setPwd(encoder.encode(dingtalkUser.getPwd()));
-        super.insert(dingtalkUser);
+        return super.insert(dingtalkUser);
     }
 
     @Override
