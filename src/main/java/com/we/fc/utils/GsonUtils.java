@@ -1,6 +1,7 @@
 package com.we.fc.utils;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * @author zdc
@@ -9,7 +10,7 @@ import com.google.gson.Gson;
 
 public class GsonUtils {
 
-    private static Gson gson = new Gson();
+    private static Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
     public static<T> T toBean(String json, Class<T> c){
         return gson.fromJson(json, c);
@@ -18,4 +19,5 @@ public class GsonUtils {
     public static<T> String toJson(T t){
         return gson.toJson(t);
     }
+
 }

@@ -1,5 +1,15 @@
 //中间商管理
+function changeImg() {
+    alert(1);
+    var reads = new FileReader();
+    var file = document.getElementById("file").files[0];
+    reads.readAsDataURL(file);
 
+    reads.onload = function(e){
+        console.log(this.result);
+        document.getElementById("imgInter").src = this.result;
+    }
+}
 $(document).ready(function() {
     Vue.component('option-item', {
         props: ['todo'],
@@ -63,6 +73,9 @@ $(document).ready(function() {
 //            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
                 });
             },
+            // changeImg:function(){
+            //
+            // },
             uploaderFun:function(){
                 //    创建上传图片
                 var uploader = WebUploader.create({
@@ -194,7 +207,9 @@ $(document).ready(function() {
                 },function(data){})
             },
             searchLimit:function(){ //按条件进行搜索
-                var val = $("#limitSelect").val();
+                var _this = this;
+                var val = parseInt($("#limitSelect").val());
+                console.log(val);
                 var postData = {
                     "page":1,
                     "rows":10
@@ -208,65 +223,72 @@ $(document).ready(function() {
                         postData.area.name = _this.inputLimit;
                         break;
                     }
+                    case 3:{
+                        postData.intermediaryContact = _this.inputLimit;
+                        break;
+                    }
+                    case 4:{
+                        postData.intermediaryContactTel = _this.inputLimit;
+                        break;
+                    }
                 }
+                _this.tableInit(postData,true);
+            },
+            tableInit : function(data,flag){
                 $('#deviceForm').DataTable({
                     "ajax":{
-                        data:postData
+                        // url:"../dist/data/device.json",
+                        url: contextPath +"intermediary/page",
+                        dataSrc:"data.list",
+                        "data":data
+                    },
+                    "info":false,
+                    "searching": false,
+                    "lengthChange": false,
+                    "ordering": false,
+                    // "pagingType": "full_numbers",
+                    "language": {
+                        "paginate": {
+                            "next": "下一页",
+                            "previous": "上一页"
+                        }
+                    },
+                    "destroy":flag,
+                    "columns": [
+                        { "data": "intermediaryName" },
+                        { "data": "area.name" },
+                        { "data": "intermediaryContact" },
+                        { "data": "intermediaryContactTel" },
+                        { "data": "user.name" },
+                        { "data": "user.mobile"},
+                        { "data": "", "render": function(data, type, row, meta){
+                                var html = "<button type='button' class='Normal margin-right-4 btn btn-primary' data-id='"+row.id+"' id='editInter'>编辑</button>" +
+                                    "<button type='button' class='Normal margin-right-4 btn btn-primary' data-id='"+row.id+"' id='delete'>删除</button>" +
+                                    "<button type='button' class='Normal margin-right-4 btn btn-primary' data-id='"+row.id+"' id='detail'>详情</button>";
+                                return html;
+                            }}
+
+                    ],
+                    "pageLength": 10,
+                    "stateLoadParams": function (settings, data) {
+                        alert(1);
                     }
-                }).ajax.reload();
+                });
             }
         },
         mounted:function(){
             var _this = this;
-
             _this.editorFun(); //初始化生成编辑器
             _this.uploaderFun();  //上传图片
             $.axspost(contextPath + "area/condition?level=1","get","",function(data){
                 _this.facList = data.data;
                 _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
             },function (data) {});
-
-            $('#deviceForm').DataTable({
-                "ajax":{
-                    // url:"../dist/data/device.json",
-                    url: contextPath +"intermediary/page",
-                    dataSrc:"data.list",
-                    "data": {
-                        "page":1,
-                        "rows":10
-                    }
-                },
-                "info":false,
-                "searching": false,
-                "lengthChange": false,
-                "ordering": false,
-                // "pagingType": "full_numbers",
-                "language": {
-                    "paginate": {
-                        "next": "下一页",
-                        "previous": "上一页"
-                    }
-                },
-                "columns": [
-                    { "data": "intermediaryName" },
-                    { "data": "area.name" },
-                    { "data": "intermediaryContact" },
-                    { "data": "intermediaryContactTel" },
-                    { "data": "user.realName" },
-                    { "data": "user.telephone"},
-                    { "data": "", "render": function(data, type, row, meta){
-                            var html = "<button type='button' class='Normal margin-right-4 btn btn-primary' data-id='"+row.id+"' id='editInter'>编辑</button>" +
-                                "<button type='button' class='Normal margin-right-4 btn btn-primary' data-id='"+row.id+"' id='delete'>删除</button>" +
-                                "<button type='button' class='Normal margin-right-4 btn btn-primary' data-id='"+row.id+"' id='detail'>详情</button>";
-                            return html;
-                        }}
-
-                ],
-                "pageLength": 10,
-                "stateLoadParams": function (settings, data) {
-                    alert(1);
-                }
-            });
+            var data =  {
+                "page":1,
+                "rows":10
+            };
+           _this.tableInit(data,false);
 
             $(document).on("click","#editInter",function(){
                 _this.editorId = $(this).attr("data-id");
@@ -287,9 +309,10 @@ $(document).ready(function() {
             $(document).on("click","#detail",function(){
                 window.location.href = "detail?menuId=4&"+$(this).attr("data-id");
             });
+
+
         }
     });
-
 
 
 

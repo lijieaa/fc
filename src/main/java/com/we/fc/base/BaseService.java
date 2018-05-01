@@ -8,7 +8,7 @@ import java.util.List;
  */
 public interface BaseService<T> {
 
-    void insert(T t) throws Exception;
+    int insert(T t) throws Exception;
 
     void deleteByPrimaryKey(Integer id) throws Exception;
 

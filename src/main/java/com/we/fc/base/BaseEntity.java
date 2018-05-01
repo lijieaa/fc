@@ -1,7 +1,7 @@
 package com.we.fc.base;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.we.fc.company.entity.Company;
+import com.we.fc.intermediary.entity.Intermediary;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,7 +15,7 @@ public class BaseEntity implements Serializable{
 
     private Integer id;
 
-    private Company company;
+    private Intermediary intermediary;
 
     private Date createTime;
 
@@ -47,11 +47,11 @@ public class BaseEntity implements Serializable{
         this.updateTime = updateTime;
     }
 
-    public Company getCompany() {
-        return company;
+    public Intermediary getIntermediary() {
+        return intermediary;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setIntermediary(Intermediary intermediary) {
+        this.intermediary = intermediary;
     }
 }

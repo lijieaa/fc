@@ -40,13 +40,14 @@ public class WxPublicServiceImpl extends BaseServiceImpl<WxPublic> implements Wx
     }
 
     @Override
-    public void insert(WxPublic wxPublic) throws Exception {
+    public int insert(WxPublic wxPublic) throws Exception {
 
         // 验证是否能正确获取access_token
         String accessToken = null;
+        int insert;
         try {
             accessToken = wxApiHandler.getAccessToken(wxPublic.getAppId(), wxPublic.getAppSecret());
-            super.insert(wxPublic);
+            insert = super.insert(wxPublic);
             //查询公从号的订阅用户的OPENID
             OpenIdResponse response = wxApiHandler.loadUserOpenId(accessToken);
             List<WxUserOpenId> list = new ArrayList<>();
@@ -55,7 +56,7 @@ public class WxPublicServiceImpl extends BaseServiceImpl<WxPublic> implements Wx
                 list.add(new WxUserOpenId(openId, wxPublic));
                 WxUserDetail wxUserDetail = wxApiHandler.loadUserDetail(accessToken, openId);
                 wxUserDetail.setWxPublic(wxPublic);
-                wxUserDetail.setCompany(wxPublic.getCompany());
+                wxUserDetail.setIntermediary(wxPublic.getIntermediary());
                 wxUserDetailDao.insert(wxUserDetail);
             }
             wxUserOpenIdDao.batchInsert(list);
@@ -63,6 +64,7 @@ public class WxPublicServiceImpl extends BaseServiceImpl<WxPublic> implements Wx
             throw e;
         }
 
+        return insert;
     }
 
     @Override

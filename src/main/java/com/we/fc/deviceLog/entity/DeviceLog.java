@@ -1,10 +1,9 @@
 package com.we.fc.deviceLog.entity;
 
 import com.we.fc.base.BaseEntity;
-import com.we.fc.user.entity.User;
+import com.we.fc.user.entity.DingtalkUser;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class DeviceLog extends BaseEntity implements Serializable {
 
@@ -14,7 +13,7 @@ public class DeviceLog extends BaseEntity implements Serializable {
 
     private String operateCommandDesc;
 
-    private User user;
+    private DingtalkUser user;
 
 
     private static final long serialVersionUID = 1L;
@@ -44,11 +43,11 @@ public class DeviceLog extends BaseEntity implements Serializable {
         this.operateCommandDesc = operateCommandDesc == null ? null : operateCommandDesc.trim();
     }
 
-    public User getUser() {
+    public DingtalkUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(DingtalkUser user) {
         this.user = user;
     }
 

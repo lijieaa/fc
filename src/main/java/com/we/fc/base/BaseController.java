@@ -3,19 +3,15 @@ package com.we.fc.base;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
-import com.we.fc.company.entity.Company;
 import com.we.fc.menu.entity.Menu;
 import com.we.fc.menu.service.MenuService;
 import com.we.fc.unit.ResponseEntity;
 import com.we.fc.user.entity.DingtalkUser;
-import com.we.fc.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -104,6 +100,7 @@ public abstract class BaseController<T extends BaseEntity> {
         try {
             PageHelper.startPage(page,rows);
             //t.setCompany(getSelf(session).getCompany());
+            t.setIntermediary(getSelf(session).getIntermediary());
             List<T> list = getService().selectAll(t);
             PageInfo pageInfo = new PageInfo(list);
             responseEntity.setData(pageInfo);
@@ -120,7 +117,7 @@ public abstract class BaseController<T extends BaseEntity> {
     @ResponseBody
     public ResponseEntity all(@RequestBody(required = false) T t, HttpSession session){
         ResponseEntity responseEntity = new ResponseEntity();
-        if(t != null) t.setCompany(getSelf(session).getCompany());
+        if(t != null) t.setIntermediary(getSelf(session).getIntermediary());
         responseEntity.setList(getService().selectAll(t));
         return responseEntity;
     }

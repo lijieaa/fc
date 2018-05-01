@@ -21,6 +21,7 @@
       /*outline: 1px solid #ececec;*/
       margin-right: 2px;
       margin-left: -2px;
+      padding-top: 0;
   }
   #fileList{
     width: 55%;
@@ -51,6 +52,22 @@
   }
   .modal-body .col-md-6{
     padding: 0!important;
+  }
+  .intermediary-title{
+    height: 40px;
+    line-height: 40px;
+    background: rgb(228,228,228);
+    padding-left: 10px;
+  }
+
+  .img-div{
+    /*width: 40%;*/
+    height: 150px;
+    border: 1px dotted black;
+    margin-top: 5px;
+  }
+  .inter-img input[type=file]{
+    width: 100%;
   }
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -127,45 +144,67 @@
     <section class="content-list">
       <form action="">
         <div class="row">
-          <div class="col-md-12 col-xs-12">
-            <div id="uploader-demo">
-              <!--用来存放item-->
-              <div id="fileList" class="uploader-list display-block"></div>
-              <div id="filePicker" class="margin-top-6 display-block backgroud-purple margin-left-10">选择图片</div>
-            </div>
-          </div>
-        </div>
-        <div class="row modal-body margin-top-15">
-          <div class="col-md-6 col-sm-12 col-xs-12">
-            <div class="pop-box margin-top-15">
+          <div class="col-sm-6 modal-body">
+            <div class="pop-box background-g">
               <label for="" class="label-pop-style text-align-right">中间商名称:</label>
               <input type="text" class="form-control form-style-pop" v-model="intermediaryName">
             </div>
-            <div class="pop-box margin-top-15">
+            <div class="pop-box background-w">
               <label for="" class="label-pop-style text-align-right">联系人:</label>
               <input type="text" class="form-control form-style-pop" v-model = "intermediaryContact">
             </div>
-            <div class="pop-box margin-top-15">
+            <div class="pop-box background-g">
               <label for="" class="label-pop-style text-align-right">联系电话:</label>
               <input type="text" class="form-control form-style-pop" v-model = "intermediaryContactTel">
             </div>
-          </div>
-          <div class="col-md-6 col-sm-12 col-xs-12">
-            <div class="pop-box margin-top-15 positon-relative">
+            <div class="pop-box background-w positon-relative">
               <label for="" class="label-pop-style text-align-right">所属地区:</label>
               <input type="text" class="form-control form-style-pop" id="address" v-bind:data-id="addRessId" v-model="address"  @blur="treeHide"  @focus="treeShow">
               <ul id="treeDemo" class="ztree"  v-show="treeIsShow"></ul>
             </div>
-            <div class="pop-box margin-top-15">
+            <div class="pop-box background-g">
               <label for="" class="label-pop-style text-align-right">平台对接人:</label>
               <input type="text" class="form-control form-style-pop" v-model="broker">
             </div>
-            <div class="pop-box margin-top-15">
+            <div class="pop-box background-w">
               <label for="" class="label-pop-style text-align-right">联系方式:</label>
               <input type="text" class="form-control form-style-pop" v-model="brokerPhone">
             </div>
           </div>
+          <div class="col-sm-6 padding-left-0">
+            <div class="intermediary-title">中间商</div>
+           <div class="row margin-left-0">
+             <div class="img-div col-sm-4">
+               <img src="" id="imgInter" alt="" width="100%">
+             </div>
+             <div class="col-sm-8 inter-img">
+               <input type="file" id="file" onchange="changeImg()" class="margin-top-6">
+               <div class="margin-top-6">
+                 <label for="">图文信息:</label>
+                 <span></span>
+               </div>
+               <div class="margin-top-6">
+                 <label for="">尺寸:</label>
+                 <span></span>
+               </div>
+               <div class="margin-top-6">
+                 <label for="">大小:</label>
+                 <span></span>
+               </div>
+               <button type="button" class="btn float-right btn-info padding-right-15">上传
+               </button>
+               <!--<button class="float-right"></button>-->
+             </div>
+           </div>
+            <!--<div id="uploader-demo">-->
+              <!--用来存放item-->
+              <!--<div id="fileList" class="uploader-list display-block"></div>-->
+              <!--<div id="filePicker" class="margin-top-6 display-block backgroud-purple margin-left-10">选择图片</div>-->
+            <!--</div>-->
+          </div>
+
         </div>
+
         <div class="row margin-top-15">
           <div class="col-md-12">
             <form>

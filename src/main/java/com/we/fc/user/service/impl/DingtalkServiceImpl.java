@@ -10,6 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DingtalkServiceImpl extends BaseServiceImpl<DingtalkUser> implements DingtalkUserService {
 
@@ -29,10 +31,10 @@ public class DingtalkServiceImpl extends BaseServiceImpl<DingtalkUser> implement
     }
 
     @Override
-    public void insert(DingtalkUser dingtalkUser) throws Exception {
+    public int insert(DingtalkUser dingtalkUser) throws Exception {
         //dingtalkUser.get
         dingtalkUser.setPwd(encoder.encode(dingtalkUser.getPwd()));
-        super.insert(dingtalkUser);
+        return super.insert(dingtalkUser);
     }
 
     @Override
@@ -44,5 +46,10 @@ public class DingtalkServiceImpl extends BaseServiceImpl<DingtalkUser> implement
     @Override
     public DingtalkUser findByTel(String tel) {
         return dingtalkUserMapper.findByTel(tel);
+    }
+
+    @Override
+    public List<DingtalkUser> findByDeptId(Integer deptId) {
+        return dingtalkUserMapper.findByDeptId(deptId);
     }
 }

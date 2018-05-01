@@ -3,8 +3,6 @@ package com.we.fc.role.entity;
 
 import com.we.fc.base.BaseEntity;
 import com.we.fc.menu.entity.Menu;
-import com.we.fc.role.group.entity.RoleGroup;
-
 import java.util.List;
 
 /**
@@ -18,8 +16,35 @@ public class Role extends BaseEntity {
     // 角色名称
     private String name;
 
-    // 所以角色组
-    private RoleGroup roleGroup;
+    public Integer getIntermediaryId() {
+        return intermediaryId;
+    }
+
+    public void setIntermediaryId(Integer intermediaryId) {
+        this.intermediaryId = intermediaryId;
+    }
+
+    private Integer intermediaryId;
+
+    public Integer getPid() {
+        return pid;
+    }
+
+    public void setPid(Integer pid) {
+        this.pid = pid;
+    }
+
+    private Integer pid;
+
+    public Integer getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(Integer isDel) {
+        this.isDel = isDel;
+    }
+
+    private Integer isDel;
 
     // 权限
     private List<Menu> menus;
@@ -40,14 +65,6 @@ public class Role extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public RoleGroup getRoleGroup() {
-        return roleGroup;
-    }
-
-    public void setRoleGroup(RoleGroup roleGroup) {
-        this.roleGroup = roleGroup;
     }
 
     public List<Menu> getMenus() {

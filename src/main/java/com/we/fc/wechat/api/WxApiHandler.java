@@ -62,11 +62,12 @@ public class WxApiHandler {
     public SubmitResponse sendMsg2user(String accessToken, Msg msg) throws Exception{
 
         String url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=" + accessToken;
+        System.out.println(GsonUtils.toJson(msg));
         String result = RequestTools.processPostJson(url, GsonUtils.toJson(msg));
-        if(ResponseStatus.isInvokeSuccess(result)){
+        if(ResponseStatus.sendMsgStatus(result)){
             return GsonUtils.toBean(result, SubmitResponse.class);
         }else{
-            throw new AccessTokenException("accessToken或openid错误");
+            throw new AccessTokenException("该用户48小时未与你互动，不能主动发消息给他，直到用户下次给你发消息才可回复");
         }
 
     }

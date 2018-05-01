@@ -4,6 +4,8 @@ import com.we.fc.base.BaseDao;
 import com.we.fc.user.entity.DingtalkUser;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface DingtalkUserMapper extends BaseDao<DingtalkUser>{
     /**
@@ -12,4 +14,7 @@ public interface DingtalkUserMapper extends BaseDao<DingtalkUser>{
      * @return
      */
     DingtalkUser findByTel(String tel);
+
+
+    List<DingtalkUser> findByDeptId(Integer deptId);
 }

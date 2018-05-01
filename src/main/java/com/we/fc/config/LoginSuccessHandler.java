@@ -1,6 +1,5 @@
 package com.we.fc.config;
 
-import com.we.fc.company.dao.CompanyDao;
 import com.we.fc.dept.dao.DeptDao;
 import com.we.fc.menu.dao.MenuDao;
 import com.we.fc.menu.entity.Menu;
@@ -8,7 +7,6 @@ import com.we.fc.menu.utils.MenuUtils;
 import com.we.fc.role.dao.RoleDao;
 import com.we.fc.role.entity.Role;
 import com.we.fc.user.entity.DingtalkUser;
-import com.we.fc.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -20,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.TreeSet;
 
 @Component
@@ -30,8 +27,6 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     @Autowired private RoleDao roleDao;
 
     @Autowired private MenuDao menuDao;
-
-    @Autowired private CompanyDao companyDao;
 
     @Autowired private DeptDao deptDao;
 

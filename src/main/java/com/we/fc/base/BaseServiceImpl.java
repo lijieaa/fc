@@ -12,8 +12,8 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
     public abstract BaseDao<T> getDao();
 
     @Override
-    public void insert(T t) throws Exception {
-        getDao().insert(t);
+    public int insert(T t) throws Exception {
+        return getDao().insert(t);
     }
 
     @Override

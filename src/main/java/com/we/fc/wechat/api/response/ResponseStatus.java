@@ -14,4 +14,12 @@ public class ResponseStatus {
         else
             return false;
     }
+
+    public static boolean sendMsgStatus(String result){
+        if(result.indexOf("\"errcode\":45015") != -1){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

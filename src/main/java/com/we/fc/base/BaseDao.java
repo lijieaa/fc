@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface BaseDao<T> {
 
-    void insert(T t) throws Exception;
+    int insert(T t) throws Exception;
 
     void deleteByPrimaryKey(Integer id) throws Exception;
 
