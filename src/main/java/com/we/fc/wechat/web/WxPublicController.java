@@ -8,9 +8,11 @@ import com.we.fc.wechat.service.WxPublicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 /**
  * 公从号Controller
@@ -37,8 +39,8 @@ public class WxPublicController extends BaseController<WxPublic>{
     @Override
     @PostMapping
     @ResponseBody
-    public ResponseEntity add(@RequestBody WxPublic wxPublic, HttpSession session) {
+    public ResponseEntity add(@Valid @RequestBody WxPublic wxPublic, BindingResult result, HttpSession session) {
         wxPublic.setIntermediary(getSelf(session).getIntermediary());
-        return super.add(wxPublic, session);
+        return super.add(wxPublic, result, session);
     }
 }
