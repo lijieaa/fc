@@ -43,6 +43,9 @@ html,body{
 .padding-right-15{
     padding-right: 15px;
 }
+.padding-top-15{
+    padding-top: 15px!important;
+}
 .margin-top-15{
      margin-top: 15px;
  }

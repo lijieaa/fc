@@ -137,11 +137,11 @@
                                     </div>
                                     <div>
                                         <label for="">平台对接人：</label>
-                                        <span>张三</span>
+                                        <span v-text="dataList.user.name">张三</span>
                                     </div>
                                     <div>
                                         <label for="">联系方式：</label>
-                                        <span  v-text="dataList.user.telephone"></span>
+                                        <span  v-text="dataList.user.mobile"></span>
                                     </div>
                                 </div>
                             </div>
@@ -280,22 +280,11 @@
                 updateTime: "",
                 user:{
                     admin:"",
-                    company:"",
-                    createTime:"",
-                    dept: "",
-                    email: "",
-                    entryTime: "",
                     id: 1,
-                    jobNumber: "",
-                    menus: "",
                     platformAdmin: "",
                     position: "",
-                    realName: "",
-                    roles: "",
-                    telephone: "",
-                    updateTime: "",
-                    username: "",
-                    workAddress: ""
+                    name: "",
+                    mobile: ""
                 }
             }
         },

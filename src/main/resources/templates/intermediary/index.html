@@ -38,14 +38,9 @@
     border:none!important;
   }
   #treeDemo{
-    position: absolute;
     width: 60%;
-    left: 82px;
     background: #fff;
-    outline: 1px solid #3c8dbc;
-    z-index: 3;
-    max-height: 300px;
-    overflow: auto;
+    /*outline: 1px solid #3c8dbc;*/
   }
   #editor1{
     resize: none;
@@ -59,15 +54,29 @@
     background: rgb(228,228,228);
     padding-left: 10px;
   }
-
   .img-div{
     /*width: 40%;*/
-    height: 150px;
+    /*height: 150px;*/
+    min-height: 150px;
     border: 1px dotted black;
     margin-top: 5px;
   }
+  .img-div>img{
+    width: 110px;
+
+  }
   .inter-img input[type=file]{
     width: 100%;
+  }
+
+  .tree-div-contain{
+    position: absolute;
+    width: 60%;
+    z-index: 3;
+    left: 82px;
+    max-height: 300px;
+    overflow: auto;
+    background: white;
   }
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -142,58 +151,71 @@
       </div>
     </section>
     <section class="content-list">
-      <form action="">
+      <!--<form action="">-->
         <div class="row">
           <div class="col-sm-6 modal-body">
             <div class="pop-box background-g">
-              <label for="" class="label-pop-style text-align-right">中间商名称:</label>
-              <input type="text" class="form-control form-style-pop" v-model="intermediaryName">
+              <label class="label-pop-style text-align-right">中间商名称:</label>
+              <input type="text" class="form-control form-style-pop" v-model="editList.intermediaryName">
             </div>
             <div class="pop-box background-w">
               <label for="" class="label-pop-style text-align-right">联系人:</label>
-              <input type="text" class="form-control form-style-pop" v-model = "intermediaryContact">
+              <input type="text" class="form-control form-style-pop" v-model = "editList.intermediaryContact">
             </div>
             <div class="pop-box background-g">
               <label for="" class="label-pop-style text-align-right">联系电话:</label>
-              <input type="text" class="form-control form-style-pop" v-model = "intermediaryContactTel">
+              <input type="text" class="form-control form-style-pop" v-model = "editList.intermediaryContactTel">
             </div>
             <div class="pop-box background-w positon-relative">
               <label for="" class="label-pop-style text-align-right">所属地区:</label>
-              <input type="text" class="form-control form-style-pop" id="address" v-bind:data-id="addRessId" v-model="address"  @blur="treeHide"  @focus="treeShow">
-              <ul id="treeDemo" class="ztree"  v-show="treeIsShow"></ul>
+              <input type="text" class="form-control form-style-pop" id="address" v-bind:data-id="editList.area.id" v-model="editList.area.name"  @blur="treeHide"  @focus="treeShow">
+              <div class="tree-div-contain"  v-show="treeIsShow">
+                <div class="margin-left-10">
+                  <input type="text" class="form-control form-style-pop" v-model="searchVal">
+                  <button  type="button" class="btn btn-info padding-right-15" @click="searchZtree">搜索</button>
+                </div>
+                <div class="menu-list margin-left-10">
+                  <ul id="treeDemo" class="ztree"></ul>
+                   <ul class="search-list">
+
+                   </ul>
+                </div>
+              </div>
             </div>
             <div class="pop-box background-g">
               <label for="" class="label-pop-style text-align-right">平台对接人:</label>
-              <input type="text" class="form-control form-style-pop" v-model="broker">
+              <input type="text" class="form-control form-style-pop" v-model="editList.user.name">
             </div>
             <div class="pop-box background-w">
               <label for="" class="label-pop-style text-align-right">联系方式:</label>
-              <input type="text" class="form-control form-style-pop" v-model="brokerPhone">
+              <input type="text" class="form-control form-style-pop" v-model="editList.user.mobile">
             </div>
           </div>
           <div class="col-sm-6 padding-left-0">
             <div class="intermediary-title">中间商</div>
            <div class="row margin-left-0">
-             <div class="img-div col-sm-4">
+             <div class="img-div col-md-4 col-sm-6">
                <img src="" id="imgInter" alt="" width="100%">
              </div>
-             <div class="col-sm-8 inter-img">
-               <input type="file" id="file" onchange="changeImg()" class="margin-top-6">
-               <div class="margin-top-6">
-                 <label for="">图文信息:</label>
-                 <span></span>
-               </div>
-               <div class="margin-top-6">
-                 <label for="">尺寸:</label>
-                 <span></span>
-               </div>
-               <div class="margin-top-6">
-                 <label for="">大小:</label>
-                 <span></span>
-               </div>
-               <button type="button" class="btn float-right btn-info padding-right-15">上传
-               </button>
-               <!--<button class="float-right"></button>-->
+             <div class="col-md-8 col-sm-6 inter-img">
+               <!--<form th:action="@{/intermediary/upload}"  method="post" enctype = "multipart/form-data">-->
+                 <!--<input type="file" id="file" name="file" onchange="changeImg()" class="margin-top-6">-->
+               <div id="picker">选择文件</div>
+               <!--<button id="ctlBtn" class="btn btn-default">开始上传</button>-->
+                 <div class="margin-top-6">
+                   <label for="">图文信息:</label>
+                   <span></span>
+                 </div>
+                 <div class="margin-top-6">
+                   <label for="">尺寸:</label>
+                   <span id="sizew"></span>
+                 </div>
+                 <div class="margin-top-6">
+                   <label for="">大小:</label>
+                   <span id="size"></span>
+                 </div>
+                 <button type="submit" class="btn float-right btn-info padding-right-15" @click="postImg">上传</button>
+               <!--</form>-->
              </div>
            </div>
             <!--<div id="uploader-demo">-->
@@ -207,28 +229,40 @@
 
         <div class="row margin-top-15">
           <div class="col-md-12">
-            <form>
+            <!--<form>-->
               <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
-            </form>
+            <!--</form>-->
           </div>
         </div>
         <div class="text-align padding-18">
           <button type="button" @click="sureSubmit" class="btn btn-info search margin-right-4">确定</button>
           <button type="reset" class="btn reset-btn search">重置</button>
         </div>
-      </form>
+      <!--</form>-->
     </section>
   </div>
 
-  <div class="modal fade" id="canDelate">
+  <div class="modal fade modalAll" id="canDelate">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-body text-align" v-text="delErrorMsg">
+        <div class="modal-body padding-top-15 text-align">
           是否删除当前信息？
         </div>
         <div class="modal-footer text-align">
           <button type="button" class="btn btn-info search margin-right-4" @click="sureDel">确定</button>
           <button type="button" class="btn reset-btn search" @click = "closeDelPop">取消</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade modalAll" id="errorMsg">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body padding-top-15 text-align" v-text="delErrorMsg"></div>
+        <div class="modal-footer text-align">
+          <button type="button" class="btn btn-info search margin-right-4" @click="closeDelPop">确定</button>
+          <button type="button" class="btn reset-btn search" @click="closeDelPop">取消</button>
         </div>
       </div>
     </div>
