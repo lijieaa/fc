@@ -29,6 +29,7 @@ public class MenuController extends BaseController<Menu> {
 
     @RequestMapping("index")
     public String index(){
+
         return  "sys/menu/index";
     }
 
