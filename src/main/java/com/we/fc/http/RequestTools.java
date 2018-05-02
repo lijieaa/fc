@@ -9,15 +9,13 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -49,6 +47,27 @@ public class RequestTools {
             return doRequest(null, httppost, formparams);
         }
         return "";
+    }
+
+    public static String processUpload(String url, File file) throws IOException {
+
+        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(200000).setSocketTimeout(200000000).build();
+        MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setHeader("Content-Type", "multipart/form-data");
+        httpPost.setConfig(requestConfig);
+        multipartEntityBuilder.addBinaryBody("media",file);
+        HttpEntity httpEntity = multipartEntityBuilder.build();
+        httpPost.setEntity(httpEntity);
+        CloseableHttpResponse response = HttpClientPool.getHttpClient().execute(httpPost);
+        String str = null;
+        HttpEntity entity = response.getEntity();
+        if (entity != null) {
+            InputStream instreams = entity.getContent();
+            str = convertStreamToString(instreams);
+            httpPost.abort();
+        }
+        return str;
     }
 
     private static String doRequest(HttpPost httpPost, HttpGet httpGet, List<BasicNameValuePair> formparams) {
@@ -90,7 +109,6 @@ public class RequestTools {
         // HttpClient httpclient = new DefaultHttpClient();
         HttpPost post = new HttpPost(postUrl);
         post.setHeader("Content-Type", "application/json");
-        post.addHeader("Authorization", "Basic YWRtaW46");
         String str = null;
         StringEntity s = new StringEntity(json, "utf-8");
         s.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));

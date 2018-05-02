@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.we.fc.wechat.dao.WxMaterialDao">
+
+    <resultMap id="materialMap" type="WxMaterial">
+        <id property="id" column="material_id"></id>
+        <result property="mediaId" column="material_media_id"></result>
+        <result property="name" column="material_name"></result>
+        <result property="updateTime" column="material_update_time"></result>
+        <result property="url" column="material_url"></result>
+        <result property="title" column="material_title"></result>
+        <result property="author" column="material_author"></result>
+        <result property="digest" column="material_digest"></result>
+        <result property="content" column="material_content"></result>
+        <result property="contentSourceUrl" column="material_content_source_url"></result>
+        <result property="thumbMediaId" column="material_thumb_media_id"></result>
+        <result property="showCoverPic" column="material_show_cover_pic"></result>
+        <result property="thumbUrl" column="material_thumb_url"></result>
+        <result property="needOpenComment" column="material_need_open_comment"></result>
+        <result property="onlyFansCanComment" column="material_only_fans_can_comment"></result>
+    </resultMap>
+
+    <insert id="insert">
+        INSERT INTO wx_material(
+          material_media_id,
+          material_name,
+          material_url,
+          material_type,
+          material_title,
+          material_author,
+          material_digest,
+          material_content,
+          material_content_source_url,
+          material_thumb_media_id,
+          material_show_cover_pic,
+          material_thumb_url,
+          material_need_open_comment,
+          material_only_fans_can_comment,
+          material_update_time)
+        VALUES (
+          #{mediaId},
+          #{name},
+          #{url},
+          #{type},
+          #{title},
+          #{author},
+          #{digest},
+          #{content},
+          #{contentSourceUrl},
+          #{thumbMediaId},
+          #{showCoverPic},
+          #{thumbUrl},
+          #{needOpenComment},
+          #{onlyFansCanComment},
+          #{updateTime}
+        )
+    </insert>
+
+
+    <select id="selectAll" resultMap="materialMap">
+        SELECT * FROM wx_material
+    </select>
+</mapper>
