@@ -8,6 +8,8 @@ import com.we.fc.device.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by mayn on 2018/4/15.
  */
@@ -20,5 +22,10 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device> implements Device
     @Override
     public BaseDao<Device> getDao() {
         return dao;
+    }
+
+    @Override
+    public List<Device> findByProject(Integer projectId) {
+        return dao.findByProject(projectId);
     }
 }
