@@ -33,6 +33,7 @@ public class Area extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+
     private String name;
 
     /**

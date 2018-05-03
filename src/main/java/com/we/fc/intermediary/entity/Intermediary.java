@@ -22,8 +22,8 @@ public class Intermediary extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
-    @NotNull(message = "中间商名称不能为空")
-    @Size(min = 1,max = 64,message = "中间商名称字数在1-64之间")
+    @NotNull(message = "名称不能为空")
+    @Size(min = 1,max = 64,message = "名称字数在1-64之间")
     private String intermediaryName;   //中间商名称
 
     /**
@@ -32,6 +32,8 @@ public class Intermediary extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+    @NotNull(message = "联系人不能为空")
+    @Size(min = 1,max = 16,message = "联系人字数在1-16之间")
     private String intermediaryContact;  //中间商联系人
 
     /**
@@ -40,6 +42,8 @@ public class Intermediary extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+    @NotNull(message = "中间商联系方式不能为空")
+    @Size(min = 1,max = 64,message = "中间商联系方式字数在1-64之间")
     private String intermediaryContactTel;//中间商联系方式
 
     /**
@@ -56,6 +60,7 @@ public class Intermediary extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+
     private DingtalkUser user;//平台对接人
 
     /**
@@ -64,6 +69,8 @@ public class Intermediary extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+    @NotNull(message = "logo不能为空")
+    @Size(min = 1,max = 256,message = "logo在1-256之间")
     private String intermediaryLogoUrl; //logo url
 
     /**
@@ -72,6 +79,7 @@ public class Intermediary extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+    @NotNull(message = "图文简介不能为空")
     private String intermediaryIntroduction; //图文简介
 
 
