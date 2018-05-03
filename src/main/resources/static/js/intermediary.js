@@ -27,6 +27,7 @@ $(document).ready(function() {
             editorId:"",
             delId:"",
             delErrorMsg:"",
+            responseUrl:"",
             editList:{
                 area:{
                     name:"",
@@ -111,14 +112,16 @@ $(document).ready(function() {
                     $("#fileList").html($li);
                     var size = parseInt(file.size)/1024;
                     var sizeSub = size.toString().substr(0,5);
-                    console.log(file);
                     $("#size").text(sizeSub+"kb");
                     uploader.makeThumb(file, function (error, src) {
                         $("#imgInter").attr("src",src);
                         $("#fileList").addClass("active");
                     });
                 });
-
+                uploader.on( 'uploadSuccess', function( file ,response) {
+                    var _this = this;
+                    _this.responseUrl = JSON.parse(response._raw).data;
+                });
             },
             treeShow:function(e){
                 // e.stopPropagation()
@@ -207,13 +210,16 @@ $(document).ready(function() {
                     intermediaryName:_this.editList.intermediaryName, //中间商名称
                     intermediaryContact:_this.editList.intermediaryContact,//中间商联系人
                     intermediaryContactTel:_this.editList.intermediaryContactTel, //中间商联系方式
+                    intermediaryLogoUrl: _this.responseUrl,
+                    intermediaryIntroduction: CKEDITOR.instances.editor1.getData(),
+                    user:{
+                        name:_this.editList.user.name,
+                        mobile:_this.editList.user.mobile,
+                        id:12
+                    },
                     area:{
                         id:_this.editList.area.id
-                    },
-                    broker:_this.broker,
-                    brokerPhone:_this.brokerPhone,
-                    intermediaryLogoUrl:"",
-                    intermediaryIntroduction: CKEDITOR.instances.editor1.getData()
+                    }
                 };
                 var type;
                 if(_this.editorId.length !=0 ){
@@ -222,7 +228,8 @@ $(document).ready(function() {
                 }else{
                     type = "post"
                 }
-                $.axspost(contextPath + "intermediary",type,postData,function(data){
+
+                $.axspost(contextPath + "intermediary",type,JSON.stringify(postData),function(data){
 
                 },function(data){})
             },
