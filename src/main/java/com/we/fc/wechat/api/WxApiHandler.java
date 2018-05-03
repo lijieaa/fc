@@ -4,12 +4,17 @@ import com.we.fc.exception.AccessTokenException;
 import com.we.fc.http.RequestTools;
 import com.we.fc.utils.GsonUtils;
 import com.we.fc.wechat.api.msg.Msg;
+import com.we.fc.wechat.api.request.MaterialRequest;
 import com.we.fc.wechat.api.response.AccessTokenResponse;
 import com.we.fc.wechat.api.response.OpenIdResponse;
 import com.we.fc.wechat.api.response.ResponseStatus;
 import com.we.fc.wechat.api.response.SubmitResponse;
 import com.we.fc.wechat.entity.WxUserDetail;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @author zdc
@@ -62,7 +67,6 @@ public class WxApiHandler {
     public SubmitResponse sendMsg2user(String accessToken, Msg msg) throws Exception{
 
         String url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=" + accessToken;
-        System.out.println(GsonUtils.toJson(msg));
         String result = RequestTools.processPostJson(url, GsonUtils.toJson(msg));
         if(ResponseStatus.sendMsgStatus(result)){
             return GsonUtils.toBean(result, SubmitResponse.class);
@@ -70,6 +74,28 @@ public class WxApiHandler {
             throw new AccessTokenException("该用户48小时未与你互动，不能主动发消息给他，直到用户下次给你发消息才可回复");
         }
 
+    }
+
+    // 获取素材
+    public String getMaterial(String accessToken, String type, Integer offset, Integer count) throws Exception {
+
+        String url = "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=" + accessToken;
+        MaterialRequest materialRequest = new MaterialRequest(type, offset, count);
+        return RequestTools.processPostJson(url, GsonUtils.toJson(materialRequest));
+
+    }
+
+    // 添加素材
+    public String addMaterial(String accessToken, String type, MultipartFile media) throws IOException {
+
+        String url = "https://api.weixin.qq.com/cgi-bin/material/add_material?type=" + type + "&access_token=" + accessToken;
+        File file = null;
+        String folder=System.getProperty("java.io.tmpdir");
+        file = new File(folder + media.getOriginalFilename());
+        media.transferTo(file);
+        String result = RequestTools.processUpload(url, file);
+        file.delete();
+        return result;
     }
 
 }

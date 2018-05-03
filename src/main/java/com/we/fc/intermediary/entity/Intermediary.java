@@ -4,6 +4,8 @@ import com.we.fc.area.entity.Area;
 import com.we.fc.base.BaseEntity;
 import com.we.fc.user.entity.DingtalkUser;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -20,6 +22,8 @@ public class Intermediary extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+    @NotNull(message = "中间商名称不能为空")
+    @Size(min = 1,max = 64,message = "中间商名称字数在1-64之间")
     private String intermediaryName;   //中间商名称
 
     /**

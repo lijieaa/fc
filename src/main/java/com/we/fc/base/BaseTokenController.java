@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 public class BaseTokenController {
 
-    protected String getAccessToken(HttpSession session){
+    public String getAccessToken(HttpSession session){
         Integer intermediaryId = ((DingtalkUser) session.getAttribute("user")).getIntermediary().getId();
         WxPublicService wxPublicService = SpringUtils.getBean("wxPublicServiceImpl", WxPublicServiceImpl.class);
         WxApiHandler wxApiHandler = SpringUtils.getBean("wxApiHandler", WxApiHandler.class);
@@ -35,7 +35,7 @@ public class BaseTokenController {
         return ((DingtalkUser) session.getAttribute("user")).getIntermediary();
     }
 
-    protected WxPublic getWxPublic(HttpSession session){
+    public WxPublic getWxPublic(HttpSession session){
         WxPublicService wxPublicService = SpringUtils.getBean("wxPublicServiceImpl", WxPublicServiceImpl.class);
         WxPublic wxPublic = wxPublicService.findByCompanyId(getCompany(session).getId());
         return wxPublic;
