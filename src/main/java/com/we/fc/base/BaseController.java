@@ -7,6 +7,8 @@ import com.we.fc.menu.entity.Menu;
 import com.we.fc.menu.service.MenuService;
 import com.we.fc.unit.ResponseEntity;
 import com.we.fc.user.entity.DingtalkUser;
+import com.we.fc.wechat.entity.WxPublic;
+import com.we.fc.wechat.service.WxPublicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.validation.BindingResult;
@@ -27,6 +29,8 @@ public abstract class BaseController<T extends BaseEntity> {
 
     @Autowired
     private MenuService menuService;
+
+    @Autowired private WxPublicService wxPublicService;
 
     protected DingtalkUser getSelf(HttpSession session) {
         return (DingtalkUser) session.getAttribute("user");

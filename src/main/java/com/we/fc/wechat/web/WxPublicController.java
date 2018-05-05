@@ -2,7 +2,9 @@ package com.we.fc.wechat.web;
 
 import com.we.fc.base.BaseController;
 import com.we.fc.base.BaseService;
+import com.we.fc.intermediary.entity.Intermediary;
 import com.we.fc.unit.ResponseEntity;
+import com.we.fc.wechat.api.WxApiHandler;
 import com.we.fc.wechat.entity.WxPublic;
 import com.we.fc.wechat.service.WxPublicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 公从号Controller
@@ -24,6 +28,8 @@ import javax.validation.Valid;
 public class WxPublicController extends BaseController<WxPublic>{
 
     @Autowired private WxPublicService wxPublicService;
+
+    @Autowired private WxApiHandler wxApiHandler;
 
     @GetMapping("index")
     public String index(Integer menuId, Model model){
@@ -40,7 +46,50 @@ public class WxPublicController extends BaseController<WxPublic>{
     @PostMapping
     @ResponseBody
     public ResponseEntity add(@Valid @RequestBody WxPublic wxPublic, BindingResult result, HttpSession session) {
+        ResponseEntity responseEntity = new ResponseEntity();
+        try {
+            wxApiHandler.getAccessToken(wxPublic.getAppId(), wxPublic.getAppSecret());
+        } catch (Exception e) {
+            responseEntity.setMessages("appId或appSecret错误！");
+            responseEntity.setStatus("500");
+            return responseEntity;
+        }
         wxPublic.setIntermediary(getSelf(session).getIntermediary());
         return super.add(wxPublic, result, session);
+    }
+
+    @Override
+    @PutMapping
+    @ResponseBody
+    public ResponseEntity update(@RequestBody WxPublic wxPublic, BindingResult result, HttpSession session) {
+        ResponseEntity responseEntity = new ResponseEntity();
+        try {
+            wxApiHandler.getAccessToken(wxPublic.getAppId(), wxPublic.getAppSecret());
+        } catch (Exception e) {
+            responseEntity.setMessages("appId或appSecret错误！");
+            responseEntity.setStatus("500");
+            return responseEntity;
+        }
+        wxPublic.setIntermediary(getSelf(session).getIntermediary());
+        return super.update(wxPublic, result, session);
+    }
+
+    @Override
+    @DeleteMapping
+    @ResponseBody
+    public ResponseEntity delete(Integer id, HttpSession session) {
+        ResponseEntity responseEntity = new ResponseEntity();
+        Intermediary intermediary = getSelf(session).getIntermediary();
+        List<WxPublic> wxPublics = wxPublicService.findByCompanyId(intermediary.getId());
+        List<Integer> ids = new ArrayList<>();
+        for(WxPublic wxPublic : wxPublics){
+            ids.add(wxPublic.getId());
+        }
+        if(!ids.contains(id)){
+            responseEntity.setMessages("没有权限删除该公众号");
+            responseEntity.setStatus("500");
+            return responseEntity;
+        }
+        return super.delete(id, session);
     }
 }

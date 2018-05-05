@@ -405,5 +405,50 @@ package com.we.fc.wechat.doc;
  * localhost:8080/message/page?page=1&rows=10&openId=o2IG5wpS7Ju6FPg6LW1OIuxKUgI0
  */
 
+/**
+ * @api {post} /wxPublic 添加公众号
+ * @apiName addWxPublic
+ * @apiGroup wxMessage
+ * @apiExample Request-Example:
+ * localhost:8080/wxPublic
+ *
+ * @apiParamExample {json} Param - Example:
+ *
+ * {
+ *   "publicName":"公众号名称",
+ *	 "sourceId":"原始ID",
+ *	 "appId":"appId",
+ *	 "appSecret":"appSecret",
+ *	 "publicEmail":"publicEmail"
+ *}
+ */
+
+/**
+ * @api {put} /wxPublic 编辑公众号
+ * @apiName updateWxPublic
+ * @apiGroup wxMessage
+ * @apiExample Request-Example:
+ * localhost:8080/wxPublic
+ *
+ * @apiParamExample {json} Param - Example:
+ *
+ * {
+ *   "id":"主键ID",
+ *   "publicName":"公众号名称",
+ *	 "sourceId":"原始ID",
+ *	 "appId":"appId",
+ *	 "appSecret":"appSecret",
+ *	 "publicEmail":"publicEmail"
+ *}
+ */
+
+/**
+ * @api {delete} /wxPublic 删除公众号
+ * @apiName deleteWxPublic
+ * @apiGroup wxMessage
+ * @apiExample Request-Example:
+ * localhost:8080/wxPublic?id=1
+ */
+
 public class WxDocumentation {
 }
