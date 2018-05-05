@@ -37,6 +37,16 @@ public class WxMaterial extends BaseEntity {
 
     private Integer onlyFansCanComment;
 
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getMediaId() {
         return mediaId;
     }
