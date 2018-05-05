@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 /**
  * @author zdc
@@ -86,13 +87,16 @@ public class WxApiHandler {
     }
 
     // 添加素材
-    public String addMaterial(String accessToken, String type, MultipartFile media) throws IOException {
+    public String addMaterial(String accessToken, String type, MultipartFile media,String description) throws IOException {
 
         String url = "https://api.weixin.qq.com/cgi-bin/material/add_material?type=" + type + "&access_token=" + accessToken;
         File file = null;
         String folder=System.getProperty("java.io.tmpdir");
-        file = new File(folder + media.getOriginalFilename());
+        file = new File(folder + File.separator + media.getOriginalFilename());
         media.transferTo(file);
+        if(type.equalsIgnoreCase("video")){
+            url += "&description=" + URLEncoder.encode(description, "UTF-8");
+        }
         String result = RequestTools.processUpload(url, file);
         file.delete();
         return result;

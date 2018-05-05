@@ -35,7 +35,8 @@ public class WxMaterialServiceImpl extends BaseServiceImpl<WxMaterial> implement
     @Override
     public void insert(WxMaterial wxMaterial, String accessToken, MultipartFile multipartFile) throws Exception {
 
-        String result = wxApiHandler.addMaterial(accessToken, wxMaterial.getType(), multipartFile);
+        String result = wxApiHandler.addMaterial(accessToken, wxMaterial.getType(), multipartFile,wxMaterial.getDescription());
+        if(result.indexOf("errcode") != -1) throw new Exception("添加异常，" + result);
         UploadResponse uploadResponse = GsonUtils.toBean(result, UploadResponse.class);
         wxMaterial.setName(multipartFile.getOriginalFilename());
         wxMaterial.setUrl(uploadResponse.getUrl());
