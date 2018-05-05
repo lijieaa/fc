@@ -51,7 +51,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Request-Example:",
-        "content": "openId:用户的OPENID\nlocalhost:8080/message/page?page=1&rows=10&openId=o2IG5wpS7Ju6FPg6LW1OIuxKUgI0",
+        "content": "openId:用户的OPENID  wxPublicId:公众号ID\nlocalhost:8080/message/page?page=1&rows=10&openId=o2IG5wpS7Ju6FPg6LW1OIuxKUgI0&wxPublicId=1",
         "type": "json"
       }
     ],
@@ -91,10 +91,23 @@ define({ "api": [
     "title": "用户列表(分页)",
     "name": "getWxUsers",
     "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
+          }
+        ]
+      }
+    },
     "examples": [
       {
         "title": "Request-Example:",
-        "content": "localhost:8080/wxUsers/page?page=1&rows=10",
+        "content": "localhost:8080/wxUsers/page?page=1&rows=10&wxPublicId=1",
         "type": "json"
       }
     ],
@@ -126,6 +139,13 @@ define({ "api": [
             "optional": false,
             "field": "json",
             "description": "<p>ToUserName:用户的openId,MsgType:消息类型,MediaId:素材ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
           }
         ]
       },
@@ -156,6 +176,13 @@ define({ "api": [
             "optional": false,
             "field": "json",
             "description": "<p>ToUserName:用户的openId,MsgType:消息类型,Title:图文标题,Description:图文描述,Url:跳转链接,PicUrl:显示的图片链接</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
           }
         ]
       },
@@ -186,12 +213,19 @@ define({ "api": [
             "optional": false,
             "field": "json",
             "description": "<p>ToUserName:用户的openId,MsgType:消息类型,Content:消息内容</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Request-Example:",
+          "title": "Param-Example:",
           "content": "{\n     \"ToUserName\":\"o2IG5wpS7Ju6FPg6LW1OIuxKUgI0\",\n     \"MsgType\":\"text\",\n     \"Content\":\"hello world\"\n}",
           "type": "json"
         }
@@ -216,6 +250,13 @@ define({ "api": [
             "optional": false,
             "field": "json",
             "description": "<p>ToUserName:用户的openId,MsgType:消息类型,MediaId:素材ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
           }
         ]
       },
@@ -246,6 +287,13 @@ define({ "api": [
             "optional": false,
             "field": "json",
             "description": "<p>ToUserName:用户的openId,MsgType:消息类型,MediaId:素材ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
           }
         ]
       },
