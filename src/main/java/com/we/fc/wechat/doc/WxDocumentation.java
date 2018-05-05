@@ -457,5 +457,172 @@ package com.we.fc.wechat.doc;
  * localhost:8080/wxPublic?id=1
  */
 
+/**
+ * @api {post} /material/upload 添加图片素材
+ * @apiName addImageMaterial
+ * @apiGroup wxMessage
+ * @apiParam media 图片文件
+ * @apiParam wxPublicId 公众号ID
+ * @apiParam type 素材类型，type为image，表示图片
+ * @apiExample Request-Example:
+ * localhost:8080/material/upload
+ */
+
+/**
+ * @api {post} /material/upload 添加语音素材
+ * @apiName addVoiceMaterial
+ * @apiGroup wxMessage
+ * @apiParam media 语音文件(mp3格式)
+ * @apiParam wxPublicId 公众号ID
+ * @apiParam type 素材类型，type为voice，表示语音
+ * @apiExample Request-Example:
+ * localhost:8080/material/upload
+ */
+
+/**
+ * @api {post} /material/upload 添加视频素材
+ * @apiName addVideoMaterial
+ * @apiGroup wxMessage
+ * @apiParam media 视频文件(mp4格式)
+ * @apiParam wxPublicId 公众号ID
+ * @apiParam type 素材类型，type为video，表示视频
+ * @apiParam description 视频相关信息 {"title":"视频标题", "introduction":"视频介绍"}
+ * @apiExample Request-Example:
+ * localhost:8080/material/upload
+ */
+
+/**
+ * @api {post} /material/upload/news 添加图文素材
+ * @apiName addNewsMaterial
+ * @apiGroup wxMessage
+ * @apiExample Request-Example:
+ * localhost:8080/material/upload/news
+ * @apiParamExample: Param - Example:
+ *{
+ *	"title": "文章标题",
+ *	"thumb_media_id": "f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA",    图片的media_id
+ *	"author": "作者",
+ *	"digest": "文章摘要",
+ *	"show_cover_pic": 1,    是否显示封面0：不显示，1：显示
+ *	"content": "<p>hehe</p>",
+ *	"content_source_url": "",    点击原文阅读后跳转的链接
+ *	"wxPublicId": 14    公众号ID
+ *}
+ */
+
+/**
+ * @api {get} /material/page 获取素材列表
+ * @apiName getMaterialList
+ * @apiGroup wxMessage
+ * @apiParam type 素材类型image/voice/video/news
+ * @apiParam wxPublicId 公众号ID
+ * @apiExample Request-Example:
+ * localhost:8080/material/page?page=1&rows=10&type=video&wxPublicId=14
+ * @apiSuccessExample : Param - Example:
+ *{
+ *   "status": "200",
+ *   "messages": "操作成功！",
+ *   "list": null,
+ *   "data": {
+ *     "pageNum": 1,
+ *     "pageSize": 10,
+ *     "size": 2,
+ *     "startRow": 1,
+ *     "endRow": 2,
+ *     "total": 2,
+ *     "pages": 1,
+ *     "list": [
+ *       {
+ *         "id": 6,
+ *         "intermediary": null,
+ *         "createTime": null,
+ *         "updateTime": "2018-05-04 22:30:58",
+ *         "wxPublicId": null,
+ *         "mediaId": "f1QOuU_OT4Hrt8abnY9n2CqDJDpsZl92N9G3YqH-ReA",
+ *         "name": "sd1524405694_2呵呵.MP4",
+ *         "type": "video",
+ *         "url": null,
+ *         "title": null,
+ *         "author": null,
+ *         "digest": null,
+ *         "content": null,
+ *         "contentSourceUrl": null,
+ *         "thumbMediaId": null,
+ *         "showCoverPic": null,
+ *         "thumbUrl": null,
+ *        "needOpenComment": null,
+ *         "onlyFansCanComment": null,
+ *         "description": null
+ *       },
+ *       {
+ *         "id": 7,
+ *         "intermediary": null,
+ *         "createTime": null,
+ *         "updateTime": "2018-05-05 23:45:56",
+ *         "wxPublicId": null,
+ *         "mediaId": "f1QOuU_OT4Hrt8abnY9n2ERDzW2rCwiZzT7AWJzgtGc",
+ *         "name": "sd1524405694_2呵呵.MP4",
+ *         "type": "video",
+ *         "url": null,
+ *         "title": null,
+ *         "author": null,
+ *         "digest": null,
+ *         "content": null,
+ *         "contentSourceUrl": null,
+ *         "thumbMediaId": null,
+ *         "showCoverPic": null,
+ *         "thumbUrl": null,
+ *         "needOpenComment": null,
+ *         "onlyFansCanComment": null,
+ *         "description": null
+ *       }
+ *     ],
+ *     "prePage": 0,
+ *     "nextPage": 0,
+ *     "isFirstPage": true,
+ *     "isLastPage": true,
+ *    "hasPreviousPage": false,
+ *     "hasNextPage": false,
+ *     "navigatePages": 8,
+ *     "navigatepageNums": [
+ *       1
+ *     ],
+ *     "navigateFirstPage": 1,
+ *     "navigateLastPage": 1,
+ *     "firstPage": 1,
+ *     "lastPage": 1
+ *   }
+ * }
+ */
+
+/**
+ * @api {get} /material/detail 获取单个素材内容
+ * @apiName getMaterialDetail
+ * @apiGroup wxMessage
+ * @apiParam wxPublicId 公众号ID
+ * @apiParam mediaId 素材mediaId
+ * @apiExample Request-Example:
+ * localhost:8080/material/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14
+ * @apiParamExample: Param - Example:
+ *{
+ *  "news_item": [
+ *    {
+ *      "title": "文章标题1",
+ *      "author": "zzddcc",
+ *      "digest": "zhaiyao",
+ *      "content": "<p>hehe</p>",
+ *      "content_source_url": "",
+ *      "thumb_media_id": "f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA",
+ *      "show_cover_pic": 1,
+ *       "url": "http://mp.weixin.qq.com/s?__biz=MzI2NjkzNzMwNA==&mid=100000026&idx=1&sn=bdcca0ce436930632f2dc0d667a54f40&chksm=6a8737ad5df0bebb07648cbcbaa08d511e1a0a04e7e5be943b34427f218ab4b66dd9bfdfff68#rd",
+ *       "thumb_url": "http://mmbiz.qpic.cn/mmbiz_jpg/FwRDKpzzTCNo6elSVobcTQRyHqn61rLxJChichZYicElCuPic5eWBic1mhJSyviatwibPjRiat9MEiak2sG9l8qNHKjpBQ/0?wx_fmt=jpeg",
+ *       "need_open_comment": 0,
+ *       "only_fans_can_comment": 0
+ *     }
+ *   ],
+ *   "create_time": 1525536115,
+ *   "update_time": 1525536115
+ * }
+ */
 public class WxDocumentation {
 }

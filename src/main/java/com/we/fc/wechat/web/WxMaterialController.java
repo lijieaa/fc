@@ -4,15 +4,13 @@ import com.we.fc.base.BaseController;
 import com.we.fc.base.BaseService;
 import com.we.fc.base.BaseTokenController;
 import com.we.fc.unit.ResponseEntity;
+import com.we.fc.utils.GsonUtils;
 import com.we.fc.wechat.api.news.WxNewsContent;
 import com.we.fc.wechat.entity.WxMaterial;
 import com.we.fc.wechat.service.WxMaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
@@ -69,6 +67,38 @@ public class WxMaterialController extends BaseController<WxMaterial> {
             responseEntity.setStatus("500");
         }
         return responseEntity;
+    }
+
+    @Override
+    @GetMapping("page")
+    @ResponseBody
+    public ResponseEntity pageList(Integer page, Integer rows, WxMaterial wxMaterial, HttpSession session) {
+        ResponseEntity responseEntity = new ResponseEntity();
+        try {
+            baseTokenController.checkParam(session, wxMaterial.getWxPublicId());
+        } catch (Exception e) {
+            responseEntity.setMessages(e.getMessage());
+            responseEntity.setStatus("500");
+            return responseEntity;
+        }
+        return super.pageList(page, rows, wxMaterial, session);
+    }
+
+    @GetMapping("detail")
+    @ResponseBody
+    public String detail(String mediaId, Integer wxPublicId, HttpSession session){
+        ResponseEntity responseEntity = new ResponseEntity();
+        String result = null;
+        try {
+            baseTokenController.checkParam(session, wxPublicId);
+            String accessToken = baseTokenController.getAccessToken(session, wxPublicId);
+            result = wxMaterialService.getMaterialDetail(accessToken, mediaId);
+        } catch (Exception e) {
+            responseEntity.setMessages(e.getMessage());
+            responseEntity.setStatus("500");
+            return GsonUtils.toJson(responseEntity);
+        }
+        return result;
     }
 
 }

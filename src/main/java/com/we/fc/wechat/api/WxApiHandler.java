@@ -3,6 +3,7 @@ package com.we.fc.wechat.api;
 import com.we.fc.exception.AccessTokenException;
 import com.we.fc.http.RequestTools;
 import com.we.fc.utils.GsonUtils;
+import com.we.fc.wechat.api.msg.MediaMsg;
 import com.we.fc.wechat.api.msg.Msg;
 import com.we.fc.wechat.api.news.WxNews;
 import com.we.fc.wechat.api.request.MaterialRequest;
@@ -109,6 +110,18 @@ public class WxApiHandler {
 
         String result = RequestTools.processPostJson(url, GsonUtils.toJson(wxNews));
 
+        return result;
+    }
+
+    // 获取素材详情
+    public String getMaterialDetail(String accessToken, String mediaId) throws Exception{
+
+        String url = "https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=" + accessToken;
+
+        MediaMsg mediaMsg = new MediaMsg();
+        mediaMsg.setMedia_id(mediaId);
+        String result = RequestTools.processPostJson(url, GsonUtils.toJson(mediaMsg));
+        if(result.indexOf("errcode") != -1) throw new Exception(result);
         return result;
     }
 }

@@ -62,6 +62,7 @@ public class WxMaterialServiceImpl extends BaseServiceImpl<WxMaterial> implement
         String mediaId = GsonUtils.toBean(result, MediaMsg.class).getMedia_id();
         wxMaterial.setMediaId(mediaId);
         wxMaterial.setTitle(wxNewsContent.getTitle());
+        wxMaterial.setName(wxNewsContent.getTitle());
         wxMaterial.setThumbMediaId(wxNewsContent.getThumb_media_id());
         wxMaterial.setAuthor(wxNewsContent.getAuthor());
         wxMaterial.setDigest(wxNewsContent.getDigest());
@@ -69,5 +70,10 @@ public class WxMaterialServiceImpl extends BaseServiceImpl<WxMaterial> implement
         wxMaterial.setContent(wxNewsContent.getContent());
         wxMaterial.setContentSourceUrl(wxNewsContent.getContent_source_url());
         super.insert(wxMaterial);
+    }
+
+    @Override
+    public String getMaterialDetail(String accessToken, String mediaId) throws Exception {
+        return wxApiHandler.getMaterialDetail(accessToken, mediaId);
     }
 }

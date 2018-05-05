@@ -582,15 +582,4 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
 
     private Set<Menu> menus;
 
-
-    public Intermediary getIntermediary() {
-        return intermediary;
-    }
-
-    public void setIntermediary(Intermediary intermediary) {
-        this.intermediary = intermediary;
-    }
-
-    private Intermediary intermediary;
-
 }

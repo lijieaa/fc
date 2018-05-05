@@ -133,8 +133,8 @@ public class RequestTools {
         return str;
     }
 
-    private static String convertStreamToString(InputStream is) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+    private static String convertStreamToString(InputStream is) throws UnsupportedEncodingException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is,"utf-8"));
         StringBuilder sb = new StringBuilder();
         String line = null;
         try {

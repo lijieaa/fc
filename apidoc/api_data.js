@@ -1,6 +1,161 @@
 define({ "api": [
   {
     "type": "post",
+    "url": "/material/upload",
+    "title": "添加图片素材",
+    "name": "addImageMaterial",
+    "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "media",
+            "description": "<p>图片文件</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "type",
+            "description": "<p>素材类型，type为image，表示图片</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "localhost:8080/material/upload",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "D:/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "post",
+    "url": "/material/upload/news",
+    "title": "添加图文素材",
+    "name": "addNewsMaterial",
+    "group": "wxMessage",
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "localhost:8080/material/upload/news",
+        "type": "json"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": ": Param - Example:",
+          "content": "{\n\t\"title\": \"文章标题\",\n\t\"thumb_media_id\": \"f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA\",    图片的media_id\n\t\"author\": \"作者\",\n\t\"digest\": \"文章摘要\",\n\t\"show_cover_pic\": 1,    是否显示封面0：不显示，1：显示\n\t\"content\": \"<p>hehe</p>\",\n\t\"content_source_url\": \"\",    点击原文阅读后跳转的链接\n\t\"wxPublicId\": 14    公众号ID\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "post",
+    "url": "/material/upload",
+    "title": "添加视频素材",
+    "name": "addVideoMaterial",
+    "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "media",
+            "description": "<p>视频文件(mp4格式)</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "type",
+            "description": "<p>素材类型，type为video，表示视频</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "description",
+            "description": "<p>视频相关信息 {&quot;title&quot;:&quot;视频标题&quot;, &quot;introduction&quot;:&quot;视频介绍&quot;}</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "localhost:8080/material/upload",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "D:/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "post",
+    "url": "/material/upload",
+    "title": "添加语音素材",
+    "name": "addVoiceMaterial",
+    "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "media",
+            "description": "<p>语音文件(mp3格式)</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "type",
+            "description": "<p>素材类型，type为voice，表示语音</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "localhost:8080/material/upload",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "D:/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "post",
     "url": "/wxPublic",
     "title": "添加公众号",
     "name": "addWxPublic",
@@ -38,6 +193,92 @@ define({ "api": [
         "type": "json"
       }
     ],
+    "version": "0.0.0",
+    "filename": "D:/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "get",
+    "url": "/material/detail",
+    "title": "获取单个素材内容",
+    "name": "getMaterialDetail",
+    "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "mediaId",
+            "description": "<p>素材mediaId</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": ": Param - Example:",
+          "content": "{\n \"news_item\": [\n   {\n     \"title\": \"文章标题1\",\n     \"author\": \"zzddcc\",\n     \"digest\": \"zhaiyao\",\n     \"content\": \"<p>hehe</p>\",\n     \"content_source_url\": \"\",\n     \"thumb_media_id\": \"f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA\",\n     \"show_cover_pic\": 1,\n      \"url\": \"http://mp.weixin.qq.com/s?__biz=MzI2NjkzNzMwNA==&mid=100000026&idx=1&sn=bdcca0ce436930632f2dc0d667a54f40&chksm=6a8737ad5df0bebb07648cbcbaa08d511e1a0a04e7e5be943b34427f218ab4b66dd9bfdfff68#rd\",\n      \"thumb_url\": \"http://mmbiz.qpic.cn/mmbiz_jpg/FwRDKpzzTCNo6elSVobcTQRyHqn61rLxJChichZYicElCuPic5eWBic1mhJSyviatwibPjRiat9MEiak2sG9l8qNHKjpBQ/0?wx_fmt=jpeg\",\n      \"need_open_comment\": 0,\n      \"only_fans_can_comment\": 0\n    }\n  ],\n  \"create_time\": 1525536115,\n  \"update_time\": 1525536115\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "localhost:8080/material/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "D:/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "get",
+    "url": "/material/page",
+    "title": "获取素材列表",
+    "name": "getMaterialList",
+    "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "type",
+            "description": "<p>素材类型image/voice/video/news</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "localhost:8080/material/page?page=1&rows=10&type=video&wxPublicId=14",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": ": Param - Example:",
+          "content": "{\n  \"status\": \"200\",\n  \"messages\": \"操作成功！\",\n  \"list\": null,\n  \"data\": {\n    \"pageNum\": 1,\n    \"pageSize\": 10,\n    \"size\": 2,\n    \"startRow\": 1,\n    \"endRow\": 2,\n    \"total\": 2,\n    \"pages\": 1,\n    \"list\": [\n      {\n        \"id\": 6,\n        \"intermediary\": null,\n        \"createTime\": null,\n        \"updateTime\": \"2018-05-04 22:30:58\",\n        \"wxPublicId\": null,\n        \"mediaId\": \"f1QOuU_OT4Hrt8abnY9n2CqDJDpsZl92N9G3YqH-ReA\",\n        \"name\": \"sd1524405694_2呵呵.MP4\",\n        \"type\": \"video\",\n        \"url\": null,\n        \"title\": null,\n        \"author\": null,\n        \"digest\": null,\n        \"content\": null,\n        \"contentSourceUrl\": null,\n        \"thumbMediaId\": null,\n        \"showCoverPic\": null,\n        \"thumbUrl\": null,\n       \"needOpenComment\": null,\n        \"onlyFansCanComment\": null,\n        \"description\": null\n      },\n      {\n        \"id\": 7,\n        \"intermediary\": null,\n        \"createTime\": null,\n        \"updateTime\": \"2018-05-05 23:45:56\",\n        \"wxPublicId\": null,\n        \"mediaId\": \"f1QOuU_OT4Hrt8abnY9n2ERDzW2rCwiZzT7AWJzgtGc\",\n        \"name\": \"sd1524405694_2呵呵.MP4\",\n        \"type\": \"video\",\n        \"url\": null,\n        \"title\": null,\n        \"author\": null,\n        \"digest\": null,\n        \"content\": null,\n        \"contentSourceUrl\": null,\n        \"thumbMediaId\": null,\n        \"showCoverPic\": null,\n        \"thumbUrl\": null,\n        \"needOpenComment\": null,\n        \"onlyFansCanComment\": null,\n        \"description\": null\n      }\n    ],\n    \"prePage\": 0,\n    \"nextPage\": 0,\n    \"isFirstPage\": true,\n    \"isLastPage\": true,\n   \"hasPreviousPage\": false,\n    \"hasNextPage\": false,\n    \"navigatePages\": 8,\n    \"navigatepageNums\": [\n      1\n    ],\n    \"navigateFirstPage\": 1,\n    \"navigateLastPage\": 1,\n    \"firstPage\": 1,\n    \"lastPage\": 1\n  }\n}",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "D:/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
     "groupTitle": "微信公众号"
