@@ -1,5 +1,48 @@
 [
   {
+    "type": "post",
+    "url": "/wxPublic",
+    "title": "添加公众号",
+    "name": "addWxPublic",
+    "group": "wxMessage",
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "localhost:8080/wxPublic",
+        "type": "json"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Param - Example:",
+          "content": "\n{\n  \"publicName\":\"公众号名称\",\n\t \"sourceId\":\"原始ID\",\n\t \"appId\":\"appId\",\n\t \"appSecret\":\"appSecret\",\n\t \"publicEmail\":\"publicEmail\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "delete",
+    "url": "/wxPublic",
+    "title": "删除公众号",
+    "name": "deleteWxPublic",
+    "group": "wxMessage",
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "localhost:8080/wxPublic?id=1",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "D:/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
     "type": "get",
     "url": "/message/page",
     "title": "获取用户消息(分页)",
@@ -210,6 +253,32 @@
         {
           "title": "Request-Example:",
           "content": "{\n     \"ToUserName\":\"o2IG5wpS7Ju6FPg6LW1OIuxKUgI0\",\n     \"MsgType\":\"voice\",\n     \"MediaId\":\"f1QOuU_OT4Hrt8abnY9n2F8ssl_ni6Y1HbRbR4HRkU0\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "put",
+    "url": "/wxPublic",
+    "title": "编辑公众号",
+    "name": "updateWxPublic",
+    "group": "wxMessage",
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "localhost:8080/wxPublic",
+        "type": "json"
+      }
+    ],
+    "parameter": {
+      "examples": [
+        {
+          "title": "Param - Example:",
+          "content": "\n{\n  \"id\":\"主键ID\",\n  \"publicName\":\"公众号名称\",\n\t \"sourceId\":\"原始ID\",\n\t \"appId\":\"appId\",\n\t \"appSecret\":\"appSecret\",\n\t \"publicEmail\":\"publicEmail\"\n}",
           "type": "json"
         }
       ]
