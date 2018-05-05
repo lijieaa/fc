@@ -9,12 +9,14 @@ package com.we.fc.wechat.doc;
  * @apiName sendTextMsg
  * @apiGroup wxMessage
  * @apiParam {String} json ToUserName:用户的openId,MsgType:消息类型,Content:消息内容
- * @apiParamExample {json} Request-Example:
+ * @apiParam {Number} wxPublicId 公众号ID
+ * @apiParamExample {json} Param-Example:
  * {
  *      "ToUserName":"o2IG5wpS7Ju6FPg6LW1OIuxKUgI0",
  *      "MsgType":"text",
  *      "Content":"hello world"
  * }
+ *
  */
 
 /**
@@ -22,6 +24,7 @@ package com.we.fc.wechat.doc;
  * @apiName sendImageMsg
  * @apiGroup wxMessage
  * @apiParam {String} json ToUserName:用户的openId,MsgType:消息类型,MediaId:素材ID
+ * @apiParam {Number} wxPublicId 公众号ID
  * @apiParamExample {json} Request-Example:
  * {
  *      "ToUserName":"o2IG5wpS7Ju6FPg6LW1OIuxKUgI0",
@@ -35,6 +38,7 @@ package com.we.fc.wechat.doc;
  * @apiName sendVoiceMsg
  * @apiGroup wxMessage
  * @apiParam {String} json ToUserName:用户的openId,MsgType:消息类型,MediaId:素材ID
+ * @apiParam {Number} wxPublicId 公众号ID
  * @apiParamExample {json} Request-Example:
  * {
  *      "ToUserName":"o2IG5wpS7Ju6FPg6LW1OIuxKUgI0",
@@ -48,6 +52,7 @@ package com.we.fc.wechat.doc;
  * @apiName sendVideoMsg
  * @apiGroup wxMessage
  * @apiParam {String} json ToUserName:用户的openId,MsgType:消息类型,MediaId:素材ID
+ * @apiParam {Number} wxPublicId 公众号ID
  * @apiParamExample {json} Request-Example:
  * {
  *      "ToUserName":"o2IG5wpS7Ju6FPg6LW1OIuxKUgI0",
@@ -61,6 +66,7 @@ package com.we.fc.wechat.doc;
  * @apiName sendImageTextMsg
  * @apiGroup wxMessage
  * @apiParam {String} json ToUserName:用户的openId,MsgType:消息类型,Title:图文标题,Description:图文描述,Url:跳转链接,PicUrl:显示的图片链接
+ * @apiParam {Number} wxPublicId 公众号ID
  * @apiParamExample {json} Request-Example:
  * {
  * 	"ToUserName": "o2IG5wpS7Ju6FPg6LW1OIuxKUgI0",
@@ -140,8 +146,9 @@ package com.we.fc.wechat.doc;
  * @api {get} /wxUsers/page 用户列表(分页)
  * @apiName getWxUsers
  * @apiGroup wxMessage
+ * @apiParam {Number} wxPublicId 公众号ID
  * @apiExample Request-Example:
- * localhost:8080/wxUsers/page?page=1&rows=10
+ * localhost:8080/wxUsers/page?page=1&rows=10&wxPublicId=1
  *
  * @apiSuccessExample Result-Example:
  * {
@@ -401,8 +408,8 @@ package com.we.fc.wechat.doc;
  * @apiName getUserMsg
  * @apiGroup wxMessage
  * @apiExample Request-Example:
- * openId:用户的OPENID
- * localhost:8080/message/page?page=1&rows=10&openId=o2IG5wpS7Ju6FPg6LW1OIuxKUgI0
+ * openId:用户的OPENID  wxPublicId:公众号ID
+ * localhost:8080/message/page?page=1&rows=10&openId=o2IG5wpS7Ju6FPg6LW1OIuxKUgI0&wxPublicId=1
  */
 
 /**

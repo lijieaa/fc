@@ -30,8 +30,6 @@ public abstract class BaseController<T extends BaseEntity> {
     @Autowired
     private MenuService menuService;
 
-    @Autowired private WxPublicService wxPublicService;
-
     protected DingtalkUser getSelf(HttpSession session) {
         return (DingtalkUser) session.getAttribute("user");
     }

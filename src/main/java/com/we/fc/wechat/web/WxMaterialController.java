@@ -4,11 +4,13 @@ import com.we.fc.base.BaseController;
 import com.we.fc.base.BaseService;
 import com.we.fc.base.BaseTokenController;
 import com.we.fc.unit.ResponseEntity;
+import com.we.fc.wechat.api.news.WxNewsContent;
 import com.we.fc.wechat.entity.WxMaterial;
 import com.we.fc.wechat.service.WxMaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,7 +43,7 @@ public class WxMaterialController extends BaseController<WxMaterial> {
     public ResponseEntity add(WxMaterial wxMaterial, MultipartFile media, HttpSession session) {
         ResponseEntity responseEntity = new ResponseEntity();
         try {
-            wxMaterialService.insert(wxMaterial,baseTokenController.getAccessToken(session), media);
+            wxMaterialService.insert(wxMaterial,baseTokenController.getAccessToken(session, wxMaterial.getWxPublicId()), media);
             responseEntity.setStatus("200");
             responseEntity.setMessages("添加成功");
         } catch (Exception e) {
@@ -51,4 +53,22 @@ public class WxMaterialController extends BaseController<WxMaterial> {
         }
         return responseEntity;
     }
+
+    @PostMapping("upload/news")
+    @ResponseBody
+    public ResponseEntity addNews(@RequestBody WxNewsContent wxNewsContent, HttpSession session){
+
+        ResponseEntity responseEntity = new ResponseEntity();
+        try {
+            wxMaterialService.insertWxNews(wxNewsContent, baseTokenController.getAccessToken(session, wxNewsContent.getWxPublicId()));
+            responseEntity.setStatus("200");
+            responseEntity.setMessages("添加成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity.setMessages(e.getMessage());
+            responseEntity.setStatus("500");
+        }
+        return responseEntity;
+    }
+
 }
