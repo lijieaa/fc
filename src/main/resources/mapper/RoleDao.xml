@@ -17,7 +17,7 @@
     </resultMap>
 
 
-    <insert id="insert" parameterType="com.we.fc.dept.entity.DingtalkDept" >
+    <insert id="insert">
         <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
             SELECT LAST_INSERT_ID();
         </selectKey>
