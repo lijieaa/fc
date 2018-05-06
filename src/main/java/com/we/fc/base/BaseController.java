@@ -65,6 +65,7 @@ public abstract class BaseController<T extends BaseEntity> {
         ResponseEntity responseEntity = new ResponseEntity();
         if (result.hasErrors()){
             responseEntity.setStatus("500");
+            responseEntity.setMessages("验证失败");
             responseEntity.setData(result.getAllErrors());
             return responseEntity;
         }
@@ -85,6 +86,7 @@ public abstract class BaseController<T extends BaseEntity> {
         ResponseEntity responseEntity = new ResponseEntity();
         if (result.hasErrors()){
             responseEntity.setStatus("500");
+            responseEntity.setMessages("验证失败");
             responseEntity.setData(result.getAllErrors());
             return responseEntity;
         }

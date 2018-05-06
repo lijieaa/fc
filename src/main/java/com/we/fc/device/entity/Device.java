@@ -5,6 +5,8 @@ import com.we.fc.intermediary.entity.Intermediary;
 import com.we.fc.project.entity.Project;
 import com.we.fc.user.entity.DingtalkUser;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class Device extends BaseEntity implements Serializable {
@@ -40,6 +42,7 @@ public class Device extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+    @NotNull(message = "中间商不能为空")
     private Intermediary intermediary;
 
     /**
@@ -48,6 +51,8 @@ public class Device extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+    @NotNull(message = "生成编号不能为空")
+    @Size(min = 1,max = 20,message = "生成编号在1-20个字符")
     private String deviceProductionNum;
 
     /**
@@ -56,6 +61,7 @@ public class Device extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+    @NotNull(message = "设备状态不能为空")
     private Byte deivceStatus;
 
     /**
@@ -64,6 +70,7 @@ public class Device extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+    @Size(min = 1,max = 20,message = "x坐标在1-20个字符")
     private String deviceLocationX;
 
     /**
@@ -72,6 +79,7 @@ public class Device extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+    @Size(min = 1,max = 20,message = "y坐标在1-20个字符")
     private String deviceLocationY;
 
 
