@@ -50,10 +50,15 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
 
         dao.deleteRM(role.getId());
 
-        List<Menu> menus = role.getMenus();
-        for (Menu menu : menus) {
-            dao.insertRM(role.getId(),menu.getId());
+
+        if (null!=role.getMenus()&&role.getMenus().size()>0){
+            List<Menu> menus = role.getMenus();
+            for (Menu menu : menus) {
+                dao.insertRM(role.getId(),menu.getId());
+            }
         }
+
+
 
 
         super.updateByPrimaryKey(role);
