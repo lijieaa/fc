@@ -26,6 +26,13 @@
         #{description})
     </insert>
 
+
+    <insert id="insertRM">
+
+        insert into sys_role_menu (role_id,menu_id)
+        values (#{roleId}, #{menuId})
+    </insert>
+
     <select id="findByUserId" resultMap="roleMap">
         SELECT r.* FROM sys_role r
         LEFT JOIN sys_user_role sur on r.role_id = sur.role_id
@@ -37,6 +44,21 @@
     </select>
 
 
+
+    <delete id="deleteRM" parameterType="java.lang.Integer" >
+        delete from sys_role_menu WHERE role_id=#{roleId}
+    </delete>
+
+
+    <update id="updateByPrimaryKey" parameterType="com.we.fc.role.entity.Role" >
+        update sys_role
+        set role_name = #{name,jdbcType=VARCHAR},
+        role_description = #{description,jdbcType=VARCHAR},
+        pid = #{pid,jdbcType=INTEGER},
+        intermediary_id = #{intermediaryId,jdbcType=INTEGER},
+        is_del = #{isDel,jdbcType=INTEGER}
+        where role_id = #{id,jdbcType=INTEGER}
+    </update>
 
 
 
