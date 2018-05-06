@@ -2,6 +2,8 @@ package com.we.fc.topic.entity;
 
 import com.we.fc.base.BaseEntity;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,6 +15,7 @@ public class Topic extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+    @NotNull(message = "跟进人不能为空")
     private Integer userId;
 
     /**
@@ -21,6 +24,7 @@ public class Topic extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+    @NotNull(message = "中间商不能为空")
     private Integer intermediaryId;
 
     /**
@@ -29,6 +33,7 @@ public class Topic extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+    @NotNull(message = "跟进内容不能为空")
     private String topicContent;
 
     /**
@@ -37,6 +42,18 @@ public class Topic extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+
+    @NotNull(message = "线索状态不能为空")
+    private Integer topicStatus;
+
+    public Integer getTopicStatus() {
+        return topicStatus;
+    }
+
+    public void setTopicStatus(Integer topicStatus) {
+        this.topicStatus = topicStatus;
+    }
+
     private static final long serialVersionUID = 1L;
 
 

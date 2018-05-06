@@ -52,4 +52,9 @@ public class DingtalkServiceImpl extends BaseServiceImpl<DingtalkUser> implement
     public List<DingtalkUser> findByDeptId(Integer deptId) {
         return dingtalkUserMapper.findByDeptId(deptId);
     }
+
+    @Override
+    public List<DingtalkUser> findByRoleId(Integer roleId) {
+        return dingtalkUserMapper.findByRoleId(roleId);
+    }
 }

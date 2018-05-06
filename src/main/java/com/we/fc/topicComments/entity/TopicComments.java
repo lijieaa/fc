@@ -2,6 +2,7 @@ package com.we.fc.topicComments.entity;
 
 import com.we.fc.base.BaseEntity;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,6 +14,7 @@ public class TopicComments extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+    @NotNull(message = "跟进id不能为空")
     private Integer topicId;
 
     /**
@@ -21,6 +23,7 @@ public class TopicComments extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+    @NotNull(message = "评论人不能为空")
     private Integer userId;
 
     /**
@@ -29,6 +32,7 @@ public class TopicComments extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+    @NotNull(message = "评论内容不能为空")
     private String topicCommentsContent;
 
     /**
