@@ -78,6 +78,6 @@
     <if test="parent !=null"> and parent_id = #{parent}</if>
   </select>
   <select id="findByShortName" resultMap="BaseResultMap">
-    SELECT * FROM area WHERE short_name LIKE CONCAT('%',#{0},'%') and (LEVEL =1 OR LEVEL =2)
+    SELECT * FROM area WHERE name LIKE CONCAT('%',#{0},'%') and (LEVEL =1 OR LEVEL =2)
   </select>
 </mapper>

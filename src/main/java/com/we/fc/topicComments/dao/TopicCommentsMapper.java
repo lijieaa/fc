@@ -9,4 +9,5 @@ import java.util.List;
 @Mapper
 public interface TopicCommentsMapper extends BaseDao<TopicComments>{
     List<TopicComments> findByTopicId(Integer topicId);
+    Integer findCommentsCount(Integer topicId);
 }

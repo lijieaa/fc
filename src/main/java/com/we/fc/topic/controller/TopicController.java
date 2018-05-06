@@ -5,6 +5,7 @@ import com.we.fc.base.BaseService;
 import com.we.fc.topic.dao.TopicMapper;
 import com.we.fc.topic.entity.Topic;
 import com.we.fc.topic.service.TopicService;
+import com.we.fc.topicComments.dao.TopicCommentsMapper;
 import com.we.fc.unit.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,9 @@ public class TopicController extends BaseController<Topic>{
     TopicMapper dao;
 
     @Autowired
+    TopicCommentsMapper topicCommentsMapper;
+
+    @Autowired
     TopicService service;
     @Override
     public BaseService<Topic> getService() {
@@ -37,6 +41,10 @@ public class TopicController extends BaseController<Topic>{
     public ResponseEntity findByIntermediaryId(@PathVariable("id")Integer id){
         ResponseEntity responseEntity = new ResponseEntity();
         List<Topic> topics =dao.findByIntermediaryId(id);
+        for (Topic t:topics){
+            Integer count = topicCommentsMapper.findCommentsCount(t.getId());
+            t.setCommentsCount(count);
+        }
         responseEntity.setData(topics);
         return responseEntity;
     }
