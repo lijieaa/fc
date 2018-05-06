@@ -5,6 +5,7 @@ $(document).ready(function() {
         props: ['todo'],
         template: '<option>{{todo.name}}</option>'
     });
+    var responseUrl;
     new Vue({
         el:"#myMediary",
         data:{
@@ -27,7 +28,7 @@ $(document).ready(function() {
             editorId:"",
             delId:"",
             delErrorMsg:"",
-            responseUrl:"",
+            // responseUrl:"",
             editList:{
                 area:{
                     name:"",
@@ -68,7 +69,7 @@ $(document).ready(function() {
             editorFun:function(){ //文本框编辑
                 this.editor = CKEDITOR.replace( 'editor1', {
                     customConfig: '',
-                    filebrowserImageUploadUrl:"skins",
+                    filebrowserImageUploadUrl:contextPath + 'intermediary/upload',
                     removeDialogTabs:"image:advanced;image:Link",
                     toolbarGroups: [
                         {"name":"basicstyles","groups":["basicstyles"]},
@@ -76,7 +77,7 @@ $(document).ready(function() {
                         {"name":"paragraph","groups":["list","blocks"]},
                         // {"name":"document","groups":["mode"]},
                         {"name":"insert","groups":["insert"]},
-//                {"name":"styles","groups":["styles"]},
+                        {"name":"styles","groups":["styles"]},
                         {"name":"about","groups":["about"]}
                     ],
                     removePlugins:"elementspath"
@@ -120,7 +121,8 @@ $(document).ready(function() {
                 });
                 uploader.on( 'uploadSuccess', function( file ,response) {
                     var _this = this;
-                    _this.responseUrl = JSON.parse(response._raw).data;
+                    responseUrl = JSON.parse(response._raw).data;
+                    // console.log( _this.responseUrl);
                 });
             },
             treeShow:function(e){
@@ -205,34 +207,7 @@ $(document).ready(function() {
                 $(".modalAll").removeClass("in").css("display","none");
             },
             sureSubmit:function(){ //添加中间商
-                var _this = this;
-                var postData = {
-                    intermediaryName:_this.editList.intermediaryName, //中间商名称
-                    intermediaryContact:_this.editList.intermediaryContact,//中间商联系人
-                    intermediaryContactTel:_this.editList.intermediaryContactTel, //中间商联系方式
-                    intermediaryLogoUrl: _this.responseUrl,
-                    intermediaryIntroduction: CKEDITOR.instances.editor1.getData(),
-                    user:{
-                        name:_this.editList.user.name,
-                        mobile:_this.editList.user.mobile,
-                        id:12
-                    },
-                    area:{
-                        id:_this.editList.area.id
-                    }
-                };
-                var type;
-                if(_this.editorId.length !=0 ){
-                    type = "put";
-                    postData.id = _this.editorId;
-                }else{
-                    type = "post"
-                }
-
-                $.axspost(contextPath + "intermediary",type,JSON.stringify(postData),function(data){
-
-                },function(data){})
-            },
+              },
             sureDel:function(){
                 var _this = this;
                 $.axspost(contextPath + "intermediary/"+_this.delId+"","delete","",function(data){
@@ -329,10 +304,6 @@ $(document).ready(function() {
                 _this.facList = data.data;
                 _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
             },function (data) {});
-            // var data =  {
-            //     "page":1,
-            //     "rows":10
-            // };
            _this.tableInit(false);
             $(document).on("click","#editInter",function(){
                 _this.editorId = $(this).attr("data-id");
@@ -342,6 +313,7 @@ $(document).ready(function() {
                 $("#mediaryAddEdit").show();
                 $.axspost(contextPath + "intermediary/"+$(this).attr("data-id")+"","get","",function(data){
                     _this.editList = data;
+                    $("#imgInter").attr("src",data.intermediaryLogoUrl);
                     CKEDITOR.instances.editor1.setData(data.intermediaryIntroduction);
                 },function(data){})
             });
@@ -358,7 +330,43 @@ $(document).ready(function() {
                 window.location.href = "detail?menuId=4&"+$(this).attr("data-id");
             });
 
+            $("#sureSubmit").html5Validate(function() {
+                // 全部验证通过，该干嘛干嘛~~
+                // var _this = this;
+                var postData = {
+                    intermediaryName:_this.editList.intermediaryName, //中间商名称
+                    intermediaryContact:_this.editList.intermediaryContact,//中间商联系人
+                    intermediaryContactTel:_this.editList.intermediaryContactTel, //中间商联系方式
+                    intermediaryLogoUrl:  responseUrl,
+                    intermediaryIntroduction: CKEDITOR.instances.editor1.getData(),
+                    user:{
+                        name:_this.editList.user.name,
+                        mobile:_this.editList.user.mobile,
+                        id:1
+                    },
+                    area:{
+                        id:_this.editList.area.id
+                    }
+                };
+                var type;
+                if(_this.editorId.length !=0 ){
+                    type = "put";
+                    postData.id = _this.editorId;
+                }else{
+                    type = "post"
+                }
+                $.axspost(contextPath + "intermediary",type,JSON.stringify(postData),function(data){
+                    if(data.status == "200"){
+                        // $("#errorMsg").addClass("in").css("display","block");
+                        // _this.delErrorMsg = data.messages;
+                        location.reload();
+                    }else{
+                        $("#errorMsg").addClass("in").css("display","block");
+                        _this.delErrorMsg = data.messages;
+                    }
+                },function(data){})
 
+            });
         }
     });
 } );

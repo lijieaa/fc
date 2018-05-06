@@ -52,6 +52,7 @@ public class Intermediary extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
+    @NotNull(message = "所属地区不能为空")
     private Area area;//所属地区
 
     /**
@@ -61,6 +62,7 @@ public class Intermediary extends BaseEntity implements Serializable {
      * @mbggenerated
      */
 
+    @NotNull(message = "平台对接人不能为空")
     private DingtalkUser user;//平台对接人
 
     /**
