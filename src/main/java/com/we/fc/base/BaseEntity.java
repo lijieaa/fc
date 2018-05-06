@@ -21,6 +21,16 @@ public class BaseEntity implements Serializable{
 
     private Date updateTime;
 
+    private Integer wxPublicId;
+
+    public Integer getWxPublicId() {
+        return wxPublicId;
+    }
+
+    public void setWxPublicId(Integer wxPublicId) {
+        this.wxPublicId = wxPublicId;
+    }
+
     public Integer getId() {
         return id;
     }

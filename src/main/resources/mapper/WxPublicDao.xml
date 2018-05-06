@@ -5,7 +5,7 @@
 <mapper namespace="com.we.fc.wechat.dao.WxPublicDao">
 
     <resultMap id="wxPublicMap" type="WxPublic">
-        <id property="id" column="public _id"></id>
+        <id property="id" column="public_id"></id>
         <result property="publicName" column="public_name"></result>
         <result property="sourceId" column="source_id"></result>
         <result property="appId" column="app_id"></result>
@@ -39,6 +39,16 @@
         )
     </insert>
 
+    <update id="updateByPrimaryKey">
+        UPDATE wx_public SET
+        public_name = #{publicName},
+        source_id = #{sourceId},
+        app_id = #{appId},
+        app_secret = #{appSecret},
+        public_email = #{publicEmail}
+        WHERE public _id = #{id}
+    </update>
+
     <select id="findByCompanyId" resultMap="wxPublicMap">
         SELECT * FROM wx_public WHERE intermediary_id = #{0}
     </select>
@@ -46,4 +56,8 @@
     <select id="findBySourceId" resultMap="wxPublicMap">
         SELECT * FROM wx_public WHERE source_id = #{0}
     </select>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM wx_public WHERE public _id = #{0}
+    </delete>
 </mapper>

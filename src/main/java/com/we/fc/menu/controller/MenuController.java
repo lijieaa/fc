@@ -6,6 +6,7 @@ import com.we.fc.menu.entity.Menu;
 import com.we.fc.menu.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -28,8 +29,9 @@ public class MenuController extends BaseController<Menu> {
     }
 
     @RequestMapping("index")
-    public String index(){
-
+    public String index(Model model){
+        List<Menu> menus = menuService.selectAll(null);
+        model.addAttribute("menus",menus);
         return  "sys/menu/index";
     }
 

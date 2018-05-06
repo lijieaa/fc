@@ -9,6 +9,8 @@ import com.we.fc.wechat.service.WxPublicService;
 import com.we.fc.wechat.service.WxPublicServiceImpl;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author zdc
@@ -17,11 +19,27 @@ import javax.servlet.http.HttpSession;
 
 public class BaseTokenController {
 
-    public String getAccessToken(HttpSession session){
-        Integer intermediaryId = ((DingtalkUser) session.getAttribute("user")).getIntermediary().getId();
+    // 检查公众号ID是否合法,false抛出异常，true返回wxPublic
+    public WxPublic checkParam(HttpSession session, Integer wxPublicId) throws Exception{
         WxPublicService wxPublicService = SpringUtils.getBean("wxPublicServiceImpl", WxPublicServiceImpl.class);
+        WxPublic in = wxPublicService.selectByPrimaryKey(wxPublicId);
+        if(in == null) throw  new Exception("参数异常");
+        WxPublic result = null;
+        List<WxPublic> wxPublics = getWxPublics(session);
+        for(WxPublic wxPublic : wxPublics){
+            if(wxPublic.getId().equals(wxPublicId)){
+                result = wxPublic;
+            }
+        }
+        if(result == null)
+            throw new Exception("参数异常");
+        else
+            return result;
+    }
+
+    public String getAccessToken(HttpSession session, Integer wxPublicId) throws Exception{
         WxApiHandler wxApiHandler = SpringUtils.getBean("wxApiHandler", WxApiHandler.class);
-        WxPublic wxPublic = wxPublicService.findByCompanyId(intermediaryId);
+        WxPublic wxPublic = checkParam(session, wxPublicId);
         String accessToken = null;
         try {
             accessToken = wxApiHandler.getAccessToken(wxPublic.getAppId(), wxPublic.getAppSecret());
@@ -35,9 +53,9 @@ public class BaseTokenController {
         return ((DingtalkUser) session.getAttribute("user")).getIntermediary();
     }
 
-    public WxPublic getWxPublic(HttpSession session){
+    public List<WxPublic> getWxPublics(HttpSession session){
         WxPublicService wxPublicService = SpringUtils.getBean("wxPublicServiceImpl", WxPublicServiceImpl.class);
-        WxPublic wxPublic = wxPublicService.findByCompanyId(getCompany(session).getId());
-        return wxPublic;
+        List<WxPublic> wxPublics = wxPublicService.findByCompanyId(getCompany(session).getId());
+        return wxPublics;
     }
 }

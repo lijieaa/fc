@@ -3,7 +3,9 @@ package com.we.fc.wechat.api;
 import com.we.fc.exception.AccessTokenException;
 import com.we.fc.http.RequestTools;
 import com.we.fc.utils.GsonUtils;
+import com.we.fc.wechat.api.msg.MediaMsg;
 import com.we.fc.wechat.api.msg.Msg;
+import com.we.fc.wechat.api.news.WxNews;
 import com.we.fc.wechat.api.request.MaterialRequest;
 import com.we.fc.wechat.api.response.AccessTokenResponse;
 import com.we.fc.wechat.api.response.OpenIdResponse;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 /**
  * @author zdc
@@ -85,17 +88,40 @@ public class WxApiHandler {
 
     }
 
-    // 添加素材
-    public String addMaterial(String accessToken, String type, MultipartFile media) throws IOException {
+    // 添加素材(图片、语音、视频)
+    public String addMaterial(String accessToken, String type, MultipartFile media,String description) throws IOException {
 
         String url = "https://api.weixin.qq.com/cgi-bin/material/add_material?type=" + type + "&access_token=" + accessToken;
         File file = null;
         String folder=System.getProperty("java.io.tmpdir");
-        file = new File(folder + media.getOriginalFilename());
+        file = new File(folder + File.separator + media.getOriginalFilename());
         media.transferTo(file);
+        if(type.equalsIgnoreCase("video")){
+            url += "&description=" + URLEncoder.encode(description, "UTF-8");
+        }
         String result = RequestTools.processUpload(url, file);
         file.delete();
         return result;
     }
+    // 添加素材(图文)
+    public String addNewsMaterial(WxNews wxNews, String accessToken) throws Exception{
 
+        String url = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=" + accessToken;
+
+        String result = RequestTools.processPostJson(url, GsonUtils.toJson(wxNews));
+
+        return result;
+    }
+
+    // 获取素材详情
+    public String getMaterialDetail(String accessToken, String mediaId) throws Exception{
+
+        String url = "https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=" + accessToken;
+
+        MediaMsg mediaMsg = new MediaMsg();
+        mediaMsg.setMedia_id(mediaId);
+        String result = RequestTools.processPostJson(url, GsonUtils.toJson(mediaMsg));
+        if(result.indexOf("errcode") != -1) throw new Exception(result);
+        return result;
+    }
 }

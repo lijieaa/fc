@@ -4,6 +4,8 @@ import com.we.fc.base.BaseDao;
 import com.we.fc.wechat.entity.WxPublic;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author zdc
  * @since 2018-04-13 21:47
@@ -11,7 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface WxPublicDao extends BaseDao<WxPublic> {
 
-    WxPublic findByCompanyId(Integer companyId);
+    List<WxPublic> findByCompanyId(Integer companyId);
 
     WxPublic findBySourceId(String sourceId);
 }

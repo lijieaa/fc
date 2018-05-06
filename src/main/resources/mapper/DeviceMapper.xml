@@ -103,4 +103,15 @@
     <if test="operateUser!=null and operateUser.name!=null"> and u1.name LIKE CONCAT('%',#{operateUser.name},'%')</if>
     <if test="transcribeUser!=null and transcribeUser.name!=null"> and u2.name LIKE CONCAT('%',#{transcribeUser.name},'%')</if>
   </select>
+  
+  <select id="findByProject" resultMap="BaseResultMap">
+      select d.*,u1.userid o_user_id,u1.name o_user_name,u2.userid t_user_id,u2.name t_user_name
+    from device d LEFT JOIN dingtalk_user u1
+    ON d.operate_user_id = u1.userid
+    LEFT JOIN dingtalk_user u2
+    ON d.transcribe_user_id = u2.userid
+    LEFT JOIN project p
+    ON d.project_id = p.project_id
+    WHERE p.project_id = #{0}
+  </select>
 </mapper>

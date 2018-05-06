@@ -18,24 +18,8 @@
     padding: 0 20px;
 }
 .gzh-search{
-    border: 1px #4d4d4d solid;
     width: 24%;
     height:100%;
-}
-.gzh-ul-manage{
-    width: 98%;
-    margin: 1% 0 0 1%;
-    /*max-height:600px;*/
-    height: 85%;
-    overflow: auto;
-}
-.gzh-ul-manage li{
-    margin: 15px 0px;
-    cursor: pointer;
-   }
-.gzh-ul-manage li:nth-of-type(1){
-    background: #54d5d5;
-    cursor: pointer;
 }
 .gzh-chat{
     border: 1px #4d4d4d solid;

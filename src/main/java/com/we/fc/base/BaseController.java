@@ -7,6 +7,8 @@ import com.we.fc.menu.entity.Menu;
 import com.we.fc.menu.service.MenuService;
 import com.we.fc.unit.ResponseEntity;
 import com.we.fc.user.entity.DingtalkUser;
+import com.we.fc.wechat.entity.WxPublic;
+import com.we.fc.wechat.service.WxPublicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.validation.BindingResult;
@@ -63,6 +65,7 @@ public abstract class BaseController<T extends BaseEntity> {
         ResponseEntity responseEntity = new ResponseEntity();
         if (result.hasErrors()){
             responseEntity.setStatus("500");
+            responseEntity.setMessages("验证失败");
             responseEntity.setData(result.getAllErrors());
             return responseEntity;
         }
@@ -83,6 +86,7 @@ public abstract class BaseController<T extends BaseEntity> {
         ResponseEntity responseEntity = new ResponseEntity();
         if (result.hasErrors()){
             responseEntity.setStatus("500");
+            responseEntity.setMessages("验证失败");
             responseEntity.setData(result.getAllErrors());
             return responseEntity;
         }
@@ -111,7 +115,7 @@ public abstract class BaseController<T extends BaseEntity> {
         ResponseEntity responseEntity = new ResponseEntity();
         try {
             PageHelper.startPage(page, rows);
-            //t.setCompany(getSelf(session).getCompany());
+            t.setIntermediary(getSelf(session).getIntermediary());
             List<T> list = getService().selectAll(t);
             PageInfo pageInfo = new PageInfo(list);
             responseEntity.setData(pageInfo);
@@ -132,7 +136,5 @@ public abstract class BaseController<T extends BaseEntity> {
         responseEntity.setList(getService().selectAll(t));
         return responseEntity;
     }
-
-
 
 }

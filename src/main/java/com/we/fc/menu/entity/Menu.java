@@ -34,6 +34,16 @@ public class Menu extends BaseEntity implements Comparable<Menu>{
     // 图标
     private String icon;
 
+    public Integer getPid() {
+        return pid;
+    }
+
+    public void setPid(Integer pid) {
+        this.pid = pid;
+    }
+
+    private Integer pid;
+
     // 子菜单
     private Set<Menu> children = new HashSet<>();
 

@@ -68,7 +68,8 @@ public class WxPublicServiceImpl extends BaseServiceImpl<WxPublic> implements Wx
     }
 
     @Override
-    public WxPublic findByCompanyId(Integer companyId) {
+    public List<WxPublic> findByCompanyId(Integer companyId) {
         return wxPublicDao.findByCompanyId(companyId);
     }
+
 }

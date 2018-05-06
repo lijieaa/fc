@@ -33,10 +33,11 @@ public class WxMessageController extends BaseTokenController{
     public ResponseEntity page(Integer page,
                                Integer rows,
                                String openId,
+                               Integer wxPublicId,
                                HttpSession session){
         ResponseEntity responseEntity = new ResponseEntity();
         try {
-            WxPublic wxPublic = getWxPublic(session);
+            WxPublic wxPublic = checkParam(session, wxPublicId);
             PageHelper.startPage(page,rows);
             List<WxMessage> list = wxMessageService.findBySourceIdAndOpenId(wxPublic.getSourceId(), openId);
             PageInfo pageInfo = new PageInfo(list);
@@ -45,19 +46,21 @@ public class WxMessageController extends BaseTokenController{
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity.setStatus("500");
-            responseEntity.setMessages("获取失败");
+            responseEntity.setMessages("获取失败"+e.getMessage());
             return responseEntity;
         }
     }
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity sendMsg(@RequestParam("json") String json, HttpSession session){
+    public ResponseEntity sendMsg(@RequestParam("wxPublicId")Integer wxPublicId,
+                                  @RequestParam("json") String json,
+                                  HttpSession session){
         ResponseEntity responseEntity = new ResponseEntity();
         WxMessage wxMessage = GsonUtils.toBean(json, WxMessage.class);
-        String accessToken = getAccessToken(session);
         try {
-            WxPublic wxPublic = getWxPublic(session);
+            String accessToken = getAccessToken(session, wxPublicId);
+            WxPublic wxPublic = checkParam(session, wxPublicId);
             wxMessage.setFromUserName(wxPublic.getSourceId());
             wxMessageService.sendMsg2user(accessToken, getMsg(wxMessage), wxMessage);
             responseEntity.setMessages("发送成功");

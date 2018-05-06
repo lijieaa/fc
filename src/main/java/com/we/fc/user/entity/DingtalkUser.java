@@ -1,5 +1,4 @@
 package com.we.fc.user.entity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.we.fc.base.BaseEntity;
 import com.we.fc.intermediary.entity.Intermediary;
@@ -9,6 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -24,6 +25,9 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
      *
      * @mbggenerated
      */
+
+    @NotNull(message = "名称不能为空")
+    @Size(min = 1,max = 64,message = "名称字数在1-64之间")
     private String name;
 
     /**
@@ -32,6 +36,7 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
      *
      * @mbggenerated
      */
+    @Size(min = 1,max = 64,message = "职位字数在1-64之间")
     private String position;
 
     /**
@@ -40,6 +45,8 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
      *
      * @mbggenerated
      */
+    @NotNull(message = "电话不能为空")
+    @Size(min = 1,max = 11,message = "电话在1-11之间")
     private String mobile;
 
     /**
@@ -48,6 +55,8 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
      *
      * @mbggenerated
      */
+    @NotNull(message = "电话不能为空")
+    @Size(min = 1,max = 11,message = "电话在1-11之间")
     private String tel;
 
     public void setPwd(String pwd) {
@@ -58,6 +67,7 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
         return pwd;
     }
 
+    @Size(min = 1,max = 100,message = "密码在1-100之间")
     private String pwd;
 
     /**
@@ -66,6 +76,7 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
      *
      * @mbggenerated
      */
+    @Size(min = 1,max = 50,message = "工作地点在1-50之间")
     private String workplace;
 
     /**
@@ -74,6 +85,7 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
      *
      * @mbggenerated
      */
+    @Size(min = 1,max = 50,message = "备注在1-50之间")
     private String remark;
 
     /**
@@ -82,6 +94,7 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
      *
      * @mbggenerated
      */
+    @Size(min = 1,max = 100,message = "字数在1-100之间")
     private String email;
 
     /**
@@ -90,6 +103,7 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
      *
      * @mbggenerated
      */
+    @Size(min = 1,max = 100,message = "字数在1-100之间")
     private String orgemail;
 
     /**
@@ -98,6 +112,7 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
      *
      * @mbggenerated
      */
+    @Size(min = 1,max = 64,message = "字数在1-64之间")
     private String jobnumber;
 
     /**
@@ -122,6 +137,8 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
      *
      * @mbggenerated
      */
+    @NotNull(message = "中间商不能为空")
+    @Size(min = 1,max = 11,message = "字数在1-11之间")
     private Integer intermediaryId;
 
 
@@ -564,16 +581,5 @@ public class DingtalkUser extends BaseEntity implements UserDetails{
     }
 
     private Set<Menu> menus;
-
-
-    public Intermediary getIntermediary() {
-        return intermediary;
-    }
-
-    public void setIntermediary(Intermediary intermediary) {
-        this.intermediary = intermediary;
-    }
-
-    private Intermediary intermediary;
 
 }

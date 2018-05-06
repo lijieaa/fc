@@ -17,13 +17,20 @@
     </resultMap>
 
 
-    <insert id="insert" parameterType="com.we.fc.dept.entity.DingtalkDept" >
+    <insert id="insert">
         <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
             SELECT LAST_INSERT_ID();
         </selectKey>
         insert into sys_role (role_name, pid, intermediary_id,role_description)
         values (#{name}, #{pid}, #{intermediaryId},
         #{description})
+    </insert>
+
+
+    <insert id="insertRM">
+
+        insert into sys_role_menu (role_id,menu_id)
+        values (#{roleId}, #{menuId})
     </insert>
 
     <select id="findByUserId" resultMap="roleMap">
@@ -37,6 +44,21 @@
     </select>
 
 
+
+    <delete id="deleteRM" parameterType="java.lang.Integer" >
+        delete from sys_role_menu WHERE role_id=#{roleId}
+    </delete>
+
+
+    <update id="updateByPrimaryKey" parameterType="com.we.fc.role.entity.Role" >
+        update sys_role
+        set role_name = #{name,jdbcType=VARCHAR},
+        role_description = #{description,jdbcType=VARCHAR},
+        pid = #{pid,jdbcType=INTEGER},
+        intermediary_id = #{intermediaryId,jdbcType=INTEGER},
+        is_del = #{isDel,jdbcType=INTEGER}
+        where role_id = #{id,jdbcType=INTEGER}
+    </update>
 
 
 

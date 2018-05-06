@@ -122,4 +122,12 @@ and d.id=#{id,jdbcType=INTEGER}
   </select>
 
 
+  <select id="findByRoleId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+SELECT * FROM dingtalk_user u,sys_role r,sys_user_role ur
+where u.userid=ur.user_id
+      and r.role_id=ur.role_id
+and r.role_id=#{roleId}
+  </select>
+
+
 </mapper>

@@ -17,4 +17,7 @@ public interface DingtalkUserMapper extends BaseDao<DingtalkUser>{
 
 
     List<DingtalkUser> findByDeptId(Integer deptId);
+
+
+    List<DingtalkUser> findByRoleId(Integer roleId);
 }

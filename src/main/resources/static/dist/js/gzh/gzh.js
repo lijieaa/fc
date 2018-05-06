@@ -1,12 +1,19 @@
  $(document).ready(function() {
      //公众号列表
         $('#deviceForm').DataTable( {
-            "ajax": "../dist/data/gzh.json",
+            // "ajax": "../dist/data/gzh.json",
+            "ajax":{
+                url: contextPath +"wxPublic/page",
+                dataSrc:"data.list",
+                "data":{
+                    "page":1,
+                    "rows":10
+                }
+            },
             "info":false,
             "searching": false,
             "lengthChange": false,
             "ordering": false,
-            // "pagingType": "full_numbers",
             "language": {
                 "paginate": {
                     "next": "下一页",
@@ -14,11 +21,11 @@
                 }
             },
             "columns": [
-                { "data": "name" },
-                { "data": "position" },
-                { "data": "office" },
-                { "data": "Extn" },
-                { "data": "Start" },
+                { "data": "publicName"},
+                { "data": "sourceId" },
+                { "data": "appId" },
+                { "data": "appSecret" },
+                { "data": "publicEmail" },
                 { "data": "", "render": function(data, type, row, meta){
                         var html = "<button type='button' class='Normal margin-right-4 btn btn-primary'>编辑</button>" +
                             "<button type='button' class='Normal margin-right-4 btn btn-primary'>删除</button>" +
@@ -27,11 +34,49 @@
                     }}
 
             ],
+            "pageLength": 10,
             "fnInitComplete": function() {//初始化完毕事件
                 $(".table-manage").click(function () {
                     $("#gzh-manage").show().siblings().hide();
                 });
             }
+        } );
+        //用户管理列表
+     $('#gzh-ul-manage').DataTable( {
+         "autoWidth":false,
+         "ajax":{
+             url: contextPath +"wxUsers/page",
+             dataSrc:"data.list",
+             "data":{
+                 "page":1,
+                 "rows":10
+             }
+         },
+         "info":false,
+         "searching": false,
+         "lengthChange": false,
+         "ordering": false,
+         "language": {
+             "paginate": {
+                 "next": "下一页",
+                 "previous": "上一页"
+             }
+         },
+         "columns": [
+             { "width": "20%","data": "headimgurl",render:function (data, type, row, meta) {
+                     var html="<img src="+data+" class='chatOne' />";
+                     return html;
+                 }},
+             { "data": "nickname", "width":'75%'}
+
+         ],
+         "pageLength": 3,
+         "fnInitComplete": function() {//初始化完毕事件
+             $(".chatOne").click(function () {
+                 //点击公众号列表
+                 $("#chating-per").show().siblings().hide();
+             });
+         }
         } );
         // 添加公众号
         $("#add-gzh").click(function () {
@@ -40,12 +85,6 @@
         // 返回公众号管理列表
        $("#backUl").click(function () {
            $("#gzh-index").show().siblings().hide();
-       })
-       //点击公众号列表
-       $(".gzh-ul-manage li").click(function () {
-           var per=$(this).find("span").text();
-           $(".chat-user").text(per);
-           $("#chating-per").show().siblings().hide();
        })
      //返回公众号列表
      $("#backUlManage").click(function () {
