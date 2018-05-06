@@ -20,9 +20,11 @@
       <div class="row margin-top-6">
         <div class="col-md-9 col-sm-9">
           <div class="form-group float-left">
-            <select name="" id="" class="sel-option height-34">
+            <select name=""  id="limitSelect" class="sel-option height-34">
               <option value="1">生产编号</option>
               <option value="2">所属项目</option>
+              <option value="3">操作员</option>
+              <option value="4">抄表员</option>
             </select>
           </div>
           <div class="input-group">
@@ -30,8 +32,8 @@
             <span class="input-group-addon ">
                <i class="fa fa-search"></i>
             </span>
-            <input type="text" class="form-control">
-            <button type="button" class="btn btn-block btn-info search">搜索</button>
+            <input type="text" class="form-control" v-model="inputLimit">
+            <button type="button" class="btn btn-block btn-info search" @click="searchLimit">搜索</button>
           </div>
         </div>
         <div class="col-md-3 col-sm-3 text-align-right">
@@ -124,106 +126,7 @@
 </div>
 
 <div th:replace="import::scipt"></div>
-<script th:inline="javascript">
-
-</script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        Vue.component('option-item', {
-            props: ['todo'],
-            template: '<option>{{todo.name}}</option>'
-        });
-        new Vue({
-            el:"#myDevice",
-            data:{
-                deviceName:"添加设备",
-                selected:"3",
-                projectList:[
-                    {val:1,name:"成都华西"},
-                    {val:2,name:"成都龙泉"},
-                    {val:3,name:"项目二"}
-                ]
-            },
-            methods:{
-                addDevice:function(){
-                    this.deviceName = "添加设备";
-                    $("#modal-default").addClass("in").css("display","block")
-                },
-                closePop:function(){
-                    $("#modal-default").removeClass("in").css("display","none")
-                }
-            },
-            mounted:function(){
-                var _this = this;
-                $(document).on("click","#editDevice",function(){
-                    _this.deviceName = "编辑设备";
-                    $("#modal-default").addClass("in").css("display","block")
-                });
-
-                $(document).on("click","#log",function(){
-                    window.location.href = "log?menuId=1";
-                });
-
-                //
-                $(document).on("click","#control",function(){
-                    window.location.href = "control?menuId=1";
-                })
-            }
-        });
-        $('#deviceForm').DataTable({
-            "ajax":{
-                // url:"../dist/data/device.json",
-                url: contextPath +"intermediary/page",
-                dataSrc:"data.list",
-                "data": {
-                   "page":1,
-                    "rows":10
-                }
-            },
-            "info":false,
-            "searching": false,
-            "lengthChange": false,
-            "ordering": false,
-            // "pagingType": "full_numbers",
-            "language": {
-                "paginate": {
-                    "next": "下一页",
-                    "previous": "上一页"
-                }
-            },
-            "columns": [
-                { "data": "name" },
-                { "data": "position" },
-                { "data": "office" },
-                { "data": "Extn" },
-                { "data": "Start" },
-                { "data": "status" },
-                { "data": "Salary" },
-                { "data": "", "render": function(data, type, row, meta){
-                        var html = "<button type='button' class='Normal margin-right-4 btn btn-primary' id='editDevice'>编辑</button>" +
-                            "<button type='button' class='Normal margin-right-4 btn btn-primary' id='delete'>删除</button>" +
-                            "<button type='button' class='Normal margin-right-4 btn btn-primary' id='control'>控制</button>" +
-                            "<button type='button' class='Normal margin-right-4 btn btn-primary' id='log'>日志</button>";
-                        return html;
-                    }}
-
-            ],
-            "pageLength": 10,
-            "stateLoadParams": function (settings, data) {
-                alert(1);
-            }
-        });
-        $("#deviceForm").on( 'init.dt', function ( e, settings ) {
-            //在此给变量赋值
-            // console.log(1);
-            $(".content-list").removeClass("display-none")
-        });
-        $("#deviceForm").on( 'draw', function () {
-            alert( 'Table redrawn' );
-        } );
-
-
-    } );
-</script>
+<script th:inline="javascript"></script>
+<script type="text/javascript" th:src="@{/js/device/device.js}"></script>
 </body>
 </html>

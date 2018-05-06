@@ -1,5 +1,38 @@
 //中间商管理
+function showMenu() {
+    $(".tree-div-contain").show();
+    $("body").unbind("mousedown", onBodyDown);
+}
+function hideMenu() {
+    $(".tree-div-contain").hide();
+    $("body").unbind("mousedown", onBodyDown);
+}
+function onBodyDown(event) {
+    if (!(event.target.id == "address"  || event.target.className == "tree-div-contain" || $(event.target).parents(".tree-div-contain").length>0)) {
+        hideMenu();
+    }
+}
+$(document).bind("click",function(e){
+    onBodyDown(e) ;
+});
+
 $(document).ready(function() {
+    $(document).on("click",".search-list >li",function(){
+        $(".tree-div-contain").hide();
+        $("#address").val($(this).text());
+        $("#treeDemo").show();
+        $(".search-list").hide();
+        var text = $(this).text();
+        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+        var nodes = treeObj.transformToArray(treeObj.getNodes());
+        $(".limit-style").val("");
+        nodes.forEach(function(item,i){
+            if(nodes[i].name == text){
+                treeObj.selectNode(nodes[i]);
+            }
+        });
+
+    });
     var uploader;
     Vue.component('option-item', {
         props: ['todo'],
@@ -125,24 +158,27 @@ $(document).ready(function() {
                     // console.log( _this.responseUrl);
                 });
             },
-            treeShow:function(e){
-                // e.stopPropagation()
-                var _this = this;
-                _this.treeIsShow = true;
-            },
-            treeHide:function(){
-                var _this = this;
-                // _this.treeIsShow = false;
-            },
             searchZtree:function(){
-                // localhost:8080/area/?shortName=天
-                console.log(11);
                 var searchVal = this.searchVal;
-                $.axspost(contextPath + "area/?shortName="+searchVal,"get","",function (data) {
+                if(searchVal.length != 0){
+                    $.axspost(contextPath + "area/?shortName="+searchVal,"get","",function (data) {
+                        var getData = data.data;
+                        $(".search-list").html("");
+                        if(getData.length != 0){
+                            getData.forEach(function(item,i){
+                                var li = "<li data-id="+getData[i].id+">"+getData[i].name+"</li>";
+                                $(".search-list").append(li);
+                                $("#treeDemo").hide();
+                            })
+                        }
+                    },function (data) {
 
-                },function (data) {
+                    });
+                }else{
+                    $("#treeDemo").show();
+                    $(".search-list").hide();
+                }
 
-                })
             },
             zTreeInit:function(){
                 var _this = this;
@@ -181,7 +217,8 @@ $(document).ready(function() {
                     function zTreeOnclick(event, treeId, treeNode) {
                         _this.editList.area.name = treeNode.name;
                         _this.editList.area.id = treeNode.id;
-                        _this.treeIsShow = false;
+                        // _this.treeIsShow = false;
+                        $(".tree-div-contain").hide();
                     }
                     function getUrl(treeId, treeNode){
                         return contextPath +"area/condition?level="+parseInt(treeNode.level+2)+"&parent="+parseInt(treeNode.id);
@@ -224,7 +261,6 @@ $(document).ready(function() {
             },
             searchLimit:function(){ //按条件进行搜索
                 var _this = this;
-
                 _this.tableInit(true);
             },
             tableInit : function(flag){
@@ -311,9 +347,10 @@ $(document).ready(function() {
                 _this.companyName = "编辑中间商";
                 $("#mediaryList").hide();
                 $("#mediaryAddEdit").show();
-                $.axspost(contextPath + "intermediary/"+$(this).attr("data-id")+"","get","",function(data){
+                $.ax.DataTablespost(contextPath + "intermediary/"+$(this).attr("data-id")+"","get","",function(data){
                     _this.editList = data;
                     $("#imgInter").attr("src",data.intermediaryLogoUrl);
+                    responseUrl = data.intermediaryLogoUrl;
                     CKEDITOR.instances.editor1.setData(data.intermediaryIntroduction);
                 },function(data){})
             });

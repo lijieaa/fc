@@ -208,3 +208,9 @@
 #cke_editor1{
     margin-top: 15px;
 }
+@media (min-width: 768px){
+    .company-right-content{
+        margin-right: 15px;
+        width: calc(50% - 15px);
+    }
+}
