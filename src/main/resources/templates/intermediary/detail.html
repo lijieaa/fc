@@ -3,90 +3,9 @@
 <head>
     <div th:replace="import::hdr"></div>
     <link rel="stylesheet" th:href="@{/css/webuploader.css}">
+    <link rel="stylesheet" th:href="@{/css/detail.css}">
 </head>
-<style>
-    .border-black{
-        border: 1px solid black;
-    }
-    .border-left-black{
-        border-left: 1px solid black;
-    }
-    .padding-10{
-        padding: 10px;
-    }
-    .padding-right-25{
-        padding-right: 25px;
-    }
-    .text-right{
-        text-align: right;
-    }
-    .back-gainsboro{
-        background: gainsboro;
-    }
-    .height-35{
-        height: 35px;
-    }
-    .padding-left-15{
-        padding-left: 15px;
-    }
-    #logo{
-        /*width:60%;*/
-        width: 100px;
-        height: 300px;
-    }
-    .company-content{
-        text-indent: 6px;
-    }
-    .company-right-content>.head{
-        line-height: 34px;
-    }
 
-
-    .direct-chat-msg:before{
-        position: absolute;
-        right: auto;
-        z-index: 1;
-        background: #a0a0a0;
-        /*bottom: auto;*/
-        content: "";
-        left: 6px;
-        bottom: -5px;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-    }
-    .content-msg{
-        position: absolute;
-        border-left: 1px solid red;
-        left:10px;
-    }
-
-
-    .direct-chat-text:after, .direct-chat-text:before {
-        position: absolute;
-        right: 100%;
-        bottom: -7px!important;
-        top:auto!important;
-        border: solid transparent;
-        border-bottom-color: #d2d6de;
-        content: ' ';
-        height: 0;
-        width: 0;
-        pointer-events: none;
-    }
-    .right .direct-chat-text:after, .right .direct-chat-text:before {
-        right: auto;
-        left: 10%;
-        border-bottom-color: transparent;
-        border-top-color: #d2d6de;
-    }
-    .modal-body{
-        padding-top: 0!important;
-    }
-    .right .direct-chat-text{
-        margin-right: 0;
-    }
-</style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="import::bdy-befor"></div>
 <div class="wrapper" id="company">
@@ -96,7 +15,7 @@
             <div class="row">
                 <div class="col-md-9 col-sm-9">
                     <div class="form-group float-left">
-                        <span class="font-size-18">供应商详情</span>
+                        <span class="font-size-18 border-left-blue">中间商的详情</span>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 text-align-right">
@@ -111,105 +30,131 @@
         <section class="content-list">
             <div class="page-content">
                 <div class="row">
-                    <div class="col-md-6 col-sm-6 col-xs-12 page-content">
-                        <div class="logo-detail border-black padding-10">
+                    <div class="col-md-8 col-sm-6 col-xs-12  page-content">
+                        <div class="logo-detail paading-top-0  padding-10">
                             <div class="row">
-                                <div class="col-md-6 col-sm-4 col-xs-6 ">
-                                    <img src="" alt="">
-                                    <!--<img src="" alt=""  id="logo">-->
+                                <div class="col-md-6 padding-15 back-white col-sm-8 col-xs-6 ">
+                                    <table class="detail-table">
+                                        <tr class="row-ji">
+                                            <td>中间商名称</td>
+                                            <td>
+                                                <span v-text="dataList.intermediaryName"></span>
+                                            </td>
+                                        </tr>
+                                        <tr >
+                                            <td>所属地区</td>
+                                            <td>
+                                                <span v-text="dataList.area.name">安徽省</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="row-ji">
+                                            <td>联系人</td>
+                                            <td>
+                                                <span v-text="dataList.intermediaryContact"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>联系方式</td>
+                                            <td>
+                                                <span  v-text="dataList.intermediaryContactTel"></span>
+                                            </td>
+                                        </tr>
+                                        <tr class="row-ji">
+                                            <td>平台对接人</td>
+                                            <td>
+                                                <span v-text="dataList.user.name">张三</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>联系方式</td>
+                                            <td>
+                                                <span  v-text="dataList.user.mobile"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
-                                <div class="col-md-6 col-sm-8 col-xs-6 ">
-                                    <div>
-                                        <label for="">中间商名称</label>
-                                        <span v-text="dataList.intermediaryName"></span>
+                                <div class="col-md-6 padding-15 logo-div back-white col-sm-4 col-xs-6 ">
+                                    <div class="common-title">
+                                        中间商Logo
                                     </div>
-                                    <div>
-                                        <label for="">所属地区：</label>
-                                        <span v-text="dataList.area.name">安徽省</span>
-                                    </div>
-                                    <div>
-                                        <label for="">联系人：</label>
-                                        <span v-text="dataList.intermediaryContact"></span>
-                                    </div>
-                                    <div>
-                                        <label for="">联系方式：</label>
-                                        <span  v-text="dataList.intermediaryContactTel"></span>
-                                    </div>
-                                    <div>
-                                        <label for="">平台对接人：</label>
-                                        <span v-text="dataList.user.name">张三</span>
-                                    </div>
-                                    <div>
-                                        <label for="">联系方式：</label>
-                                        <span  v-text="dataList.user.mobile"></span>
+                                    <div class="logo-img-contain">
+                                        <img src="" alt="">
                                     </div>
                                 </div>
+
                             </div>
                         </div>
-                        <div class="row padding-10">
-                            <div class="col-md-12 padding-left-15">
-                                图片资料
+                        <div class="row back-white margin-top-6 product-detail">
+                            <div class="col-md-12 common-title padding-left-6">
+                                简要介绍
                             </div>
-                            <div class="col-md-12 company-content padding-left-15">
+                            <div class="col-md-12 company-content padding-left-6">
                                 中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息
                                 中间商简要信息中间商
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12 company-right-content">
-                        <div class="row head">
-                            <div class="col-md-7 height-35 col-xs-7 padding-left-15 back-gainsboro">
-                                跟进信息
-                            </div>
-                            <div class="col-md-5 col-xs-5 back-gainsboro text-right padding-right-25">
-                                <button type="button" class="btn  btn-default" @click="addGJ">新增改进</button>
-                            </div>
-                        </div>
+                    <div class="col-md-4 col-sm-6 back-white col-xs-12 company-right-content">
                         <div class="border-left-black">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="direct-chat-msg right padding-left-15">
-                                        <div class="direct-chat-text ">
-                                            <div>
-                                                <label>图文名称</label>
-                                                <span>XXXXXXXXXX</span>
-                                            </div>
-                                            <div>
-                                                <label>图文信息</label>
-                                                <span>XXXXXXXXXX</span>
-                                            </div>
-                                            <div>
-                                                <label>时间</label>
-                                                <span>2015-09-23</span>
-                                            </div>
-                                            <div>
-                                                <label>时间</label>
-                                                <span>2015-09-23</span>
-                                            </div>
-                                        </div>
+                            <div class="row head">
+                                <div class="col-md-7 circle-msg  height-35 col-xs-7 padding-left-15">
+                                    <div class="direct-chat-text flow-msg">
+                                        跟进信息
                                     </div>
+                                </div>
+                                <div class="col-md-5 col-xs-5 text-right padding-right-15">
+                                    <button type="button" class="btn purple-btn btn-default" @click="addGJ">新增改进</button>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="direct-chat-msg right padding-left-15">
-                                        <div class="direct-chat-text ">
+                                    <div class="direct-chat-msg">
+                                        <div class="direct-chat-text">
                                             <div>
-                                                <label>图文名称</label>
-                                                <span>XXXXXXXXXX</span>
+                                                <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image">
+                                                <span class="comment-user">销售员老李</span>
                                             </div>
-                                            <div>
-                                                <label>图文信息</label>
-                                                <span>XXXXXXXXXX</span>
+                                            <div class="comment-content">
+                                                接到局方通知，下个月局方营销部要采购一批净化设备器材，采购书已发出，
+                                                真正询价。
                                             </div>
-                                            <div>
-                                                <label>时间</label>
-                                                <span>2015-09-23</span>
+                                            <div class="comment-status margin-top-6">
+                                                项目状态: <span>正在处理</span>
                                             </div>
-                                            <div>
-                                                <label>时间</label>
-                                                <span>2015-09-23</span>
+                                            <div class="comment-btn-time margin-top-6">
+                                                <div class="comment-time float-left">
+                                                    跟进时间
+                                                    <san>2018.04.07</san>
+                                                </div>
+                                                <div class="comment-btn float-right"  v-on:click="show = !show">
+                                                    <i class="icon-color-9c fa fa-fw  fa-commenting"></i>
+                                                    评论（2）
+                                                </div>
                                             </div>
+                                            <transition name="fade">
+                                                <div class="comment-list" v-if="show">
+                                                    <div class="input-group margin-top-6">
+                                                        <input type="text" class="form-control">
+                                                        <span class="input-group-btn">
+                      <button type="button" class="btn btn-info btn-flat">评论</button>
+                    </span>
+                                                    </div>
+                                                    <div class="margin-top-15">评论消息</div>
+                                                    <div class="comment-msg margin-top-6">
+                                                        <div class="msg-user font-weight margin-top-6">
+                                                            销售员老李
+                                                        </div>
+                                                        <div class="msg-content margin-top-3">
+                                                            这个跟进需要把内容信息描写的更详细一点，不然完全看不懂。
+                                                        </div>
+                                                        <div class="comment-time margin-top-3">
+                                                            跟进时间
+                                                            <san>2018.04.07</san>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </transition>
+
                                         </div>
                                     </div>
                                 </div>
@@ -231,14 +176,15 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <form>
-                                    <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
-                                    <div class="pop-box margin-top-15 text-align-left">
+                                    <div class="pop-box text-align-left">
                                         <label for="">项目状态: </label>
                                         <select name="" class="form-style-pop form-control">
                                             <option value="1">已处理</option>
                                             <option value="2">正在处理</option>
                                         </select>
                                     </div>
+                                    <textarea name="editor1"  id="editor1" rows="10" cols="80"></textarea>
+
                                 </form>
                             </div>
                         </div>
@@ -263,6 +209,7 @@
     new Vue({
         el:"#company",
         data:{
+            show: false,
             dataList:{
                 area:{
                     name:"",
@@ -286,7 +233,10 @@
                     name: "",
                     mobile: ""
                 }
-            }
+            },
+            // commentList:{
+            //     userCommment:"销售员老李:"
+            // }
         },
         methods:{
             addGJ:function(){

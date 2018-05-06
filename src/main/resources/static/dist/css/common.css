@@ -37,6 +37,9 @@ html,body{
 .margin-left-10{
     margin-left: 10px;
 }
+.margin-left-25{
+    margin-left: 25px;
+}
 .padding-18{
     padding: 18px 0;
 }
@@ -54,6 +57,9 @@ html,body{
 }
 .margin-top-6{
     margin-top: 6px;
+}
+.margin-top-3{
+    margin-top: 3px;
 }
 .color-red{
     color: red;
@@ -121,10 +127,15 @@ div.dataTables_wrapper div.dataTables_paginate{
 #deviceForm .btn{
     padding: 5px 8px;
 }
-
+.padding-left-6{
+    padding-left: 6px;
+}
 /*z-tree公用的样式*/
 .ztree *{
     font-size: 14px;
+}
+.font-weight{
+    font-weight: bold;
 }
 .ztree li span.button.noline_close{
     background-position: -169px -20px!important;
@@ -165,4 +176,15 @@ div.dataTables_wrapper div.dataTables_paginate{
 .modal-body .form-style-pop{
     display: inline-block;
     width: 60%;
+}
+
+
+/*紫色按钮*/
+.purple-btn{
+    background: #5c688f;
+    color: white;
+}
+.purple-btn:hover{
+    background: #5c688f;
+    color: white;
 }

@@ -3,6 +3,7 @@
 <head>
   <div th:replace="import::hdr"></div>
   <link rel="stylesheet" th:href="@{/css/webuploader.css}">
+
 </head>
 <style>
   .modal-dialog{
@@ -151,20 +152,20 @@
       </div>
     </section>
     <section class="content-list">
-      <!--<form action="">-->
+      <form action="" id="sureSubmit">
         <div class="row">
           <div class="col-sm-6 modal-body">
             <div class="pop-box background-g">
               <label class="label-pop-style text-align-right">中间商名称:</label>
-              <input type="text" class="form-control form-style-pop" v-model="editList.intermediaryName">
+              <input type="text" class="form-control form-style-pop" v-model="editList.intermediaryName" required="required">
             </div>
             <div class="pop-box background-w">
               <label for="" class="label-pop-style text-align-right">联系人:</label>
-              <input type="text" class="form-control form-style-pop" v-model = "editList.intermediaryContact">
+              <input type="REALNAME" class="form-control form-style-pop" v-model = "editList.intermediaryContact">
             </div>
             <div class="pop-box background-g">
               <label for="" class="label-pop-style text-align-right">联系电话:</label>
-              <input type="text" class="form-control form-style-pop" v-model = "editList.intermediaryContactTel">
+              <input type="TEL" class="form-control form-style-pop" v-model = "editList.intermediaryContactTel">
             </div>
             <div class="pop-box background-w positon-relative">
               <label for="" class="label-pop-style text-align-right">所属地区:</label>
@@ -188,7 +189,7 @@
             </div>
             <div class="pop-box background-w">
               <label for="" class="label-pop-style text-align-right">联系方式:</label>
-              <input type="text" class="form-control form-style-pop" v-model="editList.user.mobile">
+              <input type="TEL" class="form-control form-style-pop" v-model="editList.user.mobile">
             </div>
           </div>
           <div class="col-sm-6 padding-left-0">
@@ -235,10 +236,10 @@
           </div>
         </div>
         <div class="text-align padding-18">
-          <button type="button" @click="sureSubmit" class="btn btn-info search margin-right-4">确定</button>
+          <button type="submit"  class="btn btn-info search margin-right-4">确定</button>
           <button type="reset" class="btn reset-btn search">重置</button>
         </div>
-      <!--</form>-->
+      </form>
     </section>
   </div>
 
