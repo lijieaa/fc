@@ -1,36 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <div th:replace="import::hdr"></div>
+    <div th:replace="import::hdr"></div>
     <link rel="stylesheet" th:href="@{/plugins/jquery-treetable/css/jquery.treetable.theme.default.css}">
-  <link rel="stylesheet" th:href="@{/plugins/jquery-treetable/css/jquery.treetable.css}">
+    <link rel="stylesheet" th:href="@{/plugins/jquery-treetable/css/jquery.treetable.css}">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="import::bdy-befor">
 </div>
 <div class="wrapper">
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        菜单管理
-      </h1>
-    </section>
-    <table id="example-basic-expandable">
-      <tr th:each="menu : ${menus}">
-          <td th:text="${menu.name}" th:attr="data-tt-id=${menu.id}">app</td>
-      </tr>
-    </table>
+    <!-- Content Wrapper. Contains page content -->
 
-  </div>
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                菜单管理
+            </h1>
+        </section>
+        <a>添加菜单</a>
+        <table id="example-basic-expandable">
+            <thead>
+            <tr>
+                <th>菜单名称</th>
+                <th>路径</th>
+                <th>权限标识</th>
+                <th>是否显示</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="menu : ${menus}" th:attr="data-tt-id=${menu.id},data-tt-parent-id=${menu.parent.id}">
+                <td th:text="${menu.name}"></td>
+                <td th:text="${menu.url}"></td>
+                <td th:text="${menu.permission}"></td>
+                <td th:text="${menu.display}?'显示':'隐藏'"></td>
+                <td>
+                    <a href="#">修改</a>
+                    <a href="#">删除</a>
+                    <a href="#">显示</a>
+                    <a href="#">隐藏</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
 </div>
 <div th:replace="import::scipt"></div>
 <script type="text/javascript" th:src="@{/plugins/jquery-treetable/jquery.treetable.js}"></script>
 <script th:inline="javascript">
-  $(function () {
-    $("#example-basic-expandable").treetable({ expandable: true });
-  })
+    $(function () {
+        $("#example-basic-expandable").treetable({expandable: false});
+    })
 
 </script>
 </body>

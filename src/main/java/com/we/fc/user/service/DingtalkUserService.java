@@ -21,4 +21,7 @@ public interface DingtalkUserService extends BaseService<DingtalkUser>{
     List<DingtalkUser> findByDeptId(Integer deptId);
 
 
+    List<DingtalkUser> findByRoleId(Integer roleId);
+
+
 }

@@ -50,4 +50,16 @@ public class DingtalkUserController extends BaseController<DingtalkUser>{
         responseEntity.setMessages("操作成功！");
         return responseEntity;
     }
+
+
+    @GetMapping("roleid/{roleid}")
+    @ResponseBody
+    public ResponseEntity getUsersByRoelId(@PathVariable("roleid") Integer roleid){
+        ResponseEntity responseEntity = new ResponseEntity();
+        List<DingtalkUser> byDeptId = dingtalkUserService.findByRoleId(roleid);
+        responseEntity.setList(byDeptId);
+        responseEntity.setStatus("200");
+        responseEntity.setMessages("操作成功！");
+        return responseEntity;
+    }
 }
