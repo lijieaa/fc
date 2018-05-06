@@ -179,11 +179,11 @@
                 </tr>
                 </thead>
                 <tbody class="dragDropStaff">
-                  <tr class="disabled">
+                  <!--<tr class="disabled">
                     <td title="李杰">李杰</td>
                     <td></td>
                     <td></td>
-                  </tr>
+                  </tr>-->
                 </tbody>
               </table>
             </div>
@@ -397,6 +397,32 @@
         </div>
       </div>
     </div>
+    <div class="edit-role-group-name-container display-none">
+      <h3>编辑角色组</h3>
+      <div class="c_side_modal animated">
+        <div class="c_modal_body edit-department-info ">
+          <div>
+            <div class="c_action_content">角色组信息</div>
+            <div class="c_ding_form">
+              <div class="c_ding_form_group">
+                <label><i class="iconfont c_ding_from_icon"></i><span>角色组名称:</span></label>
+                <div class="input_content">
+                  <input type="text" required minlength="13" class="c_ding_input edit-role-group-name">
+                </div>
+              </div>
+            </div>
+            <div class="c_ding_form"></div>
+          </div>
+        </div>
+        <div class="c_modal_foot">
+          <div class="" style="text-align:center;">
+            <div class="c_ding_btn c_ding_btn_primary">保存</div>
+            <div class="c_ding_btn c_ding_btn_error">删除</div>
+            <div class="c_ding_btn ">取消</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="add-role-name-container display-none">
       <h3>新增角色</h3>
       <div class="c_side_modal animated">
@@ -418,22 +444,23 @@
                       <span class="Select-multi-value-wrapper">
                         <div class="Select-value">
                           <span class="Select-value-label add-role-name-group" role="option" aria-selected="true"></span>
+                          <select name="" id="selectgroup">
+                          </select>
                         </div>
                       </span>
-                      <span class="Select-arrow-zone"><span class="Select-arrow"></span></span>
                     </div>
                   </div>
                 </div>
               </div>
-              <!--<div class="c_ding_form_group"><label><i class="iconfont c_ding_from_icon"></i><span>分组到:</span></label>
+              <div class="c_ding_form_group">
+                <label><i class="iconfont c_ding_from_icon"></i><span>选择权限:</span></label>
                 <div class="input_content">
-                  <div class="Select is-clearable is-searchable Select&#45;&#45;single">
-                    <div class="Select-control">
-                      <div class="Select-placeholder">请选择分组</div>
+                  <div style="max-height:85px;padding:4px 12px;" class="c_ding_input c_ding_input_content">
+                    <!--<span style="display:inline-block;padding:2px 5px;" class="c_input_tag">总监</span>-->
                   </div>
                 </div>
-              </div>-->
-            </div>
+                <ul id="ztreeMeanugroup"  class="ztree display-none"></ul>
+              </div>
           </div>
         </div>
         <div class="c_modal_foot">
@@ -444,6 +471,7 @@
         </div>
       </div>
     </div>
+  </div>
     <div class="edit-role-container display-none">
       <h3>编辑角色</h3>
       <div class="c_side_modal animated">
@@ -461,31 +489,39 @@
                 <label><i class="iconfont c_ding_from_icon"></i><span>分组到:</span></label>
                 <div class="input_content">
                   <div class="Select has-value is-clearable is-disabled is-searchable Select--single">
-                    <input disabled name="form-field-name" type="hidden" value="299315639">
                     <div class="Select-control">
-                      <span class="Select-multi-value-wrapper" id="react-select-2--value">
+                      <span class="Select-multi-value-wrapper">
                         <div class="Select-value">
-                          <span class="Select-value-label" role="option" aria-selected="true" id="react-select-2--value-item">职务</span>
+                          <span class="Select-value-label add-role-name-group" role="option" aria-selected="true"></span>
+                          <select name="" id="selectgroupTwo">
+                          </select>
                         </div>
                       </span>
-                      <span class="Select-arrow-zone"><span class="Select-arrow"></span></span>
                     </div>
                   </div>
                 </div>
               </div>
+              <div class="c_ding_form_group">
+                <label><i class="iconfont c_ding_from_icon"></i><span>选择权限:</span></label>
+                <div class="input_content">
+                  <div style="max-height:85px;padding:4px 12px;" class="c_ding_input c_ding_input_content">
+                    <!--<span style="display:inline-block;padding:2px 5px;" class="c_input_tag">总监</span>-->
+                  </div>
+                </div>
+                <ul id="ztreeMeanugroupTwo"  class="ztree display-none"></ul>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="c_modal_foot">
-          <div class="" style="text-align:center;">
-            <div class="c_ding_btn c_ding_btn_primary">保存</div>
-            <div class="c_ding_btn c_ding_btn_error">删除</div>
-            <div class="c_ding_btn ">取消</div>
+          <div class="c_modal_foot">
+            <div class="" style="text-align:center;">
+              <div class="c_ding_btn c_ding_btn_primary">保存</div>
+              <div class="c_ding_btn c_ding_btn_error">删除</div>
+              <div class="c_ding_btn ">取消</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 <div class="c_modal_box display-none">
   <div class="bg"></div>
   <div class="c_modal">
@@ -657,7 +693,7 @@
       };
       function zTreeOnClick(event, treeId, treeNode) {
         $(".c_title_1.contact_header span.role-name").text(treeNode.description).attr("data-id", treeNode.id).attr("data-pid", treeNode.pid);
-
+        getRoleUserList(treeNode.id);
       }
       function onAsyncSuccess(event, treeId, treeNode, msg) {
         $(".c_title_1.contact_header span.role-name").text(msg.list[0].description).attr("data-id", msg.list[0].id).attr("data-pid", msg.list[0].pid);
@@ -667,6 +703,8 @@
         if (nodes.length>0) {
           zTree.selectNode(nodes[0]);
         }
+
+        getRoleUserList(msg.list[0].id);
       }
       /* 刷新节点 */
       function refreshNode() {
@@ -716,7 +754,8 @@
           url: contextPath + "role/",
           data: JSON.stringify({
             "description": $(".add-role-name").val(),
-            "pid": $(".internal-contacts-role-container .role-name").attr("data-id")
+            "pid": $("#selectgroup").val(),
+            "menus": JSON.parse($("#ztreeMeanugroup").attr("data-checkedObj"))
           }),
           success:function(data){
             if (data.status == "200") {
@@ -733,30 +772,27 @@
 
       /* 获取角色人员列表 */
       var getRoleUserList = function (id) {
-        var dragDropStaffBox = $(".internal-contacts-role-container .dragDropStaff"), dragDropStaffHtml = '';
-        var titleData = $(".c_title_1.contact_header span.role-name");
+        var dragDropStaffBox = $(".internal-contacts-role-container .dragDropStaff");
+        dragDropStaffBox.html('');
         $.ajax({
           async : false,
           cache:false,
           type: 'get',
           dataType : "json",
           contentType: "application/json",
-          url: contextPath + "role/all",
-          data: JSON.stringify({
-            "name": $(".add-department-info-name").val(),
-            "parentid": $(".department-info-name").attr("data-id"),
-            "path": pathListStr.join(",") || $(".department-info-name").attr("data-id")
-          }),
+          url: contextPath + "dingtalk_user/roleid/"+id,
           success:function(data){
             if (data.status == "200") {
+              console.log(data);
+              var dataList = data.list, dragDropStaffHtml = '';
               $.each(dataList, function (i, item) {
                 dragDropStaffHtml += '<tr class="disabled">'+
-                  '<td title="李杰">李杰</td>'+
+                  '<td title="'+ item.name +'">'+ item.name +'</td>'+
                   '<td></td>'+
-                  '<td></td>'+
+                  '<td>'+ item.jobnumber +'</td>'+
                 '</tr>';
               });
-
+              dragDropStaffBox.append(dragDropStaffHtml)
             }
           },
           error: function () {
@@ -1031,14 +1067,144 @@
       /* 添加角色 */
       if ($(this).hasClass("add-role-name-btn")) {
         $(".tb-right-menu>.add-role-name-container").removeClass("display-none").siblings().addClass("display-none")
-        $(".add-role-name-group").text($(".internal-contacts-role-container .role-name").text());
+//        $(".add-role-name-group").text($(".internal-contacts-role-container .role-name").text());
+        //获取角色组列表
+        $.ajax({
+          async : false,
+          cache:false,
+          type: 'get',
+          dataType : "json",
+          contentType: "application/json",
+          url: contextPath + "role/all",
+          success:function(data){
+            if (data.status == "200") {
+              var dataList = data.list, selectGroupBox = $("#selectgroup"), selectGroupHtml = '';
+              selectGroupBox.html("");
+              $.each(dataList, function (i, item) {
+                if (item.pid == "0") {
+                  selectGroupHtml += '<option value='+ item.id +' data-id='+ item.id +'>'+ item.description +'</option>';
+                }
+              });
+              selectGroupBox.append(selectGroupHtml)
+            }
+          },
+          error: function () {
+            alert('请求失败');
+          }
+        });
+
+        //获取权限列表
+        var settings = {
+          async: {
+            enable: true,
+            dataType: "json",
+            type: "get",
+            url: contextPath+"sys/menu/all",
+            dataFilter: ajaxDataFilterFn
+          },
+          data:{
+            key: {
+              name: "name"
+            },
+            simpleData : {
+              enable : true,
+              idKey: "id",
+              pIdKey: "pid",
+              rootPId: 0
+            }
+          },
+          callback: {
+            onAsyncSuccess:onAsyncSuccessFn,
+            onCheck: zTreeOnCheckFn
+          },
+          view: {
+            showLine: false
+          },
+          check: {
+            enable: true,
+            chkStyle: "checkbox"
+          }
+        };
+        var ztreeMeanugroup = $("#ztreeMeanugroup"),
+            inputContentBox = $("#ztreeMeanugroup").siblings(".input_content").find(".c_ding_input.c_ding_input_content"),
+            inputContentHtml = "";
+        ztreeMeanugroup.addClass("display-none");
+        inputContentBox.on("click", function () {
+          ztreeMeanugroup.removeClass("display-none")
+        });
+        function onAsyncSuccessFn(event, treeId, treeNode, msg) {
+          inputContentBox.html('');
+        };
+        function zTreeOnCheckFn() {
+          var treeObj = $.fn.zTree.getZTreeObj("ztreeMeanugroup"),
+              nodes = treeObj.getCheckedNodes(true),
+              checkedObj = [];
+          $.each(nodes, function (i, item) {
+            var checkedObjItem = {
+              "id": item.id
+            };
+            checkedObj.push(checkedObjItem);
+            inputContentHtml += '<span class="c_input_tag" style="display:inline-block;padding:2px 5px;">'+ item.name +'</span>';
+          });
+          inputContentBox.append(inputContentHtml)
+          ztreeMeanugroup.attr("data-checkedObj", JSON.stringify(checkedObj))
+        }
+        function ajaxDataFilterFn(treeId, parentNode, responseData) {
+          return responseData.list;
+
+        }
+        $.fn.zTree.init($("#ztreeMeanugroup"), settings);
+
+
       }
 
-      /* 编辑角色 */
+      /* 编辑角色组，角色 */
       if ($(this).hasClass("edit-role-btn")) {
-        $(".tb-right-menu>.edit-role-container").removeClass("display-none").siblings().addClass("display-none")
+        $(".tb-right-menu>.edit-role-container").removeClass("display-none").siblings().addClass("display-none");
+        var editRoleId = $(this).siblings(".role-name").attr('data-id'),
+            editRolePid = $(this).siblings(".role-name").attr('data-pid'),
+            editRoleName = $(this).siblings(".role-name").text();
+        $(".edit-role-name, .edit-role-group-name").val(editRoleName);
+        console.log(editRoleId);
+        if (editRolePid == "0") {
+          $(".edit-role-container").addClass("display-none");
+          $(".edit-role-group-name-container").removeClass("display-none");
+          /* 编辑角色组 */
+          $(".edit-role-group-name-container .c_ding_btn_primary").on("click", function () {
+            $.ajax({
+              async : false,
+              cache:false,
+              type: 'put',
+              dataType : "json",
+              contentType: "application/json",
+              url: contextPath + "role/",
+              data: JSON.stringify({
+                "description": $(".edit-role-group-name").val(),
+                "pid": "0",
+                "id": $(".edit-role-btn").siblings(".role-name").attr('data-id'),
+                "is_del": "0"
+              }),
+              success:function(data){
+                if (data.status == "200") {
+                  $('.tb-right-menu').removeClass('right-menu-open');
+                  refreshNode();
+                  alert(" 成功");
+                }
+              },
+              error: function () {
+                alert('请求失败');
+              }
+            });
+          });
+        } else {
+          $(".edit-role-group-name-container").addClass("display-none");
+          $(".edit-role-container").removeClass("display-none")
+        }
       }
         $('.tb-right-menu').append('<span class="mark-layer" style="display: block !important;"></span>');
+
+
+
       /* validate */
       function validateForm() {
         return $("#validateForm").validate({
