@@ -85,12 +85,10 @@
                             </div>
                         </div>
                         <div class="row back-white margin-top-6 product-detail">
-                            <div class="col-md-12 common-title padding-left-6">
+                            <div class="col-md-12 common-title padding-left-6 ">
                                 简要介绍
                             </div>
-                            <div class="col-md-12 company-content padding-left-6">
-                                中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息中间商简要信息
-                                中间商简要信息中间商
+                            <div class="col-md-12 company-content padding-left-6 intermediaryIntroduction">
                             </div>
                         </div>
                     </div>
@@ -270,9 +268,16 @@
             var detailID  = location.search.substring(1).split("&")[1];
             $.axspost(contextPath + "intermediary/"+detailID+"","get","",function(data){
                 _this.dataList = data;
+                $(".intermediaryIntroduction").html(data.intermediaryIntroduction)
             },function(data){
 
-            })
+            });
+
+            $.axspost(contextPath + "topicComments/"+detailID+"","get","",function(data){
+                // _this.dataList = data;
+            },function(data){
+
+            });
         }
     })
 </script>
