@@ -60,35 +60,37 @@
                  <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title text-center" id="myModalLabel">添加公众号</h4>
+                        <h4 class="modal-title text-center" id="myModalLabel"></h4>
                     </div>
-                     <div class="modal-body">
-                         <div class="form-group">
-                             <label class="" for="txt_name">公众号名称</label>
-                             <input type="text" name="txt_departmentname" class="form-control " id="txt_name"  placeholder="公众号名称">
+                     <form id="formGzh">
+                         <div class="modal-body">
+                             <div class="form-group">
+                                 <label class="" for="txt_name">公众号名称</label>
+                                 <input type="text" name="txt_departmentname" class="form-control " id="txt_name"  placeholder="公众号名称">
+                             </div>
+                             <div class="form-group">
+                                 <label for="txt_firstID">原始ID</label>
+                                 <input type="text" name="txt_parentdepartment" class="form-control" id="txt_firstID" placeholder="原始ID">
+                             </div>
+                             <div class="form-group">
+                                 <label for="txt_departmentlevel">开发者ID</label>
+                                 <input type="text" name="txt_departmentlevel" class="form-control" id="txt_departmentlevel" placeholder="开发者ID">
+                             </div>
+                             <div class="form-group">
+                                 <label for="txt_psd">开发者密码</label>
+                                 <input type="text" name="txt_statu" class="form-control" id="txt_psd" placeholder="开发者密码">
+                             </div>
+                             <div class="form-group">
+                                 <label for="txt_email">登录邮箱</label>
+                                 <input type="text" name="txt_statu" class="form-control" id="txt_email" placeholder="开发者密码">
+                             </div>
                          </div>
-                         <div class="form-group">
-                             <label for="txt_firstID">原始ID</label>
-                            <input type="text" name="txt_parentdepartment" class="form-control" id="txt_firstID" placeholder="原始ID">
-                        </div>
-                        <div class="form-group">
-                             <label for="txt_departmentlevel">开发者ID</label>
-                             <input type="text" name="txt_departmentlevel" class="form-control" id="txt_departmentlevel" placeholder="开发者ID">
+                         <div class="modal-footer">
+                             <button type="button" id="btn_sure" class="btn btn-primary text-center">确定</button>
+                             <button type="button" id="btn_cancel" class="btn btn-primary text-center" data-dismiss="modal">取消</button>
+                             <button type="button" id="btn_reset" class="btn btn-primary text-center">重置</button>
                          </div>
-                         <div class="form-group">
-                             <label for="txt_psd">开发者密码</label>
-                             <input type="text" name="txt_statu" class="form-control" id="txt_psd" placeholder="开发者密码">
-                         </div>
-                         <div class="form-group">
-                             <label for="txt_email">登录邮箱</label>
-                             <input type="text" name="txt_statu" class="form-control" id="txt_email" placeholder="开发者密码">
-                         </div>
-                     </div>
-                     <div class="modal-footer">
-                         <button type="button" id="btn_sure" class="btn btn-primary text-center" data-dismiss="modal">确定</button>
-                         <button type="button" id="btn_cancel" class="btn btn-primary text-center" data-dismiss="modal">取消</button>
-                       <button type="button" id="btn_reset" class="btn btn-primary text-center" data-dismiss="modal">重置</button>
-                     </div>
+                     </form>
                  </div>
              </div>
          </div>
@@ -235,8 +237,9 @@
           <div style="margin-top: 2%;">
               <span style="margin-left: 2%"><a class="new-type-name">图文消息</a><a>（共1条）</a></span>
               <div class="col-md-2 col-sm-2  col-xs-12 float-right">
-                  <button type="button" class="btn btn-block btn-info btn-new-check" id="newAdd" style="min-width:120px;">新建图文消息</button>
+                  <button type="button" class="btn btn-block btn-info btn-new-check" style="min-width:120px;">新建图文消息</button>
               </div>
+              <!--<div id="newAdd">上传图片112</div>-->
           </div>
           <!--素材库图文消息内容-->
           <div>
@@ -308,25 +311,6 @@
 <script th:src="@{/dist/js/gzh/gzh.js}"></script>
 <script th:src="@{/dist/js/gzh/webuploader.js}"></script>
 <script th:inline="javascript">
-</script>
-<script>
-    $(function () {
-            var uploader = WebUploader.create({
-                auto: false,//是否自动上传
-                swf: "wechat/Uploader.swf",
-                pick: '#newAdd',
-                server: '@Url.Action("Upload")',//传到服务器的链接
-                accept: {
-                    title: 'Images',
-                    extensions: 'gif,jpg,jpeg,bmp,png,mp4,flv',
-                    mimeTypes: 'image/*'
-                }
-            });
-            uploader.on('fileQueued',function(file) {
-                console.log(file);
-            });
-        })
-
 </script>
 </body>
 </html>

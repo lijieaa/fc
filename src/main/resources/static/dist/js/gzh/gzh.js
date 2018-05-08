@@ -27,7 +27,7 @@
                 { "data": "appSecret" },
                 { "data": "publicEmail" },
                 { "data": "", "render": function(data, type, row, meta){
-                        var html = "<button type='button' class='Normal margin-right-4 btn btn-primary'>编辑</button>" +
+                        var html = "<button type='button' class='Normal margin-right-4 btn btn-primary table-edit'>编辑</button>" +
                             "<button type='button' class='Normal margin-right-4 btn btn-primary'>删除</button>" +
                             "<button type='button' class='Normal margin-right-4 btn btn-primary table-manage'>管理</button>"
                         return html;
@@ -39,6 +39,26 @@
                 $(".table-manage").click(function () {
                     $("#gzh-manage").show().siblings().hide();
                 });
+                //编辑公众号
+                $(".table-edit").click(function () {
+                    $('#myModal').modal();
+                    $("#myModalLabel").text("编辑公众号");
+                    $("#btn_sure").addClass("edit-gzh").removeClass("add-gzh");
+                    $.ajax({
+                        contentType:'application/json; charset=utf-8',
+                        url: contextPath +"wxPublic/14",
+                        type: "get",
+                        data: "",
+                        dataType: "json",
+                        success: function(d){
+                            $("#txt_name").val(d.publicName);
+                            $("#txt_firstID").val(d.sourceId);
+                            $("#txt_departmentlevel").val(d.appId);
+                            $("#txt_psd").val(d.appSecret);
+                            $("#txt_email").val(d.publicEmail);
+                        }
+                    })
+                })
             }
         } );
         //用户管理列表
@@ -49,7 +69,8 @@
              dataSrc:"data.list",
              "data":{
                  "page":1,
-                 "rows":10
+                 "rows":10,
+                 "wxPublicId":14
              }
          },
          "info":false,
@@ -70,7 +91,7 @@
              { "data": "nickname", "width":'75%'}
 
          ],
-         "pageLength": 3,
+         "pageLength": 4,
          "fnInitComplete": function() {//初始化完毕事件
              $(".chatOne").click(function () {
                  //点击公众号列表
@@ -81,7 +102,52 @@
         // 添加公众号
         $("#add-gzh").click(function () {
             $('#myModal').modal();
+            $("#myModalLabel").text("添加公众号");
+            $("#btn_sure").addClass("add-gzh").removeClass("edit-gzh");
+            $("#txt_name").val("");
+            $("#txt_firstID").val("");
+            $("#txt_departmentlevel").val("");
+            $("#txt_psd").val("");
+            $("#txt_email").val("");
         });
+     $(document).on("click",".add-gzh",function () {
+         var gName=$("#txt_name").val();
+         var gSourceID=$("#txt_firstID").val();//原始id
+         var ID=$("#txt_departmentlevel").val();//开发者id
+         var psd=$("#txt_psd").val();//密码
+         var email=$("#txt_email").val();//邮箱
+         var webdata= {"id":"14","publicName":gName,"sourceId":gSourceID,"appId":ID,"appSecret":psd,"publicEmail":email};
+         var data=JSON.stringify(webdata);
+         $.ajax({
+             contentType:'application/json; charset=utf-8',
+             url: contextPath +"wxPublic",
+             type: "post",
+             data: data,
+             dataType: "json",
+             success: function(d){
+                 alert(d.messages)
+             }
+         })
+     });
+     $(document).on("click",".edit-gzh",function () {
+             var gName=$("#txt_name").val();
+             var gSourceID=$("#txt_firstID").val();//原始id
+             var ID=$("#txt_departmentlevel").val();//开发者id
+             var psd=$("#txt_psd").val();//密码
+             var email=$("#txt_email").val();//邮箱
+             var webdata= {"id":"14","publicName":gName,"sourceId":gSourceID,"appId":ID,"appSecret":psd,"publicEmail":email};
+             var data=JSON.stringify(webdata);
+             $.ajax({
+               contentType:'application/json; charset=utf-8',
+               url: contextPath +"wxPublic",
+               type: "put",
+               data: data,
+               dataType: "json",
+               success: function(d){
+                 alert(d.messages)
+              }
+           })
+     });
         // 返回公众号管理列表
        $("#backUl").click(function () {
            $("#gzh-index").show().siblings().hide();
@@ -170,5 +236,19 @@
              return false;
          }
      })
-
+    // 图片上传
+     var uploader = WebUploader.create({
+         auto: false,//是否自动上传
+         swf: '../js/dist/Uploader.swf',
+         pick: '#newAdd',
+         server: contextPath + 'material/upload',//传到服务器的链接
+         accept: {
+             title: 'Images',
+             extensions: 'gif,jpg,jpeg,bmp,png',
+             mimeTypes: 'image/*'
+         }
+     });
+     uploader.on('fileQueued',function(file) {
+         console.log(file);
+     });
     } );
