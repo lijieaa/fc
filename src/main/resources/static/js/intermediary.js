@@ -340,7 +340,7 @@ $(document).ready(function() {
                 _this.facList = data.data;
                 _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
             },function (data) {});
-           _this.tableInit(false);
+            _this.tableInit(false);
             $(document).on("click","#editInter",function(){
                 _this.editorId = $(this).attr("data-id");
                 // console.log(_this.editorId);
