@@ -238,10 +238,15 @@
      })
     // 图片上传
      var uploader = WebUploader.create({
-         auto: false,//是否自动上传
+         auto: true,//是否自动上传
          swf: '../js/dist/Uploader.swf',
-         pick: '#newAdd',
+         pick: '#filePicker',
          server: contextPath + 'material/upload',//传到服务器的链接
+         formData: {
+             wxPublicId: '14',
+             // media:'u=177485426,2064801038&fm=27&gp=0.jpg',
+             type:'image'
+         },
          accept: {
              title: 'Images',
              extensions: 'gif,jpg,jpeg,bmp,png',
@@ -251,4 +256,11 @@
      uploader.on('fileQueued',function(file) {
          console.log(file);
      });
-    } );
+     uploader.on( 'uploadSuccess', function( file ) {
+         alert('success');
+     });
+     uploader.onError = function( code ) {
+         alert( 'Eroor: ' + code );
+     };
+
+ } );
