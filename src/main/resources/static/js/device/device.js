@@ -72,12 +72,12 @@ $(document).ready(function() {
                     },
                     "destroy":flag,
                     "columns": [
-                        { "data": "deviceProductionNum" },
-                        { "data": "position" },
-                        { "data": "project.projectName" },
-                        { "data": "operateUser.name" },
-                        { "data": "transcribeUser.name" },
-                        { "data": "deivceStatus", "render": function(data, type, row, meta){
+                        { "data": "deviceProductionNum"},
+                        { "data": "position"},
+                        { "data": "project.projectName"},
+                        { "data": "operateUser.name"},
+                        { "data": "transcribeUser.name"},
+                        { "data": "deivceStatus","render": function(data, type, row, meta){
                             var status;
                             if(data == 0){
                                 status = "在线"
@@ -120,6 +120,11 @@ $(document).ready(function() {
             });
 
             _this.tableInit(false); //创建表格
+
+            //
+            $("#intermediaryName").html5Validate(function() {
+
+            })
         }
     });
 
