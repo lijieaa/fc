@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.HashMap;
 
 /**
  * @author zdc
@@ -123,5 +124,29 @@ public class WxApiHandler {
         String result = RequestTools.processPostJson(url, GsonUtils.toJson(mediaMsg));
         if(result.indexOf("errcode") != -1) throw new Exception(result);
         return result;
+    }
+
+    // 新建菜单
+    public String createMenu(String accessToken, String json) throws Exception{
+
+        String url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + accessToken;
+
+        return RequestTools.processPostJson(url, json);
+    }
+
+    // 获取菜单
+    public String getMenu(String accessToken) throws Exception{
+
+        String url = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token=" + accessToken;
+
+        return RequestTools.processHttpRequest(url, "get", new HashMap<>());
+    }
+
+    // 删除菜单
+    public String deleteMenu(String accessToken){
+
+        String url = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=" + accessToken;
+
+        return RequestTools.processHttpRequest(url, "get", new HashMap<>());
     }
 }

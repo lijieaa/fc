@@ -53,6 +53,10 @@ public class PlatFormController {
                 }else if (event.equalsIgnoreCase(WxMessageType.EVENT_UNSUBSCRIBE)){
                     wxMessageService.unSubscribe(wxMessage.getToUserName(), wxMessage.getFromUserName());
                     System.out.println(wxMessage.getFromUserName() + "取消订阅->" + wxMessage.getToUserName());
+                }else if(event.equalsIgnoreCase(WxMessageType.EVENT_VIEW)){
+
+                }else if(event.equalsIgnoreCase(WxMessageType.EVENT_CLICK)){
+
                 }
             }else{
                 // 将微信消息时间转换成标准时间
