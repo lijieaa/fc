@@ -8,7 +8,7 @@
         <id property="id" column="material_id"></id>
         <result property="mediaId" column="material_media_id"></result>
         <result property="name" column="material_name"></result>
-        <result property="type" column="material_type"></result>
+        <result property="wxtype" column="material_type"></result>
         <result property="updateTime" column="material_update_time"></result>
         <result property="url" column="material_url"></result>
         <result property="title" column="material_title"></result>
