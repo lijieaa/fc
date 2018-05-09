@@ -106,104 +106,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="direct-chat-msg">
-                                        <div class="direct-chat-text">
-                                            <div>
-                                                <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image">
-                                                <span class="comment-user">销售员老李</span>
-                                            </div>
-                                            <div class="comment-content">
-                                                接到局方通知，下个月局方营销部要采购一批净化设备器材，采购书已发出，
-                                                真正询价。
-                                            </div>
-                                            <div class="comment-status margin-top-6">
-                                                项目状态: <span>正在处理</span>
-                                            </div>
-                                            <div class="comment-btn-time margin-top-6">
-                                                <div class="comment-time float-left">
-                                                    跟进时间
-                                                    <san>2018.04.07</san>
-                                                </div>
-                                                <div class="comment-btn float-right"  v-on:click="show = !show">
-                                                    <i class="icon-color-9c fa fa-fw  fa-commenting"></i>
-                                                    评论（2）
-                                                </div>
-                                            </div>
-                                            <transition name="fade">
-                                                <div class="comment-list" v-if="show">
-                                                    <div class="input-group margin-top-6">
-                                                        <input type="text" class="form-control">
-                                                        <span class="input-group-btn">
-                      <button type="button" class="btn btn-info btn-flat">评论</button>
-                    </span>
-                                                    </div>
-                                                    <div class="margin-top-15">评论消息</div>
-                                                    <div class="comment-msg margin-top-6">
-                                                        <div class="msg-user font-weight margin-top-6">
-                                                            销售员老李
-                                                        </div>
-                                                        <div class="msg-content margin-top-3">
-                                                            这个跟进需要把内容信息描写的更详细一点，不然完全看不懂。
-                                                        </div>
-                                                        <div class="comment-time margin-top-3">
-                                                            跟进时间
-                                                            <san>2018.04.07</san>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </transition>
-
-                                        </div>
-                                    </div>
-                                    <div class="direct-chat-msg">
-                                        <div class="direct-chat-text">
-                                            <div>
-                                                <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image">
-                                                <span class="comment-user">销售员老李</span>
-                                            </div>
-                                            <div class="comment-content">
-                                                接到局方通知，下个月局方营销部要采购一批净化设备器材，采购书已发出，
-                                                真正询价。
-                                            </div>
-                                            <div class="comment-status margin-top-6">
-                                                项目状态: <span>正在处理</span>
-                                            </div>
-                                            <div class="comment-btn-time margin-top-6">
-                                                <div class="comment-time float-left">
-                                                    跟进时间
-                                                    <san>2018.04.07</san>
-                                                </div>
-                                                <div class="comment-btn float-right"  v-on:click="show = !show">
-                                                    <i class="icon-color-9c fa fa-fw  fa-commenting"></i>
-                                                    评论（2）
-                                                </div>
-                                            </div>
-                                            <transition name="fade">
-                                                <div class="comment-list" v-if="show">
-                                                    <div class="input-group margin-top-6">
-                                                        <input type="text" class="form-control">
-                                                        <span class="input-group-btn">
-                      <button type="button" class="btn btn-info btn-flat">评论</button>
-                    </span>
-                                                    </div>
-                                                    <div class="margin-top-15">评论消息</div>
-                                                    <div class="comment-msg margin-top-6">
-                                                        <div class="msg-user font-weight margin-top-6">
-                                                            销售员老李
-                                                        </div>
-                                                        <div class="msg-content margin-top-3">
-                                                            这个跟进需要把内容信息描写的更详细一点，不然完全看不懂。
-                                                        </div>
-                                                        <div class="comment-time margin-top-3">
-                                                            跟进时间
-                                                            <san>2018.04.07</san>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </transition>
-
-                                        </div>
-                                    </div>
+                                    <comment-list v-for = "item in commentList" v-bind:comment="item"></comment-list>
                                 </div>
                             </div>
                         </div>
@@ -253,22 +156,56 @@
 <script th:inline="javascript">
 </script>
 <script>
-    Vue.component('comment-list', {
-        template:'<div class="direct-chat-msg">' +
-        ' <div class="direct-chat-text">' +
-        '<div><img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image">' +
-        '<span class="comment-user">销售员老李</span></div>' +
-        '</div> ' +
-        '<div class="comment-content"></div>' +
-        '<div class="comment-status margin-top-6">项目状态: <span>正在处理</span></div>' +
-        '<div class="comment-btn-time margin-top-6">' +
-        '<div class="comment-time float-left">' +
-        ' 跟进时间<san>2018.04.07</san></div>' +
-        '<div class="comment-btn float-right"  v-on:click="show = !show">' +
-        '<i class="icon-color-9c fa fa-fw  fa-commenting"></i>评论(2)' +
+    var bus = new Vue();
+    var msgList = Vue.extend({
+        props:["content"],
+        template:'<div class="msg-comment-list">' +
+        '<div class="comment-msg margin-top-6">\n' +
+        '<div class="msg-user font-weight margin-top-6">{{content.user.name}}</div>\n' +
+        '<div class="msg-content margin-top-3">{{content.topicCommentsContent}}</div>' +
+        '<div class="comment-time margin-top-3">跟进时间<span>{{content.createTime}}</span>' +
         '</div>' +
         '</div></div>',
-        props: ['comment']
+        mounted:function(){
+
+        }
+    });
+    Vue.component('comment-list', {
+        props:['comment'],
+        template:'<div class="direct-chat-msg">' +
+        '<div class="direct-chat-text"><div>\n' +
+        '<img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image">\n' +
+        '<span class="comment-user">{{comment.user.name}}</span></div>' +
+        '<div class="comment-content">{{comment.topicContent}}</div>' +
+        '<div class="comment-status margin-top-6">' +
+        '跟进状态: <span>{{comment.topicStatus}}</span></div>' +
+        '<div class="comment-btn-time margin-top-6">' +
+        '<div class="comment-time float-left">' +
+        '跟进时间<span>{{comment.createTime}}</span></div>' +
+        '<div class="comment-btn float-right" @click="commentClick(comment.id,$event)">' +
+        '<i class="icon-color-9c fa fa-fw  fa-commenting"></i>' +
+        '评论({{comment.commentsCount}})</div></div>' +
+        '<transition name="fade">' +
+        '<div class="comment-list">' +
+        '<div class="input-group margin-top-6">' +
+        '<input type="text" class="form-control">' +
+        '<span class="input-group-btn">' +
+        '<button type="button" class="btn btn-info btn-flat">评论</button>' +
+        '</span>' +
+        '</div><div class="margin-top-15">评论消息</div>' +
+        ' <msg1 v-for = "item in comment.commentContent" v-bind:content="item">' +
+        '</msg1></div></transition></div></div>',
+        methods:{
+            commentClick:function (msg,event) {
+                var comment = $(event.currentTarget);
+                bus.$emit('change',msg,comment);
+                console.log(comment);
+                comment.parent().next().toggle();
+            }
+        },
+        components:{
+            "msg1":msgList
+        }
     });
 
     new Vue({
@@ -300,7 +237,62 @@
                 }
             },
             commentList:[
-
+                {
+                    commentsCount: 3,
+                    createTime: "2018-04-14 22:33:42",
+                    id: 1,
+                    user:{
+                        name:"3333"
+                    },
+                    topicContent: "dsafgggdsadsafcxzcz",
+                    topicStatus: 0,
+                    commentContent:[
+                        {
+                            createTime: "2018-04-14 22:33:42",
+                            id: 1,
+                            user:{
+                                name:"3333"
+                            },
+                            topicContent: "dsafgggdsadsafcxzcz"
+                        },
+                        {
+                            createTime: "2018-04-14 22:33:42",
+                            id: 1,
+                            user:{
+                                name:"3333"
+                            },
+                            topicContent: "dsafgggdsadsafcxzcz"
+                        }
+                    ]
+                },
+                {
+                    commentsCount: 3,
+                    createTime: "2018-04-14 22:33:42",
+                    id: 2,
+                    user:{
+                        name:"3333"
+                    },
+                    topicContent: "dsafgggdsadsafcxzcz",
+                    topicStatus: 0,
+                    commentContent:[
+                        {
+                            createTime: "2018-04-14 22:33:42",
+                            id: 1,
+                            user:{
+                                name:"3333"
+                            },
+                            topicContent: "dsafgggdsadsafcxzcz"
+                        },
+                        {
+                            createTime: "2018-04-14 22:33:42",
+                            id: 1,
+                            user:{
+                                name:"3333"
+                            },
+                            topicContent: "dsafgggdsadsafcxzcz"
+                        }
+                    ]
+                }
             ]
         },
         methods:{
@@ -336,14 +328,25 @@
             $.axspost(contextPath + "intermediary/"+detailID+"","get","",function(data){
                 _this.dataList = data;
                 $(".intermediaryIntroduction").html(data.intermediaryIntroduction)
-            },function(data){
-
-            });
+            },function(data){});
 
             $.axspost(contextPath + "topic/intermediaryId/"+detailID+"","get","",function(data){
-                // _this.dataList = data;
-            },function(data){
+                _this.commentList = data.data;
+            },function(data){});
 
+            bus.$on('change', function (id,comment1) {
+                $.axspost(contextPath+"topicComments/topic/"+id+"","get","",function(data){
+                    _this.commentList.forEach(function(item,i){
+                        if( _this.commentList[i].id == id){
+                            _this.commentList[i].commentContent = [];
+                            // console.log(data.data[0]);
+                            _this.commentList[i].commentContent.push(data.data[0]);
+                            console.log( _this.commentList[i]);
+                        }
+                    });
+                },function (data) {
+
+                });
             });
         }
     })

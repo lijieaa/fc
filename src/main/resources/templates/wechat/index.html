@@ -2,6 +2,7 @@
 <html>
 <link rel="stylesheet" th:href="@{/dist/css/gzh-l/gzh.css}"/>
 <link rel="stylesheet" th:href="@{/dist/css/gzh-l/webuploader.css}"/>
+<link rel="stylesheet" th:href="@{/dist/css/gzh-l/imggrid.css}"/>
 <div th:replace="import::hdr"></div>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="import::bdy-befor">
@@ -98,9 +99,10 @@
     <!--公众号管理页面-->
    <div id="gzh-manage">
      <section class="content-header gzh-manage-menu">
-       <a class="font-size-18 text-blue">用户管理</a>
+       <a class="font-size-18">用户管理</a>
        <a class="font-size-18 text-black">菜单管理</a>
        <a class="font-size-18 text-black">消息管理</a>
+       <a class="font-size-18 text-black">素材管理</a>
        <button class="btn btn-info search text-center pull-right" id="backUl">返回</button>
      </section>
      <div style="margin-left: 2.5%;margin-top:3%;width: 95%;height: auto;">
@@ -236,10 +238,11 @@
           </div>
           <div style="margin-top: 2%;">
               <span style="margin-left: 2%"><a class="new-type-name">图文消息</a><a>（共1条）</a></span>
-              <div class="col-md-2 col-sm-2  col-xs-12 float-right">
-                  <button type="button" class="btn btn-block btn-info btn-new-check" style="min-width:120px;">新建图文消息</button>
-              </div>
-              <!--<div id="newAdd">上传图片112</div>-->
+              <!--<div class="col-md-2 col-sm-2  col-xs-12 float-right">-->
+              <!--<button type="button" class="btn btn-block btn-info btn-new-check" style="width:120px;height: 30px;border: 1px red solid;" id="filePicker">新建图文消息</button>-->
+              <!--</div>-->
+              <div id="filePicker" style="width: 100px;height: 30px;float: right;">选择图片</div>
+
           </div>
           <!--素材库图文消息内容-->
           <div>
@@ -262,7 +265,8 @@
               </div>
               <!--图片-->
               <div id="photo-show" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;">
-                  <img src="../dist/img/avatar.png" class="" alt="123"  width="200" height="200" style="border: 1px #3b3b3b solid;">
+                  <div id="imggrid">
+                  </div>
               </div>
               <!--语音-->
               <div id="source" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;">
@@ -310,7 +314,51 @@
 <div th:replace="import::scipt"></div>
 <script th:src="@{/dist/js/gzh/gzh.js}"></script>
 <script th:src="@{/dist/js/gzh/webuploader.js}"></script>
+<script th:src="@{/dist/js/gzh/imggrid.js}"></script>
 <script th:inline="javascript">
+</script>
+<script>
+    var data = {
+        "page": 1,//当前页码
+        "records": 19,//总条数
+        "rows": [{ "Id": 60, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 61, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 62, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 63, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 64, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 65, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 66, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 67, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 68, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 69, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 70, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 71, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 72, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 73, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 74, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 75, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 76, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 77, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+            { "Id": 78, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" }
+        ]
+    };
+    $('#imggrid').imgGrid({
+        title: '图片集',
+        type: 'GET',//GET|POST
+        data:data,//本地数据
+        //url: 'Data/data.json',//ajax URL
+        params: { type: 0 },//url参数
+        height: '400px',
+        width: '850px',
+        img: { width: '200px', animate: 'zoomIn' },//图片宽度，及动画效果
+        onClick: function (obj, index, item) {//点击图片事件
+            alert(index);
+        },
+        render: function (item, index) {//自定义显示图片
+            var str = '<img src="' + item.ImgUrl + '">';
+            return str;
+        }
+    });
 </script>
 </body>
 </html>
