@@ -24,7 +24,6 @@ public class TopicComments extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
-    @NotNull(message = "评论人不能为空")
     private DingtalkUser user;
 
     /**

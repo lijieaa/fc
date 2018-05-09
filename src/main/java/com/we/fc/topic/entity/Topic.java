@@ -17,7 +17,6 @@ public class Topic extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
-    @NotNull(message = "跟进人不能为空")
     private DingtalkUser user;
 
     /**
