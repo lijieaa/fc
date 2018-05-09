@@ -13,7 +13,7 @@ public class WxMaterial extends BaseEntity {
 
     private String name;
 
-    private String type;
+    private String wxtype;
 
     private String url;
 
@@ -151,11 +151,11 @@ public class WxMaterial extends BaseEntity {
         this.onlyFansCanComment = onlyFansCanComment;
     }
 
-    public String getType() {
-        return type;
+    public String getWxtype() {
+        return wxtype;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setWxtype(String wxtype) {
+        this.wxtype = wxtype;
     }
 }
