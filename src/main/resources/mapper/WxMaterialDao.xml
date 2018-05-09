@@ -44,7 +44,7 @@
           #{mediaId},
           #{name},
           #{url},
-          #{type},
+          #{wxtype},
           #{title},
           #{author},
           #{digest},

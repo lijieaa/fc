@@ -39,7 +39,7 @@ public class WxMaterialServiceImpl extends BaseServiceImpl<WxMaterial> implement
     @Override
     public void insert(WxMaterial wxMaterial, String accessToken, MultipartFile multipartFile) throws Exception {
 
-        String result = wxApiHandler.addMaterial(accessToken, wxMaterial.getType(), multipartFile,wxMaterial.getDescription());
+        String result = wxApiHandler.addMaterial(accessToken, wxMaterial.getWxtype(), multipartFile,wxMaterial.getDescription());
         if(result.indexOf("errcode") != -1) throw new Exception("添加异常，" + result);
         UploadResponse uploadResponse = GsonUtils.toBean(result, UploadResponse.class);
         wxMaterial.setName(multipartFile.getOriginalFilename());
@@ -58,7 +58,7 @@ public class WxMaterialServiceImpl extends BaseServiceImpl<WxMaterial> implement
         if(result.indexOf("errcode") != -1) throw new Exception(result);
         WxMaterial wxMaterial = new WxMaterial();
         wxMaterial.setUpdateTime(new Date());
-        wxMaterial.setType("news");
+        wxMaterial.setWxtype("news");
         String mediaId = GsonUtils.toBean(result, MediaMsg.class).getMedia_id();
         wxMaterial.setMediaId(mediaId);
         wxMaterial.setTitle(wxNewsContent.getTitle());
