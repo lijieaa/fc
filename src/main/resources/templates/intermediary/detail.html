@@ -148,6 +148,19 @@
             </div>
         </div>
     </div>
+    <div class="modal fade modalAll" id="errMsg">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body padding-top-15 text-align" style="padding-top: 15px">
+                    验证失败？
+                </div>
+                <div class="modal-footer text-align">
+                    <button type="button" class="btn btn-info search margin-right-4" @click="closeDelPop">确定</button>
+                    <button type="button" class="btn reset-btn search" @click = "closeDelPop">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div th:replace="import::scipt"></div>
 <script th:inline="javascript">
@@ -198,6 +211,7 @@
                 bus.$emit('change',msg,comment);
                 comment.parent().next().toggle();
             },
+
             commentAdd:function(msg,event){
                 var comment = $(event.currentTarget);
                 var userId = comment.parent().parent().next().next().attr("dataId");
@@ -209,6 +223,8 @@
                 $.axspost(contextPath + "topicComments","post",JSON.stringify(postData),function(data){
                     if( data.status == 200){
                         window.location.reload();
+                    }else{
+                        $("#errMsg").addClass("in").css("display","block")
                     }
                 },function(data){});
             }
@@ -306,6 +322,9 @@
             ]
         },
         methods:{
+            closeDelPop:function(){
+                $(".modalAll").removeClass("in").css("display","none");
+            },
             addGJ:function(){
                 $("#modal-default").addClass("in").css("display","block")
             },
@@ -342,6 +361,8 @@
                 $.axspost(contextPath + "topic","post",JSON.stringify(postData),function(data){
                     if( data.status == 200){
                         window.location.reload();
+                    }else{
+                        $(".modalAll").addClass("in").css("display","block");
                     }
                 },function(data){});
             }
