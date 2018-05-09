@@ -29,14 +29,17 @@ public class ProjectController extends BaseController<Project> {
     public BaseService<Project> getService() {
         return projectService;
     }
+
     @GetMapping("index")
-    public String index(Integer menuId, Model model){
+    public String index(Integer menuId, Model model) {
         model.addAttribute("loopMenu", getMenuById(menuId));
         return "project/index";
     }
 
-
-    
+    @GetMapping("byIdStatus")
+    public Project selectByIdStatus(Integer id, Byte statusId) {
+        return dao.selectByIdStatus(id, statusId);
+    }
 
 
 }
