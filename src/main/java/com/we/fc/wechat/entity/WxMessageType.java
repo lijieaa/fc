@@ -27,4 +27,9 @@ public class WxMessageType {
 
     public static final String EVENT_UNSUBSCRIBE = "unsubscribe";
 
+    public static final String EVENT_VIEW = "view";
+
+    public static final String EVENT_CLICK = "click";
+
+
 }

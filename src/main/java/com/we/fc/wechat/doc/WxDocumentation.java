@@ -624,5 +624,84 @@ package com.we.fc.wechat.doc;
  *   "update_time": 1525536115
  * }
  */
+
+/**
+ * @api {post} /menu 创建菜单
+ * @apiName createMenu
+ * @apiGroup wxMessage
+ * @apiParam wxPublicId 公众号ID
+ * @apiParam json 菜单内容
+ * @apiExample Request - Example:
+ * localhost:8080/menu
+ * @apiParamExample: Param - Example:
+ * {
+ * 	"button": [{
+ * 		"type": "click",
+ * 		"name": "今日歌曲",
+ * 		"key": "V1001_TODAY_MUSIC"
+ * 	}, {
+ * 		"name": "菜单",
+ * 		"sub_button": [{
+ * 			"type": "view",
+ * 			"name": "搜索",
+ * 			"url": "http://www.soso.com/"
+ * 		}, {
+ * 			"type": "click",
+ * 			"name": "赞一下我们",
+ * 			"key": "V1001_GOOD"
+ * 		}]
+ * 	}]
+ * }
+ */
+
+/**
+ * @api {get} /menu 获取菜单
+ * @apiName getMenu
+ * @apiGroup wxMessage
+ * @apiParam wxPublicId 公众号ID
+ * @apiExample Request - Example:
+ * localhost:8080/menu?wxPublicId=14
+ *  @apiSuccessExample {String} Response - Example:
+ *{
+ *  "menu": {
+ *    "button": [
+ *      {
+ *        "type": "click",
+ *        "name": "今日歌曲",
+ *        "key": "V1001_TODAY_MUSIC",
+ *        "sub_button": []
+ *      },
+ *      {
+ *        "name": "菜单",
+ *        "sub_button": [
+ *          {
+ *            "type": "view",
+ *            "name": "搜索",
+ *            "url": "http://www.soso.com/",
+ *            "sub_button": []
+ *          },
+ *          {
+ *            "type": "click",
+ *            "name": "赞一下我们",
+ *            "key": "V1001_GOOD",
+ *            "sub_button": []
+ *          }
+ *        ]
+ *      }
+ *    ]
+ *  }
+ *}
+ */
+
+/**
+ * @api {delete} /menu 删除菜单
+ * @apiDescription 将删除所有自定义菜单
+ * @apiName deleteMenu
+ * @apiGroup wxMessage
+ * @apiParam wxPublicId 公众号ID
+ * @apiExample Request - Example:
+ * localhost:8080/menu?wxPublicId=14
+ */
+
 public class WxDocumentation {
 }
