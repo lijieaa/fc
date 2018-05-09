@@ -88,6 +88,9 @@
     top: 17px;
     left: 11px;
 }
+.direct-chat-msg{
+    position: relative;
+}
 .direct-chat-msg:before{
     position: absolute;
     right: auto;
@@ -96,7 +99,7 @@
     background:url('../images/user-comment.png') no-repeat ;
     /*bottom: auto;*/
     content: "";
-    left: 3px;
+    left: -12px;
     top: 6px;
     width: 27px;
     height: 27px;
