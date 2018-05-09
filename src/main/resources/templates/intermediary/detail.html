@@ -30,7 +30,7 @@
         <section class="content-list">
             <div class="page-content">
                 <div class="row">
-                    <div class="col-md-8 col-sm-6 col-xs-12  page-content">
+                    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12  page-content">
                         <div class="logo-detail paading-top-0  padding-10">
                             <div class="row">
                                 <div class="col-md-6 padding-15 back-white col-sm-8 col-xs-6 ">
@@ -92,7 +92,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-6 back-white col-xs-12 company-right-content">
+                    <div class="col-lg-4 col-md-4 col-sm-6 back-white col-xs-12 company-right-content">
                         <div class="border-left-black">
                             <div class="row head">
                                 <div class="col-md-7 circle-msg  height-35 col-xs-7 padding-left-15">
@@ -128,9 +128,9 @@
                                 <form>
                                     <div class="pop-box text-align-left">
                                         <label for="">项目状态: </label>
-                                        <select name="" class="form-style-pop form-control">
-                                            <option value="1">已处理</option>
-                                            <option value="2">正在处理</option>
+                                        <select name="" id="dealWith" class="form-style-pop form-control">
+                                            <option value="0">已处理</option>
+                                            <option value="1">正在处理</option>
                                         </select>
                                     </div>
                                     <textarea name="editor1"  id="editor1" rows="10" cols="80"></textarea>
@@ -140,12 +140,9 @@
                         </div>
                     </div>
                     <div class="modal-footer text-align">
-                        <!--<input type="submit" value="确定">-->
-                        <!--<button>取消</button>-->
-                        <button type="submit" class="btn btn-info search">确定</button>
+                        <button type="submit" class="btn btn-info search" @click="sureAdd">确定</button>
                         <button type="button" @click="closePop" class="btn btn-info search">取消</button>
                         <button type="button" class="btn btn-info search">重置</button>
-                        <!--<input type="reset" value="重置">-->
                     </div>
                 </div>
             </div>
@@ -159,7 +156,7 @@
     var bus = new Vue();
     var msgList = Vue.extend({
         props:["content"],
-        template:'<div class="msg-comment-list">' +
+        template:'<div class="msg-comment-list" v-bind:dataId="content.user.id">' +
         '<div class="comment-msg margin-top-6">\n' +
         '<div class="msg-user font-weight margin-top-6">{{content.user.name}}</div>\n' +
         '<div class="msg-content margin-top-3">{{content.topicCommentsContent}}</div>' +
@@ -190,7 +187,7 @@
         '<div class="input-group margin-top-6">' +
         '<input type="text" class="form-control">' +
         '<span class="input-group-btn">' +
-        '<button type="button" class="btn btn-info btn-flat">评论</button>' +
+        '<button type="button" class="btn btn-info btn-flat" @click="commentAdd(comment.id,$event)">评论</button>' +
         '</span>' +
         '</div><div class="margin-top-15">评论消息</div>' +
         ' <msg1 v-for = "item in comment.commentContent" v-bind:content="item">' +
@@ -199,8 +196,21 @@
             commentClick:function (msg,event) {
                 var comment = $(event.currentTarget);
                 bus.$emit('change',msg,comment);
-                console.log(comment);
                 comment.parent().next().toggle();
+            },
+            commentAdd:function(msg,event){
+                var comment = $(event.currentTarget);
+                var userId = comment.parent().parent().next().next().attr("dataId");
+                console.log(userId);
+                var postData = {
+                    topicId:msg,
+                    topicCommentsContent:comment.parent().prev().val()
+                };
+                $.axspost(contextPath + "topicComments","post",JSON.stringify(postData),function(data){
+                    if( data.status == 200){
+                        window.location.reload();
+                    }
+                },function(data){});
             }
         },
         components:{
@@ -208,7 +218,7 @@
         }
     });
 
-    new Vue({
+   var Vm =  new Vue({
         el:"#company",
         data:{
             show: false,
@@ -319,6 +329,21 @@
                     removePlugins:"elementspath"
 //            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
                 });
+            },
+            sureAdd:function () {
+                var intermediaryId  = location.search.substring(1).split("&")[1];
+                var postData = {
+                    intermediary:{
+                        id:intermediaryId
+                    },
+                    topicContent:CKEDITOR.instances.editor1.getData(),
+                    topicStatus: $("#dealWith").val()
+                };
+                $.axspost(contextPath + "topic","post",JSON.stringify(postData),function(data){
+                    if( data.status == 200){
+                        window.location.reload();
+                    }
+                },function(data){});
             }
         },
         mounted:function () {
@@ -338,16 +363,19 @@
                 $.axspost(contextPath+"topicComments/topic/"+id+"","get","",function(data){
                     _this.commentList.forEach(function(item,i){
                         if( _this.commentList[i].id == id){
-                            _this.commentList[i].commentContent = [];
-                            // console.log(data.data[0]);
-                            _this.commentList[i].commentContent.push(data.data[0]);
-                            console.log( _this.commentList[i]);
+                            // _this.commentList[i].commentContent = "";
+                          Vue.set(Vm.commentList[i],'commentContent',data.data);
+                            // _this.commentList[i].commentContent.push(data.data[0]);
+                            // console.log( _this.commentList[i]);
                         }
                     });
                 },function (data) {
 
                 });
             });
+
+        //    新增跟进
+
         }
     })
 </script>
