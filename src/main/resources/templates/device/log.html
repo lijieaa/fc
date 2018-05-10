@@ -70,7 +70,9 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#deviceForm').DataTable( {
-            "ajax": "../dist/data/device.json",
+            "ajax":{
+                url:contextPath +""
+            },
             "info":false,
             "searching": false,
             "lengthChange": false,

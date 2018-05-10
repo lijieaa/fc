@@ -21,7 +21,7 @@
                 <div class="col-md-3 col-sm-3 text-align-right">
                     <!--<button type="button" class="btn btn-block btn-info">添加设备</button>-->
                     <button type="button" class="btn btn-info padding-right-15"
-                            data-toggle="modal" data-target="#modal-info">
+                            data-toggle="modal" data-target="#modal-info" @click="backMediary">
                         返回
                     </button>
                 </div>
@@ -186,7 +186,7 @@
         '<div class="direct-chat-text"><div>\n' +
         '<img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image">\n' +
         '<span class="comment-user">{{comment.user.name}}</span></div>' +
-        '<div class="comment-content">{{comment.topicContent}}</div>' +
+        '<div class="comment-content"  escape="false">{{comment.topicContent}}</div>' +
         '<div class="comment-status margin-top-6">' +
         '跟进状态: <span>{{comment.topicStatus}}</span></div>' +
         '<div class="comment-btn-time margin-top-6">' +
@@ -231,6 +231,12 @@
         },
         components:{
             "msg1":msgList
+        },
+        mounted:function(){
+            var _this = this;
+            // console.log(_this.comment.topicContent);
+           // console.log( $(".comment-content"));
+            // $(".comment-content").html(_this.comment.topicContent)
         }
     });
 
@@ -263,62 +269,7 @@
                 }
             },
             commentList:[
-                {
-                    commentsCount: 3,
-                    createTime: "2018-04-14 22:33:42",
-                    id: 1,
-                    user:{
-                        name:"3333"
-                    },
-                    topicContent: "dsafgggdsadsafcxzcz",
-                    topicStatus: 0,
-                    commentContent:[
-                        {
-                            createTime: "2018-04-14 22:33:42",
-                            id: 1,
-                            user:{
-                                name:"3333"
-                            },
-                            topicContent: "dsafgggdsadsafcxzcz"
-                        },
-                        {
-                            createTime: "2018-04-14 22:33:42",
-                            id: 1,
-                            user:{
-                                name:"3333"
-                            },
-                            topicContent: "dsafgggdsadsafcxzcz"
-                        }
-                    ]
-                },
-                {
-                    commentsCount: 3,
-                    createTime: "2018-04-14 22:33:42",
-                    id: 2,
-                    user:{
-                        name:"3333"
-                    },
-                    topicContent: "dsafgggdsadsafcxzcz",
-                    topicStatus: 0,
-                    commentContent:[
-                        {
-                            createTime: "2018-04-14 22:33:42",
-                            id: 1,
-                            user:{
-                                name:"3333"
-                            },
-                            topicContent: "dsafgggdsadsafcxzcz"
-                        },
-                        {
-                            createTime: "2018-04-14 22:33:42",
-                            id: 1,
-                            user:{
-                                name:"3333"
-                            },
-                            topicContent: "dsafgggdsadsafcxzcz"
-                        }
-                    ]
-                }
+
             ]
         },
         methods:{
@@ -349,7 +300,10 @@
 //            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
                 });
             },
-            sureAdd:function () {
+            backMediary:function(){
+                location.reload();
+            },
+            sureAdd:function () {  //    新增跟进
                 var intermediaryId  = location.search.substring(1).split("&")[1];
                 var postData = {
                     intermediary:{
@@ -373,11 +327,13 @@
             var detailID  = location.search.substring(1).split("&")[1];
             $.axspost(contextPath + "intermediary/"+detailID+"","get","",function(data){
                 _this.dataList = data;
+
                 $(".intermediaryIntroduction").html(data.intermediaryIntroduction)
             },function(data){});
 
             $.axspost(contextPath + "topic/intermediaryId/"+detailID+"","get","",function(data){
                 _this.commentList = data.data;
+                // $(".comment-content").html(data.topicContent);
             },function(data){});
 
             bus.$on('change', function (id,comment1) {
@@ -395,7 +351,6 @@
                 });
             });
 
-        //    新增跟进
 
         }
     })
