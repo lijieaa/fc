@@ -104,9 +104,10 @@ package com.we.fc.device.doc;
  *   "projectStatus": null
  * },
  * "deviceProductionNum": "00012",                     生产编号
- * "deivceStatus": 1,                                  设备状态：0在线，1不在线
+ * "deviceStatus": 1,                                  设备状态：0在线，1不在线
  * "deviceLocationX": "31",                            设备X坐标
- * "deviceLocationY": "33"                              设备Y坐标
+ * "deviceLocationY": "33",                             设备Y坐标
+ * "device_type":"FGGD-1"                               设备型号
  *}
  */
 

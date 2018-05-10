@@ -3243,7 +3243,7 @@
       "examples": [
         {
           "title": "Param-Example:",
-          "content": "{\n\"id\": 2,                                           设备id\n\"intermediary\": {                                  中间商对象\n  \"id\": 1,                                         中间商id\n  \"intermediary\": null,\n  \"createTime\": null,\n  \"updateTime\": null,\n  \"wxPublicId\": null,\n  \"isPlat\": 0,\n  \"intermediaryName\": null,                        中间商名称\n  \"intermediaryContact\": null,\n  \"intermediaryContactTel\": null,\n  \"area\": null,\n  \"user\": null,\n  \"intermediaryLogoUrl\": null,\n  \"intermediaryIntroduction\": null\n},\n\"createTime\": \"2018-04-24 21:52:11\",\n\"updateTime\": \"2018-04-24 22:10:45\",\n  \"wxPublicId\": null,\n\"operateUser\": {                                    操作员对象\n  \"id\": 1,                                           操作员id\n  \"intermediary\": null,\n  \"createTime\": null,\n  \"updateTime\": null,\n  \"wxPublicId\": null,\n  \"name\": \"欧群飞\",                                  操作员名称\n  \"position\": null,\n  \"mobile\": null,\n  \"tel\": null,\n  \"pwd\": null,\n  \"workplace\": null,\n  \"remark\": null,\n  \"email\": null,\n  \"orgemail\": null,\n  \"jobnumber\": null,\n  \"ishide\": null,\n  \"issenior\": null,ToUserName\":\"o2IG5wpS7Ju6FPg6LW1OIuxKUgI0\",\n    \"intermediaryId\": null,\n  \"extattr\": null,\n  \"menus\": null,\n  \"enabled\": true,\n  \"accountNonExpired\": true,\n  \"accountNonLocked\": true,\n  \"credentialsNonExpired\": true,\n  \"password\": null,\n  \"username\": null\n},\n\"transcribeUser\": {                             抄表员对象\n  \"id\": 1,                                       抄表员id\n  \"intermediary\": null,\n  \"createTime\": null,\n  \"updateTime\": null,\n  \"wxPublicId\": null,\n  \"name\": \"欧群飞\",                              抄表员名称\n  \"position\": null,\n  \"mobile\": null,MsgType\":\"text\",\n    \"tel\": null,\n  \"pwd\": null,\n  \"workplace\": null,\n  \"remark\": null,\n  \"email\": null,\n  \"orgemail\": null,\n  \"jobnumber\": null,\n  \"ishide\": null,\n  \"issenior\": null,\n  \"intermediaryId\": null,\n  \"extattr\": null,\n  \"menus\": null,\n  \"enabled\": true,\n  \"accountNonExpired\": true,\n  \"accountNonLocked\": true,\n  \"credentialsNonExpired\": true,\n  \"password\": null,\n  \"username\": null\n},Content\":\"hello world\"\n  \"project\": {                               项目对象\n  \"id\": 2,                                    项目id\n  \"intermediary\": null,\n  \"createTime\": null,\n  \"updateTime\": null,\n  \"wxPublicId\": null,\n  \"projectName\": null,                        项目名称\n  \"areaId\": null,\n  \"projectContactUserId\": null,\n  \"projectCreateUserId\": null,\n  \"projectOwnerContact\": null,\n  \"projectOwnerContactTel\": null,\n  \"projectStatus\": null\n},\n\"deviceProductionNum\": \"00012\",                     生产编号\n\"deivceStatus\": 1,                                  设备状态：0在线，1不在线\n\"deviceLocationX\": \"31\",                            设备X坐标\n\"deviceLocationY\": \"33\"                              设备Y坐标\n}",
+          "content": "{\n\"id\": 2,                                           设备id\n\"intermediary\": {                                  中间商对象\n  \"id\": 1,                                         中间商id\n  \"intermediary\": null,\n  \"createTime\": null,\n  \"updateTime\": null,\n  \"wxPublicId\": null,\n  \"isPlat\": 0,\n  \"intermediaryName\": null,                        中间商名称\n  \"intermediaryContact\": null,\n  \"intermediaryContactTel\": null,\n  \"area\": null,\n  \"user\": null,\n  \"intermediaryLogoUrl\": null,\n  \"intermediaryIntroduction\": null\n},\n\"createTime\": \"2018-04-24 21:52:11\",\n\"updateTime\": \"2018-04-24 22:10:45\",\n  \"wxPublicId\": null,\n\"operateUser\": {                                    操作员对象\n  \"id\": 1,                                           操作员id\n  \"intermediary\": null,\n  \"createTime\": null,\n  \"updateTime\": null,\n  \"wxPublicId\": null,\n  \"name\": \"欧群飞\",                                  操作员名称\n  \"position\": null,\n  \"mobile\": null,\n  \"tel\": null,\n  \"pwd\": null,\n  \"workplace\": null,\n  \"remark\": null,\n  \"email\": null,\n  \"orgemail\": null,\n  \"jobnumber\": null,\n  \"ishide\": null,\n  \"issenior\": null,ToUserName\":\"o2IG5wpS7Ju6FPg6LW1OIuxKUgI0\",\n    \"intermediaryId\": null,\n  \"extattr\": null,\n  \"menus\": null,\n  \"enabled\": true,\n  \"accountNonExpired\": true,\n  \"accountNonLocked\": true,\n  \"credentialsNonExpired\": true,\n  \"password\": null,\n  \"username\": null\n},\n\"transcribeUser\": {                             抄表员对象\n  \"id\": 1,                                       抄表员id\n  \"intermediary\": null,\n  \"createTime\": null,\n  \"updateTime\": null,\n  \"wxPublicId\": null,\n  \"name\": \"欧群飞\",                              抄表员名称\n  \"position\": null,\n  \"mobile\": null,MsgType\":\"text\",\n    \"tel\": null,\n  \"pwd\": null,\n  \"workplace\": null,\n  \"remark\": null,\n  \"email\": null,\n  \"orgemail\": null,\n  \"jobnumber\": null,\n  \"ishide\": null,\n  \"issenior\": null,\n  \"intermediaryId\": null,\n  \"extattr\": null,\n  \"menus\": null,\n  \"enabled\": true,\n  \"accountNonExpired\": true,\n  \"accountNonLocked\": true,\n  \"credentialsNonExpired\": true,\n  \"password\": null,\n  \"username\": null\n},Content\":\"hello world\"\n  \"project\": {                               项目对象\n  \"id\": 2,                                    项目id\n  \"intermediary\": null,\n  \"createTime\": null,\n  \"updateTime\": null,\n  \"wxPublicId\": null,\n  \"projectName\": null,                        项目名称\n  \"areaId\": null,\n  \"projectContactUserId\": null,\n  \"projectCreateUserId\": null,\n  \"projectOwnerContact\": null,\n  \"projectOwnerContactTel\": null,\n  \"projectStatus\": null\n},\n\"deviceProductionNum\": \"00012\",                     生产编号\n\"deviceStatus\": 1,                                  设备状态：0在线，1不在线\n\"deviceLocationX\": \"31\",                            设备X坐标\n\"deviceLocationY\": \"33\",                             设备Y坐标\n\"device_type\":\"FGGD-1\"                               设备型号\n}",
           "type": "json"
         }
       ]
@@ -3601,6 +3601,78 @@
     "groupTitle": "微信公众号"
   },
   {
+    "type": "post",
+    "url": "/menu",
+    "title": "创建菜单",
+    "name": "createMenu",
+    "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "json",
+            "description": "<p>菜单内容</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": ": Param - Example:",
+          "content": "{\n\t\"button\": [{\n\t\t\"type\": \"click\",\n\t\t\"name\": \"今日歌曲\",\n\t\t\"key\": \"V1001_TODAY_MUSIC\"\n\t}, {\n\t\t\"name\": \"菜单\",\n\t\t\"sub_button\": [{\n\t\t\t\"type\": \"view\",\n\t\t\t\"name\": \"搜索\",\n\t\t\t\"url\": \"http://www.soso.com/\"\n\t\t}, {\n\t\t\t\"type\": \"click\",\n\t\t\t\"name\": \"赞一下我们\",\n\t\t\t\"key\": \"V1001_GOOD\"\n\t\t}]\n\t}]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "title": "Request - Example:",
+        "content": "localhost:8080/menu",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "delete",
+    "url": "/menu",
+    "title": "删除菜单",
+    "description": "<p>将删除所有自定义菜单</p>",
+    "name": "deleteMenu",
+    "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Request - Example:",
+        "content": "localhost:8080/menu?wxPublicId=14",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
     "type": "delete",
     "url": "/wxPublic",
     "title": "删除公众号",
@@ -3696,6 +3768,44 @@
           "title": ": Param - Example:",
           "content": "{\n  \"status\": \"200\",\n  \"messages\": \"操作成功！\",\n  \"list\": null,\n  \"data\": {\n    \"pageNum\": 1,\n    \"pageSize\": 10,\n    \"size\": 2,\n    \"startRow\": 1,\n    \"endRow\": 2,\n    \"total\": 2,\n    \"pages\": 1,\n    \"list\": [\n      {\n        \"id\": 6,\n        \"intermediary\": null,\n        \"createTime\": null,\n        \"updateTime\": \"2018-05-04 22:30:58\",\n        \"wxPublicId\": null,\n        \"mediaId\": \"f1QOuU_OT4Hrt8abnY9n2CqDJDpsZl92N9G3YqH-ReA\",\n        \"name\": \"sd1524405694_2呵呵.MP4\",\n        \"type\": \"video\",\n        \"url\": null,\n        \"title\": null,\n        \"author\": null,\n        \"digest\": null,\n        \"content\": null,\n        \"contentSourceUrl\": null,\n        \"thumbMediaId\": null,\n        \"showCoverPic\": null,\n        \"thumbUrl\": null,\n       \"needOpenComment\": null,\n        \"onlyFansCanComment\": null,\n        \"description\": null\n      },\n      {\n        \"id\": 7,\n        \"intermediary\": null,\n        \"createTime\": null,\n        \"updateTime\": \"2018-05-05 23:45:56\",\n        \"wxPublicId\": null,\n        \"mediaId\": \"f1QOuU_OT4Hrt8abnY9n2ERDzW2rCwiZzT7AWJzgtGc\",\n        \"name\": \"sd1524405694_2呵呵.MP4\",\n        \"type\": \"video\",\n        \"url\": null,\n        \"title\": null,\n        \"author\": null,\n        \"digest\": null,\n        \"content\": null,\n        \"contentSourceUrl\": null,\n        \"thumbMediaId\": null,\n        \"showCoverPic\": null,\n        \"thumbUrl\": null,\n        \"needOpenComment\": null,\n        \"onlyFansCanComment\": null,\n        \"description\": null\n      }\n    ],\n    \"prePage\": 0,\n    \"nextPage\": 0,\n    \"isFirstPage\": true,\n    \"isLastPage\": true,\n   \"hasPreviousPage\": false,\n    \"hasNextPage\": false,\n    \"navigatePages\": 8,\n    \"navigatepageNums\": [\n      1\n    ],\n    \"navigateFirstPage\": 1,\n    \"navigateLastPage\": 1,\n    \"firstPage\": 1,\n    \"lastPage\": 1\n  }\n}",
           "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "get",
+    "url": "/menu",
+    "title": "获取菜单",
+    "name": "getMenu",
+    "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Request - Example:",
+        "content": "localhost:8080/menu?wxPublicId=14",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Response - Example:",
+          "content": "{\n \"menu\": {\n   \"button\": [\n     {\n       \"type\": \"click\",\n       \"name\": \"今日歌曲\",\n       \"key\": \"V1001_TODAY_MUSIC\",\n       \"sub_button\": []\n     },\n     {\n       \"name\": \"菜单\",\n       \"sub_button\": [\n         {\n           \"type\": \"view\",\n           \"name\": \"搜索\",\n           \"url\": \"http://www.soso.com/\",\n           \"sub_button\": []\n         },\n         {\n           \"type\": \"click\",\n           \"name\": \"赞一下我们\",\n           \"key\": \"V1001_GOOD\",\n           \"sub_button\": []\n         }\n       ]\n     }\n   ]\n }\n}",
+          "type": "String"
         }
       ]
     },
