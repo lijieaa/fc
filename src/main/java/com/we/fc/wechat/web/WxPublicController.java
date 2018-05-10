@@ -43,26 +43,30 @@ public class WxPublicController extends BaseController<WxPublic>{
     }
 
     @GetMapping("menu")
-    public String menu(Integer menuId, Model model){
+    public String menu(Integer menuId, Integer wxPublicId,Model model){
         model.addAttribute("loopMenu", getMenuById(menuId));
+        model.addAttribute("wxPublicId", wxPublicId);
         return "wechat/menu";
     }
 
     @GetMapping("user")
-    public String user(Integer menuId, Model model){
+    public String user(Integer menuId, Integer wxPublicId, Model model){
         model.addAttribute("loopMenu", getMenuById(menuId));
+        model.addAttribute("wxPublicId", wxPublicId);
         return "wechat/user";
     }
 
     @GetMapping("msg")
-    public String msg(Integer menuId, Model model){
+    public String msg(Integer menuId, Integer wxPublicId, Model model){
         model.addAttribute("loopMenu", getMenuById(menuId));
+        model.addAttribute("wxPublicId", wxPublicId);
         return "wechat/msg";
     }
 
     @GetMapping("material")
-    public String material(Integer menuId, Model model){
+    public String material(Integer menuId, Integer wxPublicId, Model model){
         model.addAttribute("loopMenu", getMenuById(menuId));
+        model.addAttribute("wxPublicId", wxPublicId);
         return "wechat/material";
     }
 
