@@ -5,6 +5,7 @@ import com.we.fc.base.BaseEntity;
 import com.we.fc.user.entity.DingtalkUser;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -13,7 +14,7 @@ import java.io.Serializable;
  */
 public class Intermediary extends BaseEntity implements Serializable {
 
-
+    @NotNull(message = "中间商所属不能为空")
     private int isPlat;//是否为fc平台（否0 是1）
 
     /**
@@ -23,7 +24,7 @@ public class Intermediary extends BaseEntity implements Serializable {
      * @mbggenerated
      */
     @NotNull(message = "名称不能为空")
-    @Size(min = 1,max = 64,message = "名称字数在1-64之间")
+    @Size(min = 1, max = 64, message = "名称字数在1-64之间")
     private String intermediaryName;   //中间商名称
 
     /**
@@ -33,7 +34,7 @@ public class Intermediary extends BaseEntity implements Serializable {
      * @mbggenerated
      */
     @NotNull(message = "联系人不能为空")
-    @Size(min = 1,max = 16,message = "联系人字数在1-16之间")
+    @Size(min = 1, max = 16, message = "联系人字数在1-16之间")
     private String intermediaryContact;  //中间商联系人
 
     /**
@@ -43,7 +44,7 @@ public class Intermediary extends BaseEntity implements Serializable {
      * @mbggenerated
      */
     @NotNull(message = "中间商联系方式不能为空")
-    @Size(min = 1,max = 64,message = "中间商联系方式字数在1-64之间")
+    @Pattern(regexp = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$", message = "请输入正确电话号码")
     private String intermediaryContactTel;//中间商联系方式
 
     /**
@@ -72,7 +73,7 @@ public class Intermediary extends BaseEntity implements Serializable {
      * @mbggenerated
      */
     @NotNull(message = "logo不能为空")
-    @Size(min = 1,max = 256,message = "logo在1-256之间")
+    @Size(min = 1, max = 256, message = "logo在1-256之间")
     private String intermediaryLogoUrl; //logo url
 
     /**
@@ -107,7 +108,6 @@ public class Intermediary extends BaseEntity implements Serializable {
      * This method returns the value of the database column intermediary.intermediary_name
      *
      * @return the value of intermediary.intermediary_name
-     *
      * @mbggenerated
      */
     public String getIntermediaryName() {
@@ -119,7 +119,6 @@ public class Intermediary extends BaseEntity implements Serializable {
      * This method sets the value of the database column intermediary.intermediary_name
      *
      * @param intermediaryName the value for intermediary.intermediary_name
-     *
      * @mbggenerated
      */
     public void setIntermediaryName(String intermediaryName) {
@@ -131,7 +130,6 @@ public class Intermediary extends BaseEntity implements Serializable {
      * This method returns the value of the database column intermediary.intermediary_contact
      *
      * @return the value of intermediary.intermediary_contact
-     *
      * @mbggenerated
      */
     public String getIntermediaryContact() {
@@ -143,7 +141,6 @@ public class Intermediary extends BaseEntity implements Serializable {
      * This method sets the value of the database column intermediary.intermediary_contact
      *
      * @param intermediaryContact the value for intermediary.intermediary_contact
-     *
      * @mbggenerated
      */
     public void setIntermediaryContact(String intermediaryContact) {
@@ -155,7 +152,6 @@ public class Intermediary extends BaseEntity implements Serializable {
      * This method returns the value of the database column intermediary.intermediary_contact_tel
      *
      * @return the value of intermediary.intermediary_contact_tel
-     *
      * @mbggenerated
      */
     public String getIntermediaryContactTel() {
@@ -167,7 +163,6 @@ public class Intermediary extends BaseEntity implements Serializable {
      * This method sets the value of the database column intermediary.intermediary_contact_tel
      *
      * @param intermediaryContactTel the value for intermediary.intermediary_contact_tel
-     *
      * @mbggenerated
      */
     public void setIntermediaryContactTel(String intermediaryContactTel) {
@@ -195,7 +190,6 @@ public class Intermediary extends BaseEntity implements Serializable {
      * This method returns the value of the database column intermediary.intermediary_logo_url
      *
      * @return the value of intermediary.intermediary_logo_url
-     *
      * @mbggenerated
      */
     public String getIntermediaryLogoUrl() {
@@ -207,7 +201,6 @@ public class Intermediary extends BaseEntity implements Serializable {
      * This method sets the value of the database column intermediary.intermediary_logo_url
      *
      * @param intermediaryLogoUrl the value for intermediary.intermediary_logo_url
-     *
      * @mbggenerated
      */
     public void setIntermediaryLogoUrl(String intermediaryLogoUrl) {
@@ -219,7 +212,6 @@ public class Intermediary extends BaseEntity implements Serializable {
      * This method returns the value of the database column intermediary.intermediary_introduction
      *
      * @return the value of intermediary.intermediary_introduction
-     *
      * @mbggenerated
      */
     public String getIntermediaryIntroduction() {
@@ -231,7 +223,6 @@ public class Intermediary extends BaseEntity implements Serializable {
      * This method sets the value of the database column intermediary.intermediary_introduction
      *
      * @param intermediaryIntroduction the value for intermediary.intermediary_introduction
-     *
      * @mbggenerated
      */
     public void setIntermediaryIntroduction(String intermediaryIntroduction) {

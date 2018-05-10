@@ -1,24 +1,132 @@
 <!DOCTYPE html>
 <html>
-<div th:replace="import::hdr"></div>
+<head>
+  <div th:replace="import::hdr"></div>
+  <title>线索管理</title>
+</head>
+<style>
+  .modal-dialog{
+    margin-top: 70px;
+  }
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="import::bdy-befor">
 </div>
-<div class="wrapper">
+<div class="wrapper" id="myDevice">
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        线索管理
-      </h1>
-    </section>
+    <section class="content-header change-content">
+      <span class="font-size-18">线索列表</span>
+      <div class="row margin-top-6">
+        <div class="col-md-9 col-sm-9">
+          <div class="form-group float-left">
+            <select name=""  id="limitSelect" class="sel-option height-34">
+              <option value="1">姓名</option>
+              <option value="2">公司</option>
+              <option value="3">电话</option>
+              <option value="4">跟进状态</option>
+            </select>
+          </div>
+          <div class="input-group">
 
+            <span class="input-group-addon ">
+               <i class="fa fa-search"></i>
+            </span>
+            <input type="text" class="form-control" v-model="inputLimit">
+            <button type="button" class="btn btn-block btn-info search" @click="searchLimit">搜索</button>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 text-align-right">
+          <!--<button type="button" class="btn btn-block btn-info">添加设备</button>-->
+          <button type="button" class="btn btn-info padding-right-15"
+                  data-toggle="modal" data-target="#modal-info" @click="addDevice">
+            新增线索
+          </button>
+        </div>
+      </div>
+    </section>
+    <section class="content-list display-none">
+      <div class="row">
+        <div class="col-md-12">
+          <table id="deviceForm" class="display table table-bordered table-hover dataTable" style="width:100%">
+            <thead>
+            <tr>
+              <th>姓名</th>
+              <th>公司</th>
+              <th>电话</th>
+              <th>手机</th>
+              <th>跟进状态</th>
+              <th>备注</th>
+              <th>功能</th>
+            </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </section>
+    <div class="modal fade" id="modal-default">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" @click="closePop">×</span></button>
+            <h4 class="modal-title text-align">{{deviceName}}</h4>
+          </div>
+          <div class="modal-body text-align">
+            <form action="" id="deviceSubmit">
+              <div class="pop-box">
+                <label for="" class="label-pop-style">
+                  <span class="color-red margin-right-4">*</span>所属项目:</label>
+                <select class="form-style-pop form-control" name=""  v-model='selected'>
+                  <option v-for="item in projectList"  v-bind:value="item.val">{{item.name}}</option>
+                </select>
+              </div>
+              <div class="pop-box margin-top-15">
+                <label for="" class="label-pop-style ">
+                  <span class="color-red margin-right-4">*</span>操作员:</label>
+                <input type="text" class="form-style-pop form-control">
+              </div>
+              <div class="pop-box margin-top-15">
+                <label for="" class="label-pop-style">
+                  <span class="color-red margin-right-4">*</span>抄表员:</label>
+                <input type="text" class="form-style-pop form-control">
+              </div>
+              <div class="pop-box margin-top-15">
+                <label for="" class="label-pop-style">指定中间商:</label>
+                <select name="" class="form-style-pop form-control">
+                  <option value="">中间商xxx公司</option>
+                  <option value="">中间商xxx公司</option>
+                  <option value="">中间商xxx公司</option>
+                  <option value="">中间商xxx公司</option>
+                  <option value="">中间商xxx公司</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer text-align">
+            <!--<input type="submit" value="确定">-->
+            <!--<button>取消</button>-->
+            <button type="submit" class="btn btn-info search">确定</button>
+            <button type="button" @click="closePop" class="btn btn-info search">取消</button>
+            <button type="button" class="btn btn-info search">重置</button>
+            <!--<input type="reset" value="重置">-->
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
     <!-- /.content -->
   </div>
+
+  <div class="overlay">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
 </div>
+
 <div th:replace="import::scipt"></div>
-<script th:inline="javascript">
-</script>
+<script th:inline="javascript"></script>
+<script type="text/javascript" th:src="@{/js/clues/clues.js}"></script>
 </body>
 </html>
