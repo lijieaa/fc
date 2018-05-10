@@ -31,15 +31,39 @@ public class WxPublicController extends BaseController<WxPublic>{
 
     @Autowired private WxApiHandler wxApiHandler;
 
+    @Override
+    public BaseService<WxPublic> getService() {
+        return wxPublicService;
+    }
+
     @GetMapping("index")
     public String index(Integer menuId, Model model){
         model.addAttribute("loopMenu", getMenuById(menuId));
         return "wechat/index";
     }
 
-    @Override
-    public BaseService<WxPublic> getService() {
-        return wxPublicService;
+    @GetMapping("menu")
+    public String menu(Integer menuId, Model model){
+        model.addAttribute("loopMenu", getMenuById(menuId));
+        return "wechat/menu";
+    }
+
+    @GetMapping("user")
+    public String user(Integer menuId, Model model){
+        model.addAttribute("loopMenu", getMenuById(menuId));
+        return "wechat/user";
+    }
+
+    @GetMapping("msg")
+    public String msg(Integer menuId, Model model){
+        model.addAttribute("loopMenu", getMenuById(menuId));
+        return "wechat/msg";
+    }
+
+    @GetMapping("material")
+    public String material(Integer menuId, Model model){
+        model.addAttribute("loopMenu", getMenuById(menuId));
+        return "wechat/material";
     }
 
     @Override
