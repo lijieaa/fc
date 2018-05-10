@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zdc
@@ -136,5 +137,14 @@ public abstract class BaseController<T extends BaseEntity> {
         responseEntity.setList(getService().selectAll(t));
         return responseEntity;
     }
+
+
+/*
+    @PostMapping("exist")
+    @ResponseBody
+    public ResponseEntity exist(List<Map<String, String>> maps){
+
+    }
+*/
 
 }

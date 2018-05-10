@@ -62,6 +62,7 @@ public class IntermediaryController extends BaseController<Intermediary> {
         String path = FileUpload.fileUpload(file);
         if (path == null || path.length() < 0) {
             responseEntity.setStatus("500");
+            responseEntity.setMessages("文件上传失败");
             return responseEntity;
         }
         responseEntity.setData(path);
