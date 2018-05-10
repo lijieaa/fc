@@ -48,6 +48,6 @@
     from device_log d
     LEFT JOIN dingtalk_user u
     ON d.user_id = u.userid
-    WHERE d.device_log_create_time = #{createTime}
+    WHERE DATE_FORMAT(d.device_log_create_time,'%Y-%m-%d') = #{createTimeStr}
   </select>
 </mapper>

@@ -66,12 +66,7 @@
         set operate_user_id = #{operateUser.id,jdbcType=INTEGER},
         transcribe_user_id = #{transcribeUser.id,jdbcType=INTEGER},
         project_id = #{project.id,jdbcType=INTEGER},
-        intermediary_id = #{intermediary.id,jdbcType=INTEGER},
-        device_production_num = #{deviceProductionNum,jdbcType=VARCHAR},
-        device_status = #{deviceStatus,jdbcType=TINYINT},
-        device_location_x = #{deviceLocationX,jdbcType=VARCHAR},
-        device_location_y = #{deviceLocationY,jdbcType=VARCHAR},
-        device_type = #{deviceType,jdbcType=VARCHAR}
+        intermediary_id = #{intermediary.id,jdbcType=INTEGER}
         where device_id = #{id,jdbcType=INTEGER}
     </update>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">

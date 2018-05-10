@@ -111,6 +111,165 @@ package com.we.fc.deviceLog.devicelogDoc;
  *
  */
 
+/**
+ * @api {get} localhost:8080/deviceLog/page 设备日志分页查询
+ * @apiName queryPageDeviceLog
+ * @apiGroup deviceLog
+ * @apiParam {Number} page 页数
+ * @apiParam {Number} rows 条数
+ * @apiParam {Number} createTimeStr 发生日期
+ * @apiExample Request-Example:
+ * localhost:8080/deviceLog/page?page=1&rows=10&createTimeStr=2018-04-25
+ * @apiParamExample {json} Param-Example:
+ *{
+ *"status": "200",
+ *"messages": "操作成功！",
+ *"list": null,
+ *"data": {
+ *"pageNum": 1,
+ *"pageSize": 10,
+ *"size": 3,
+ *"startRow": 1,
+ *"endRow": 3,
+ *"total": 3,
+ *"pages": 1,
+ *"list": [
+ *{
+ *"id": 2,
+ *"intermediary": null,
+ *"createTime": "2018-04-25 22:26:01",
+ *"updateTime": "2018-04-25 22:26:01",
+ *"wxPublicId": null,
+ *"deviceProductionNum": "2",
+ *"operateCommand": "2",
+ *"operateCommandDesc": "2",
+ *"user": {
+ *"id": 1,
+ *"intermediary": null,
+ *"createTime": null,
+ *"updateTime": null,
+ *"wxPublicId": null,
+ *"name": "欧群飞",
+ *"position": null,
+ *"mobile": null,
+ *"tel": null,
+ *"pwd": null,
+ *"workplace": null,
+ *"remark": null,
+ *"email": null,
+ *"orgemail": null,
+ *"jobnumber": null,
+ *"ishide": null,
+ *"issenior": null,
+ *"intermediaryId": null,
+ *"extattr": null,
+ *"menus": null,
+ *"enabled": true,
+ *"username": null,
+ *"password": null,
+ *"accountNonLocked": true,
+ *"credentialsNonExpired": true,
+ *"accountNonExpired": true
+ *},
+ *"createTimeStr": null
+ *},
+ *{
+ *"id": 3,
+ *"intermediary": null,
+ *"createTime": "2018-04-25 22:40:20",
+ *"updateTime": "2018-04-25 22:40:20",
+ *"wxPublicId": null,
+ *"deviceProductionNum": "3",
+ *"operateCommand": "3",
+ *"operateCommandDesc": "3",
+ *"user": {
+ *"id": 1,
+ *"intermediary": null,
+ *"createTime": null,
+ *"updateTime": null,
+ *"wxPublicId": null,
+ *"name": "欧群飞",
+ *"position": null,
+ *"mobile": null,
+ *"tel": null,
+ *"pwd": null,
+ *"workplace": null,
+ *"remark": null,
+ *"email": null,
+ *"orgemail": null,
+ *"jobnumber": null,
+ *"ishide": null,
+ *"issenior": null,
+ *"intermediaryId": null,
+ *"extattr": null,
+ *"menus": null,
+ *"enabled": true,
+ *"username": null,
+ *"password": null,
+ *"accountNonLocked": true,
+ *"credentialsNonExpired": true,
+ *"accountNonExpired": true
+ *},
+ *"createTimeStr": null
+ *},
+ *{
+ *"id": 4,
+ *"intermediary": null,
+ *"createTime": "2018-04-25 22:40:26",
+ *"updateTime": "2018-04-25 22:40:26",
+ *"wxPublicId": null,
+ *"deviceProductionNum": "3",
+ *"operateCommand": "3",
+ *"operateCommandDesc": "3",
+ *"user": {
+ *"id": 1,
+ *"intermediary": null,
+ *"createTime": null,
+ *"updateTime": null,
+ *"wxPublicId": null,
+ *"name": "欧群飞",
+ *"position": null,
+ *"mobile": null,
+ *"tel": null,
+ *"pwd": null,
+ *"workplace": null,
+ *"remark": null,
+ *"email": null,
+ *"orgemail": null,
+ *"jobnumber": null,
+ *"ishide": null,
+ *"issenior": null,
+ *"intermediaryId": null,
+ *"extattr": null,
+ *"menus": null,
+ *"enabled": true,
+ *"username": null,
+ *"password": null,
+ *"accountNonLocked": true,
+ *"credentialsNonExpired": true,
+ *"accountNonExpired": true
+ *},
+ *"createTimeStr": null
+ *}
+ *],
+ *"prePage": 0,
+ *"nextPage": 0,
+ *"isFirstPage": true,
+ *"isLastPage": true,
+ *"hasPreviousPage": false,
+ *"hasNextPage": false,
+ *"navigatePages": 8,
+ *"navigatepageNums": [
+ *1
+ *],
+ *"navigateFirstPage": 1,
+ *"navigateLastPage": 1,
+ *"lastPage": 1,
+ *"firstPage": 1
+ *}
+ *}
+ *
+ */
 
 public class DeviceLogDoc {
 }

@@ -149,7 +149,7 @@ package com.we.fc.device.doc;
  *"project":{"id":1},
  *"intermediary":{"id":1},
  *"deviceProductionNum":"00011",
- *"deivceStatus":1,
+ *"deviceStatus":1,
  *"deviceLocationX":"31",
  *"deviceLocationY":"33"
  *}

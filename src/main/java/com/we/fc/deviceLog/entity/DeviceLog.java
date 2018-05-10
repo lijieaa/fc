@@ -24,6 +24,15 @@ public class DeviceLog extends BaseEntity implements Serializable {
     @NotNull(message = "操作人不能为空")
     private DingtalkUser user;
 
+    private String createTimeStr;
+
+    public String getCreateTimeStr() {
+        return createTimeStr;
+    }
+
+    public void setCreateTimeStr(String createTimeStr) {
+        this.createTimeStr = createTimeStr;
+    }
 
     private static final long serialVersionUID = 1L;
 

@@ -3126,6 +3126,57 @@ define({ "api": [
     "groupTitle": "设备日志"
   },
   {
+    "type": "get",
+    "url": "localhost:8080/deviceLog/page",
+    "title": "设备日志分页查询",
+    "name": "queryPageDeviceLog",
+    "group": "deviceLog",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "page",
+            "description": "<p>页数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "rows",
+            "description": "<p>条数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "createTimeStr",
+            "description": "<p>发生日期</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Param-Example:",
+          "content": "{\n\"status\": \"200\",\n\"messages\": \"操作成功！\",\n\"list\": null,\n\"data\": {\n\"pageNum\": 1,\n\"pageSize\": 10,\n\"size\": 3,\n\"startRow\": 1,\n\"endRow\": 3,\n\"total\": 3,\n\"pages\": 1,\n\"list\": [\n{\n\"id\": 2,\n\"intermediary\": null,\n\"createTime\": \"2018-04-25 22:26:01\",\n\"updateTime\": \"2018-04-25 22:26:01\",\n\"wxPublicId\": null,\n\"deviceProductionNum\": \"2\",\n\"operateCommand\": \"2\",\n\"operateCommandDesc\": \"2\",\n\"user\": {\n\"id\": 1,\n\"intermediary\": null,\n\"createTime\": null,\n\"updateTime\": null,\n\"wxPublicId\": null,\n\"name\": \"欧群飞\",\n\"position\": null,\n\"mobile\": null,\n\"tel\": null,\n\"pwd\": null,\n\"workplace\": null,\n\"remark\": null,\n\"email\": null,\n\"orgemail\": null,\n\"jobnumber\": null,\n\"ishide\": null,\n\"issenior\": null,\n\"intermediaryId\": null,\n\"extattr\": null,\n\"menus\": null,\n\"enabled\": true,\n\"username\": null,\n\"password\": null,\n\"accountNonLocked\": true,\n\"credentialsNonExpired\": true,\n\"accountNonExpired\": true\n},\n\"createTimeStr\": null\n},\n{\n\"id\": 3,\n\"intermediary\": null,\n\"createTime\": \"2018-04-25 22:40:20\",\n\"updateTime\": \"2018-04-25 22:40:20\",\n\"wxPublicId\": null,\n\"deviceProductionNum\": \"3\",\n\"operateCommand\": \"3\",\n\"operateCommandDesc\": \"3\",\n\"user\": {\n\"id\": 1,\n\"intermediary\": null,\n\"createTime\": null,\n\"updateTime\": null,\n\"wxPublicId\": null,\n\"name\": \"欧群飞\",\n\"position\": null,\n\"mobile\": null,\n\"tel\": null,\n\"pwd\": null,\n\"workplace\": null,\n\"remark\": null,\n\"email\": null,\n\"orgemail\": null,\n\"jobnumber\": null,\n\"ishide\": null,\n\"issenior\": null,\n\"intermediaryId\": null,\n\"extattr\": null,\n\"menus\": null,\n\"enabled\": true,\n\"username\": null,\n\"password\": null,\n\"accountNonLocked\": true,\n\"credentialsNonExpired\": true,\n\"accountNonExpired\": true\n},\n\"createTimeStr\": null\n},\n{\n\"id\": 4,\n\"intermediary\": null,\n\"createTime\": \"2018-04-25 22:40:26\",\n\"updateTime\": \"2018-04-25 22:40:26\",\n\"wxPublicId\": null,\n\"deviceProductionNum\": \"3\",\n\"operateCommand\": \"3\",\n\"operateCommandDesc\": \"3\",\n\"user\": {\n\"id\": 1,\n\"intermediary\": null,\n\"createTime\": null,\n\"updateTime\": null,\n\"wxPublicId\": null,\n\"name\": \"欧群飞\",\n\"position\": null,\n\"mobile\": null,\n\"tel\": null,\n\"pwd\": null,\n\"workplace\": null,\n\"remark\": null,\n\"email\": null,\n\"orgemail\": null,\n\"jobnumber\": null,\n\"ishide\": null,\n\"issenior\": null,\n\"intermediaryId\": null,\n\"extattr\": null,\n\"menus\": null,\n\"enabled\": true,\n\"username\": null,\n\"password\": null,\n\"accountNonLocked\": true,\n\"credentialsNonExpired\": true,\n\"accountNonExpired\": true\n},\n\"createTimeStr\": null\n}\n],\n\"prePage\": 0,\n\"nextPage\": 0,\n\"isFirstPage\": true,\n\"isLastPage\": true,\n\"hasPreviousPage\": false,\n\"hasNextPage\": false,\n\"navigatePages\": 8,\n\"navigatepageNums\": [\n1\n],\n\"navigateFirstPage\": 1,\n\"navigateLastPage\": 1,\n\"lastPage\": 1,\n\"firstPage\": 1\n}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "localhost:8080/deviceLog/page?page=1&rows=10&createTimeStr=2018-04-25",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/deviceLog/devicelogDoc/DeviceLogDoc.java",
+    "groupTitle": "设备日志"
+  },
+  {
     "type": "put",
     "url": "localhost:8080/deviceLog",
     "title": "设备日志编辑",
@@ -3411,7 +3462,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Request-Example:",
-        "content": "{\n\"id\":1,\n\"operateUser\":{\"id\":1},\n\"transcribeUser\":{\"id\":\"1\"},\n\"project\":{\"id\":1},\n\"intermediary\":{\"id\":1},\n\"deviceProductionNum\":\"00011\",\n\"deivceStatus\":1,\n\"deviceLocationX\":\"31\",\n\"deviceLocationY\":\"33\"\n}",
+        "content": "{\n\"id\":1,\n\"operateUser\":{\"id\":1},\n\"transcribeUser\":{\"id\":\"1\"},\n\"project\":{\"id\":1},\n\"intermediary\":{\"id\":1},\n\"deviceProductionNum\":\"00011\",\n\"deviceStatus\":1,\n\"deviceLocationX\":\"31\",\n\"deviceLocationY\":\"33\"\n}",
         "type": "json"
       }
     ],
