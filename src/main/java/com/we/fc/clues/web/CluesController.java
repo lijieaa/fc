@@ -24,4 +24,9 @@ public class CluesController extends BaseController<Clues> {
         model.addAttribute("loopMenu", getMenuById(menuId));
         return "clues/index";
     }
+
+    @GetMapping("detail")
+    public String log(Integer menuId) {
+        return "clues/detail";
+    }
 }
