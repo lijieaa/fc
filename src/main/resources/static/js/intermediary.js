@@ -90,6 +90,7 @@ $(document).ready(function() {
                 $("#mediaryList").hide();
                 $("#mediaryAddEdit").show();
                 _this.companyName = "新增中间商";
+
             },
             backMediary:function(){
                 // $("#mediaryList").show();
@@ -324,10 +325,11 @@ $(document).ready(function() {
                     ],
                     "pageLength": 10,
                     "stateLoadParams": function (settings, data) {
-                        alert(1);
+
                     }
                 });
             },
+
             postImg:function(){
                 uploader.upload();
             }
