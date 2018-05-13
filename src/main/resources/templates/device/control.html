@@ -51,33 +51,33 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-3">
                         <label>生产编号</label>
-                        <span>1235184531</span>
+                        <span v-text="controlList.deviceProductionNum">1235184531</span>
                     </div>
                     <div class="col-md-3 col-sm-3">
                         <label>所属项目</label>
-                        <span>成都华西</span>
+                        <span v-text="controlList.project.projectName">成都华西</span>
                     </div>
                     <div class="col-md-3 col-sm-3">
                         <label>操作员</label>
-                        <span>张三</span>
+                        <span v-text="controlList.operateUser.name">张三</span>
                     </div>
                     <div class="col-md-3 col-sm-3">
                         <label>状态</label>
-                        <span>在线</span>
+                        <span v-text="controlList.deviceStatus">在线</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3 col-sm-3">
                         <label>型号</label>
-                        <span>FGGD_1</span>
+                        <span v-text="controlList.device_type">FGGD_1</span>
                     </div>
                     <div class="col-md-3  col-sm-3">
                         <label>指定中间商</label>
-                        <span>中间商xxxxxx公司</span>
+                        <span v-text="controlList.intermediary.intermediaryName">中间商xxxxxx公司</span>
                     </div>
                     <div class="col-md-3  col-sm-3">
                         <label>抄表员</label>
-                        <span>张三</span>
+                        <span v-text="controlList.transcribeUser.name">张三</span>
                     </div>
                 </div>
             </div>
@@ -126,7 +126,8 @@
                     {val:1,name:"成都华西"},
                     {val:2,name:"成都龙泉"},
                     {val:3,name:"项目二"}
-                ]
+                ],
+                controlList:""
             },
             methods:{
                 backIndex:function(){
@@ -135,7 +136,10 @@
             },
             mounted:function(){
                 var _this = this;
-
+                var controlId  = location.search.substring(1).split("&")[1];
+                $.axspost(contextPath + "device/"+controlId+"","get","",function(data){
+                    _this.controlList = data;
+                },function(data){})
             }
         });
 

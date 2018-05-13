@@ -7,6 +7,7 @@
     .modal-dialog{
         margin-top: 70px;
     }
+    input[type=date]::-webkit-inner-spin-button { visibility: hidden; }
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="import::bdy-befor">
@@ -22,13 +23,12 @@
                     <div class="form-group float-left">
                         <select name="" id="" class="sel-option height-34">
                             <option value="1">发生时间</option>
-                            <option value="2">发生时间</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon "><i class="fa fa-search"></i></span>
-                        <input type="text" class="form-control">
-                        <button type="button" class="btn btn-block btn-info search">搜索</button>
+                        <input type="date" class="form-control" id="limitSelect" value="2018-04-25" >
+                        <button type="button" class="btn btn-block btn-info search" @click="searchLimit">搜索</button>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 text-align-right">
@@ -69,31 +69,7 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#deviceForm').DataTable( {
-            "ajax":{
-                url:contextPath +""
-            },
-            "info":false,
-            "searching": false,
-            "lengthChange": false,
-            "ordering": false,
-            // "pagingType": "full_numbers",
-            "language": {
-                "paginate": {
-                    "next": "下一页",
-                    "previous": "上一页"
-                }
-            },
-            "columns": [
-                { "data": "name" },
-                { "data": "position" },
-                { "data": "office" }
-            ],
-            "pageLength": 50,
-            "stateLoadParams": function (settings, data) {
 
-            }
-        } );
     } );
     new Vue({
         el:"#myDevice",
@@ -102,11 +78,52 @@
         methods:{
             backIndex:function(){
                 window.location.href = "index?menuId=1"
+            },
+            searchLimit:function(){
+                var _this = this;
+                _this.tableInit(true);
+            },
+            tableInit:function(flag){
+                var _this = this;
+                var val = $("#limitSelect").val();
+                var postData = {
+                    "page":1,
+                    "rows":10,
+                    "createTimeStr":val
+                };
+                $('#deviceForm').DataTable( {
+                    "ajax":{
+                        url:contextPath +"deviceLog/page",
+                        dataSrc:"data.list",
+                        "data":postData
+                    },
+                    "info":false,
+                    "searching": false,
+                    "lengthChange": false,
+                    "ordering": false,
+                    "destroy":flag,
+                    // "pagingType": "full_numbers",
+                    "language": {
+                        "paginate": {
+                            "next": "下一页",
+                            "previous": "上一页"
+                        }
+                    },
+                    "columns": [
+                        { "data": "createTime" },
+                        { "data": "deviceProductionNum" },
+                        { "data": "operateCommandDesc" }
+                    ],
+                    "pageLength": 10,
+                    "stateLoadParams": function (settings, data) {
+
+                    }
+                } );
             }
         },
         mounted:function(){
             var _this = this;
-
+            _this.tableInit(false);
         }
     });
 </script>
