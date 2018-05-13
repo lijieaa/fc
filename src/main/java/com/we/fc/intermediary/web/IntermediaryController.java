@@ -69,4 +69,12 @@ public class IntermediaryController extends BaseController<Intermediary> {
         return responseEntity;
     }
 
+    @GetMapping("idNameList")
+    @ResponseBody
+    public ResponseEntity selectIdNameList() {
+        ResponseEntity responseEntity = new ResponseEntity();
+        responseEntity.setList(service.selectIdNameList());
+        return responseEntity;
+    }
+
 }

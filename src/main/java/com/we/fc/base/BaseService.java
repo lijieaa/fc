@@ -1,5 +1,6 @@
 package com.we.fc.base;
 
+
 import java.util.List;
 
 /**
@@ -17,4 +18,6 @@ public interface BaseService<T> {
     T selectByPrimaryKey(Integer id);
 
     List<T> selectAll(T t);
+
+    Integer exist(String name,String value);
 }

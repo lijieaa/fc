@@ -35,4 +35,9 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
     public List<T> selectAll(T t) {
         return getDao().selectAll(t);
     }
+
+    @Override
+    public Integer exist(String name, String value) {
+        return getDao().exist(name, value);
+    }
 }

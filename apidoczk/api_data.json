@@ -3127,6 +3127,50 @@
   },
   {
     "type": "get",
+    "url": "localhost:8080/deviceLog",
+    "title": "设备日志各字段验证条件",
+    "name": "deviceLogExist",
+    "group": "deviceLog",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "deviceProductionNum",
+            "description": "<p>设备生产编号不能为空\\生成编号在1-20个字符</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "operateCommand",
+            "description": "<p>操作指令不能为空\\操作指令在1-20个字符</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "operateCommandDesc",
+            "description": "<p>操作指令描述不能为空\\操作指令描述在1-20个字符</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "user",
+            "description": "<p>操作人不能为空</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/deviceLog/devicelogDoc/DeviceLogDoc.java",
+    "groupTitle": "设备日志"
+  },
+  {
+    "type": "get",
     "url": "localhost:8080/deviceLog/page",
     "title": "设备日志分页查询",
     "name": "queryPageDeviceLog",
@@ -3304,6 +3348,101 @@
     "groupTitle": "设备管理"
   },
   {
+    "type": "post",
+    "url": "localhost:8080/device/exist",
+    "title": "设备生产编号重复验证",
+    "name": "deviceExist",
+    "group": "device",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>需要验证的字段名（device_production_num）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "value",
+            "description": "<p>内容</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Param-Example:",
+          "content": "{\n\"status\": \"500\",\n\"messages\": \"参数被占用\",\n\"list\": null,\n\"data\": null\n}\n\n{\n\"status\": \"200\",\n\"messages\": \"参数未被占用\",\n\"list\": null,\n\"data\": null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "localhost:8080/device/exist?name=device_production_num&value=00012",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/device/doc/deviceDoc.java",
+    "groupTitle": "设备管理"
+  },
+  {
+    "type": "get",
+    "url": "localhost:8080/intermediary",
+    "title": "设备各字段验证条件",
+    "name": "exist",
+    "group": "device",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "intermediary",
+            "description": "<p>中间商不能为空</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "deviceProductionNum",
+            "description": "<p>生成编号不能为空\\生成编号在1-20个字符</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "deviceStatus",
+            "description": "<p>设备状态不能为空</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "deviceLocationX",
+            "description": "<p>x坐标在1-20个字符</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "deviceLocationY",
+            "description": "<p>y坐标在1-20个字符</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/device/doc/deviceDoc.java",
+    "groupTitle": "设备管理"
+  },
+  {
     "type": "get",
     "url": "localhost:8080/device/byProjectId",
     "title": "项目下设备",
@@ -3469,6 +3608,178 @@
     "version": "0.0.0",
     "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/device/doc/deviceDoc.java",
     "groupTitle": "设备管理"
+  },
+  {
+    "type": "post",
+    "url": "localhost:8080/intermediary/exist",
+    "title": "中间商名称验证",
+    "name": "exist",
+    "group": "intermediary",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>需要验证的字段名（intermediary_name）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "value",
+            "description": "<p>内容</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Param-Example:",
+          "content": "{\n\"status\": \"500\",\n\"messages\": \"参数被占用\",\n\"list\": null,\n\"data\": null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "localhost:8080/intermediary/exist?name=intermediary_name&value=中间商4",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/intermediary/apidoc/ApiDoc.java",
+    "groupTitle": "中间商"
+  },
+  {
+    "type": "get",
+    "url": "localhost:8080/intermediary/idNameList",
+    "title": "中间商id，name list列表",
+    "name": "idNameList",
+    "group": "intermediary",
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/intermediary/apidoc/ApiDoc.java",
+    "groupTitle": "中间商"
+  },
+  {
+    "type": "get",
+    "url": "localhost:8080/intermediary",
+    "title": "中间商各字段验证条件",
+    "name": "intermediaryExist",
+    "group": "intermediary",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "isPlat",
+            "description": "<p>中间商所属不能为空</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "intermediaryName",
+            "description": "<p>名称不能为空\\名称字数在1-64之间</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "intermediaryContact",
+            "description": "<p>联系人不能为空\\联系人字数在1-16之间</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "intermediaryContactTel",
+            "description": "<p>中间商联系方式不能为空\\电话号码格式验证</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "area",
+            "description": "<p>所属地区不能为空</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "user",
+            "description": "<p>平台对接人不能为空</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "intermediaryLogoUrl",
+            "description": "<p>logo不能为空\\logo在1-256之间</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "intermediaryIntroduction",
+            "description": "<p>图文简介不能为空</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/intermediary/apidoc/ApiDoc.java",
+    "groupTitle": "中间商"
+  },
+  {
+    "type": "get",
+    "url": "各字段验证条件",
+    "title": "中间商跟进评论各字段验证条件",
+    "name": "topicComments",
+    "group": "intermediary",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "all",
+            "description": "<p>全部非空验证</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/intermediary/apidoc/ApiDoc.java",
+    "groupTitle": "中间商"
+  },
+  {
+    "type": "get",
+    "url": "各字段验证条件",
+    "title": "中间商跟进各字段验证条件",
+    "name": "topicExist",
+    "group": "intermediary",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "all",
+            "description": "<p>全部非空验证</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/intermediary/apidoc/ApiDoc.java",
+    "groupTitle": "中间商"
   },
   {
     "type": "post",

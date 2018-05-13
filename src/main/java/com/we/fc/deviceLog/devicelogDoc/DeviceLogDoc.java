@@ -271,5 +271,16 @@ package com.we.fc.deviceLog.devicelogDoc;
  *
  */
 
+
+/**
+ * @api {get} localhost:8080/deviceLog 设备日志各字段验证条件
+ * @apiName deviceLogExist
+ * @apiGroup deviceLog
+ * @apiParam {String} deviceProductionNum 设备生产编号不能为空\生成编号在1-20个字符
+ * @apiParam {String} operateCommand 操作指令不能为空\操作指令在1-20个字符
+ * @apiParam {String} operateCommandDesc 操作指令描述不能为空\操作指令描述在1-20个字符
+ * @apiParam {String} user 操作人不能为空
+ */
+
 public class DeviceLogDoc {
 }

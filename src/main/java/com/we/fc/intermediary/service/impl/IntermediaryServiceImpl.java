@@ -28,4 +28,9 @@ public class IntermediaryServiceImpl extends BaseServiceImpl<Intermediary> imple
     public List<Intermediary> queryPage(String name, String area,String contact,String tel) {
         return intermediaryMapper.queryPage(name, area, contact, tel);
     }
+
+    @Override
+    public List<Intermediary> selectIdNameList() {
+        return intermediaryMapper.selectIdNameList();
+    }
 }
