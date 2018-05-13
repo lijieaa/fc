@@ -88,3 +88,7 @@
 .modal{
     background: none!important;
 }
+#imgShow li{
+    display: inline-block;
+    border: 1px #727272 solid;
+}
