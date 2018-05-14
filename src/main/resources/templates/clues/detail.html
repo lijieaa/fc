@@ -2,11 +2,16 @@
 <html>
 <head>
     <div th:replace="import::hdr"></div>
-    <title>线索管理</title>
+    <title>线索详情</title>
+    <link rel="stylesheet"th:href="@{/css/clues/detail.css}">
 </head>
 <style>
     .modal-dialog{
         margin-top: 70px;
+    }
+    #cke_editor1{
+        width: 97%;
+        margin: 0 auto;
     }
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -18,7 +23,7 @@
             <div class="row">
                 <div class="col-md-9 col-sm-9">
                     <div class="form-group float-left">
-                        <span class="font-size-18 border-left-blue">线索详情</span>
+                        <span class="font-size-18 border-left-blue">线索评论</span>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 text-align-right">
@@ -30,8 +35,74 @@
             </div>
         </section>
         <section class="content-list">
-            <div class="page-content">
+            <div class="page-content border-left-blue padding-bottom-10">
+                <div class="row">
+                    <div class=" col-xs-12">
+                        <p class="padding-top-10 bottom-font">项目简介</p>
+                        <table class="proDetail-ul">
+                            <tr>
+                                <td class="back-f8">姓名</td>
+                                <td class="back-f8">公司</td>
+                                <td class="back-f8">电话</td>
+                                <td class="back-f8">手机</td>
+                                <td class="back-f8">跟进状态</td>
+                                <td class="back-f8">备注</td>
+                            </tr>
+                            <tr>
+                                <td>姓名</td>
+                                <td>公司</td>
+                                <td>电话</td>
+                                <td>手机</td>
+                                <td>跟进状态</td>
+                                <td>备注</td>
+                            </tr>
 
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="clubs-comment margin-top-15">
+                <div class="row ">
+                    <div class=" col-xs-12">
+                        <p class="padding-top-10 margin-left-10 bottom-font">线索评论</p>
+                        <div class="clubs-list">
+                            <div class="clubs-header back-f8">
+                                <div class="left-clubs float-left padding-left-6">
+                                    <img src="../dist/img/img-head.png" class="" alt="">
+                                    <span>销售员老李</span>
+                                </div>
+                                <div class="right-clubs float-right padding-right-6">
+                                    <span class="bd-r">第 <span>121</span>条留言</span>
+                                    <span class="bd-r">2016.0804</span>
+                                    <span class="bd-r color-b">删除</span>
+                                    <span class="color-b">评论</span>
+                                </div>
+                            </div>
+                            <div class="clubs-content-list padding-bottom-10">
+                                <div class="detail-list margin-left-10">
+                                    <span class="font-weight padding-left-6">销售员老李:</span>
+                                    <span class="content-topic">
+                                        就发了就打瞌睡的惊世毒妃静安寺空当接龙角度来讲的身份结束了剪短发垃圾的设计费尽快落实到解放啦见识到了较大三角阀聊时间打开了房间阿拉斯加
+                                    </span>
+                                    <span class="color-gray bd-g">删除</span>
+                                    <span class="color-gray bd-g">时间</span>
+                                    <span class="color-gray">回复</span>
+                                    <div class="input-group margin-top-6 margin-right-10">
+                                        <input type="text" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-info btn-flat">评论</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clubs-editor margin-top-15">
+                <p class="padding-top-10 margin-left-10">发表项目评论</p>
+                <textarea name="editor1"  id="editor1" rows="10" cols="80"></textarea>
             </div>
         </section>
     </div>

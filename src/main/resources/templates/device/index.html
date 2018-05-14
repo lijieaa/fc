@@ -9,9 +9,9 @@
   .modal-dialog{
     margin-top: 70px;
   }
-  .btn.search{
-    margin-bottom: 10px;
-  }
+  /*.btn.search{*/
+    /*margin-bottom: 10px;*/
+  /*}*/
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="import::bdy-befor">
@@ -33,7 +33,6 @@
             </select>
           </div>
           <div class="input-group">
-
             <span class="input-group-addon ">
                <i class="fa fa-search"></i>
             </span>
@@ -90,43 +89,10 @@
 
           </div>
 
-          <!--<div class="modal-body text-align">-->
-            <!--<form action="" id="deviceSubmit">-->
-              <!--<div class="pop-box">-->
-                <!--<label for="" class="label-pop-style">-->
-                  <!--<span class="color-red margin-right-4">*</span>所属项目:</label>-->
-                <!--<select class="form-style-pop form-control" name=""  v-model='selected'>-->
-                  <!--<option v-for="item in projectList"  v-bind:value="item.val">{{item.name}}</option>-->
-                <!--</select>-->
-              <!--</div>-->
-              <!--<div class="pop-box margin-top-15">-->
-                <!--<label for="" class="label-pop-style ">-->
-                  <!--<span class="color-red margin-right-4">*</span>操作员:</label>-->
-                 <!--<input type="text" class="form-style-pop form-control">-->
-              <!--</div>-->
-              <!--<div class="pop-box margin-top-15">-->
-                <!--<label for="" class="label-pop-style">-->
-                  <!--<span class="color-red margin-right-4">*</span>抄表员:</label>-->
-                <!--<input type="text" class="form-style-pop form-control">-->
-              <!--</div>-->
-              <!--<div class="pop-box margin-top-15">-->
-                <!--<label for="" class="label-pop-style">指定中间商:</label>-->
-                <!--<select name="" class="form-style-pop form-control">-->
-                  <!--<option value="">中间商xxx公司</option>-->
-                  <!--<option value="">中间商xxx公司</option>-->
-                  <!--<option value="">中间商xxx公司</option>-->
-                  <!--<option value="">中间商xxx公司</option>-->
-                  <!--<option value="">中间商xxx公司</option>-->
-                <!--</select>-->
-              <!--</div>-->
-            <!--</form>-->
-          <!--</div>-->
-          <!--<div class="modal-footer text-align">-->
-            <!--<input type="submit" value="确定">-->
-            <!--<button>取消</button>-->
-            <button type="submit" class="btn btn-info search" @click="nultiSure">确定</button>
-            <button type="button" @click="closePop" class="btn btn-info search">取消</button>
-            <button type="button" class="btn btn-info search">重置</button>
+
+            <button type="submit" class="btn btn-info margin-bottom-10 search" @click="nultiSure">确定</button>
+            <button type="button" @click="closePop" class="btn btn-info search margin-bottom-10">取消</button>
+            <button type="button" class="btn btn-info search margin-bottom-10">重置</button>
             <!--<input type="reset" value="重置">-->
           </div>
         </div>

@@ -85,6 +85,18 @@
     padding: 0;
     padding-left: 10px;
   }
+
+  .webuploader-pick {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    background: #00b7ee;
+    padding: 10px 15px;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    overflow: hidden;
+  }
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="import::bdy-befor">
@@ -106,7 +118,6 @@
             </select>
           </div>
           <div class="input-group">
-
             <span class="input-group-addon ">
                <i class="fa fa-search"></i>
             </span>
@@ -158,23 +169,23 @@
       </div>
     </section>
     <section class="content-list">
-      <form action="" id="sureSubmit">
+      <form action="" method="get" id="sureSubmit">
         <div class="row">
           <div class="col-sm-6 modal-body">
             <div class="pop-box background-g">
-              <label class="label-pop-style text-align-right">中间商名称:</label>
+              <span class="label-pop-style text-align-right">中间商名称:</span>
               <input type="text" class="form-control form-style-pop" v-model="editList.intermediaryName" required="required">
             </div>
             <div class="pop-box background-w">
-              <label for="" class="label-pop-style text-align-right">联系人:</label>
-              <input type="REALNAME" class="form-control form-style-pop" v-model = "editList.intermediaryContact">
+              <span class="label-pop-style text-align-right">联系人:</span>
+              <input type="REALNAME" class="form-control form-style-pop" v-model = "editList.intermediaryContact" required="required">
             </div>
             <div class="pop-box background-g">
-              <label for="" class="label-pop-style text-align-right">联系电话:</label>
-              <input type="TEL" class="form-control form-style-pop" v-model = "editList.intermediaryContactTel">
+              <span class="label-pop-style text-align-right">联系电话:</span>
+              <input type="TEL" class="form-control form-style-pop" v-model = "editList.intermediaryContactTel" required="required">
             </div>
             <div class="pop-box background-w positon-relative">
-              <label for="" class="label-pop-style text-align-right">所属地区:</label>
+              <span class="label-pop-style text-align-right">所属地区:</span>
               <input type="text" class="form-control form-style-pop" id="address" readonly="readonly" onclick="showMenu()" v-bind:data-id="editList.area.id" v-model="editList.area.name" >
               <div class="tree-div-contain">
                 <div class="margin-left-10 margin-top-6">
@@ -190,11 +201,11 @@
               </div>
             </div>
             <div class="pop-box background-g">
-              <label for="" class="label-pop-style text-align-right">平台对接人:</label>
+              <span class="label-pop-style text-align-right">平台对接人:</span>
               <input type="text" class="form-control form-style-pop" v-model="editList.user.name">
             </div>
             <div class="pop-box background-w">
-              <label for="" class="label-pop-style text-align-right">联系方式:</label>
+              <span class="label-pop-style text-align-right">联系方式:</span>
               <input type="TEL" class="form-control form-style-pop" v-model="editList.user.mobile">
             </div>
           </div>
@@ -210,18 +221,18 @@
                <div id="picker">选择文件</div>
                <!--<button id="ctlBtn" class="btn btn-default">开始上传</button>-->
                  <div class="margin-top-6">
-                   <label for="">图文信息:</label>
+                   <span>图文信息:</span>
                    <span></span>
                  </div>
                  <div class="margin-top-6">
-                   <label for="">尺寸:</label>
+                   <span>尺寸:</span>
                    <span id="sizew"></span>
                  </div>
                  <div class="margin-top-6">
-                   <label for="">大小:</label>
+                   <span>大小:</span>
                    <span id="size"></span>
                  </div>
-                 <button type="submit" class="btn float-right btn-info padding-right-15" @click="postImg">上传</button>
+                 <button type="button" id="isSc" class="btn float-right btn-info padding-right-15" @click="postImg">上传</button>
                <!--</form>-->
              </div>
            </div>
@@ -231,18 +242,14 @@
               <!--<div id="filePicker" class="margin-top-6 display-block backgroud-purple margin-left-10">选择图片</div>-->
             <!--</div>-->
           </div>
-
         </div>
-
         <div class="row margin-top-15">
           <div class="col-md-12">
-            <!--<form>-->
               <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
-            <!--</form>-->
           </div>
         </div>
         <div class="text-align padding-18">
-          <button type="submit"  class="btn btn-info search margin-right-4">确定</button>
+          <button type="submit"  class="btn btn-info search margin-right-4" >确定</button>
           <button type="reset" class="btn reset-btn search">重置</button>
         </div>
       </form>
@@ -280,6 +287,7 @@
 </div>
 
 <div th:replace="import::scipt"></div>
+<script type="text/javascript"  th:src="@{/dist/js/jquery-html5Validate.js}"></script>
 <script type="text/javascript" th:src="@{/js/webuploader.js}"></script>
 <script th:inline="javascript"></script>
 <script type="text/javascript" th:src="@{/js/intermediary.js}"></script>

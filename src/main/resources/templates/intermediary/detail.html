@@ -186,7 +186,7 @@
         '<div class="direct-chat-text"><div>\n' +
         '<img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image">\n' +
         '<span class="comment-user">{{comment.user.name}}</span></div>' +
-        '<div class="comment-content"  escape="false">{{comment.topicContent}}</div>' +
+        '<div class="comment-content"  escape="false" ref = "item"></div>' +
         '<div class="comment-status margin-top-6">' +
         '跟进状态: <span>{{comment.topicStatus}}</span></div>' +
         '<div class="comment-btn-time margin-top-6">' +
@@ -234,9 +234,7 @@
         },
         mounted:function(){
             var _this = this;
-            // console.log(_this.comment.topicContent);
-           // console.log( $(".comment-content"));
-            // $(".comment-content").html(_this.comment.topicContent)
+            $(this.$refs.item).html(_this.comment.topicContent);
         }
     });
 
@@ -268,9 +266,7 @@
                     mobile: ""
                 }
             },
-            commentList:[
-
-            ]
+            commentList:[]
         },
         methods:{
             closeDelPop:function(){
@@ -301,7 +297,7 @@
                 });
             },
             backMediary:function(){
-                location.reload();
+                window.location.href = "../intermediary/index?menuId=4";
             },
             sureAdd:function () {  //    新增跟进
                 var intermediaryId  = location.search.substring(1).split("&")[1];
@@ -340,10 +336,7 @@
                 $.axspost(contextPath+"topicComments/topic/"+id+"","get","",function(data){
                     _this.commentList.forEach(function(item,i){
                         if( _this.commentList[i].id == id){
-                            // _this.commentList[i].commentContent = "";
                           Vue.set(Vm.commentList[i],'commentContent',data.data);
-                            // _this.commentList[i].commentContent.push(data.data[0]);
-                            // console.log( _this.commentList[i]);
                         }
                     });
                 },function (data) {
