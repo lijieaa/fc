@@ -3279,7 +3279,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Request-Example:",
-        "content": "{\n\"operateUser\":{\"id\":1},\n\"transcribeUser\":{\"id\":\"2\"},\n\"project\":{\"id\":3},\n\"intermediary\":{\"id\":1},\n\"deviceProductionNum\":\"00012\",\n\"deivceStatus\":1,\n\"deviceLocationX\":\"31\",\n\"deviceLocationY\":\"33\"\n}",
+        "content": "{\n\"operateUser\":{\"id\":1},\n\"transcribeUser\":{\"id\":\"2\"},\n\"project\":{\"id\":3},\n\"intermediary\":{\"id\":1},\n\"deviceProductionNum\":\"00012\",\n\"deivceStatus\":1,\n\"deviceLocationX\":\"31\",\n\"deviceLocationY\":\"33\"，\n\"deviceType\":\"fccc1\"\n}",
         "type": "json"
       }
     ],
