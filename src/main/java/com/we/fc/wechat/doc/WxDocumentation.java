@@ -703,5 +703,16 @@ package com.we.fc.wechat.doc;
  * localhost:8080/menu?wxPublicId=14
  */
 
+/**
+ * @api {get} /material/image/detail 素材图片查看
+ * @apiDescription 直接使用素材链接不能正常显示，需要通过后台接口转一下
+ * @apiName imageDetail
+ * @apiGroup wxMessage
+ * @apiParam url 素材url
+ * @apiParam name 素材名称（xxx.jpg/xxx.png）
+ * @apiExample Request - Example:
+ * localhost:8080/material/image/detail?url=http://mmbiz.qpic.cn/mmbiz_jpg/FwRDKpzzTCMeic3kUEqYZiahRLxpa3WQ8YYpmKjmq9LiawOgb5lKGaT7FOG0ahPCMYibB6Cox3kztDQrvDsicACltSg/0?wx_fmt=jpeg&name=11.jpg
+ */
+
 public class WxDocumentation {
 }

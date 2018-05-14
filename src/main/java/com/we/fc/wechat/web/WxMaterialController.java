@@ -3,6 +3,7 @@ package com.we.fc.wechat.web;
 import com.we.fc.base.BaseController;
 import com.we.fc.base.BaseService;
 import com.we.fc.base.BaseTokenController;
+import com.we.fc.http.RequestTools;
 import com.we.fc.unit.ResponseEntity;
 import com.we.fc.utils.GsonUtils;
 import com.we.fc.wechat.api.news.WxNewsContent;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 /**
  * @author zdc
@@ -101,4 +104,12 @@ public class WxMaterialController extends BaseController<WxMaterial> {
         return result;
     }
 
+    @GetMapping("image/detail")
+    @ResponseBody
+    public void imageDetail(String name, String url, HttpServletResponse response){
+
+        response.setHeader("Content-Type","image/jpeg");
+        response.setHeader("Content-Disposition","attachment;filename=" + name);
+        RequestTools.processImageDownload(url, response);
+    }
 }

@@ -1,6 +1,7 @@
 package com.we.fc.http;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
@@ -16,6 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.*;
@@ -151,5 +153,36 @@ public class RequestTools {
             }
         }
         return sb.toString();
+    }
+
+    public static void processImageDownload(String url, HttpServletResponse httpServletResponse){
+        try {
+            HttpGet httpGet = new HttpGet(url);
+            RequestConfig requestConfig = RequestConfig
+                    .custom()
+                    .setSocketTimeout(25000)
+                    .setConnectTimeout(3000)
+                    .build();
+            HttpResponse response = HttpClientPool.getHttpClient().execute(httpGet);
+            OutputStream os = null;
+            try {
+                HttpEntity httpEntity = response.getEntity();
+                long contentLength = httpEntity.getContentLength();
+                InputStream is = httpEntity.getContent();
+                byte[] buffer = new byte[2048];
+                int r = 0;
+                os = httpServletResponse.getOutputStream();
+                while ((r = is.read(buffer)) > 0) {
+                    os.write(buffer, 0, r);
+                }
+                EntityUtils.consume(httpEntity);
+            }catch (Exception e){
+                e.printStackTrace();
+            } finally {
+                os.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
