@@ -64,7 +64,7 @@ public abstract class BaseController<T extends BaseEntity> {
     @ResponseBody
     public ResponseEntity update(@Valid @RequestBody T t, BindingResult result, HttpSession session) {
         ResponseEntity responseEntity = new ResponseEntity();
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             responseEntity.setStatus("500");
             responseEntity.setMessages("验证失败");
             responseEntity.setData(result.getAllErrors());
@@ -83,9 +83,9 @@ public abstract class BaseController<T extends BaseEntity> {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity add(@Valid @RequestBody T t, BindingResult result,HttpSession session) {
+    public ResponseEntity add(@Valid @RequestBody T t, BindingResult result, HttpSession session) {
         ResponseEntity responseEntity = new ResponseEntity();
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             responseEntity.setStatus("500");
             responseEntity.setMessages("验证失败");
             responseEntity.setData(result.getAllErrors());
@@ -139,12 +139,20 @@ public abstract class BaseController<T extends BaseEntity> {
     }
 
 
-/*
     @PostMapping("exist")
     @ResponseBody
-    public ResponseEntity exist(List<Map<String, String>> maps){
-
+    public ResponseEntity exist(String name, String value) {
+        ResponseEntity responseEntity = new ResponseEntity();
+        name = name.trim();
+        value = value.trim();
+        Integer id = getService().exist(name, value);
+        if (id == null) {
+            responseEntity.setMessages("参数未被占用");
+        } else {
+            responseEntity.setStatus("500");
+            responseEntity.setMessages("参数被占用");
+        }
+        return responseEntity;
     }
-*/
 
 }

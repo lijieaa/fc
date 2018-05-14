@@ -241,8 +241,12 @@
               <!--<div class="col-md-2 col-sm-2  col-xs-12 float-right">-->
               <!--<button type="button" class="btn btn-block btn-info btn-new-check" style="width:120px;height: 30px;border: 1px red solid;" id="filePicker">新建图文消息</button>-->
               <!--</div>-->
-              <div id="filePicker" style="width: 100px;height: 30px;float: right;">选择图片</div>
-
+              <div style="width: 120px;height: 30px;float: right;">
+                  <div id="filePicker" style="width: 120px;height: 42px;background: #666e95;text-align: center;line-height: 42px;color: #FFFFFF;border-radius: 5px;">新建图文信息</div>
+                  <div id="filePicker1" style="display: none">上传图片</div>
+                  <div id="filePicker2" style="display: none">添加语音</div>
+                  <div id="filePicker3" style="display: none;">添加视频</div>
+              </div>
           </div>
           <!--素材库图文消息内容-->
           <div>
@@ -265,8 +269,9 @@
               </div>
               <!--图片-->
               <div id="photo-show" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;">
-                  <div id="imggrid">
-                  </div>
+                  <!--<div id="imggrid">-->
+                  <!--</div>-->
+                  <ul id="imgShow"></ul>
               </div>
               <!--语音-->
               <div id="source" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;">
@@ -318,47 +323,75 @@
 <script th:inline="javascript">
 </script>
 <script>
-    var data = {
-        "page": 1,//当前页码
-        "records": 19,//总条数
-        "rows": [{ "Id": 60, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 61, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 62, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 63, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 64, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 65, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 66, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 67, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 68, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 69, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 70, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 71, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 72, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 73, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 74, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 75, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 76, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 77, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
-            { "Id": 78, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" }
-        ]
-    };
-    $('#imggrid').imgGrid({
-        title: '图片集',
-        type: 'GET',//GET|POST
-        data:data,//本地数据
-        //url: 'Data/data.json',//ajax URL
-        params: { type: 0 },//url参数
-        height: '400px',
-        width: '850px',
-        img: { width: '200px', animate: 'zoomIn' },//图片宽度，及动画效果
-        onClick: function (obj, index, item) {//点击图片事件
-            alert(index);
-        },
-        render: function (item, index) {//自定义显示图片
-            var str = '<img src="' + item.ImgUrl + '">';
-            return str;
-        }
-    });
+
+
+
+
+        $.ajax({
+            contentType:'application/json; charset=utf-8',
+            url:contextPath +"material/page",//ajax URL
+            type: "get",
+            "data": {
+                wxtype: 'image',
+                wxPublicId:14,
+                total:0,
+                records:0,
+                rows:10,
+                page:1
+            },
+            dataType: "json",
+            success: function(d){
+                console.log(d.data.list);
+                for(var i=0;i<d.data.list.length;i++){
+                    $("#imgShow").append(" <li id='' ="+d.data.list[i].id+"><img src='"+d.data.list[i].url+"'> </li>");
+                }
+            }
+        });
+        // var data = {
+        //     "page": 1,//当前页码
+        //     "records": 19,//总条数
+        //     "rows": [{ "Id": 60, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 61, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 62, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 63, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 64, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 65, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 66, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 67, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 68, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 69, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 70, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 71, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 72, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 73, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 74, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 75, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 76, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 77, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" },
+        //         { "Id": 78, "ImgUrl": "http://ojna4zpbt.bkt.clouddn.com/1.jpg" }
+        //     ]
+        // };
+    // $('#imggrid').imgGrid({
+    //     title: '图片集',
+    //     type: 'GET',//GET|POST
+    //     data:data,//本地数据
+    //     //url:contextPath +"material/page",//ajax URL
+    //     // params: {
+    //     //     wxtype: 'image',
+    //     //     wxPublicId:14
+    //     // },//url参数
+    //     height: '400px',
+    //     width: '100%',
+    //     img: { width: '200px', animate: 'zoomIn' },//图片宽度，及动画效果
+    //     onClick: function (obj, index, item) {//点击图片事件
+    //         alert(index);
+    //     },
+    //     render: function (item, index) {//自定义显示图片
+    //         console.log(item)
+    //         var str = '<img src="' + item.ImgUrl + '">';
+    //         return str;
+    //     }
+    // });
 </script>
 </body>
 </html>

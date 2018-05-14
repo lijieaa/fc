@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface IntermediaryService extends BaseService<Intermediary> {
     List<Intermediary> queryPage(String name, String area,String contact,String tel);
+
+    List<Intermediary> selectIdNameList();
 }
