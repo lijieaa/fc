@@ -109,7 +109,7 @@ public class WxMaterialController extends BaseController<WxMaterial> {
     public void imageDetail(String name, String url, HttpServletResponse response){
 
         response.setHeader("Content-Type","image/jpeg");
-        response.setHeader("Content-Disposition","attachment;filename=" + name);
+        response.setHeader("Content-Disposition","attachment;filename=\"" + name + "\"");
         RequestTools.processImageDownload(url, response);
     }
 }
