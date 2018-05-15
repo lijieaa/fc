@@ -344,11 +344,12 @@
             success: function(d){
                 // console.log(d.data.list);
                 for(var i=0;i<d.data.list.length;i++){
+                    var error="error";
                     var url=d.data.list[i].url;
                     var name=d.data.list[i].name;
                     var urlLink = ''+contextPath+'material/image/detail?url='+url+"&name="+name;
                     urlLink = encodeURI(urlLink);
-                    $("#imgShow").append("<li id=''="+d.data.list[i].id+"><img src='"+urlLink+"'></li>");
+                    $("#imgShow").append("<li id=''="+d.data.list[i].id+" alt=''="+d.data.list[i].name+"><img src='"+urlLink+"' title='"+d.data.list[i].name+"' alt='"+error+"'></li>");
                 }
             }
         });

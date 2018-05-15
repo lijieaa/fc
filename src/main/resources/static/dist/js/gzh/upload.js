@@ -121,16 +121,17 @@
     //             page:1
     //         },
     //         success:function(data){
-    //             var dataList = data.list;
+    //             var dataList = data.data.list;
     //             $("#imgShow").html("");
-    //             console.log(data)
-    //             // for(var i=0;i<dataList.length;i++){
-    //             //
-    //             // }
-    //             dataList.map(function(v){
-    //                 var li = "<li>"+v.name+"</li>";
+    //             //console.log(data.data.list.length)
+    //             for(var i=0;i<dataList.length;i++){
+    //                 var li = "<li>"+dataList[i].id+"</li>";
     //                 $("#imgShow").append(li);
-    //             });
+    //             }
+    //             // dataList.map(function(v){
+    //             //     var li = "<li>"+v.name+"</li>";
+    //             //     $("#imgShow").append(li);
+    //             // });
     //             $("#pagingTest").paging1({
     //                 pageNo:pageNo,
     //                 totalPage:data.totalPage
