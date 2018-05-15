@@ -169,16 +169,16 @@
       </div>
     </section>
     <section class="content-list">
-      <form action="" method="get" id="sureSubmit">
+      <form action="" id="sureSubmit">
         <div class="row">
           <div class="col-sm-6 modal-body">
             <div class="pop-box background-g">
               <span class="label-pop-style text-align-right">中间商名称:</span>
-              <input type="text" class="form-control form-style-pop" v-model="editList.intermediaryName" required="required">
+              <input type="text" class="form-control form-style-pop" v-model="editList.intermediaryName" required="required" data-max="64">
             </div>
             <div class="pop-box background-w">
               <span class="label-pop-style text-align-right">联系人:</span>
-              <input type="REALNAME" class="form-control form-style-pop" v-model = "editList.intermediaryContact" required="required">
+              <input type="REALNAME" class="form-control form-style-pop" v-model = "editList.intermediaryContact" required="required" data-max="16">
             </div>
             <div class="pop-box background-g">
               <span class="label-pop-style text-align-right">联系电话:</span>
@@ -186,7 +186,7 @@
             </div>
             <div class="pop-box background-w positon-relative">
               <span class="label-pop-style text-align-right">所属地区:</span>
-              <input type="text" class="form-control form-style-pop" id="address" readonly="readonly" onclick="showMenu()" v-bind:data-id="editList.area.id" v-model="editList.area.name" >
+              <input type="text" class="form-control form-style-pop" id="address" readonly="readonly" required="required" onclick="showMenu()" v-bind:data-id="editList.area.id" v-model="editList.area.name" >
               <div class="tree-div-contain">
                 <div class="margin-left-10 margin-top-6">
                   <input type="text" class="form-control form-style-pop limit-style" v-model="searchVal">
@@ -202,7 +202,7 @@
             </div>
             <div class="pop-box background-g">
               <span class="label-pop-style text-align-right">平台对接人:</span>
-              <input type="text" class="form-control form-style-pop" v-model="editList.user.name">
+              <input type="text" class="form-control form-style-pop" v-model="editList.user.name" required="required">
             </div>
             <div class="pop-box background-w">
               <span class="label-pop-style text-align-right">联系方式:</span>
@@ -216,10 +216,7 @@
                <img src="" id="imgInter" alt="" width="100%">
              </div>
              <div class="col-md-8 col-sm-6 inter-img">
-               <!--<form th:action="@{/intermediary/upload}"  method="post" enctype = "multipart/form-data">-->
-                 <!--<input type="file" id="file" name="file" onchange="changeImg()" class="margin-top-6">-->
-               <div id="picker">选择文件</div>
-               <!--<button id="ctlBtn" class="btn btn-default">开始上传</button>-->
+             <div id="picker">选择文件</div>
                  <div class="margin-top-6">
                    <span>图文信息:</span>
                    <span></span>
@@ -249,7 +246,7 @@
           </div>
         </div>
         <div class="text-align padding-18">
-          <button type="submit"  class="btn btn-info search margin-right-4" >确定</button>
+          <button type="submit"  class="btn btn-info search margin-right-4">确定</button>
           <button type="reset" class="btn reset-btn search">重置</button>
         </div>
       </form>

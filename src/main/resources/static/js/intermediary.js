@@ -241,6 +241,40 @@ new Vue({
             $(".modalAll").removeClass("in").css("display","none");
         },
         sureSubmit:function(){ //添加中间商
+            var _this = this;
+            var postData = {
+                intermediaryName:_this.editList.intermediaryName, //中间商名称
+                intermediaryContact:_this.editList.intermediaryContact,//中间商联系人
+                intermediaryContactTel:_this.editList.intermediaryContactTel, //中间商联系方式
+                intermediaryLogoUrl:  responseUrl,
+                intermediaryIntroduction: CKEDITOR.instances.editor1.getData(),
+                user:{
+                    name:_this.editList.user.name,
+                    mobile:_this.editList.user.mobile,
+                    id:1
+                },
+                area:{
+                    id:_this.editList.area.id
+                }
+            };
+            console.log( CKEDITOR.instances.editor1.getData());
+            var type;
+            if(_this.editorId.length !=0 ){
+                type = "put";
+                postData.id = _this.editorId;
+            }else{
+                type = "post"
+            }
+            $.axspost(contextPath + "intermediary",type,JSON.stringify(postData),function(data){
+                if(data.status == "200"){
+                    // location.reload();
+                }else{
+                    $("#errorMsg").addClass("in").css("display","block");
+                    _this.delErrorMsg = data.messages;
+                }
+            },function(data){
+
+            })
         },
         sureDel:function(){
             var _this = this;
@@ -339,6 +373,7 @@ new Vue({
             _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
         },function (data) {});
         _this.tableInit(false);
+
         $(document).on("click","#editInter",function(){
             _this.editorId = $(this).attr("data-id");
             _this.companyName = "编辑中间商";
@@ -363,9 +398,6 @@ new Vue({
                 opacity: 0
             });
         }, 1000);
-        _this.$nextTick(function() {
-
-        });
 
         //删除
         $(document).on("click","#delete",function(){
@@ -380,45 +412,18 @@ new Vue({
         });
         $("#sureSubmit").html5Validate(function() {
         // 全部验证通过，该干嘛干嘛~~
-            var _this = this;
-            var postData = {
-                intermediaryName:_this.editList.intermediaryName, //中间商名称
-                intermediaryContact:_this.editList.intermediaryContact,//中间商联系人
-                intermediaryContactTel:_this.editList.intermediaryContactTel, //中间商联系方式
-                intermediaryLogoUrl:  responseUrl,
-                intermediaryIntroduction: CKEDITOR.instances.editor1.getData(),
-                user:{
-                    name:_this.editList.user.name,
-                    mobile:_this.editList.user.mobile,
-                    id:1
-                },
-                area:{
-                    id:_this.editList.area.id
-                }
-            };
-            var type;
-            if(_this.editorId.length !=0 ){
-                type = "put";
-                postData.id = _this.editorId;
-            }else{
-                type = "post"
-            }
-            $.axspost(contextPath + "intermediary",type,JSON.stringify(postData),function(data){
-                if(data.status == "200"){
-                    // $("#errorMsg").addClass("in").css("display","block");
-                    // _this.delErrorMsg = data.messages;
-                    location.reload();
-                }else{
-                    $("#errorMsg").addClass("in").css("display","block");
-                    _this.delErrorMsg = data.messages;
-                }
-            },function(data){})
+            _this.sureSubmit();
         },{
             validate:function () {
+                console.log( CKEDITOR.instances.editor1.setData());
                 if(responseUrl == undefined){
                     $("#isSc").testRemind("请上传图片");
                     return false;
                 }
+                // if(CKEDITOR.instances.editor1.setData() == undefined){
+                //     $("button[type='submit']").testRemind("简介不能为空");
+                //     return false;
+                // }
                 return true;
             }
         });

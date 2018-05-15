@@ -188,7 +188,7 @@
         '<span class="comment-user">{{comment.user.name}}</span></div>' +
         '<div class="comment-content"  escape="false" ref = "item"></div>' +
         '<div class="comment-status margin-top-6">' +
-        '跟进状态: <span>{{comment.topicStatus}}</span></div>' +
+        '跟进状态: <span ref="status"></span></div>' +
         '<div class="comment-btn-time margin-top-6">' +
         '<div class="comment-time float-left">' +
         '跟进时间<span>{{comment.createTime}}</span></div>' +
@@ -235,6 +235,12 @@
         mounted:function(){
             var _this = this;
             $(this.$refs.item).html(_this.comment.topicContent);
+            // {{comment.topicStatus}}
+            if(_this.comment.topicStatus == 0){
+                $(this.$refs.status).html("已处理")
+            }else{
+                $(this.$refs.status).html("正在处理")
+            }
         }
     });
 
@@ -323,7 +329,6 @@
             var detailID  = location.search.substring(1).split("&")[1];
             $.axspost(contextPath + "intermediary/"+detailID+"","get","",function(data){
                 _this.dataList = data;
-
                 $(".intermediaryIntroduction").html(data.intermediaryIntroduction)
             },function(data){});
 
