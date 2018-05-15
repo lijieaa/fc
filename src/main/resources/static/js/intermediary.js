@@ -240,6 +240,9 @@ new Vue({
         closeDelPop:function(){
             $(".modalAll").removeClass("in").css("display","none");
         },
+        sure:function(){
+            console.log( CKEDITOR.instances.editor1.getData());
+        },
         sureSubmit:function(){ //添加中间商
             var _this = this;
             var postData = {
@@ -257,7 +260,6 @@ new Vue({
                     id:_this.editList.area.id
                 }
             };
-            console.log( CKEDITOR.instances.editor1.getData());
             var type;
             if(_this.editorId.length !=0 ){
                 type = "put";
@@ -267,7 +269,7 @@ new Vue({
             }
             $.axspost(contextPath + "intermediary",type,JSON.stringify(postData),function(data){
                 if(data.status == "200"){
-                    // location.reload();
+                    location.reload();
                 }else{
                     $("#errorMsg").addClass("in").css("display","block");
                     _this.delErrorMsg = data.messages;
@@ -415,15 +417,27 @@ new Vue({
             _this.sureSubmit();
         },{
             validate:function () {
-                console.log( CKEDITOR.instances.editor1.setData());
                 if(responseUrl == undefined){
                     $("#isSc").testRemind("请上传图片");
                     return false;
                 }
-                // if(CKEDITOR.instances.editor1.setData() == undefined){
-                //     $("button[type='submit']").testRemind("简介不能为空");
-                //     return false;
-                // }
+                var interId = _this.editList.intermediaryName;
+                var isSubmit;
+                $.ajax({
+                    url:contextPath + "intermediary/exist?name=intermediary_name&value="+interId,
+                    type:"post",
+                    async:false,
+                    success:function(data){
+                        if(data.status == 500) {
+                            $("#intermediaryName").testRemind("不能添加已存在的中间商名称");
+                            isSubmit = 1
+                        }
+                    }
+                });
+
+                if(isSubmit == 1){
+                    return false;
+                }
                 return true;
             }
         });
