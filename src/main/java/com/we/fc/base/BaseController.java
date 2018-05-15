@@ -97,7 +97,7 @@ public abstract class BaseController<T extends BaseEntity> {
         } catch (DuplicateKeyException e) {
             e.printStackTrace();
             responseEntity.setStatus("500");
-            responseEntity.setMessages("已存在的实体");
+            responseEntity.setMessages("添加失败");
             return responseEntity;
         } catch (Exception e) {
             e.printStackTrace();

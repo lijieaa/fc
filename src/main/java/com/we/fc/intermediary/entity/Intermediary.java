@@ -3,6 +3,7 @@ package com.we.fc.intermediary.entity;
 import com.we.fc.area.entity.Area;
 import com.we.fc.base.BaseEntity;
 import com.we.fc.user.entity.DingtalkUser;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -23,7 +24,7 @@ public class Intermediary extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
-    @NotNull(message = "名称不能为空")
+    @NotBlank(message = "名称不能为空")
     @Size(min = 1, max = 64, message = "名称字数在1-64之间")
     private String intermediaryName;   //中间商名称
 
@@ -33,7 +34,7 @@ public class Intermediary extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
-    @NotNull(message = "联系人不能为空")
+    @NotBlank(message = "联系人不能为空")
     @Size(min = 1, max = 16, message = "联系人字数在1-16之间")
     private String intermediaryContact;  //中间商联系人
 
@@ -43,7 +44,7 @@ public class Intermediary extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
-    @NotNull(message = "中间商联系方式不能为空")
+    @NotBlank(message = "中间商联系方式不能为空")
     @Pattern(regexp = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$", message = "请输入正确电话号码")
     private String intermediaryContactTel;//中间商联系方式
 
@@ -82,7 +83,7 @@ public class Intermediary extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
-    @NotNull(message = "图文简介不能为空")
+    @NotBlank(message = "图文简介不能为空")
     private String intermediaryIntroduction; //图文简介
 
 
