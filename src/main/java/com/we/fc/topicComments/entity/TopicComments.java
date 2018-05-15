@@ -2,6 +2,7 @@ package com.we.fc.topicComments.entity;
 
 import com.we.fc.base.BaseEntity;
 import com.we.fc.user.entity.DingtalkUser;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -32,7 +33,7 @@ public class TopicComments extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
-    @NotNull(message = "评论内容不能为空")
+    @NotBlank(message = "评论内容不能为空")
     private String topicCommentsContent;
 
     /**
