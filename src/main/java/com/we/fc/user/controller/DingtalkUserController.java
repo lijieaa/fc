@@ -32,6 +32,11 @@ public class DingtalkUserController extends BaseController<DingtalkUser>{
         return dingtalkUserService;
     }
 
+    @Override
+    protected ResponseEntity hookExist(DingtalkUser dingtalkUser) {
+        return null;
+    }
+
 
     @GetMapping("index")
     public String index(Integer menuId, HttpSession session, Model model){

@@ -3,6 +3,7 @@ package com.we.fc.clues.web;
 import com.we.fc.base.BaseController;
 import com.we.fc.base.BaseService;
 import com.we.fc.clues.entity.Clues;
+import com.we.fc.unit.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,12 @@ public class CluesController extends BaseController<Clues> {
     public BaseService<Clues> getService() {
         return null;
     }
+
+    @Override
+    protected ResponseEntity hookExist(Clues clues) {
+        return null;
+    }
+
     @GetMapping("index")
     public String index(Integer menuId, Model model){
         model.addAttribute("loopMenu", getMenuById(menuId));

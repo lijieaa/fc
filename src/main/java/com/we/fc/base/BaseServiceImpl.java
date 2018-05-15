@@ -37,7 +37,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
-    public Integer exist(String name, String value) {
-        return getDao().exist(name, value);
+    public Integer exist(Integer id,String name, String value) {
+        return getDao().exist(id,name, value);
     }
 }

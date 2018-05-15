@@ -34,6 +34,11 @@ public class TopicCommentsController extends BaseController<TopicComments>{
         return service;
     }
 
+    @Override
+    protected ResponseEntity hookExist(TopicComments topicComments) {
+        return null;
+    }
+
     @GetMapping("topic/{id}")
     @ResponseBody
     public ResponseEntity findByTopicId(@PathVariable("id")Integer id){

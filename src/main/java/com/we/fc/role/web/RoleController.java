@@ -29,6 +29,11 @@ public class RoleController extends BaseController<Role> {
         return service;
     }
 
+    @Override
+    protected ResponseEntity hookExist(Role role) {
+        return null;
+    }
+
     @GetMapping("index")
     public String index(Integer menuId, HttpSession session, Model model){
         model.addAttribute("loopMenu", getMenuById(menuId));

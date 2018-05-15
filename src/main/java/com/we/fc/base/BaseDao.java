@@ -23,6 +23,6 @@ public interface BaseDao<T> {
 
     List<T> selectAll(T t);
 
-    Integer exist(@Param("name") String name, @Param("value") String value);
+    Integer exist(@Param("id")Integer id,@Param("name") String name, @Param("value") String value);
 
 }

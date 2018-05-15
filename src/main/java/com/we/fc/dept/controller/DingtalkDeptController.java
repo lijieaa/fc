@@ -37,6 +37,11 @@ public class DingtalkDeptController extends BaseController<DingtalkDept>{
         return dingtalkDeptService;
     }
 
+    @Override
+    protected ResponseEntity hookExist(DingtalkDept dingtalkDept) {
+        return null;
+    }
+
 
     @GetMapping("/parentid/{parentid}")
     @ResponseBody

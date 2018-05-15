@@ -1,7 +1,9 @@
 package com.we.fc.statistics.web;
 
 import com.we.fc.base.BaseController;
+import com.we.fc.base.BaseEntity;
 import com.we.fc.base.BaseService;
+import com.we.fc.unit.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,11 @@ public class StatisticsController extends BaseController {
 
     @Override
     public BaseService getService() {
+        return null;
+    }
+
+    @Override
+    protected ResponseEntity hookExist(BaseEntity baseEntity) {
         return null;
     }
 }

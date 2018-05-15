@@ -37,6 +37,11 @@ public class TopicController extends BaseController<Topic>{
         return service;
     }
 
+    @Override
+    protected ResponseEntity hookExist(Topic topic) {
+        return null;
+    }
+
     @GetMapping("intermediaryId/{id}")
     @ResponseBody
     public ResponseEntity findByIntermediaryId(@PathVariable("id")Integer id){

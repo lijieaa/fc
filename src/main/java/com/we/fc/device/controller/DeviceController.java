@@ -31,6 +31,11 @@ public class DeviceController extends BaseController<Device> {
         return service;
     }
 
+    @Override
+    protected ResponseEntity hookExist(Device device) {
+        return null;
+    }
+
     @GetMapping("index")
     public String index(Integer menuId, HttpSession session, Model model) {
         model.addAttribute("loopMenu", getMenuById(menuId));

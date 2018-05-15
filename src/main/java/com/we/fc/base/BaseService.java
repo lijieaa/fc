@@ -19,5 +19,5 @@ public interface BaseService<T> {
 
     List<T> selectAll(T t);
 
-    Integer exist(String name,String value);
+    Integer exist(Integer id,String name,String value);
 }

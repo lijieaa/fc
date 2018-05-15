@@ -27,6 +27,7 @@ import java.util.Map;
 public abstract class BaseController<T extends BaseEntity> {
 
     public abstract BaseService<T> getService();
+    protected abstract ResponseEntity hookExist(T t);
 
     @Autowired
     private MenuService menuService;
@@ -70,13 +71,16 @@ public abstract class BaseController<T extends BaseEntity> {
             responseEntity.setData(result.getAllErrors());
             return responseEntity;
         }
+        if (hookExist(t)!=null&&hookExist(t).getStatus().equals("500")){
+            return hookExist(t);
+        }
         try {
             getService().updateByPrimaryKey(t);
             return responseEntity;
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity.setStatus("500");
-            responseEntity.setMessages("更新失败");
+            responseEntity.setMessages(e.getMessage());
             return responseEntity;
         }
     }
@@ -91,13 +95,11 @@ public abstract class BaseController<T extends BaseEntity> {
             responseEntity.setData(result.getAllErrors());
             return responseEntity;
         }
+        if (hookExist(t)!=null&&hookExist(t).getStatus().equals("500")){
+            return hookExist(t);
+        }
         try {
             getService().insert(t);
-            return responseEntity;
-        } catch (DuplicateKeyException e) {
-            e.printStackTrace();
-            responseEntity.setStatus("500");
-            responseEntity.setMessages("添加失败");
             return responseEntity;
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,20 +141,5 @@ public abstract class BaseController<T extends BaseEntity> {
     }
 
 
-    @PostMapping("exist")
-    @ResponseBody
-    public ResponseEntity exist(String name, String value) {
-        ResponseEntity responseEntity = new ResponseEntity();
-        name = name.trim();
-        value = value.trim();
-        Integer id = getService().exist(name, value);
-        if (id == null) {
-            responseEntity.setMessages("参数未被占用");
-        } else {
-            responseEntity.setStatus("500");
-            responseEntity.setMessages("参数被占用");
-        }
-        return responseEntity;
-    }
 
 }

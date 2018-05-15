@@ -30,6 +30,11 @@ public class WxUserDetailController extends BaseController<WxUserDetail> {
         return wxUserDetailService;
     }
 
+    @Override
+    protected ResponseEntity hookExist(WxUserDetail wxUserDetail) {
+        return null;
+    }
+
     private BaseTokenController baseTokenController;
 
     public WxUserDetailController(){

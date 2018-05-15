@@ -36,6 +36,11 @@ public class WxPublicController extends BaseController<WxPublic>{
         return wxPublicService;
     }
 
+    @Override
+    protected ResponseEntity hookExist(WxPublic wxPublic) {
+        return null;
+    }
+
     @GetMapping("index")
     public String index(Integer menuId, Model model){
         model.addAttribute("loopMenu", getMenuById(menuId));

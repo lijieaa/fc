@@ -9,10 +9,12 @@ import com.we.fc.utils.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 
 /**
@@ -35,6 +37,31 @@ public class IntermediaryController extends BaseController<Intermediary> {
     public BaseService<Intermediary> getService() {
         return service;
     }
+
+    @Override
+    protected ResponseEntity hookExist(Intermediary intermediary) {
+        ResponseEntity responseEntity = new ResponseEntity();
+        Integer id = service.exist(intermediary.getId(), "intermediary_name", intermediary.getIntermediaryName());
+        if (null != id) {
+            responseEntity.setStatus("500");
+            responseEntity.setMessages("中间商名称已被占用");
+        }
+        return responseEntity;
+    }
+
+    /*    public ResponseEntity exist1(String name, String value) {
+
+        name = name.trim();
+        value = value.trim();
+        Integer id = getService().exist(name, value);
+        if (id == null) {
+            responseEntity.setMessages("参数未被占用");
+        } else {
+            responseEntity.setStatus("500");
+            responseEntity.setMessages("参数被占用");
+        }
+        return responseEntity;
+    }*/
 
     @GetMapping("index")
     public String index(Integer menuId, Model model) {

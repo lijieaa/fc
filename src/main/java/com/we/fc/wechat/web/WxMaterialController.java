@@ -39,6 +39,11 @@ public class WxMaterialController extends BaseController<WxMaterial> {
         return wxMaterialService;
     }
 
+    @Override
+    protected ResponseEntity hookExist(WxMaterial wxMaterial) {
+        return null;
+    }
+
     @PostMapping("upload")
     @ResponseBody
     public ResponseEntity add(WxMaterial wxMaterial, MultipartFile media, HttpSession session) {
