@@ -89,6 +89,14 @@
     background: none!important;
 }
 #imgShow li{
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+    border: 1px #727272 solid;
+}
+#imgShow li img{
+    width: 150px;
+    height: 150px;
     display: inline-block;
     border: 1px #727272 solid;
 }

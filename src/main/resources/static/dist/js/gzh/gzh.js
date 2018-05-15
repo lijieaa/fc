@@ -242,12 +242,8 @@
          }
      })
      // 新建选择素材操作
-     $("#newAdd").click(function () {
-         var newText=$(this).text();
-         if(newText=="新建图文素材"){
-             $("#new-photo-text").show().siblings().hide();
-         }else {
-             return false;
-         }
+     $("#filePicker").click(function () {
+         $("#new-photo-text").show().siblings().hide();
+
      })
 

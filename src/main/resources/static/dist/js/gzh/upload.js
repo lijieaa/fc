@@ -23,7 +23,7 @@
             delete file['name'];
             delete file['lastModifiedDate'];
             delete file['type'];
-            console.log(file);
+            // console.log(file);
         });
         uploader.on('fileQueued',function(file) {
             // console.log(file);
@@ -59,7 +59,7 @@
             delete file['name'];
             delete file['lastModifiedDate'];
             delete file['type'];
-            console.log(file);
+            // console.log(file);
         });
         uploader.on('fileQueued',function(file) {
             // console.log(file);
@@ -95,7 +95,7 @@
             delete file['name'];
             delete file['lastModifiedDate'];
             delete file['type'];
-            console.log(file);
+            // console.log(file);
         });
         uploader.on('fileQueued',function(file) {
             // console.log(file);
@@ -111,9 +111,22 @@
     // function  ajaxData(pageNo) {
     //     $.ajax({
     //         url:contextPath +"material/page",
+    //         type: "get",
+    //         data: {
+    //             wxtype:'image',
+    //             wxPublicId:14,
+    //             total:0,
+    //             records:0,
+    //             rows:10,
+    //             page:1
+    //         },
     //         success:function(data){
     //             var dataList = data.list;
     //             $("#imgShow").html("");
+    //             console.log(data)
+    //             // for(var i=0;i<dataList.length;i++){
+    //             //
+    //             // }
     //             dataList.map(function(v){
     //                 var li = "<li>"+v.name+"</li>";
     //                 $("#imgShow").append(li);
