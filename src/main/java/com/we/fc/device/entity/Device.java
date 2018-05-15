@@ -4,6 +4,7 @@ import com.we.fc.base.BaseEntity;
 import com.we.fc.intermediary.entity.Intermediary;
 import com.we.fc.project.entity.Project;
 import com.we.fc.user.entity.DingtalkUser;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -51,7 +52,7 @@ public class Device extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
-    @NotNull(message = "生产编号不能为空")
+    @NotBlank(message = "生产编号不能为空")
     @Size(min = 1, max = 20, message = "生成编号在1-20个字符")
     private String deviceProductionNum;
 

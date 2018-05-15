@@ -3,6 +3,7 @@ package com.we.fc.topic.entity;
 import com.we.fc.base.BaseEntity;
 import com.we.fc.intermediary.entity.Intermediary;
 import com.we.fc.user.entity.DingtalkUser;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -34,7 +35,7 @@ public class Topic extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
-    @NotNull(message = "跟进内容不能为空")
+    @NotBlank(message = "跟进内容不能为空")
     private String topicContent;
 
     /**

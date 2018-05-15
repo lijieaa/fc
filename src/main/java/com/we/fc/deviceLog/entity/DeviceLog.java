@@ -2,6 +2,7 @@ package com.we.fc.deviceLog.entity;
 
 import com.we.fc.base.BaseEntity;
 import com.we.fc.user.entity.DingtalkUser;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -9,15 +10,15 @@ import java.io.Serializable;
 
 public class DeviceLog extends BaseEntity implements Serializable {
 
-    @NotNull(message = "设备生产编号不能为空")
+    @NotBlank(message = "设备生产编号不能为空")
     @Size(min = 1,max = 20,message = "生成编号在1-20个字符")
     private String deviceProductionNum;
 
-    @NotNull(message = "操作指令不能为空")
+    @NotBlank(message = "操作指令不能为空")
     @Size(min = 1,max = 20,message = "操作指令在1-20个字符")
     private String operateCommand;
 
-    @NotNull(message = "操作指令描述不能为空")
+    @NotBlank(message = "操作指令描述不能为空")
     @Size(min = 1,max = 20,message = "操作指令描述在1-20个字符")
     private String operateCommandDesc;
 
