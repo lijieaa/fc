@@ -181,6 +181,78 @@
     "groupTitle": "微信公众号"
   },
   {
+    "type": "post",
+    "url": "/menu",
+    "title": "创建菜单",
+    "name": "createMenu",
+    "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "json",
+            "description": "<p>菜单内容</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": ": Param - Example:",
+          "content": "{\n\t\"button\": [{\n\t\t\"type\": \"click\",\n\t\t\"name\": \"今日歌曲\",\n\t\t\"key\": \"V1001_TODAY_MUSIC\"\n\t}, {\n\t\t\"name\": \"菜单\",\n\t\t\"sub_button\": [{\n\t\t\t\"type\": \"view\",\n\t\t\t\"name\": \"搜索\",\n\t\t\t\"url\": \"http://www.soso.com/\"\n\t\t}, {\n\t\t\t\"type\": \"click\",\n\t\t\t\"name\": \"赞一下我们\",\n\t\t\t\"key\": \"V1001_GOOD\"\n\t\t}]\n\t}]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "title": "Request - Example:",
+        "content": "localhost:8080/menu",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "D:/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "delete",
+    "url": "/menu",
+    "title": "删除菜单",
+    "description": "<p>将删除所有自定义菜单</p>",
+    "name": "deleteMenu",
+    "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Request - Example:",
+        "content": "localhost:8080/menu?wxPublicId=14",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "D:/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
     "type": "delete",
     "url": "/wxPublic",
     "title": "删除公众号",
@@ -285,6 +357,44 @@
   },
   {
     "type": "get",
+    "url": "/menu",
+    "title": "获取菜单",
+    "name": "getMenu",
+    "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Request - Example:",
+        "content": "localhost:8080/menu?wxPublicId=14",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Response - Example:",
+          "content": "{\n \"menu\": {\n   \"button\": [\n     {\n       \"type\": \"click\",\n       \"name\": \"今日歌曲\",\n       \"key\": \"V1001_TODAY_MUSIC\",\n       \"sub_button\": []\n     },\n     {\n       \"name\": \"菜单\",\n       \"sub_button\": [\n         {\n           \"type\": \"view\",\n           \"name\": \"搜索\",\n           \"url\": \"http://www.soso.com/\",\n           \"sub_button\": []\n         },\n         {\n           \"type\": \"click\",\n           \"name\": \"赞一下我们\",\n           \"key\": \"V1001_GOOD\",\n           \"sub_button\": []\n         }\n       ]\n     }\n   ]\n }\n}",
+          "type": "String"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "get",
     "url": "/message/page",
     "title": "获取用户消息(分页)",
     "name": "getUserMsg",
@@ -361,6 +471,42 @@
         }
       ]
     },
+    "version": "0.0.0",
+    "filename": "D:/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "get",
+    "url": "/material/image/detail",
+    "title": "素材图片查看",
+    "description": "<p>直接使用素材链接不能正常显示，需要通过后台接口转一下</p>",
+    "name": "imageDetail",
+    "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "url",
+            "description": "<p>素材url</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "name",
+            "description": "<p>素材名称（xxx.jpg/xxx.png）</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Request - Example:",
+        "content": "localhost:8080/material/image/detail?url=http://mmbiz.qpic.cn/mmbiz_jpg/FwRDKpzzTCMeic3kUEqYZiahRLxpa3WQ8YYpmKjmq9LiawOgb5lKGaT7FOG0ahPCMYibB6Cox3kztDQrvDsicACltSg/0?wx_fmt=jpeg&name=11.jpg",
+        "type": "json"
+      }
+    ],
     "version": "0.0.0",
     "filename": "D:/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
     "groupTitle": "微信公众号"

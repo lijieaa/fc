@@ -125,7 +125,8 @@ package com.we.fc.device.doc;
  *"deviceProductionNum":"00012",
  *"deivceStatus":1,
  *"deviceLocationX":"31",
- *"deviceLocationY":"33"
+ *"deviceLocationY":"33"，
+ * "deviceType":"fccc1"
  *}
  * @apiParamExample {json} Param-Example:
  *{

@@ -51,7 +51,7 @@ public class Device extends BaseEntity implements Serializable {
      *
      * @mbggenerated
      */
-    @NotNull(message = "生成编号不能为空")
+    @NotNull(message = "生产编号不能为空")
     @Size(min = 1, max = 20, message = "生成编号在1-20个字符")
     private String deviceProductionNum;
 
