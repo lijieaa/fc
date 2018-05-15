@@ -102,7 +102,7 @@
     SELECT intermediary_id
     FROM intermediary
     WHERE ${name} = #{value}
-    <if test="intermediary !=null and intermediary.id !=null"> and intermediary_id !=#{id}</if>
+    <if test="id !=null"> and intermediary_id !=#{id}</if>
   </select>
 
 
