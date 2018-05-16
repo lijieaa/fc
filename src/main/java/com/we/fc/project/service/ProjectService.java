@@ -7,5 +7,5 @@ import com.we.fc.project.entity.Project;
  * Created by mayn on 2018/5/8.
  */
 public interface ProjectService extends BaseService<Project> {
-
+    Project selectByIdStatus(Integer id,Byte projectStatus);
 }

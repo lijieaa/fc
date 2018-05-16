@@ -3348,50 +3348,6 @@
     "groupTitle": "设备管理"
   },
   {
-    "type": "post",
-    "url": "localhost:8080/device/exist",
-    "title": "设备生产编号重复验证",
-    "name": "deviceExist",
-    "group": "device",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>需要验证的字段名（device_production_num）</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "value",
-            "description": "<p>内容</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Param-Example:",
-          "content": "{\n\"status\": \"500\",\n\"messages\": \"参数被占用\",\n\"list\": null,\n\"data\": null\n}\n\n{\n\"status\": \"200\",\n\"messages\": \"参数未被占用\",\n\"list\": null,\n\"data\": null\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "examples": [
-      {
-        "title": "Request-Example:",
-        "content": "localhost:8080/device/exist?name=device_production_num&value=00012",
-        "type": "json"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/device/doc/deviceDoc.java",
-    "groupTitle": "设备管理"
-  },
-  {
     "type": "get",
     "url": "localhost:8080/intermediary",
     "title": "设备各字段验证条件",
@@ -3610,50 +3566,6 @@
     "groupTitle": "设备管理"
   },
   {
-    "type": "post",
-    "url": "localhost:8080/intermediary/exist",
-    "title": "中间商名称验证",
-    "name": "exist",
-    "group": "intermediary",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>需要验证的字段名（intermediary_name）</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "value",
-            "description": "<p>内容</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Param-Example:",
-          "content": "{\n\"status\": \"500\",\n\"messages\": \"参数被占用\",\n\"list\": null,\n\"data\": null\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "examples": [
-      {
-        "title": "Request-Example:",
-        "content": "localhost:8080/intermediary/exist?name=intermediary_name&value=中间商4",
-        "type": "json"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/intermediary/apidoc/ApiDoc.java",
-    "groupTitle": "中间商"
-  },
-  {
     "type": "get",
     "url": "localhost:8080/intermediary/idNameList",
     "title": "中间商id，name list列表",
@@ -3780,6 +3692,298 @@
     "version": "0.0.0",
     "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/intermediary/apidoc/ApiDoc.java",
     "groupTitle": "中间商"
+  },
+  {
+    "type": "post",
+    "url": "localhost:8080/project",
+    "title": "添加线索、项目",
+    "name": "addProject",
+    "group": "project",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "json",
+            "description": "<p>json对象字符串</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Param-Example:",
+          "content": "{\n\"status\": \"200\",\n\"messages\": \"操作成功！\",\n\"list\": null,\n\"data\": null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "{\n\t\"projectName\":\"下项目12321\",\n\t\"area\":{\"id\":10010},\n\t\"projectContactUser\":{\"id\":1},\n\t\"projectOwnerContact\":\"联系人11\",\n\t\"projectOwnerContactTel\":\"13548656547\",\n\t\"projectLogo\":\"3214dsd\",\n\t\"projectStatus\":0,\n\t\"projectTopicStatus\":1\n}",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/project/doc/ProjectDoc.java",
+    "groupTitle": "线索、项目"
+  },
+  {
+    "type": "delete",
+    "url": "localhost:8080/project/3",
+    "title": "删除项目、线索",
+    "name": "deleteProject",
+    "group": "project",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>链接后直接加设备id值</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Param-Example:",
+          "content": "{\n\"status\": \"200\",\n\"messages\": \"操作成功！\",\n\"list\": null,\n\"data\": null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/project/doc/ProjectDoc.java",
+    "groupTitle": "线索、项目"
+  },
+  {
+    "type": "get",
+    "url": "localhost:8080/project",
+    "title": "项目线索各字段验证条件",
+    "name": "exist",
+    "group": "project",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "projectName",
+            "description": "<p>线索或项目名称不能为空\\线索或项目名称在1</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "area",
+            "description": "<p>地区不能为空</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "projectContactUser",
+            "description": "<p>负责人不能为空</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "projectOwnerContact",
+            "description": "<p>业主联系人不能为空</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "projectOwnerContactTel",
+            "description": "<p>电话号码不能为空\\请输入正确电话号码</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "projectLogo",
+            "description": "<p>logo不能为空</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "projectStatus",
+            "description": "<p>状态不能为空</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "projectTopicStatus",
+            "description": "<p>线索处理状态不能为空</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/project/doc/ProjectDoc.java",
+    "groupTitle": "线索、项目"
+  },
+  {
+    "type": "get",
+    "url": "localhost:8080/project/byIdStatus",
+    "title": "查询线索、项目详情",
+    "name": "projectDetail",
+    "group": "project",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>主键</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "statusId",
+            "description": "<p>线索、项目区分字段（0线索，1项目）</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Param-Example:",
+          "content": "{\n\"id\": 1,                                       主键\n\"intermediary\": null,\n\"createTime\": \"2018-04-24 22:09:31\",\n\"updateTime\": \"2018-05-16 22:18:54\",\n\"wxPublicId\": null,\n\"projectName\": \"项目1\",                         项目名称\n\"area\": {                                         地区\n\"id\": 110100,\n\"intermediary\": null,\n\"createTime\": null,\n\"updateTime\": null,\n\"wxPublicId\": null,\n\"isParent\": false,\n\"parentId\": null,\n\"name\": \"北京市\",                                    地区名称\n\"shortName\": null,\n\"longitude\": null,\n\"latitude\": null,\n\"level\": null,\n\"sort\": null,\n\"status\": null\n},\n\"projectContactUser\": {                              项目联系人\n\"id\": 1,\n\"intermediary\": null,\n\"createTime\": null,\n\"updateTime\": null,\n\"wxPublicId\": null,\n\"name\": \"欧群飞\",                                        项目联系人名称\n\"position\": null,\n\"mobile\": null,\n\"tel\": null,\n\"pwd\": null,\n\"workplace\": null,\n\"remark\": null,\n\"email\": null,\n\"orgemail\": null,\n\"jobnumber\": null,\n\"ishide\": null,\n\"issenior\": null,\n\"intermediaryId\": null,\n\"extattr\": null,\n\"menus\": null,\n\"enabled\": true,\n\"username\": null,\n\"accountNonExpired\": true,\n\"credentialsNonExpired\": true,\n\"accountNonLocked\": true,\n\"password\": null\n},\n\"projectCreateUser\": {                                项目创建人\n\"id\": 1,\n\"intermediary\": null,\n\"createTime\": null,\n\"updateTime\": null,\n\"wxPublicId\": null,\n\"name\": \"欧群飞\",                                    项目创建人名称\n\"position\": null,\n\"mobile\": null,\n\"tel\": null,\n\"pwd\": null,\n\"workplace\": null,\n\"remark\": null,\n\"email\": null,\n\"orgemail\": null,\n\"jobnumber\": null,\n\"ishide\": null,\n\"issenior\": null,\n\"intermediaryId\": null,\n\"extattr\": null,\n\"menus\": null,\n\"enabled\": true,\n\"username\": null,\n\"accountNonExpired\": true,\n\"credentialsNonExpired\": true,\n\"accountNonLocked\": true,\n\"password\": null\n},\n\"projectOwnerContact\": \"1\",                    业主名\n\"projectOwnerContactTel\": \"1\",                  业主联系电话\n\"projectLogo\": \"\",                                logo\n\"projectStatus\": 1,                               项目线索区分字段（0线索，1项目）\n\"projectTopicStatus\": 1                           线索状态（0已处理，1正在处理）\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/project/doc/ProjectDoc.java",
+    "groupTitle": "线索、项目"
+  },
+  {
+    "type": "get",
+    "url": "localhost:8080/project/page",
+    "title": "项目、线索分页查询",
+    "name": "queryPageProject",
+    "group": "project",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "page",
+            "description": "<p>页数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "rows",
+            "description": "<p>条数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "projectStatus",
+            "description": "<p>线索项目区分字段（0线索，1项目）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "projectName",
+            "description": "<p>线索项目名称</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "projectContactUser.id",
+            "description": "<p>项目负责人</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "projectOwnerContact",
+            "description": "<p>业主名</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "projectOwnerContactTel",
+            "description": "<p>业主联系电话</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Param-Example:",
+          "content": "{\n\"status\": \"200\",\n\"messages\": \"操作成功！\",\n\"list\": null,\n\"data\": {\n\"pageNum\": 1,\n\"pageSize\": 10,\n\"size\": 2,\n\"startRow\": 1,\n\"endRow\": 2,\n\"total\": 2,\n\"pages\": 1,\n\"list\": [\n{\n\"id\": 1,\n\"intermediary\": null,\n\"createTime\": \"2018-04-24 22:09:31\",\n\"updateTime\": \"2018-05-16 22:18:54\",\n\"wxPublicId\": null,\n\"projectName\": \"项目1\",\n\"area\": {\n\"id\": 110100,\n\"intermediary\": null,\n\"createTime\": null,\n\"updateTime\": null,\n\"wxPublicId\": null,\n\"isParent\": false,\n\"parentId\": null,\n\"name\": \"北京市\",\n\"shortName\": null,\n\"longitude\": null,\n\"latitude\": null,\n\"level\": null,\n\"sort\": null,\n\"status\": null\n},\n\"projectContactUser\": {\n\"id\": 1,\n\"intermediary\": null,\n\"createTime\": null,\n\"updateTime\": null,\n\"wxPublicId\": null,\n\"name\": \"欧群飞\",\n\"position\": null,\n\"mobile\": null,\n\"tel\": null,\n\"pwd\": null,\n\"workplace\": null,\n\"remark\": null,\n\"email\": null,\n\"orgemail\": null,\n\"jobnumber\": null,\n\"ishide\": null,\n\"issenior\": null,\n\"intermediaryId\": null,\n\"extattr\": null,\n\"menus\": null,\n\"enabled\": true,\n\"username\": null,\n\"password\": null,\n\"accountNonExpired\": true,\n\"accountNonLocked\": true,\n\"credentialsNonExpired\": true\n},\n\"projectCreateUser\": {\n\"id\": 1,\n\"intermediary\": null,\n\"createTime\": null,\n\"updateTime\": null,\n\"wxPublicId\": null,\n\"name\": \"欧群飞\",\n\"position\": null,\n\"mobile\": null,\n\"tel\": null,\n\"pwd\": null,\n\"workplace\": null,\n\"remark\": null,\n\"email\": null,\n\"orgemail\": null,\n\"jobnumber\": null,\n\"ishide\": null,\n\"issenior\": null,\n\"intermediaryId\": null,\n\"extattr\": null,\n\"menus\": null,\n\"enabled\": true,\n\"username\": null,\n\"password\": null,\n\"accountNonExpired\": true,\n\"accountNonLocked\": true,\n\"credentialsNonExpired\": true\n},\n\"projectOwnerContact\": \"1\",\n\"projectOwnerContactTel\": \"1\",\n\"projectLogo\": \"\",\n\"projectStatus\": 1,\n\"projectTopicStatus\": 1\n},\n{\n\"id\": 4,\n\"intermediary\": null,\n\"createTime\": \"2018-05-16 23:01:39\",\n\"updateTime\": \"2018-05-16 23:21:56\",\n\"wxPublicId\": null,\n\"projectName\": \"下项目12321\",\n\"area\": null,\n\"projectContactUser\": {\n\"id\": 1,\n\"intermediary\": null,\n\"createTime\": null,\n\"updateTime\": null,\n\"wxPublicId\": null,\n\"name\": \"欧群飞\",\n\"position\": null,\n\"mobile\": null,\n\"tel\": null,\n\"pwd\": null,\n\"workplace\": null,\n\"remark\": null,\n\"email\": null,\n\"orgemail\": null,\n\"jobnumber\": null,\n\"ishide\": null,\n\"issenior\": null,\n\"intermediaryId\": null,\n\"extattr\": null,\n\"menus\": null,\n\"enabled\": true,\n\"username\": null,\n\"password\": null,\n\"accountNonExpired\": true,\n\"accountNonLocked\": true,\n\"credentialsNonExpired\": true\n},\n\"projectCreateUser\": {\n\"id\": 1,\n\"intermediary\": null,\n\"createTime\": null,\n\"updateTime\": null,\n\"wxPublicId\": null,\n\"name\": \"欧群飞\",\n\"position\": null,\n\"mobile\": null,\n\"tel\": null,\n\"pwd\": null,\n\"workplace\": null,\n\"remark\": null,\n\"email\": null,\n\"orgemail\": null,\n\"jobnumber\": null,\n\"ishide\": null,\n\"issenior\": null,\n\"intermediaryId\": null,\n\"extattr\": null,\n\"menus\": null,\n\"enabled\": true,\n\"username\": null,\n\"password\": null,\n\"accountNonExpired\": true,\n\"accountNonLocked\": true,\n\"credentialsNonExpired\": true\n},\n\"projectOwnerContact\": \"联系人11\",\n\"projectOwnerContactTel\": \"13548656547\",\n\"projectLogo\": \"3214dsd\",\n\"projectStatus\": 1,\n\"projectTopicStatus\": 1\n}\n],\n\"prePage\": 0,\n\"nextPage\": 0,\n\"isFirstPage\": true,\n\"isLastPage\": true,\n\"hasPreviousPage\": false,\n\"hasNextPage\": false,\n\"navigatePages\": 8,\n\"navigatepageNums\": [\n1\n],\n\"navigateFirstPage\": 1,\n\"navigateLastPage\": 1,\n\"lastPage\": 1,\n\"firstPage\": 1\n}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "localhost:8080/project/page?page=1&rows=10&projectStatus=1&projectName=项目&projectContactUser.id=1&projectOwnerContact=1&projectOwnerContactTel=1",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/project/doc/ProjectDoc.java",
+    "groupTitle": "线索、项目"
+  },
+  {
+    "type": "put",
+    "url": "localhost:8080/device",
+    "title": "编辑项目、线索",
+    "name": "updateProject",
+    "group": "project",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "json",
+            "description": "<p>json对象字符串</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Param-Example:",
+          "content": "{\n\"status\": \"200\",\n\"messages\": \"操作成功！\",\n\"list\": null,\n\"data\": null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "{\n\"id\":3,\n\"projectName\":\"下项目12321211\",\n\"area\":{\"id\":110100},\n\"projectContactUser\":{\"id\":1},\n\"projectOwnerContact\":\"联系人11\",\n\"projectOwnerContactTel\":\"13548656547\",\n\"projectLogo\":\"3214dsd\",\n\"projectStatus\":0,\n\"projectTopicStatus\":1\n}",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/project/doc/ProjectDoc.java",
+    "groupTitle": "线索、项目"
   },
   {
     "type": "post",
@@ -4253,6 +4457,42 @@
         }
       ]
     },
+    "version": "0.0.0",
+    "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "get",
+    "url": "/material/image/detail",
+    "title": "素材图片查看",
+    "description": "<p>直接使用素材链接不能正常显示，需要通过后台接口转一下</p>",
+    "name": "imageDetail",
+    "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "url",
+            "description": "<p>素材url</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "name",
+            "description": "<p>素材名称（xxx.jpg/xxx.png）</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Request - Example:",
+        "content": "localhost:8080/material/image/detail?url=http://mmbiz.qpic.cn/mmbiz_jpg/FwRDKpzzTCMeic3kUEqYZiahRLxpa3WQ8YYpmKjmq9LiawOgb5lKGaT7FOG0ahPCMYibB6Cox3kztDQrvDsicACltSg/0?wx_fmt=jpeg&name=11.jpg",
+        "type": "json"
+      }
+    ],
     "version": "0.0.0",
     "filename": "C:/Users/mayn/Documents/GitHub/fc/src/main/java/com/we/fc/wechat/doc/WxDocumentation.java",
     "groupTitle": "微信公众号"

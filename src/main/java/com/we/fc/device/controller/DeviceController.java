@@ -33,7 +33,13 @@ public class DeviceController extends BaseController<Device> {
 
     @Override
     protected ResponseEntity hookExist(Device device) {
-        return null;
+        ResponseEntity responseEntity = new ResponseEntity();
+        Integer id = service.exist(device.getId(), "device_production_num", device.getDeviceProductionNum());
+        if (null != id) {
+            responseEntity.setStatus("500");
+            responseEntity.setMessages("设备编号已被占用");
+        }
+        return responseEntity;
     }
 
     @GetMapping("index")

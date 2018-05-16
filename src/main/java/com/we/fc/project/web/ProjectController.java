@@ -25,19 +25,25 @@ import javax.validation.Valid;
 public class ProjectController extends BaseController<Project> {
 
     @Autowired
-    private ProjectService projectService;
+    private ProjectService service;
 
     @Autowired
     private ProjectMapper dao;
 
     @Override
     public BaseService<Project> getService() {
-        return projectService;
+        return service;
     }
 
     @Override
     protected ResponseEntity hookExist(Project project) {
-        return null;
+        ResponseEntity responseEntity = new ResponseEntity();
+        Integer id = service.exist(project.getId(), "project_name", project.getProjectName());
+        if (null != id) {
+            responseEntity.setStatus("500");
+            responseEntity.setMessages("线索或项目名称已被占用");
+        }
+        return responseEntity;
     }
 
     @GetMapping("index")
@@ -47,32 +53,33 @@ public class ProjectController extends BaseController<Project> {
     }
 
     @GetMapping("byIdStatus")
+    @ResponseBody
     public Project selectByIdStatus(Integer id, Byte statusId) {
         return dao.selectByIdStatus(id, statusId);
     }
 
     @Override
     public ResponseEntity add(@Valid @RequestBody Project project, BindingResult result, HttpSession session) {
-            ResponseEntity responseEntity = new ResponseEntity();
-            if (result.hasErrors()) {
-                responseEntity.setStatus("500");
-                responseEntity.setMessages("验证失败");
-                responseEntity.setData(result.getAllErrors());
-                return responseEntity;
-            }
-            try {
-                getService().insert(project);
-                return responseEntity;
-            } catch (DuplicateKeyException e) {
-                e.printStackTrace();
-                responseEntity.setStatus("500");
-                responseEntity.setMessages("添加失败");
-                return responseEntity;
-            } catch (Exception e) {
-                e.printStackTrace();
-                responseEntity.setStatus("500");
-                responseEntity.setMessages(e.getMessage());
-                return responseEntity;
+        project.setProjectCreateUser(getSelf(session));
+        ResponseEntity responseEntity = new ResponseEntity();
+        if (result.hasErrors()) {
+            responseEntity.setStatus("500");
+            responseEntity.setMessages("验证失败");
+            responseEntity.setData(result.getAllErrors());
+            return responseEntity;
+        }
+        if (hookExist(project)!=null&&hookExist(project).getStatus().equals("500")){
+            return hookExist(project);
+        }
+        try {
+            getService().insert(project);
+            return responseEntity;
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity.setStatus("500");
+            responseEntity.setMessages(e.getMessage());
+            return responseEntity;
         }
     }
+
 }

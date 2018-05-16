@@ -4,22 +4,6 @@ package com.we.fc.intermediary.apidoc;
  * @apiDefine intermediary 中间商
  */
 
-/**
- * @api {post} localhost:8080/intermediary/exist 中间商名称验证
- * @apiName exist
- * @apiGroup intermediary
- * @apiParam {String} name 需要验证的字段名（intermediary_name）
- * @apiParam {String} value 内容
- * @apiExample Request-Example:
- * localhost:8080/intermediary/exist?name=intermediary_name&value=中间商4
- * @apiParamExample {json} Param-Example:
- * {
- * "status": "500",
- * "messages": "参数被占用",
- * "list": null,
- * "data": null
- * }
- */
 
 /**
  * @api {get} localhost:8080/intermediary/idNameList 中间商id，name list列表

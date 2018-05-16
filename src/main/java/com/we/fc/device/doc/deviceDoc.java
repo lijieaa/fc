@@ -530,29 +530,6 @@ package com.we.fc.device.doc;
  *}
  */
 
-/**
- * @api {post} localhost:8080/device/exist 设备生产编号重复验证
- * @apiName deviceExist
- * @apiGroup device
- * @apiParam {String} name 需要验证的字段名（device_production_num）
- * @apiParam {String} value 内容
- * @apiExample Request-Example:
- * localhost:8080/device/exist?name=device_production_num&value=00012
- * @apiParamExample {json} Param-Example:
- * {
- * "status": "500",
- * "messages": "参数被占用",
- * "list": null,
- * "data": null
- * }
- *
- * {
- *"status": "200",
- *"messages": "参数未被占用",
- *"list": null,
- *"data": null
-}
- */
 
 /**
  * @api {get} localhost:8080/intermediary 设备各字段验证条件

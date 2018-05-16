@@ -120,6 +120,9 @@
   </select>
 
     <select id="exist" resultType="java.lang.Integer">
-        SELECT device_id FROM device WHERE ${name} = #{value};
+        SELECT device_id
+        FROM device
+        WHERE ${name} = #{value}
+        <if test="id !=null"> and device_id !=#{id}</if>
     </select>
 </mapper>

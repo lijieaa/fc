@@ -21,4 +21,9 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
     public BaseDao<Project> getDao() {
         return dao;
     }
+
+    @Override
+    public Project selectByIdStatus(Integer id, Byte projectStatus) {
+        return dao.selectByIdStatus(id, projectStatus);
+    }
 }

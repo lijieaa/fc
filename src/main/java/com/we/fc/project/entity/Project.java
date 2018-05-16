@@ -72,8 +72,10 @@ public class Project extends BaseEntity implements Serializable {
     @NotBlank(message = "logo不能为空")
     private String projectLogo;
 
+    @NotNull(message = "状态不能为空")
     private Byte projectStatus;
 
+    @NotNull(message = "线索处理状态不能为空")
     private Byte projectTopicStatus;
 
     public Byte getProjectTopicStatus() {
