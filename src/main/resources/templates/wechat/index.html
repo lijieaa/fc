@@ -279,7 +279,7 @@
               </div>
               <!--语音-->
               <div id="source" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;">
-                  语音
+                  <ul id="mpShow"></ul>
               </div>
               <!--视频-->
               <div id="vid" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;">
@@ -326,33 +326,6 @@
 <script th:src="@{/dist/js/gzh/upload.js}"></script>
 <script th:src="@{/dist/js/gzh/hand-paging.js}"></script>
 <script th:inline="javascript">
-</script>
-<script>
-        $.ajax({
-            contentType:'application/json; charset=utf-8',
-            url:contextPath +"material/page",//ajax URL
-            type: "get",
-            data: {
-                wxtype:'image',
-                wxPublicId:14,
-                total:0,
-                records:0,
-                rows:10,
-                page:1
-            },
-            dataType: "json",
-            success: function(d){
-                // console.log(d.data.list);
-                for(var i=0;i<d.data.list.length;i++){
-                    var error="error";
-                    var url=d.data.list[i].url;
-                    var name=d.data.list[i].name;
-                    var urlLink = ''+contextPath+'material/image/detail?url='+url+"&name="+name;
-                    urlLink = encodeURI(urlLink);
-                    $("#imgShow").append("<li id=''="+d.data.list[i].id+" alt=''="+d.data.list[i].name+"><img src='"+urlLink+"' title='"+d.data.list[i].name+"' alt='"+error+"'></li>");
-                }
-            }
-        });
 </script>
 </body>
 </html>
