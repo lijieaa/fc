@@ -10,4 +10,5 @@ import java.util.List;
 public interface ProjectMapper extends BaseDao<Project>{
 
     Project selectByIdStatus(@Param("id") Integer id,@Param("statusId") Byte statusId);
+    void insertProjectComments();
 }
