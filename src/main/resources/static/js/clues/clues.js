@@ -52,21 +52,13 @@ new Vue({
                 name:"",
                 id:""
             },
-            company: null,
-            createTime: "",
-            id: 1,
-            intermediaryContact: "",
-            intermediaryContactTel: "",
-            intermediaryIntroduction: "",
-            intermediaryLogoUrl: "",
-            intermediaryName: "",
-            isPlat: 1,
-            updateTime: "",
-            user:{
-                id: 1,
-                name: "",
-                mobile: ""
-            }
+            projectName: "",
+            projectContactUser: "",
+            projectOwnerContact: "",
+            projectOwnerContactTel: "",
+            projectLogo: "",
+            projectStatus:0,
+            projectTopicStatus:""
         }
     },
     methods:{
@@ -167,6 +159,9 @@ new Vue({
                             $(".search-list").append(li).show();
                             $("#treeDemo").hide();
                         })
+
+
+
                     }
                 },function (data) {
 
@@ -237,14 +232,61 @@ new Vue({
             }
 
         },
+        uploaderFun:function(){
+            //    创建上传图片
+            uploader = WebUploader.create({
+                // 选完文件后，是否自动上传。
+                auto: false,
+                // swf文件路径
+                swf: '../js/dist/Uploader.swf',
+                server: contextPath + 'intermediary/upload',
+                pick: '#picker',
+                // 只允许选择图片文件。
+                accept: {
+                    title: 'Images',
+                    extensions: 'gif,jpg,jpeg,bmp,png',
+                    mimeTypes: 'image/*'
+                }
+            });
+            // 当有文件添加进来的时候
+            uploader.on( 'fileQueued', function( file ) {
+                var $li = $(
+                    '<div id="' + file.id + '" class="file-item thumbnail">' +
+                    '<img></div>'
+                );
+                $("#fileList").html($li);
+                var size = parseInt(file.size)/1024;
+                var sizeSub = size.toString().substr(0,5);
+                $("#size").text(sizeSub+"kb");
+                uploader.makeThumb(file, function (error, src) {
+                    $("#imgInter").attr("src",src);
+                    $("#fileList").addClass("active");
+                });
+            });
+            uploader.on( 'uploadSuccess', function( file ,response) {
+                var _this = this;
+                responseUrl = JSON.parse(response._raw).data;
+            });
+        },
     },
     mounted:function(){
         var _this = this;
+        _this.uploaderFun();  //上传图片
         $(document).on("click","#editClubs",function(){
             _this.deviceName = "编辑线索";
             $("#modal-default").addClass("in").css("display","block")
         });
-
+        setTimeout(function(){
+            $(".webuploader-pick").next().css({
+                position: "absolute",
+                top: "0px",
+                left: "15px",
+                width: "85px",
+                height: "40px",
+                overflow: "hidden",
+                opacity: 0
+            });
+        }, 1000);
         $(document).on("click","#detail",function(){
             window.location.href = "detail?menuId=30";
         });
