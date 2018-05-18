@@ -3901,21 +3901,28 @@
           },
           {
             "group": "Parameter",
-            "type": "Object",
+            "type": "String",
             "optional": false,
             "field": "projectName",
             "description": "<p>线索项目名称</p>"
           },
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "Object",
             "optional": false,
-            "field": "projectContactUser.id",
+            "field": "projectContactUser",
             "description": "<p>项目负责人</p>"
           },
           {
             "group": "Parameter",
-            "type": "Object",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>项目负责人id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
             "optional": false,
             "field": "projectOwnerContact",
             "description": "<p>业主名</p>"
