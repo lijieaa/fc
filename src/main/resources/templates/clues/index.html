@@ -24,6 +24,19 @@
     padding: 0;
     padding-left: 10px;
   }
+  .img-div{
+    width: 100px;
+    height: 100px;
+    border: 1px dotted grey;
+    display: inline-block;
+    margin-left: 30px;
+  }
+  #picker{
+    margin-left: 20px;
+    /* margin-top: 50px; */
+    position: relative;
+    top: 31px;
+  }
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="import::bdy-befor">
@@ -92,11 +105,15 @@
           <div class="modal-body text-align">
             <form action="" id="deviceSubmit">
               <div class="pop-box">
+                <div class="img-div">
+                  <img src="" id="imgInter" alt="" width="100%">
+                </div>
+                <div id="picker" class="display-block">选择文件</div>
+              </div>
+              <div class="pop-box margin-top-15">
                 <label for="" class="label-pop-style">
-                  <span class="color-red margin-right-4">*</span>中间商名称:</label>
-                <select class="form-style-pop form-control" name=""  v-model='selected'>
-                  <option v-for="item in projectList"  v-bind:value="item.val">{{item.name}}</option>
-                </select>
+                  <span class="color-red margin-right-4">*</span>线索名称:</label>
+                 <input type="text" id="interName" class="form-control form-style-pop" v-model="editList.projectName">
               </div>
               <div class="pop-box positon-relative margin-top-15">
                 <label for="" class="label-pop-style">
@@ -118,30 +135,25 @@
               </div>
               <div class="pop-box margin-top-15">
                 <label for="" class="label-pop-style">
-                  <span class="color-red margin-right-4">*</span>联系人:</label>
-                <input type="text" class="form-style-pop form-control">
+                  <span class="color-red margin-right-4">*</span>负责人:</label>
+                <input type="text" class="form-style-pop form-control" v-model="editList.projectContactUser">
               </div>
               <div class="pop-box margin-top-15">
                 <label for="" class="label-pop-style">
-                  <span class="color-red margin-right-4">*</span>联系方式:</label>
-                <input type="text" class="form-style-pop form-control">
+                  <span class="color-red margin-right-4">*</span>业主名:</label>
+                <input type="text" class="form-style-pop form-control" v-model="editList.projectOwnerContact">
               </div>
               <div class="pop-box margin-top-15">
                 <label for="" class="label-pop-style">
-                  <span class="color-red margin-right-4">*</span>平台对接人:</label>
-                <input type="text" class="form-style-pop form-control">
+                  <span class="color-red margin-right-4">*</span>业主联系电话:</label>
+                <input type="text" class="form-style-pop form-control" v-model="editList.projectOwnerContactTel">
               </div>
               <div class="pop-box margin-top-15">
                 <label for="" class="label-pop-style">
-                  <span class="color-red margin-right-4">*</span>对接人联系方式:</label>
-                <input type="text" class="form-style-pop form-control">
-              </div>
-              <div class="pop-box margin-top-15">
-                <label for="" class="label-pop-style">
-                  <span class="color-red margin-right-4">*</span>项目状态:</label>
-                <select name="" class="form-style-pop form-control">
-                  <option value="">已处理</option>
-                  <option value="">正在处理</option>
+                  <span class="color-red margin-right-4">*</span>线索状态:</label>
+                <select name="" class="form-style-pop form-control" v-model="editList.projectTopicStatus">
+                  <option value="0">已处理</option>
+                  <option value="1">正在处理</option>
                 </select>
               </div>
             </form>
@@ -168,6 +180,8 @@
 </div>
 
 <div th:replace="import::scipt"></div>
+<script type="text/javascript"  th:src="@{/dist/js/jquery-html5Validate.js}"></script>
+<script type="text/javascript" th:src="@{/js/webuploader.js}"></script>
 <script th:inline="javascript"></script>
 <script type="text/javascript" th:src="@{/js/clues/clues.js}"></script>
 </body>

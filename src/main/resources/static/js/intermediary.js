@@ -400,7 +400,6 @@ new Vue({
                 width: "85px",
                 height: "40px",
                 overflow: "hidden",
-
                 opacity: 0
             });
         }, 1000);
