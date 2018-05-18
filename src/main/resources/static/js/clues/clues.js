@@ -1,3 +1,36 @@
+//中间商管理
+function showMenu() {
+    $(".tree-div-contain").show();
+    $("body").unbind("mousedown", onBodyDown);
+}
+function hideMenu() {
+    $(".tree-div-contain").hide();
+    $("body").unbind("mousedown", onBodyDown);
+}
+function onBodyDown(event) {
+    if (!(event.target.id == "address"  || event.target.className == "tree-div-contain" || $(event.target).parents(".tree-div-contain").length>0)) {
+        hideMenu();
+    }
+}
+$(document).bind("click",function(e){
+    onBodyDown(e) ;
+});
+$(document).on("click",".search-list >li",function(){
+    $(".tree-div-contain").hide();
+    $("#address").val($(this).text());
+    $("#treeDemo").show();
+    $(".search-list").hide();
+    var text = $(this).text();
+    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+    var nodes = treeObj.transformToArray(treeObj.getNodes());
+    $(".limit-style").val("");
+    nodes.forEach(function(item,i){
+        if(nodes[i].name == text){
+            treeObj.selectNode(nodes[i]);
+        }
+    });
+
+});
 Vue.component('option-item', {
     props: ['todo'],
     template: '<option>{{todo.name}}</option>'
@@ -7,12 +40,26 @@ new Vue({
     data:{
         deviceName:"添加线索",
         inputLimit:"",
+        searchVal:"",
         selected:"3",
         projectList:[
             {val:1,name:"成都华西"},
             {val:2,name:"成都龙泉"},
             {val:3,name:"项目二"}
-        ]
+        ],
+        editList:{
+            area:{
+                name:"",
+                id:""
+            },
+            projectName: "",
+            projectContactUser: "",
+            projectOwnerContact: "",
+            projectOwnerContactTel: "",
+            projectLogo: "",
+            projectStatus:0,
+            projectTopicStatus:""
+        }
     },
     methods:{
         addDevice:function(){
@@ -99,20 +146,154 @@ new Vue({
                     alert(1);
                 }
             });
-        }
+        },
+        searchZtree:function(){
+            var searchVal = this.searchVal;
+            if(searchVal.length != 0){
+                $.axspost(contextPath + "area/?shortName="+searchVal,"get","",function (data) {
+                    var getData = data.data;
+                    $(".search-list").html("");
+                    if(getData.length != 0){
+                        getData.forEach(function(item,i){
+                            var li = "<li data-id="+getData[i].id+">"+getData[i].name+"</li>";
+                            $(".search-list").append(li).show();
+                            $("#treeDemo").hide();
+                        })
+
+
+
+                    }
+                },function (data) {
+
+                });
+            }else{
+                $("#treeDemo").show();
+                $(".search-list").hide();
+            }
+
+        },
+        zTreeInit:function(){
+            var _this = this;
+            return {
+                useTree : function(ele,zNodes,inputEle){
+                    var setting = {
+                        async: {
+                            enable: true,
+                            url: getUrl,
+                            type: "get",
+                            dataFilter: ajaxDataFilter
+                        },
+                        data: {
+                            simpleData: {
+                                enable: true
+                            }
+                        },
+                        callback: {
+                            onClick:zTreeOnclick,
+                            beforeExpand: beforeExpand,
+                            onAsyncSuccess:onAsyncSuccess
+                        },
+                        view: {
+                            fontCss: getFontCss,
+                            showLine: false
+                            // showIcon:false
+                        }
+                    };
+                    function getFontCss(treeId, treeNode) {
+                        return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
+                    }
+                    //异步加载返回的数据
+                    function ajaxDataFilter(treeId, parentNode, responseData) {
+                        return responseData.data;
+                    }
+                    function zTreeOnclick(event, treeId, treeNode) {
+                        _this.editList.area.name = treeNode.name;
+                        _this.editList.area.id = treeNode.id;
+                        // _this.treeIsShow = false;
+                        $(".tree-div-contain").hide();
+                    }
+                    function getUrl(treeId, treeNode){
+                        return contextPath +"area/condition?level="+parseInt(treeNode.level+2)+"&parent="+parseInt(treeNode.id);
+                    }
+                    function beforeExpand(treeId, treeNode) {
+                        if (!treeNode.isAjaxing) {
+                            return true;
+                        } else {
+                            alert("zTree 正在下载数据中，请稍后展开节点。。。");
+                            return false;
+                        }
+                    }
+                    function onAsyncSuccess(event, treeId, treeNode, msg) {
+                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                        treeObj.updateNode(treeNode);
+                    }
+                    $.fn.zTree.init(ele, setting, zNodes);
+                }
+            }
+
+        },
+        uploaderFun:function(){
+            //    创建上传图片
+            uploader = WebUploader.create({
+                // 选完文件后，是否自动上传。
+                auto: false,
+                // swf文件路径
+                swf: '../js/dist/Uploader.swf',
+                server: contextPath + 'intermediary/upload',
+                pick: '#picker',
+                // 只允许选择图片文件。
+                accept: {
+                    title: 'Images',
+                    extensions: 'gif,jpg,jpeg,bmp,png',
+                    mimeTypes: 'image/*'
+                }
+            });
+            // 当有文件添加进来的时候
+            uploader.on( 'fileQueued', function( file ) {
+                var $li = $(
+                    '<div id="' + file.id + '" class="file-item thumbnail">' +
+                    '<img></div>'
+                );
+                $("#fileList").html($li);
+                var size = parseInt(file.size)/1024;
+                var sizeSub = size.toString().substr(0,5);
+                $("#size").text(sizeSub+"kb");
+                uploader.makeThumb(file, function (error, src) {
+                    $("#imgInter").attr("src",src);
+                    $("#fileList").addClass("active");
+                });
+            });
+            uploader.on( 'uploadSuccess', function( file ,response) {
+                var _this = this;
+                responseUrl = JSON.parse(response._raw).data;
+            });
+        },
     },
     mounted:function(){
         var _this = this;
+        _this.uploaderFun();  //上传图片
         $(document).on("click","#editClubs",function(){
             _this.deviceName = "编辑线索";
             $("#modal-default").addClass("in").css("display","block")
         });
-
+        setTimeout(function(){
+            $(".webuploader-pick").next().css({
+                position: "absolute",
+                top: "0px",
+                left: "15px",
+                width: "85px",
+                height: "40px",
+                overflow: "hidden",
+                opacity: 0
+            });
+        }, 1000);
         $(document).on("click","#detail",function(){
             window.location.href = "detail?menuId=30";
         });
-
-        //
+        $.axspost(contextPath + "area/condition?level=1","get","",function(data){
+            _this.facList = data.data;
+            _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
+        },function (data) {});
         _this.tableInit(false); //创建表格
 
         //

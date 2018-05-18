@@ -269,7 +269,7 @@ new Vue({
             }
             $.axspost(contextPath + "intermediary",type,JSON.stringify(postData),function(data){
                 if(data.status == "200"){
-                    location.reload();
+                    // location.reload();
                 }else{
                     $("#errorMsg").addClass("in").css("display","block");
                     _this.delErrorMsg = data.messages;
@@ -301,7 +301,7 @@ new Vue({
             var val = parseInt($("#limitSelect").val());
             var postData = {
                 "page":1,
-                "rows":10
+                "rows":3
             };
             switch (val){
                 case 1 :{
@@ -328,7 +328,11 @@ new Vue({
                     dataSrc:"data.list",
                     "data":postData
                 },
+                "bPaginate" : true,//分页工具条显示
+                "iDisplayLength": 3,//每页显示3条数据
                 "info":false,
+                "bProcessing": true,
+                // "bServerSide": true,
                 "searching": false,
                 "lengthChange": false,
                 "ordering": false,
@@ -396,7 +400,6 @@ new Vue({
                 width: "85px",
                 height: "40px",
                 overflow: "hidden",
-
                 opacity: 0
             });
         }, 1000);
@@ -419,23 +422,6 @@ new Vue({
             validate:function () {
                 if(responseUrl == undefined){
                     $("#isSc").testRemind("请上传图片");
-                    return false;
-                }
-                var interId = _this.editList.intermediaryName;
-                var isSubmit;
-                $.ajax({
-                    url:contextPath + "intermediary/exist?name=intermediary_name&value="+interId,
-                    type:"post",
-                    async:false,
-                    success:function(data){
-                        if(data.status == 500) {
-                            $("#intermediaryName").testRemind("不能添加已存在的中间商名称");
-                            isSubmit = 1
-                        }
-                    }
-                });
-
-                if(isSubmit == 1){
                     return false;
                 }
                 return true;
