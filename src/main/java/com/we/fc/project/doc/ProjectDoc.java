@@ -195,7 +195,7 @@ package com.we.fc.project.doc;
  * @apiParam {Number} projectStatus 线索项目区分字段（0线索，1项目）
  * @apiParam {String} projectName 线索项目名称
  * @apiParam {Object} projectContactUser 项目负责人
- * @apiParam {Number} id 项目负责人id
+ * @apiParam {Number} name 项目负责人id
  * @apiParam {String} projectOwnerContact 业主名
  * @apiParam {String} projectOwnerContactTel 业主联系电话
  * @apiExample Request-Example:

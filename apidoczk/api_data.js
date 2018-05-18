@@ -3917,7 +3917,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "Number",
             "optional": false,
-            "field": "id",
+            "field": "name",
             "description": "<p>项目负责人id</p>"
           },
           {
