@@ -96,6 +96,8 @@
              </div>
          </div>
    </div>
+
+
     <!--公众号管理页面-->
    <div id="gzh-manage">
      <section class="content-header gzh-manage-menu">
@@ -103,6 +105,8 @@
        <a class="font-size-18 text-black">菜单管理</a>
        <a class="font-size-18 text-black">消息管理</a>
        <a class="font-size-18 text-black">素材管理</a>
+         <!--存放公众id-->
+       <label id="wxID" style="display: none;"></label>
        <button class="btn btn-info search text-center pull-right" id="backUl">返回</button>
      </section>
      <div style="margin-left: 2.5%;margin-top:3%;width: 95%;height: auto;">
@@ -147,64 +151,15 @@
               <button type="button" class="btn btn-info search marginLeft-1" style="margin-top:1%;width: 100px;display: inline-block;">发送</button>
               <div style="display: inline-block;">还可以输入100字</div>
               <h5 class="marginTop-2 marginLeft-1">最近20条聊天记录</h5>
-              <ul class="list-group chat-ul" style="width: 98%;margin: 0.5% 0 0 1%;height:50%;overflow: auto;">
-                  <li class="list-group-item">
-                     <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
-                     <span class="chat-history-ul">
-                      <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
-                      <a>你好，晚上好</a>
-                      <a>今天都干了什么</a>
-                     </span>
-                  </li>
-                  <li class="list-group-item">
-                      <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
-                      <span class="chat-history-ul">
-                      <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
-                      <a>你好，晚上好</a>
-                      <a>今天都干了什么</a>
-                      </span>
-                  </li>
-                  <li class="list-group-item">
-                      <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
-                      <span class="chat-history-ul">
-                      <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
-                      <a>你好，晚上好</a>
-                      <a>今天都干了什么</a>
-                      </span>
-                  </li>
-                  <li class="list-group-item">
-                      <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
-                      <span class="chat-history-ul">
-                      <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
-                      <a>你好，晚上好</a>
-                      <a>今天都干了什么</a>
-                      </span>
-                  </li>
-                  <li class="list-group-item">
-                      <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
-                      <span class="chat-history-ul">
-                      <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
-                      <a>你好，晚上好</a>
-                      <a>今天都干了什么</a>
-                       </span>
-                  </li>
-                  <li class="list-group-item">
-                      <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
-                      <span class="chat-history-ul">
-                      <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
-                      <a>你好，晚上好</a>
-                      <a>今天都干了什么</a>
-                       </span>
-                  </li>
-                  <li class="list-group-item">
-                      <img src="../dist/img/avatar.png" class="img-circle" alt="123"  width="50" height="50" style="border: 1px #3b3b3b solid;margin-top: -4%;">
-                      <span class="chat-history-ul">
-                      <a>公众号1<span class="text-right float-right">2018-4-9</span></a>
-                      <a>你好，晚上好</a>
-                      <a>今天都干了什么</a>
-                       </span>
-                  </li>
-              </ul>
+              <table id="gzh-news" class="display table table-bordered table-hover dataTable" style="width:100%;">
+                  <thead style="display: none;">
+                  <tr>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                  </tr>
+                  </thead>
+              </table>
           </section>
     </div>
       <!--素材库弹窗-->

@@ -47,9 +47,6 @@
 .chat-history-ul a{
     display: block;
 }
-.chat-ul li{
-    margin: 15px 0;
-}
 /*素材库管理*/
 .source-title{
     font-size: 20px;
