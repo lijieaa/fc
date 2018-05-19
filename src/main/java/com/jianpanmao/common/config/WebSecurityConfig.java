@@ -38,6 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 .anyRequest().authenticated()
+                //.anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")

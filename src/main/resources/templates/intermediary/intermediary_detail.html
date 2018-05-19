@@ -322,10 +322,10 @@
         mounted:function () {
             var _this = this;
             _this.editorFun(); //初始化生成编辑器
-            var detailID  = location.search.substring(1).split("&")[1];
-            $.axspost(contextPath + "intermediary/"+detailID+"","get","",function(data){
+            var detailID  = [[${id}]];
+            $.axspost(contextPath + "api/intermediary/?id="+detailID+"","get","",function(data){
                 _this.dataList = data;
-                $(".intermediaryIntroduction").html(data.intermediaryIntroduction)
+                $(".intermediaryIntroduction").html(data.content.intermediaryIntroduction)
             },function(data){});
 
             $.axspost(contextPath + "topic/intermediaryId/"+detailID+"","get","",function(data){

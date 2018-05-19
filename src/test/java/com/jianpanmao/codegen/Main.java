@@ -8,7 +8,9 @@ import org.mybatis.generator.exception.XMLParserException;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -110,5 +112,17 @@ public class Main {
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
         myBatisGenerator.generate(null);
 
+    }
+
+
+    @Test
+    public void testDate(){
+
+        Date nowTime=new Date();
+
+        SimpleDateFormat time=new SimpleDateFormat("yyyy-MM-dd");
+
+
+        System.out.println(time.format(nowTime));
     }
 }
