@@ -1,0 +1,24 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<body layout:fragment="content">
+
+<div class="row">
+    <div class="col-xs-12">
+
+
+    </div>
+    <!-- /.col -->
+</div>
+<script type="text/javascript" th:inline="javascript">
+
+    [# sec:authorize="hasAuthority('news:update')"]
+
+        console.log("a")
+    [/]
+    [# sec:authorize="hasAuthority('news:create')"]
+        console.log("b")
+    [/]
+</script>
+</body>
+</html>
