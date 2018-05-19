@@ -4,7 +4,9 @@ import com.jianpanmao.common.filter.ModifyParametersFilter;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -16,7 +18,12 @@ import java.util.Date;
 
 @SpringBootApplication
 @EnableTransactionManagement
-public class Application {
+public class Application extends SpringBootServletInitializer{
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(Application.class);
+    }
 
     public static void main(String[] args) {
 
