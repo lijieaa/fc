@@ -193,9 +193,10 @@ package com.we.fc.project.doc;
  * @apiParam {Number} page 页数
  * @apiParam {Number} rows 条数
  * @apiParam {Number} projectStatus 线索项目区分字段（0线索，1项目）
- * @apiParam {Object} projectName 线索项目名称
- * @apiParam {String} projectContactUser.id 项目负责人
- * @apiParam {Object} projectOwnerContact 业主名
+ * @apiParam {String} projectName 线索项目名称
+ * @apiParam {Object} projectContactUser 项目负责人
+ * @apiParam {Number} name 项目负责人id
+ * @apiParam {String} projectOwnerContact 业主名
  * @apiParam {String} projectOwnerContactTel 业主联系电话
  * @apiExample Request-Example:
  * localhost:8080/project/page?page=1&rows=10&projectStatus=1&projectName=项目&projectContactUser.id=1&projectOwnerContact=1&projectOwnerContactTel=1
