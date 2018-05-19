@@ -324,7 +324,7 @@
             _this.editorFun(); //初始化生成编辑器
             var detailID  = [[${id}]];
             $.axspost(contextPath + "api/intermediary/?id="+detailID+"","get","",function(data){
-                _this.dataList = data;
+                _this.dataList = data.content;
                 $(".intermediaryIntroduction").html(data.content.intermediaryIntroduction)
             },function(data){});
 
