@@ -1,34 +1,352 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
-    <title>首页</title>
-    <style>
-        .aa{
-            background-color: #1a1a1a;
-            width: 1000px;
-            height: 1000px;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/webuploader.css}">
+    <link rel="stylesheet" th:href="@{/css/detail.css}">
 </head>
+
 <body layout:fragment="content">
-<div class="row">
-<div class="aa"></div>
+<div class="wrapper" id="company">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <section class="content-header change-content">
+            <div class="row">
+                <div class="col-md-9 col-sm-9">
+                    <div class="form-group float-left">
+                        <span class="font-size-18 border-left-blue">中间商的详情</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 text-align-right">
+                    <!--<button type="button" class="btn btn-block btn-info">添加设备</button>-->
+                    <button type="button" class="btn btn-info padding-right-15"
+                            data-toggle="modal" data-target="#modal-info" @click="backMediary">
+                        返回
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section class="content-list">
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12  page-content">
+                        <div class="logo-detail paading-top-0  padding-10">
+                            <div class="row">
+                                <div class="col-md-6 padding-15 back-white col-sm-8 col-xs-6 ">
+                                    <table class="detail-table">
+                                        <tr class="row-ji">
+                                            <td>中间商名称</td>
+                                            <td>
+                                                <span v-text="dataList.intermediaryName"></span>
+                                            </td>
+                                        </tr>
+                                        <tr >
+                                            <td>所属地区</td>
+                                            <td>
+                                                <span v-text="dataList.area.name">安徽省</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="row-ji">
+                                            <td>联系人</td>
+                                            <td>
+                                                <span v-text="dataList.intermediaryContact"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>联系方式</td>
+                                            <td>
+                                                <span  v-text="dataList.intermediaryContactTel"></span>
+                                            </td>
+                                        </tr>
+                                        <tr class="row-ji">
+                                            <td>平台对接人</td>
+                                            <td>
+                                                <span v-text="dataList.user.name">张三</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>联系方式</td>
+                                            <td>
+                                                <span  v-text="dataList.user.mobile"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-md-6 padding-15 logo-div back-white col-sm-4 col-xs-6 ">
+                                    <div class="common-title">
+                                        中间商Logo
+                                    </div>
+                                    <div class="logo-img-contain">
+                                        <img src="" alt="">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row back-white margin-top-6 product-detail">
+                            <div class="col-md-12 common-title padding-left-6 ">
+                                简要介绍
+                            </div>
+                            <div class="col-md-12 company-content padding-left-6 intermediaryIntroduction">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 back-white col-xs-12 company-right-content">
+                        <div class="border-left-black">
+                            <div class="row head">
+                                <div class="col-md-7 circle-msg  height-35 col-xs-7 padding-left-15">
+                                    <div class="direct-chat-text flow-msg">
+                                        跟进信息
+                                    </div>
+                                </div>
+                                <div class="col-md-5 col-xs-5 text-right padding-right-15">
+                                    <button type="button" class="btn purple-btn btn-default" @click="addGJ">新增改进</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <comment-list v-for = "item in commentList" v-bind:comment="item"></comment-list>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" @click="closePop">×</span></button>
+                        <h4 class="modal-title text-align">新增改进</h4>
+                    </div>
+                    <div class="modal-body text-align">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form>
+                                    <div class="pop-box text-align-left">
+                                        <label for="">项目状态: </label>
+                                        <select name="" id="dealWith" class="form-style-pop form-control">
+                                            <option value="0">已处理</option>
+                                            <option value="1">正在处理</option>
+                                        </select>
+                                    </div>
+                                    <textarea name="editor1"  id="editor1" rows="10" cols="80"></textarea>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer text-align">
+                        <button type="submit" class="btn btn-info search" @click="sureAdd">确定</button>
+                        <button type="button" @click="closePop" class="btn btn-info search">取消</button>
+                        <button type="button" class="btn btn-info search">重置</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modalAll" id="errMsg">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body padding-top-15 text-align" style="padding-top: 15px">
+                    验证失败？
+                </div>
+                <div class="modal-footer text-align">
+                    <button type="button" class="btn btn-info search margin-right-4" @click="closeDelPop">确定</button>
+                    <button type="button" class="btn reset-btn search" @click = "closeDelPop">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<script type="text/javascript" th:inline="javascript">
+<script th:src="@{/js/webuploader.js}"></script>
+<script th:inline="javascript">
+    var bus = new Vue();
+    var msgList = Vue.extend({
+        props:["content"],
+        template:'<div class="msg-comment-list" v-bind:dataId="content.user.id">' +
+        '<div class="comment-msg margin-top-6">\n' +
+        '<div class="msg-user font-weight margin-top-6">{{content.user.name}}</div>\n' +
+        '<div class="msg-content margin-top-3">{{content.topicCommentsContent}}</div>' +
+        '<div class="comment-time margin-top-3">跟进时间<span>{{content.createTime}}</span>' +
+        '</div>' +
+        '</div></div>',
+        mounted:function(){
 
-    jQuery(function($) {
-        var id=[[${id}]];
-        $.ajax({
-            url: contextPath+"api/intermediary?id="+id,
-            method: "get",
-            success: function (data) {
-                console.log(data);
+        }
+    });
+    Vue.component('comment-list', {
+        props:['comment'],
+        template:'<div class="direct-chat-msg">' +
+        '<div class="direct-chat-text"><div>\n' +
+        '<img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image">\n' +
+        '<span class="comment-user">{{comment.user.name}}</span></div>' +
+        '<div class="comment-content"  escape="false" ref = "item"></div>' +
+        '<div class="comment-status margin-top-6">' +
+        '跟进状态: <span ref="status"></span></div>' +
+        '<div class="comment-btn-time margin-top-6">' +
+        '<div class="comment-time float-left">' +
+        '跟进时间<span>{{comment.createTime}}</span></div>' +
+        '<div class="comment-btn float-right" @click="commentClick(comment.id,$event)">' +
+        '<i class="icon-color-9c fa fa-fw  fa-commenting"></i>' +
+        '评论({{comment.commentsCount}})</div></div>' +
+        '<transition name="fade">' +
+        '<div class="comment-list">' +
+        '<div class="input-group margin-top-6">' +
+        '<input type="text" class="form-control">' +
+        '<span class="input-group-btn">' +
+        '<button type="button" class="btn btn-info btn-flat" @click="commentAdd(comment.id,$event)">评论</button>' +
+        '</span>' +
+        '</div><div class="margin-top-15">评论消息</div>' +
+        ' <msg1 v-for = "item in comment.commentContent" v-bind:content="item">' +
+        '</msg1></div></transition></div></div>',
+        methods:{
+            commentClick:function (msg,event) {
+                var comment = $(event.currentTarget);
+                bus.$emit('change',msg,comment);
+                comment.parent().next().toggle();
             },
-            error: function (data) {
-                alert("查询数据出错！");
-            }
-        })
 
+            commentAdd:function(msg,event){
+                var comment = $(event.currentTarget);
+                var userId = comment.parent().parent().next().next().attr("dataId");
+                console.log(userId);
+                var postData = {
+                    topicId:msg,
+                    topicCommentsContent:comment.parent().prev().val()
+                };
+                $.axspost(contextPath + "topicComments","post",JSON.stringify(postData),function(data){
+                    if( data.status == 200){
+                        window.location.reload();
+                    }else{
+                        $("#errMsg").addClass("in").css("display","block")
+                    }
+                },function(data){});
+            }
+        },
+        components:{
+            "msg1":msgList
+        },
+        mounted:function(){
+            var _this = this;
+            $(this.$refs.item).html(_this.comment.topicContent);
+            // {{comment.topicStatus}}
+            if(_this.comment.topicStatus == 0){
+                $(this.$refs.status).html("已处理")
+            }else{
+                $(this.$refs.status).html("正在处理")
+            }
+        }
+    });
+
+    var Vm =  new Vue({
+        el:"#company",
+        data:{
+            show: false,
+            dataList:{
+                area:{
+                    name:"",
+                    id:""
+                },
+                company: null,
+                createTime: "",
+                id: 1,
+                intermediaryContact: "",
+                intermediaryContactTel: "",
+                intermediaryIntroduction: "",
+                intermediaryLogoUrl: "",
+                intermediaryName: "",
+                isPlat: 1,
+                updateTime: "",
+                user:{
+                    admin:"",
+                    id: 1,
+                    platformAdmin: "",
+                    position: "",
+                    name: "",
+                    mobile: ""
+                }
+            },
+            commentList:[]
+        },
+        methods:{
+            closeDelPop:function(){
+                $(".modalAll").removeClass("in").css("display","none");
+            },
+            addGJ:function(){
+                $("#modal-default").addClass("in").css("display","block")
+            },
+            closePop:function(){
+                $("#modal-default").removeClass("in").css("display","none")
+            },
+            editorFun:function(){
+                CKEDITOR.replace( 'editor1', {
+                    customConfig: '',
+                    filebrowserImageUploadUrl:"skins",
+                    removeDialogTabs:"image:advanced;image:Link",
+                    toolbarGroups: [
+                        {"name":"basicstyles","groups":["basicstyles"]},
+                        {"name":"links","groups":["links"]},
+                        {"name":"paragraph","groups":["list","blocks"]},
+                        // {"name":"document","groups":["mode"]},
+                        {"name":"insert","groups":["insert"]},
+//                {"name":"styles","groups":["styles"]},
+                        {"name":"about","groups":["about"]}
+                    ],
+                    removePlugins:"elementspath"
+//            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
+                });
+            },
+            backMediary:function(){
+                window.location.href = "../intermediary/index?menuId=4";
+            },
+            sureAdd:function () {  //    新增跟进
+                var intermediaryId  = location.search.substring(1).split("&")[1];
+                var postData = {
+                    intermediary:{
+                        id:intermediaryId
+                    },
+                    topicContent:CKEDITOR.instances.editor1.getData(),
+                    topicStatus: $("#dealWith").val()
+                };
+                $.axspost(contextPath + "topic","post",JSON.stringify(postData),function(data){
+                    if( data.status == 200){
+                        window.location.reload();
+                    }else{
+                        $(".modalAll").addClass("in").css("display","block");
+                    }
+                },function(data){});
+            }
+        },
+        mounted:function () {
+            var _this = this;
+            _this.editorFun(); //初始化生成编辑器
+            var detailID  = location.search.substring(1).split("&")[1];
+            $.axspost(contextPath + "intermediary/"+detailID+"","get","",function(data){
+                _this.dataList = data;
+                $(".intermediaryIntroduction").html(data.intermediaryIntroduction)
+            },function(data){});
+
+            $.axspost(contextPath + "topic/intermediaryId/"+detailID+"","get","",function(data){
+                _this.commentList = data.data;
+                // $(".comment-content").html(data.topicContent);
+            },function(data){});
+
+            bus.$on('change', function (id,comment1) {
+                $.axspost(contextPath+"topicComments/topic/"+id+"","get","",function(data){
+                    _this.commentList.forEach(function(item,i){
+                        if( _this.commentList[i].id == id){
+                            Vue.set(Vm.commentList[i],'commentContent',data.data);
+                        }
+                    });
+                },function (data) {
+
+                });
+            });
+
+
+        }
     })
 </script>
 </body>
