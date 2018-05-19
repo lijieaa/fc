@@ -35,6 +35,7 @@ Vue.component('option-item', {
     props: ['todo'],
     template: '<option>{{todo.name}}</option>'
 });
+var responseUrl;
 new Vue({
     el:"#myClues",
     data:{
@@ -42,6 +43,8 @@ new Vue({
         inputLimit:"",
         searchVal:"",
         selected:"3",
+        editorId:"",
+        delErrorMsg:"",
         projectList:[
             {val:1,name:"成都华西"},
             {val:2,name:"成都龙泉"},
@@ -53,12 +56,15 @@ new Vue({
                 id:""
             },
             projectName: "",
-            projectContactUser: "",
+            projectContactUser:{
+                id:"",
+                name:1
+            },
             projectOwnerContact: "",
             projectOwnerContactTel: "",
             projectLogo: "",
             projectStatus:0,
-            projectTopicStatus:""
+            projectTopicStatus:0
         }
     },
     methods:{
@@ -69,6 +75,9 @@ new Vue({
         closePop:function(){
             $("#modal-default").removeClass("in").css("display","none")
         },
+        closeDelPop:function(){
+            $(".modalAll").removeClass("in").css("display","none");
+        },
         searchLimit:function(){ //按条件进行搜索
             var _this = this;
             _this.tableInit(true);
@@ -78,30 +87,31 @@ new Vue({
             var val = parseInt($("#limitSelect").val());
             var postData = {
                 "page":1,
-                "rows":10
+                "rows":10,
+                "projectStatus":0
             };
             switch (val){
                 case 1 :{
-                    postData.deviceProductionNum = _this.inputLimit;//生产编号
+                    postData.projectName = _this.inputLimit;//线索名称
                     break;
                 }
                 case 2:{
-                    postData["project.projectName"]= _this.inputLimit;//项目名称
+                    postData["projectContactUser.id"]= _this.inputLimit;//负责人
                     break;
                 }
                 case 3:{
-                    postData["operateUser.name"] = _this.inputLimit; //操作员名称
+                    postData.projectOwnerContact = _this.inputLimit; //业主名
                     break;
                 }
                 case 4:{
-                    postData["transcribeUser.name"] = _this.inputLimit; //抄表员名称
+                    postData.projectOwnerContactTel= _this.inputLimit; //业务联系电话
                     break;
                 }
             }
             $('#deviceForm').DataTable({
                 "ajax":{
                     // url:"../dist/data/device.json",
-                    url: contextPath +"device/page",
+                    url: contextPath +"project/page",
                     dataSrc:"data.list",
                     "data":postData
                 },
@@ -118,25 +128,16 @@ new Vue({
                 },
                 "destroy":flag,
                 "columns": [
-                    { "data": "deviceProductionNum"},
-                    { "data": "position"},
-                    { "data": "project.projectName"},
-                    { "data": "operateUser.name"},
-                    { "data": "transcribeUser.name"},
-                    { "data": "deivceStatus","render": function(data, type, row, meta){
-                            var status;
-                            if(data == 0){
-                                status = "在线"
-                            }else{
-                                status = "不在线"
-                            }
-                            return status;
-                        }},
+                    { "data": "id"},
+                    { "data": "projectName"},
+                    { "data": "projectContactUser.name"},
+                    { "data": "projectOwnerContact"},
+                    { "data": "projectOwnerContactTel"},
                     // { "data": "intermediary.intermediaryName" },
                     { "data": "", "render": function(data, type, row, meta){
-                            var html = "<button type='button' class='Normal margin-right-4 btn btn-primary' id='editClubs'>编辑</button>" +
-                                "<button type='button' class='Normal margin-right-4 btn btn-primary' id='delete'>删除</button>" +
-                                "<button type='button' class='Normal margin-right-4 btn btn-primary' id='detail'>详情</button>";
+                            var html = "<button type='button' class='Normal margin-right-4 btn btn-primary' data-id='"+row.id+"' id='editClubs'>编辑</button>" +
+                                "<button type='button' class='Normal margin-right-4 btn btn-primary' data-id='"+row.id+"' id='delete'>删除</button>" +
+                                "<button type='button' class='Normal margin-right-4 btn btn-primary' data-id='"+row.id+"' id='detail'>详情</button>";
                             return html;
                         }}
 
@@ -236,7 +237,7 @@ new Vue({
             //    创建上传图片
             uploader = WebUploader.create({
                 // 选完文件后，是否自动上传。
-                auto: false,
+                auto: true,
                 // swf文件路径
                 swf: '../js/dist/Uploader.swf',
                 server: contextPath + 'intermediary/upload',
@@ -266,23 +267,69 @@ new Vue({
             uploader.on( 'uploadSuccess', function( file ,response) {
                 var _this = this;
                 responseUrl = JSON.parse(response._raw).data;
+                console.log(responseUrl);
             });
         },
+        sureSubmit:function(){
+            var _this = this;
+            var postData = {
+                projectLogo:responseUrl,
+                area:{
+                    id:_this.editList.area.id
+                },
+                projectName:_this.editList.projectName,
+                projectContactUser:{
+                    id:1
+                },
+                projectOwnerContact:_this.editList.projectOwnerContact,
+                projectOwnerContactTel:_this.editList.projectOwnerContactTel,
+                projectTopicStatus:_this.editList.projectTopicStatus,
+                projectStatus:0
+            };
+            var type;
+            if(_this.editorId.length !=0 ){
+                type = "put";
+                postData.id = _this.editorId;
+            }else{
+                type = "post"
+            }
+            $.axspost(contextPath + "project",type,JSON.stringify(postData),function(data){
+                if(data.status == "200"){
+                    location.reload();
+                }else{
+                    $("#errorMsg").addClass("in").css("display","block");
+                    _this.delErrorMsg = data.messages;
+                }
+            },function(data){
+
+            })
+        }
     },
     mounted:function(){
         var _this = this;
         _this.uploaderFun();  //上传图片
+
         $(document).on("click","#editClubs",function(){
+            _this.editorId = $(this).attr("data-id");
             _this.deviceName = "编辑线索";
-            $("#modal-default").addClass("in").css("display","block")
+            $("#modal-default").addClass("in").css("display","block");
+            var postData = {
+                id:$(this).attr("data-id"),
+                statusId:0
+            };
+            $.axspost(contextPath + "project/byIdStatus","get",postData,function(data){
+                _this.editList = data;
+                $("#imgInter").attr("src",data.projectLogo);
+                responseUrl = data.projectLogo;
+            },function(data){})
         });
         setTimeout(function(){
             $(".webuploader-pick").next().css({
                 position: "absolute",
                 top: "0px",
-                left: "15px",
-                width: "85px",
-                height: "40px",
+                left:"0px",
+                width: "72px",
+                height: "24px",
                 overflow: "hidden",
                 opacity: 0
             });
@@ -297,8 +344,16 @@ new Vue({
         _this.tableInit(false); //创建表格
 
         //
-        $("#intermediaryName").html5Validate(function() {
-
+        $("#deviceSubmit").html5Validate(function() {
+            _this.sureSubmit();
+        },{
+            validate:function () {
+                if(responseUrl == undefined){
+                    $(".webuploader-pick").testRemind("请选择图片");
+                    return false;
+                }
+                return true;
+            }
         })
     }
 });

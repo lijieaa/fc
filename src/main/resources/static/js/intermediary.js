@@ -379,12 +379,12 @@ new Vue({
             _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
         },function (data) {});
         _this.tableInit(false);
-
+        $("#mediaryList").hide();
+        $("#mediaryAddEdit").show();
         $(document).on("click","#editInter",function(){
             _this.editorId = $(this).attr("data-id");
             _this.companyName = "编辑中间商";
-            $("#mediaryList").hide();
-            $("#mediaryAddEdit").show();
+
             $.axspost(contextPath + "intermediary/"+$(this).attr("data-id")+"","get","",function(data){
                 _this.editList = data;
                 $("#imgInter").attr("src",data.intermediaryLogoUrl);

@@ -37,6 +37,11 @@
     position: relative;
     top: 31px;
   }
+  .webuploader-pick{
+    border-radius: 5px;
+    padding: 2px 7px;
+    color: white;
+  }
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="import::bdy-befor">
@@ -51,10 +56,10 @@
         <div class="col-md-9 col-sm-9">
           <div class="form-group float-left">
             <select name=""  id="limitSelect" class="sel-option height-34">
-              <option value="1">姓名</option>
-              <option value="2">公司</option>
-              <option value="3">电话</option>
-              <option value="4">跟进状态</option>
+              <option value="1">线索名称</option>
+              <option value="2">负责人</option>
+              <option value="3">业主名</option>
+              <option value="4">业务联系电话</option>
             </select>
           </div>
           <div class="input-group">
@@ -81,12 +86,11 @@
           <table id="deviceForm" class="display table table-bordered table-hover dataTable" style="width:100%">
             <thead>
             <tr>
-              <th>姓名</th>
-              <th>公司</th>
-              <th>电话</th>
-              <th>手机</th>
-              <th>跟进状态</th>
-              <th>备注</th>
+              <th>线索编号</th>
+              <th>线索名称</th>
+              <th>负责人</th>
+              <th>业主名</th>
+              <th>业主联系电话</th>
               <th>功能</th>
             </tr>
             </thead>
@@ -102,8 +106,9 @@
               <span aria-hidden="true" @click="closePop">×</span></button>
             <h4 class="modal-title text-align">{{deviceName}}</h4>
           </div>
-          <div class="modal-body text-align">
-            <form action="" id="deviceSubmit">
+          <form action="" id="deviceSubmit">
+            <div class="modal-body text-align">
+
               <div class="pop-box">
                 <div class="img-div">
                   <img src="" id="imgInter" alt="" width="100%">
@@ -113,7 +118,7 @@
               <div class="pop-box margin-top-15">
                 <label for="" class="label-pop-style">
                   <span class="color-red margin-right-4">*</span>线索名称:</label>
-                 <input type="text" id="interName" class="form-control form-style-pop" v-model="editList.projectName">
+                 <input type="text" id="interName" class="form-control form-style-pop" required="required" v-model="editList.projectName">
               </div>
               <div class="pop-box positon-relative margin-top-15">
                 <label for="" class="label-pop-style">
@@ -136,36 +141,40 @@
               <div class="pop-box margin-top-15">
                 <label for="" class="label-pop-style">
                   <span class="color-red margin-right-4">*</span>负责人:</label>
-                <input type="text" class="form-style-pop form-control" v-model="editList.projectContactUser">
+                  <select name="" class="form-style-pop form-control" v-model="editList.projectContactUser.id" required="required">
+                    <option value="1">已处理</option>
+                    <option value="2">正在处理</option>
+                  </select>
               </div>
               <div class="pop-box margin-top-15">
                 <label for="" class="label-pop-style">
                   <span class="color-red margin-right-4">*</span>业主名:</label>
-                <input type="text" class="form-style-pop form-control" v-model="editList.projectOwnerContact">
+                  <input type="text" class="form-style-pop form-control" required="required" v-model="editList.projectOwnerContact">
               </div>
               <div class="pop-box margin-top-15">
                 <label for="" class="label-pop-style">
                   <span class="color-red margin-right-4">*</span>业主联系电话:</label>
-                <input type="text" class="form-style-pop form-control" v-model="editList.projectOwnerContactTel">
+                  <input type="TEL" class="form-style-pop form-control" required="required" v-model="editList.projectOwnerContactTel">
               </div>
               <div class="pop-box margin-top-15">
                 <label for="" class="label-pop-style">
                   <span class="color-red margin-right-4">*</span>线索状态:</label>
-                <select name="" class="form-style-pop form-control" v-model="editList.projectTopicStatus">
-                  <option value="0">已处理</option>
-                  <option value="1">正在处理</option>
-                </select>
+                 <select name="" class="form-style-pop form-control" v-model="editList.projectTopicStatus">
+                   <option value="0">已处理</option>
+                   <option value="1">正在处理</option>
+                 </select>
               </div>
-            </form>
+
           </div>
-          <div class="modal-footer text-align">
+            <div class="modal-footer text-align">
             <!--<input type="submit" value="确定">-->
             <!--<button>取消</button>-->
             <button type="submit" class="btn btn-info search">确定</button>
             <button type="button" @click="closePop" class="btn btn-info search">取消</button>
-            <button type="button" class="btn btn-info search">重置</button>
+            <!--<button type="button" class="btn btn-info search">重置</button>-->
             <!--<input type="reset" value="重置">-->
           </div>
+          </form>
         </div>
         <!-- /.modal-content -->
       </div>
@@ -174,6 +183,17 @@
     <!-- /.content -->
   </div>
 
+  <div class="modal fade modalAll" id="errorMsg">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body padding-top-15 text-align" v-text="delErrorMsg"></div>
+        <div class="modal-footer text-align">
+          <button type="button" class="btn btn-info search margin-right-4" @click="closeDelPop">确定</button>
+          <button type="button" class="btn reset-btn search" @click="closeDelPop">取消</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="overlay">
     <i class="fa fa-refresh fa-spin"></i>
   </div>
