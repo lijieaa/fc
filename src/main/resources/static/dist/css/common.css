@@ -203,3 +203,7 @@ div.dataTables_wrapper div.dataTables_paginate{
     background: #5c688f;
     color: white;
 }
+.fade.in {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.3);
+}

@@ -42,7 +42,7 @@
                                         <tr >
                                             <td>所属地区</td>
                                             <td>
-                                                <span v-text="dataList.intermediaryName"></span>
+                                                <span v-text="dataList.area.name"></span>
                                             </td>
                                         </tr>
                                         <tr class="row-ji">
@@ -60,13 +60,13 @@
                                         <tr class="row-ji">
                                             <td>平台对接人</td>
                                             <td>
-                                                <!--<span v-text="dataList.user.name">张三</span>-->
+                                                <span v-text="dataList.user.name">张三</span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>联系方式</td>
                                             <td>
-                                                <!--<span  v-text="dataList.user.mobile"></span>-->
+                                                <span  v-text="dataList.user.mobile"></span>
                                             </td>
                                         </tr>
                                     </table>
@@ -76,7 +76,7 @@
                                         中间商Logo
                                     </div>
                                     <div class="logo-img-contain">
-                                        <img src="" alt="">
+                                        <img v-bind:src="dataList.intermediaryLogoUrl" alt="">
                                     </div>
                                 </div>
 
@@ -311,7 +311,7 @@
                     topicContent:CKEDITOR.instances.editor1.getData(),
                     topicStatus: $("#dealWith").val()
                 };
-                $.axspost(contextPath + "topic","post",JSON.stringify(postData),function(data){
+                $.axspost(contextPath + "api/topic","post",JSON.stringify(postData),function(data){
                     if( data.status == 200){
                         window.location.reload();
                     }else{
@@ -324,7 +324,7 @@
             var _this = this;
             _this.editorFun(); //初始化生成编辑器
             var detailID  = [[${id}]];
-            $.axspost(contextPath + "api/intermediary/?id="+detailID+"","get","",function(data){
+            $.axspost(contextPath + "api/intermediary/"+detailID+"","get","",function(data){
                 _this.dataList = data.content;
 
                 // $(".intermediaryIntroduction").html(_this.dataList.intermediaryName)
