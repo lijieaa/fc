@@ -375,6 +375,7 @@
               #{item}
     </foreach>
   </delete>
+
   <select id="selectByDto" parameterType="com.jianpanmao.intermediary.dto.IntermediaryDto" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" /> from intermediary where 1=1
     <if test="intermediaryId!=null">
@@ -384,10 +385,10 @@
       and intermediary_name LIKE CONCAT('%',#{intermediaryName},'%')
     </if>
     <if test="intermediaryContact!=null and '' neq intermediaryContact">
-      and intermediary_contact=#{intermediaryContact}
+      and i.intermediary_contact LIKE CONCAT('%',#{intermediaryContact},'%')
     </if>
     <if test="intermediaryContactTel!=null and '' neq intermediaryContactTel">
-      and intermediary_contact_tel=#{intermediaryContactTel}
+      and i.intermediary_contact_tel LIKE CONCAT('%',#{intermediaryContactTel},'%')
     </if>
     <if test="area!=null and area.name !=null">
       and a.name LIKE CONCAT('%',#{area.name},'%')
