@@ -1,5 +1,7 @@
 package com.jianpanmao.intermediary.dto;
-import java.math.BigDecimal;
+import com.jianpanmao.area.entity.Area;
+import com.jianpanmao.sys.entity.DingtalkUser;
+
 import java.util.Date;
 
 public class IntermediaryDto {
@@ -14,16 +16,17 @@ return intermediaryName;
 public void setIntermediaryName(String intermediaryName) {
 this.intermediaryName = intermediaryName;
 }
-private Integer areaId ;
+private Area area ;
 
-public Integer getAreaId() {
-return areaId;
-}
+    public Area getArea() {
+        return area;
+    }
 
-public void setAreaId(Integer areaId) {
-this.areaId = areaId;
-}
-private Date intermediaryCreateTime ;
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    private Date intermediaryCreateTime ;
 
 public Date getIntermediaryCreateTime() {
 return intermediaryCreateTime;
@@ -86,16 +89,17 @@ return intermediaryContactTel;
 public void setIntermediaryContactTel(String intermediaryContactTel) {
 this.intermediaryContactTel = intermediaryContactTel;
 }
-private Integer userId ;
+private DingtalkUser user ;
 
-public Integer getUserId() {
-return userId;
-}
+    public DingtalkUser getUser() {
+        return user;
+    }
 
-public void setUserId(Integer userId) {
-this.userId = userId;
-}
-private Integer intermediaryId ;
+    public void setUser(DingtalkUser user) {
+        this.user = user;
+    }
+
+    private Integer intermediaryId ;
 
 public Integer getIntermediaryId() {
 return intermediaryId;

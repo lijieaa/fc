@@ -47,7 +47,6 @@ public class Intermediary implements Serializable {
     private Date intermediaryUpdateTime;
 
     //
-    @NotNull(message = "中间商所属不能为空")
     private Integer isPlat;
 
     //图文简介

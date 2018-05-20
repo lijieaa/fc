@@ -1,101 +1,380 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
-<header>
+<head>
     <style>
-
+        .modal-dialog{
+            margin-top: 70px;
+        }
+        #mediaryAddEdit{
+            display: none;
+        }
+        .modal-body .label-pop-style {
+            position: relative;
+            width: 74px;
+            margin-right: 4px;
+        }
+        .modal-body {
+            position: relative;
+            /*outline: 1px solid #ececec;*/
+            margin-right: 2px;
+            margin-left: -2px;
+            padding-top: 0;
+        }
+        #fileList{
+            width: 55%;
+            min-height: 110px;
+            outline: 1px solid #ececec;
+            background: #eee;
+        }
+        #fileList img{
+            width: 70%;
+        }
+        #fileList.active {
+            outline: none;
+            border:none!important;
+        }
+        #treeDemo{
+            width: 60%;
+            background: #fff;
+            /*outline: 1px solid #3c8dbc;*/
+        }
+        #editor1{
+            resize: none;
+        }
+        .modal-body .col-md-6{
+            padding: 0!important;
+        }
+        .intermediary-title{
+            height: 40px;
+            line-height: 40px;
+            background: rgb(228,228,228);
+            padding-left: 10px;
+        }
+        .img-div{
+            /*width: 40%;*/
+            /*height: 150px;*/
+            min-height: 150px;
+            border: 1px dotted black;
+            margin-top: 5px;
+        }
+        .img-div>img{
+            width: 110px;
+        }
+        .inter-img input[type=file]{
+            width: 100%;
+        }
+        .tree-div-contain{
+            display: none;
+            position: absolute;
+            width: 96.5%;
+            z-index: 3;
+            overflow: auto;
+            background: white;
+            top: 38px;
+            left: 11px;
+            outline: 1px solid red;
+        }
+        .search-list{
+            margin: 0;
+            list-style: none;
+            padding: 0;
+            padding-left: 10px;
+        }
+        .webuploader-pick {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            background: #00b7ee;
+            padding: 10px 15px;
+            color: #fff;
+            text-align: center;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .search-btn-list{
+            height: 34px;
+            line-height: 7px;
+            margin-left: 10px;
+        }
     </style>
+</head>
+<header>
+
 </header>
 <body layout:fragment="content">
+<div id="myMediary">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <form class="form-horizontal" id="validation-form" method="post">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryName">中间商名称:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text" name="intermediaryName" id="intermediaryName" class="col-xs-12 col-sm-6" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="areaId">地区:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <!--<input type="text" name="areaId" id="areaId" class="col-xs-12 col-sm-6" />-->
+                                <input type="text" name="areaId" class="col-xs-12 col-sm-6" id="areaId" readonly="readonly" required="required" onclick="showMenu()" v-bind:data-id="editList.area.id" v-model="editList.area.name" >
+                                <div class="tree-div-contain">
+                                    <div class="margin-left-10 margin-top-6">
+                                        <input type="text" class="col-xs-10 col-sm-6" v-model="searchVal">
+                                        <button  type="button" class="btn btn-info padding-right-15 search-btn-list" @click="searchZtree">搜索</button>
+                                    </div>
+                                    <div class="menu-list margin-left-10">
+                                        <ul id="treeDemo" class="ztree"></ul>
+                                        <ul class="search-list">
 
-<div class="row">
-    <div class="col-xs-12">
-        <div class="row">
-            <form class="form-horizontal" id="validation-form" method="post">
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryName">中间商名称:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="intermediaryName" id="intermediaryName" class="col-xs-12 col-sm-6" />
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="areaId">地区:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="areaId" id="areaId" class="col-xs-12 col-sm-6" />
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryContact">联系人:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text" name="intermediaryContact" id="intermediaryContact" class="col-xs-12 col-sm-6" />
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryContactTel">联系人电话:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text" name="intermediaryContactTel" id="intermediaryContactTel" class="col-xs-12 col-sm-6" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryLogoUrl">LOGO:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text" name="intermediaryLogoUrl" id="intermediaryLogoUrl" class="col-xs-12 col-sm-6" />
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryContact">联系人:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="intermediaryContact" id="intermediaryContact" class="col-xs-12 col-sm-6" />
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryIntroduction">中间简介:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <!--<input type="text" name="intermediaryIntroduction" id="intermediaryIntroduction" class="col-xs-12 col-sm-6" />-->
+                                <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryContactTel">联系人电话:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="intermediaryContactTel" id="intermediaryContactTel" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryLogoUrl">LOGO:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="intermediaryLogoUrl" id="intermediaryLogoUrl" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryIntroduction">中间简介:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="intermediaryIntroduction" id="intermediaryIntroduction" class="col-xs-12 col-sm-6" />
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="userId">平台联系人:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text" name="userId" id="userId" class="col-xs-12 col-sm-6" />
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="userId">平台联系人:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="userId" id="userId" class="col-xs-12 col-sm-6" />
+                    <div class="space-4"></div>
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button class="btn btn-info" type="submit" id="submit">
+                                <i class="ace-icon fa fa-check bigger-110"></i>
+                                提交
+                            </button>
+
+                            &nbsp; &nbsp; &nbsp;
+                            <button class="btn" type="reset">
+                                <i class="ace-icon fa fa-undo bigger-110"></i>
+                                重置
+                            </button>
                         </div>
                     </div>
-                </div>
-
-                <div class="space-4"></div>
-                <div class="clearfix form-actions">
-                    <div class="col-md-offset-3 col-md-9">
-                        <button class="btn btn-info" type="submit" id="submit">
-                            <i class="ace-icon fa fa-check bigger-110"></i>
-                            提交
-                        </button>
-
-                        &nbsp; &nbsp; &nbsp;
-                        <button class="btn" type="reset">
-                            <i class="ace-icon fa fa-undo bigger-110"></i>
-                            重置
-                        </button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
+            <!-- PAGE CONTENT ENDS -->
         </div>
-        <!-- PAGE CONTENT ENDS -->
+        <!-- /.col -->
     </div>
-    <!-- /.col -->
 </div>
+
 <script type="text/javascript" th:inline="javascript">
+    function showMenu() {
+        $(".tree-div-contain").show();
+        $("body").unbind("mousedown", onBodyDown);
+    }
+    function hideMenu() {
+        $(".tree-div-contain").hide();
+        $("body").unbind("mousedown", onBodyDown);
+    }
+    function onBodyDown(event) {
+        if (!(event.target.id == "areaId"  || event.target.className == "tree-div-contain" || $(event.target).parents(".tree-div-contain").length>0)) {
+            hideMenu();
+        }
+    }
+    $(document).bind("click",function(e){
+        onBodyDown(e) ;
+    });
+
 
     jQuery(function($) {
+        new Vue({
+            el:"#myMediary",
+            data:{
+                searchVal:"",
+                editList:{
+                    area:{
+                        name:"",
+                        id:""
+                    },
+                    company: null,
+                    createTime: "",
+                    id: 1,
+                    intermediaryContact: "",
+                    intermediaryContactTel: "",
+                    intermediaryIntroduction: "",
+                    intermediaryLogoUrl: "",
+                    intermediaryName: "",
+                    isPlat: 1,
+                    updateTime: "",
+                    user:{
+                        id: 1,
+                        name: "",
+                        mobile: ""
+                    }
+                }
+            },
+            methods:{
+                zTreeInit:function(){
+                    var _this = this;
+                    return {
+                        useTree : function(ele,zNodes,inputEle){
+                            var setting = {
+                                async: {
+                                    enable: true,
+                                    url: getUrl,
+                                    type: "get",
+                                    dataFilter: ajaxDataFilter
+                                },
+                                data: {
+                                    simpleData: {
+                                        enable: true
+                                    }
+                                },
+                                callback: {
+                                    onClick:zTreeOnclick,
+                                    beforeExpand: beforeExpand,
+                                    onAsyncSuccess:onAsyncSuccess
+                                },
+                                view: {
+                                    fontCss: getFontCss,
+                                    showLine: false
+                                    // showIcon:false
+                                }
+                            };
+                            function getFontCss(treeId, treeNode) {
+                                return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
+                            }
+                            //异步加载返回的数据
+                            function ajaxDataFilter(treeId, parentNode, responseData) {
+                                return responseData.data;
+                            }
+                            function zTreeOnclick(event, treeId, treeNode) {
+                                _this.editList.area.name = treeNode.name;
+                                _this.editList.area.id = treeNode.id;
+                                // _this.treeIsShow = false;
+                                $(".tree-div-contain").hide();
+                            }
+                            function getUrl(treeId, treeNode){
+                                return contextPath +"area/condition?level="+parseInt(treeNode.level+2)+"&parent="+parseInt(treeNode.id);
+                            }
+                            function beforeExpand(treeId, treeNode) {
+                                if (!treeNode.isAjaxing) {
+                                    return true;
+                                } else {
+                                    alert("zTree 正在下载数据中，请稍后展开节点。。。");
+                                    return false;
+                                }
+                            }
+                            function onAsyncSuccess(event, treeId, treeNode, msg) {
+                                var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                                treeObj.updateNode(treeNode);
+                            }
+                            $.fn.zTree.init(ele, setting, zNodes);
+                        }
+                    }
 
+                },
+                editorFun:function(){ //文本框编辑
+                    this.editor = CKEDITOR.replace( 'editor1', {
+                        customConfig: '',
+                        filebrowserImageUploadUrl:contextPath + 'intermediary/upload',
+                        removeDialogTabs:"image:advanced;image:Link",
+                        toolbarGroups: [
+                            {"name":"basicstyles","groups":["basicstyles"]},
+                            {"name":"links","groups":["links"]},
+                            {"name":"paragraph","groups":["list","blocks"]},
+                            // {"name":"document","groups":["mode"]},
+                            {"name":"insert","groups":["insert"]},
+                            {"name":"styles","groups":["styles"]},
+                            {"name":"about","groups":["about"]}
+                        ],
+                        removePlugins:"elementspath"
+//            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
+                    });
+                },
+                searchZtree:function(){
+                    var searchVal = this.searchVal;
+                    if(searchVal.length != 0){
+                        $.axspost(contextPath + "area/?shortName="+searchVal,"get","",function (data) {
+                            var getData = data.data;
+                            $(".search-list").html("");
+                            if(getData.length != 0){
+                                getData.forEach(function(item,i){
+                                    var li = "<li data-id="+getData[i].id+">"+getData[i].name+"</li>";
+                                    $(".search-list").append(li);
+                                    $("#treeDemo").hide();
+                                })
+                            }
+                        },function (data) {
+
+                        });
+                    }else{
+                        $("#treeDemo").show();
+                        $(".search-list").hide();
+                    }
+                }
+            },
+            mounted:function () {
+                var _this = this;
+                _this.editorFun(); //初始化生成编辑器
+                // _this.uploaderFun();  //上传图片
+                $.axspost(contextPath + "area/condition?level=1","get","",function(data){
+                    _this.facList = data.content;
+                    _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
+                },function (data) {});
+            }
+        });
+        $(document).on("click",".search-list >li",function(){
+            $(".tree-div-contain").hide();
+            $("#address").val($(this).text());
+            $("#treeDemo").show();
+            $(".search-list").hide();
+            var text = $(this).text();
+            var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+            var nodes = treeObj.transformToArray(treeObj.getNodes());
+            $(".limit-style").val("");
+            nodes.forEach(function(item,i){
+                if(nodes[i].name == text){
+                    treeObj.selectNode(nodes[i]);
+                }
+            });
+        });
         var $form = $('#validation-form').validate({
             errorElement: 'div',
             errorClass: 'help-block',
@@ -163,6 +442,7 @@
 
             }
         });
+
     })
 </script>
 </body>

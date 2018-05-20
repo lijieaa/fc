@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.jianpanmao.intermediary.entity.Intermediary">
     <id column="intermediary_id" jdbcType="INTEGER" property="intermediaryId" />
     <result column="intermediary_name" jdbcType="VARCHAR" property="intermediaryName" />
-    <result column="intermediary_contact" jdbcType="VARCHAR" property="intermediaryContact" />
+    <result column="intermediary_contact" property="intermediaryContact" jdbcType="VARCHAR" />
     <result column="intermediary_contact_tel" jdbcType="VARCHAR" property="intermediaryContactTel" />
     <result column="intermediary_logo_url" jdbcType="VARCHAR" property="intermediaryLogoUrl" />
     <result column="intermediary_create_time" jdbcType="TIMESTAMP" property="intermediaryCreateTime" />
@@ -20,6 +20,13 @@
       <result property="name" column="name"></result>
     </association>
   </resultMap>
+
+
+  <resultMap id="idNameResultMap" type="com.jianpanmao.intermediary.entity.Intermediary">
+    <id column="intermediary_id" property="id" jdbcType="INTEGER" />
+    <result column="intermediary_name" property="intermediaryName" jdbcType="VARCHAR" />
+  </resultMap>
+
 
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jianpanmao.intermediary.entity.Intermediary">
 
@@ -144,14 +151,17 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.jianpanmao.intermediary.entity.Intermediary">
-    insert into intermediary (intermediary_id, intermediary_name, 
-      intermediary_contact, intermediary_contact_tel, 
+    insert into intermediary (intermediary_name,
+      intermediary_contact, intermediary_contact_tel,
       area_id, user_id, intermediary_logo_url,
-      is_plat, intermediary_introduction)
-    values (#{intermediaryId,jdbcType=INTEGER}, #{intermediaryName,jdbcType=VARCHAR}, 
-      #{intermediaryContact,jdbcType=VARCHAR}, #{intermediaryContactTel,jdbcType=VARCHAR}, 
-      #{areaId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{intermediaryLogoUrl,jdbcType=VARCHAR},
-      #{isPlat,jdbcType=INTEGER}, #{intermediaryIntroduction,jdbcType=LONGVARCHAR})
+      intermediary_introduction)
+    values (#{intermediaryName,jdbcType=VARCHAR},
+      #{intermediaryContact,jdbcType=VARCHAR},
+    #{intermediaryContactTel,jdbcType=VARCHAR},
+      #{area.id,jdbcType=INTEGER},
+    #{user.userid,jdbcType=INTEGER},
+    #{intermediaryLogoUrl,jdbcType=VARCHAR},
+      #{intermediaryIntroduction,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.intermediary.entity.Intermediary">
     insert into intermediary
@@ -359,10 +369,10 @@
     set intermediary_name = #{intermediaryName,jdbcType=VARCHAR},
       intermediary_contact = #{intermediaryContact,jdbcType=VARCHAR},
       intermediary_contact_tel = #{intermediaryContactTel,jdbcType=VARCHAR},
-      area_id = #{areaId,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER},
+      area_id = #{area.id,jdbcType=INTEGER},
+      user_id = #{user.userid,jdbcType=INTEGER},
       intermediary_logo_url = #{intermediaryLogoUrl,jdbcType=VARCHAR},
-      is_plat = #{isPlat,jdbcType=INTEGER}
+      intermediary_introduction = #{intermediaryIntroduction,jdbcType=LONGVARCHAR}
     where intermediary_id = #{intermediaryId,jdbcType=INTEGER}
   </update>
   <select id="selectAll" parameterType="com.jianpanmao.intermediary.entity.Intermediary" resultMap="BaseResultMap">
@@ -377,7 +387,13 @@
   </delete>
 
   <select id="selectByDto" parameterType="com.jianpanmao.intermediary.dto.IntermediaryDto" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List" /> from intermediary where 1=1
+    select i.*,u.name uname,u.mobile,u.userid,a.*
+    FROM intermediary i
+    LEFT JOIN area a
+    ON i.area_id = a.id
+    LEFT JOIN dingtalk_user u
+    ON i.user_id = u.userid
+    WHERE 1=1
     <if test="intermediaryId!=null">
       and intermediary_id=#{intermediaryId}
     </if>
@@ -392,9 +408,6 @@
     </if>
     <if test="area!=null and area.name !=null">
       and a.name LIKE CONCAT('%',#{area.name},'%')
-    </if>
-    <if test="userId!=null">
-      and user_id=#{userId}
     </if>
     <if test="intermediaryLogoUrl!=null and '' neq intermediaryLogoUrl">
       and intermediary_logo_url=#{intermediaryLogoUrl}
@@ -414,5 +427,9 @@
     <if test="od!=null and od neq ''">
       order by ${od}
     </if>
+  </select>
+
+  <select id="selectIdNameList" resultMap="idNameResultMap">
+    SELECT intermediary_id,intermediary_name FROM intermediary
   </select>
 </mapper>
