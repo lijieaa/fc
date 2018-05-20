@@ -326,7 +326,10 @@
             var detailID  = [[${id}]];
             $.axspost(contextPath + "api/intermediary/?id="+detailID+"","get","",function(data){
                 _this.dataList = data.content;
+
                 // $(".intermediaryIntroduction").html(_this.dataList.intermediaryName)
+
+                $(".intermediaryIntroduction").html(data.content.intermediaryIntroduction)
             },function(data){});
 
             // $.axspost(contextPath + "topic/intermediaryId/"+detailID+"","get","",function(data){
