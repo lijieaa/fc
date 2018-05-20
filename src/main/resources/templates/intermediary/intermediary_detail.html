@@ -12,13 +12,13 @@
         <section class="content-header change-content">
             <div class="row">
                 <div class="col-md-9 col-sm-9">
-                    <div class="form-group float-left">
+                    <div class="float-left">
                         <span class="font-size-18 border-left-blue">中间商的详情</span>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3 text-align-right">
+                <div class="col-md-3 col-sm-3 text-align-right direct-chat-msg">
                     <!--<button type="button" class="btn btn-block btn-info">添加设备</button>-->
-                    <button type="button" class="btn btn-info padding-right-15"
+                    <button type="button" class="btn back-btn btn-info padding-right-15"
                             data-toggle="modal" data-target="#modal-info" @click="backMediary">
                         返回
                     </button>
@@ -42,7 +42,7 @@
                                         <tr >
                                             <td>所属地区</td>
                                             <td>
-                                                <span v-text="dataList.area.name">安徽省</span>
+                                                <span v-text="dataList.intermediaryName"></span>
                                             </td>
                                         </tr>
                                         <tr class="row-ji">
@@ -60,13 +60,13 @@
                                         <tr class="row-ji">
                                             <td>平台对接人</td>
                                             <td>
-                                                <span v-text="dataList.user.name">张三</span>
+                                                <!--<span v-text="dataList.user.name">张三</span>-->
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>联系方式</td>
                                             <td>
-                                                <span  v-text="dataList.user.mobile"></span>
+                                                <!--<span  v-text="dataList.user.mobile"></span>-->
                                             </td>
                                         </tr>
                                     </table>
@@ -86,7 +86,7 @@
                             <div class="col-md-12 common-title padding-left-6 ">
                                 简要介绍
                             </div>
-                            <div class="col-md-12 company-content padding-left-6 intermediaryIntroduction">
+                            <div class="col-md-12 company-content padding-left-6 intermediaryIntroduction" v-text="dataList.intermediaryIntroduction">
                             </div>
                         </div>
                     </div>
@@ -161,6 +161,7 @@
     </div>
 </div>
 <script th:src="@{/js/webuploader.js}"></script>
+<script th:src="@{/js/vue.js}"></script>
 <script th:inline="javascript">
     var bus = new Vue();
     var msgList = Vue.extend({
@@ -252,9 +253,9 @@
                 company: null,
                 createTime: "",
                 id: 1,
-                intermediaryContact: "",
+                intermediaryContact: "5555",
                 intermediaryContactTel: "",
-                intermediaryIntroduction: "",
+                intermediaryIntroduction: "5545454",
                 intermediaryLogoUrl: "",
                 intermediaryName: "",
                 isPlat: 1,
@@ -324,14 +325,14 @@
             _this.editorFun(); //初始化生成编辑器
             var detailID  = [[${id}]];
             $.axspost(contextPath + "api/intermediary/?id="+detailID+"","get","",function(data){
-                _this.dataList = data;
-                $(".intermediaryIntroduction").html(data.content.intermediaryIntroduction)
+                _this.dataList = data.content;
+                // $(".intermediaryIntroduction").html(_this.dataList.intermediaryName)
             },function(data){});
 
-            $.axspost(contextPath + "topic/intermediaryId/"+detailID+"","get","",function(data){
-                _this.commentList = data.data;
-                // $(".comment-content").html(data.topicContent);
-            },function(data){});
+            // $.axspost(contextPath + "topic/intermediaryId/"+detailID+"","get","",function(data){
+            //     _this.commentList = data.data;
+            //     // $(".comment-content").html(data.topicContent);
+            // },function(data){});
 
             bus.$on('change', function (id,comment1) {
                 $.axspost(contextPath+"topicComments/topic/"+id+"","get","",function(data){

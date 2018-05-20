@@ -86,7 +86,7 @@
     background: #00c0ef;
     position: absolute;
     top: 17px;
-    left: 11px;
+    left: 8px;
 }
 .direct-chat-msg{
     position: relative;
@@ -182,7 +182,8 @@
     /* height: 29px; */
     margin: 0;
     height: auto;
-    margin-left: 25px;
+    margin-left: 16px;
+    text-align: center;
 }
 
 .flow-msg:before{
@@ -219,4 +220,13 @@
         /*margin-right: 15px;*/
         /*width: calc(50% - 15px);*/
     /*}*/
+}
+
+.change-content{
+    height: 42px;
+    line-height: 42px;
+}
+.back-btn{
+    position: absolute;
+    right: 40px;
 }
