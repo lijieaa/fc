@@ -3,8 +3,8 @@
 <mapper namespace="com.jianpanmao.topic.dao.TopicMapper">
   <resultMap id="BaseResultMap" type="com.jianpanmao.topic.entity.Topic">
     <id column="topic_id" property="topicId" jdbcType="INTEGER" />
-    <result column="topic_create_time" property="intermediaryCreateTime" jdbcType="TIMESTAMP" />
-    <result column="topic_update_time" property="intermediaryUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="topic_create_time" property="topicCreateTime" jdbcType="TIMESTAMP" />
+    <result column="topic_update_time" property="topicUpdateTime" jdbcType="TIMESTAMP" />
     <result column="topic_content" property="topicContent" jdbcType="LONGVARCHAR" />
     <result column="topic_status" property="topicStatus" javaType="INTEGER"></result>
     <association property="user" javaType="com.jianpanmao.sys.entity.DingtalkUser">

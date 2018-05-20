@@ -7,6 +7,8 @@ import com.jianpanmao.topic.dao.TopicMapper;
 import com.jianpanmao.topic.dto.TopicDto;
 import com.jianpanmao.topic.entity.Topic;
 import com.jianpanmao.topic.service.TopicService;
+import com.jianpanmao.topic_comments.dao.TopicCommentsMapper;
+import com.jianpanmao.topic_comments.entity.TopicComments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,6 +26,9 @@ public class TopicRestController {
 
     @Autowired
     private TopicMapper dao;
+
+    @Autowired
+    private TopicCommentsMapper topicCommentsMapper;
 
 
     @PreAuthorize("hasAuthority('topic:add')")
@@ -79,9 +84,15 @@ public class TopicRestController {
     }
 
     @PreAuthorize("hasAuthority('topic:view')")
-    @GetMapping("{id}")
+    @GetMapping("intermediaryId/{id}")
     @ResponseBody
     public List<Topic> findByIntermediaryId(@PathVariable("id") Integer id) {
-        return dao.findByIntermediaryId(id);
+
+        List<Topic> topics = dao.findByIntermediaryId(id);
+        for (Topic topic:topics){
+            Integer count = topicCommentsMapper.findCommentsCount(topic.getTopicId());
+            topic.setCommentsCount(count);
+        }
+        return topics;
     }
 }

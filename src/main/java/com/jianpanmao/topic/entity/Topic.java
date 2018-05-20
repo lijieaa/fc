@@ -34,6 +34,8 @@ public class Topic implements Serializable {
     @NotNull(message = "跟进内容不能为空！")
     private String topicContent;
 
+    private Integer commentsCount;
+
     private static final long serialVersionUID = 1L;
 
     String od;
@@ -94,4 +96,11 @@ public class Topic implements Serializable {
         this.intermediary = intermediary;
     }
 
+    public Integer getCommentsCount() {
+        return commentsCount;
+    }
+
+    public void setCommentsCount(Integer commentsCount) {
+        this.commentsCount = commentsCount;
+    }
 }
