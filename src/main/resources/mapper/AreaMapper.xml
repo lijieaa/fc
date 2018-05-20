@@ -88,7 +88,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from area
     where ID = #{id,jdbcType=INTEGER}
@@ -104,14 +104,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.jianpanmao.area.entity.Area">
-    insert into area (ID, PARENT_ID, `NAME`, 
-      SHORT_NAME, LONGITUDE, LATITUDE, 
-      `LEVEL`, SORT, `STATUS`
-      )
-    values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{shortName,jdbcType=VARCHAR}, #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}, 
-      #{level,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}
-      )
+    insert into area (ID, PARENT_ID, `NAME`,
+    SHORT_NAME, LONGITUDE, LATITUDE,
+    `LEVEL`, SORT, `STATUS`
+    )
+    values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+    #{shortName,jdbcType=VARCHAR}, #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL},
+    #{level,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}
+    )
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.area.entity.Area">
     insert into area
@@ -218,14 +218,14 @@
   <update id="updateByExample" parameterType="map">
     update area
     set ID = #{record.id,jdbcType=INTEGER},
-      PARENT_ID = #{record.parentId,jdbcType=INTEGER},
-      `NAME` = #{record.name,jdbcType=VARCHAR},
-      SHORT_NAME = #{record.shortName,jdbcType=VARCHAR},
-      LONGITUDE = #{record.longitude,jdbcType=DECIMAL},
-      LATITUDE = #{record.latitude,jdbcType=DECIMAL},
-      `LEVEL` = #{record.level,jdbcType=INTEGER},
-      SORT = #{record.sort,jdbcType=INTEGER},
-      `STATUS` = #{record.status,jdbcType=INTEGER}
+    PARENT_ID = #{record.parentId,jdbcType=INTEGER},
+    `NAME` = #{record.name,jdbcType=VARCHAR},
+    SHORT_NAME = #{record.shortName,jdbcType=VARCHAR},
+    LONGITUDE = #{record.longitude,jdbcType=DECIMAL},
+    LATITUDE = #{record.latitude,jdbcType=DECIMAL},
+    `LEVEL` = #{record.level,jdbcType=INTEGER},
+    SORT = #{record.sort,jdbcType=INTEGER},
+    `STATUS` = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -263,13 +263,13 @@
   <update id="updateByPrimaryKey" parameterType="com.jianpanmao.area.entity.Area">
     update area
     set PARENT_ID = #{parentId,jdbcType=INTEGER},
-      `NAME` = #{name,jdbcType=VARCHAR},
-      SHORT_NAME = #{shortName,jdbcType=VARCHAR},
-      LONGITUDE = #{longitude,jdbcType=DECIMAL},
-      LATITUDE = #{latitude,jdbcType=DECIMAL},
-      `LEVEL` = #{level,jdbcType=INTEGER},
-      SORT = #{sort,jdbcType=INTEGER},
-      `STATUS` = #{status,jdbcType=INTEGER}
+    `NAME` = #{name,jdbcType=VARCHAR},
+    SHORT_NAME = #{shortName,jdbcType=VARCHAR},
+    LONGITUDE = #{longitude,jdbcType=DECIMAL},
+    LATITUDE = #{latitude,jdbcType=DECIMAL},
+    `LEVEL` = #{level,jdbcType=INTEGER},
+    SORT = #{sort,jdbcType=INTEGER},
+    `STATUS` = #{status,jdbcType=INTEGER}
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAll" parameterType="com.jianpanmao.area.entity.Area" resultMap="BaseResultMap">
@@ -279,7 +279,7 @@
     delete from area
     where ID in
     <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
-              #{item}
+      #{item}
     </foreach>
   </delete>
   <select id="selectByDto" parameterType="com.jianpanmao.area.dto.AreaDto" resultMap="BaseResultMap">
@@ -315,4 +315,13 @@
       order by ${od}
     </if>
   </select>
+
+  <select id="findByLP" resultMap="BaseResultMap">
+    SELECT * FROM area WHERE level = #{level}
+    <if test="parent !=null"> and parent_id = #{parent}</if>
+  </select>
+  <select id="findByShortName" resultMap="BaseResultMap">
+    SELECT * FROM area WHERE name LIKE CONCAT('%',#{0},'%') and (LEVEL =1 OR LEVEL =2)
+  </select>
+
 </mapper>

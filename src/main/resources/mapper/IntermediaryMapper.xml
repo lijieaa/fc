@@ -22,7 +22,7 @@
   </resultMap>
 
 
-  <resultMap id="idNameResultMap" type="com.we.fc.intermediary.entity.Intermediary">
+  <resultMap id="idNameResultMap" type="com.jianpanmao.intermediary.entity.Intermediary">
     <id column="intermediary_id" property="id" jdbcType="INTEGER" />
     <result column="intermediary_name" property="intermediaryName" jdbcType="VARCHAR" />
   </resultMap>
