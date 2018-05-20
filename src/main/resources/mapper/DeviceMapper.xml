@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jianpanmao.device.dao.DeviceMapper">
+  <resultMap id="BaseResultMap" type="com.jianpanmao.device.entity.Device">
+    <id column="device_id" jdbcType="INTEGER" property="deviceId" />
+    <result column="operate_user_id" jdbcType="INTEGER" property="operateUserId" />
+    <result column="transcribe_user_id" jdbcType="INTEGER" property="transcribeUserId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="intermediary_id" jdbcType="INTEGER" property="intermediaryId" />
+    <result column="device_production_num" jdbcType="VARCHAR" property="deviceProductionNum" />
+    <result column="device_status" jdbcType="TINYINT" property="deviceStatus" />
+    <result column="device_location_x" jdbcType="VARCHAR" property="deviceLocationX" />
+    <result column="device_location_y" jdbcType="VARCHAR" property="deviceLocationY" />
+    <result column="device_create_time" jdbcType="TIMESTAMP" property="deviceCreateTime" />
+    <result column="device_update_time" jdbcType="TIMESTAMP" property="deviceUpdateTime" />
+    <result column="manufacturer_id" jdbcType="INTEGER" property="manufacturerId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="device_type" jdbcType="VARCHAR" property="deviceType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    device_id, operate_user_id, transcribe_user_id, project_id, intermediary_id, device_production_num, 
+    device_status, device_location_x, device_location_y, device_create_time, device_update_time, 
+    manufacturer_id, user_name, `password`, device_type
+  </sql>
+  <select id="selectByExample" parameterType="com.jianpanmao.device.entity.DeviceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from device
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from device
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jianpanmao.device.entity.DeviceExample">
+    delete from device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jianpanmao.device.entity.Device">
+    insert into device (device_id, operate_user_id, transcribe_user_id, 
+      project_id, intermediary_id, device_production_num, 
+      device_status, device_location_x, device_location_y, 
+      device_create_time, device_update_time, 
+      manufacturer_id, user_name, `password`, 
+      device_type)
+    values (#{deviceId,jdbcType=INTEGER}, #{operateUserId,jdbcType=INTEGER}, #{transcribeUserId,jdbcType=INTEGER}, 
+      #{projectId,jdbcType=INTEGER}, #{intermediaryId,jdbcType=INTEGER}, #{deviceProductionNum,jdbcType=VARCHAR}, 
+      #{deviceStatus,jdbcType=TINYINT}, #{deviceLocationX,jdbcType=VARCHAR}, #{deviceLocationY,jdbcType=VARCHAR}, 
+      #{deviceCreateTime,jdbcType=TIMESTAMP}, #{deviceUpdateTime,jdbcType=TIMESTAMP}, 
+      #{manufacturerId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{deviceType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jianpanmao.device.entity.Device">
+    insert into device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="operateUserId != null">
+        operate_user_id,
+      </if>
+      <if test="transcribeUserId != null">
+        transcribe_user_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="intermediaryId != null">
+        intermediary_id,
+      </if>
+      <if test="deviceProductionNum != null">
+        device_production_num,
+      </if>
+      <if test="deviceStatus != null">
+        device_status,
+      </if>
+      <if test="deviceLocationX != null">
+        device_location_x,
+      </if>
+      <if test="deviceLocationY != null">
+        device_location_y,
+      </if>
+      <if test="deviceCreateTime != null">
+        device_create_time,
+      </if>
+      <if test="deviceUpdateTime != null">
+        device_update_time,
+      </if>
+      <if test="manufacturerId != null">
+        manufacturer_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="deviceType != null">
+        device_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="operateUserId != null">
+        #{operateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="transcribeUserId != null">
+        #{transcribeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="intermediaryId != null">
+        #{intermediaryId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceProductionNum != null">
+        #{deviceProductionNum,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceStatus != null">
+        #{deviceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="deviceLocationX != null">
+        #{deviceLocationX,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceLocationY != null">
+        #{deviceLocationY,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCreateTime != null">
+        #{deviceCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceUpdateTime != null">
+        #{deviceUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="manufacturerId != null">
+        #{manufacturerId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        #{deviceType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jianpanmao.device.entity.DeviceExample" resultType="java.lang.Long">
+    select count(*) from device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update device
+    <set>
+      <if test="record.deviceId != null">
+        device_id = #{record.deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.operateUserId != null">
+        operate_user_id = #{record.operateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.transcribeUserId != null">
+        transcribe_user_id = #{record.transcribeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.intermediaryId != null">
+        intermediary_id = #{record.intermediaryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.deviceProductionNum != null">
+        device_production_num = #{record.deviceProductionNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceStatus != null">
+        device_status = #{record.deviceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.deviceLocationX != null">
+        device_location_x = #{record.deviceLocationX,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceLocationY != null">
+        device_location_y = #{record.deviceLocationY,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceCreateTime != null">
+        device_create_time = #{record.deviceCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deviceUpdateTime != null">
+        device_update_time = #{record.deviceUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.manufacturerId != null">
+        manufacturer_id = #{record.manufacturerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        `password` = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceType != null">
+        device_type = #{record.deviceType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update device
+    set device_id = #{record.deviceId,jdbcType=INTEGER},
+      operate_user_id = #{record.operateUserId,jdbcType=INTEGER},
+      transcribe_user_id = #{record.transcribeUserId,jdbcType=INTEGER},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      intermediary_id = #{record.intermediaryId,jdbcType=INTEGER},
+      device_production_num = #{record.deviceProductionNum,jdbcType=VARCHAR},
+      device_status = #{record.deviceStatus,jdbcType=TINYINT},
+      device_location_x = #{record.deviceLocationX,jdbcType=VARCHAR},
+      device_location_y = #{record.deviceLocationY,jdbcType=VARCHAR},
+      device_create_time = #{record.deviceCreateTime,jdbcType=TIMESTAMP},
+      device_update_time = #{record.deviceUpdateTime,jdbcType=TIMESTAMP},
+      manufacturer_id = #{record.manufacturerId,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      `password` = #{record.password,jdbcType=VARCHAR},
+      device_type = #{record.deviceType,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jianpanmao.device.entity.Device">
+    update device
+    <set>
+      <if test="operateUserId != null">
+        operate_user_id = #{operateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="transcribeUserId != null">
+        transcribe_user_id = #{transcribeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="intermediaryId != null">
+        intermediary_id = #{intermediaryId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceProductionNum != null">
+        device_production_num = #{deviceProductionNum,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceStatus != null">
+        device_status = #{deviceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="deviceLocationX != null">
+        device_location_x = #{deviceLocationX,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceLocationY != null">
+        device_location_y = #{deviceLocationY,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCreateTime != null">
+        device_create_time = #{deviceCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceUpdateTime != null">
+        device_update_time = #{deviceUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="manufacturerId != null">
+        manufacturer_id = #{manufacturerId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        device_type = #{deviceType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jianpanmao.device.entity.Device">
+    update device
+    set operate_user_id = #{operateUserId,jdbcType=INTEGER},
+      transcribe_user_id = #{transcribeUserId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      intermediary_id = #{intermediaryId,jdbcType=INTEGER},
+      device_production_num = #{deviceProductionNum,jdbcType=VARCHAR},
+      device_status = #{deviceStatus,jdbcType=TINYINT},
+      device_location_x = #{deviceLocationX,jdbcType=VARCHAR},
+      device_location_y = #{deviceLocationY,jdbcType=VARCHAR},
+      device_create_time = #{deviceCreateTime,jdbcType=TIMESTAMP},
+      device_update_time = #{deviceUpdateTime,jdbcType=TIMESTAMP},
+      manufacturer_id = #{manufacturerId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      device_type = #{deviceType,jdbcType=VARCHAR}
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" parameterType="com.jianpanmao.device.entity.Device" resultMap="BaseResultMap">
+    select * from device
+  </select>
+  <delete id="deleteBatch" parameterType="java.util.ArrayList">
+    delete from device
+    where device_id in
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+              #{item}
+    </foreach>
+  </delete>
+  <select id="selectByDto" parameterType="com.jianpanmao.device.dto.DeviceDto" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from device where 1=1
+    <if test="deviceId!=null">
+      and device_id=#{deviceId}
+    </if>
+    <if test="operateUserId!=null">
+      and operate_user_id=#{operateUserId}
+    </if>
+    <if test="transcribeUserId!=null">
+      and transcribe_user_id=#{transcribeUserId}
+    </if>
+    <if test="projectId!=null">
+      and project_id=#{projectId}
+    </if>
+    <if test="intermediaryId!=null">
+      and intermediary_id=#{intermediaryId}
+    </if>
+    <if test="deviceProductionNum!=null and '' neq deviceProductionNum">
+      and device_production_num=#{deviceProductionNum}
+    </if>
+    <if test="deviceStatus!=null">
+      and device_status=#{deviceStatus}
+    </if>
+    <if test="deviceLocationX!=null and '' neq deviceLocationX">
+      and device_location_x=#{deviceLocationX}
+    </if>
+    <if test="deviceLocationY!=null and '' neq deviceLocationY">
+      and device_location_y=#{deviceLocationY}
+    </if>
+    <if test="deviceCreateTime!=null">
+      and device_create_time=#{deviceCreateTime}
+    </if>
+    <if test="deviceUpdateTime!=null">
+      and device_update_time=#{deviceUpdateTime}
+    </if>
+    <if test="manufacturerId!=null">
+      and manufacturer_id=#{manufacturerId}
+    </if>
+    <if test="userName!=null and '' neq userName">
+      and user_name=#{userName}
+    </if>
+    <if test="password!=null and '' neq password">
+      and password=#{password}
+    </if>
+    <if test="deviceType!=null and '' neq deviceType">
+      and device_type=#{deviceType}
+    </if>
+    <if test="od!=null and od neq ''">
+      order by ${od}
+    </if>
+  </select>
+</mapper>
