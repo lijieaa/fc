@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>产品列表</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/main.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/mui.min.css}">
+    <style>
+        .mui-col-xs-4 {
+            width: calc((100% - 1.2rem) / 3);
+        }
+        @media (min-width: 400px) {
+            .mui-col-sm-3 {
+                width:calc((100% - 1.6rem) / 4);
+            }
+        }
+    </style>
+</head>
+
+<body>
+<ul class="product-list">
+    <li class="mui-col-xs-4 mui-col-sm-3">
+        <div>FGGD_1</div>
+        <div class="product-icon">
+            <img th:src="@{/images/dropicon_style.png}">
+        </div>
+        <div class="product-info">
+            <div><span class="display-block">所属项目:</span><span>成都华西项目组</span></div>
+            <div><span class="display-block">生产编号:</span><span>3242423432</span></div>
+        </div>
+        <div class="product-status">线下</div>
+    </li>
+    <li class="mui-col-xs-4 mui-col-sm-3">
+        <div>FGGD_3</div>
+        <div class="product-icon">
+            <img th:src="@{/images/dropicon.png}">
+        </div>
+        <div class="product-info">
+            <div><span class="display-block">所属项目:</span><span>成都华西项目组</span></div>
+            <div><span class="display-block">生产编号:</span><span>3242423432</span></div>
+        </div>
+        <div class="product-status active">上线</div>
+    </li>
+    <li class="mui-col-xs-4 mui-col-sm-3">
+        <div>FGGD_6</div>
+        <div class="product-icon">
+            <img th:src="@{/images/dropicon_style.png}">
+        </div>
+        <div class="product-info">
+            <div><span class="display-block">所属项目:</span><span>成都华西项目组</span></div>
+            <div><span class="display-block">生产编号:</span><span>3242423432</span></div>
+        </div>
+        <div class="product-status">下线</div>
+    </li>
+    <li class="mui-col-xs-4 mui-col-sm-3">
+        <div>FGGD_9</div>
+        <div class="product-icon">
+            <img th:src="@{/images/dropicon_style.png}">
+        </div>
+        <div class="product-info">
+            <div><span class="display-block">所属项目:</span><span>成都华西项目组</span></div>
+            <div><span class="display-block">生产编号:</span><span>3242423432</span></div>
+        </div>
+        <div class="product-status">下线</div>
+    </li>
+    <li class="mui-col-xs-4 mui-col-sm-3">
+        <div>FGGD_9</div>
+        <div class="product-icon">
+            <img th:src="@{/images/dropicon.png}">
+        </div>
+        <div class="product-info">
+            <div><span class="display-block">所属项目:</span><span>成都华西项目组</span></div>
+            <div><span class="display-block">生产编号:</span><span>3242423432</span></div>
+        </div>
+        <div class="product-status active">上线</div>
+    </li>
+</ul>
+
+<script th:src="@{/js/jquery-2.0.3.min.js}"></script>
+
+<script>
+    $(function(){
+
+    })
+</script>
+</body>
+
+</html>

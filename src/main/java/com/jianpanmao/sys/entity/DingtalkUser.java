@@ -1,12 +1,12 @@
 package com.jianpanmao.sys.entity;
 
+import com.jianpanmao.intermediary.entity.Intermediary;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 public class DingtalkUser implements Serializable,UserDetails {
@@ -66,6 +66,8 @@ public class DingtalkUser implements Serializable,UserDetails {
 
     //扩展属性，可以设置多种属性(但手机上最多只能显示10个扩展属性，具体显示哪些属性，请到OA管理后台->设置->通讯录信息设置和OA管理后台->设置->手机端显示信息设置)
     private String extattr;
+
+    private Intermediary intermediary;
 
     private static final long serialVersionUID = 1L;
 
@@ -272,5 +274,13 @@ public class DingtalkUser implements Serializable,UserDetails {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public Intermediary getIntermediary() {
+        return intermediary;
+    }
+
+    public void setIntermediary(Intermediary intermediary) {
+        this.intermediary = intermediary;
     }
 }

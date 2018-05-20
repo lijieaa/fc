@@ -1,3 +1,4 @@
+$(function(){
 
     // 图片上传
     function imgupload() {
@@ -184,7 +185,7 @@
             delete file['name'];
             delete file['lastModifiedDate'];
             delete file['type'];
-             console.log(file);
+            console.log(file);
         });
         uploader.on('fileQueued',function(file) {
             // console.log(file);
@@ -198,3 +199,5 @@
     }
     videoupload();
 
+
+});
