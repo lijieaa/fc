@@ -1,0 +1,11 @@
+package com.jianpanmao.device.dao;
+
+import com.jianpanmao.common.dao.BaseDao;
+import com.jianpanmao.device.dto.DeviceDto;
+import com.jianpanmao.device.entity.Device;
+import com.jianpanmao.device.entity.DeviceExample;
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface DeviceMapper extends BaseDao<Device, DeviceExample, DeviceDto, Integer> {
+}

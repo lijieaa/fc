@@ -2,10 +2,10 @@ package com.jianpanmao.area.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotNull;
 
 public class Area implements Serializable {
+
+    private boolean isParent;
     //
     private Integer id;
 
@@ -36,6 +36,14 @@ public class Area implements Serializable {
     private static final long serialVersionUID = 1L;
 
     String od;
+
+    public boolean getParent() {
+        return isParent;
+    }
+
+    public void setParent(boolean parent) {
+        isParent = parent;
+    }
 
     public Integer getId() {
         return id;
