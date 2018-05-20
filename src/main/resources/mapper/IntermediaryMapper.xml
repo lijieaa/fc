@@ -21,6 +21,13 @@
     </association>
   </resultMap>
 
+
+  <resultMap id="idNameResultMap" type="com.we.fc.intermediary.entity.Intermediary">
+    <id column="intermediary_id" property="id" jdbcType="INTEGER" />
+    <result column="intermediary_name" property="intermediaryName" jdbcType="VARCHAR" />
+  </resultMap>
+
+
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jianpanmao.intermediary.entity.Intermediary">
 
     <result column="intermediary_introduction" jdbcType="LONGVARCHAR" property="intermediaryIntroduction" />
@@ -420,5 +427,9 @@
     <if test="od!=null and od neq ''">
       order by ${od}
     </if>
+  </select>
+
+  <select id="selectIdNameList" resultMap="idNameResultMap">
+    SELECT intermediary_id,intermediary_name FROM intermediary
   </select>
 </mapper>
