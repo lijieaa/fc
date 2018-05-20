@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface IntermediaryMapper extends BaseDao<Intermediary, IntermediaryExample, IntermediaryDto, Integer> {
+
 }

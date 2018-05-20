@@ -6,14 +6,23 @@
     <result column="intermediary_name" jdbcType="VARCHAR" property="intermediaryName" />
     <result column="intermediary_contact" jdbcType="VARCHAR" property="intermediaryContact" />
     <result column="intermediary_contact_tel" jdbcType="VARCHAR" property="intermediaryContactTel" />
-    <result column="area_id" jdbcType="INTEGER" property="areaId" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="intermediary_logo_url" jdbcType="VARCHAR" property="intermediaryLogoUrl" />
     <result column="intermediary_create_time" jdbcType="TIMESTAMP" property="intermediaryCreateTime" />
     <result column="intermediary_update_time" jdbcType="TIMESTAMP" property="intermediaryUpdateTime" />
     <result column="is_plat" jdbcType="INTEGER" property="isPlat" />
+    <association property="user" javaType="com.jianpanmao.sys.entity.DingtalkUser">
+      <id property="userid" column="userid"></id>
+      <result property="name" column="uname"></result>
+      <result property="mobile" column="mobile"></result>
+    </association>
+    <association property="area" javaType="com.jianpanmao.area.entity.Area">
+      <id property="id" column="id"></id>
+      <result property="name" column="name"></result>
+    </association>
   </resultMap>
+
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jianpanmao.intermediary.entity.Intermediary">
+
     <result column="intermediary_introduction" jdbcType="LONGVARCHAR" property="intermediaryIntroduction" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -112,14 +121,18 @@
       order by ${orderByClause}
     </if>
   </select>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from intermediary
-    where intermediary_id = #{intermediaryId,jdbcType=INTEGER}
+    select i.*,u.name uname,u.mobile,u.userid,a.*
+    from intermediary i LEFT JOIN dingtalk_user u
+    ON i.user_id = u.userid
+    LEFT JOIN area a
+    ON i.area_id = a.id
+    where i.intermediary_id = #{intermediaryId,jdbcType=INTEGER}
   </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from intermediary
     where intermediary_id = #{intermediaryId,jdbcType=INTEGER}
@@ -368,7 +381,7 @@
       and intermediary_id=#{intermediaryId}
     </if>
     <if test="intermediaryName!=null and '' neq intermediaryName">
-      and intermediary_name=#{intermediaryName}
+      and intermediary_name LIKE CONCAT('%',#{intermediaryName},'%')
     </if>
     <if test="intermediaryContact!=null and '' neq intermediaryContact">
       and intermediary_contact=#{intermediaryContact}
@@ -376,8 +389,8 @@
     <if test="intermediaryContactTel!=null and '' neq intermediaryContactTel">
       and intermediary_contact_tel=#{intermediaryContactTel}
     </if>
-    <if test="areaId!=null">
-      and area_id=#{areaId}
+    <if test="area!=null and area.name !=null">
+      and a.name LIKE CONCAT('%',#{area.name},'%')
     </if>
     <if test="userId!=null">
       and user_id=#{userId}

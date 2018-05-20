@@ -45,8 +45,8 @@ return intermediaryService.update(entity);
 }
 
 @PreAuthorize("hasAuthority('intermediary:view')")
-@RequestMapping(method = RequestMethod.GET)
-public Intermediary get(@RequestParam("id") Integer id){
+@GetMapping("{id}")
+public Intermediary get(@PathVariable("id") Integer id){
 return intermediaryService.get(id);
 }
 

@@ -1,36 +1,43 @@
 package com.jianpanmao.intermediary.entity;
 
+import com.jianpanmao.area.entity.Area;
+import com.jianpanmao.sys.entity.DingtalkUser;
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.io.Serializable;
 import java.util.Date;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public class Intermediary implements Serializable {
     //
     private Integer intermediaryId;
 
     //中间商名称
-    @NotNull(message = "intermediaryName不能为空！")
+    @NotBlank(message = "名称不能为空")
+    @Size(min = 1, max = 64, message = "名称字数在1-64之间")
     private String intermediaryName;
 
     //中间商联系人
-    @NotNull(message = "intermediaryContact不能为空！")
+    @NotBlank(message = "联系人不能为空")
+    @Size(min = 1, max = 16, message = "联系人字数在1-16之间")
     private String intermediaryContact;
 
     //中间商联系方式
-    @NotNull(message = "intermediaryContactTel不能为空！")
+    @NotBlank(message = "中间商联系方式不能为空")
+    @Pattern(regexp = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$", message = "请输入正确电话号码")
     private String intermediaryContactTel;
 
     //所属地区
-    @NotNull(message = "areaId不能为空！")
-    private Integer areaId;
+    private @NotNull(message = "所属地区不能为空") Area area;
 
     //平台对接人
-    @NotNull(message = "userId不能为空！")
-    private Integer userId;
+    private @NotNull(message = "平台对接人不能为空") DingtalkUser user;
 
     //平台LOGO
-    @NotNull(message = "intermediaryLogoUrl不能为空！")
+    @NotNull(message = "logo不能为空")
+    @Size(min = 1, max = 256, message = "logo在1-256之间")
     private String intermediaryLogoUrl;
 
     //创建时间
@@ -40,10 +47,11 @@ public class Intermediary implements Serializable {
     private Date intermediaryUpdateTime;
 
     //
+    @NotNull(message = "中间商所属不能为空")
     private Integer isPlat;
 
     //图文简介
-    @NotNull(message = "intermediaryIntroduction不能为空！")
+    @NotBlank(message = "图文简介不能为空")
     private String intermediaryIntroduction;
 
     private static final long serialVersionUID = 1L;
@@ -82,21 +90,7 @@ public class Intermediary implements Serializable {
         this.intermediaryContactTel = intermediaryContactTel == null ? null : intermediaryContactTel.trim();
     }
 
-    public Integer getAreaId() {
-        return areaId;
-    }
 
-    public void setAreaId(Integer areaId) {
-        this.areaId = areaId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 
     public String getIntermediaryLogoUrl() {
         return intermediaryLogoUrl;
@@ -122,6 +116,22 @@ public class Intermediary implements Serializable {
         this.intermediaryUpdateTime = intermediaryUpdateTime;
     }
 
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    public DingtalkUser getUser() {
+        return user;
+    }
+
+    public void setUser(DingtalkUser user) {
+        this.user = user;
+    }
+
     public Integer getIsPlat() {
         return isPlat;
     }
@@ -138,25 +148,4 @@ public class Intermediary implements Serializable {
         this.intermediaryIntroduction = intermediaryIntroduction == null ? null : intermediaryIntroduction.trim();
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", intermediaryId=").append(intermediaryId);
-        sb.append(", intermediaryName=").append(intermediaryName);
-        sb.append(", intermediaryContact=").append(intermediaryContact);
-        sb.append(", intermediaryContactTel=").append(intermediaryContactTel);
-        sb.append(", areaId=").append(areaId);
-        sb.append(", userId=").append(userId);
-        sb.append(", intermediaryLogoUrl=").append(intermediaryLogoUrl);
-        sb.append(", intermediaryCreateTime=").append(intermediaryCreateTime);
-        sb.append(", intermediaryUpdateTime=").append(intermediaryUpdateTime);
-        sb.append(", isPlat=").append(isPlat);
-        sb.append(", intermediaryIntroduction=").append(intermediaryIntroduction);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
 }
