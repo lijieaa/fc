@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jianpanmao.topic.dao.TopicMapper">
+  <resultMap id="BaseResultMap" type="com.jianpanmao.topic.entity.Topic">
+    <id column="topic_id" property="topicId" jdbcType="INTEGER" />
+    <result column="topic_create_time" property="intermediaryCreateTime" jdbcType="TIMESTAMP" />
+    <result column="topic_update_time" property="intermediaryUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="topic_content" property="topicContent" jdbcType="LONGVARCHAR" />
+    <result column="topic_status" property="topicStatus" javaType="INTEGER"></result>
+    <association property="user" javaType="com.jianpanmao.sys.entity.DingtalkUser">
+      <id property="userid" column="userid"></id>
+      <result property="name" column="name"></result>
+    </association>
+    <association property="intermediary" javaType="com.jianpanmao.intermediary.entity.Intermediary">
+      <id property="intermediaryId" column="intermediary_id"></id>
+      <result property="intermediaryName" column="intermediary_name"></result>
+    </association>
+  </resultMap>
+
+
+
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jianpanmao.topic.entity.Topic">
+    <result column="topic_content" jdbcType="LONGVARCHAR" property="topicContent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    topic_id, user_id, intermediary_id, topic_create_time, topic_update_time, topic_status
+  </sql>
+  <sql id="Blob_Column_List">
+    topic_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.jianpanmao.topic.entity.TopicExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.jianpanmao.topic.entity.TopicExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from topic
+    where topic_id = #{topicId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from topic
+    where topic_id = #{topicId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jianpanmao.topic.entity.TopicExample">
+    delete from topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jianpanmao.topic.entity.Topic">
+      insert into topic (user_id, intermediary_id,
+      topic_content,topic_status
+      )
+    values (#{user.userid,jdbcType=INTEGER}, #{intermediary.intermediaryId,jdbcType=INTEGER},
+      #{topicContent,jdbcType=LONGVARCHAR},#{topicStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jianpanmao.topic.entity.Topic">
+    insert into topic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="topicId != null">
+        topic_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="intermediaryId != null">
+        intermediary_id,
+      </if>
+      <if test="topicCreateTime != null">
+        topic_create_time,
+      </if>
+      <if test="topicUpdateTime != null">
+        topic_update_time,
+      </if>
+      <if test="topicStatus != null">
+        topic_status,
+      </if>
+      <if test="topicContent != null">
+        topic_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="topicId != null">
+        #{topicId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="intermediaryId != null">
+        #{intermediaryId,jdbcType=INTEGER},
+      </if>
+      <if test="topicCreateTime != null">
+        #{topicCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topicUpdateTime != null">
+        #{topicUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topicStatus != null">
+        #{topicStatus,jdbcType=INTEGER},
+      </if>
+      <if test="topicContent != null">
+        #{topicContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jianpanmao.topic.entity.TopicExample" resultType="java.lang.Long">
+    select count(*) from topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update topic
+    <set>
+      <if test="record.topicId != null">
+        topic_id = #{record.topicId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.intermediaryId != null">
+        intermediary_id = #{record.intermediaryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.topicCreateTime != null">
+        topic_create_time = #{record.topicCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.topicUpdateTime != null">
+        topic_update_time = #{record.topicUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.topicStatus != null">
+        topic_status = #{record.topicStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.topicContent != null">
+        topic_content = #{record.topicContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update topic
+    set topic_id = #{record.topicId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      intermediary_id = #{record.intermediaryId,jdbcType=INTEGER},
+      topic_create_time = #{record.topicCreateTime,jdbcType=TIMESTAMP},
+      topic_update_time = #{record.topicUpdateTime,jdbcType=TIMESTAMP},
+      topic_status = #{record.topicStatus,jdbcType=INTEGER},
+      topic_content = #{record.topicContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update topic
+    set topic_id = #{record.topicId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      intermediary_id = #{record.intermediaryId,jdbcType=INTEGER},
+      topic_create_time = #{record.topicCreateTime,jdbcType=TIMESTAMP},
+      topic_update_time = #{record.topicUpdateTime,jdbcType=TIMESTAMP},
+      topic_status = #{record.topicStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jianpanmao.topic.entity.Topic">
+    update topic
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="intermediaryId != null">
+        intermediary_id = #{intermediaryId,jdbcType=INTEGER},
+      </if>
+      <if test="topicCreateTime != null">
+        topic_create_time = #{topicCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topicUpdateTime != null">
+        topic_update_time = #{topicUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topicStatus != null">
+        topic_status = #{topicStatus,jdbcType=INTEGER},
+      </if>
+      <if test="topicContent != null">
+        topic_content = #{topicContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where topic_id = #{topicId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jianpanmao.topic.entity.Topic">
+    update topic
+    set user_id = #{userId,jdbcType=INTEGER},
+      intermediary_id = #{intermediaryId,jdbcType=INTEGER},
+      topic_create_time = #{topicCreateTime,jdbcType=TIMESTAMP},
+      topic_update_time = #{topicUpdateTime,jdbcType=TIMESTAMP},
+      topic_status = #{topicStatus,jdbcType=INTEGER},
+      topic_content = #{topicContent,jdbcType=LONGVARCHAR}
+    where topic_id = #{topicId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jianpanmao.topic.entity.Topic">
+    update topic
+    set user_id = #{userId,jdbcType=INTEGER},
+      intermediary_id = #{intermediaryId,jdbcType=INTEGER},
+      topic_create_time = #{topicCreateTime,jdbcType=TIMESTAMP},
+      topic_update_time = #{topicUpdateTime,jdbcType=TIMESTAMP},
+      topic_status = #{topicStatus,jdbcType=INTEGER}
+    where topic_id = #{topicId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" parameterType="com.jianpanmao.topic.entity.Topic" resultMap="BaseResultMap">
+    select * from topic
+  </select>
+  <delete id="deleteBatch" parameterType="java.util.ArrayList">
+    delete from topic
+    where topic_id in
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+              #{item}
+    </foreach>
+  </delete>
+  <select id="selectByDto" parameterType="com.jianpanmao.topic.dto.TopicDto" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from topic where 1=1
+    <if test="topicId!=null">
+      and topic_id=#{topicId}
+    </if>
+    <if test="userId!=null">
+      and user_id=#{userId}
+    </if>
+    <if test="intermediaryId!=null">
+      and intermediary_id=#{intermediaryId}
+    </if>
+    <if test="topicCreateTime!=null">
+      and topic_create_time=#{topicCreateTime}
+    </if>
+    <if test="topicUpdateTime!=null">
+      and topic_update_time=#{topicUpdateTime}
+    </if>
+    <if test="topicStatus!=null">
+      and topic_status=#{topicStatus}
+    </if>
+    <if test="topicContent!=null and '' neq topicContent">
+      and topic_content=#{topicContent}
+    </if>
+    <if test="od!=null and od neq ''">
+      order by ${od}
+    </if>
+  </select>
+
+  <select id="findByIntermediaryId" resultMap="BaseResultMap">
+    select t.*,u.userid,u.name,i.intermediary_id,i.intermediary_name
+    from topic t
+    LEFT JOIN dingtalk_user u ON t.user_id = u.userid
+    LEFT JOIN intermediary i ON t.intermediary_id = i.intermediary_id
+    WHERE i.intermediary_id = #{0}
+  </select>
+</mapper>
