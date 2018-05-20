@@ -387,11 +387,11 @@
     </foreach>
   </delete>
   <select id="selectByDto" parameterType="com.jianpanmao.device.dto.DeviceDto" resultMap="BaseResultMap">
-    select d.*,u1.userid o_user_id,u1.name o_user_name,u2.userid t_user_id,u2.name t_user_name
-    from device d LEFT JOIN dingtalk_user u1
+    select d.*,operateUser.userid o_user_id,operateUser.name o_user_name,transcribeUser.userid t_user_id,transcribeUser.name t_user_name
+    from device d LEFT JOIN dingtalk_user operateUser
     ON d.operate_user_id = u1.userid
-    LEFT JOIN dingtalk_user u2
-    ON d.transcribe_user_id = u2.userid
+    LEFT JOIN dingtalk_user transcribeUser
+    ON d.transcribe_user_id = transcribeUser.userid
     LEFT JOIN project p
     ON d.project_id = p.project_id
     WHERE 1=1
@@ -400,10 +400,21 @@
     <if test="project !=null and project.projectName!=null">and p.project_name LIKE
       CONCAT('%',#{project.projectName},'%')
     </if>
-    <if test="operateUser!=null and operateUser.name!=null">and u1.name LIKE CONCAT('%',#{operateUser.name},'%')
+    <if test="operateUser!=null and operateUser.name!=null">and operateUser.name LIKE CONCAT('%',#{operateUser.name},'%')
     </if>
-    <if test="transcribeUser!=null and transcribeUser.name!=null">and u2.name LIKE
+    <if test="transcribeUser!=null and transcribeUser.name!=null">and transcribeUser.name LIKE
       CONCAT('%',#{transcribeUser.name},'%')
     </if>
+  </select>
+
+  <select id="findByProject" resultMap="BaseResultMap">
+    select d.*,operateUser.userid o_user_id,operateUser.name o_user_name,transcribeUser.userid t_user_id,transcribeUser.name t_user_name
+    from device d LEFT JOIN dingtalk_user operateUser
+    ON d.operate_user_id = operateUser.userid
+    LEFT JOIN dingtalk_user transcribeUser
+    ON d.transcribe_user_id = transcribeUser.userid
+    LEFT JOIN project p
+    ON d.project_id = p.project_id
+    WHERE p.project_id = #{0}
   </select>
 </mapper>
