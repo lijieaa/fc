@@ -167,7 +167,7 @@
              // window.location.href="http://localhost:8080/wxPublic/menu";
          }
          if(cName=="消息管理"){
-             // window.location.href="http://localhost:8080/wxPublic/msg";
+             // window.location.href="http://localhost:8080/`/msg";
          }
      })
      //聊天点击点击跳转不同弹窗
@@ -248,5 +248,8 @@
      $("#filePicker").click(function () {
          $("#new-photo-text").show().siblings().hide();
 
-     })
+     });
+       $("#backStore").click(function () {
+           $("#source-bulid").show().siblings().hide();
+       })
 
