@@ -377,7 +377,13 @@
   </delete>
 
   <select id="selectByDto" parameterType="com.jianpanmao.intermediary.dto.IntermediaryDto" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List" /> from intermediary where 1=1
+    select i.*,u.name uname,u.mobile,u.userid,a.*
+    FROM intermediary i
+    LEFT JOIN area a
+    ON i.area_id = a.id
+    LEFT JOIN dingtalk_user u
+    ON i.user_id = u.userid
+    WHERE 1=1
     <if test="intermediaryId!=null">
       and intermediary_id=#{intermediaryId}
     </if>
@@ -392,9 +398,6 @@
     </if>
     <if test="area!=null and area.name !=null">
       and a.name LIKE CONCAT('%',#{area.name},'%')
-    </if>
-    <if test="userId!=null">
-      and user_id=#{userId}
     </if>
     <if test="intermediaryLogoUrl!=null and '' neq intermediaryLogoUrl">
       and intermediary_logo_url=#{intermediaryLogoUrl}
