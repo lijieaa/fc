@@ -387,12 +387,12 @@
   </delete>
 
   <select id="selectByDto" parameterType="com.jianpanmao.intermediary.dto.IntermediaryDto" resultMap="BaseResultMap">
-    select i.*,u.name uname,u.mobile,u.userid,a.*
+    select i.*,user.name uname,user.mobile,user.userid,area.*
     FROM intermediary i
-    LEFT JOIN area a
-    ON i.area_id = a.id
-    LEFT JOIN dingtalk_user u
-    ON i.user_id = u.userid
+    LEFT JOIN area area
+    ON i.area_id =area.id
+    LEFT JOIN dingtalk_user user
+    ON i.user_id = user.userid
     WHERE 1=1
     <if test="intermediaryId!=null">
       and intermediary_id=#{intermediaryId}
@@ -407,7 +407,7 @@
       and i.intermediary_contact_tel LIKE CONCAT('%',#{intermediaryContactTel},'%')
     </if>
     <if test="area!=null and area.name !=null">
-      and a.name LIKE CONCAT('%',#{area.name},'%')
+      and area.name LIKE CONCAT('%',#{area.name},'%')
     </if>
     <if test="intermediaryLogoUrl!=null and '' neq intermediaryLogoUrl">
       and intermediary_logo_url=#{intermediaryLogoUrl}
