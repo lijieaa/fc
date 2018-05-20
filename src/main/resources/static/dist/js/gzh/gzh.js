@@ -164,10 +164,10 @@
              $("#photo-tx").show().siblings().hide();
          }
          if(cName=="菜单管理"){
-             window.location.href="http://localhost:8080/wxPublic/menu";
+             // window.location.href="http://localhost:8080/wxPublic/menu";
          }
          if(cName=="消息管理"){
-             window.location.href="http://localhost:8080/wxPublic/msg";
+             // window.location.href="http://localhost:8080/wxPublic/msg";
          }
      })
      //聊天点击点击跳转不同弹窗
@@ -231,14 +231,17 @@
              $(".new-type-name").text("图片");
              $("#filePicker1").show().siblings().hide();
              $("#photo-show").show().siblings().hide();
+             ajaxData(1);
          } else if(cliID=="3"){
              $(".new-type-name").text("语音");
              $("#filePicker2").show().siblings().hide();
              $("#source").show().siblings().hide();
+             ajaxMp(1);
          } else if(cliID=="4"){
              $(".new-type-name").text("视频");
              $("#filePicker3").show().siblings().hide();
              $("#vid").show().siblings().hide();
+             ajaxVid(1);
          }
      })
      // 新建选择素材操作

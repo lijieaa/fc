@@ -89,28 +89,65 @@
     background: none!important;
 }
 #imgShow li{
-    width: 150px;
-    height: 150px;
+    width: 180px;
+    height: 180px;
     display: inline-block;
     border: 1px #727272 solid;
+    margin-left: 15px;
+    margin-top: 15px;
 }
 #imgShow li img{
-    width: 150px;
-    height: 150px;
+    width: 180px;
+    height: 180px;
     display: inline-block;
     border: 1px #727272 solid;
+    cursor: pointer;
 }
-/*a,span{*/
-    /*border: 1px solid #b0b0b0;*/
-    /*padding: 5px 10px;*/
-    /*margin: 0 5px;*/
-    /*cursor: pointer;*/
-/*}*/
-/*a.current{*/
-    /*color: white;*/
-    /*background: deepskyblue;*/
-/*}*/
-/*a.disable{*/
+#mpShow li{
+    width: 180px;
+    height: 180px;
+    display: inline-block;
+    border: 1px #727272 solid;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+#mpShow li audio{
+    width: 180px;
+    height: 180px;
+    display: inline-block;
+    border: 1px #727272 solid;
+    cursor: pointer;
+}
+#vidShow li{
+    width: 180px;
+    height: 180px;
+    display: inline-block;
+    border: 1px #727272 solid;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+#vidShow li video{
+    width: 180px;
+    height: 180px;
+    display: inline-block;
+    border: 1px #727272 solid;
+    cursor: pointer;
+}
+
+.pageIndex{
+    width: 50%;
+    margin-left: 15px;
+}
+
+.pageIndex a{
+    cursor: pointer;
+    padding: 0 7px;
+}
+.current{
+    color: white;
+    background: deepskyblue;
+}
+/*#pagingTest a.disable{*/
     /*background: gray;*/
     /*color: white;*/
     /*cursor: default;*/
