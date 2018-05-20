@@ -45,8 +45,8 @@ return deviceService.update(entity);
 }
 
 @PreAuthorize("hasAuthority('device:view')")
-@RequestMapping(method = RequestMethod.GET)
-public Device get(@RequestParam("id") Integer id){
+@GetMapping("{id}")
+public Device get(@PathVariable("id") Integer id){
 return deviceService.get(id);
 }
 

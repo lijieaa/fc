@@ -24,7 +24,8 @@ public class Device implements Serializable {
     private Project project;
 
     //中间商ID
-    private @NotNull(message = "中间商不能为空") Intermediary intermediary;
+    @NotNull(message = "中间商不能为空")
+    private Intermediary intermediary;
 
     //生产编号
     @NotBlank(message = "生产编号不能为空")
