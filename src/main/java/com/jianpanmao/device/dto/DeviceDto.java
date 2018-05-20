@@ -1,151 +1,170 @@
 package com.jianpanmao.device.dto;
+
+import com.jianpanmao.project.entity.Project;
+import com.jianpanmao.sys.entity.DingtalkUser;
+
 import java.util.Date;
 
 public class DeviceDto {
 
 
-private String deviceType ;
+    private String deviceType;
 
-public String getDeviceType() {
-return deviceType;
-}
+    public String getDeviceType() {
+        return deviceType;
+    }
 
-public void setDeviceType(String deviceType) {
-this.deviceType = deviceType;
-}
-private Integer manufacturerId ;
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
+    }
 
-public Integer getManufacturerId() {
-return manufacturerId;
-}
+    private Integer manufacturerId;
 
-public void setManufacturerId(Integer manufacturerId) {
-this.manufacturerId = manufacturerId;
-}
-private String userName ;
+    public Integer getManufacturerId() {
+        return manufacturerId;
+    }
 
-public String getUserName() {
-return userName;
-}
+    public void setManufacturerId(Integer manufacturerId) {
+        this.manufacturerId = manufacturerId;
+    }
 
-public void setUserName(String userName) {
-this.userName = userName;
-}
-private Integer deviceId ;
+    private String userName;
 
-public Integer getDeviceId() {
-return deviceId;
-}
+    public String getUserName() {
+        return userName;
+    }
 
-public void setDeviceId(Integer deviceId) {
-this.deviceId = deviceId;
-}
-private Byte deviceStatus ;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-public Byte getDeviceStatus() {
-return deviceStatus;
-}
+    private Integer deviceId;
 
-public void setDeviceStatus(Byte deviceStatus) {
-this.deviceStatus = deviceStatus;
-}
-private String password ;
+    public Integer getDeviceId() {
+        return deviceId;
+    }
 
-public String getPassword() {
-return password;
-}
+    public void setDeviceId(Integer deviceId) {
+        this.deviceId = deviceId;
+    }
 
-public void setPassword(String password) {
-this.password = password;
-}
-private Date deviceUpdateTime ;
+    private Byte deviceStatus;
 
-public Date getDeviceUpdateTime() {
-return deviceUpdateTime;
-}
+    public Byte getDeviceStatus() {
+        return deviceStatus;
+    }
 
-public void setDeviceUpdateTime(Date deviceUpdateTime) {
-this.deviceUpdateTime = deviceUpdateTime;
-}
-private String deviceLocationX ;
+    public void setDeviceStatus(Byte deviceStatus) {
+        this.deviceStatus = deviceStatus;
+    }
 
-public String getDeviceLocationX() {
-return deviceLocationX;
-}
+    private String password;
 
-public void setDeviceLocationX(String deviceLocationX) {
-this.deviceLocationX = deviceLocationX;
-}
-private String od ;
+    public String getPassword() {
+        return password;
+    }
 
-public String getOd() {
-return od;
-}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-public void setOd(String od) {
-this.od = od;
-}
-private String deviceLocationY ;
+    private Date deviceUpdateTime;
 
-public String getDeviceLocationY() {
-return deviceLocationY;
-}
+    public Date getDeviceUpdateTime() {
+        return deviceUpdateTime;
+    }
 
-public void setDeviceLocationY(String deviceLocationY) {
-this.deviceLocationY = deviceLocationY;
-}
-private Integer operateUserId ;
+    public void setDeviceUpdateTime(Date deviceUpdateTime) {
+        this.deviceUpdateTime = deviceUpdateTime;
+    }
 
-public Integer getOperateUserId() {
-return operateUserId;
-}
+    private String deviceLocationX;
 
-public void setOperateUserId(Integer operateUserId) {
-this.operateUserId = operateUserId;
-}
-private Integer transcribeUserId ;
+    public String getDeviceLocationX() {
+        return deviceLocationX;
+    }
 
-public Integer getTranscribeUserId() {
-return transcribeUserId;
-}
+    public void setDeviceLocationX(String deviceLocationX) {
+        this.deviceLocationX = deviceLocationX;
+    }
 
-public void setTranscribeUserId(Integer transcribeUserId) {
-this.transcribeUserId = transcribeUserId;
-}
-private Integer projectId ;
+    private String od;
 
-public Integer getProjectId() {
-return projectId;
-}
+    public String getOd() {
+        return od;
+    }
 
-public void setProjectId(Integer projectId) {
-this.projectId = projectId;
-}
-private Integer intermediaryId ;
+    public void setOd(String od) {
+        this.od = od;
+    }
 
-public Integer getIntermediaryId() {
-return intermediaryId;
-}
+    private String deviceLocationY;
 
-public void setIntermediaryId(Integer intermediaryId) {
-this.intermediaryId = intermediaryId;
-}
-private String deviceProductionNum ;
+    public String getDeviceLocationY() {
+        return deviceLocationY;
+    }
 
-public String getDeviceProductionNum() {
-return deviceProductionNum;
-}
+    public void setDeviceLocationY(String deviceLocationY) {
+        this.deviceLocationY = deviceLocationY;
+    }
 
-public void setDeviceProductionNum(String deviceProductionNum) {
-this.deviceProductionNum = deviceProductionNum;
-}
-private Date deviceCreateTime ;
+    private DingtalkUser operateUser;
 
-public Date getDeviceCreateTime() {
-return deviceCreateTime;
-}
+    private DingtalkUser transcribeUser;
 
-public void setDeviceCreateTime(Date deviceCreateTime) {
-this.deviceCreateTime = deviceCreateTime;
-}
+    private Project project;
+
+    private Integer intermediaryId;
+
+    public Integer getIntermediaryId() {
+        return intermediaryId;
+    }
+
+    public void setIntermediaryId(Integer intermediaryId) {
+        this.intermediaryId = intermediaryId;
+    }
+
+    private String deviceProductionNum;
+
+    public String getDeviceProductionNum() {
+        return deviceProductionNum;
+    }
+
+    public void setDeviceProductionNum(String deviceProductionNum) {
+        this.deviceProductionNum = deviceProductionNum;
+    }
+
+    private Date deviceCreateTime;
+
+    public Date getDeviceCreateTime() {
+        return deviceCreateTime;
+    }
+
+    public void setDeviceCreateTime(Date deviceCreateTime) {
+        this.deviceCreateTime = deviceCreateTime;
+    }
+
+    public DingtalkUser getOperateUser() {
+        return operateUser;
+    }
+
+    public void setOperateUser(DingtalkUser operateUser) {
+        this.operateUser = operateUser;
+    }
+
+    public DingtalkUser getTranscribeUser() {
+        return transcribeUser;
+    }
+
+    public void setTranscribeUser(DingtalkUser transcribeUser) {
+        this.transcribeUser = transcribeUser;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
 }

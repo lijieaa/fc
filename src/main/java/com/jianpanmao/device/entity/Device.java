@@ -24,7 +24,8 @@ public class Device implements Serializable {
     private Project project;
 
     //中间商ID
-    private @NotNull(message = "中间商不能为空") Intermediary intermediary;
+    @NotNull(message = "中间商不能为空")
+    private Intermediary intermediary;
 
     //生产编号
     @NotBlank(message = "生产编号不能为空")
@@ -62,6 +63,16 @@ public class Device implements Serializable {
     //设备型号
     @NotNull(message = "设备型号不能为空！")
     private String deviceType;
+
+    private String createTimeStr;
+
+    public String getCreateTimeStr() {
+        return createTimeStr;
+    }
+
+    public void setCreateTimeStr(String createTimeStr) {
+        this.createTimeStr = createTimeStr;
+    }
 
     private static final long serialVersionUID = 1L;
 
