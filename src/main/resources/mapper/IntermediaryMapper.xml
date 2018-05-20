@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.jianpanmao.intermediary.entity.Intermediary">
     <id column="intermediary_id" jdbcType="INTEGER" property="intermediaryId" />
     <result column="intermediary_name" jdbcType="VARCHAR" property="intermediaryName" />
-    <result column="intermediary_contact" jdbcType="VARCHAR" property="intermediaryContact" />
+    <result column="intermediary_contact" property="intermediaryContact" jdbcType="VARCHAR" />
     <result column="intermediary_contact_tel" jdbcType="VARCHAR" property="intermediaryContactTel" />
     <result column="intermediary_logo_url" jdbcType="VARCHAR" property="intermediaryLogoUrl" />
     <result column="intermediary_create_time" jdbcType="TIMESTAMP" property="intermediaryCreateTime" />
@@ -144,14 +144,17 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.jianpanmao.intermediary.entity.Intermediary">
-    insert into intermediary (intermediary_id, intermediary_name, 
-      intermediary_contact, intermediary_contact_tel, 
+    insert into intermediary (intermediary_name,
+      intermediary_contact, intermediary_contact_tel,
       area_id, user_id, intermediary_logo_url,
-      is_plat, intermediary_introduction)
-    values (#{intermediaryId,jdbcType=INTEGER}, #{intermediaryName,jdbcType=VARCHAR}, 
-      #{intermediaryContact,jdbcType=VARCHAR}, #{intermediaryContactTel,jdbcType=VARCHAR}, 
-      #{areaId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{intermediaryLogoUrl,jdbcType=VARCHAR},
-      #{isPlat,jdbcType=INTEGER}, #{intermediaryIntroduction,jdbcType=LONGVARCHAR})
+      intermediary_introduction)
+    values (#{intermediaryName,jdbcType=VARCHAR},
+      #{intermediaryContact,jdbcType=VARCHAR},
+    #{intermediaryContactTel,jdbcType=VARCHAR},
+      #{area.id,jdbcType=INTEGER},
+    #{user.userid,jdbcType=INTEGER},
+    #{intermediaryLogoUrl,jdbcType=VARCHAR},
+      #{intermediaryIntroduction,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.intermediary.entity.Intermediary">
     insert into intermediary
@@ -359,10 +362,10 @@
     set intermediary_name = #{intermediaryName,jdbcType=VARCHAR},
       intermediary_contact = #{intermediaryContact,jdbcType=VARCHAR},
       intermediary_contact_tel = #{intermediaryContactTel,jdbcType=VARCHAR},
-      area_id = #{areaId,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER},
+      area_id = #{area.id,jdbcType=INTEGER},
+      user_id = #{user.userid,jdbcType=INTEGER},
       intermediary_logo_url = #{intermediaryLogoUrl,jdbcType=VARCHAR},
-      is_plat = #{isPlat,jdbcType=INTEGER}
+      intermediary_introduction = #{intermediaryIntroduction,jdbcType=LONGVARCHAR}
     where intermediary_id = #{intermediaryId,jdbcType=INTEGER}
   </update>
   <select id="selectAll" parameterType="com.jianpanmao.intermediary.entity.Intermediary" resultMap="BaseResultMap">
