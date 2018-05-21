@@ -1,6 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
+    <link rel="stylesheet" th:href="@{/dist/css/common.css}">
     <style>
         .modal-dialog{
             margin-top: 70px;
@@ -25,9 +26,6 @@
             min-height: 110px;
             outline: 1px solid #ececec;
             background: #eee;
-        }
-        #fileList img{
-            width: 70%;
         }
         #fileList.active {
             outline: none;
@@ -72,7 +70,6 @@
             background: white;
             top: 38px;
             left: 11px;
-            outline: 1px solid red;
         }
         .search-list{
             margin: 0;
@@ -96,8 +93,12 @@
             line-height: 7px;
             margin-left: 10px;
         }
+        .menu-list{
+            max-height: 300px;
+        }
     </style>
 </head>
+
 <header>
 
 </header>
@@ -106,12 +107,12 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="row">
-                <form class="form-horizontal" id="validation-form" method="post">
+                <form class="form-horizontal" id="validation-form">
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryName">中间商名称:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
-                                <input type="text" name="intermediaryName" id="intermediaryName" class="col-xs-12 col-sm-6" />
+                                <input type="text" name="intermediaryName" id="intermediaryName" v-model="editList.intermediaryName" class="col-xs-12 col-sm-6" />
                             </div>
                         </div>
                     </div>
@@ -123,7 +124,7 @@
                                 <input type="text" name="areaId" class="col-xs-12 col-sm-6" id="areaId" readonly="readonly" required="required" onclick="showMenu()" v-bind:data-id="editList.area.id" v-model="editList.area.name" >
                                 <div class="tree-div-contain">
                                     <div class="margin-left-10 margin-top-6">
-                                        <input type="text" class="col-xs-10 col-sm-6" v-model="searchVal">
+                                        <input type="text" class="col-xs-8 col-sm-6" v-model="searchVal">
                                         <button  type="button" class="btn btn-info padding-right-15 search-btn-list" @click="searchZtree">搜索</button>
                                     </div>
                                     <div class="menu-list margin-left-10">
@@ -140,7 +141,7 @@
                         <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryContact">联系人:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
-                                <input type="text" name="intermediaryContact" id="intermediaryContact" class="col-xs-12 col-sm-6" />
+                                <input type="text" name="intermediaryContact" id="intermediaryContact" v-model="editList.intermediaryContact" class="col-xs-12 col-sm-6" />
                             </div>
                         </div>
                     </div>
@@ -148,34 +149,47 @@
                         <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryContactTel">联系人电话:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
-                                <input type="text" name="intermediaryContactTel" id="intermediaryContactTel" class="col-xs-12 col-sm-6" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryLogoUrl">LOGO:</label>
-                        <div class="col-xs-12 col-sm-9">
-                            <div class="clearfix">
-                                <input type="text" name="intermediaryLogoUrl" id="intermediaryLogoUrl" class="col-xs-12 col-sm-6" />
+                                <input type="text" name="intermediaryContactTel" id="intermediaryContactTel" v-model="editList.intermediaryContactTel" class="col-xs-12 col-sm-6" />
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryIntroduction">中间简介:</label>
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryLogoUrl">LOGO:</label>
                         <div class="col-xs-12 col-sm-9">
-                            <div class="clearfix">
-                                <!--<input type="text" name="intermediaryIntroduction" id="intermediaryIntroduction" class="col-xs-12 col-sm-6" />-->
-                                <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
+                            <div id="fileList" class="uploader-list" name="intermediaryLogoUrl">
+                                <!--<img src="" id="imgInter" alt="">-->
                             </div>
+                            <div id="filePicker" class="margin-top-6">选择图片</div>
+                            <!--<div class="clearfix">-->
+                                <!--<input type="text" name="intermediaryLogoUrl" id="intermediaryLogoUrl" class="col-xs-12 col-sm-6" />-->
+                            <!--</div>-->
                         </div>
+
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="userId">平台联系人:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
-                                <input type="text" name="userId" id="userId" class="col-xs-12 col-sm-6" />
+                                <input type="text" name="userId" id="userId" class="col-xs-12 col-sm-6" v-model="editList.user.name"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="userId">平台联系方式:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text" name="userId"  class="col-xs-12 col-sm-6" v-model="editList.user.mobile"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryIntroduction">中间简介:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <!--<input type="text" name="intermediaryIntroduction" id="intermediaryIntroduction" class="col-xs-12 col-sm-6" />-->
+                                <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
                             </div>
                         </div>
                     </div>
@@ -202,7 +216,7 @@
         <!-- /.col -->
     </div>
 </div>
-
+<script th:src="@{/js/webuploader.js}"></script>
 <script type="text/javascript" th:inline="javascript">
     function showMenu() {
         $(".tree-div-contain").show();
@@ -221,7 +235,7 @@
         onBodyDown(e) ;
     });
 
-
+    var responseUrl;
     jQuery(function($) {
         new Vue({
             el:"#myMediary",
@@ -282,16 +296,16 @@
                             }
                             //异步加载返回的数据
                             function ajaxDataFilter(treeId, parentNode, responseData) {
-                                return responseData.data;
+                                console.log(responseData.content +"=======================");
+                                return responseData.content;
                             }
                             function zTreeOnclick(event, treeId, treeNode) {
                                 _this.editList.area.name = treeNode.name;
                                 _this.editList.area.id = treeNode.id;
-                                // _this.treeIsShow = false;
                                 $(".tree-div-contain").hide();
                             }
                             function getUrl(treeId, treeNode){
-                                return contextPath +"area/condition?level="+parseInt(treeNode.level+2)+"&parent="+parseInt(treeNode.id);
+                                return contextPath +"area/condition?level="+parseInt(treeNode.level+2)+"&parent="+treeNode.id;
                             }
                             function beforeExpand(treeId, treeNode) {
                                 if (!treeNode.isAjaxing) {
@@ -331,8 +345,8 @@
                 searchZtree:function(){
                     var searchVal = this.searchVal;
                     if(searchVal.length != 0){
-                        $.axspost(contextPath + "area/?shortName="+searchVal,"get","",function (data) {
-                            var getData = data.data;
+                        $.axspost(contextPath + "area/?shortName="+searchVal,"post","",function (data) {
+                            var getData = data.content;
                             $(".search-list").html("");
                             if(getData.length != 0){
                                 getData.forEach(function(item,i){
@@ -348,16 +362,109 @@
                         $("#treeDemo").show();
                         $(".search-list").hide();
                     }
+                },
+                sureSubmit:function () {
+                    var _this = this;
+                    var data = {
+                        intermediaryName:_this.editList.intermediaryName, //中间商名称
+                        intermediaryContact:_this.editList.intermediaryContact,//中间商联系人
+                        intermediaryContactTel:_this.editList.intermediaryContactTel, //中间商联系方式
+                        intermediaryLogoUrl:  responseUrl,
+                        intermediaryIntroduction: CKEDITOR.instances.editor1.getData(),
+                        user:{
+                            name:_this.editList.user.name,
+                            mobile:_this.editList.user.mobile,
+                            id:1
+                        },
+                        area:{
+                            id:_this.editList.area.id
+                        }
+                    };
+                    $.ajax({
+                        url: contextPath+"api/intermediary",
+                        method: "post",
+                        data : JSON.stringify(data),
+                        contentType: "application/json",
+                        dataType : "json",
+                        success: function (data) {
+                            alert(1);
+                            // location.href=contextPath+"intermediary/list";
+                        },
+                        error: function (data) {
+                            alert(2);
+                            console.log(data);
+                        }
+                    })
                 }
             },
             mounted:function () {
                 var _this = this;
                 _this.editorFun(); //初始化生成编辑器
                 // _this.uploaderFun();  //上传图片
+                //所属区域
                 $.axspost(contextPath + "area/condition?level=1","get","",function(data){
-                    _this.facList = data.content;
+                    // _this.facList = data.content;
+                    data.content.forEach(function(item,i){
+                        data.content[i].isParent  = true;
+                        _this.facList = data.content;
+                    });
+                    console.log( _this.facList );
                     _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
                 },function (data) {});
+                var $form = $('#validation-form').validate({
+                    errorElement: 'div',
+                    errorClass: 'help-block',
+                    focusInvalid: false,
+                    ignore: "",
+                    rules: {
+                        intermediaryName: {
+                            required: true
+                        },
+                        areaId: {
+                            required: true
+                        },
+                        intermediaryContact: {
+                            required: true
+                        },
+                        intermediaryLogoUrl: {
+                            required: true
+                        },
+
+                        intermediaryIntroduction: {
+                            required: true
+                        },
+                        intermediaryContactTel: {
+                            required: true
+                        },
+                        userId: {
+                            required: true
+                        }
+                    },
+
+                    highlight: function (e) {
+                        $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                    },
+
+                    success: function (e) {
+                        $(e).closest('.form-group').removeClass('has-error');
+                        $(e).remove();
+                    },
+
+                    errorPlacement: function (error, element) {
+                        error.insertAfter(element.parent());
+                    },
+
+                    submitHandler: function (form) {
+
+                        // var data = $(form).serializeObject();
+                        _this.sureSubmit();
+
+                    },
+                    invalidHandler: function (form) {
+
+                    }
+                });
+
             }
         });
         $(document).on("click",".search-list >li",function(){
@@ -375,74 +482,60 @@
                 }
             });
         });
-        var $form = $('#validation-form').validate({
-            errorElement: 'div',
-            errorClass: 'help-block',
-            focusInvalid: false,
-            ignore: "",
-            rules: {
-                intermediaryName: {
-                    required: true
-                },
-                areaId: {
-                    required: true
-                },
-                intermediaryContact: {
-                    required: true
-                },
-                intermediaryLogoUrl: {
-                    required: true
-                },
 
-                intermediaryIntroduction: {
-                    required: true
-                },
-                intermediaryContactTel: {
-                    required: true
-                },
-                userId: {
-                    required: true
-                }
-            },
-
-            highlight: function (e) {
-                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-            },
-
-            success: function (e) {
-                $(e).closest('.form-group').removeClass('has-error');
-                $(e).remove();
-            },
-
-            errorPlacement: function (error, element) {
-                 error.insertAfter(element.parent());
-            },
-
-            submitHandler: function (form) {
-
-                var data = $(form).serializeObject();
-
-                $.ajax({
-                    url: contextPath+"api/intermediary/",
-                    method: "post",
-                    data : JSON.stringify(data),
-                    contentType: "application/json",
-                    dataType : "json",
-                    success: function (data) {
-                       location.href=contextPath+"intermediary/list";
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                })
+        setTimeout(function(){
+            $(".webuploader-pick").next().css({
+                position: "absolute",
+                top: "121px",
+                left: "15px",
+                width: "85px",
+                height: "40px",
+                overflow: "hidden",
+                opacity: 0
+            });
+        }, 1000);
 
 
-            },
-            invalidHandler: function (form) {
+        var uploader = WebUploader.create({
 
-            }
+            // 选完文件后，是否自动上传。
+            auto: true,
+
+            // swf文件路径
+            swf: contextPath + '/dist/js/Uploader.swf',
+
+            // 文件接收服务端。
+            server: contextPath+'upload',
+
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#filePicker',
+
+            // 只允许选择图片文件。
+            /*accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/!*'
+            },*/
+
+
         });
 
+        uploader.on( 'uploadSuccess', function( file,response ) {
+            responseUrl = response.content.path;
+        });
+
+        uploader.on( 'fileQueued', function( file ) {
+            var $li = $('<img src="" id="imgInter">');
+            $("#fileList").html($li);
+            // var size = parseInt(file.size)/1024;
+            // var sizeSub = size.toString().substr(0,5);
+            // $("#size").text(sizeSub+"kb");
+            uploader.makeThumb(file, function (error, src) {
+                $("#imgInter").attr("src",src);
+                // $("#fileList").addClass("active");
+            });
+        });
     })
 </script>
 </body>
