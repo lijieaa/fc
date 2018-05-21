@@ -253,3 +253,24 @@
            $("#source-bulid").show().siblings().hide();
        })
 
+//文本编辑器
+     function aa(){
+         CKEDITOR.replace( 'editor1', {
+             height:500,
+             customConfig: '',
+             filebrowserImageUploadUrl:"skins",
+             removeDialogTabs:"image:advanced;image:Link",
+             toolbarGroups: [
+                 {"name":"basicstyles","groups":["basicstyles"]},
+                 {"name":"links","groups":["links"]},
+                 {"name":"paragraph","groups":["list","blocks"]},
+                 // {"name":"document","groups":["mode"]},
+                 {"name":"insert","groups":["insert"]},
+//                {"name":"styles","groups":["styles"]},
+                 {"name":"about","groups":["about"]}
+             ],
+             removePlugins:"elementspath"
+//            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
+         });
+     }
+     aa();
