@@ -1,19 +1,15 @@
 package com.jianpanmao.project.dto;
+import com.jianpanmao.area.entity.Area;
+import com.jianpanmao.sys.entity.DingtalkUser;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
 public class ProjectDto {
 
 
-private Integer projectContactUserId ;
+private DingtalkUser projectContactUser;
 
-public Integer getProjectContactUserId() {
-return projectContactUserId;
-}
-
-public void setProjectContactUserId(Integer projectContactUserId) {
-this.projectContactUserId = projectContactUserId;
-}
 private String projectOwnerContact ;
 
 public String getProjectOwnerContact() {
@@ -50,15 +46,8 @@ return projectStatus;
 public void setProjectStatus(Byte projectStatus) {
 this.projectStatus = projectStatus;
 }
-private Integer areaId ;
+private Area area ;
 
-public Integer getAreaId() {
-return areaId;
-}
-
-public void setAreaId(Integer areaId) {
-this.areaId = areaId;
-}
 private String projectLogo ;
 
 public String getProjectLogo() {
@@ -68,15 +57,8 @@ return projectLogo;
 public void setProjectLogo(String projectLogo) {
 this.projectLogo = projectLogo;
 }
-private Integer projectCreateUserId ;
+    private DingtalkUser projectCreateUser;
 
-public Integer getProjectCreateUserId() {
-return projectCreateUserId;
-}
-
-public void setProjectCreateUserId(Integer projectCreateUserId) {
-this.projectCreateUserId = projectCreateUserId;
-}
 private String projectOwnerContactTel ;
 
 public String getProjectOwnerContactTel() {
@@ -122,4 +104,29 @@ return projectUpdateTime;
 public void setProjectUpdateTime(Date projectUpdateTime) {
 this.projectUpdateTime = projectUpdateTime;
 }
+
+    public DingtalkUser getProjectContactUser() {
+        return projectContactUser;
+    }
+
+    public void setProjectContactUser(DingtalkUser projectContactUser) {
+        this.projectContactUser = projectContactUser;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    public DingtalkUser getProjectCreateUser() {
+        return projectCreateUser;
+    }
+
+    public void setProjectCreateUser(DingtalkUser projectCreateUser) {
+        this.projectCreateUser = projectCreateUser;
+    }
+
 }
