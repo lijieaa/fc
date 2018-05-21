@@ -47,25 +47,4 @@ return "area/area_detail";
 }
 
 
-    @Autowired
-    AreaMapper dao;
-
-    @GetMapping("condition")
-    @ResponseBody
-    public List<Area> findByLP(@RequestParam Integer level, @RequestParam(required = false) Integer parent) {
-        List<Area> areas = dao.findByLP(level, parent);
-        if (level.intValue() == 1) {
-            for (Area area : areas) {
-                area.setParent(true);
-            }
-        }
-        return areas;
-    }
-
-    @GetMapping("/")
-    @ResponseBody
-    public List<Area> findByShortName(String shortName){
-        List<Area> areas = dao.findByShortName(shortName);
-        return areas;
-    }
 }
