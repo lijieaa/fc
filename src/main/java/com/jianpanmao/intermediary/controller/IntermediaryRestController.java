@@ -3,6 +3,7 @@ package com.jianpanmao.intermediary.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jianpanmao.common.entity.DataTablesResponseEntity;
+import com.jianpanmao.exception.CustomException;
 import com.jianpanmao.intermediary.dao.IntermediaryMapper;
 import com.jianpanmao.intermediary.dto.IntermediaryDto;
 import com.jianpanmao.intermediary.entity.Intermediary;
@@ -34,14 +35,14 @@ public class IntermediaryRestController {
 
     @PreAuthorize("hasAuthority('intermediary:delete')")
     @RequestMapping(method = RequestMethod.DELETE)
-    public Integer delete(@RequestParam("id") Integer id) {
-        return intermediaryService.remove(id);
+    public Integer delete(@RequestParam("id") Integer id) throws CustomException {
+        return intermediaryService.removeI(id);
     }
 
     @PreAuthorize("hasAuthority('intermediary:delete')")
     @RequestMapping(method = RequestMethod.DELETE, value = "batch")
-    public Integer batchDelete(@RequestBody Integer[] ids) {
-        return intermediaryService.removeBatch(ids);
+    public Integer batchDelete(@RequestBody Integer[] ids) throws CustomException {
+        return intermediaryService.removeBatchI(ids);
     }
 
     @PreAuthorize("hasAuthority('intermediary:edit')")

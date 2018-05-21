@@ -3,6 +3,7 @@ package com.jianpanmao.common.service.impl;
 
 import com.jianpanmao.common.dao.BaseDao;
 import com.jianpanmao.common.service.BaseService;
+import com.jianpanmao.exception.CustomException;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 

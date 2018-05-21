@@ -3,18 +3,29 @@
 <mapper namespace="com.jianpanmao.project.dao.ProjectMapper">
   <resultMap id="BaseResultMap" type="com.jianpanmao.project.entity.Project">
     <id column="project_id" jdbcType="INTEGER" property="projectId" />
-    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
-    <result column="area_id" jdbcType="INTEGER" property="areaId" />
-    <result column="project_contact_user_id" jdbcType="INTEGER" property="projectContactUserId" />
-    <result column="project_create_user_id" jdbcType="INTEGER" property="projectCreateUserId" />
-    <result column="project_owner_contact" jdbcType="VARCHAR" property="projectOwnerContact" />
-    <result column="project_owner_contact_tel" jdbcType="VARCHAR" property="projectOwnerContactTel" />
-    <result column="project_status" jdbcType="TINYINT" property="projectStatus" />
-    <result column="project_create_time" jdbcType="TIMESTAMP" property="projectCreateTime" />
-    <result column="project_update_time" jdbcType="TIMESTAMP" property="projectUpdateTime" />
-    <result column="project_logo" jdbcType="VARCHAR" property="projectLogo" />
-    <result column="project_topic_status" jdbcType="TINYINT" property="projectTopicStatus" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="project_owner_contact" property="projectOwnerContact" jdbcType="VARCHAR" />
+    <result column="project_owner_contact_tel" property="projectOwnerContactTel" jdbcType="VARCHAR" />
+    <result column="project_status" property="projectStatus" jdbcType="TINYINT" />
+    <result column="project_create_time" property="projectCreateTime" jdbcType="TIMESTAMP" />
+    <result column="project_update_time" property="projectUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="project_logo" property="projectLogo" jdbcType="VARCHAR"/>
+    <result column="project_topic_status" property="projectTopicStatus" jdbcType="TINYINT"/>
+    <association property="area" javaType="com.jianpanmao.area.entity.Area">
+      <id column="id" property="id"></id>
+      <result column="aname" property="name"></result>
+    </association>
+    <association property="projectContactUser" javaType="com.jianpanmao.sys.entity.DingtalkUser">
+      <id column="contactuserid" property="userid"></id>
+      <result column="contactname" property="name"></result>
+    </association>
+    <association property="projectCreateUser" javaType="com.jianpanmao.sys.entity.DingtalkUser">
+      <id column="createuserid" property="userid"></id>
+      <result column="createusername" property="name"></result>
+    </association>
   </resultMap>
+
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -93,10 +104,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from project
-    where project_id = #{projectId,jdbcType=INTEGER}
+
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from project
@@ -109,16 +117,27 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.jianpanmao.project.entity.Project">
-    insert into project (project_id, project_name, area_id, 
-      project_contact_user_id, project_create_user_id, 
-      project_owner_contact, project_owner_contact_tel, 
-      project_status, project_create_time, project_update_time, 
-      project_logo, project_topic_status)
-    values (#{projectId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{areaId,jdbcType=INTEGER}, 
-      #{projectContactUserId,jdbcType=INTEGER}, #{projectCreateUserId,jdbcType=INTEGER}, 
-      #{projectOwnerContact,jdbcType=VARCHAR}, #{projectOwnerContactTel,jdbcType=VARCHAR}, 
-      #{projectStatus,jdbcType=TINYINT}, #{projectCreateTime,jdbcType=TIMESTAMP}, #{projectUpdateTime,jdbcType=TIMESTAMP}, 
-      #{projectLogo,jdbcType=VARCHAR}, #{projectTopicStatus,jdbcType=TINYINT})
+    insert into project ( project_name,
+      area_id,
+      project_contact_user_id,
+      project_create_user_id,
+      project_owner_contact,
+      project_owner_contact_tel,
+      project_status,
+      project_topic_status,
+      project_logo
+      )
+    values (
+      #{projectName,jdbcType=VARCHAR},
+      #{area.id,jdbcType=INTEGER},
+      #{projectContactUser.userid,jdbcType=INTEGER},
+      #{projectCreateUser.userid,jdbcType=INTEGER},
+      #{projectOwnerContact,jdbcType=VARCHAR},
+      #{projectOwnerContactTel,jdbcType=VARCHAR},
+      #{projectStatus,jdbcType=TINYINT},
+    #{projectTopicStatus,jdbcType=TINYINT},
+    #{projectLogo,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.project.entity.Project">
     insert into project
@@ -309,16 +328,10 @@
   <update id="updateByPrimaryKey" parameterType="com.jianpanmao.project.entity.Project">
     update project
     set project_name = #{projectName,jdbcType=VARCHAR},
-      area_id = #{areaId,jdbcType=INTEGER},
-      project_contact_user_id = #{projectContactUserId,jdbcType=INTEGER},
-      project_create_user_id = #{projectCreateUserId,jdbcType=INTEGER},
+      area_id = #{area.id,jdbcType=INTEGER},
+      project_contact_user_id = #{projectContactUser.userid,jdbcType=INTEGER},
       project_owner_contact = #{projectOwnerContact,jdbcType=VARCHAR},
-      project_owner_contact_tel = #{projectOwnerContactTel,jdbcType=VARCHAR},
-      project_status = #{projectStatus,jdbcType=TINYINT},
-      project_create_time = #{projectCreateTime,jdbcType=TIMESTAMP},
-      project_update_time = #{projectUpdateTime,jdbcType=TIMESTAMP},
-      project_logo = #{projectLogo,jdbcType=VARCHAR},
-      project_topic_status = #{projectTopicStatus,jdbcType=TINYINT}
+      project_owner_contact_tel = #{projectOwnerContactTel,jdbcType=VARCHAR}
     where project_id = #{projectId,jdbcType=INTEGER}
   </update>
   <select id="selectAll" parameterType="com.jianpanmao.project.entity.Project" resultMap="BaseResultMap">
@@ -332,45 +345,35 @@
     </foreach>
   </delete>
   <select id="selectByDto" parameterType="com.jianpanmao.project.dto.ProjectDto" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List" /> from project where 1=1
-    <if test="projectId!=null">
-      and project_id=#{projectId}
-    </if>
-    <if test="projectName!=null and '' neq projectName">
-      and project_name=#{projectName}
-    </if>
-    <if test="areaId!=null">
-      and area_id=#{areaId}
-    </if>
-    <if test="projectContactUserId!=null">
-      and project_contact_user_id=#{projectContactUserId}
-    </if>
-    <if test="projectCreateUserId!=null">
-      and project_create_user_id=#{projectCreateUserId}
-    </if>
-    <if test="projectOwnerContact!=null and '' neq projectOwnerContact">
-      and project_owner_contact=#{projectOwnerContact}
-    </if>
-    <if test="projectOwnerContactTel!=null and '' neq projectOwnerContactTel">
-      and project_owner_contact_tel=#{projectOwnerContactTel}
-    </if>
-    <if test="projectStatus!=null">
-      and project_status=#{projectStatus}
-    </if>
-    <if test="projectCreateTime!=null">
-      and project_create_time=#{projectCreateTime}
-    </if>
-    <if test="projectUpdateTime!=null">
-      and project_update_time=#{projectUpdateTime}
-    </if>
-    <if test="projectLogo!=null and '' neq projectLogo">
-      and project_logo=#{projectLogo}
-    </if>
-    <if test="projectTopicStatus!=null">
-      and project_topic_status=#{projectTopicStatus}
-    </if>
-    <if test="od!=null and od neq ''">
-      order by ${od}
-    </if>
+    select
+    p.*,area.ID,area.NAME aname,
+    projectContactUser.userid contactuserid,projectContactUser.name contactname,
+    projectCreateUser.userid createuserid,projectCreateUser.name createusername
+    from project p
+    LEFT JOIN area area ON p.area_id = area.ID
+    LEFT JOIN dingtalk_user projectContactUser ON p.project_contact_user_id = projectContactUser.userid
+    LEFT JOIN dingtalk_user projectCreateUser ON p.project_create_user_id = projectCreateUser.userid
+    WHERE p.project_status = #{projectStatus}
+    <if test="projectName != null"> and p.project_name  LIKE CONCAT('%',#{projectName},'%')</if>
+    <if test="projectContactUser !=null and projectContactUser.name!=null"> and projectContactUser.name LIKE  CONCAT('%',#{projectContactUser.name},'%')</if>
+    <if test="projectOwnerContact!=null and projectOwnerContact!=null"> and p.project_owner_contact LIKE CONCAT('%',#{projectOwnerContact},'%')</if>
+    <if test="projectOwnerContactTel!=null and projectOwnerContactTel!=null"> and p.project_owner_contact_tel LIKE CONCAT('%',#{projectOwnerContactTel},'%')</if>
+  </select>
+
+  <select id="selectByIdStatus" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    -->
+    select
+    p.*,area.ID,area.NAME aname,
+    projectContactUser.userid contactuserid,projectContactUser.name contactname,
+    projectCreateUser.userid createuserid,projectCreateUser.name createusername
+    from project p
+    LEFT JOIN area area ON p.area_id = area.ID
+    LEFT JOIN dingtalk_user projectContactUser ON p.project_contact_user_id = projectContactUser.userid
+    LEFT JOIN dingtalk_user projectCreateUser ON p.project_create_user_id = projectCreateUser.userid
+    where p.project_id = #{id,jdbcType=INTEGER}
+    and p.project_status = #{statusId,jdbcType=TINYINT}
   </select>
 </mapper>
