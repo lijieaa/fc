@@ -217,8 +217,10 @@
                       <button type="button" class="btn btn-info float-right new-source">新建图文消息</button>
 
                   </div>
-                  <div class="modal-body" style="height: 400px;">
-                       毫无素材
+                  <div class="modal-body" style="min-height: 400px;">
+                      <ul id="popImg"></ul>
+                      <div id="popPagingTest" class="pageIndex"></div>
+                      <input type="hidden" value="" id="popPage">
                   </div>
                   <div class="modal-footer">
                       <button type="button" id="btn-sure-source" class="btn btn-primary text-center" data-dismiss="modal">确定</button>
@@ -235,6 +237,7 @@
               <a class="" data-id="2">图片</a>
               <a class="" data-id="3">语音</a>
               <a class="" data-id="4">视频</a>
+              <button class="btn btn-info search text-center pull-right" id="backUlGzh">返回</button>
           </div>
           <div style="margin-top: 2%;">
               <span style="margin-left: 2%"><a class="new-type-name">图文消息</a><a>（共1条）</a></span>
@@ -295,22 +298,25 @@
               <section class="float-left" style="width: 50%;height: 700px;border: 1px #bcbcbc solid;">
                   <div class="col-md-12" style="height: 100%">
                       <textarea name="editor1" id="editor1" rows="10" cols="400" style="height: 100%;border: 1px red solid;">
-                          <div style="height: 60px;line-height: 60px;">请在这里输入标题</div>
-                          <div style="height: 60px;line-height: 60px;">请输入标题</div>
+                          <div style="height: 60px;line-height: 60px;" id="ptTitle">请在这里输入标题</div>
+                          <div style="height: 60px;line-height: 60px;" id="ptdigest">请输入标题</div>
+                          <div style="height: 60px;line-height: 60px;" id="ptAutor">作者</div>
                           <hr/>
-                          <div>从这里开始写正文</div>
+                          <div id="ptcontent">从这里开始写正文</div>
                       </textarea>
                   </div>
+                  <button style="width: 65px;height: 35px;display: block;" id="savapt">保存</button>
               </section>
               <section class="float-left" style="width: 15%;height: 700px;border: 1px #bcbcbc solid;margin-left: 1.5%">
                   <label style="width:100%;margin-top: 15px;margin-left: 35px;" class="text-center;">多媒体</label>
-                  <div style="width: 60%;margin-left: 20%;margin-top: 20px;">
-                      <div style="width: 100%;height: 50px;line-height:50px;text-align: center;border: 1px #bcbcbc solid;font-size: 16px;border-bottom: none;">图片</div>
-                      <div style="width: 100%;height: 50px;line-height:50px;text-align: center;border: 1px #bcbcbc solid;font-size: 16px;border-bottom: none;">视频</div>
-                      <div style="width: 100%;height: 50px;line-height:50px;text-align: center;border: 1px #bcbcbc solid;font-size: 16px;">音频</div>
+                  <div style="width: 60%;margin-left: 20%;margin-top: 20px;" class="newPhotoText">
+                      <a style="width: 100%;height: 50px;line-height:50px;text-align: center;border: 1px #bcbcbc solid;font-size: 16px;border-bottom: none;">图片</a>
+                      <a style="width: 100%;height: 50px;line-height:50px;text-align: center;border: 1px #bcbcbc solid;font-size: 16px;border-bottom: none;">视频</a>
+                      <a style="width: 100%;height: 50px;line-height:50px;text-align: center;border: 1px #bcbcbc solid;font-size: 16px;">音频</a>
                   </div>
               </section>
           </div>
+
       </div>
      <!--/.content-->
   </div>

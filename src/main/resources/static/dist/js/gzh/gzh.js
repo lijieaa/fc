@@ -183,6 +183,7 @@
                 }else if(data_id==3){
                     $("#mySource").text("选择图片");
                     $(".new-source").text("上传图片").attr("data-id","2");
+                    ajaxDataPop(1);
                 }else if(data_id==4){
                     $("#mySource").text("选择语音");
                     $(".new-source").text("上传语音").attr("data-id","3");
@@ -252,9 +253,11 @@
        $("#backStore").click(function () {
            $("#source-bulid").show().siblings().hide();
        })
-
+$("#backUlGzh").click(function () {
+    $("#gzh-manage").show().siblings().hide();
+})
 //文本编辑器
-     function aa(){
+     function textEdior(){
          CKEDITOR.replace( 'editor1', {
              height:500,
              customConfig: '',
@@ -273,4 +276,32 @@
 //            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
          });
      }
-     aa();
+     textEdior();
+       //新建图文消息
+     $(".newPhotoText>a").click(function () {
+         $('#sourceRoom').modal();
+         $("#mySource").text("选择图片");
+         $(".new-source").text("上传图片").attr("data-id","2");
+         ajaxDataPop(1);
+     });
+         $(document).on("click","#savapt",function () {
+             var title=$("#ptTitle").html();
+             var autor=$("#ptAutor").text();//原始id
+             var digest=$("#ptdigest").text();//摘要
+             var content=$("#ptcontent").text();//正文
+             var webdata= {"wxPublicId": 14,"title":title,"author":autor,"digest":digest,"content":content,"show_cover_pic":1,"content_source_url":'',"thumb_media_id":''};
+             var data=JSON.stringify(webdata);
+             console.log(title)
+             $.ajax({
+                 contentType:'application/json; charset=utf-8',
+                 url: contextPath +"material/upload/news",
+                 type: "post",
+                 data: data,
+                 dataType: "json",
+                 success: function(d){
+                     alert(d.message)
+                 }
+             })
+         })
+
+

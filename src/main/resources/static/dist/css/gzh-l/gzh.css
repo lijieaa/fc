@@ -103,6 +103,25 @@
     border: 1px #727272 solid;
     cursor: pointer;
 }
+#popImg li{
+    width: 120px;
+    height: 120px;
+    display: inline-block;
+    border: 1px #727272 solid;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+#popImg li img{
+    width: 120px;
+    height: 120px;
+    display: inline-block;
+    border: 1px #727272 solid;
+    cursor: pointer;
+}
+
+
+
+
 #mpShow li{
     width: 180px;
     height: 180px;
@@ -152,3 +171,7 @@
     /*color: white;*/
     /*cursor: default;*/
 /*}*/
+.newPhotoText a{
+    display: block;
+    cursor: pointer;
+}

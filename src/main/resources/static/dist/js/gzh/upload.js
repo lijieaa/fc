@@ -72,6 +72,42 @@
         ajaxData(val);
     });
 
+    // 弹窗图片展示
+    function  ajaxDataPop(pageNo) {
+        $.ajax({
+            url:contextPath +"material/page",
+            type: "get",
+            data: {
+                wxtype:'image',
+                wxPublicId:14,
+                total:0,
+                records:0,
+                rows:10,
+                page:pageNo
+            },
+            success:function(data){
+                var dataList = data.data.list;
+                $("#popImg").html("");
+                for(var i=0;i<dataList.length;i++){
+                    var error="error";
+                    var url=data.data.list[i].url;
+                    var name=data.data.list[i].name;
+                    var urlLink = ''+contextPath+'material/image/detail?url='+url+"&name="+name;
+                    urlLink = encodeURI(urlLink);
+                    $("#popImg").append("<li id=''="+data.data.list[i].id+" alt=''="+data.data.list[i].name+"><img src='"+urlLink+"' title='"+data.data.list[i].name+"' alt='"+error+"'></li>");
+                }
+                $("#popPagingTest").paging1({
+                    pageNo:pageNo,
+                    totalPage:data.data.pages
+                })
+            }
+        });
+    }
+    $(document).on("click","a",function () {
+        var val = $("#popPage").val();
+        ajaxDataPop(val);
+    });
+
     //语音上传
     function yyupload() {
         var allMaxSize = 10;
@@ -149,10 +185,10 @@
             }
         });
     }
-    $(document).on("click","a",function () {
-        var val = $("#page1").val();
-        ajaxMp(val);
-    });
+    // $(document).on("click","a",function () {
+    //     var val = $("#page1").val();
+    //     ajaxMp(val);
+    // });
 
 
     function videoupload() {
@@ -237,8 +273,8 @@
             }
         });
     }
-    $(document).on("click","a",function () {
-        var val = $("#page2").val();
-        ajaxVid(val);
-    });
+    // $(document).on("click","a",function () {
+    //     var val = $("#page2").val();
+    //     ajaxVid(val);
+    // });
 
