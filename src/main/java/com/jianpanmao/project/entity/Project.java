@@ -1,56 +1,58 @@
 package com.jianpanmao.project.entity;
 
+import com.jianpanmao.area.entity.Area;
+import com.jianpanmao.sys.entity.DingtalkUser;
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public class Project implements Serializable {
     //
     private Integer projectId;
 
     //项目名称
-    @NotNull(message = "projectName不能为空！")
+    @NotBlank(message = "线索或项目名称不能为空")
+    @Size(min = 1,max = 50,message = "线索或项目名称在1-50个字符之间")
     private String projectName;
 
     //所属区域
-    @NotNull(message = "areaId不能为空！")
-    private Integer areaId;
+    private @NotNull(message = "地区不能为空") Area area;
 
     //项目联系人
-    @NotNull(message = "projectContactUserId不能为空！")
-    private Integer projectContactUserId;
+    private @NotNull(message = "负责人不能为空") DingtalkUser projectContactUser;
 
     //线索创建人
-    @NotNull(message = "projectCreateUserId不能为空！")
-    private Integer projectCreateUserId;
+    private DingtalkUser projectCreateUser;
 
     //业主联系人
-    @NotNull(message = "projectOwnerContact不能为空！")
+    @NotBlank(message = "业主联系人不能为空")
     private String projectOwnerContact;
 
     //业主电话
-    @NotNull(message = "projectOwnerContactTel不能为空！")
+    @NotBlank(message = "电话号码不能为空")
+    @Pattern(regexp = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$", message = "请输入正确电话号码")
     private String projectOwnerContactTel;
 
     //状态：0线索，1项目
-    @NotNull(message = "projectStatus不能为空！")
+    @NotNull(message = "状态不能为空")
     private Byte projectStatus;
 
     //创建时间
-    @NotNull(message = "projectCreateTime不能为空！")
     private Date projectCreateTime;
 
     //更新时间
-    @NotNull(message = "projectUpdateTime不能为空！")
     private Date projectUpdateTime;
 
     //
-    @NotNull(message = "projectLogo不能为空！")
+    @NotBlank(message = "logo不能为空")
     private String projectLogo;
 
     //线索跟进状态：0已处理，1正在处理
-    @NotNull(message = "projectTopicStatus不能为空！")
     private Byte projectTopicStatus;
 
     private static final long serialVersionUID = 1L;
@@ -73,28 +75,28 @@ public class Project implements Serializable {
         this.projectName = projectName == null ? null : projectName.trim();
     }
 
-    public Integer getAreaId() {
-        return areaId;
+    public Area getArea() {
+        return area;
     }
 
-    public void setAreaId(Integer areaId) {
-        this.areaId = areaId;
+    public void setArea(Area area) {
+        this.area = area;
     }
 
-    public Integer getProjectContactUserId() {
-        return projectContactUserId;
+    public DingtalkUser getProjectContactUser() {
+        return projectContactUser;
     }
 
-    public void setProjectContactUserId(Integer projectContactUserId) {
-        this.projectContactUserId = projectContactUserId;
+    public void setProjectContactUser(DingtalkUser projectContactUser) {
+        this.projectContactUser = projectContactUser;
     }
 
-    public Integer getProjectCreateUserId() {
-        return projectCreateUserId;
+    public DingtalkUser getProjectCreateUser() {
+        return projectCreateUser;
     }
 
-    public void setProjectCreateUserId(Integer projectCreateUserId) {
-        this.projectCreateUserId = projectCreateUserId;
+    public void setProjectCreateUser(DingtalkUser projectCreateUser) {
+        this.projectCreateUser = projectCreateUser;
     }
 
     public String getProjectOwnerContact() {
@@ -153,26 +155,4 @@ public class Project implements Serializable {
         this.projectTopicStatus = projectTopicStatus;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", projectId=").append(projectId);
-        sb.append(", projectName=").append(projectName);
-        sb.append(", areaId=").append(areaId);
-        sb.append(", projectContactUserId=").append(projectContactUserId);
-        sb.append(", projectCreateUserId=").append(projectCreateUserId);
-        sb.append(", projectOwnerContact=").append(projectOwnerContact);
-        sb.append(", projectOwnerContactTel=").append(projectOwnerContactTel);
-        sb.append(", projectStatus=").append(projectStatus);
-        sb.append(", projectCreateTime=").append(projectCreateTime);
-        sb.append(", projectUpdateTime=").append(projectUpdateTime);
-        sb.append(", projectLogo=").append(projectLogo);
-        sb.append(", projectTopicStatus=").append(projectTopicStatus);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
 }

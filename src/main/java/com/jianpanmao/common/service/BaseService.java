@@ -1,6 +1,7 @@
 package com.jianpanmao.common.service;
 
 
+import com.jianpanmao.exception.CustomException;
 import org.apache.ibatis.annotations.Param;
 
 import java.io.Serializable;

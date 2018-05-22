@@ -203,3 +203,6 @@ div.dataTables_wrapper div.dataTables_paginate{
     background: #5c688f;
     color: white;
 }
+.form-horizontal .form-group{
+    margin-right: 0!important;
+}

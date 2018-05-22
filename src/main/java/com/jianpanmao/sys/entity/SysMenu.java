@@ -31,17 +31,6 @@ public class SysMenu extends BaseEntity implements Serializable {
     //@NotNull(message = "menuDisplay不能为空！")
     private Byte menuDisplay;
 
-
-    public List<SysMenu> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<SysMenu> children) {
-        this.children = children;
-    }
-
-    private List<SysMenu> children=new ArrayList<>();
-
     //菜单图标
     private String icon;
 
@@ -140,15 +129,5 @@ public class SysMenu extends BaseEntity implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
-    }
-
-
-    public static void r(SysMenu m, List<Integer> ids){
-        ids.add(m.getMenuId());
-        if(m.getChildren().size()>0){
-            for (SysMenu sysMenu : m.getChildren()) {
-                r(sysMenu,ids);
-            }
-        }
     }
 }

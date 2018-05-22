@@ -474,20 +474,20 @@
         </div>
         <!-- /.sidebar-shortcuts -->
         <ul class="nav nav-list">
-            <li  th:each="m:${session.menus}">
+            <li  th:each="m:${session.menus}" th:if="${m.menuParentId eq 0}">
                 <a th:href="@{${#strings.isEmpty(m.menuUrl)?'#':m.menuUrl}}" th:class="${#strings.isEmpty(m.menuUrl)}?'dropdown-toggle':''">
                     <i class="menu-icon fa fa-desktop"></i>
 							<span class="menu-text" th:text="${m.menuName}">
 
 							</span>
 
-                    <b th:class="${#lists.size(m.children)>0}?'arrow fa fa-angle-down':'arrow'"></b>
+                    <b th:class="${#strings.isEmpty(m.menuUrl)}?'arrow fa fa-angle-down':'arrow'"></b>
                 </a>
 
                 <b class="arrow"></b>
 
 
-                <ul class="submenu" th:replace="~{fragments/submenu ::submenu}">
+                <ul class="submenu" th:include="~{fragments/submenu ::submenu(${m})}">
 
                 </ul>
 
