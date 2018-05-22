@@ -60,22 +60,6 @@ public class SysRoleRestController {
 
 
 
-    public static void checkMenu(List<SysMenu> all,List<SysMenu> checkMenu,List<Map> outlist){
-        for (SysMenu menu : all) {
-            Map m=new HashMap<>();
-            if(menu.getChildren().size()>0){
-                checkMenu(menu.getChildren(),checkMenu,outlist);
-            }else{
-
-                m.put("menuId",menu.getMenuId());
-                m.put("menuParentId",menu.getMenuParentId());
-                m.put("menuName",menu.getMenuName());
-                m.put("checked",true);
-            }
-            outlist.add(m);
-        }
-    }
-
     @PreAuthorize("hasAuthority('sysrole:view')")
     @RequestMapping(method = RequestMethod.GET, value = "page")
     public Object page(@RequestParam(value = "pageNum", defaultValue = "1", required = true) Integer pageNum,

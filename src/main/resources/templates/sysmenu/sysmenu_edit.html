@@ -96,23 +96,7 @@
 
     var menuDisplay=true;
     var id=[[${id}]];
-    $.ajax({
-        url: contextPath+"api/sysmenu?id="+id,
-        method: "get",
-        success: function (data) {
-            if(data.content.menuDisplay==0){
-                menuDisplay=false;
-                data.content.menuDisplay='0'
-            }else if(data.content.menuDisplay==1){
-                menuDisplay=true;
-                data.content.menuDisplay='1'
-            }
-            $('#form').autofill(data.content);
-        },
-        error: function (data) {
-            console.log("查询数据出错！");
-        }
-    })
+
 
 
 
@@ -157,6 +141,29 @@
     jQuery(function($) {
 
         var parentTree = $.fn.zTree.init($("#treeDemo"), setting);
+
+
+
+        $.ajax({
+            url: contextPath+"api/sysmenu?id="+id,
+            method: "get",
+            success: function (data) {
+                if(data.content.menuDisplay==0){
+                    menuDisplay=false;
+                    data.content.menuDisplay='0'
+                }else if(data.content.menuDisplay==1){
+                    menuDisplay=true;
+                    data.content.menuDisplay='1'
+                }
+                $('#form').autofill(data.content);
+            },
+            error: function (data) {
+                console.log("查询数据出错！");
+            }
+        })
+
+
+
 
         var $form = $('#form').validate({
             errorElement: 'div',

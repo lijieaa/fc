@@ -11,10 +11,11 @@
     <result column="menu_display" jdbcType="TINYINT" property="menuDisplay" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="path" jdbcType="VARCHAR" property="path" />
-    <collection property="children" ofType="com.jianpanmao.sys.entity.SysMenu" select="findMenuByParentId" column="menu_id"/>
+    <!--<collection property="children" ofType="com.jianpanmao.sys.entity.SysMenu" select="findMenuByParentId" column="menu_id"/>-->
   </resultMap>
   <select id="findMenuByParentId" resultMap="BaseResultMap">
-             select * from sys_menu where menu_parent_id=#{0}
+             <!--select * from sys_menu where menu_parent_id=#{0}-->
+             SELECT c.* FROM sys_menu p INNER  JOIN sys_menu c on (c.menu_parent_id=p.menu_id) WHERE p.menu_id=#{0}
   </select>
   <sql id="Example_Where_Clause">
     <where>
@@ -117,7 +118,7 @@
       menu_display, icon,path)
     values (#{menuId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, #{menuParentId,jdbcType=INTEGER}, 
       #{menuUrl,jdbcType=VARCHAR}, #{menuPrmission,jdbcType=VARCHAR},
-      #{menuDisplay,jdbcType=TINYINT}, #{icon,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR})
+      #{menuDisplay,jdbcType=TINYINT}, #{icon,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.sys.entity.SysMenu">
     insert into sys_menu
@@ -265,14 +266,24 @@
     where menu_id = #{menuId,jdbcType=INTEGER}
   </update>
   <select id="selectAll" parameterType="com.jianpanmao.sys.entity.SysMenu" resultMap="BaseResultMap">
-    select * from sys_menu WHERE  menu_parent_id=0
+    SELECT m.* FROM sys_menu m LEFT  JOIN sys_menu p on p.menu_id=m.menu_parent_id
   </select>
-  <delete id="deleteBatch" parameterType="java.util.ArrayList">
+
+
+  <select id="selectByPath" parameterType="com.jianpanmao.sys.entity.SysMenu" resultMap="BaseResultMap">
+    SELECT * FROM sys_menu m where m.path LIKE #{path}
+  </select>
+
+  <update id="updatePath">
+    UPDATE sys_menu SET
+    path = #{path}
+    WHERE menu_id = #{menuId}
+  </update>
+
+
+  <delete id="deleteBatch" parameterType="com.jianpanmao.sys.entity.SysMenu">
     delete from sys_menu
-    where menu_id in
-    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
-              #{item}
-    </foreach>
+    where menu_id =#{menuId} or path LIKE concat('%',#{menuId,jdbcType=INTEGER},'%');
   </delete>
   <select id="selectByDto" parameterType="com.jianpanmao.sys.dto.SysMenuDto" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" /> from sys_menu where 1=1

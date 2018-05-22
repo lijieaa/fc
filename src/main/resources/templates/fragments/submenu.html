@@ -2,22 +2,21 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <body>
-<ul class="submenu" th:fragment="submenu" th:if="!${#lists.isEmpty(m.children)}">
-    <li class="" th:each="m : ${m.children}" th:if=" ${m.menuDisplay} eq 1 ">
-        <a th:href="@{${#strings.isEmpty(m.menuUrl)?'#':m.menuUrl}}" th:class="${#strings.isEmpty(m.menuUrl)}?'dropdown-toggle':''">
-
+<ul class="submenu" th:fragment="submenu(p)">
+    <li class="" th:each="m : ${session.menus}" th:if=" ${m.menuParentId eq p.menuId and m.menuDisplay eq 1}">
+        <a th:href="@{${#strings.isEmpty(m.menuUrl)?'#':m.menuUrl}}"
+           th:class="${#strings.isEmpty(m.menuUrl)}?'dropdown-toggle':''">
             <i class="menu-icon fa fa-caret-right"></i>
             [[${m.menuName}]]
-            <b class="${#lists.size(m.children)>0}?'arrow fa fa-angle-down':'arrow'"></b>
+            <b class="${#strings.isEmpty(m.menuUrl)?'arrow fa fa-angle-down':'arrow'"></b>
         </a>
-
         <b class="arrow"></b>
-
-        <ul class="submenu" th:replace="~{fragments/submenu ::submenu}"></ul>
+        <ul class="submenu" th:include="~{fragments/submenu ::submenu(${m})}"></ul>
     </li>
 </ul>
 
-<tr th:fragment="tr" th:if="!${#lists.isEmpty(menu.children)}" th:each="menu : ${menu.children}" th:attr="data-tt-id=${menu.menuId},data-tt-parent-id=${menu.menuParentId}" >
+<tr th:fragment="tr" th:if="!${#lists.isEmpty(menu.children)}" th:each="menu : ${menu.children}"
+    th:attr="data-tt-id=${menu.menuId},data-tt-parent-id=${menu.menuParentId}">
     <td th:text="${menu.menuName}"></td>
     <td th:text="${menu.menuUrl}"></td>
     <td th:text="${menu.menuPrmission}"></td>
@@ -33,7 +32,7 @@
 
 
 <th:block th:fragment="row(menus)">
-    <th:block  th:each="menu : ${menus}">
+    <th:block th:each="menu : ${menus}">
         <tr th:attr="data-tt-id=${menu.menuId},data-tt-parent-id=${menu.menuParentId}">
             <td th:text="${menu.menuName}"></td>
             <td th:text="${menu.menuUrl}"></td>
