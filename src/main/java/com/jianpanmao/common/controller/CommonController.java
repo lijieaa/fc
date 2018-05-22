@@ -55,9 +55,9 @@ public class CommonController {
 
         String fileName = file.getOriginalFilename();
 
-        String path="c:\\upload\\"+time.format(nowTime);
+        String path="c:\\upload\\";
 
-        File targetFile = new File(path,fileName);
+        File targetFile = new File(path+time.format(nowTime),fileName);
 
 
         if(!targetFile.getParentFile().exists()){
@@ -65,10 +65,14 @@ public class CommonController {
             targetFile.getParentFile().mkdirs();
         }
 
-        String newPath = path+File.separator+ UUID.randomUUID()+"_"+fileName;
+
+
+        String relativePath =time.format(nowTime)+File.separator+ UUID.randomUUID()+"_"+fileName;
+
+        String newPath = path+relativePath;
 
         Attach attach=new Attach();
-        attach.setPath(newPath);
+        attach.setPath(relativePath);
         attach.setFilename(fileName);
         attach.setMime(file.getContentType());
         attach.setSize(file.getSize());

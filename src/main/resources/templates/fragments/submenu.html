@@ -2,7 +2,7 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <body>
-<ul class="submenu" th:fragment="submenu" th:if="!${#lists.isEmpty(m.children)}">
+<ul class="submenu" th:fragment="submenu(m)" th:if="!${#lists.isEmpty(m.children)}">
     <li class="" th:each="m : ${m.children}" th:if=" ${m.menuDisplay} eq 1 ">
         <a th:href="@{${#strings.isEmpty(m.menuUrl)?'#':m.menuUrl}}" th:class="${#strings.isEmpty(m.menuUrl)}?'dropdown-toggle':''">
 
@@ -51,6 +51,13 @@
         <th:block th:unless="${#lists.isEmpty(menu.children)}" th:include="this::row(${menu.children})"/>
     </th:block>
 </th:block>
+
+
+
+
+
+
+
 </body>
 
 </html>
