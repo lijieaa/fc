@@ -120,25 +120,6 @@
 
         $("#example-basic-static").treetable({expandable: true});
 
-        /*$.ajax({
-         url: contextPath+"api/sysmenu/list",
-         method: "get",
-         success: function (data) {
-         if(data.status==200){
-         console.log(data.content);
-         var rows = data.content;
-         for(var i=0;i<rows.length;i++){
-         var tr=""
-         }
-
-         }
-         },
-         error: function (data) {
-         //console.log(data);
-         }
-         });*/
-
-
         $("a.delete").on("click", function (e) {
             var id = $(this).attr("data");
             $.ajax({
