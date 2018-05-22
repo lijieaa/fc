@@ -121,6 +121,7 @@
     margin-left: 23px;
     background: #f8f8f8;
     padding-bottom: 10px;
+    border: 1px solid #d1d1d1;
     /*overflow: auto;*/
 }
 .direct-chat-text:before{
