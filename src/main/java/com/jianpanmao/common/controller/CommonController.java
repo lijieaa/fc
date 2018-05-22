@@ -1,14 +1,17 @@
 package com.jianpanmao.common.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jianpanmao.Application;
 import com.jianpanmao.attach.entity.Attach;
 import com.jianpanmao.attach.service.AttachService;
+import com.jianpanmao.mqtt.MqttClient;
+import com.jianpanmao.mqtt.MyGateway;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,11 +19,13 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 
 @Controller
-public class CommonController {
+public class CommonController{
 
     @RequestMapping("login")
     public String login(){
@@ -87,5 +92,35 @@ public class CommonController {
 
 
         return attach;
+    }
+
+
+
+
+    @Autowired
+    MqttClient mqttClient;
+
+
+    @Autowired
+    MyGateway gateway;
+
+
+    @PostMapping("/mqtt_send")
+    @ResponseBody
+    public Map mqttSend(@RequestBody Map data) throws JsonProcessingException {
+
+        System.out.println(gateway);
+
+        ObjectMapper mapper=new ObjectMapper();
+
+        String s = mapper.writeValueAsString(data);
+
+        gateway.sendToMqtt(s);
+
+        Map rdata=new HashMap<>();
+
+        rdata.put("msg","发送成功！");
+
+        return rdata;
     }
 }
