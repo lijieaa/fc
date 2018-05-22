@@ -7,11 +7,4 @@
         <setting name="callSettersOnNulls" value="true"/>
         <setting name="logImpl" value="STDOUT_LOGGING" />
     </settings>
-    <typeAliases>
-        <typeAlias type="com.jianpanmao.wechat.entity.WxPublic" alias="WxPublic"></typeAlias>
-        <typeAlias type="com.jianpanmao.wechat.entity.WxUserOpenId" alias="WxUserOpenId"></typeAlias>
-        <typeAlias type="com.jianpanmao.wechat.entity.WxUserDetail" alias="WxUserDetail"></typeAlias>
-        <typeAlias type="com.jianpanmao.wechat.entity.WxMessage" alias="WxMessage"></typeAlias>
-        <typeAlias type="com.jianpanmao.wechat.entity.WxMaterial" alias="WxMaterial"></typeAlias>
-    </typeAliases>
 </configuration>
