@@ -7,6 +7,7 @@ import com.jianpanmao.sys.dto.*;
 import com.jianpanmao.sys.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenu,SysMenuExample,S
         return super.add(record);
     }
 
+    @Transactional
     @Override
     public int update(SysMenu record) {
 
@@ -53,7 +55,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenu,SysMenuExample,S
         SysMenu m=new SysMenu();
         m.setPath(menu.getMenuId()+"");
         List<SysMenu> sysMenus = sysMenuMapper.selectByPath(m);
-        
+
         for (SysMenu sysMenu : sysMenus) {
             sysMenu.setPath(sysMenu.getPath().replace(menu.getPath(),record.getPath()));
             sysMenuMapper.updatePath(sysMenu);
