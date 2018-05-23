@@ -8,8 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.DirectChannel;
@@ -27,6 +29,7 @@ import java.util.Date;
 
 @SpringBootApplication
 @EnableTransactionManagement
+@IntegrationComponentScan
 public class Application extends SpringBootServletInitializer{
 
     @Override
@@ -36,7 +39,7 @@ public class Application extends SpringBootServletInitializer{
 
     public static void main(String[] args) {
 
-        SpringApplication.run(Application.class, args);
+        ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
     }
 
     @Bean
@@ -78,11 +81,9 @@ public class Application extends SpringBootServletInitializer{
     @Bean
     public MqttPahoClientFactory mqttClientFactory() {
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
-        MqttConnectOptions options = new MqttConnectOptions();
-        options.setServerURIs(new String[]{"tcp://47.104.219.45:1883"});
-        //options.setUserName("username");
-        //options.setPassword("password".toCharArray());
-        //factory.setConnectionOptions(options);
+        factory.setServerURIs("tcp://47.104.144.238:6677");
+        //factory.setUserName("username");
+        //factory.setPassword("password");
         return factory;
     }
 
@@ -99,6 +100,13 @@ public class Application extends SpringBootServletInitializer{
     @Bean
     public MessageChannel mqttOutboundChannel() {
         return new DirectChannel();
+    }
+
+    @MessagingGateway(defaultRequestChannel = "mqttOutboundChannel")
+    public interface MyGateway {
+
+        void sendToMqtt(String data);
+
     }
 
 }

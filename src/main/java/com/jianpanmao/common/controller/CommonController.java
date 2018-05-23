@@ -3,16 +3,13 @@ package com.jianpanmao.common.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jianpanmao.Application;
 import com.jianpanmao.attach.entity.Attach;
 import com.jianpanmao.attach.service.AttachService;
-import com.jianpanmao.mqtt.MqttClient;
-import com.jianpanmao.mqtt.MqttGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -94,17 +91,14 @@ public class CommonController{
     }
 
 
-
-
-    @Resource(name = "mqttGateway")
-    MqttGateway gateway;
-
+    @Autowired
+    Application.MyGateway gateway;
 
     @PostMapping("/mqtt_send")
     @ResponseBody
     public Map mqttSend(@RequestBody Map data) throws JsonProcessingException {
 
-        System.out.println(gateway);
+        //System.out.println(gateway);
 
         ObjectMapper mapper=new ObjectMapper();
 

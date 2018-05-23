@@ -38,7 +38,6 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenu,SysMenuExample,S
         return super.add(record);
     }
 
-    @Transactional
     @Override
     public int update(SysMenu record) {
 
