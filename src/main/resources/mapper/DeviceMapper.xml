@@ -398,15 +398,15 @@
   <select id="selectByDto" parameterType="com.jianpanmao.device.dto.DeviceDto" resultMap="BaseResultMap">
     select d.*,operateUser.userid o_user_id,operateUser.name o_user_name,transcribeUser.userid t_user_id,transcribeUser.name t_user_name
     from device d LEFT JOIN dingtalk_user operateUser
-    ON d.operate_user_id = u1.userid
+    ON d.operate_user_id = operateUser.userid
     LEFT JOIN dingtalk_user transcribeUser
     ON d.transcribe_user_id = transcribeUser.userid
-    LEFT JOIN project p
-    ON d.project_id = p.project_id
+    LEFT JOIN project project
+    ON d.project_id = project.project_id
     WHERE 1=1
     <if test="deviceProductionNum != null">and d.device_production_num LIKE CONCAT('%',#{deviceProductionNum},'%')
     </if>
-    <if test="project !=null and project.projectName!=null">and p.project_name LIKE
+    <if test="project !=null and project.projectName!=null">and project.project_name LIKE
       CONCAT('%',#{project.projectName},'%')
     </if>
     <if test="operateUser!=null and operateUser.name!=null">and operateUser.name LIKE CONCAT('%',#{operateUser.name},'%')
