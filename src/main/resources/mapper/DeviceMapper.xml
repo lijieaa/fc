@@ -32,6 +32,15 @@
     </association>
 
   </resultMap>
+
+  <resultMap id="HomePageResultMap" type="com.jianpanmao.device.entity.Device">
+    <id column="device_id" property="deviceId" jdbcType="INTEGER"/>
+    <result column="device_production_num" property="deviceProductionNum" jdbcType="VARCHAR"/>
+    <result column="device_status" property="deviceStatus" jdbcType="TINYINT"/>
+    <result column="device_location_x" property="deviceLocationX" jdbcType="VARCHAR"/>
+    <result column="device_location_y" property="deviceLocationY" jdbcType="VARCHAR"/>
+    <result column="device_type" property="deviceType" javaType="java.lang.String"/>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -417,4 +426,25 @@
     ON d.project_id = p.project_id
     WHERE p.project_id = #{0}
   </select>
+
+  <!--设备关联-->
+  <update id="updateProjectId" parameterType="com.jianpanmao.device.dto.DpDto">
+    update device
+    set
+    project_id = #{projectId,jdbcType=INTEGER}
+    WHERE
+      device_id
+      <foreach  collection="ids" item="id" open="in (" close=")" separator=",">
+        #{id}
+      </foreach>
+  </update>
+
+  <!--首页设备-->
+<select id="homePageDevice" resultMap="HomePageResultMap" parameterType="java.lang.Integer">
+  SELECT * FROM device
+  WHERE
+  device_location_x !=''
+  and device.device_location_y !=''
+  and device.intermediary_id = #{0}
+</select>
 </mapper>
