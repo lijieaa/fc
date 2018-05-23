@@ -312,6 +312,7 @@
     select tc.*,u.userid,u.name
     from topic_comments tc
     LEFT JOIN  dingtalk_user u ON tc.user_id = u.userid WHERE tc.topic_id = #{0}
+    ORDER BY topic_comments_create_time DESC
   </select>
 
   <select id="findCommentsCount" resultType="Integer">

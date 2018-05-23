@@ -337,6 +337,6 @@
     from topic t
     LEFT JOIN dingtalk_user u ON t.user_id = u.userid
     LEFT JOIN intermediary i ON t.intermediary_id = i.intermediary_id
-    WHERE i.intermediary_id = #{0}
+    WHERE i.intermediary_id = #{0} order BY topic_create_time DESC
   </select>
 </mapper>

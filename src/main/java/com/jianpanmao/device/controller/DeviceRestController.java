@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.jianpanmao.common.entity.DataTablesResponseEntity;
 import com.jianpanmao.device.dao.DeviceMapper;
 import com.jianpanmao.device.dto.DeviceDto;
+import com.jianpanmao.device.dto.DpDto;
 import com.jianpanmao.device.entity.Device;
 import com.jianpanmao.device.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,4 +84,17 @@ public class DeviceRestController {
         List<Device> devices = deviceMapper.findByProject(projectId);
         return devices;
     }
+
+    @PreAuthorize("hasAuthority('device:edit')")
+    @PutMapping("updateProjectId")
+    public void updateProjectId(@RequestBody DpDto dpDto) {
+        deviceMapper.updateProjectId(dpDto);
+    }
+
+    @PreAuthorize("hasAuthority('device:view')")
+    @GetMapping("homePageDevice")
+    public List<Device> homePageDevice(Integer intermediaryId) {
+        return deviceMapper.homePageDevice(intermediaryId);
+    }
+
 }
