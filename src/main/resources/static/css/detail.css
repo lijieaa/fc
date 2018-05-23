@@ -152,7 +152,8 @@
 }
 .comment-content{
     margin-top: 9px;
-    font-size: 14px
+    font-size: 14px;
+    overflow: hidden;
 }
 .comment-btn-time{
     overflow: hidden;
@@ -230,4 +231,10 @@
 .back-btn{
     position: absolute;
     right: 40px;
+}
+.intermediaryIntroduction{
+    text-indent: 14px;
+}
+.btn,.border-none{
+    border: 1px solid #6FB3E0;
 }

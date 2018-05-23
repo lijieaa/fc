@@ -10,11 +10,11 @@ public class ProjectComments implements Serializable {
     private Integer projectCommentsId;
 
     //上级评论
-    @NotNull(message = "projectCommentsParent不能为空！")
+    @NotNull(message = "上级评论不能为空！")
     private Integer projectCommentsParent;
 
     //评论人
-    @NotNull(message = "projectCommentsNickname不能为空！")
+    @NotNull(message = "评论人不能为空！")
     private String projectCommentsNickname;
 
     //评论类型：0内部评论，1外部评论
