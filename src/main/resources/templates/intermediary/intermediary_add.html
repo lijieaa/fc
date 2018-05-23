@@ -3,24 +3,6 @@
 <head>
     <link rel="stylesheet" th:href="@{/dist/css/common.css}">
     <style>
-        .modal-dialog{
-            margin-top: 70px;
-        }
-        #mediaryAddEdit{
-            display: none;
-        }
-        .modal-body .label-pop-style {
-            position: relative;
-            width: 74px;
-            margin-right: 4px;
-        }
-        .modal-body {
-            position: relative;
-            /*outline: 1px solid #ececec;*/
-            margin-right: 2px;
-            margin-left: -2px;
-            padding-top: 0;
-        }
         #fileList{
             width: 55%;
             min-height: 110px;
@@ -38,9 +20,6 @@
         }
         #editor1{
             resize: none;
-        }
-        .modal-body .col-md-6{
-            padding: 0!important;
         }
         .intermediary-title{
             height: 40px;
@@ -575,12 +554,8 @@
         uploader.on( 'fileQueued', function( file ) {
             var $li = $('<img src="" id="imgInter">');
             $("#fileList").html($li);
-            // var size = parseInt(file.size)/1024;
-            // var sizeSub = size.toString().substr(0,5);
-            // $("#size").text(sizeSub+"kb");
             uploader.makeThumb(file, function (error, src) {
                 $("#imgInter").attr("src",src);
-                // $("#fileList").addClass("active");
             });
         });
     })

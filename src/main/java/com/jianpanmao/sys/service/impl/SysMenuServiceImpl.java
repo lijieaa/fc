@@ -22,7 +22,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenu,SysMenuExample,S
     @Override
     public int remove(Integer id) {
 
-        return super.removeBatch(null);
+        return super.remove(id);
     }
 
     @Override
@@ -44,20 +44,22 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenu,SysMenuExample,S
 
         SysMenu menu=this.get(record.getMenuId());
 
+        String oldPath = menu.getPath();
+
         if(null==record.getMenuParentId()||record.getMenuParentId()==0){
-            menu.setPath(0+"");
+            record.setPath(0+"");
         }else {
             SysMenu pmenu = this.get(record.getMenuParentId());
-            menu.setPath(pmenu.getPath()+","+pmenu.getMenuId());
+            record.setPath(pmenu.getPath() + "," + pmenu.getMenuId());
         }
-        int update = super.update(menu);
+        int update = super.update(record);
 
         SysMenu m=new SysMenu();
         m.setPath(menu.getMenuId()+"");
         List<SysMenu> sysMenus = sysMenuMapper.selectByPath(m);
 
         for (SysMenu sysMenu : sysMenus) {
-            sysMenu.setPath(sysMenu.getPath().replace(menu.getPath(),record.getPath()));
+            sysMenu.setPath(sysMenu.getPath().replace(oldPath,record.getPath()));
             sysMenuMapper.updatePath(sysMenu);
         }
         return update;

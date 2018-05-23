@@ -1,26 +1,30 @@
 package com.jianpanmao.common.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jianpanmao.attach.entity.Attach;
 import com.jianpanmao.attach.service.AttachService;
+import com.jianpanmao.mqtt.MqttClient;
+import com.jianpanmao.mqtt.MqttGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 
 @Controller
-public class CommonController {
+public class CommonController{
 
     @RequestMapping("login")
     public String login(){
@@ -55,9 +59,9 @@ public class CommonController {
 
         String fileName = file.getOriginalFilename();
 
-        String path="c:\\upload\\"+time.format(nowTime);
+        String path="c:\\upload\\";
 
-        File targetFile = new File(path,fileName);
+        File targetFile = new File(path+time.format(nowTime),fileName);
 
 
         if(!targetFile.getParentFile().exists()){
@@ -65,10 +69,14 @@ public class CommonController {
             targetFile.getParentFile().mkdirs();
         }
 
-        String newPath = path+File.separator+ UUID.randomUUID()+"_"+fileName;
+
+
+        String relativePath =time.format(nowTime)+File.separator+ UUID.randomUUID()+"_"+fileName;
+
+        String newPath = path+relativePath;
 
         Attach attach=new Attach();
-        attach.setPath(newPath);
+        attach.setPath(relativePath);
         attach.setFilename(fileName);
         attach.setMime(file.getContentType());
         attach.setSize(file.getSize());
@@ -83,5 +91,31 @@ public class CommonController {
 
 
         return attach;
+    }
+
+
+
+
+    @Resource(name = "mqttGateway")
+    MqttGateway gateway;
+
+
+    @PostMapping("/mqtt_send")
+    @ResponseBody
+    public Map mqttSend(@RequestBody Map data) throws JsonProcessingException {
+
+        System.out.println(gateway);
+
+        ObjectMapper mapper=new ObjectMapper();
+
+        String s = mapper.writeValueAsString(data);
+
+        gateway.sendToMqtt(s);
+
+        Map rdata=new HashMap<>();
+
+        rdata.put("msg","发送成功！");
+
+        return rdata;
     }
 }

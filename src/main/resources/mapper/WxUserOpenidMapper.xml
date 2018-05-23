@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jianpanmao.wxuseropenid.dao.WxUserOpenidMapper">
+  <resultMap id="BaseResultMap" type="com.jianpanmao.wxuseropenid.entity.WxUserOpenid">
+    <id column="openid_id" jdbcType="INTEGER" property="openidId" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="public_id" jdbcType="INTEGER" property="publicId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    openid_id, openid, public_id
+  </sql>
+  <select id="selectByExample" parameterType="com.jianpanmao.wxuseropenid.entity.WxUserOpenidExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wx_user_openid
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wx_user_openid
+    where openid_id = #{openidId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wx_user_openid
+    where openid_id = #{openidId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jianpanmao.wxuseropenid.entity.WxUserOpenidExample">
+    delete from wx_user_openid
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jianpanmao.wxuseropenid.entity.WxUserOpenid">
+    insert into wx_user_openid (openid_id, openid, public_id
+      )
+    values (#{openidId,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{publicId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jianpanmao.wxuseropenid.entity.WxUserOpenid">
+    insert into wx_user_openid
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="openidId != null">
+        openid_id,
+      </if>
+      <if test="openid != null">
+        openid,
+      </if>
+      <if test="publicId != null">
+        public_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="openidId != null">
+        #{openidId,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="publicId != null">
+        #{publicId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jianpanmao.wxuseropenid.entity.WxUserOpenidExample" resultType="java.lang.Long">
+    select count(*) from wx_user_openid
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update wx_user_openid
+    <set>
+      <if test="record.openidId != null">
+        openid_id = #{record.openidId,jdbcType=INTEGER},
+      </if>
+      <if test="record.openid != null">
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publicId != null">
+        public_id = #{record.publicId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update wx_user_openid
+    set openid_id = #{record.openidId,jdbcType=INTEGER},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      public_id = #{record.publicId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jianpanmao.wxuseropenid.entity.WxUserOpenid">
+    update wx_user_openid
+    <set>
+      <if test="openid != null">
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="publicId != null">
+        public_id = #{publicId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where openid_id = #{openidId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jianpanmao.wxuseropenid.entity.WxUserOpenid">
+    update wx_user_openid
+    set openid = #{openid,jdbcType=VARCHAR},
+      public_id = #{publicId,jdbcType=INTEGER}
+    where openid_id = #{openidId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" parameterType="com.jianpanmao.wxuseropenid.entity.WxUserOpenid" resultMap="BaseResultMap">
+    select * from wx_user_openid
+  </select>
+  <delete id="deleteBatch" parameterType="java.util.ArrayList">
+    delete from wx_user_openid
+    where openid_id in
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+              #{item}
+    </foreach>
+  </delete>
+  <select id="selectByDto" parameterType="com.jianpanmao.wxuseropenid.dto.WxUserOpenidDto" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from wx_user_openid where 1=1
+    <if test="openidId!=null">
+      and openid_id=#{openidId}
+    </if>
+    <if test="openid!=null and '' neq openid">
+      and openid=#{openid}
+    </if>
+    <if test="publicId!=null">
+      and public_id=#{publicId}
+    </if>
+    <if test="od!=null and od neq ''">
+      order by ${od}
+    </if>
+  </select>
+</mapper>

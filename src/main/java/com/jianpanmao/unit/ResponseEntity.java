@@ -1,5 +1,6 @@
 package com.jianpanmao.unit;
 
+import javax.xml.ws.Response;
 import java.util.List;
 
 /**
@@ -11,6 +12,13 @@ public class ResponseEntity {
     private String messages = "操作成功！";
     private List list;
     private Object data;
+
+    public ResponseEntity(){}
+
+    public ResponseEntity(String status, String messages) {
+        this.status = status;
+        this.messages = messages;
+    }
 
     public String getStatus() {
         return status;
@@ -42,5 +50,21 @@ public class ResponseEntity {
 
     public void setData(Object data) {
         this.data = data;
+    }
+
+    public static ResponseEntity ok(){
+        return new ResponseEntity("200", "操作成功");
+    }
+
+    public static ResponseEntity ok(String msg){
+        return new ResponseEntity("200", msg);
+    }
+
+    public static ResponseEntity err(){
+        return new ResponseEntity("500", "操作异常");
+    }
+
+    public static ResponseEntity err(String msg){
+        return new ResponseEntity("500", msg);
     }
 }

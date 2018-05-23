@@ -2,7 +2,32 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
     <link rel="stylesheet" th:href="@{/css/webuploader.css}">
+    <!--<link rel="stylesheet" th:href="@{/dist/css/common.css}">-->
     <link rel="stylesheet" th:href="@{/css/detail.css}">
+    <style>
+        .direct-chat-img{
+            border-radius: 50%;
+            float: left;
+            width: 40px;
+            height: 40px;
+        }
+        .page-content>.row .col-md-12{
+            float: none;
+        }
+        .col-md-12>.direct-chat-msg:nth-of-type(1){
+            margin-top: 0;
+        }
+        /*.msg-comment-list{*/
+            /*width: 98%;*/
+            /*padding-left: 10px;*/
+        /*}*/
+        .comment-list{
+            width: calc(100% - 15px);
+            margin: 0 auto;
+            /*display: inline-block;*/
+            float: none;
+        }
+    </style>
 </head>
 
 <body layout:fragment="content">
@@ -16,7 +41,7 @@
                         <span class="font-size-18 border-left-blue">中间商的详情</span>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3 text-align-right direct-chat-msg">
+                <div class="col-md-3 col-sm-3 text-align-right">
                     <!--<button type="button" class="btn btn-block btn-info">添加设备</button>-->
                     <button type="button" class="btn back-btn btn-info padding-right-15"
                             data-toggle="modal" data-target="#modal-info" @click="backMediary">
@@ -90,7 +115,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 back-white col-xs-12 company-right-content">
+                    <div class="col-lg-4 col-md-4 col-sm-6 back-white col-xs-12 padding-bottom-10 company-right-content">
                         <div class="border-left-black">
                             <div class="row head">
                                 <div class="col-md-7 circle-msg  height-35 col-xs-7 padding-left-15">
@@ -170,7 +195,7 @@
         '<div class="comment-msg margin-top-6">\n' +
         '<div class="msg-user font-weight margin-top-6">{{content.user.name}}</div>\n' +
         '<div class="msg-content margin-top-3">{{content.topicCommentsContent}}</div>' +
-        '<div class="comment-time margin-top-3">跟进时间<span>{{content.createTime}}</span>' +
+        '<div class="comment-time margin-top-3">跟进时间 <span>{{content.topicCommentsCreateTime}}</span>' +
         '</div>' +
         '</div></div>',
         mounted:function(){
@@ -179,17 +204,17 @@
     });
     Vue.component('comment-list', {
         props:['comment'],
-        template:'<div class="direct-chat-msg">' +
-        '<div class="direct-chat-text"><div>\n' +
-        '<img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image">\n' +
+        template:'<div class="direct-chat-msg margin-top-15">' +
+        '<div class="direct-chat-text"><div class="margin-top-6 margin-left-10">\n' +
+        '<img class="direct-chat-img" src="../../dist/img/user1-128x128.jpg" alt="message user image">\n' +
         '<span class="comment-user">{{comment.user.name}}</span></div>' +
-        '<div class="comment-content"  escape="false" ref = "item"></div>' +
-        '<div class="comment-status margin-top-6">' +
+        '<div class="comment-content margin-left-10"  escape="false" ref = "item"></div>' +
+        '<div class="comment-status margin-top-6 margin-left-10">' +
         '跟进状态: <span ref="status"></span></div>' +
         '<div class="comment-btn-time margin-top-6">' +
-        '<div class="comment-time float-left">' +
+        '<div class="comment-time float-left margin-left-10">' +
         '跟进时间<span>{{comment.createTime}}</span></div>' +
-        '<div class="comment-btn float-right" @click="commentClick(comment.id,$event)">' +
+        '<div class="comment-btn float-right margin-right-10" @click="commentClick(comment.topicId,$event)">' +
         '<i class="icon-color-9c fa fa-fw  fa-commenting"></i>' +
         '评论({{comment.commentsCount}})</div></div>' +
         '<transition name="fade">' +
@@ -199,11 +224,12 @@
         '<span class="input-group-btn">' +
         '<button type="button" class="btn btn-info btn-flat" @click="commentAdd(comment.id,$event)">评论</button>' +
         '</span>' +
-        '</div><div class="margin-top-15">评论消息</div>' +
+        '</div><div class="padding-left-10">评论消息</div>' +
         ' <msg1 v-for = "item in comment.commentContent" v-bind:content="item">' +
         '</msg1></div></transition></div></div>',
         methods:{
             commentClick:function (msg,event) {
+                console.log(msg);
                 var comment = $(event.currentTarget);
                 bus.$emit('change',msg,comment);
                 comment.parent().next().toggle();
@@ -211,13 +237,12 @@
 
             commentAdd:function(msg,event){
                 var comment = $(event.currentTarget);
-                var userId = comment.parent().parent().next().next().attr("dataId");
-                console.log(userId);
+                var userId = comment.parent().parent().next().next().attr("dataId");;
                 var postData = {
                     topicId:msg,
                     topicCommentsContent:comment.parent().prev().val()
                 };
-                $.axspost(contextPath + "topicComments","post",JSON.stringify(postData),function(data){
+                $.axspost(contextPath + "api/topicComments","post",JSON.stringify(postData),function(data){
                     if( data.status == 200){
                         window.location.reload();
                     }else{
@@ -240,6 +265,8 @@
             }
         }
     });
+
+    var detailID  = [[${id}]];
 
     var Vm =  new Vue({
         el:"#company",
@@ -303,10 +330,10 @@
                 window.location.href = "../intermediary/index?menuId=4";
             },
             sureAdd:function () {  //    新增跟进
-                var intermediaryId  = location.search.substring(1).split("&")[1];
+                // var intermediaryId  = location.search.substring(1).split("&")[1];
                 var postData = {
                     intermediary:{
-                        id:intermediaryId
+                        intermediaryId:detailID
                     },
                     topicContent:CKEDITOR.instances.editor1.getData(),
                     topicStatus: $("#dealWith").val()
@@ -323,8 +350,9 @@
         mounted:function () {
             var _this = this;
             _this.editorFun(); //初始化生成编辑器
-            var detailID  = [[${id}]];
+
             $.axspost(contextPath + "api/intermediary/"+detailID+"","get","",function(data){
+                console.log(data.content);
                 _this.dataList = data.content;
 
                 // $(".intermediaryIntroduction").html(_this.dataList.intermediaryName)
@@ -332,16 +360,16 @@
                 $(".intermediaryIntroduction").html(data.content.intermediaryIntroduction)
             },function(data){});
 
-            // $.axspost(contextPath + "topic/intermediaryId/"+detailID+"","get","",function(data){
-            //     _this.commentList = data.data;
-            //     // $(".comment-content").html(data.topicContent);
-            // },function(data){});
+            $.axspost(contextPath + "api/topic/intermediaryId/"+detailID+"","get","",function(data){
+                _this.commentList = data.content;
+                // $(".comment-content").html(data.topicContent);
+            },function(data){});
 
             bus.$on('change', function (id,comment1) {
-                $.axspost(contextPath+"topicComments/topic/"+id+"","get","",function(data){
+                $.axspost(contextPath+"api/topiccomments/topic/"+id+"","get","",function(data){
                     _this.commentList.forEach(function(item,i){
-                        if( _this.commentList[i].id == id){
-                            Vue.set(Vm.commentList[i],'commentContent',data.data);
+                        if( _this.commentList[i].topicId == id){
+                            Vue.set(Vm.commentList[i],'commentContent',data.content);
                         }
                     });
                 },function (data) {

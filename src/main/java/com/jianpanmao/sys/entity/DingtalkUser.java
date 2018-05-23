@@ -71,8 +71,6 @@ public class DingtalkUser implements Serializable,UserDetails {
 
     private static final long serialVersionUID = 1L;
 
-    String od;
-
     public Integer getUserid() {
         return userid;
     }

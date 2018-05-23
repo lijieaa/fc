@@ -100,8 +100,8 @@
     where menu_id = #{menuId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from sys_menu
-    where path LIKE concat('%',#{menuId,jdbcType=INTEGER},'%');
+   delete from sys_menu
+    where menu_id =#{menuId} or path LIKE concat('%',#{menuId,jdbcType=INTEGER},'%');
   </delete>
   <delete id="deleteByExample" parameterType="com.jianpanmao.sys.entity.SysMenuExample">
     delete from sys_menu
@@ -271,7 +271,7 @@
 
 
   <select id="selectByPath" parameterType="com.jianpanmao.sys.entity.SysMenu" resultMap="BaseResultMap">
-    SELECT * FROM sys_menu m where m.path LIKE #{path}
+    SELECT * FROM sys_menu m where m.path LIKE concat('%',#{path},'%')
   </select>
 
   <update id="updatePath">

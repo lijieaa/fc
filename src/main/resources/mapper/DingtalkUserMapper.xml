@@ -19,6 +19,9 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="is_admin" jdbcType="INTEGER" property="isAdmin" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <association property="intermediary" resultMap="com.jianpanmao.intermediary.dao.IntermediaryMapper.BaseResultMap">
+
+    </association>
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jianpanmao.sys.entity.DingtalkUser">
     <result column="extattr" jdbcType="LONGVARCHAR" property="extattr" />
