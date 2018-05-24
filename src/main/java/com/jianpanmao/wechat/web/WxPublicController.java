@@ -43,6 +43,12 @@ public class WxPublicController {
         return "wechat/wxpublic_add";
     }
 
+    @GetMapping("edit")
+    public String edit(Integer id, Model model){
+        model.addAttribute("id", id);
+        return "wechat/wxpublic_edit";
+    }
+
     @GetMapping("menu")
     public String menu(Integer menuId, Integer wxPublicId,Model model){
         model.addAttribute("wxPublicId", wxPublicId);
@@ -65,6 +71,12 @@ public class WxPublicController {
     public String material(Integer menuId, Integer wxPublicId, Model model){
         model.addAttribute("wxPublicId", wxPublicId);
         return "wechat/material";
+    }
+
+    @GetMapping
+    @ResponseBody
+    public WxPublic get(Integer id){
+        return wxPublicService.selectByPrimaryKey(id);
     }
 
     @PostMapping

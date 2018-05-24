@@ -1,7 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <body layout:fragment="content">
-
 <div class="row">
     <div class="col-xs-12">
         <div class="row">
@@ -10,7 +9,7 @@
                     <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="publicName">公众号名称:</label>
                     <div class="col-xs-12 col-sm-9">
                         <div class="clearfix">
-                            <input type="text" name="publicName" id="publicName" class="col-xs-12 col-sm-6" />
+                            <input type="text" name="publicName" id="publicName" class="col-xs-12 col-sm-6"/>
                         </div>
                     </div>
                 </div>
@@ -18,7 +17,7 @@
                     <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="sourceId">原始ID:</label>
                     <div class="col-xs-12 col-sm-9">
                         <div class="clearfix">
-                            <input type="text" name="sourceId" id="sourceId" class="col-xs-12 col-sm-6" />
+                            <input type="text" name="sourceId" id="sourceId" class="col-xs-12 col-sm-6"/>
                         </div>
                     </div>
                 </div>
@@ -26,7 +25,7 @@
                     <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="appId">appId:</label>
                     <div class="col-xs-12 col-sm-9">
                         <div class="clearfix">
-                            <input type="text" name="appId" id="appId" class="col-xs-12 col-sm-6" />
+                            <input type="text" name="appId" id="appId" class="col-xs-12 col-sm-6"/>
                         </div>
                     </div>
                 </div>
@@ -34,7 +33,7 @@
                     <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="appSecret">appSecret:</label>
                     <div class="col-xs-12 col-sm-9">
                         <div class="clearfix">
-                            <input type="text" name="appSecret" id="appSecret" class="col-xs-12 col-sm-6" />
+                            <input type="text" name="appSecret" id="appSecret" class="col-xs-12 col-sm-6"/>
                         </div>
                     </div>
                 </div>
@@ -42,7 +41,7 @@
                     <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="publicEmail">邮箱:</label>
                     <div class="col-xs-12 col-sm-9">
                         <div class="clearfix">
-                            <input type="text" name="publicEmail" id="publicEmail" class="col-xs-12 col-sm-6" />
+                            <input type="text" name="publicEmail" id="publicEmail" class="col-xs-12 col-sm-6"/>
                         </div>
                     </div>
                 </div>
@@ -69,7 +68,19 @@
 </div>
 <script type="text/javascript" th:inline="javascript">
 
-    jQuery(function($) {
+    jQuery(function ($) {
+        var id = [[${id}]];
+        $.ajax({
+            url: contextPath + "wxPublic?id=" + id,
+            method: "get",
+            success: function (data) {
+                $('#validation-form').autofill(data.content);
+            },
+            error: function (data) {
+                console.log("查询数据出错！");
+            }
+        })
+
 
         var $form = $('#validation-form').validate({
             errorElement: 'div',
@@ -104,7 +115,7 @@
             },
 
             errorPlacement: function (error, element) {
-                 error.insertAfter(element.parent());
+                error.insertAfter(element.parent());
             },
 
             submitHandler: function (form) {
@@ -113,7 +124,7 @@
 
                 $.ajax({
                     url: contextPath+"wxPublic",
-                    method: "post",
+                    method: "put",
                     data : JSON.stringify(data),
                     contentType: "application/json",
                     dataType : "json",
