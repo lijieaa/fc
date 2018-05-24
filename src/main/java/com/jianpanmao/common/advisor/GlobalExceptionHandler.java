@@ -1,6 +1,7 @@
 package com.jianpanmao.common.advisor;
 
 import com.jianpanmao.common.entity.ResultEntity;
+import com.jianpanmao.exception.AccessTokenException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,5 +28,12 @@ public class GlobalExceptionHandler {
     public ResultEntity  byZero(HttpServletResponse response) {
         response.setStatus(200);
         return new ResultEntity(10000,"0不能被除","0不能被除");
+    }
+
+    @ExceptionHandler(AccessTokenException.class)
+    @ResponseStatus(HttpStatus.OK)
+    public ResultEntity accessTokenError(HttpServletResponse response){
+        response.setStatus(HttpStatus.OK.value());
+        return new ResultEntity(10001,"content error", "appId或appSecret错误");
     }
 }
