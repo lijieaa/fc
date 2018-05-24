@@ -2,14 +2,15 @@ package com.jianpanmao;
 
 import com.jianpanmao.common.filter.ModifyParametersFilter;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.MessagingGateway;
@@ -107,6 +108,15 @@ public class Application extends SpringBootServletInitializer{
 
         void sendToMqtt(String data);
 
+    }
+
+    @Bean
+    public MessageSource messageSource(){
+        ReloadableResourceBundleMessageSource message=new ReloadableResourceBundleMessageSource();
+        message.setBasename("classpath:messages_zh_CN");
+        message.setDefaultEncoding("UTF-8");
+        message.setCacheSeconds(0);
+        return message;
     }
 
 }
