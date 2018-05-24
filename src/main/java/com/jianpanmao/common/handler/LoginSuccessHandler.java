@@ -33,7 +33,9 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         request.getSession().setAttribute("intermediary", user.getIntermediary());
 
+
         super.getRedirectStrategy().sendRedirect(request, response, "/index");
+
 
     }
 }

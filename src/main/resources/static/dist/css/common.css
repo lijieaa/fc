@@ -145,6 +145,9 @@ div.dataTables_wrapper div.dataTables_paginate{
 .padding-left-6{
     padding-left: 6px;
 }
+.padding-left-10{
+    padding-left: 10px;
+}
 /*z-tree公用的样式*/
 .ztree *{
     font-size: 14px;
@@ -205,4 +208,8 @@ div.dataTables_wrapper div.dataTables_paginate{
 }
 .form-horizontal .form-group{
     margin-right: 0!important;
+}
+.fade.in {
+    opacity: 1;
+    background: rgba(1,1,1,.3);
 }

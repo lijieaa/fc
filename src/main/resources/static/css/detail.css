@@ -121,6 +121,7 @@
     margin-left: 23px;
     background: #f8f8f8;
     padding-bottom: 10px;
+    border: 1px solid #d1d1d1;
     /*overflow: auto;*/
 }
 .direct-chat-text:before{
@@ -151,7 +152,8 @@
 }
 .comment-content{
     margin-top: 9px;
-    font-size: 14px
+    font-size: 14px;
+    overflow: hidden;
 }
 .comment-btn-time{
     overflow: hidden;
@@ -229,4 +231,10 @@
 .back-btn{
     position: absolute;
     right: 40px;
+}
+.intermediaryIntroduction{
+    text-indent: 14px;
+}
+.btn,.border-none{
+    border: 1px solid #6FB3E0;
 }

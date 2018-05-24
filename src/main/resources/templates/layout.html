@@ -39,7 +39,7 @@
 
     <link rel="stylesheet" th:href="@{/plugins/zTree_v3/css/zTreeStyle/zTreeStyle.css}" type="text/css">
     <!-- inline styles related to this page -->
-
+    <link rel="stylesheet" th:href="@{/dist/css/common.css}">
     <!-- ace settings handler -->
     <script th:src="@{/ace/assets/js/ace-extra.min.js}"></script>
 
@@ -475,7 +475,7 @@
         <!-- /.sidebar-shortcuts -->
         <ul class="nav nav-list">
             <li  th:each="m:${session.menus}" th:if="${m.menuParentId eq 0}">
-                <a th:href="@{${#strings.isEmpty(m.menuUrl)?'#':m.menuUrl}}" th:class="${#strings.isEmpty(m.menuUrl)}?'dropdown-toggle':''">
+                <a th:href="@{${#strings.isEmpty(m.menuUrl)?'#':m.menuUrl+'?mid='+m.menuId}}" th:class="${#strings.isEmpty(m.menuUrl)}?'dropdown-toggle':''">
                     <i class="menu-icon fa fa-desktop"></i>
 							<span class="menu-text" th:text="${m.menuName}">
 
@@ -507,17 +507,17 @@
     <div class="main-content">
         <div class="main-content-inner">
             <div class="breadcrumbs ace-save-state" id="breadcrumbs">
-                <ul class="breadcrumb">
+                <!--<ul class="breadcrumb">
                     <li>
                         <i class="ace-icon fa fa-home home-icon"></i>
-                        <a href="#">Home</a>
+                        <a th:href="@{/index}">首页</a>
                     </li>
 
-                    <li>
+                    <li th:each="m:${session.menus}" th:if="${m.menuParentId eq 0}">
                         <a href="#">Tables</a>
                     </li>
-                    <li class="active">Simple &amp; Dynamic</li>
-                </ul>
+                    &lt;!&ndash;<li class="active">Simple &amp; Dynamic</li>&ndash;&gt;
+                </ul>-->
                 <!-- /.breadcrumb -->
 
                 <div class="nav-search" id="nav-search">

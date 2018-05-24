@@ -175,13 +175,10 @@
                                 'searching': false,
                                 "ajax": function (data, callback, settings) {
                                     var formData = $("#search-form").serialize();
-                                    console.log(formData);
                                     var pageNum=data.start/data.length+1;
                                     var pageSize=data.length;
                                     var draw=data.draw;
-
                                     var orderByClause="";
-
                                     for(var i=0;i<data.order.length;i++){
                                         var obj=data.order[i];
                                         var col=obj.column;
@@ -428,9 +425,6 @@
                 }
                 $('.dt-button-collection').appendTo('.tableTools-container .dt-buttons')
             });
-
-            ////
-
             setTimeout(function () {
                 $($('.tableTools-container')).find('a.dt-button').each(function () {
                     var div = $(this).find(' > div').first();
@@ -452,7 +446,6 @@
             });
 
 
-            /////////////////////////////////
             //table checkboxes
             $('th input[type=checkbox], td input[type=checkbox]').prop('checked', false);
 

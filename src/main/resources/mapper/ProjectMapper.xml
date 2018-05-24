@@ -376,4 +376,5 @@
     where p.project_id = #{id,jdbcType=INTEGER}
     and p.project_status = #{statusId,jdbcType=TINYINT}
   </select>
+
 </mapper>

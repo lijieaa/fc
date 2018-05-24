@@ -7,8 +7,20 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.integration.annotation.IntegrationComponentScan;
+import org.springframework.integration.annotation.MessagingGateway;
+import org.springframework.integration.annotation.ServiceActivator;
+import org.springframework.integration.channel.DirectChannel;
+import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
+import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
+import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.MessageHandler;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.text.ParseException;
@@ -18,6 +30,7 @@ import java.util.Date;
 
 @SpringBootApplication
 @EnableTransactionManagement
+@IntegrationComponentScan
 public class Application extends SpringBootServletInitializer{
 
     @Override
@@ -63,4 +76,47 @@ public class Application extends SpringBootServletInitializer{
             }
         };
     }
+
+
+
+    @Bean
+    public MqttPahoClientFactory mqttClientFactory() {
+        DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
+        factory.setServerURIs("tcp://47.104.144.238:6677");
+        //factory.setUserName("username");
+        //factory.setPassword("password");
+        return factory;
+    }
+
+    @Bean
+    @ServiceActivator(inputChannel = "mqttOutboundChannel")
+    public MessageHandler mqttOutbound() {
+        MqttPahoMessageHandler messageHandler =
+                new MqttPahoMessageHandler("web-sys", mqttClientFactory());
+        messageHandler.setAsync(true);
+        messageHandler.setDefaultTopic("/Control");
+        return messageHandler;
+    }
+
+    @Bean
+    public MessageChannel mqttOutboundChannel() {
+        return new DirectChannel();
+    }
+
+    @MessagingGateway(defaultRequestChannel = "mqttOutboundChannel")
+    public interface MyGateway {
+
+        void sendToMqtt(String data);
+
+    }
+
+    @Bean
+    public MessageSource messageSource(){
+        ReloadableResourceBundleMessageSource message=new ReloadableResourceBundleMessageSource();
+        message.setBasename("classpath:messages_zh_CN");
+        message.setDefaultEncoding("UTF-8");
+        message.setCacheSeconds(0);
+        return message;
+    }
+
 }

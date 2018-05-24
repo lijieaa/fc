@@ -55,6 +55,16 @@ public class Project implements Serializable {
     //线索跟进状态：0已处理，1正在处理
     private Byte projectTopicStatus;
 
+    private Integer count;
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
     private static final long serialVersionUID = 1L;
 
     String od;
