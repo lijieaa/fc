@@ -1,6 +1,7 @@
 package com.jianpanmao.common.config;
 
 import com.jianpanmao.common.handler.LoginSuccessHandler;
+import com.jianpanmao.utils.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -84,5 +85,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/js/**")
                 .antMatchers("/plugins/**");
         super.configure(web);
+    }
+
+    @Bean
+    public SpringUtils springUtils(){
+        return new SpringUtils();
     }
 }
