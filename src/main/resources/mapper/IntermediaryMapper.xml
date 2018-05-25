@@ -432,4 +432,8 @@
   <select id="selectIdNameList" resultMap="idNameResultMap">
     SELECT intermediary_id,intermediary_name FROM intermediary
   </select>
+  
+  <select id="byIsPlat" resultMap="BaseResultMap">
+    SELECT * from intermediary WHERE is_plat = 1
+  </select>
 </mapper>

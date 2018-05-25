@@ -14,4 +14,6 @@ public interface IntermediaryMapper extends BaseDao<Intermediary, IntermediaryEx
 
     List<Intermediary> selectIdNameList();
 
+    Intermediary byIsPlat();
+
 }

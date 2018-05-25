@@ -139,6 +139,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.jianpanmao.device.entity.Device">
+    <!--
     insert into device (operate_user_id, transcribe_user_id,
         project_id, intermediary_id, device_production_num,
         device_status, device_location_x, device_location_y,device_type)
@@ -151,6 +152,14 @@
         #{deviceLocationX,jdbcType=VARCHAR},
         #{deviceLocationY,jdbcType=VARCHAR},
         #{deviceType,jdbcType=VARCHAR})
+        -->
+    insert into device (intermediary_id, device_production_num,
+    device_status,valid)
+    values (
+    #{intermediary.intermediaryId,jdbcType=INTEGER},
+    #{deviceProductionNum,jdbcType=VARCHAR},
+    #{deviceStatus,jdbcType=TINYINT},
+    #{valid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.device.entity.Device">
     insert into device

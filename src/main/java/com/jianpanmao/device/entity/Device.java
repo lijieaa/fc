@@ -23,8 +23,17 @@ public class Device implements Serializable {
     //项目ID
     private Project project;
 
+    private Integer valid;
+
+    public Integer getValid() {
+        return valid;
+    }
+
+    public void setValid(Integer valid) {
+        this.valid = valid;
+    }
+
     //中间商ID
-    @NotNull(message = "中间商不能为空")
     private Intermediary intermediary;
 
     //生产编号
@@ -33,7 +42,6 @@ public class Device implements Serializable {
     private String deviceProductionNum;
 
     //设备状态：0在线，1不在线
-    @NotNull(message = "设备状态不能为空")
     private Byte deviceStatus;
 
     //设备X坐标
@@ -61,7 +69,6 @@ public class Device implements Serializable {
     private String password;
 
     //设备型号
-    @NotNull(message = "设备型号不能为空！")
     private String deviceType;
 
     private String createTimeStr;
