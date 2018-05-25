@@ -110,18 +110,7 @@
                                 <th>抄表员</th>
                                 <th>设备状态</th>
                                 <th>指定中间商</th>
-
-
-        <!--<th>生产厂商</th>-->
-        <!--<th>用户名</th>-->
-        <!--<th>设备id</th>-->
-        <!--<th>密码</th>-->
-        <!--<th>修改时间</th>-->
-        <!--<th>设备x坐标</th>-->
-        <!--<th>设备y坐标</th>-->
-        <!--<th>创建时间</th>-->
                                 <th></th>
-
                             </tr>
                             </thead>
 
@@ -192,9 +181,22 @@
                                     {"data": null},
                                     {"data": "deviceProductionNum"},
                                     {"data": "deviceType"},
-                                    {"data": "project.name"},
-                                    {"data": "operateUser.name"},
-                                    {"data": "transcribeUser.name"},
+                                    {"data": "project.projectName"},
+                                    {"data": "operateUser.name","render":function(data, type, row, meta){
+                                            if(row.operateUser == ""){
+                                                return ""
+                                            }else{
+                                                return data
+                                            }
+                                     }},
+                                    {"data": "transcribeUser.name","render":function(data, type, row, meta){
+                                        // console.log(row);
+                                        if(row.transcribeUser == ""){
+                                            return ""
+                                        }else{
+                                            return data
+                                        }
+                                    }},
                                     {"data": "deviceStatus","render": function(data, type, row, meta){
                                             var status;
                                             if(data == 0){
@@ -279,10 +281,10 @@
                                         "render": function (data, type, row) {
                                             return '<div class="hidden-sm hidden-xs action-buttons">'
                                                     [# sec:authorize="hasAuthority('device:view')"] //控制
-                                            + '<a class="blue" href="detail/?id='+data.deviceId+'"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
+                                            + '<a class="blue" href="detail/?id='+data.deviceId+'" title="控制"><i class="ace-icon fa fa-cogs bigger-130"></i></a>'
                                                     [/]
                                                 [# sec:authorize="hasAuthority('device:view')"] //日志
-                                            + '<a class="blue" href="devicelog/devicelog/devicelog_list/?id='+data.deviceId+'"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
+                                            + '<a class="blue" href="../devicelog/list/?id='+data.deviceId+'" title="日志"><i class="ace-icon fa fa-envelope bigger-130"></i></a>'
                                                 [/]
                                             [# sec:authorize="hasAuthority('device:edit')"]
                                             + '<a class="green" href="edit/?id='+data.deviceId+'"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
@@ -293,10 +295,10 @@
                                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
                                                     [# sec:authorize="hasAuthority('device:view')"]
-                                            + '<li><a href="detail/?id='+data.deviceId+'" class="tooltip-info" data-rel="tooltip" title="控制"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
+                                            + '<li><a href="detail/?id='+data.deviceId+'" class="tooltip-info" data-rel="tooltip" title="控制"><span class="blue"><i class="ace-icon fa fa-cogs bigger-120"></i></span></a></li>'
                                                     [/]
                                                 [# sec:authorize="hasAuthority('device:view')"]
-                                            + '<li><a href="../devicelog/list/?id='+data.deviceId+'" class="tooltip-info" data-rel="tooltip" title="日志"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
+                                            + '<li><a href="../devicelog/list/?id='+data.deviceId+'" class="tooltip-info" data-rel="tooltip" title="日志"><span class="blue"><i class="ace-icon fa fa-envelope bigger-120"></i></span></a></li>'
                                                 [/]
                                             [# sec:authorize="hasAuthority('device:edit')"]
                                             + '<li><a href="edit/?id='+data.deviceId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
