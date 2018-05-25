@@ -26,6 +26,12 @@
   </resultMap>
 
 
+  <resultMap id="idNameResultMap" type="com.jianpanmao.project.entity.Project">
+    <id column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+  </resultMap>
+
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -377,4 +383,7 @@
     and p.project_status = #{statusId,jdbcType=TINYINT}
   </select>
 
+  <select id="selectIdNameList" resultMap="idNameResultMap">
+    SELECT p.project_id,p.project_name  from project p WHERE p.project_status = 1
+  </select>
 </mapper>
