@@ -296,7 +296,7 @@
                                             + '<li><a href="detail/?id='+data.deviceId+'" class="tooltip-info" data-rel="tooltip" title="控制"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
                                                     [/]
                                                 [# sec:authorize="hasAuthority('device:view')"]
-                                            + '<li><a href="devicelog/devicelog/devicelog_list/?id='+data.deviceId+'" class="tooltip-info" data-rel="tooltip" title="日志"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
+                                            + '<li><a href="../devicelog/list/?id='+data.deviceId+'" class="tooltip-info" data-rel="tooltip" title="日志"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
                                                 [/]
                                             [# sec:authorize="hasAuthority('device:edit')"]
                                             + '<li><a href="edit/?id='+data.deviceId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
