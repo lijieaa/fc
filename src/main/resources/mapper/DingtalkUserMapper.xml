@@ -23,6 +23,8 @@
 
     </association>
   </resultMap>
+
+
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jianpanmao.sys.entity.DingtalkUser">
     <result column="extattr" jdbcType="LONGVARCHAR" property="extattr" />
   </resultMap>
@@ -563,5 +565,10 @@
     <if test="od!=null and od neq ''">
       order by ${od}
     </if>
+  </select>
+
+
+  <select id="idNameList" resultMap="BaseResultMap">
+    select * from dingtalk_user WHERE intermediary_id = #{0}
   </select>
 </mapper>
