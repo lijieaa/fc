@@ -23,7 +23,7 @@
 
 
   <resultMap id="idNameResultMap" type="com.jianpanmao.intermediary.entity.Intermediary">
-    <id column="intermediary_id" property="id" jdbcType="INTEGER" />
+    <id column="intermediary_id" property="intermediaryId" jdbcType="INTEGER" />
     <result column="intermediary_name" property="intermediaryName" jdbcType="VARCHAR" />
   </resultMap>
 
@@ -431,5 +431,9 @@
 
   <select id="selectIdNameList" resultMap="idNameResultMap">
     SELECT intermediary_id,intermediary_name FROM intermediary
+  </select>
+  
+  <select id="byIsPlat" resultMap="BaseResultMap">
+    SELECT * from intermediary WHERE is_plat = 1
   </select>
 </mapper>

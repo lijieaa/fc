@@ -104,7 +104,11 @@ public class CommonController{
 
         String s = mapper.writeValueAsString(data);
 
-        gateway.sendToMqtt(s);
+       /* for (int i = 0; i < 1000; i++) {
+            gateway.sendToMqtt(s,"topic"+i);
+        }*/
+
+
 
         Map rdata=new HashMap<>();
 

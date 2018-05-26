@@ -21,8 +21,10 @@ import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
 import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
 import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
+import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.text.ParseException;
@@ -108,7 +110,7 @@ public class Application extends SpringBootServletInitializer{
     @MessagingGateway(defaultRequestChannel = "mqttOutboundChannel")
     public interface MyGateway {
 
-        void sendToMqtt(String data);
+        void sendToMqtt(String data,@Header(MqttHeaders.TOPIC) String topic);
 
     }
 
