@@ -45,57 +45,58 @@
             infoWindow.open(map, e.target.getPosition());
         }
         map.setFitView();*/
-        //加载SimpleMarker
-        AMapUI.loadUI(['overlay/SimpleMarker'], function(SimpleMarker) {
-            map.lnglatToPixel(map.getCenter());
-            var iconTheme = 'default';
-            //内置的样式
-            var iconStyles = SimpleMarker.getBuiltInIconStyles(iconTheme);
-            //经纬度
-            var objList =  [
-                {
-                    "lngLats": [116.397428, 39.90923],
-                    "device_sn": "12313422"
-                },
-                {
-                    "lngLats": [106.397428, 39.90923],
-                    "device_sn": "111112222"
-                }
-            ];
-            for (var i = 0, len = objList.length; i < len; i++) {
+        $.ajax({
+            async : false,
+            cache:false,
+            type: 'get',
+            dataType : "json",
+            url: contextPath + "api/device/homePageDevice",
+            success:function(data){
+                if (data.status == "200") {
+                    console.log(data);
+                    if (data.content.length) {
+                        $.each(data.content, function (i, item) {
+                            console.log(i);
+                            console.log(item.deviceLocationX, item.deviceLocationY);
+                            //加载SimpleMarker
+                            AMapUI.loadUI(['overlay/SimpleMarker'], function(SimpleMarker) {
+                                map.lnglatToPixel(map.getCenter());
+                                var iconTheme = 'default';
+                                //内置的样式
+                                var iconStyles = SimpleMarker.getBuiltInIconStyles(iconTheme);
+                                new SimpleMarker({
+                                    iconTheme: iconTheme,
+                                    //使用内置的iconStyle
+                                    iconStyle: iconStyles[i],
 
-                new SimpleMarker({
-                    iconTheme: iconTheme,
-                    //使用内置的iconStyle
-                    iconStyle: iconStyles[i],
+                                    //图标文字
+                                    iconLabel: {
+                                        //A,B,C.....
+                                        innerHTML: String.fromCharCode('A'.charCodeAt(0) + i),
+                                        style: {
+                                            //颜色, #333, red等等，这里仅作示例，取iconStyle中首尾相对的颜色
+                                            color: iconStyles[data.content.length - 1 - i]
+                                        }
+                                    },
+                                    map: map,
+                                    position: [item.deviceLocationX, item.deviceLocationY],
 
-                    //图标文字
-                    iconLabel: {
-                        //A,B,C.....
-                        innerHTML: String.fromCharCode('A'.charCodeAt(0) + i),
-                        style: {
-                            //颜色, #333, red等等，这里仅作示例，取iconStyle中首尾相对的颜色
-                            color: iconStyles[len - 1 - i]
-                        }
-                    },
+                                    //Marker的label(见http://lbs.amap.com/api/javascript-api/reference/overlay/#Marker)
+                                    label: {
+                                        content: item.deviceProductionNum,
+                                        offset: new AMap.Pixel(27, 25)
+                                    }
+                                });
 
-                    //显示定位点
-                    //showPositionPoint:true,
-
-                    map: map,
-                    position: objList[i].lngLats,
-
-                    //Marker的label(见http://lbs.amap.com/api/javascript-api/reference/overlay/#Marker)
-                    label: {
-                        content: objList[i].device_sn,
-                        offset: new AMap.Pixel(27, 25)
+                            });
+                        })
                     }
-                });
+                }
+            },
+            error: function () {
+                alert('获取设备信息失败');
             }
-
         });
-
-
     });
 </script>
 </body>
