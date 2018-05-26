@@ -9,6 +9,8 @@ import com.jianpanmao.intermediary.entity.Intermediary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DeviceServiceImpl extends BaseServiceImpl<Device, DeviceExample, DeviceDto, Integer> implements DeviceService {
 
@@ -16,11 +18,13 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device, DeviceExample, De
     private IntermediaryMapper intermediaryMapper;
 
     @Override
-    public int add(Device record) {
+    public void batAdd(List<Device> devices) {
         Intermediary intermediary = intermediaryMapper.byIsPlat();
-        record.setIntermediary(intermediary);
-        record.setDeviceStatus(new Byte("1"));
-        record.setValid(0);
-        return super.add(record);
+        for (Device device : devices) {
+            device.setIntermediary(intermediary);
+            device.setDeviceStatus(new Byte("1"));
+            device.setValid(0);
+            super.add(device);
+        }
     }
 }
