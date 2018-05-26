@@ -28,8 +28,9 @@ public class DeviceRestController {
 
     @PreAuthorize("hasAuthority('device:add')")
     @RequestMapping(method = RequestMethod.POST)
-    public Integer post(@Valid @RequestBody Device entity) {
-        return deviceService.add(entity);
+    public Integer post(@Valid @RequestBody List<Device> entity) {
+        deviceService.batAdd(entity);
+        return null;
     }
 
     @PreAuthorize("hasAuthority('device:delete')")
