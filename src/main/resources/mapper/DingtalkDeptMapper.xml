@@ -429,7 +429,8 @@
 
 
   <select id="selectByPath" parameterType="com.jianpanmao.sys.entity.DingtalkDept" resultMap="BaseResultMap">
-    SELECT * FROM dingtalk_dept m where m.path LIKE concat('%',#{path},'%')
+    <!--SELECT * FROM dingtalk_dept m where m.path LIKE concat('%',#{path},'%')-->
+    SELECT COALESCE(SUM(b.user_id),0) as memberCount,a.* FROM dingtalk_dept a LEFT JOIN dingtalk_user_dept b on a.id=b.dept_id  where a.path LIKE concat('%',#{path},'%') GROUP BY a.id
   </select>
 
 
