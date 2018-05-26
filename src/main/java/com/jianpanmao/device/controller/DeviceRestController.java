@@ -8,6 +8,8 @@ import com.jianpanmao.device.dto.DeviceDto;
 import com.jianpanmao.device.dto.DpDto;
 import com.jianpanmao.device.entity.Device;
 import com.jianpanmao.device.service.DeviceService;
+import com.jianpanmao.sys.entity.DingtalkUser;
+import com.jianpanmao.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -94,8 +96,9 @@ public class DeviceRestController {
 
     @PreAuthorize("hasAuthority('device:view')")
     @GetMapping("homePageDevice")
-    public List<Device> homePageDevice(Integer intermediaryId) {
-        return deviceMapper.homePageDevice(intermediaryId);
+    public List<Device> homePageDevice() {
+        DingtalkUser user = UserUtils.getUser();
+        return deviceMapper.homePageDevice(user.getIntermediary().getIntermediaryId());
     }
 
 }
