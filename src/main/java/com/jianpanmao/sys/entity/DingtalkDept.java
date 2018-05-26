@@ -55,7 +55,6 @@ public class DingtalkDept implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    String od;
 
     public Integer getId() {
         return id;
@@ -202,4 +201,15 @@ public class DingtalkDept implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+
+    public Integer getMemberCount() {
+        return memberCount;
+    }
+
+    public void setMemberCount(Integer memberCount) {
+        this.memberCount = memberCount;
+    }
+
+    private Integer memberCount;
 }

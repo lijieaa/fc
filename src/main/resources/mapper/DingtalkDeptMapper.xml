@@ -5,7 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="parentid" jdbcType="INTEGER" property="parentid" />
-    <result column="order" jdbcType="INTEGER" property="order" />
+<!--    <result column="order" jdbcType="INTEGER" property="order" />-->
     <result column="createDeptGroup" jdbcType="BIT" property="createdeptgroup" />
     <result column="deptHiding" jdbcType="BIT" property="depthiding" />
     <result column="deptPerimits" jdbcType="VARCHAR" property="deptperimits" />
@@ -16,8 +16,11 @@
     <result column="intermediary_id" jdbcType="INTEGER" property="intermediaryId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="path" jdbcType="VARCHAR" property="path"/>
+    <result column="memberCount" jdbcType="INTEGER" property="memberCount" />
   </resultMap>
+
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -362,7 +365,8 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAll" parameterType="com.jianpanmao.sys.entity.DingtalkDept" resultMap="BaseResultMap">
-    select * from dingtalk_dept WHERE intermediary_id=#{intermediaryId}
+    <!--select * from dingtalk_dept WHERE intermediary_id=#{intermediaryId}-->
+    SELECT COALESCE(SUM(b.user_id),0) as memberCount,a.* FROM dingtalk_dept a LEFT JOIN dingtalk_user_dept b on a.id=b.dept_id  where a.intermediary_id=#{intermediaryId} GROUP BY a.id
   </select>
   <delete id="deleteBatch" parameterType="java.util.ArrayList">
     delete from dingtalk_dept
