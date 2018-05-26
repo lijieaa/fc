@@ -6,6 +6,7 @@ import com.jianpanmao.topic.dao.TopicMapper;
 import com.jianpanmao.topic.entity.*;
 import com.jianpanmao.topic.dto.*;
 import com.jianpanmao.topic.service.TopicService;
+import com.jianpanmao.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class TopicServiceImpl extends BaseServiceImpl<Topic, TopicExample, Topic
     @Override
     public int add(Topic record) {
 
-        DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        DingtalkUser user = UserUtils.getUser();
 
         record.setUser(user);
         return dao.insert(record);
