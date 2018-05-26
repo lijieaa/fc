@@ -567,8 +567,21 @@
     </if>
   </select>
 
+<<<<<<< HEAD
 
   <select id="idNameList" resultMap="BaseResultMap">
     select * from dingtalk_user WHERE intermediary_id = #{0}
   </select>
+=======
+  <select id="selectByDeptId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dingtalk_user,dingtalk_user_dept
+    where dept_id = #{0}
+  </select>
+
+
+>>>>>>> 1bc28fa551bbb93ad0277e9c65d9363a7e9ea53f
 </mapper>
