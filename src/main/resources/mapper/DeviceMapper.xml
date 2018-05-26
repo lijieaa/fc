@@ -126,10 +126,12 @@
         ON d.transcribe_user_id = u2.userid
         LEFT JOIN project p
         ON d.project_id = p.project_id
-        where d.device_id = #{deviceId,jdbcType=INTEGER}
+        where
+         d.valid = 0 and
+         d.device_id = #{deviceId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from device
+   UPDATE device SET valid = 1
     where device_id = #{deviceId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.jianpanmao.device.entity.DeviceExample">
@@ -395,10 +397,10 @@
         where device_id = #{deviceId,jdbcType=INTEGER}
   </update>
   <select id="selectAll" parameterType="com.jianpanmao.device.entity.Device" resultMap="BaseResultMap">
-    select * from device
+    select * from device WHERE valid = 1
   </select>
   <delete id="deleteBatch" parameterType="java.util.ArrayList">
-    delete from device
+    update device SET valid = 1
     where device_id in
     <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
               #{item}
@@ -414,7 +416,7 @@
     ON d.project_id = project.project_id
     LEFT JOIN intermediary intermediary
     ON intermediary.intermediary_id = d.intermediary_id
-    WHERE 1=1
+    WHERE d.valid = 0
     <if test="deviceProductionNum != null">and d.device_production_num LIKE CONCAT('%',#{deviceProductionNum},'%')
     </if>
     <if test="project !=null and project.projectName!=null">and project.project_name LIKE
@@ -435,7 +437,8 @@
     ON d.transcribe_user_id = transcribeUser.userid
     LEFT JOIN project p
     ON d.project_id = p.project_id
-    WHERE p.project_id = #{0}
+    WHERE d.valid = 0
+    and p.project_id = #{0}
   </select>
 
   <!--设备关联-->
@@ -454,7 +457,8 @@
 <select id="homePageDevice" resultMap="HomePageResultMap" parameterType="java.lang.Integer">
   SELECT * FROM device
   WHERE
-  device_location_x !=''
+  valid = 0
+  and device_location_x !=''
   and device.device_location_y !=''
   and device.intermediary_id = #{0}
 </select>
