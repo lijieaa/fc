@@ -8,7 +8,6 @@ import com.jianpanmao.topic_comments.dto.*;
 import com.jianpanmao.topic_comments.service.TopicCommentsService;
 import com.jianpanmao.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service

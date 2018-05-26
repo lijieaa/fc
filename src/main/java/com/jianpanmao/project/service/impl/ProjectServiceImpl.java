@@ -6,9 +6,8 @@ import com.jianpanmao.project.entity.*;
 import com.jianpanmao.project.dto.*;
 import com.jianpanmao.project.service.ProjectService;
 import com.jianpanmao.sys.entity.DingtalkUser;
+import com.jianpanmao.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.support.SecurityContextProvider;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +18,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project,ProjectExample,P
 
     @Override
     public int add(Project record) {
-        DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        DingtalkUser user = UserUtils.getUser();
         record.setProjectCreateUser(user);
         return dao.insert(record);
     }
