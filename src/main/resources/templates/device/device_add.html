@@ -20,7 +20,7 @@
 <div class="row" id="deviceAdd">
     <div class="col-xs-12">
         <div class="row">
-            <form class="form-horizontal" id="search-form">
+            <!--<form class="" id="">-->
                 <div class="form-group">
                     <label class="control-label col-xs-12 col-sm-1 no-padding-right" for="Num">扫描编号:</label>
                     <div class="col-xs-12 col-sm-11">
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
+            <!--</form>-->
             <div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
                 <div class="widget-box widget-color-blue" id="widget-box-2">
                     <div class="widget-body">
@@ -80,33 +80,42 @@
                 checked:true,
                 dataList:[],
                 tableList:[],
-                idArr:[]
+                idArr:[],
+                deviceProductionNum:[]
             },
             methods:{
                 changeNum:function (item) {
-                    this.dataList.push($("#Num").val());
+                    console.log($("#Num").val());
+                    if($("#Num").val().trim() == ""){
+                        return false;
+                    }
+                    this.dataList.push($.trim($("#Num").val()));
                     $("#Num").val("").focus();
                     var arr =new Set(this.dataList);
                     this.tableList = Array.from(arr);
-                    console.log(this.tableList);
                 },
                 addNum:function(){
                     var _this = this;
                     $("#deviceAddList td input[type=checkbox]").each(function(i,item){
                         if(item.checked == true){
                             _this.idArr.push($(item).parents("td").siblings("td").find("span").text());
-                            console.log(_this.idArr.join(","));
                         }
                     });
-                    var data ={
-                        deviceProductionNum:_this.idArr.join(",")
-                    }
+                   for(var i=0;i<_this.idArr.length;i++){
+                       var data ={
+                           deviceProductionNum:_this.idArr[i]
+                       };
+                       _this.deviceProductionNum.push(data);
+                   }
                     $.ajax({
                         url:contextPath+"api/device",
                         method:"post",
                         contentType: "application/json",
                         dataType : "json",
-                        data:JSON.stringify(data)
+                        data:JSON.stringify(_this.deviceProductionNum),
+                        success:function(data){
+                            console.log(data);
+                        }
                     })
 
                 },

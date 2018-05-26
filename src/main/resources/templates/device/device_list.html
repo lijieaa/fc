@@ -181,7 +181,13 @@
                                     {"data": null},
                                     {"data": "deviceProductionNum"},
                                     {"data": "deviceType"},
-                                    {"data": "project.projectName"},
+                                    {"data": "project.projectName","render":function(data, type, row, meta){
+                                            if(row.project == ""){
+                                                return ""
+                                            }else{
+                                                return data
+                                            }
+                                    }},
                                     {"data": "operateUser.name","render":function(data, type, row, meta){
                                             if(row.operateUser == ""){
                                                 return ""
