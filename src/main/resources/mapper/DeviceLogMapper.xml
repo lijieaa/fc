@@ -264,6 +264,9 @@
     from device_log d
     LEFT JOIN dingtalk_user user
     ON d.user_id = user.userid
-    WHERE DATE_FORMAT(d.device_log_create_time,'%Y-%m-%d') = #{createTimeStr}
+    WHERE 1=1
+    <if test="createTimeStr !=null">
+      and DATE_FORMAT(d.device_log_create_time,'%Y-%m-%d') = #{createTimeStr}
+    </if>
   </select>
 </mapper>
