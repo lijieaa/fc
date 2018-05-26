@@ -8,6 +8,8 @@ import com.jianpanmao.sys.service.DingtalkUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DingtalkUserServiceImpl extends BaseServiceImpl<DingtalkUser,DingtalkUserExample,DingtalkUserDto,Integer> implements DingtalkUserService {
 
@@ -17,5 +19,10 @@ public class DingtalkUserServiceImpl extends BaseServiceImpl<DingtalkUser,Dingta
     @Override
     public DingtalkUser findByMobile(String mobile) {
         return dingtalkUserMapper.findByMobile(mobile);
+    }
+
+    @Override
+    public List<DingtalkUser> selectByDeptId(Integer deptId) {
+        return dingtalkUserMapper.selectByDeptId(deptId);
     }
 }

@@ -564,4 +564,15 @@
       order by ${od}
     </if>
   </select>
+
+  <select id="selectByDeptId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dingtalk_user,dingtalk_user_dept
+    where dept_id = #{0}
+  </select>
+
+
 </mapper>
