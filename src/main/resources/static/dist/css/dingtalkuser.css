@@ -1,0 +1,6 @@
+#sub-department {
+    max-width: 100%;
+}
+#edit-upper-department-name-select[readonly] {
+    background: #fff!important;
+}

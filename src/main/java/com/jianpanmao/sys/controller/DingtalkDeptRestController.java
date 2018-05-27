@@ -69,11 +69,23 @@ public class DingtalkDeptRestController {
 
     @PreAuthorize("hasAuthority('dingtalkdept:view')")
     @RequestMapping(method = RequestMethod.GET, value = "path")
-    public Map findByParentId(@RequestParam("id") Integer id) {
+    public Map findByPath(@RequestParam("id") Integer id) {
         Map map=new HashMap<>();
         List<DingtalkDept> dingtalkDepts = dingtalkdeptService.selectByPath(id + "");
         map.put("depts",dingtalkDepts);
         List<DingtalkUser> users=dingtalkUserService.selectByDeptId(id);
+        map.put("users",users);
+        return map;
+    }
+
+
+    @PreAuthorize("hasAuthority('dingtalkdept:view')")
+    @RequestMapping(method = RequestMethod.GET, value = "pid")
+    public Map findByParentId(@RequestParam("pid") Integer pid) {
+        Map map=new HashMap<>();
+        List<DingtalkDept> dingtalkDepts = dingtalkdeptService.selectByParentId(pid);
+        map.put("depts",dingtalkDepts);
+        List<DingtalkUser> users=dingtalkUserService.selectByDeptId(pid);
         map.put("users",users);
         return map;
     }
@@ -93,6 +105,17 @@ public class DingtalkDeptRestController {
 
 
         return map;
+    }
+
+
+
+    @PreAuthorize("hasAuthority('dingtalkdept:view')")
+    @RequestMapping(method = RequestMethod.POST, value = "sort")
+    public Integer sort(@RequestBody List<DingtalkDept> depts) {
+
+        dingtalkdeptService.sort(depts);
+
+        return 1;
     }
 
 

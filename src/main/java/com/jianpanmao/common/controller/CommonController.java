@@ -109,7 +109,7 @@ public class CommonController{
     @Autowired
     Application.MyGateway gateway;
 
-    @PostMapping("/mqtt_send")
+    @PostMapping("/api/mqtt_send")
     @ResponseBody
     public Map mqttSend(@RequestBody Map data) throws JsonProcessingException {
 
