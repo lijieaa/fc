@@ -97,4 +97,20 @@ public class DingtalkDeptServiceImpl extends BaseServiceImpl<DingtalkDept,Dingta
         record.setIntermediaryId(user.getIntermediaryId());
         return dingtalkDeptMapper.selectByLikeName(record);
     }
+
+    @Override
+    public void sort(List<DingtalkDept> list) {
+        for (DingtalkDept dept : list) {
+            dingtalkDeptMapper.sort(dept);
+        }
+    }
+
+    @Override
+    public List<DingtalkDept> selectByParentId(Integer parentId) {
+        DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+        DingtalkDept record=new DingtalkDept();
+        record.setParentid(parentId);
+        record.setIntermediaryId(user.getIntermediaryId());
+        return dingtalkDeptMapper.selectByParentId(record);
+    }
 }
