@@ -23,6 +23,8 @@
 
     </association>
   </resultMap>
+
+
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jianpanmao.sys.entity.DingtalkUser">
     <result column="extattr" jdbcType="LONGVARCHAR" property="extattr" />
   </resultMap>
@@ -564,4 +566,26 @@
       order by ${od}
     </if>
   </select>
+
+  <select id="idNameList" resultMap="BaseResultMap">
+    select * from dingtalk_user WHERE intermediary_id = #{0}
+  </select>
+  <select id="selectByDeptId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dingtalk_user,dingtalk_user_dept
+    where dept_id = #{0}
+  </select>
+
+
+
+  <select id="selectByLikeName" parameterType="com.jianpanmao.sys.entity.DingtalkUser" resultMap="BaseResultMap">
+    select * from dingtalk_user WHERE intermediary_id = #{intermediaryId} AND name LIKE concat('%',#{name},'%');
+  </select>
+
+
+
+
 </mapper>

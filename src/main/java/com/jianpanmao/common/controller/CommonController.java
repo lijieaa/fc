@@ -109,6 +109,8 @@ public class CommonController{
         }*/
 
 
+        gateway.sendToMqtt(s,"/Control/json");
+
 
         Map rdata=new HashMap<>();
 

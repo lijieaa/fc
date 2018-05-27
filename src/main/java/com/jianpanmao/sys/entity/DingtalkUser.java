@@ -1,5 +1,6 @@
 package com.jianpanmao.sys.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jianpanmao.intermediary.entity.Intermediary;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -204,6 +205,7 @@ public class DingtalkUser implements Serializable,UserDetails {
         return null;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
