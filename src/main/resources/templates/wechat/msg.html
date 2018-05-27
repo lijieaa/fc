@@ -18,6 +18,9 @@
             margin-right: 35px;
             margin-top: -10px;
         }
+        .dataTables_wrapper .row:first-child{
+            background: none;
+        }
     </style>
 </head>
 <body layout:fragment="content">
@@ -34,15 +37,12 @@
         <div style="margin-left: 2.5%;margin-top:3%;width: 95%;height: auto;">
             <section class="float-left gzh-search" style="width: 100%;">
                 <div class="input-group" style="margin: 1% 0 0 0px;">
-               <span class="input-group-addon ">
-               <i class="fa fa-search"></i>
-               </span>
-                    <input type="text" class="form-control" style="width: 22.8%;">
-                    <button type="button" class="btn  btn-info search" style="padding:2px 7px;">搜索</button>
+                    <select style="width: 180px;"><option>时间排序</option></select>
+                    <select style="width: 180px;margin-left: 30px;"><option>最近五天</option></select>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <table id="gzh-ul-manage" class="display table table-bordered table-hover dataTable" style="width:100%;">
+                        <table id="gzh-msg-manage" class="display table table-bordered table-hover dataTable" style="width:100%;">
                             <thead style="display: none;">
                             <tr>
                                 <th></th>
@@ -63,7 +63,7 @@
     var wxPublicId = /*[[${wxPublicId}]]*/;
     /*]]>*/
     jQuery(function ($) {
-        $('#gzh-ul-manage').DataTable( {
+        $('#gzh-msg-manage').DataTable( {
             bAutoWidth: true,
             ajax:{
                 url: contextPath +"wxUsers/page?page=1&rows=10&wxPublicId="+wxPublicId,
@@ -84,8 +84,20 @@
                 { "data": "headimgurl",render:function (data, type, row, meta) {
                         var html="<img src="+data+" class='chatOne' />";
                         return html;
-                    }},
-                { "data": "nickname"}
+                    }
+                },
+                { "data": "",render:function (data, type, row, meta) {
+                    console.log(row)
+                        var html="<div class='chatOne'>"+row.nickname+"</div>" +
+                            "<div>"+row.openid+"</div>";
+                        return html;
+                    }
+                },
+                { "data": "",render:function (data, type, row, meta) {
+                        var html="<div class='chatOne'>"+row.subscribe_time+"</div>";
+                        return html;
+                    }
+                }
 
             ],
             "pageLength": 5,

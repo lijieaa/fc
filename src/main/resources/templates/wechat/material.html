@@ -1,6 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
+    <link rel="stylesheet" th:href="@{/dist/css/gzh-l/webuploader.css}"/>
     <style>
         .gzh-manage-menu{
             margin-top: 15px;
@@ -18,6 +19,34 @@
             margin-right: 35px;
             margin-top: -10px;
         }
+        .gzh-source-type{
+            margin-top: 2%;
+            height: 40px;
+            line-height: 40px;
+            width: 100%;
+            margin-left: 20px;
+            background: #F5F5F5;
+            box-shadow: #9c9c9c 3px 3px 3px 3px;
+        }
+        .gzh-source-type a{
+            font-size: 16px;
+            color: #626262;
+            padding: 0 15px;
+            cursor: pointer;
+            width: 100px;
+            display: inline-block;
+           text-align: center;
+        }
+        .gzh-source-type a:hover{
+            text-decoration: none;
+        }
+        .tex-bgcolor {
+            height: 40px!important;
+            color: #1d1d1d !important;
+            display: inline-block;
+            background: #b8b8b8;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body layout:fragment="content">
@@ -31,68 +60,85 @@
             <a class="font-size-14 tex-color" data-id="4">素材管理</a>
             <button class="btn btn-info search text-center pull-right" id="backUl">返回</button>
         </section>
-        <div style="margin-left: 2.5%;margin-top:3%;width: 95%;height: auto;">
-            <section class="float-left gzh-search" style="width: 100%;">
-                <div class="input-group" style="margin: 1% 0 0 0px;">
-               <span class="input-group-addon ">
-               <i class="fa fa-search"></i>
-               </span>
-                    <input type="text" class="form-control" style="width: 22.8%;">
-                    <button type="button" class="btn  btn-info search" style="padding:2px 7px;">搜索</button>
+        <div style="margin-top:2%;width: 98%;height: auto;font-size: 13px;">
+            <div class="content-header gzh-source-type">
+                <a class="tex-bgcolor" data-id="1">图文消息</a>
+                <a class="" data-id="2">图片</a>
+                <a class="" data-id="3">语音</a>
+                <a class="" data-id="4">视频</a>
+            </div>
+            <div style="margin-top: 2%;">
+                <span style="margin-left: 2%"><a class="new-type-name">图文消息</a><a>（共1条）</a></span>
+                <div style="width: 120px;height: 30px;float: right;">
+                    <div id="filePicker" style="width: 120px;height: 42px;background: #666e95;text-align: center;line-height: 42px;color: #FFFFFF;border-radius: 5px;">新建图文信息</div>
+                    <div id="filePicker1" style="display: none">上传图片</div>
+                    <div id="filePicker2" style="display: none">添加语音</div>
+                    <div id="filePicker3" style="display: none;">添加视频</div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <table id="gzh-ul-manage" class="display table table-bordered table-hover dataTable" style="width:100%;">
-                            <thead style="display: none;">
-                            <tr>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                        </table>
-                    </div>
+            </div>
+            <!--素材库图文消息内容-->
+            <div>
+                <div style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 98%;margin-left: 2%;" id="photo-tx">
                 </div>
-            </section>
+                <!--图片-->
+                <div id="photo-show" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;overflow: auto;">
+                    <ul id="imgShow"></ul>
+                    <div id="pagingTest" class="pageIndex"></div>
+                    <input type="hidden" value="" id="page">
+                </div>
+                <!--语音-->
+                <div id="source" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;">
+                    <ul id="mpShow"></ul>
+                    <div id="pagingTest1" class="pageIndex"></div>
+                    <input type="hidden" value="" id="page1">
+                </div>
+                <!--视频-->
+                <div id="vid" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;">
+                    <ul id="vidShow"></ul>
+                    <div id="pagingTest2" class="pageIndex"></div>
+                    <input type="hidden" value="" id="page2">
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <script th:src="@{/dist/js/gzh/gzh-common.js}"></script>
+<script th:src="@{/dist/js/gzh/webuploader.js}"></script>
+<script th:src="@{/dist/js/gzh/upload.js}"></script>
+<script th:src="@{/dist/js/gzh/hand-paging.js}"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
     var wxPublicId = /*[[${wxPublicId}]]*/;
     /*]]>*/
-    jQuery(function ($) {
-        $('#gzh-ul-manage').DataTable( {
-            bAutoWidth: true,
-            ajax:{
-                url: contextPath +"wxUsers/page?page=1&rows=10&wxPublicId="+wxPublicId,
-                dataSrc:"content.data.list",
-                // contentType:'application/json; charset=utf-8',
-            },
-            "info":false,
-            "searching": false,
-            "lengthChange": false,
-            "ordering": false,
-            "language": {
-                "paginate": {
-                    "next": "下一页",
-                    "previous": "上一页"
-                }
-            },
-            "columns": [
-                { "data": "headimgurl",render:function (data, type, row, meta) {
-                        var html="<img src="+data+" class='chatOne' />";
-                        return html;
-                    }},
-                { "data": "nickname"}
-
-            ],
-            "pageLength": 5,
-            "fnInitComplete": function() {//初始化完毕事件
+    $(function () {
+        $(document).on("click",".gzh-source-type>a",function () {
+            $(this).addClass("tex-bgcolor").siblings().removeClass("tex-bgcolor");
+        });
+        //点击tab页面切换功能
+        $(".gzh-source-type a").click(function () {
+            var cliID=$(this).attr("data-id");
+            $(this).addClass("cli-color").siblings().removeClass("cli-color");
+            if(cliID=="1"){
+                $(".new-type-name").text("图文消息");
+                $("#filePicker").show().siblings().hide();
+                $("#photo-tx").show().siblings().hide();
+            } else if(cliID=="2"){
+                $(".new-type-name").text("图片");
+                $("#filePicker1").show().siblings().hide();
+                $("#photo-show").show().siblings().hide();
+                 ajaxData(1);
+            } else if(cliID=="3"){
+                $(".new-type-name").text("语音");
+                $("#filePicker2").show().siblings().hide();
+                $("#source").show().siblings().hide();
+                // ajaxMp(1);
+            } else if(cliID=="4"){
+                $(".new-type-name").text("视频");
+                $("#filePicker3").show().siblings().hide();
+                $("#vid").show().siblings().hide();
+                // ajaxVid(1);
             }
-        } );
-
+        })
     })
 </script>
 
