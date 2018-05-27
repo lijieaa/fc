@@ -6,6 +6,7 @@ import com.jianpanmao.sys.entity.*;
 import com.jianpanmao.sys.dto.*;
 import com.jianpanmao.sys.service.DingtalkUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,5 +25,15 @@ public class DingtalkUserServiceImpl extends BaseServiceImpl<DingtalkUser,Dingta
     @Override
     public List<DingtalkUser> selectByDeptId(Integer deptId) {
         return dingtalkUserMapper.selectByDeptId(deptId);
+    }
+
+    @Override
+    public List<DingtalkUser> selectByLikeName(String name) {
+
+        DingtalkUser cuser = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+        DingtalkUser user=new DingtalkUser();
+        user.setName(name);
+        user.setIntermediaryId(cuser.getIntermediaryId());
+        return dingtalkUserMapper.selectByLikeName(user);
     }
 }

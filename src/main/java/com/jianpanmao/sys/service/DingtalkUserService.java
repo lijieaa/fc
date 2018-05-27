@@ -11,4 +11,6 @@ public interface DingtalkUserService extends BaseService<DingtalkUser, DingtalkU
     DingtalkUser findByMobile(String mobile);
 
     List<DingtalkUser> selectByDeptId(Integer deptId);
+
+    List<DingtalkUser> selectByLikeName(String name);
 }

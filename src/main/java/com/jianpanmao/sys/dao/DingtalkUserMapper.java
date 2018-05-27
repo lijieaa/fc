@@ -15,4 +15,8 @@ public interface DingtalkUserMapper extends BaseDao<DingtalkUser, DingtalkUserEx
     List<DingtalkUser> idNameList(Integer intermediaryId);
 
     List<DingtalkUser> selectByDeptId(Integer deptId);
+
+
+    List<DingtalkUser> selectByLikeName(DingtalkUser user);
+
 }

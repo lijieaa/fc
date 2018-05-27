@@ -579,4 +579,13 @@
     where dept_id = #{0}
   </select>
 
+
+
+  <select id="selectByLikeName" parameterType="com.jianpanmao.sys.entity.DingtalkUser" resultMap="BaseResultMap">
+    select * from dingtalk_user WHERE intermediary_id = #{intermediaryId} AND name LIKE concat('%',#{name},'%');
+  </select>
+
+
+
+
 </mapper>
