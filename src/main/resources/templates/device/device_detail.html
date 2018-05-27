@@ -1,34 +1,657 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
-    <title>首页</title>
+    <link rel="stylesheet" th:href="@{/dist/css/common.css}">
     <style>
-        .aa{
-            background-color: #1a1a1a;
-            width: 1000px;
-            height: 1000px;
+        #deviceAddList{
+            text-align: center;
+        }
+        .btn-control{
+            border: none;
+            border-radius: 5px;
+            padding: 3px 7px;
+            color: white;
+            background: grey;
+        }
+        .btn-control.active{
+            background: #F89406;
+        }
+        .error{
+            margin-right: 10px;
+            color: red;
+        }
+        .device-group-single{
+            background: #c5d0dc73;
+            padding: 8px 0;
+        }
+        .device-group-two{
+            background: #fff;
+            padding: 8px 0;
+        }
+        .form-group{
+            margin-bottom: 0;
         }
     </style>
 </head>
 <body layout:fragment="content">
-<div class="row">
-<div class="aa"></div>
+<div class="page-header">
+    <h1>
+        设备控制
+        <small>
+            <!--<i class="ace-icon fa fa-angle-double-right"></i>-->
+            <!--Static &amp; Dynamic Tables-->
+        </small>
+    </h1>
+</div>
+<div id="deviceControl">
+    <h5>设备信息</h5>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
+            <div class="widget-box widget-color-blue" id="widget-box-2">
+                <div class="widget-body">
+                    <div class="widget-main no-padding">
+                        <table class="table table-striped table-bordered table-hover" id="deviceAddList">
+                            <tr>
+                                <td>生产编号</td>
+                                <td>所属项目</td>
+                                <td>操作员</td>
+                                <td>状态</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>33</td>
+                                <td>3</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>生产编号</td>
+                                <td>所属项目</td>
+                                <td>操作员</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>33</td>
+                                <td>3</td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h5>远程控制</h5>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 widget-container-col ui-sortable" id="widget-container-col-1">
+            <div class="widget-box ui-sortable-handle widget-box widget-color-blue" id="widget-box-1">
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <div class="alert alert-info">
+                            <h5>控制操作</h5>
+                            <div>
+                                <span>设备远程启停：</span>
+                                <button class="btn-control" v-bind:class="{ active: control.clean }" @click="IsClean()">启动清洗</button>
+                                <button class="btn-control" v-bind:class="{ active: !control.clean }" @click="IsClean()"> 停止清洗</button>
+                            </div>
+                        </div>
+                        <div class="alert alert-info">
+                            <h5>设备参数</h5>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group device-group-single overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3
+                                               no-padding-right">所属项目</label>
+                                        <div class="col-xs-9 col-sm-9">
+                                            <div class="clearfix">
+                                                <select class="form-control">
+                                                    <option>项目1</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-two overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            电机</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: control.power }"
+                                                        @click="IsPower()">不启用</button>
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: !control.power }"
+                                                        @click="IsPower()"> 启用</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-single overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            行程开关</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: control.route }"
+                                                        @click="IsRoute()">不启用</button>
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: !control.route }"
+                                                        @click="IsRoute()"> 启用</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-two overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            电机动作时间</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px" name="time" v-on:change="changeNum(0,99,time,$event)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-single overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            压差开关</label>
+                                        <div class="col-xs-9 col-sm-9"
+                                             style="text-align: right">
+                                            <div class="clearfix">
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: control.ycOff }"
+                                                        @click="IsYcOff()">模拟</button>
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: !control.ycOff }"
+                                                        @click="IsYcOff()"> 数字</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-two overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            电压告警值</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px" name="time" v-on:change="changeNum(0,99,time,$event)" onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                       onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;V
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group device-group-single overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            主阀</label>
+                                        <div class="col-xs-9 col-sm-9"
+                                             style="text-align: right">
+                                            <div class="clearfix">
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: control.mainF }"
+                                                        @click="IsMainF()">不启用</button>
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: !control.mainF }"
+                                                        @click="IsMainF()"> 启用</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-two overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            单元1</label>
+                                        <div class="col-xs-9 col-sm-9"
+                                             style="text-align: right">
+                                            <div class="clearfix">
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: control.unite1 }"
+                                                        @click="IsUnite1()">不启用</button>
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: !control.unite1 }"
+                                                        @click="IsUnite1()"> 启用</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-single overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            单元2</label>
+                                        <div class="col-xs-9 col-sm-9"
+                                             style="text-align: right">
+                                            <div class="clearfix">
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: control.unite2}"
+                                                        @click="IsUnite2()">不启用</button>
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: !control.unite2 }"
+                                                        @click="IsUnite2()"> 启用</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-two overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            单元3</label>
+                                        <div class="col-xs-9 col-sm-9"
+                                             style="text-align: right">
+                                            <div class="clearfix">
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: control.unite3 }"
+                                                        @click="IsUnite3()">不启用</button>
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: !control.unite3 }"
+                                                        @click="IsUnite3()"> 启用</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-single overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            单元4</label>
+                                        <div class="col-xs-9 col-sm-9"
+                                             style="text-align: right">
+                                            <div class="clearfix">
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: control.unite4 }"
+                                                        @click="IsUnite4()">不启用</button>
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: !control.unite4 }"
+                                                        @click="IsUnite4()"> 启用</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-two overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            单元5</label>
+                                        <div class="col-xs-9 col-sm-9"
+                                             style="text-align: right">
+                                            <div class="clearfix">
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: control.unite5 }"
+                                                        @click="IsUnite5()">不启用</button>
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: !control.unite5 }"
+                                                        @click="IsUnite5()"> 启用</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-single overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            单元6</label>
+                                        <div class="col-xs-9 col-sm-9"
+                                             style="text-align: right">
+                                            <div class="clearfix">
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: control.unite6 }"
+                                                        @click="IsUnite6()">不启用</button>
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: !control.unite6 }"
+                                                        @click="IsUnite6()"> 启用</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-two overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            单元7</label>
+                                        <div class="col-xs-9 col-sm-9"
+                                             style="text-align: right">
+                                            <div class="clearfix">
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: control.unite7 }"
+                                                        @click="IsUnite7()">不启用</button>
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: !control.unite7 }"
+                                                        @click="IsUnite7()"> 启用</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-single overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            单元8</label>
+                                        <div class="col-xs-9 col-sm-9"
+                                             style="text-align: right">
+                                            <div class="clearfix">
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: control.unite8 }"
+                                                        @click="IsUnite8()">不启用</button>
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: !control.unite8 }"
+                                                        @click="IsUnite8()"> 启用</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-two overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            单元9</label>
+                                        <div class="col-xs-9 col-sm-9"
+                                             style="text-align: right">
+                                            <div class="clearfix">
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: control.unite9 }"
+                                                        @click="IsUnite9()">不启用</button>
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: !control.unite9 }"
+                                                        @click="IsUnite9()"> 启用</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group overflow-hidden device-group-single">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            单元10</label>
+                                        <div class="col-xs-9 col-sm-9"
+                                             style="text-align: right">
+                                            <div class="clearfix">
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: control.unite10 }"
+                                                        @click="IsUnite10()">不启用</button>
+                                                <button class="btn-control"
+                                                        v-bind:class="{ active: !control.unite10 }"
+                                                        @click="IsUnite10()"> 启用</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 widget-container-col ui-sortable">
+            <div class="widget-box widget-color-blue ui-sortable-handle">
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <div class="alert alert-info">
+                            <h5>用户参数</h5>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group device-group-single overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            清洗周期</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px"
+                                                       name="time" v-on:change="changeNum(0,9999,time,$event)"
+                                                       onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                       onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;分钟
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-two overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            单元冲洗时间</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px"
+                                                       name="time" v-on:change="changeNum(0,999,time,$event)"
+                                                       onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                       onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-single overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            单元间隔时间</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px"
+                                                       name="time" v-on:change="changeNum(0,99,time,$event)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-two overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            主阀延时时间</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px"
+                                                       name="time" v-on:change="changeNum(0,99,time,$event)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-single overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            压差延时时间</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px"
+                                                       name="time" v-on:change="changeNum(10,33,time,$event)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-two overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            压差清洗启动门限</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px"
+                                                       name="time" v-on:change="changeNum(0,70,time,$event)"
+                                                       onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                       onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;Mpa
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group device-group-single overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            压差清洗次数清零时间</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px"
+                                                       name="time" v-on:change="changeNum(0,255,time,$event)"
+                                                       onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                       onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-two overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            压差连续清洗告警次数</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px"
+                                                       name="time" v-on:change="changeNum(1,10,time,$event)"
+                                                       onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                       onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;次
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-single overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            电机动作周期</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px"
+                                                       name="time" v-on:change="changeNum(0,99,time,$event)"
+                                                       onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                       onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group device-group-two overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            压差电机启动门限</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px"
+                                                       name="time" v-on:change="changeNum(0,70,time,$event)"
+                                                       onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                       onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;Mpa
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-info">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group device-group-single overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            年</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px"
+                                                       name="time" v-on:change="changeNum(1900,2099,time,$event)"
+                                                       onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                       onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;年
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-two overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            月</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px" name="time"
+                                                       v-on:change="changeNum(1,12,time,$event)"
+                                                       onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                       onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;月
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-single overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            日</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px" name="time"
+                                                       v-on:change="changeNum(1,31,time,$event)"
+                                                       onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                       onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;日
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-two overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            时</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px" name="time"
+                                                       v-on:change="changeNum(0,23,time,$event)"
+                                                       onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                       onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;时
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-single overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            分</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px" name="time"
+                                                       v-on:change="changeNum(0,59,time,$event)"
+                                                       onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                       onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;分
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group device-group-two overflow-hidden">
+                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                            秒</label>
+                                        <div class="col-xs-9 col-sm-9" style="text-align: right">
+                                            <div class="clearfix">
+                                                <input type="text"  v-model="time" style="width: 50px" name="time"
+                                                       v-on:change="changeNum(0,59,time,$event)"
+                                                       onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                       onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.span -->
+
+
+    </div>
+    <div class="clearfix form-actions">
+        <div class="col-md-offset-3 col-md-9">
+            <button type="button" class="btn btn-info">确定</button>
+            <button type="reset" class="btn">重置</button></div>
+    </div>
 </div>
 <script type="text/javascript" th:inline="javascript">
-
     jQuery(function($) {
         var id=[[${id}]];
-        $.ajax({
-            url: contextPath+"api/device?id="+id,
-            method: "get",
-            success: function (data) {
-                console.log(data);
-            },
-            error: function (data) {
-                alert("查询数据出错！");
-            }
-        })
 
+        new Vue({
+            el:"#deviceControl",
+            data:{
+                control:{
+                    clean:true,
+                    power:true,
+                    route:true,
+                    ycOff:true,
+                    mainF:true,
+                    unite1:true,
+                    unite2:true,
+                    unite3:true,
+                    unite4:true,
+                    unite5:true,
+                    unite6:true,
+                    unite7:true,
+                    unite8:true,
+                    unite9:true,
+                    unite10:true
+                },
+                time:""
+            },
+            methods:{
+                IsClean:function(){
+                    this.control.clean = !this.control.clean;
+                },
+                IsPower:function(){
+                    this.control.power = !this.control.power;
+                },
+                IsRoute:function(){
+                    this.control.route = !this.control.route;
+                },
+                IsYcOff:function(){
+                    this.control.ycOff = !this.control.ycOff;
+                }
+                ,IsMainF:function(){
+                    this.control.mainF = !this.control.mainF;
+                },
+                IsUnite1:function(){
+                    this.control.unite1 = !this.control.unite1;
+                },
+                IsUnite2:function(){
+                    this.control.unite2 = !this.control.unite2;
+                },
+                IsUnite3:function(){
+                    this.control.unite3 = !this.control.unite3;
+                },
+                IsUnite4:function(){
+                    this.control.unite4 = !this.control.unite4;
+                },
+                IsUnite5:function(){
+                    this.control.unite5 = !this.control.unite5;
+                },
+                IsUnite6:function(){
+                    this.control.unite6 = !this.control.unite6;
+                },
+                IsUnite7:function(){
+                    this.control.unite7 = !this.control.unite7;
+                },
+                IsUnite8:function(){
+                    this.control.unite8 = !this.control.unite8;
+                },
+                IsUnite9:function(){
+                    this.control.unite9 = !this.control.unite9;
+                },
+                IsUnite10:function(){
+                    this.control.unite10 = !this.control.unite10;
+                },
+
+                changeNum:function(min,max,item,ele){
+                    if(item < min || item > max){
+                        var span ="<span class='error'>范围："+min+"～"+max+"</span>";
+                        $(ele.path[0]).parent().prepend(span);
+                    }else{
+                        $(ele.path[0]).parent().find(".error").remove();
+                    }
+                }
+            },
+            mounted:function () {
+                var _this = this;
+
+            }
+        });
     })
 </script>
 </body>

@@ -21,7 +21,7 @@
     <div class="col-xs-12">
         <div class="row">
             <!--<form class="" id="">-->
-                <div class="form-group">
+                <div class="form-group" style="overflow: hidden">
                     <label class="control-label col-xs-12 col-sm-1 no-padding-right" for="Num">扫描编号:</label>
                     <div class="col-xs-12 col-sm-11">
                         <div class="clearfix">
@@ -38,7 +38,7 @@
                                 <thead class="thin-border-bottom">
                                 <tr>
                                     <th>选择</th>
-                                    <th>生成编号</th>
+                                    <th>生产编号</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -96,6 +96,7 @@
                 },
                 addNum:function(){
                     var _this = this;
+                    _this.deviceProductionNum = [];
                     $("#deviceAddList td input[type=checkbox]").each(function(i,item){
                         if(item.checked == true){
                             _this.idArr.push($(item).parents("td").siblings("td").find("span").text());
@@ -107,6 +108,10 @@
                        };
                        _this.deviceProductionNum.push(data);
                    }
+                   if( _this.deviceProductionNum.length == 0){
+                       bootbox.alert("请选择生产编号");
+                       return false;
+                   }
                     $.ajax({
                         url:contextPath+"api/device",
                         method:"post",
@@ -114,16 +119,17 @@
                         dataType : "json",
                         data:JSON.stringify(_this.deviceProductionNum),
                         success:function(data){
-                            console.log(data);
+                            if(data.status == 200){
+                                window.location.href = contextPath +"device/list?mid=1"
+                            }
                         }
                     })
 
                 },
                 resetNum:function(){
-                    console.log(2)
-                },
-                selectNum:function(){
-
+                    $("#deviceAddList td input[type=checkbox]").each(function(i,item){
+                        item.checked = false;
+                    });
                 }
             },
             mounted:function () {

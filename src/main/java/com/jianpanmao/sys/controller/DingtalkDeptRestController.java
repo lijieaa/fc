@@ -79,6 +79,22 @@ public class DingtalkDeptRestController {
     }
 
 
+    @PreAuthorize("hasAuthority('dingtalkdept:view')")
+    @RequestMapping(method = RequestMethod.GET, value = "name")
+    public Map selectByLikeName(@RequestParam("name") String name) {
+        Map map=new HashMap<>();
+        List<DingtalkDept> dingtalkDepts = dingtalkdeptService.selectByLikeName(name);
+        map.put("depts",dingtalkDepts);
+
+        List<DingtalkUser> users=dingtalkUserService.selectByLikeName(name);
+
+
+        map.put("users",users);
+
+
+        return map;
+    }
+
 
     @PreAuthorize("hasAuthority('dingtalkdept:view')")
     @RequestMapping(method = RequestMethod.GET, value = "page")

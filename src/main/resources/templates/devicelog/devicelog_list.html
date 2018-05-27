@@ -3,9 +3,14 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <body layout:fragment="content">
+<head>
+    <style>
+        input[type=date]::-webkit-inner-spin-button { visibility: hidden; }
+    </style>
+</head>
 <div class="page-header">
     <h1>
-        Tables
+        设备日志
         <small>
             <i class="ace-icon fa fa-angle-double-right"></i>
             Static &amp; Dynamic Tables
@@ -30,70 +35,14 @@
                         <div class="widget-body">
                             <div class="widget-main">
                                 <form class="form-horizontal" id="search-form">
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="operateCommand">operateCommand:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="operateCommand" id="operateCommand" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="deviceLogCreateTime">deviceLogCreateTime:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="deviceLogCreateTime" id="deviceLogCreateTime" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="deviceLogUpdateTime">deviceLogUpdateTime:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="deviceLogUpdateTime" id="deviceLogUpdateTime" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="operateCommandDesc">operateCommandDesc:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="operateCommandDesc" id="operateCommandDesc" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="deviceLogId">deviceLogId:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="deviceLogId" id="deviceLogId" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="userId">userId:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="userId" id="userId" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="deviceProductionNum">deviceProductionNum:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="deviceProductionNum" id="deviceProductionNum" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="deviceLogCreateTime">发生时间:</label>
+                                        <div class="col-xs-12 col-sm-9">
+                                            <div class="clearfix">
+                                                <input type="date" name="createTimeStr" id="deviceLogCreateTime" class="col-xs-12 col-sm-6" />
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="clearfix form-actions">
                                         <div class="col-md-offset-3 col-md-9">
                                             <button class="btn btn-info" type="button" id="search">
@@ -113,18 +62,14 @@
                 <div class="col-xs-12">
 
                     <div class="clearfix">
-                        <div class="pull-left tableTools-container-left">
-                            <div class="btn-group">
-                                <a type="button" class="btn" th:href="@{/devicelog/add}" sec:authorize="hasAuthority('devicelog:add')">创建</a>
-                                <button type="button" class="btn btn-danger" id="batch-delete" sec:authorize="hasAuthority('devicelog:delete')">批量删除</button>
-                            </div>
-                        </div>
-                        <div class="pull-right tableTools-container"></div>
+                        <!--<div class="pull-left tableTools-container-left">-->
+                            <!--<div class="btn-group">-->
+                                <!--<a type="button" class="btn" th:href="@{/devicelog/add}" sec:authorize="hasAuthority('devicelog:add')">创建</a>-->
+                                <!--<button type="button" class="btn btn-danger" id="batch-delete" sec:authorize="hasAuthority('devicelog:delete')">批量删除</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="pull-right tableTools-container"></div>-->
                     </div>
-
-                    <!-- div.table-responsive -->
-
-                    <!-- div.dataTables_borderWrap -->
                     <div>
                         <table id="dynamic-table" class="table table-striped table-bordered table-hover">
                             <thead>
@@ -135,21 +80,11 @@
                                         <span class="lbl"></span>
                                     </label>
                                 </th>
-        <th>operateCommand</th>
+                                <th>发生时间</th>
 
-        <th>deviceLogCreateTime</th>
+                                <th>设备生产编号</th>
 
-        <th>deviceLogUpdateTime</th>
-
-        <th>operateCommandDesc</th>
-
-        <th>deviceLogId</th>
-
-        <th>userId</th>
-
-        <th>deviceProductionNum</th>
-
-                                <th></th>
+                                <th>操作内容</th>
                             </tr>
                             </thead>
 
@@ -218,14 +153,9 @@
                                 },
                                 "columns": [
                                     {"data": null},
-        {"data": "operateCommand"},
-        {"data": "deviceLogCreateTime"},
-        {"data": "deviceLogUpdateTime"},
-        {"data": "operateCommandDesc"},
-                                    {"data": "deviceLogId"},
-        {"data": "userId"},
-        {"data": "deviceProductionNum"},
-                                    {"data": null}
+                                    {"data": "operateCommand"},
+                                    {"data": "deviceLogCreateTime"},
+                                    {"data": "deviceLogUpdateTime"},
                                 ],
                                 "columnDefs": [
                                     {
@@ -255,82 +185,6 @@
                                         "render": function (data, type, row) {
                                             return '<td>' + data + '</td>';
                                         }
-
-                                    },
-                                    {
-                                        "targets": 3,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
-
-                                    },
-                                    {
-                                        "targets": 4,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
-
-                                    },
-                                    {
-                                        "targets": 5,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
-
-                                    },
-                                    {
-                                        "targets": 6,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
-
-                                    },
-                                    {
-                                        "targets": 7,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
-
-                                    },
-                                    {
-                                        "targets": -1,
-                                        "orderable": false,
-                                        data: null,
-                                        "render": function (data, type, row) {
-                                            return '<div class="hidden-sm hidden-xs action-buttons">'
-                                                    [# sec:authorize="hasAuthority('devicelog:view')"]
-                                            + '<a class="blue" href="detail/?id='+data.deviceLogId+'"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
-                                                    [/]
-                                            [# sec:authorize="hasAuthority('devicelog:edit')"]
-                                            + '<a class="green" href="edit/?id='+data.deviceLogId+'"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
-                                                    [/]
-                                            [# sec:authorize="hasAuthority('devicelog:delete')"]
-                                            + '<a class="red delete" data-id="'+data.deviceLogId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
-                                                    [/]
-                                            + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
-                                            + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
-                                                    [# sec:authorize="hasAuthority('devicelog:view')"]
-                                            + '<li><a href="detail/?id='+data.deviceLogId+'" class="tooltip-info" data-rel="tooltip" title="查看"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
-                                                    [/]
-                                            [# sec:authorize="hasAuthority('devicelog:edit')"]
-                                            + '<li><a href="edit/?id='+data.deviceLogId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
-                                                    [/]
-                                            [# sec:authorize="hasAuthority('devicelog:delete')"]
-                                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.deviceLogId+'"><span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
-                                                    [/]
-                                            +'</ul></div></div>';
-                                        }
-
                                     }
                                 ],
                                 select: {

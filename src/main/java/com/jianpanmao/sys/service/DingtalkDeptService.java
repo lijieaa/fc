@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface DingtalkDeptService extends BaseService<DingtalkDept, DingtalkDeptExample,DingtalkDeptDto,Integer>{
     List<DingtalkDept> selectByPath(String path);
+    List<DingtalkDept> selectByLikeName(String deptName);
 }

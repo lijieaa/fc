@@ -6,11 +6,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jianpanmao.Application;
 import com.jianpanmao.attach.entity.Attach;
 import com.jianpanmao.attach.service.AttachService;
+import com.jianpanmao.sys.entity.DingtalkUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -36,6 +42,15 @@ public class CommonController{
     @RequestMapping("upload")
     public String upload(){
         return "upload";
+    }
+
+
+    @RequestMapping("editIntermediary")
+    public String editIntermediary(Model model){
+        DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+        Integer intermediaryId = user.getIntermediaryId();
+        model.addAttribute("id", intermediaryId);
+        return "intermediary/intermediary_edit";
     }
 
     @Autowired
@@ -108,6 +123,8 @@ public class CommonController{
             gateway.sendToMqtt(s,"topic"+i);
         }*/
 
+
+        gateway.sendToMqtt(s,"/Control/json");
 
 
         Map rdata=new HashMap<>();
