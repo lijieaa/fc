@@ -92,8 +92,8 @@
                                 <h5>控制操作</h5>
                                 <div>
                                     <span>设备远程启停：</span>
-                                    <span class="btn-control" v-bind:class="{ active: control.clean }" @click="IsClean()">启动清洗</span>
-                                    <span class="btn-control" v-bind:class="{ active: !control.clean }" @click="IsClean()"> 停止清洗</span>
+                                    <span class="btn-control" v-bind:class="{ active: remoteBoot}" @click="IsClean()">启动清洗</span>
+                                    <span class="btn-control" v-bind:class="{ active: !remoteBoot}" @click="IsClean()"> 停止清洗</span>
                                 </div>
                             </div>
                             <div class="alert alert-info">
@@ -376,7 +376,7 @@
                                                 单元冲洗时间</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceUserParam.unitTime" style="width: 50px"
+                                                    <input type="text"  v-model="deviceUserParam.clearTime" style="width: 50px"
                                                            name="unitTime" v-on:change="changeNum(0,999,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                                                            onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒&nbsp;&nbsp;&nbsp;&nbsp;
@@ -492,7 +492,7 @@
                                                 年</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceUserParam.systemTime.year" style="width: 50px"
+                                                    <input type="text"  v-model="systemTime.year" style="width: 50px"
                                                            name="year" v-on:change="changeNum(1900,2099,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                                                            onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;
@@ -504,7 +504,7 @@
                                                 月</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceUserParam.systemTime.month" style="width: 50px"
+                                                    <input type="text"  v-model="systemTime.month" style="width: 50px"
                                                            name="month"
                                                            v-on:change="changeNum(1,12,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
@@ -517,7 +517,7 @@
                                                 日</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceUserParam.systemTime.day" style="width: 50px"
+                                                    <input type="text"  v-model="systemTime.day" style="width: 50px"
                                                            name="day"
                                                            v-on:change="changeNum(1,31,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
@@ -530,7 +530,7 @@
                                                 时</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceUserParam.systemTime.hour" style="width: 50px"
+                                                    <input type="text"  v-model="systemTime.hour" style="width: 50px"
                                                            name="hour"
                                                            v-on:change="changeNum(0,23,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
@@ -543,7 +543,7 @@
                                                 分</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceUserParam.systemTime.minute" style="width: 50px"
+                                                    <input type="text"  v-model="systemTime.minute" style="width: 50px"
                                                            name="minute"
                                                            v-on:change="changeNum(0,59,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
@@ -556,7 +556,7 @@
                                                 秒</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceUserParam.systemTime.second" style="width: 50px"
+                                                    <input type="text"  v-model="systemTime.second" style="width: 50px"
                                                            name="second"
                                                            v-on:change="changeNum(0,59,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
@@ -626,6 +626,7 @@
                     minute:"",
                     second:""
                 },
+                remoteBoot:"",
                 deviceProductionNum:"",
                 projectName:"",
                 operateUserName:"",
@@ -684,6 +685,7 @@
                 },
                 deviceUserParam:{
                     clearCyc:"",
+                    clearTime:"",
                     unitInterval:"",
                     mainValveDelayTime:"",
                     pDelayTime:"",
@@ -692,19 +694,20 @@
                     pWarning:"",
                     powerCyc:"",
                     pPowerThreshold:"",
-                    systemTime:{
-                        year:"",
-                        month:"",
-                        day:"",
-                        hour:"",
-                        minute:"",
-                        second:""
-                    }
+
+                },
+                systemTime:{
+                    year:"",
+                    month:"",
+                    day:"",
+                    hour:"",
+                    minute:"",
+                    second:""
                 }
             },
             methods:{
                 IsClean:function(){
-                    this.control.clean = !this.control.clean;
+                    this.remoteBoot = !this.remoteBoot;
                 },
                 IsPower:function(){
                     this.deviceParam.motor = !this.deviceParam.motor;
@@ -713,10 +716,10 @@
                     this.deviceParam.strokeSwitch = !this.deviceParam.strokeSwitch;
                 },
                 IsYcOff:function(){
-                    this.deviceParam.mainF = !this.deviceParam.mainF;
+                    this.deviceParam.pSwitch = !this.deviceParam.pSwitch;
                 }
                 ,IsMainF:function(){
-                    this.deviceParam.mainF = !this.deviceParam.mainF;
+                    this.deviceParam.mainValve = !this.deviceParam.mainValve;
                 },
                 IsUnite1:function(){
                     this.deviceParam.unit1 = !this.deviceParam.unit1;
@@ -793,6 +796,8 @@
                         // console.log(data);
                         _this.deviceParam.deviceType = data.content.deviceParam.deviceType;
                         _this.deviceParam.power = _this.IsFlag(data.content.deviceParam.motor);
+                        _this.remoteBoot = _this.IsFlag(data.content.remoteBoot);
+
                         _this.deviceParam.strokeSwitch = _this.IsFlag(data.content.deviceParam.strokeSwitch);
                         _this.deviceParam.mainValve = _this.IsFlag(data.content.deviceParam.mainValve);
                         _this.deviceParam.motorTime = data.content.deviceParam.motorTime;
@@ -810,7 +815,7 @@
                         _this.deviceParam.unit10 = _this.IsFlag(data.content.deviceParam.unit10);
 
                         _this.deviceUserParam.clearCyc = data.content.deviceUserParam.clearCyc;
-                        _this.deviceUserParam.unitTime = data.content.deviceUserParam.unitTime;
+                        _this.deviceUserParam.clearTime = data.content.deviceUserParam.clearTime;
                         _this.deviceUserParam.unitInterval = data.content.deviceUserParam.unitInterval;
                         _this.deviceUserParam.mainValveDelayTime = data.content.deviceUserParam.mainValveDelayTime;
                         _this.deviceUserParam.pDelayTime = data.content.deviceUserParam.pDelayTime;
@@ -820,12 +825,12 @@
                         _this.deviceUserParam.powerCyc = data.content.deviceUserParam.powerCyc;
                         _this.deviceUserParam.pPowerThreshold = data.content.deviceUserParam.pPowerThreshold;
 
-                        _this.deviceUserParam.systemTime.year = data.content.deviceUserParam.systemTime.year;
-                        _this.deviceUserParam.systemTime.month = data.content.deviceUserParam.systemTime.month;
-                        _this.deviceUserParam.systemTime.day = data.content.deviceUserParam.systemTime.day;
-                        _this.deviceUserParam.systemTime.hour = data.content.deviceUserParam.systemTime.hour;
-                        _this.deviceUserParam.systemTime.minute = data.content.deviceUserParam.systemTime.minute;
-                        _this.deviceUserParam.systemTime.second = data.content.deviceUserParam.systemTime.second;
+                        _this.systemTime.year = data.content.systemTime.year;
+                        _this.systemTime.month = data.content.systemTime.month;
+                        _this.systemTime.day = data.content.systemTime.day;
+                        _this.systemTime.hour = data.content.systemTime.hour;
+                        _this.systemTime.minute = data.content.systemTime.minute;
+                        _this.systemTime.second = data.content.systemTime.second;
 
                     }
                 });
@@ -922,6 +927,7 @@
                     },
                     submitHandler: function (form) {
                         var data ={
+                            remoteBoot:_this.numDevice(_this.remoteBoot),
                             deviceParam:{
                                 // numDevice
                                 deviceType:_this.deviceParam.deviceType,
@@ -942,7 +948,8 @@
                                 unit9:_this.numDevice(_this.deviceParam.unit9),
                                 unit10:_this.numDevice(_this.deviceParam.unit10),
                             },
-                            deviceUserParam:_this.deviceUserParam
+                            deviceUserParam:_this.deviceUserParam,
+                            systemTime:_this.systemTime
                         };
                         console.log(data);
                         if($(".error").length == 0){
