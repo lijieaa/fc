@@ -49,6 +49,10 @@ public class DingtalkDeptServiceImpl extends BaseServiceImpl<DingtalkDept,Dingta
     @Override
     public int update(DingtalkDept record) {
 
+        DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+        record.setIntermediaryId(user.getIntermediaryId());
+
+
         DingtalkDept dingtalkDept = this.get(record.getId());
 
         String oldPath=dingtalkDept.getPath();
@@ -73,6 +77,7 @@ public class DingtalkDeptServiceImpl extends BaseServiceImpl<DingtalkDept,Dingta
 
         for (DingtalkDept dingtalkDept1 : dingtalkDepts) {
             dingtalkDept1.setPath(dingtalkDept1.getPath().replace(oldPath,record.getPath()));
+            dingtalkDept1.setIntermediaryId(user.getIntermediaryId());
             dingtalkDeptMapper.updatePath(dingtalkDept1);
         }
 
