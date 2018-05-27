@@ -81,8 +81,13 @@ public class DingtalkDeptRestController {
 
     @PreAuthorize("hasAuthority('dingtalkdept:view')")
     @RequestMapping(method = RequestMethod.GET, value = "pid")
-    public List<DingtalkDept> findByParentId(@RequestParam("pid") Integer pid) {
-        return dingtalkdeptService.selectByParentId(pid);
+    public Map findByParentId(@RequestParam("pid") Integer pid) {
+        Map map=new HashMap<>();
+        List<DingtalkDept> dingtalkDepts = dingtalkdeptService.selectByParentId(pid);
+        map.put("depts",dingtalkDepts);
+        List<DingtalkUser> users=dingtalkUserService.selectByDeptId(pid);
+        map.put("users",users);
+        return map;
     }
 
 

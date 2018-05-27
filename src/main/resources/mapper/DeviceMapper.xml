@@ -13,7 +13,8 @@
     <result column="device_location_y" property="deviceLocationY" jdbcType="VARCHAR"/>
     <result column="device_create_time" property="deviceCreateTime" jdbcType="TIMESTAMP"/>
     <result column="device_update_time" property="deviceUpdateTime" jdbcType="TIMESTAMP"/>
-    <result column="device_type" property="deviceType" javaType="java.lang.String"/>
+    <result column="device_type" property="deviceType" jdbcType="VARCHAR"/>
+    <result column="sys_time" property="sysTime" jdbcType="TIMESTAMP"></result>
     <association property="operateUser" javaType="com.jianpanmao.sys.entity.DingtalkUser">
       <id property="userid" column="o_user_id"></id>
       <result property="name" column="o_user_name"></result>
@@ -466,6 +467,10 @@
   and device.intermediary_id = #{0}
 </select>
 
+  <select id="byNum" resultMap="BaseResultMap">
+    SELECT * FROM device WHERE device_production_num = #{0}
+  </select>
+
 
 
 
@@ -526,4 +531,5 @@
   <select id="selectDeviceUserParam" resultMap="deviceUserParam">
       SELECT * FROM device_user_param WHERE device_production_num = #{0}
   </select>
+
 </mapper>

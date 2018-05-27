@@ -486,7 +486,7 @@
                 <b class="arrow"></b>
 
 
-                <ul class="submenu" th:include="~{fragments/submenu ::submenu(${m})}">
+                <ul class="submenu" th:include="~{fragments/submenu ::submenu(${m})}" th:if=" ${#strings.isEmpty(m.menuUrl)}">
 
                 </ul>
 

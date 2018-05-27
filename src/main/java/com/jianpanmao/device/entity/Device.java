@@ -6,6 +6,7 @@ import com.jianpanmao.sys.entity.DingtalkUser;
 import org.hibernate.validator.constraints.NotBlank;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -72,6 +73,16 @@ public class Device implements Serializable {
     private String deviceType;
 
     private String createTimeStr;
+
+    private Timestamp sysTime;
+
+    public Timestamp getSysTime() {
+        return sysTime;
+    }
+
+    public void setSysTime(Timestamp sysTime) {
+        this.sysTime = sysTime;
+    }
 
     public String getCreateTimeStr() {
         return createTimeStr;
