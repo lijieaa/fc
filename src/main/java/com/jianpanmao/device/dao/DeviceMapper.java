@@ -3,6 +3,8 @@ package com.jianpanmao.device.dao;
 import com.jianpanmao.common.dao.BaseDao;
 import com.jianpanmao.device.dto.DeviceDto;
 import com.jianpanmao.device.dto.DpDto;
+import com.jianpanmao.device.dto.control.DeviceParam;
+import com.jianpanmao.device.dto.control.DeviceUserParam;
 import com.jianpanmao.device.entity.Device;
 import com.jianpanmao.device.entity.DeviceExample;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,5 +18,10 @@ public interface DeviceMapper extends BaseDao<Device, DeviceExample, DeviceDto, 
     List<Device> findByProject(Integer projectId);
 
     void updateProjectId(DpDto dpDto);
+
     List<Device> homePageDevice(Integer intermediaryId);
+
+    /* 设备控制 */
+    DeviceParam selectDeviceParam(String num);
+    DeviceUserParam selectDeviceUserParam(String num);
 }

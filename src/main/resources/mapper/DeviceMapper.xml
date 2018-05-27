@@ -429,6 +429,7 @@
     <if test="transcribeUser!=null and transcribeUser.name!=null">and transcribeUser.name LIKE
       CONCAT('%',#{transcribeUser.name},'%')
     </if>
+    ORDER BY d.device_create_time DESC
   </select>
 
   <select id="findByProject" resultMap="BaseResultMap">
@@ -464,4 +465,65 @@
   and device.device_location_y !=''
   and device.intermediary_id = #{0}
 </select>
+
+
+
+
+
+
+
+
+
+  <!--设备控制-->
+
+  <!--设备参数-->
+  <resultMap id="deviceParam" type="com.jianpanmao.device.dto.control.DeviceParam">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="device_production_num" jdbcType="VARCHAR" property="deviceProductionNum"></result>
+    <result column="device_type" jdbcType="INTEGER" property="deviceType"></result>
+    <result column="motor" jdbcType="INTEGER" property="motor"></result>
+    <result column="stroke_switch" jdbcType="INTEGER" property="strokeSwitch"></result>
+    <result column="motor_time" jdbcType="INTEGER" property="motorTime"></result>
+    <result column="p_switch" jdbcType="INTEGER" property="pSwitch"></result>
+    <result column="voltage_warning" jdbcType="INTEGER" property="voltageWarning"></result>
+    <result column="main_valve" jdbcType="INTEGER" property="mainValve"></result>
+    <result column="unit1" jdbcType="INTEGER" property="unit1"></result>
+    <result column="unit2" jdbcType="INTEGER" property="unit2"></result>
+    <result column="unit3" jdbcType="INTEGER" property="unit3"></result>
+    <result column="unit4" jdbcType="INTEGER" property="unit4"></result>
+    <result column="unit5" jdbcType="INTEGER" property="unit5"></result>
+    <result column="unit6" jdbcType="INTEGER" property="unit6"></result>
+    <result column="unit7" jdbcType="INTEGER" property="unit7"></result>
+    <result column="unit8" jdbcType="INTEGER" property="unit8"></result>
+    <result column="unit9" jdbcType="INTEGER" property="unit9"></result>
+    <result column="unit10" jdbcType="INTEGER" property="unit10"></result>
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"></result>
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"></result>
+  </resultMap>
+
+  <select id="selectDeviceParam" resultMap="deviceParam">
+    SELECT * FROM device_param WHERE device_production_num = #{0}
+  </select>
+
+<!--用户参数-->
+  <resultMap id="deviceUserParam" type="com.jianpanmao.device.dto.control.DeviceUserParam">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="device_production_num" jdbcType="VARCHAR" property="deviceProductionNum"></result>
+    <result column="clear_cyc" jdbcType="INTEGER" property="clearCyc"></result>
+    <result column="unit_interval" jdbcType="INTEGER" property="unitInterval"></result>
+    <result column="main_valve_delay_time" jdbcType="INTEGER" property="mainValveDelayTime"></result>
+    <result column="p_delay_time" jdbcType="INTEGER" property="pDelayTime"></result>
+    <result column="p_threshold" jdbcType="INTEGER" property="pThreshold"></result>
+    <result column="p_clear_time" jdbcType="INTEGER" property="pClearTime"></result>
+    <result column="p_warning" jdbcType="INTEGER" property="pWarning"></result>
+    <result column="power_cyc" jdbcType="INTEGER" property="powerCyc"></result>
+    <result column="p_power_threshold" jdbcType="INTEGER" property="pPowerThreshold"></result>
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"></result>
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"></result>
+  </resultMap>
+
+
+  <select id="selectDeviceUserParam" resultMap="deviceUserParam">
+      SELECT * FROM device_user_param WHERE device_production_num = #{0}
+  </select>
 </mapper>
