@@ -13,7 +13,6 @@ public interface DingtalkUserMapper extends BaseDao<DingtalkUser, DingtalkUserEx
 
     DingtalkUser findByMobile(String mobile);
     List<DingtalkUser> idNameList(Integer intermediaryId);
-
     List<DingtalkUser> selectByDeptId(Integer deptId);
 
 

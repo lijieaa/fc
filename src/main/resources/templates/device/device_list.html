@@ -285,7 +285,9 @@
                                         "orderable": false,
                                         data: null,
                                         "render": function (data, type, row) {
-                                            return '<div class="hidden-sm hidden-xs action-buttons">'
+                                            return '<div class="hidden-sm hi' +
+                                                '' +
+                                                'dden-xs action-buttons">'
                                                     [# sec:authorize="hasAuthority('device:view')"] //控制
                                             + '<a class="blue" href="detail/?id='+data.deviceId+'" title="控制"><i class="ace-icon fa fa-cogs bigger-130"></i></a>'
                                                     [/]

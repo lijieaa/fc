@@ -2,153 +2,54 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <body layout:fragment="content">
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-12" id="editDevice">
         <div class="row">
             <form class="form-horizontal" id="form" method="post">
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="deviceType">deviceType:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="deviceType" id="deviceType" class="col-xs-12 col-sm-6" />
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right">所属项目:</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                            <!--<input type="text" name="deviceType" id="deviceType" class="col-xs-12 col-sm-6" />-->
+                            <select class="form-control" name="projectName" v-model="selectProject">
+                                <option :value="item1.projectId" v-for="item1 in projectName">{{item1.projectName}}</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="manufacturerId">manufacturerId:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="manufacturerId" id="manufacturerId" class="col-xs-12 col-sm-6" />
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right">操作员:</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                            <!--<input type="text" name="manufacturerId" id="manufacturerId" class="col-xs-12 col-sm-6" />-->
+                            <select class="form-control" name="operateUserName" v-model="selectOperate">
+                                <option :value="item1.userid" v-for="item1 in userList">{{item1.name}}</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="userName">userName:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="userName" id="userName" class="col-xs-12 col-sm-6" />
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right">抄表员:</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                            <!--<input type="text" name="userName" id="userName" class="col-xs-12 col-sm-6" />-->
+                            <select class="form-control" name="transcribeUserName" v-model="selectTranscribe">
+                                <option :value="item1.userid" v-for="item1 in userList">{{item1.name}}</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="deviceStatus">deviceStatus:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="deviceStatus" id="deviceStatus" class="col-xs-12 col-sm-6" />
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right">指定中间商:</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                            <!--<input type="text" name="deviceStatus" id="deviceStatus" class="col-xs-12 col-sm-6" />-->
+                            <select class="form-control" name="intermediaryName"  v-model="selectIntermediary">
+                                <option :value="item.intermediaryId" v-for="item in intermediaryName">{{item.intermediaryName}}</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-
-    <input type="hidden" name="deviceId"  id="deviceId">
-
-
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="password">password:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="password" id="password" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="deviceUpdateTime">deviceUpdateTime:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="deviceUpdateTime" id="deviceUpdateTime" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="deviceLocationX">deviceLocationX:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="deviceLocationX" id="deviceLocationX" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="deviceLocationY">deviceLocationY:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="deviceLocationY" id="deviceLocationY" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="operateUserId">operateUserId:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="operateUserId" id="operateUserId" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="transcribeUserId">transcribeUserId:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="transcribeUserId" id="transcribeUserId" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectId">projectId:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="projectId" id="projectId" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryId">intermediaryId:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="intermediaryId" id="intermediaryId" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="deviceProductionNum">deviceProductionNum:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="deviceProductionNum" id="deviceProductionNum" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="deviceCreateTime">deviceCreateTime:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="deviceCreateTime" id="deviceCreateTime" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
+                <input type="hidden" name="deviceId"  id="deviceId">
                 <div class="space-4"></div>
                 <div class="clearfix form-actions">
                     <div class="col-md-offset-3 col-md-9">
@@ -158,12 +59,13 @@
                         </button>
 
                         &nbsp; &nbsp; &nbsp;
-                        <button class="btn" type="reset">
+                        <button class="btn" @click="resetData">
                             <i class="ace-icon fa fa-undo bigger-110"></i>
                             重置
                         </button>
                     </div>
                 </div>
+
             </form>
         </div>
         <!-- PAGE CONTENT ENDS -->
@@ -174,107 +76,144 @@
 
     jQuery(function($) {
         var id=[[${id}]];
-        $.ajax({
-            url: contextPath+"api/device?id="+id,
-            method: "get",
-            success: function (data) {
-                $('#form').autofill(data.content);
+
+        new Vue({
+            el:"#editDevice",
+            data:{
+                projectName:"",
+                // operateUserName:"",
+                userList:"",
+                intermediaryName:"",
+                selectProject:"",
+                selectOperate:"",
+                selectTranscribe:"",
+                selectIntermediary:""
             },
-            error: function (data) {
-                console.log("查询数据出错！");
-            }
-        })
-
-
-
-
-        var $form = $('#form').validate({
-            errorElement: 'div',
-            errorClass: 'help-block',
-            focusInvalid: false,
-            ignore: "",
-            rules: {
-                deviceType: {
-                    required: true
-                },
-                manufacturerId: {
-                    required: true
-                },
-                userName: {
-                    required: true
-                },
-                deviceStatus: {
-                    required: true
-                },
-                password: {
-                    required: true
-                },
-                deviceUpdateTime: {
-                    required: true
-                },
-                deviceLocationX: {
-                    required: true
-                },
-                deviceLocationY: {
-                    required: true
-                },
-                operateUserId: {
-                    required: true
-                },
-                transcribeUserId: {
-                    required: true
-                },
-                projectId: {
-                    required: true
-                },
-                intermediaryId: {
-                    required: true
-                },
-                deviceProductionNum: {
-                    required: true
-                },
-                deviceCreateTime: {
-                    required: true
-                },
+            methods:{
+                resetData:function(){
+                    this.selectProject = "";
+                    this.selectOperate = "";
+                    this.selectTranscribe = "";
+                    this.selectIntermediary = "";
+                }
             },
-            
-            highlight: function (e) {
-                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-            },
-
-            success: function (e) {
-                $(e).closest('.form-group').removeClass('has-error');
-                $(e).remove();
-            },
-
-            errorPlacement: function (error, element) {
-                 error.insertAfter(element.parent());
-            },
-
-            submitHandler: function (form) {
-
-                var data = $(form).serializeObject();
-
+            mounted:function(){
+                var _this = this;
+                //页面初始化查询数据
                 $.ajax({
-                    url: contextPath+"api/device/",
-                    method: "put",
-                    data : JSON.stringify(data),
-                    contentType: "application/json",
-                    dataType : "json",
+                    url: contextPath+"api/device/"+id+"",
+                    method: "get",
                     success: function (data) {
-                        location.href=contextPath+"device/list";
+                        _this.selectProject = data.content.project.projectId;
+                        _this.selectOperate = data.content.operateUser.userid;
+                        _this.selectTranscribe = data.content.transcribeUser.userid;
+                        _this.selectIntermediary = data.content.intermediary.intermediaryId;
                     },
                     error: function (data) {
-                        console.log(data);
+                        console.log("查询数据出错！");
                     }
-                })
+                });
+
+                //    项目下拉
+                $.ajax({
+                    url:contextPath+"api/project/idNameList",
+                    type:"get",
+                    success:function (data) {
+                        _this.projectName = data.content;
+                        _this.operateUserName = data.content;
+                        _this.transcribeUserName = data.content;
+                    }
+                });
+                // 中间商下拉
+                $.ajax({
+                    url: contextPath+"api/intermediary/idNameList",
+                    type:"get",
+                    success:function (data) {
+                        _this.intermediaryName = data.content;
+                    }
+                });
+
+                //操作员，抄表员
+                $.ajax({
+                    url:contextPath+"api/dingtalkuser/idNameList",
+                    type:"get",
+                    success:function(data){
+                        _this.userList = data.content
+                    }
+                });
+
+                var $form = $('#form').validate({
+                    errorElement: 'div',
+                    errorClass: 'help-block',
+                    focusInvalid: false,
+                    ignore: "",
+                    rules: {
+                        projectName: {
+                            required: true
+                        },
+                        operateUserName: {
+                            required: true
+                        },
+                        transcribeUserName: {
+                            required: true
+                        },
+                        intermediaryName: {
+                            required: true
+                        }
+                    },
+                    highlight: function (e) {
+                        $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                    },
+                    success: function (e) {
+                        $(e).closest('.form-group').removeClass('has-error');
+                        $(e).remove();
+                    },
+                    errorPlacement: function (error, element) {
+                        error.insertAfter(element.parent());
+                    },
+                    submitHandler: function (form) {
+                        var data = {
+                            deviceId:id,
+                            operateUser:{
+                                userid:_this.selectOperate
+                            },
+                            transcribeUser:{
+                                userid:_this.selectTranscribe
+                            },
+                            project:{
+                                projectId:_this.selectProject
+                            },
+                            intermediary:{
+                                intermediaryId:_this.selectIntermediary
+                            }
+                        };
+                        $.ajax({
+                            url: contextPath+"api/device",
+                            method: "put",
+                            data : JSON.stringify(data),
+                            contentType: "application/json",
+                            dataType : "json",
+                            success: function (data) {
+                                if(data.status == 200){
+                                    location.href=contextPath+"device/list";
+                                }
+
+                            },
+                            error: function (data) {
+                                console.log(data);
+                            }
+                        })
 
 
-            },
-            invalidHandler: function (form) {
+                    },
+                    invalidHandler: function (form) {
 
+                    }
+                });
             }
         });
+
+
     })
 </script>
 </body>
