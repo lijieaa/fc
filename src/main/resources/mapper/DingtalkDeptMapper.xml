@@ -110,6 +110,8 @@
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from dingtalk_dept
     where id =#{id,jdbcType=INTEGER} or path LIKE concat('%',#{id,jdbcType=INTEGER},'%');
+
+    DELETE from dingtalk_user_dept where dept_id=#{id,jdbcType=INTEGER}
   </delete>
     <delete id="deleteByExample" parameterType="com.jianpanmao.sys.entity.DingtalkDeptExample">
         delete from dingtalk_dept
@@ -466,6 +468,8 @@
         `order` = #{order}
         WHERE id = #{id}
     </update>
+
+
 
 
 </mapper>
