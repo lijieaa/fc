@@ -6,6 +6,10 @@ import com.jianpanmao.common.entity.DataTablesResponseEntity;
 import com.jianpanmao.device.dao.DeviceMapper;
 import com.jianpanmao.device.dto.DeviceDto;
 import com.jianpanmao.device.dto.DpDto;
+import com.jianpanmao.device.dto.control.DeviceControlVo;
+import com.jianpanmao.device.dto.control.DeviceParam;
+import com.jianpanmao.device.dto.control.DeviceUserParam;
+import com.jianpanmao.device.dto.control.SystemTime;
 import com.jianpanmao.device.entity.Device;
 import com.jianpanmao.device.service.DeviceService;
 import com.jianpanmao.sys.entity.DingtalkUser;
@@ -15,6 +19,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.validation.Valid;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -100,5 +108,32 @@ public class DeviceRestController {
         DingtalkUser user = UserUtils.getUser();
         return deviceMapper.homePageDevice(user.getIntermediary().getIntermediaryId());
     }
+
+    @PreAuthorize("hasAuthority('device:view')")
+    @GetMapping("deviceControl")
+    public DeviceControlVo deviceControl(String num) {
+        DeviceControlVo deviceControlVo = new DeviceControlVo();
+        deviceControlVo.setRemoteBoot(1);
+        DeviceParam deviceParam = deviceMapper.selectDeviceParam(num);//设备参数
+        DeviceUserParam deviceUserParam = deviceMapper.selectDeviceUserParam(num);//用户参数
+        deviceControlVo.setDeviceParam(deviceParam);
+        deviceControlVo.setDeviceUserParam(deviceUserParam);
+
+        Device device = deviceMapper.byNum(num);
+        Timestamp timestamp = device.getSysTime();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(timestamp);
+        SystemTime systemTime = new SystemTime();
+        systemTime.setYear(calendar.get(Calendar.YEAR));
+        systemTime.setMonth(calendar.get(Calendar.MONTH)+1);
+        systemTime.setDay(calendar.get(Calendar.DAY_OF_MONTH));
+        systemTime.setHour(calendar.get(Calendar.HOUR_OF_DAY));
+        systemTime.setMinute(calendar.get(Calendar.MINUTE));
+        systemTime.setSecond(calendar.get(Calendar.SECOND));
+        deviceControlVo.setSystemTime(systemTime);
+        return deviceControlVo;
+    }
+
+
 
 }

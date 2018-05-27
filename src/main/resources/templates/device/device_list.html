@@ -285,11 +285,13 @@
                                         "orderable": false,
                                         data: null,
                                         "render": function (data, type, row) {
+                                            console.log(data);
                                             return '<div class="hidden-sm hi' +
                                                 '' +
                                                 'dden-xs action-buttons">'
                                                     [# sec:authorize="hasAuthority('device:view')"] //控制
-                                            + '<a class="blue" href="detail/?id='+data.deviceId+'" title="控制"><i class="ace-icon fa fa-cogs bigger-130"></i></a>'
+                                            // data.deviceId  deviceProductionNum
+                                            + '<a class="blue" href="detail/?id='+data.deviceId+'#deviceProductionNum='+data.deviceProductionNum+'" title="控制"><i class="ace-icon fa fa-cogs bigger-130"></i></a>'
                                                     [/]
                                                 [# sec:authorize="hasAuthority('device:view')"] //日志
                                             + '<a class="blue" href="../devicelog/list/?id='+data.deviceId+'" title="日志"><i class="ace-icon fa fa-envelope bigger-130"></i></a>'
@@ -303,7 +305,7 @@
                                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
                                                     [# sec:authorize="hasAuthority('device:view')"]
-                                            + '<li><a href="detail/?id='+data.deviceId+'" class="tooltip-info" data-rel="tooltip" title="控制"><span class="blue"><i class="ace-icon fa fa-cogs bigger-120"></i></span></a></li>'
+                                            + '<li><a href="detail/?id='+data.deviceId+'#deviceProductionNum='+data.deviceProductionNum+'" class="tooltip-info" data-rel="tooltip" title="控制"><span class="blue"><i class="ace-icon fa fa-cogs bigger-120"></i></span></a></li>'
                                                     [/]
                                                 [# sec:authorize="hasAuthority('device:view')"]
                                             + '<li><a href="../devicelog/list/?id='+data.deviceId+'" class="tooltip-info" data-rel="tooltip" title="日志"><span class="blue"><i class="ace-icon fa fa-envelope bigger-120"></i></span></a></li>'
