@@ -10,6 +10,7 @@ public class DeviceUserParam {
     private Long id;
     private String deviceProductionNum;
     private Integer clearCyc;
+    private Integer clearTime;
     private Integer unitInterval;
     private Integer mainValveDelayTime;
     private Integer pDelayTime;
@@ -20,6 +21,14 @@ public class DeviceUserParam {
     private Integer pPowerThreshold;
     private Date updateTime;
     private Date createTime;
+
+    public Integer getClearTime() {
+        return clearTime;
+    }
+
+    public void setClearTime(Integer clearTime) {
+        this.clearTime = clearTime;
+    }
 
     public Long getId() {
         return id;

@@ -76,6 +76,16 @@ public class Device implements Serializable {
 
     private Timestamp sysTime;
 
+    private Integer startOff;
+
+    public Integer getStartOff() {
+        return startOff;
+    }
+
+    public void setStartOff(Integer startOff) {
+        this.startOff = startOff;
+    }
+
     public Timestamp getSysTime() {
         return sysTime;
     }

@@ -15,6 +15,7 @@
     <result column="device_update_time" property="deviceUpdateTime" jdbcType="TIMESTAMP"/>
     <result column="device_type" property="deviceType" jdbcType="VARCHAR"/>
     <result column="sys_time" property="sysTime" jdbcType="TIMESTAMP"></result>
+    <result column="start_off" property="startOff" jdbcType="INTEGER"></result>
     <association property="operateUser" javaType="com.jianpanmao.sys.entity.DingtalkUser">
       <id property="userid" column="o_user_id"></id>
       <result property="name" column="o_user_name"></result>
@@ -467,6 +468,7 @@
   and device.intermediary_id = #{0}
 </select>
 
+  <!--通过编号查询设备-->
   <select id="byNum" resultMap="BaseResultMap">
     SELECT * FROM device WHERE device_production_num = #{0}
   </select>
@@ -515,6 +517,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="device_production_num" jdbcType="VARCHAR" property="deviceProductionNum"></result>
     <result column="clear_cyc" jdbcType="INTEGER" property="clearCyc"></result>
+    <result column="clear_time" jdbcType="INTEGER" property="clearTime"></result>
     <result column="unit_interval" jdbcType="INTEGER" property="unitInterval"></result>
     <result column="main_valve_delay_time" jdbcType="INTEGER" property="mainValveDelayTime"></result>
     <result column="p_delay_time" jdbcType="INTEGER" property="pDelayTime"></result>

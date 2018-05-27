@@ -112,14 +112,15 @@ public class DeviceRestController {
     @PreAuthorize("hasAuthority('device:view')")
     @GetMapping("deviceControl")
     public DeviceControlVo deviceControl(String num) {
+        Device device = deviceMapper.byNum(num);
         DeviceControlVo deviceControlVo = new DeviceControlVo();
-        deviceControlVo.setRemoteBoot(1);
+        deviceControlVo.setRemoteBoot(device.getStartOff());
         DeviceParam deviceParam = deviceMapper.selectDeviceParam(num);//设备参数
         DeviceUserParam deviceUserParam = deviceMapper.selectDeviceUserParam(num);//用户参数
         deviceControlVo.setDeviceParam(deviceParam);
         deviceControlVo.setDeviceUserParam(deviceUserParam);
 
-        Device device = deviceMapper.byNum(num);
+
         Timestamp timestamp = device.getSysTime();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(timestamp);
