@@ -21,6 +21,8 @@ public interface DeviceMapper extends BaseDao<Device, DeviceExample, DeviceDto, 
 
     List<Device> homePageDevice(Integer intermediaryId);
 
+    Device byNum(String num);
+
     /* 设备控制 */
     DeviceParam selectDeviceParam(String num);
     DeviceUserParam selectDeviceUserParam(String num);
