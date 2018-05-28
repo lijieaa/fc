@@ -172,7 +172,7 @@
                                                 电压告警值</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceParam.voltageWarning" style="width: 50px"
+                                                    <input type="text"  v-model="deviceParam.voltage_warning" style="width: 50px"
                                                            name="power" v-on:change="changeNum(0,99,$event)" onkeyup="this.value=this.value.replace(/\D/g,'')"
                                                            onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;V&nbsp;&nbsp;&nbsp;&nbsp;
                                                 </div>
@@ -589,44 +589,6 @@
         new Vue({
             el:"#deviceControl",
             data:{
-                control:{
-                    clean:true,
-                    power:true,
-                    route:true,
-                    ycOff:true,
-                    mainF:true,
-                    unite1:true,
-                    unite2:true,
-                    unite3:true,
-                    unite4:true,
-                    unite5:true,
-                    unite6:true,
-                    unite7:true,
-                    unite8:true,
-                    unite9:true,
-                    unite10:true
-                },
-                inputList:{
-                    project:"",
-                    time:"",
-                    power:"",
-                    clean:"",
-                    unitTime:"",
-                    jgTime:"",
-                    ysTime:"",
-                    ycTime:"",
-                    startYc:"",
-                    cleanTime:"",
-                    cleanAlarm:"",
-                    actionZq:"",
-                    powerStart:"",
-                    year:"",
-                    month:"",
-                    day:"",
-                    hour:"",
-                    minute:"",
-                    second:""
-                },
                 remoteBoot:"",
                 deviceProductionNum:"",
                 projectName:"",
@@ -773,14 +735,14 @@
                     }
                 },
                 IsFlag:function(stattus){
-                    if(stattus == 1) {
+                    if(stattus == 0) {
                         return true;
                     }else{
                         return false;
                     }
                 },
                 numDevice:function(num){
-                    if(num == true) {
+                    if(num == false) {
                         return 1;
                     }else{
                         return 0;
@@ -796,7 +758,7 @@
                     success:function(data){
                         // console.log(data);
                         _this.deviceParam.device_type = data.content.deviceParam.device_type;
-                        _this.deviceParam.power = _this.IsFlag(data.content.deviceParam.motor);
+                        _this.deviceParam.motor = _this.IsFlag(data.content.deviceParam.motor);
                         _this.remoteBoot = _this.IsFlag(data.content.remoteBoot);
 
                         _this.deviceParam.stroke_switch = _this.IsFlag(data.content.deviceParam.stroke_switch);
@@ -934,9 +896,9 @@
                                 device_type:_this.deviceParam.device_type,
                                 motor:_this.numDevice(_this.deviceParam.motor),
                                 stroke_switch:_this.numDevice(_this.deviceParam.stroke_switch),
-                                motor_time:_this.numDevice(_this.deviceParam.motor_time),
+                                motor_time:_this.deviceParam.motor_time,
                                 p_switch:_this.numDevice(_this.deviceParam.p_switch),
-                                voltage_warning:_this.numDevice(_this.deviceParam.voltage_warning),
+                                voltage_warning:_this.deviceParam.voltage_warning,
                                 main_valve:_this.numDevice(_this.deviceParam.main_valve),
                                 unit1:_this.numDevice(_this.deviceParam.unit1),
                                 unit2:_this.numDevice(_this.deviceParam.unit2),
