@@ -79,8 +79,11 @@
                 console.log("error");
             },
             //完成请求后触发。即在success或error触发后触发
-            complete: function (xhr, status) {
-                console.log("complete");
+            complete: function (event,xhr,options) {
+
+                if (xhr.responseText == 'timeout') { //超时标识
+                    location.href='/login'; //跳转到登录页面
+                }
             },
             //发送请求前触发
             beforeSend: function (xhr,ajax) {

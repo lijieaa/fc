@@ -41,12 +41,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 //.anyRequest().permitAll()
                 .and()
-                .formLogin()
+                .sessionManagement().maximumSessions(100).expiredUrl("/session_timeout");
+
+
+        http .formLogin()
                 .loginPage("/login")
                 .failureUrl("/login?error=true")
                 .successHandler(loginSuccessHandler)
                 .permitAll()
-                .and()
+                       .and()
                 .logout()
                 .permitAll();
     }

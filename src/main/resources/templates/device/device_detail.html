@@ -955,7 +955,7 @@
                         if($(".error").length == 0){
                             $.ajax({
                                 url: contextPath+"api/mqtt_send",
-                                method: "put",
+                                method: "post",
                                 data : JSON.stringify(data),
                                 contentType: "application/json",
                                 dataType : "json",
