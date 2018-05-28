@@ -7,6 +7,7 @@ import com.jianpanmao.unit.ResponseEntity;
 import com.jianpanmao.utils.GsonUtils;
 import com.jianpanmao.utils.WxUtils;
 import com.jianpanmao.wechat.api.news.WxNewsContent;
+import com.jianpanmao.wechat.dto.VideoDTO;
 import com.jianpanmao.wechat.entity.WxMaterial;
 import com.jianpanmao.wechat.service.WxMaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,19 +83,12 @@ public class WxMaterialController {
 
     @GetMapping("detail")
     @ResponseBody
-    public String detail(String mediaId, Integer wxPublicId, HttpSession session){
-        ResponseEntity responseEntity = new ResponseEntity();
+    public VideoDTO detail(String mediaId, Integer wxPublicId, HttpSession session) throws Exception{
         String result = null;
-        try {
-            WxUtils.checkParam(session, wxPublicId);
-            String accessToken = WxUtils.getAccessToken(session, wxPublicId);
-            result = wxMaterialService.getMaterialDetail(accessToken, mediaId);
-        } catch (Exception e) {
-            responseEntity.setMessages(e.getMessage());
-            responseEntity.setStatus("500");
-            return GsonUtils.toJson(responseEntity);
-        }
-        return result;
+        WxUtils.checkParam(session, wxPublicId);
+        String accessToken = WxUtils.getAccessToken(session, wxPublicId);
+        result = wxMaterialService.getMaterialDetail(accessToken, mediaId);
+        return GsonUtils.toBean(result, VideoDTO.class);
     }
 
     @GetMapping("image/detail")
