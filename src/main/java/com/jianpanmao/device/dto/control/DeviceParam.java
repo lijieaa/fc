@@ -8,14 +8,14 @@ import java.util.Date;
  */
 public class DeviceParam {
     private Long id;
-    private String deviceProductionNum;
-    private Integer deviceType;
+    private String device_production_num;
+    private Integer device_type;
     private Integer motor;
-    private Integer strokeSwitch;
-    private Integer motorTime;
-    private Integer pSwitch;
-    private Integer voltageWarning;
-    private Integer mainValve;
+    private Integer stroke_switch;
+    private Integer motor_time;
+    private Integer p_switch;
+    private Integer voltage_warning;
+    private Integer main_valve;
     private Integer unit1;
     private Integer unit2;
     private Integer unit3;
@@ -26,8 +26,8 @@ public class DeviceParam {
     private Integer unit8;
     private Integer unit9;
     private Integer unit10;
-    private Date createTime;
-    private Date updateTime;
+    private Date create_time;
+    private Date update_time;
 
     public Long getId() {
         return id;
@@ -37,20 +37,20 @@ public class DeviceParam {
         this.id = id;
     }
 
-    public String getDeviceProductionNum() {
-        return deviceProductionNum;
+    public String getDevice_production_num() {
+        return device_production_num;
     }
 
-    public void setDeviceProductionNum(String deviceProductionNum) {
-        this.deviceProductionNum = deviceProductionNum;
+    public void setDevice_production_num(String device_production_num) {
+        this.device_production_num = device_production_num;
     }
 
-    public Integer getDeviceType() {
-        return deviceType;
+    public Integer getDevice_type() {
+        return device_type;
     }
 
-    public void setDeviceType(Integer deviceType) {
-        this.deviceType = deviceType;
+    public void setDevice_type(Integer device_type) {
+        this.device_type = device_type;
     }
 
     public Integer getMotor() {
@@ -61,44 +61,44 @@ public class DeviceParam {
         this.motor = motor;
     }
 
-    public Integer getStrokeSwitch() {
-        return strokeSwitch;
+    public Integer getStroke_switch() {
+        return stroke_switch;
     }
 
-    public void setStrokeSwitch(Integer strokeSwitch) {
-        this.strokeSwitch = strokeSwitch;
+    public void setStroke_switch(Integer stroke_switch) {
+        this.stroke_switch = stroke_switch;
     }
 
-    public Integer getMotorTime() {
-        return motorTime;
+    public Integer getMotor_time() {
+        return motor_time;
     }
 
-    public void setMotorTime(Integer motorTime) {
-        this.motorTime = motorTime;
+    public void setMotor_time(Integer motor_time) {
+        this.motor_time = motor_time;
     }
 
-    public Integer getpSwitch() {
-        return pSwitch;
+    public Integer getP_switch() {
+        return p_switch;
     }
 
-    public void setpSwitch(Integer pSwitch) {
-        this.pSwitch = pSwitch;
+    public void setP_switch(Integer p_switch) {
+        this.p_switch = p_switch;
     }
 
-    public Integer getVoltageWarning() {
-        return voltageWarning;
+    public Integer getVoltage_warning() {
+        return voltage_warning;
     }
 
-    public void setVoltageWarning(Integer voltageWarning) {
-        this.voltageWarning = voltageWarning;
+    public void setVoltage_warning(Integer voltage_warning) {
+        this.voltage_warning = voltage_warning;
     }
 
-    public Integer getMainValve() {
-        return mainValve;
+    public Integer getMain_valve() {
+        return main_valve;
     }
 
-    public void setMainValve(Integer mainValve) {
-        this.mainValve = mainValve;
+    public void setMain_valve(Integer main_valve) {
+        this.main_valve = main_valve;
     }
 
     public Integer getUnit1() {
@@ -181,19 +181,19 @@ public class DeviceParam {
         this.unit10 = unit10;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreate_time() {
+        return create_time;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Date getUpdate_time() {
+        return update_time;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setUpdate_time(Date update_time) {
+        this.update_time = update_time;
     }
 }

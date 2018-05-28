@@ -8,27 +8,19 @@ import java.util.Date;
  */
 public class DeviceUserParam {
     private Long id;
-    private String deviceProductionNum;
-    private Integer clearCyc;
-    private Integer clearTime;
-    private Integer unitInterval;
-    private Integer mainValveDelayTime;
-    private Integer pDelayTime;
-    private Integer pThreshold;
-    private Integer pClearTime;
-    private Integer pWarning;
-    private Integer powerCyc;
-    private Integer pPowerThreshold;
-    private Date updateTime;
-    private Date createTime;
-
-    public Integer getClearTime() {
-        return clearTime;
-    }
-
-    public void setClearTime(Integer clearTime) {
-        this.clearTime = clearTime;
-    }
+    private String device_production_num;
+    private Integer clear_cyc;
+    private Integer clear_time;
+    private Integer unit_interval;
+    private Integer main_valve_delay_time;
+    private Integer p_delay_time;
+    private Integer p_threshold;
+    private Integer p_clear_time;
+    private Integer p_warning;
+    private Integer power_cyc;
+    private Integer p_power_threshold;
+    private Date update_time;
+    private Date create_time;
 
     public Long getId() {
         return id;
@@ -38,99 +30,107 @@ public class DeviceUserParam {
         this.id = id;
     }
 
-    public String getDeviceProductionNum() {
-        return deviceProductionNum;
+    public String getDevice_production_num() {
+        return device_production_num;
     }
 
-    public void setDeviceProductionNum(String deviceProductionNum) {
-        this.deviceProductionNum = deviceProductionNum;
+    public void setDevice_production_num(String device_production_num) {
+        this.device_production_num = device_production_num;
     }
 
-    public Integer getClearCyc() {
-        return clearCyc;
+    public Integer getClear_cyc() {
+        return clear_cyc;
     }
 
-    public void setClearCyc(Integer clearCyc) {
-        this.clearCyc = clearCyc;
+    public void setClear_cyc(Integer clear_cyc) {
+        this.clear_cyc = clear_cyc;
     }
 
-    public Integer getUnitInterval() {
-        return unitInterval;
+    public Integer getClear_time() {
+        return clear_time;
     }
 
-    public void setUnitInterval(Integer unitInterval) {
-        this.unitInterval = unitInterval;
+    public void setClear_time(Integer clear_time) {
+        this.clear_time = clear_time;
     }
 
-    public Integer getMainValveDelayTime() {
-        return mainValveDelayTime;
+    public Integer getUnit_interval() {
+        return unit_interval;
     }
 
-    public void setMainValveDelayTime(Integer mainValveDelayTime) {
-        this.mainValveDelayTime = mainValveDelayTime;
+    public void setUnit_interval(Integer unit_interval) {
+        this.unit_interval = unit_interval;
     }
 
-    public Integer getpDelayTime() {
-        return pDelayTime;
+    public Integer getMain_valve_delay_time() {
+        return main_valve_delay_time;
     }
 
-    public void setpDelayTime(Integer pDelayTime) {
-        this.pDelayTime = pDelayTime;
+    public void setMain_valve_delay_time(Integer main_valve_delay_time) {
+        this.main_valve_delay_time = main_valve_delay_time;
     }
 
-    public Integer getpThreshold() {
-        return pThreshold;
+    public Integer getP_delay_time() {
+        return p_delay_time;
     }
 
-    public void setpThreshold(Integer pThreshold) {
-        this.pThreshold = pThreshold;
+    public void setP_delay_time(Integer p_delay_time) {
+        this.p_delay_time = p_delay_time;
     }
 
-    public Integer getpClearTime() {
-        return pClearTime;
+    public Integer getP_threshold() {
+        return p_threshold;
     }
 
-    public void setpClearTime(Integer pClearTime) {
-        this.pClearTime = pClearTime;
+    public void setP_threshold(Integer p_threshold) {
+        this.p_threshold = p_threshold;
     }
 
-    public Integer getpWarning() {
-        return pWarning;
+    public Integer getP_clear_time() {
+        return p_clear_time;
     }
 
-    public void setpWarning(Integer pWarning) {
-        this.pWarning = pWarning;
+    public void setP_clear_time(Integer p_clear_time) {
+        this.p_clear_time = p_clear_time;
     }
 
-    public Integer getPowerCyc() {
-        return powerCyc;
+    public Integer getP_warning() {
+        return p_warning;
     }
 
-    public void setPowerCyc(Integer powerCyc) {
-        this.powerCyc = powerCyc;
+    public void setP_warning(Integer p_warning) {
+        this.p_warning = p_warning;
     }
 
-    public Integer getpPowerThreshold() {
-        return pPowerThreshold;
+    public Integer getPower_cyc() {
+        return power_cyc;
     }
 
-    public void setpPowerThreshold(Integer pPowerThreshold) {
-        this.pPowerThreshold = pPowerThreshold;
+    public void setPower_cyc(Integer power_cyc) {
+        this.power_cyc = power_cyc;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Integer getP_power_threshold() {
+        return p_power_threshold;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setP_power_threshold(Integer p_power_threshold) {
+        this.p_power_threshold = p_power_threshold;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getUpdate_time() {
+        return update_time;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setUpdate_time(Date update_time) {
+        this.update_time = update_time;
+    }
+
+    public Date getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
     }
 };

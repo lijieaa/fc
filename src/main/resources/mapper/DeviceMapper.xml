@@ -486,14 +486,14 @@
   <!--设备参数-->
   <resultMap id="deviceParam" type="com.jianpanmao.device.dto.control.DeviceParam">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="device_production_num" jdbcType="VARCHAR" property="deviceProductionNum"></result>
-    <result column="device_type" jdbcType="INTEGER" property="deviceType"></result>
+    <result column="device_production_num" jdbcType="VARCHAR" property="device_production_num"></result>
+    <result column="device_type" jdbcType="INTEGER" property="device_type"></result>
     <result column="motor" jdbcType="INTEGER" property="motor"></result>
-    <result column="stroke_switch" jdbcType="INTEGER" property="strokeSwitch"></result>
-    <result column="motor_time" jdbcType="INTEGER" property="motorTime"></result>
-    <result column="p_switch" jdbcType="INTEGER" property="pSwitch"></result>
-    <result column="voltage_warning" jdbcType="INTEGER" property="voltageWarning"></result>
-    <result column="main_valve" jdbcType="INTEGER" property="mainValve"></result>
+    <result column="stroke_switch" jdbcType="INTEGER" property="stroke_switch"></result>
+    <result column="motor_time" jdbcType="INTEGER" property="motor_time"></result>
+    <result column="p_switch" jdbcType="INTEGER" property="p_switch"></result>
+    <result column="voltage_warning" jdbcType="INTEGER" property="voltage_warning"></result>
+    <result column="main_valve" jdbcType="INTEGER" property="main_valve"></result>
     <result column="unit1" jdbcType="INTEGER" property="unit1"></result>
     <result column="unit2" jdbcType="INTEGER" property="unit2"></result>
     <result column="unit3" jdbcType="INTEGER" property="unit3"></result>
@@ -504,8 +504,8 @@
     <result column="unit8" jdbcType="INTEGER" property="unit8"></result>
     <result column="unit9" jdbcType="INTEGER" property="unit9"></result>
     <result column="unit10" jdbcType="INTEGER" property="unit10"></result>
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"></result>
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"></result>
+    <result column="create_time" jdbcType="TIMESTAMP" property="create_time"></result>
+    <result column="update_time" jdbcType="TIMESTAMP" property="update_time"></result>
   </resultMap>
 
   <select id="selectDeviceParam" resultMap="deviceParam">
@@ -515,19 +515,19 @@
 <!--用户参数-->
   <resultMap id="deviceUserParam" type="com.jianpanmao.device.dto.control.DeviceUserParam">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="device_production_num" jdbcType="VARCHAR" property="deviceProductionNum"></result>
-    <result column="clear_cyc" jdbcType="INTEGER" property="clearCyc"></result>
-    <result column="clear_time" jdbcType="INTEGER" property="clearTime"></result>
-    <result column="unit_interval" jdbcType="INTEGER" property="unitInterval"></result>
-    <result column="main_valve_delay_time" jdbcType="INTEGER" property="mainValveDelayTime"></result>
-    <result column="p_delay_time" jdbcType="INTEGER" property="pDelayTime"></result>
-    <result column="p_threshold" jdbcType="INTEGER" property="pThreshold"></result>
-    <result column="p_clear_time" jdbcType="INTEGER" property="pClearTime"></result>
-    <result column="p_warning" jdbcType="INTEGER" property="pWarning"></result>
-    <result column="power_cyc" jdbcType="INTEGER" property="powerCyc"></result>
-    <result column="p_power_threshold" jdbcType="INTEGER" property="pPowerThreshold"></result>
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"></result>
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"></result>
+    <result column="device_production_num" jdbcType="VARCHAR" property="device_production_num"></result>
+    <result column="clear_cyc" jdbcType="INTEGER" property="clear_cyc"></result>
+    <result column="clear_time" jdbcType="INTEGER" property="clear_time"></result>
+    <result column="unit_interval" jdbcType="INTEGER" property="unit_interval"></result>
+    <result column="main_valve_delay_time" jdbcType="INTEGER" property="main_valve_delay_time"></result>
+    <result column="p_delay_time" jdbcType="INTEGER" property="p_delay_time"></result>
+    <result column="p_threshold" jdbcType="INTEGER" property="p_threshold"></result>
+    <result column="p_clear_time" jdbcType="INTEGER" property="p_clear_time"></result>
+    <result column="p_warning" jdbcType="INTEGER" property="p_warning"></result>
+    <result column="power_cyc" jdbcType="INTEGER" property="power_cyc"></result>
+    <result column="p_power_threshold" jdbcType="INTEGER" property="p_power_threshold"></result>
+    <result column="create_time" jdbcType="TIMESTAMP" property="create_time"></result>
+    <result column="update_time" jdbcType="TIMESTAMP" property="update_time"></result>
   </resultMap>
 
 
