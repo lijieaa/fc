@@ -133,4 +133,18 @@ public class CommonController{
 
         return rdata;
     }
+
+
+
+    @RequestMapping(value = "/session_timeout")
+    public void sessionTimeout(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        if (request.getHeader("x-requested-with") != null
+                && request.getHeader("x-requested-with").equalsIgnoreCase(
+                "XMLHttpRequest")) { // ajax 超时处理
+            response.getWriter().print("timeout");  //设置超时标识
+            response.getWriter().close();
+        } else {
+            response.sendRedirect("/login");
+        }
+    }
 }
