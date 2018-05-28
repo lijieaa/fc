@@ -124,19 +124,19 @@
 
         <th>业主联系电话</th>
 
-        <th>id</th>
+        <!--<th>id</th>-->
 
-        <th>创建人</th>
+        <!--<th>创建人</th>-->
 
-        <th>业主联系电话</th>
+        <!--<th>业主联系电话</th>-->
 
-        <th>名称</th>
+        <!--<th>名称</th>-->
 
-        <th>更新时间</th>
+        <!--<th>更新时间</th>-->
 
-        <th>业主联系人</th>
+        <!--<th>业主联系人</th>-->
 
-        <th>线索跟进状态</th>
+        <!--<th>线索跟进状态</th>-->
 
                                 <th></th>
                             </tr>
@@ -185,7 +185,7 @@
                                     }
                                     orderByClause = orderByClause.substr(0,orderByClause.lastIndexOf(","));
 
-                                    var param="?pageNum="+pageNum+"&pageSize="+pageSize+"&"+formData+"&draw="+draw+"&od="+orderByClause;
+                                    var param="?pageNum="+pageNum+"&pageSize="+pageSize+"&"+formData+"&draw="+draw+"&od="+orderByClause+"&projectStatus=1";
                                     $.ajax({
                                         "url": contextPath+"api/project/page"+param,
                                         "type": "get",
@@ -207,18 +207,11 @@
                                 },
                                 "columns": [
                                     {"data": null},
-        {"data": "projectContactUserId"},
-        {"data": "projectCreateTime"},
-        {"data": "projectStatus"},
-        {"data": "areaId"},
-        {"data": "projectLogo"},
-                                    {"data": "projectId"},
-        {"data": "projectCreateUserId"},
-        {"data": "projectOwnerContactTel"},
-        {"data": "projectName"},
-        {"data": "projectUpdateTime"},
-        {"data": "projectOwnerContact"},
-        {"data": "projectTopicStatus"},
+                                    {"data": ""},
+                                    {"data": "projectName"},
+                                    {"data": "projectContactUser.name"},
+                                    {"data": "projectOwnerContact"},
+                                    {"data": "projectOwnerContactTel"},
                                     {"data": null}
                                 ],
                                 "columnDefs": [
@@ -278,69 +271,8 @@
                                         }
 
                                     },
-                                    {
-                                        "targets": 6,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
 
-                                    },
-                                    {
-                                        "targets": 7,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
 
-                                    },
-                                    {
-                                        "targets": 8,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
-
-                                    },
-                                    {
-                                        "targets": 9,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
-
-                                    },
-                                    {
-                                        "targets": 10,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
-
-                                    },
-                                    {
-                                        "targets": 11,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
-
-                                    },
-                                    {
-                                        "targets": 12,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
-
-                                    },
                                     {
                                         "targets": -1,
                                         "orderable": false,
@@ -348,7 +280,7 @@
                                         "render": function (data, type, row) {
                                             return '<div class="hidden-sm hidden-xs action-buttons">'
                                                     [# sec:authorize="hasAuthority('project:view')"]
-                                            + '<a class="blue" href="detail/?id='+data.projectId+'"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
+                                            + '<a class="blue" href="detail/?id='+data.projectId+'" title="线索评论"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
                                                     [/]
                                             [# sec:authorize="hasAuthority('project:edit')"]
                                             + '<a class="green" href="edit/?id='+data.projectId+'"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
@@ -359,7 +291,7 @@
                                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
                                                     [# sec:authorize="hasAuthority('project:view')"]
-                                            + '<li><a href="detail/?id='+data.projectId+'" class="tooltip-info" data-rel="tooltip" title="查看"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
+                                            + '<li><a href="detail/?id='+data.projectId+'" class="tooltip-info" data-rel="tooltip" title="线索评论"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
                                                     [/]
                                             [# sec:authorize="hasAuthority('project:edit')"]
                                             + '<li><a href="edit/?id='+data.projectId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
@@ -517,7 +449,7 @@
             $('#dynamic-table tbody').on( 'click', 'a.delete', function () {
                 var id = $(this).attr('data-id');
                 bootbox.confirm( {
-                    message: "您真的要删除�?",
+                    message: "您真的要删除?",
                     buttons: {
                         confirm: {
                             label: '确定',
