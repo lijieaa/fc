@@ -1,5 +1,4 @@
 package com.jianpanmao.projectComments.dto;
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class ProjectCommentsDto {

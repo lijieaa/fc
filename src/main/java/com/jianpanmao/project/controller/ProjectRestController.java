@@ -78,13 +78,6 @@ public class ProjectRestController {
     }
 
     @PreAuthorize("hasAuthority('project:view')")
-    @GetMapping("byIdStatus")
-    @ResponseBody
-    public Project selectByIdStatus(Integer id, Byte statusId) {
-        return dao.selectByIdStatus(id, statusId);
-    }
-
-    @PreAuthorize("hasAuthority('project:view')")
     @GetMapping("/idNameList")
     public List<Project> idNameList() {
         return dao.selectIdNameList();

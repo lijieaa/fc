@@ -10,19 +10,15 @@ public class ProjectComments implements Serializable {
     private Integer projectCommentsId;
 
     //上级评论
-    @NotNull(message = "上级评论不能为空！")
     private Integer projectCommentsParent;
 
     //评论人
-    @NotNull(message = "评论人不能为空！")
     private String projectCommentsNickname;
 
     //评论类型：0内部评论，1外部评论
-    @NotNull(message = "projectCommentsType不能为空！")
     private Byte projectCommentsType;
 
     //评论状态：0线索，1项目
-    @NotNull(message = "projectCommentsStatus不能为空！")
     private Byte projectCommentsStatus;
 
     //项目ID
@@ -30,11 +26,9 @@ public class ProjectComments implements Serializable {
     private Integer projectId;
 
     //创建时间
-    @NotNull(message = "projectCommentsCreateTime不能为空！")
     private Date projectCommentsCreateTime;
 
     //更新时间
-    @NotNull(message = "projectCommentsUpdateTime不能为空！")
     private Date projectCommentsUpdateTime;
 
     //评论内容
