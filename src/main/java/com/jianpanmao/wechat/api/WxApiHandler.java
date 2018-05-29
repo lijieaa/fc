@@ -124,6 +124,15 @@ public class WxApiHandler {
         return getMaterialDetail(accessToken, mediaId);
     }
 
+    public ResponseEntity<byte[]> getStreamDetail(String accessToken, String mediaId) throws Exception{
+
+        String url = "https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=" + accessToken;
+
+        MediaMsg mediaMsg = new MediaMsg();
+        mediaMsg.setMedia_id(mediaId);
+        return RequestTools.processPOSTDownload(url, GsonUtils.toJson(mediaMsg));
+    }
+
     public ResponseEntity<byte[]> getVoiceDetail(String accessToken, String mediaId) throws Exception{
         String url = "https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=" + accessToken;
         MediaMsg mediaMsg = new MediaMsg();

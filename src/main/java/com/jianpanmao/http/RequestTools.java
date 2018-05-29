@@ -180,7 +180,7 @@ public class RequestTools {
         return responseEntity;
     }
 
-    public static ResponseEntity<byte[]> processPOSTDownload(String url, String json, String fileName) throws Exception{
+    public static ResponseEntity<byte[]> processPOSTDownload(String url, String json) throws Exception{
         HttpPost httpPost = new HttpPost(url);
         RequestConfig
                 .custom()
@@ -202,7 +202,6 @@ public class RequestTools {
         byte[] buffer = new byte[is.available()];
         is.read(buffer);
         HttpHeaders headers=new HttpHeaders();
-        headers.add("Content-Disposition", "attachment;filename="+fileName);
         HttpStatus statusCode = HttpStatus.OK;
         ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(buffer, headers, statusCode);
         EntityUtils.consume(entity);

@@ -596,33 +596,45 @@ package com.jianpanmao.wechat.doc;
  */
 
 /**
- * @api {get} /material/detail 获取单个素材内容
- * @apiName getMaterialDetail
+ * @api {get} /material/image/detail 获取单个图片素材内容
+ * @apiName getMaterialImageDetail
+ * @apiGroup wxMessage
+ * @apiParam wxPublicId 公众号ID
+ * @apiParam mediaId 素材mediaId
+ * @apiParam name 素材文件名
+ * @apiExample Request-Example:
+ * localhost:8080/material/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14&name=test.jpg
+ */
+
+/**
+ * @api {get} /material/video/detail 获取单个视频素材内容
+ * @apiName getMaterialVideoDetail
+ * @apiGroup wxMessage
+ * @apiParam wxPublicId 公众号ID
+ * @apiParam mediaId 素材mediaId
+ * @apiParam name 素材文件名
+ * @apiExample Request-Example:
+ * localhost:8080/material/video/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14&name=test.mp4
+ */
+
+/**
+ * @api {get} /material/voice/detail 获取单个语音素材内容
+ * @apiName getMaterialVoiceDetail
  * @apiGroup wxMessage
  * @apiParam wxPublicId 公众号ID
  * @apiParam mediaId 素材mediaId
  * @apiExample Request-Example:
- * localhost:8080/material/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14
- * @apiParamExample: Param - Example:
- *{
- *  "news_item": [
- *    {
- *      "title": "文章标题1",
- *      "author": "zzddcc",
- *      "digest": "zhaiyao",
- *      "content": "<p>hehe</p>",
- *      "content_source_url": "",
- *      "thumb_media_id": "f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA",
- *      "show_cover_pic": 1,
- *       "url": "http://mp.weixin.qq.com/s?__biz=MzI2NjkzNzMwNA==&mid=100000026&idx=1&sn=bdcca0ce436930632f2dc0d667a54f40&chksm=6a8737ad5df0bebb07648cbcbaa08d511e1a0a04e7e5be943b34427f218ab4b66dd9bfdfff68#rd",
- *       "thumb_url": "http://mmbiz.qpic.cn/mmbiz_jpg/FwRDKpzzTCNo6elSVobcTQRyHqn61rLxJChichZYicElCuPic5eWBic1mhJSyviatwibPjRiat9MEiak2sG9l8qNHKjpBQ/0?wx_fmt=jpeg",
- *       "need_open_comment": 0,
- *       "only_fans_can_comment": 0
- *     }
- *   ],
- *   "create_time": 1525536115,
- *   "update_time": 1525536115
- * }
+ * localhost:8080/material/video/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14
+ */
+
+/**
+ * @api {get} /material/news/detail 获取单个图文素材内容
+ * @apiName getMaterialVoiceDetail
+ * @apiGroup wxMessage
+ * @apiParam wxPublicId 公众号ID
+ * @apiParam mediaId 素材mediaId
+ * @apiExample Request-Example:
+ * localhost:8080/material/video/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14
  */
 
 /**
