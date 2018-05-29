@@ -1,5 +1,6 @@
 package com.jianpanmao.common.advisor;
 
+import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.common.entity.ResultEntity;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 public class ResponseAdvisor implements ResponseBodyAdvice{
     @Override
     public boolean supports(MethodParameter methodParameter, Class aClass) {
-        return true;
+        return !methodParameter.hasMethodAnnotation(NoResultEntity.class);
     }
 
     @Override

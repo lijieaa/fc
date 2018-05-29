@@ -2,6 +2,7 @@ package com.jianpanmao.wechat.web;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.http.RequestTools;
 import com.jianpanmao.unit.ResponseEntity;
 import com.jianpanmao.utils.GsonUtils;
@@ -103,6 +104,7 @@ public class WxMaterialController {
         return wxApiHandler.getVoiceDetail(accessToken, mediaId);
     }
 
+    @NoResultEntity
     @GetMapping("image/detail")
     public org.springframework.http.ResponseEntity<byte[]> imageDetail(String name, String url, HttpServletResponse response) throws Exception{
         response.setHeader("Content-Type","image/jpeg");
