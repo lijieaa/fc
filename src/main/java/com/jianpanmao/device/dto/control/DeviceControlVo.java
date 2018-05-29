@@ -9,7 +9,7 @@ public class DeviceControlVo {
     private Integer remoteBoot;     //设备远程启停
     private DeviceParam deviceParam;//设备参数
     private DeviceUserParam deviceUserParam;//用户参数
-    private SystemTime systemTime; //系统时间
+    private SystemTime system_time; //系统时间
 
 
     public Integer getRemoteBoot() {
@@ -36,11 +36,11 @@ public class DeviceControlVo {
         this.deviceUserParam = deviceUserParam;
     }
 
-    public SystemTime getSystemTime() {
-        return systemTime;
+    public SystemTime getSystem_time() {
+        return system_time;
     }
 
-    public void setSystemTime(SystemTime systemTime) {
-        this.systemTime = systemTime;
+    public void setSystem_time(SystemTime system_time) {
+        this.system_time = system_time;
     }
 }

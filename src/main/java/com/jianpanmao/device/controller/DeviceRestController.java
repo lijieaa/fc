@@ -131,7 +131,7 @@ public class DeviceRestController {
         systemTime.setHour(calendar.get(Calendar.HOUR_OF_DAY));
         systemTime.setMinute(calendar.get(Calendar.MINUTE));
         systemTime.setSecond(calendar.get(Calendar.SECOND));
-        deviceControlVo.setSystemTime(systemTime);
+        deviceControlVo.setSystem_time(systemTime);
         return deviceControlVo;
     }
 

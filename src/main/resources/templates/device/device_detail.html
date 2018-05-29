@@ -12,6 +12,7 @@
             padding: 3px 7px;
             color: white;
             background: grey;
+            cursor: pointer;
         }
         .btn-control.active{
             background: #F89406;
@@ -47,7 +48,7 @@
     <h5>设备信息</h5>
     <div class="row">
         <div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
-            <div class="widget-box widget-color-blue" id="widget-box-2">
+            <div class="productionwidget-box widget-color-blue" id="widget-box-2">
                 <div class="widget-body">
                     <div class="widget-main no-padding">
                         <table class="table table-striped table-bordered table-hover" id="deviceAddList">
@@ -105,7 +106,7 @@
                                                no-padding-right">设备型号</label>
                                             <div class="col-xs-9 col-sm-9">
                                                 <div class="clearfix">
-                                                    <select class="form-control" v-model="deviceParam.deviceType" name="project">
+                                                    <select class="form-control" v-model="deviceParam.device_type" name="project">
                                                         <option :value="item.id" v-for="item in deviceList">{{item.name}}</option>
                                                     </select>
                                                 </div>
@@ -131,10 +132,10 @@
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
                                                     <span class="btn-control"
-                                                            v-bind:class="{ active: deviceParam.strokeSwitch }"
+                                                            v-bind:class="{ active: deviceParam.stroke_switch }"
                                                             @click="IsRoute()">不启用</span>
                                                     <span class="btn-control"
-                                                            v-bind:class="{ active: !deviceParam.strokeSwitch }"
+                                                            v-bind:class="{ active: !deviceParam.stroke_switch }"
                                                             @click="IsRoute()"> 启用</span>
                                                 </div>
                                             </div>
@@ -144,7 +145,7 @@
                                                 电机动作时间</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceParam.motorTime" style="width: 50px"
+                                                    <input type="text"  v-model="deviceParam.motor_time" style="width: 50px"
                                                            name="time" v-on:change="changeNum(0,99,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                                                            onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒&nbsp;&nbsp;&nbsp;&nbsp;
@@ -158,10 +159,10 @@
                                                  style="text-align: right">
                                                 <div class="clearfix">
                                                     <span class="btn-control"
-                                                            v-bind:class="{ active: deviceParam.pSwitch }"
+                                                            v-bind:class="{ active: deviceParam.p_switch }"
                                                             @click="IsYcOff()">模拟</span>
                                                     <span class="btn-control"
-                                                            v-bind:class="{ active: !deviceParam.pSwitch }"
+                                                            v-bind:class="{ active: !deviceParam.p_switch }"
                                                             @click="IsYcOff()"> 数字</span>
                                                 </div>
                                             </div>
@@ -171,7 +172,7 @@
                                                 电压告警值</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceParam.voltageWarning" style="width: 50px"
+                                                    <input type="text"  v-model="deviceParam.voltage_warning" style="width: 50px"
                                                            name="power" v-on:change="changeNum(0,99,$event)" onkeyup="this.value=this.value.replace(/\D/g,'')"
                                                            onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;V&nbsp;&nbsp;&nbsp;&nbsp;
                                                 </div>
@@ -185,10 +186,10 @@
                                                  style="text-align: right">
                                                 <div class="clearfix">
                                                     <span class="btn-control"
-                                                            v-bind:class="{ active: deviceParam.mainValve }"
+                                                            v-bind:class="{ active: deviceParam.main_valve }"
                                                             @click="IsMainF()">不启用</span>
                                                     <span class="btn-control"
-                                                            v-bind:class="{ active: !deviceParam.mainValve }"
+                                                            v-bind:class="{ active: !deviceParam.main_valve }"
                                                             @click="IsMainF()"> 启用</span>
                                                 </div>
                                             </div>
@@ -364,7 +365,7 @@
                                                 清洗周期</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceUserParam.clearCyc" style="width: 50px"
+                                                    <input type="text"  v-model="deviceUserParam.clear_cyc" style="width: 50px"
                                                            name="clean" v-on:change="changeNum(0,9999,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                                                            onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;分钟&nbsp;
@@ -376,7 +377,7 @@
                                                 单元冲洗时间</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceUserParam.clearTime" style="width: 50px"
+                                                    <input type="text"  v-model="deviceUserParam.clear_time" style="width: 50px"
                                                            name="unitTime" v-on:change="changeNum(0,999,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                                                            onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒&nbsp;&nbsp;&nbsp;&nbsp;
@@ -388,7 +389,7 @@
                                                 单元间隔时间</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceUserParam.unitInterval" style="width: 50px"
+                                                    <input type="text"  v-model="deviceUserParam.unit_interval" style="width: 50px"
                                                            name="jgTime" v-on:change="changeNum(-99,99,$event)"
                                                            v-on:keyup="validateNum($event)">&nbsp;秒&nbsp;&nbsp;&nbsp;&nbsp;
                                                 </div>
@@ -399,7 +400,7 @@
                                                 主阀延时时间</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceUserParam.mainValveDelayTime" style="width: 50px"
+                                                    <input type="text"  v-model="deviceUserParam.main_valve_delay_time" style="width: 50px"
                                                            name="ysTime" v-on:change="changeNum(0,99,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                                                            onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒&nbsp;&nbsp;&nbsp;&nbsp;
@@ -411,7 +412,7 @@
                                                 压差延时时间</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceUserParam.pDelayTime" style="width: 50px"
+                                                    <input type="text"  v-model="deviceUserParam.p_delay_time" style="width: 50px"
                                                            name="ycTime" v-on:change="changeNum(10,33,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                                                            onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒&nbsp;&nbsp;&nbsp;&nbsp;
@@ -423,7 +424,7 @@
                                                 压差清洗启动门限</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceUserParam.pThreshold" style="width: 50px"
+                                                    <input type="text"  v-model="deviceUserParam.p_threshold" style="width: 50px"
                                                            name="startYc" v-on:change="changeNum(0,70,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                                                            onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;Mpa
@@ -436,11 +437,11 @@
                                                 压差清洗次数清零时间</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceUserParam.pClearTime" style="width: 50px"
+                                                    <input type="text"  v-model="deviceUserParam.p_clear_time" style="width: 50px"
                                                            name="cleanTime" v-on:change="changeNum(0,255,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                                                            onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒&nbsp;&nbsp;&nbsp;&nbsp;
-                                                </div>
+                                                </div>system_time
                                             </div>
                                         </div>
                                         <div class="form-group device-group-two overflow-hidden">
@@ -448,7 +449,7 @@
                                                 压差连续清洗告警次数</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceUserParam.pWarning" style="width: 50px"
+                                                    <input type="text"  v-model="deviceUserParam.p_warning" style="width: 50px"
                                                            name="cleanAlarm" v-on:change="changeNum(1,10,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                                                            onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;次&nbsp;&nbsp;&nbsp;&nbsp;
@@ -460,7 +461,7 @@
                                                 电机动作周期</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceUserParam.powerCyc" style="width: 50px"
+                                                    <input type="text"  v-model="deviceUserParam.power_cyc" style="width: 50px"
                                                            name="actionZq" v-on:change="changeNum(0,99,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                                                            onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒&nbsp;&nbsp;&nbsp;&nbsp;
@@ -473,7 +474,7 @@
                                                 压差电机启动门限</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="deviceUserParam.pPowerThreshold" style="width: 50px"
+                                                    <input type="text"  v-model="deviceUserParam.p_power_threshold" style="width: 50px"
                                                            name="powerStart" v-on:change="changeNum(0,70,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                                                            onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;Mpa
@@ -492,7 +493,7 @@
                                                 年</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="systemTime.year" style="width: 50px"
+                                                    <input type="text"  v-model="system_time.year" style="width: 50px"
                                                            name="year" v-on:change="changeNum(1900,2099,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                                                            onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;
@@ -504,7 +505,7 @@
                                                 月</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="systemTime.month" style="width: 50px"
+                                                    <input type="text"  v-model="system_time.month" style="width: 50px"
                                                            name="month"
                                                            v-on:change="changeNum(1,12,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
@@ -517,7 +518,7 @@
                                                 日</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="systemTime.day" style="width: 50px"
+                                                    <input type="text"  v-model="system_time.day" style="width: 50px"
                                                            name="day"
                                                            v-on:change="changeNum(1,31,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
@@ -530,7 +531,7 @@
                                                 时</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="systemTime.hour" style="width: 50px"
+                                                    <input type="text"  v-model="system_time.hour" style="width: 50px"
                                                            name="hour"
                                                            v-on:change="changeNum(0,23,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
@@ -543,7 +544,7 @@
                                                 分</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="systemTime.minute" style="width: 50px"
+                                                    <input type="text"  v-model="system_time.minute" style="width: 50px"
                                                            name="minute"
                                                            v-on:change="changeNum(0,59,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
@@ -556,7 +557,7 @@
                                                 秒</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="systemTime.second" style="width: 50px"
+                                                    <input type="text"  v-model="system_time.second" style="width: 50px"
                                                            name="second"
                                                            v-on:change="changeNum(0,59,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
@@ -588,50 +589,12 @@
         new Vue({
             el:"#deviceControl",
             data:{
-                control:{
-                    clean:true,
-                    power:true,
-                    route:true,
-                    ycOff:true,
-                    mainF:true,
-                    unite1:true,
-                    unite2:true,
-                    unite3:true,
-                    unite4:true,
-                    unite5:true,
-                    unite6:true,
-                    unite7:true,
-                    unite8:true,
-                    unite9:true,
-                    unite10:true
-                },
-                inputList:{
-                    project:"",
-                    time:"",
-                    power:"",
-                    clean:"",
-                    unitTime:"",
-                    jgTime:"",
-                    ysTime:"",
-                    ycTime:"",
-                    startYc:"",
-                    cleanTime:"",
-                    cleanAlarm:"",
-                    actionZq:"",
-                    powerStart:"",
-                    year:"",
-                    month:"",
-                    day:"",
-                    hour:"",
-                    minute:"",
-                    second:""
-                },
                 remoteBoot:"",
                 deviceProductionNum:"",
                 projectName:"",
                 operateUserName:"",
                 deviceStatus:"",
-                deviceType:"",
+                deviceType:"", //设备列表上的设备型号
                 intermediaryName:"",
                 transcribeUserName:"",
                 deviceList:[
@@ -665,13 +628,13 @@
                     }
                 ],
                 deviceParam:{
-                    deviceType:"",
+                    device_type:"",
                     motor:"",
-                    strokeSwitch:"",
-                    motorTime:"", //input
-                    pSwitch:"",
-                    mainValve:"",
-                    voltageWarning:"",//input
+                    stroke_switch:"",
+                    motor_time:"", //input
+                    p_switch:"",
+                    main_valve:"",
+                    voltage_warning:"",//input
                     unit1:"",
                     unit2:"",
                     unit3:"",
@@ -684,19 +647,19 @@
                     unit10:"",
                 },
                 deviceUserParam:{
-                    clearCyc:"",
-                    clearTime:"",
-                    unitInterval:"",
-                    mainValveDelayTime:"",
-                    pDelayTime:"",
-                    pThreshold:"",
-                    pClearTime:"",
-                    pWarning:"",
-                    powerCyc:"",
-                    pPowerThreshold:"",
+                    clear_cyc:"",
+                    clear_time:"",
+                    unit_interval:"",
+                    main_valve_delay_time:"",
+                    p_delay_time:"",
+                    p_threshold:"",
+                    p_clear_time:"",
+                    p_warning:"",
+                    power_cyc:"",
+                    p_power_threshold:""
 
                 },
-                systemTime:{
+                system_time:{
                     year:"",
                     month:"",
                     day:"",
@@ -713,13 +676,13 @@
                     this.deviceParam.motor = !this.deviceParam.motor;
                 },
                 IsRoute:function(){
-                    this.deviceParam.strokeSwitch = !this.deviceParam.strokeSwitch;
+                    this.deviceParam.stroke_switch = !this.deviceParam.stroke_switch;
                 },
                 IsYcOff:function(){
-                    this.deviceParam.pSwitch = !this.deviceParam.pSwitch;
+                    this.deviceParam.p_switch = !this.deviceParam.p_switch;
                 }
                 ,IsMainF:function(){
-                    this.deviceParam.mainValve = !this.deviceParam.mainValve;
+                    this.deviceParam.main_valve = !this.deviceParam.main_valve;
                 },
                 IsUnite1:function(){
                     this.deviceParam.unit1 = !this.deviceParam.unit1;
@@ -772,14 +735,14 @@
                     }
                 },
                 IsFlag:function(stattus){
-                    if(stattus == 1) {
+                    if(stattus == 0) {
                         return true;
                     }else{
                         return false;
                     }
                 },
                 numDevice:function(num){
-                    if(num == true) {
+                    if(num == false) {
                         return 1;
                     }else{
                         return 0;
@@ -794,15 +757,15 @@
                     type:"get",
                     success:function(data){
                         // console.log(data);
-                        _this.deviceParam.deviceType = data.content.deviceParam.deviceType;
-                        _this.deviceParam.power = _this.IsFlag(data.content.deviceParam.motor);
+                        _this.deviceParam.device_type = data.content.deviceParam.device_type;
+                        _this.deviceParam.motor = _this.IsFlag(data.content.deviceParam.motor);
                         _this.remoteBoot = _this.IsFlag(data.content.remoteBoot);
 
-                        _this.deviceParam.strokeSwitch = _this.IsFlag(data.content.deviceParam.strokeSwitch);
-                        _this.deviceParam.mainValve = _this.IsFlag(data.content.deviceParam.mainValve);
-                        _this.deviceParam.motorTime = data.content.deviceParam.motorTime;
-                        _this.deviceParam.voltageWarning = data.content.deviceParam.voltageWarning;
-                        _this.deviceParam.pSwitch = _this.IsFlag(data.content.deviceParam.pSwitch);
+                        _this.deviceParam.stroke_switch = _this.IsFlag(data.content.deviceParam.stroke_switch);
+                        _this.deviceParam.main_valve = _this.IsFlag(data.content.deviceParam.main_valve);
+                        _this.deviceParam.motor_time = data.content.deviceParam.motor_time;
+                        _this.deviceParam.voltage_warning = data.content.deviceParam.voltage_warning;
+                        _this.deviceParam.p_switch = _this.IsFlag(data.content.deviceParam.p_switch);
                         _this.deviceParam.unit1 = _this.IsFlag(data.content.deviceParam.unit1);
                         _this.deviceParam.unit2 = _this.IsFlag(data.content.deviceParam.unit2);
                         _this.deviceParam.unit3 = _this.IsFlag(data.content.deviceParam.unit3);
@@ -814,23 +777,23 @@
                         _this.deviceParam.unit9 = _this.IsFlag(data.content.deviceParam.unit9);
                         _this.deviceParam.unit10 = _this.IsFlag(data.content.deviceParam.unit10);
 
-                        _this.deviceUserParam.clearCyc = data.content.deviceUserParam.clearCyc;
-                        _this.deviceUserParam.clearTime = data.content.deviceUserParam.clearTime;
-                        _this.deviceUserParam.unitInterval = data.content.deviceUserParam.unitInterval;
-                        _this.deviceUserParam.mainValveDelayTime = data.content.deviceUserParam.mainValveDelayTime;
-                        _this.deviceUserParam.pDelayTime = data.content.deviceUserParam.pDelayTime;
-                        _this.deviceUserParam.pThreshold = data.content.deviceUserParam.pThreshold;
-                        _this.deviceUserParam.pClearTime = data.content.deviceUserParam.pClearTime;
-                        _this.deviceUserParam.pWarning = data.content.deviceUserParam.pWarning;
-                        _this.deviceUserParam.powerCyc = data.content.deviceUserParam.powerCyc;
-                        _this.deviceUserParam.pPowerThreshold = data.content.deviceUserParam.pPowerThreshold;
+                        _this.deviceUserParam.clear_cyc = data.content.deviceUserParam.clear_cyc;
+                        _this.deviceUserParam.clear_time = data.content.deviceUserParam.clear_time;
+                        _this.deviceUserParam.unit_interval = data.content.deviceUserParam.unit_interval;
+                        _this.deviceUserParam.main_valve_delay_time = data.content.deviceUserParam.main_valve_delay_time;
+                        _this.deviceUserParam.p_delay_time = data.content.deviceUserParam.p_delay_time;
+                        _this.deviceUserParam.p_threshold = data.content.deviceUserParam.p_threshold;
+                        _this.deviceUserParam.p_clear_time = data.content.deviceUserParam.p_clear_time;
+                        _this.deviceUserParam.p_warning = data.content.deviceUserParam.p_warning;
+                        _this.deviceUserParam.power_cyc = data.content.deviceUserParam.power_cyc;
+                        _this.deviceUserParam.p_power_threshold = data.content.deviceUserParam.p_power_threshold;
 
-                        _this.systemTime.year = data.content.systemTime.year;
-                        _this.systemTime.month = data.content.systemTime.month;
-                        _this.systemTime.day = data.content.systemTime.day;
-                        _this.systemTime.hour = data.content.systemTime.hour;
-                        _this.systemTime.minute = data.content.systemTime.minute;
-                        _this.systemTime.second = data.content.systemTime.second;
+                        _this.system_time.year = data.content.system_time.year;
+                        _this.system_time.month = data.content.system_time.month;
+                        _this.system_time.day = data.content.system_time.day;
+                        _this.system_time.hour = data.content.system_time.hour;
+                        _this.system_time.minute = data.content.system_time.minute;
+                        _this.system_time.second = data.content.system_time.second;
 
                     }
                 });
@@ -930,13 +893,13 @@
                             remoteBoot:_this.numDevice(_this.remoteBoot),
                             deviceParam:{
                                 // numDevice
-                                deviceType:_this.deviceParam.deviceType,
+                                device_type:_this.deviceParam.device_type,
                                 motor:_this.numDevice(_this.deviceParam.motor),
-                                strokeSwitch:_this.numDevice(_this.deviceParam.strokeSwitch),
-                                motorTime:_this.numDevice(_this.deviceParam.motorTime),
-                                pSwitch:_this.numDevice(_this.deviceParam.pSwitch),
-                                voltageWarning:_this.numDevice(_this.deviceParam.voltageWarning),
-                                mainF:_this.numDevice(_this.deviceParam.mainF),
+                                stroke_switch:_this.numDevice(_this.deviceParam.stroke_switch),
+                                motor_time:_this.deviceParam.motor_time,
+                                p_switch:_this.numDevice(_this.deviceParam.p_switch),
+                                voltage_warning:_this.deviceParam.voltage_warning,
+                                main_valve:_this.numDevice(_this.deviceParam.main_valve),
                                 unit1:_this.numDevice(_this.deviceParam.unit1),
                                 unit2:_this.numDevice(_this.deviceParam.unit2),
                                 unit3:_this.numDevice(_this.deviceParam.unit3),
@@ -949,13 +912,14 @@
                                 unit10:_this.numDevice(_this.deviceParam.unit10),
                             },
                             deviceUserParam:_this.deviceUserParam,
-                            systemTime:_this.systemTime
-                        };
-                        console.log(data);
+                            system_time:_this.system_time.year+"-"+_this.system_time.month+"-"+_this.system_time.day+":" +_this.system_time.hour+":"+_this.system_time.minute+":"+
+                            _this.system_time.second
+                    };
+
                         if($(".error").length == 0){
                             $.ajax({
                                 url: contextPath+"api/mqtt_send",
-                                method: "put",
+                                method: "post",
                                 data : JSON.stringify(data),
                                 contentType: "application/json",
                                 dataType : "json",
