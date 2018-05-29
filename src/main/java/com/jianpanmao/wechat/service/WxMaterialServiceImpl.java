@@ -71,9 +71,4 @@ public class WxMaterialServiceImpl extends BaseServiceImpl<WxMaterial> implement
         wxMaterial.setContentSourceUrl(wxNewsContent.getContent_source_url());
         super.insert(wxMaterial);
     }
-
-    @Override
-    public String getMaterialDetail(String accessToken, String mediaId) throws Exception {
-        return wxApiHandler.getMaterialDetail(accessToken, mediaId);
-    }
 }

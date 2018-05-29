@@ -12,9 +12,11 @@ import com.jianpanmao.wechat.api.response.OpenIdResponse;
 import com.jianpanmao.wechat.api.response.ResponseStatus;
 import com.jianpanmao.wechat.api.response.SubmitResponse;
 import com.jianpanmao.wechat.entity.WxUserDetail;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -114,8 +116,23 @@ public class WxApiHandler {
         return result;
     }
 
+    public String getVideoDetail(String accessToken, String mediaId) throws Exception{
+        return getMaterialDetail(accessToken, mediaId);
+    }
+
+    public String getNewsDetail(String accessToken, String mediaId) throws Exception{
+        return getMaterialDetail(accessToken, mediaId);
+    }
+
+    public ResponseEntity<byte[]> getVoiceDetail(String accessToken, String mediaId) throws Exception{
+        String url = "https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=" + accessToken;
+        MediaMsg mediaMsg = new MediaMsg();
+        mediaMsg.setMedia_id(mediaId);
+        return RequestTools.processGETDownload(url, "voice.mp3");
+    }
+
     // 获取素材详情
-    public String getMaterialDetail(String accessToken, String mediaId) throws Exception{
+    private String getMaterialDetail(String accessToken, String mediaId) throws Exception{
 
         String url = "https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=" + accessToken;
 
