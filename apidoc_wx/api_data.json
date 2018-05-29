@@ -302,7 +302,7 @@
     "examples": [
       {
         "title": "Request-Example:",
-        "content": "localhost:8080/material/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14&name=test.jpg",
+        "content": "localhost:8080/material/video/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14&name=test.jpg",
         "type": "json"
       }
     ],
@@ -350,6 +350,41 @@
         }
       ]
     },
+    "version": "0.0.0",
+    "filename": "D:/fc/src/main/java/com/jianpanmao/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "get",
+    "url": "/material/news/detail",
+    "title": "获取单个图文素材内容",
+    "name": "getMaterialNewsDetail",
+    "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "mediaId",
+            "description": "<p>素材mediaId</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "localhost:8080/material/video/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14",
+        "type": "json"
+      }
+    ],
     "version": "0.0.0",
     "filename": "D:/fc/src/main/java/com/jianpanmao/wechat/doc/WxDocumentation.java",
     "groupTitle": "微信公众号"
@@ -415,41 +450,12 @@
             "optional": false,
             "field": "mediaId",
             "description": "<p>素材mediaId</p>"
-          }
-        ]
-      }
-    },
-    "examples": [
-      {
-        "title": "Request-Example:",
-        "content": "localhost:8080/material/video/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14",
-        "type": "json"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "D:/fc/src/main/java/com/jianpanmao/wechat/doc/WxDocumentation.java",
-    "groupTitle": "微信公众号"
-  },
-  {
-    "type": "get",
-    "url": "/material/news/detail",
-    "title": "获取单个图文素材内容",
-    "name": "getMaterialVoiceDetail",
-    "group": "wxMessage",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "optional": false,
-            "field": "wxPublicId",
-            "description": "<p>公众号ID</p>"
           },
           {
             "group": "Parameter",
             "optional": false,
-            "field": "mediaId",
-            "description": "<p>素材mediaId</p>"
+            "field": "name",
+            "description": "<p>素材文件名</p>"
           }
         ]
       }
@@ -457,7 +463,7 @@
     "examples": [
       {
         "title": "Request-Example:",
-        "content": "localhost:8080/material/video/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14",
+        "content": "localhost:8080/material/video/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14&name=test.mp3",
         "type": "json"
       }
     ],

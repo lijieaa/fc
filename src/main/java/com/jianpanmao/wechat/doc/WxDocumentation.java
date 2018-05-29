@@ -596,17 +596,6 @@ package com.jianpanmao.wechat.doc;
  */
 
 /**
- * @api {get} /material/image/detail 获取单个图片素材内容
- * @apiName getMaterialImageDetail
- * @apiGroup wxMessage
- * @apiParam wxPublicId 公众号ID
- * @apiParam mediaId 素材mediaId
- * @apiParam name 素材文件名
- * @apiExample Request-Example:
- * localhost:8080/material/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14&name=test.jpg
- */
-
-/**
  * @api {get} /material/video/detail 获取单个视频素材内容
  * @apiName getMaterialVideoDetail
  * @apiGroup wxMessage
@@ -623,18 +612,30 @@ package com.jianpanmao.wechat.doc;
  * @apiGroup wxMessage
  * @apiParam wxPublicId 公众号ID
  * @apiParam mediaId 素材mediaId
+ *  * @apiParam name 素材文件名
  * @apiExample Request-Example:
- * localhost:8080/material/video/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14
+ * localhost:8080/material/video/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14&name=test.mp3
  */
 
 /**
  * @api {get} /material/news/detail 获取单个图文素材内容
- * @apiName getMaterialVoiceDetail
+ * @apiName getMaterialNewsDetail
  * @apiGroup wxMessage
  * @apiParam wxPublicId 公众号ID
  * @apiParam mediaId 素材mediaId
  * @apiExample Request-Example:
  * localhost:8080/material/video/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14
+ */
+
+/**
+ * @api {get} /material/image/detail 获取单个图片素材内容
+ * @apiName getMaterialImageDetail
+ * @apiGroup wxMessage
+ * @apiParam wxPublicId 公众号ID
+ * @apiParam mediaId 素材mediaId
+ * @apiParam name 素材文件名
+ * @apiExample Request-Example:
+ * localhost:8080/material/video/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14&name=test.jpg
  */
 
 /**
