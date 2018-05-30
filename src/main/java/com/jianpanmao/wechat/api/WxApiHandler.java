@@ -124,20 +124,20 @@ public class WxApiHandler {
         return getMaterialDetail(accessToken, mediaId);
     }
 
-    public ResponseEntity<byte[]> getStreamDetail(String accessToken, String mediaId) throws Exception{
+    public void getStreamDetail(String accessToken, String mediaId, HttpServletResponse response) throws Exception{
 
         String url = "https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=" + accessToken;
 
         MediaMsg mediaMsg = new MediaMsg();
         mediaMsg.setMedia_id(mediaId);
-        return RequestTools.processPOSTDownload(url, GsonUtils.toJson(mediaMsg));
+        RequestTools.processPOSTDownload(url, GsonUtils.toJson(mediaMsg), response);
     }
 
-    public ResponseEntity<byte[]> getVoiceDetail(String accessToken, String mediaId) throws Exception{
+    public void getVoiceDetail(String accessToken, String mediaId, HttpServletResponse response) throws Exception{
         String url = "https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=" + accessToken;
         MediaMsg mediaMsg = new MediaMsg();
         mediaMsg.setMedia_id(mediaId);
-        return RequestTools.processGETDownload(url, "voice.mp3");
+        RequestTools.processGETDownload(url, response);
     }
 
     // 获取素材详情
