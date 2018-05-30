@@ -99,22 +99,22 @@ public class WxMaterialController {
     @NoResultEntity
     @GetMapping("voice/detail")
     @ResponseBody
-    public org.springframework.http.ResponseEntity<byte[]> voiceDetail(String name, String mediaId, Integer wxPublicId, HttpSession session, HttpServletResponse response) throws Exception{
+    public void voiceDetail(String name, String mediaId, Integer wxPublicId, HttpSession session, HttpServletResponse response) throws Exception{
         response.addHeader("Content-Type","audio/mp3");
         response.addHeader("Content-Disposition", "attachment;filename=" + name);
         WxUtils.checkParam(session, wxPublicId);
         String accessToken = WxUtils.getAccessToken(session, wxPublicId);
-        return wxApiHandler.getStreamDetail(accessToken, mediaId);
+        wxApiHandler.getStreamDetail(accessToken, mediaId, response);
     }
 
     @NoResultEntity
     @GetMapping("image/detail")
-    public org.springframework.http.ResponseEntity<byte[]> imageDetail(String name, Integer wxPublicId, String mediaId,HttpServletResponse response,HttpSession session) throws Exception{
+    public void imageDetail(String name, Integer wxPublicId, String mediaId,HttpServletResponse response,HttpSession session) throws Exception{
         response.addHeader("Content-Type","image/jpeg");
         response.addHeader("Content-Disposition", "attachment;filename=" + name);
         WxUtils.checkParam(session, wxPublicId);
         String accessToken = WxUtils.getAccessToken(session, wxPublicId);
-        return wxApiHandler.getStreamDetail(accessToken, mediaId);
+        wxApiHandler.getStreamDetail(accessToken, mediaId, response);
     }
 
     @GetMapping("news/detail")

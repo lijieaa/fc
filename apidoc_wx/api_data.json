@@ -302,7 +302,7 @@
     "examples": [
       {
         "title": "Request-Example:",
-        "content": "localhost:8080/material/video/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14&name=test.jpg",
+        "content": "localhost:8080/material/image/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14&name=test.jpg",
         "type": "json"
       }
     ],
@@ -381,7 +381,7 @@
     "examples": [
       {
         "title": "Request-Example:",
-        "content": "localhost:8080/material/video/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14",
+        "content": "localhost:8080/material/news/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14",
         "type": "json"
       }
     ],
@@ -463,7 +463,7 @@
     "examples": [
       {
         "title": "Request-Example:",
-        "content": "localhost:8080/material/video/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14&name=test.mp3",
+        "content": "localhost:8080/material/voice/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14&name=test.mp3",
         "type": "json"
       }
     ],
