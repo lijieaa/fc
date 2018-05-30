@@ -16,6 +16,9 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -155,34 +158,53 @@ public class RequestTools {
         return sb.toString();
     }
 
-    public static void processImageDownload(String url, HttpServletResponse httpServletResponse){
-        try {
-            HttpGet httpGet = new HttpGet(url);
-            RequestConfig requestConfig = RequestConfig
-                    .custom()
-                    .setSocketTimeout(25000)
-                    .setConnectTimeout(3000)
-                    .build();
-            HttpResponse response = HttpClientPool.getHttpClient().execute(httpGet);
-            OutputStream os = null;
-            try {
-                HttpEntity httpEntity = response.getEntity();
-                long contentLength = httpEntity.getContentLength();
-                InputStream is = httpEntity.getContent();
-                byte[] buffer = new byte[2048];
-                int r = 0;
-                os = httpServletResponse.getOutputStream();
-                while ((r = is.read(buffer)) > 0) {
-                    os.write(buffer, 0, r);
-                }
-                EntityUtils.consume(httpEntity);
-            }catch (Exception e){
-                e.printStackTrace();
-            } finally {
-                os.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public static ResponseEntity<byte[]> processGETDownload(String url, String fileName) throws Exception{
+        HttpGet httpGet = new HttpGet(url);
+        RequestConfig
+                .custom()
+                .setSocketTimeout(25000)
+                .setConnectTimeout(3000)
+                .build();
+        HttpResponse response = HttpClientPool.getHttpClient().execute(httpGet);
+        OutputStream os = null;
+        ResponseEntity<byte[]> responseEntity = null;
+        HttpEntity httpEntity = response.getEntity();
+        InputStream is = httpEntity.getContent();
+        byte[] buffer = new byte[is.available()];
+        is.read(buffer);
+        HttpHeaders headers=new HttpHeaders();
+        headers.add("Content-Disposition", "attachment;filename="+fileName);
+        HttpStatus statusCode = HttpStatus.OK;
+        responseEntity = new ResponseEntity<>(buffer, headers, statusCode);
+        EntityUtils.consume(httpEntity);
+        return responseEntity;
+    }
+
+    public static ResponseEntity<byte[]> processPOSTDownload(String url, String json) throws Exception{
+        HttpPost httpPost = new HttpPost(url);
+        RequestConfig
+                .custom()
+                .setSocketTimeout(25000)
+                .setConnectTimeout(3000)
+                .build();
+        httpPost.setHeader("Content-Type", "application/json");
+        StringEntity s = new StringEntity(json, "utf-8");
+        s.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(25000).setConnectTimeout(3000).build();
+
+        httpPost.setEntity(s);
+        httpPost.setConfig(requestConfig);
+
+        CloseableHttpResponse response = HttpClientPool.getHttpClient().execute(httpPost);
+        HttpEntity entity = response.getEntity();
+        InputStream is = entity.getContent();
+        byte[] buffer = new byte[is.available()];
+        is.read(buffer);
+        HttpHeaders headers=new HttpHeaders();
+        HttpStatus statusCode = HttpStatus.OK;
+        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(buffer, headers, statusCode);
+        EntityUtils.consume(entity);
+        return responseEntity;
     }
 }

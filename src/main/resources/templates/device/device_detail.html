@@ -441,7 +441,7 @@
                                                            name="cleanTime" v-on:change="changeNum(0,255,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                                                            onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒&nbsp;&nbsp;&nbsp;&nbsp;
-                                                </div>
+                                                </div>system_time
                                             </div>
                                         </div>
                                         <div class="form-group device-group-two overflow-hidden">
@@ -493,7 +493,7 @@
                                                 年</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="systemTime.year" style="width: 50px"
+                                                    <input type="text"  v-model="system_time.year" style="width: 50px"
                                                            name="year" v-on:change="changeNum(1900,2099,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                                                            onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;
@@ -505,7 +505,7 @@
                                                 月</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="systemTime.month" style="width: 50px"
+                                                    <input type="text"  v-model="system_time.month" style="width: 50px"
                                                            name="month"
                                                            v-on:change="changeNum(1,12,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
@@ -518,7 +518,7 @@
                                                 日</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="systemTime.day" style="width: 50px"
+                                                    <input type="text"  v-model="system_time.day" style="width: 50px"
                                                            name="day"
                                                            v-on:change="changeNum(1,31,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
@@ -531,7 +531,7 @@
                                                 时</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="systemTime.hour" style="width: 50px"
+                                                    <input type="text"  v-model="system_time.hour" style="width: 50px"
                                                            name="hour"
                                                            v-on:change="changeNum(0,23,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
@@ -544,7 +544,7 @@
                                                 分</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="systemTime.minute" style="width: 50px"
+                                                    <input type="text"  v-model="system_time.minute" style="width: 50px"
                                                            name="minute"
                                                            v-on:change="changeNum(0,59,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
@@ -557,7 +557,7 @@
                                                 秒</label>
                                             <div class="col-xs-9 col-sm-9" style="text-align: right">
                                                 <div class="clearfix">
-                                                    <input type="text"  v-model="systemTime.second" style="width: 50px"
+                                                    <input type="text"  v-model="system_time.second" style="width: 50px"
                                                            name="second"
                                                            v-on:change="changeNum(0,59,$event)"
                                                            onkeyup="this.value=this.value.replace(/\D/g,'')"
@@ -659,7 +659,7 @@
                     p_power_threshold:""
 
                 },
-                systemTime:{
+                system_time:{
                     year:"",
                     month:"",
                     day:"",
@@ -788,12 +788,12 @@
                         _this.deviceUserParam.power_cyc = data.content.deviceUserParam.power_cyc;
                         _this.deviceUserParam.p_power_threshold = data.content.deviceUserParam.p_power_threshold;
 
-                        _this.systemTime.year = data.content.systemTime.year;
-                        _this.systemTime.month = data.content.systemTime.month;
-                        _this.systemTime.day = data.content.systemTime.day;
-                        _this.systemTime.hour = data.content.systemTime.hour;
-                        _this.systemTime.minute = data.content.systemTime.minute;
-                        _this.systemTime.second = data.content.systemTime.second;
+                        _this.system_time.year = data.content.system_time.year;
+                        _this.system_time.month = data.content.system_time.month;
+                        _this.system_time.day = data.content.system_time.day;
+                        _this.system_time.hour = data.content.system_time.hour;
+                        _this.system_time.minute = data.content.system_time.minute;
+                        _this.system_time.second = data.content.system_time.second;
 
                     }
                 });
@@ -912,9 +912,10 @@
                                 unit10:_this.numDevice(_this.deviceParam.unit10),
                             },
                             deviceUserParam:_this.deviceUserParam,
-                            systemTime:_this.systemTime
-                        };
-                        console.log(data);
+                            system_time:_this.system_time.year+"-"+_this.system_time.month+"-"+_this.system_time.day+":" +_this.system_time.hour+":"+_this.system_time.minute+":"+
+                            _this.system_time.second
+                    };
+
                         if($(".error").length == 0){
                             $.ajax({
                                 url: contextPath+"api/mqtt_send",

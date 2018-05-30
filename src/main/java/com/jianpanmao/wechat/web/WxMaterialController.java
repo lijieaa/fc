@@ -2,11 +2,14 @@ package com.jianpanmao.wechat.web;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.http.RequestTools;
 import com.jianpanmao.unit.ResponseEntity;
 import com.jianpanmao.utils.GsonUtils;
 import com.jianpanmao.utils.WxUtils;
+import com.jianpanmao.wechat.api.WxApiHandler;
 import com.jianpanmao.wechat.api.news.WxNewsContent;
+import com.jianpanmao.wechat.dto.NewsDTOUT;
 import com.jianpanmao.wechat.dto.VideoDTO;
 import com.jianpanmao.wechat.entity.WxMaterial;
 import com.jianpanmao.wechat.service.WxMaterialService;
@@ -28,6 +31,8 @@ import java.util.List;
 public class WxMaterialController {
 
     @Autowired private WxMaterialService wxMaterialService;
+
+    @Autowired private WxApiHandler wxApiHandler;
 
     @PostMapping("upload")
     @ResponseBody
@@ -81,22 +86,42 @@ public class WxMaterialController {
         }
     }
 
-    @GetMapping("detail")
+    @GetMapping("video/detail")
     @ResponseBody
-    public VideoDTO detail(String mediaId, Integer wxPublicId, HttpSession session) throws Exception{
+    public VideoDTO videoDetail(String mediaId, Integer wxPublicId, HttpSession session) throws Exception{
         String result = null;
         WxUtils.checkParam(session, wxPublicId);
         String accessToken = WxUtils.getAccessToken(session, wxPublicId);
-        result = wxMaterialService.getMaterialDetail(accessToken, mediaId);
+        result = wxApiHandler.getVideoDetail(accessToken, mediaId);
         return GsonUtils.toBean(result, VideoDTO.class);
     }
 
-    @GetMapping("image/detail")
+    @NoResultEntity
+    @GetMapping("voice/detail")
     @ResponseBody
-    public void imageDetail(String name, String url, HttpServletResponse response){
+    public org.springframework.http.ResponseEntity<byte[]> voiceDetail(String name, String mediaId, Integer wxPublicId, HttpSession session, HttpServletResponse response) throws Exception{
+        response.addHeader("Content-Type","audio/mp3");
+        response.addHeader("Content-Disposition", "attachment;filename=" + name);
+        WxUtils.checkParam(session, wxPublicId);
+        String accessToken = WxUtils.getAccessToken(session, wxPublicId);
+        return wxApiHandler.getStreamDetail(accessToken, mediaId);
+    }
 
-        response.setHeader("Content-Type","image/jpeg");
-        response.setHeader("Content-Disposition","attachment;filename=\"" + name + "\"");
-        RequestTools.processImageDownload(url, response);
+    @NoResultEntity
+    @GetMapping("image/detail")
+    public org.springframework.http.ResponseEntity<byte[]> imageDetail(String name, Integer wxPublicId, String mediaId,HttpServletResponse response,HttpSession session) throws Exception{
+        response.addHeader("Content-Type","image/jpeg");
+        response.addHeader("Content-Disposition", "attachment;filename=" + name);
+        WxUtils.checkParam(session, wxPublicId);
+        String accessToken = WxUtils.getAccessToken(session, wxPublicId);
+        return wxApiHandler.getStreamDetail(accessToken, mediaId);
+    }
+
+    @GetMapping("news/detail")
+    @ResponseBody
+    public NewsDTOUT newsDetail(String mediaId, Integer wxPublicId, HttpSession session) throws Exception{
+        WxUtils.checkParam(session, wxPublicId);
+        String accessToken = WxUtils.getAccessToken(session, wxPublicId);
+        return GsonUtils.toBean(wxApiHandler.getNewsDetail(accessToken, mediaId), NewsDTOUT.class);
     }
 }
