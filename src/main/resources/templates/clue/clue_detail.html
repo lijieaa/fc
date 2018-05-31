@@ -77,13 +77,15 @@
                                     </span>
                                     <span class="color-gray bd-g">删除</span>
                                     <span class="color-gray bd-g">时间</span>
-                                    <span class="color-gray">回复</span>
-                                    <div class="input-group margin-top-6 margin-right-10">
-                                        <input type="text" class="form-control">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn border-none btn-info btn-flat">评论</button>
-                                        </span>
-                                    </div>
+                                    <span class="color-gray" @click="reply($event)">回复</span>
+                                    <transition name="fade">
+                                        <div class="input-group margin-top-6 margin-right-10" style="display: none">
+                                            <input type="text" class="form-control">
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn border-none btn-info btn-flat">回复</button>
+                                            </span>
+                                        </div>
+                                    </transition>
                                 </div>
                             </div>
 
@@ -144,6 +146,13 @@
             },
             backMediary:function(){
                 location.reload();
+            },
+            reply:function(event){
+                // alert(1);
+                var _this = this;
+                var comment = $(event.currentTarget);
+                // bus.$emit('change',msg ,_this.$refs.msg1);
+                comment.next().toggle();
             }
         },
         mounted:function () {

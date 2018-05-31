@@ -85,7 +85,7 @@
 <body layout:fragment="content">
 <div class="page-header">
     <h1>
-        线索天机
+        线索添加
     </h1>
 </div>
 <div id="myMediary">
@@ -332,7 +332,7 @@
                         projectName:_this.editList.projectName, //项目名称
                         // projectContactUserId:_this.editList.projectContactUserId,//负责人
                         projectContactUser:{
-                            "id":_this.editList.userId
+                            "userid":_this.editList.userId
                         },
                         projectOwnerContact:_this.editList.projectOwnerContact,//业主名
                         projectOwnerContactTel:_this.editList.projectOwnerContactTel, //业主联系方式
@@ -351,7 +351,7 @@
                         dataType : "json",
                         success: function (data) {
                             // alert(1);
-                            // location.href=contextPath+"intermediary/list";
+                            location.href=contextPath+"clue/list";
                         },
                         error: function (data) {
                             // alert(2);
