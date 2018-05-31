@@ -15,7 +15,8 @@ function imgupload() {
             extensions: 'gif,jpg,jpeg,bmp,png',
             mimeTypes: 'image/*'
         },
-        fileVal:"media"
+        fileVal:"media",
+        fileSizeLimit: 1*1024*1024  //限制大小1M，所有被选文件，超出选择不上
     });
     uploader.on('uploadBeforeSend',function(obj,file,head) {
         delete file['id'];
@@ -32,6 +33,9 @@ function imgupload() {
     });
     uploader.onError = function( code ) {
         alert( 'Eroor: ' + code );
+        if (code=="Q_TYPE_DENIED"){
+            alert("请上传图片格式的文件");
+        }
     };
 }
 imgupload();
@@ -44,26 +48,27 @@ function  ajaxData(pageNo) {
         type: "get",
         data:$.param(webdata),
         success:function(data){
-            var dataList = content.data.list;
+            var dataList = data.content.data.list;
             $("#imgShow").html("");
             for(var i=0;i<dataList.length;i++){
                 var error="error";
-                var url=content.data.list[i].url;
-                var name=content.data.list[i].name;
-                var urlLink = ''+contextPath+'material/image/detail?url='+url+"&name="+name;
+                var url=data.content.data.list[i].mediaId;
+                //var name=data.content.data.list[i].name;
+                var name="test.jpg";
+                var urlLink = ''+contextPath+'material/image/detail?mediaId='+url+"&name="+name+"&wxPublicId="+14;
                 urlLink = encodeURI(urlLink);
-                $("#imgShow").append("<li id=''="+content.data.list[i].id+" alt=''="+content.data.list[i].name+"><img src='"+urlLink+"' title='"+content.data.list[i].name+"' alt='"+error+"'></li>");
+                $("#imgShow").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' title='"+name+"' alt='"+error+"'></li>");
             }
             $("#pagingTest").paging1({
                 pageNo:pageNo,
-                totalPage:data.data.pages
+                totalPage:data.content.data.pages
             })
         }
     });
 }
 $(document).on("click","a",function () {
     var val = $("#page").val();
-    ajaxData(val);
+     ajaxData(val);
 });
 
 // 弹窗图片展示
@@ -103,81 +108,79 @@ $(document).on("click","a",function () {
 // });
 
 //语音上传
-// function yyupload() {
-//     var allMaxSize = 10;
-//     var uploader = WebUploader.create({
-//         auto: true,//是否自动上传
-//         swf: '../js/dist/Uploader.swf',
-//         pick: '#filePicker2',
-//         server: contextPath + 'material/upload',//传到服务器的链接
-//         timeout: 0,
-//         formData: {
-//             wxPublicId: 14,
-//             //media:'u=177485426,2064801038&fm=27&gp=0.jpg',
-//             wxtype:'voice'
-//         },
-//         accept: {
-//             title: 'mp3',
-//             extensions: 'mp3,ogg',
-//             mimeTypes: 'audio/*'
-//         },
-//         fileVal:"media",
-//         duplicate:true,
-//         fileSizeLimit: allMaxSize*1024*1024  //限制大小10M，所有被选文件，超出选择不上
-//     });
-//     uploader.on('uploadBeforeSend',function(obj,file,head) {
-//         delete file['id'];
-//         delete file['name'];
-//         delete file['lastModifiedDate'];
-//         delete file['type'];
-//         // console.log(file);
-//     });
-//     uploader.on('fileQueued',function(file) {
-//         // console.log(file);
-//     });
-//     uploader.on( 'uploadSuccess', function( file ) {
-//         alert('success');
-//     });
-//     uploader.onError = function( code ) {
-//         alert( 'Eroor: ' + code );
-//     };
-// }
-// yyupload();
-// function  ajaxMp(pageNo) {
-//     $.ajax({
-//         url:contextPath +"material/page",
-//         type: "get",
-//         data: {
-//             wxtype:'voice',
-//             wxPublicId:14,
-//             total:0,
-//             records:0,
-//             rows:10,
-//             page:1
-//         },
-//         success:function(data){
-//             //console.log(data.data.list.length)
-//             //data.data.list[0].mediaId
-//             var dataList = data.data.list;
-//             $("#mpShow").html("");
-//             var mpArr=[];
-//             for(var i=0;i<dataList.length;i++){
-//                 mpArr.push(data.data.list[i].mediaId)
-//             }
-//             for(var i=0;i<mpArr.length;i++){
-//                 var wxPublicId=14;
-//                 var mediaId=mpArr[i];
-//                 var urlLink = ''+contextPath+'material/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId;
-//                 urlLink = encodeURI(urlLink);
-//                 $("#mpShow").append("<li><audio controls='controls' preload='auto' ><source src='"+urlLink+"' type=\"audio/mpeg\"><source src='"+urlLink+"' type=\"audio/ogg\"><embed  src='"+urlLink+"'></audio></li>");
-//             }
-//             $("#pagingTest1").paging1({
-//                 pageNo:pageNo,
-//                 totalPage:data.data.pages
-//             })
-//         }
-//     });
-// }
+function yyupload() {
+    var allMaxSize = 1;
+    var uploader = WebUploader.create({
+        auto: true,//是否自动上传
+        swf: '../js/dist/Uploader.swf',
+        pick: '#filePicker2',
+        server: contextPath + 'material/upload',//传到服务器的链接
+        timeout: 0,
+        formData: {
+            wxPublicId: 14,
+            //media:'u=177485426,2064801038&fm=27&gp=0.jpg',
+            wxtype:'voice'
+        },
+        accept: {
+            title: 'mp3',
+            extensions: 'mp3',
+            mimeTypes: 'audio/*'
+        },
+        fileVal:"media",
+        duplicate:true,
+        fileSizeLimit: allMaxSize*1024*1024  //限制大小2M，所有被选文件，超出选择不上
+    });
+    uploader.on('uploadBeforeSend',function(obj,file,head) {
+        delete file['id'];
+        delete file['name'];
+        delete file['lastModifiedDate'];
+        delete file['type'];
+        // console.log(file);
+    });
+    uploader.on('fileQueued',function(file) {
+        // console.log(file);
+    });
+    uploader.on( 'uploadSuccess', function( file ) {
+        alert('success');
+    });
+    uploader.onError = function( code ) {
+        alert( 'Eroor: ' + code );
+        if (code=="Q_TYPE_DENIED"){
+            alert("请上传MP3格式的文件");
+        }
+    };
+}
+yyupload();
+function  ajaxMp(pageNo) {
+    var webdata={"wxtype":'voice',"wxPublicId":14,"total":0,"records":0,"rows":10,"page":pageNo};
+    $.ajax({
+        url:contextPath +"material/page",
+        type: "get",
+        data: $.param(webdata),
+        success:function(data){
+            //console.log(data.data.list.length)
+            //data.data.list[0].mediaId
+            var dataList = data.content.data.list;
+            $("#mpShow").html("");
+            var mpArr=[];
+            for(var i=0;i<dataList.length;i++){
+                mpArr.push(data.content.data.list[i].mediaId)
+            }
+            for(var i=0;i<mpArr.length;i++){
+                var wxPublicId=14;
+                var mediaId=mpArr[i];
+                var name="test.mp3";
+                var urlLink = ''+contextPath+'material/voice/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name;
+                urlLink = encodeURI(urlLink);
+                $("#mpShow").append("<li><audio controls='controls' preload='auto' ><source src='"+urlLink+"' type=\"audio/mpeg\"><source src='"+urlLink+"' type=\"audio/ogg\"><embed  src='"+urlLink+"'></audio></li>");
+            }
+            $("#pagingTest1").paging1({
+                pageNo:pageNo,
+                totalPage:data.content.data.pages
+            })
+        }
+    });
+}
 // $(document).on("click","a",function () {
 //     var val = $("#page1").val();
 //     ajaxMp(val);
@@ -189,7 +192,7 @@ $(document).on("click","a",function () {
 //         auto: true,//是否自动上传
 //         swf: '../js/dist/Uploader.swf',
 //         pick: '#filePicker3',
-//         server: contextPath + 'material/upload',//传到服务器的链接
+//         server: contextPath + 'material/upload',
 //         formData: {
 //             wxPublicId: 14,
 //             wxtype:'video'
@@ -201,7 +204,7 @@ $(document).on("click","a",function () {
 //         },
 //         fileVal:"media",
 //         duplicate:true,
-//         fileSizeLimit: 20*1024*1024  //限制大小10M，所有被选文件，超出选择不上
+//         fileSizeLimit: 10*1024*1024  //限制大小10M，所有被选文件，超出选择不上
 //     });
 //     uploader.on('uploadBeforeSend',function(obj,file,head) {
 //         delete file['id'];
@@ -223,45 +226,33 @@ $(document).on("click","a",function () {
 // }
 // videoupload();
 // function  ajaxVid(pageNo) {
+//     var webdata={"wxtype":"video","wxPublicId":14,"rows":10,"page":pageNo}
 //     $.ajax({
 //         url:contextPath +"material/page",
 //         type: "get",
-//         data: {
-//             wxtype:'video',
-//             wxPublicId:14,
-//             total:0,
-//             records:0,
-//             rows:10,
-//             page:1
-//         },
+//         data: $.param(webdata),
 //         success:function(data){
-//             //console.log(data.data.list.length)
-//             //data.data.list[0].mediaId
-//             var dataList = data.data.list;
+//             var dataList = data.content.data.list;
 //             $("#vidShow").html("");
 //             var videoArr=[];
 //             for(var i=0;i<dataList.length;i++){
-//                 videoArr.push(data.data.list[i].mediaId)
+//                 videoArr.push(data.content.data.list[i].mediaId)
 //             }
 //             for(var i=0;i<videoArr.length;i++){
-//                 var error="error";
 //                 var wxPublicId=14;
 //                 var mediaId=videoArr[i];
 //                 $.ajax({
 //                     url:contextPath+'material/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId,
 //                     type: "get",
 //                     success:function (data) {
-//                         var obj = eval( "(" + data + ")" );
-//                         $("#vidShow").append("<li><video src='"+obj.down_url+"' controls='controls'></video></li>");
+//                         $("#vidShow").append("<li><video src='"+data.content.down_url+"' controls='controls'></video></li>");
 //                     }
 //                 })
-//                 // var urlLink = ''+contextPath+'material/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId;
-//                 // urlLink = encodeURI(urlLink);
 //
 //             }
 //             $("#pagingTest2").paging1({
 //                 pageNo:pageNo,
-//                 totalPage:data.data.pages
+//                 totalPage:data.content.data.pages
 //             })
 //         }
 //     });
@@ -270,7 +261,12 @@ $(document).on("click","a",function () {
 //     var val = $("#page2").val();
 //     ajaxVid(val);
 // });
-// $(document).on("click","#imgShow>li>img",function () {
-//     alert($(this).attr("id"));
-// })
+
+
+//点击图片
+$(document).on("click","#imgShow li img",function () {
+    var thisAttr=$(this).attr("src");
+    alert(thisAttr)
+})
+
 
