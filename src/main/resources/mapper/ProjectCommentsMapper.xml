@@ -10,6 +10,7 @@
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
     <result column="project_comments_create_time" jdbcType="TIMESTAMP" property="projectCommentsCreateTime" />
     <result column="project_comments_update_time" jdbcType="TIMESTAMP" property="projectCommentsUpdateTime" />
+
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jianpanmao.projectComments.entity.ProjectComments">
     <result column="project_comments_content" jdbcType="LONGVARCHAR" property="projectCommentsContent" />
@@ -128,15 +129,21 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.jianpanmao.projectComments.entity.ProjectComments">
-    insert into project_comments (project_comments_id, project_comments_parent, 
-      project_comments_nickname, project_comments_type, 
-      project_comments_status, project_id, project_comments_create_time, 
-      project_comments_update_time, project_comments_content
+    insert into project_comments (
+     project_comments_parent,
+    project_comments_nickname,
+    project_comments_type,
+    project_comments_status,
+    project_id,
+    project_comments_content
       )
-    values (#{projectCommentsId,jdbcType=INTEGER}, #{projectCommentsParent,jdbcType=INTEGER}, 
-      #{projectCommentsNickname,jdbcType=VARCHAR}, #{projectCommentsType,jdbcType=TINYINT}, 
-      #{projectCommentsStatus,jdbcType=TINYINT}, #{projectId,jdbcType=INTEGER}, #{projectCommentsCreateTime,jdbcType=TIMESTAMP}, 
-      #{projectCommentsUpdateTime,jdbcType=TIMESTAMP}, #{projectCommentsContent,jdbcType=LONGVARCHAR}
+    values (
+      #{projectCommentsParent,jdbcType=INTEGER},
+      #{projectCommentsNickname,jdbcType=VARCHAR},
+      #{projectCommentsType,jdbcType=TINYINT},
+      #{projectCommentsStatus,jdbcType=TINYINT},
+      #{projectId,jdbcType=INTEGER},
+      #{projectCommentsContent,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.projectComments.entity.ProjectComments">

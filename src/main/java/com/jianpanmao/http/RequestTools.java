@@ -158,31 +158,28 @@ public class RequestTools {
         return sb.toString();
     }
 
-    public static ResponseEntity<byte[]> processGETDownload(String url, String fileName) throws Exception{
+    public static void processGETDownload(String url, HttpServletResponse response) throws Exception{
         HttpGet httpGet = new HttpGet(url);
         RequestConfig
                 .custom()
                 .setSocketTimeout(25000)
                 .setConnectTimeout(3000)
                 .build();
-        HttpResponse response = HttpClientPool.getHttpClient().execute(httpGet);
-        OutputStream os = null;
-        ResponseEntity<byte[]> responseEntity = null;
-        HttpEntity httpEntity = response.getEntity();
+        HttpResponse r = HttpClientPool.getHttpClient().execute(httpGet);
+        HttpEntity httpEntity = r.getEntity();
         InputStream is = httpEntity.getContent();
-        byte[] buffer = new byte[is.available()];
-        is.read(buffer);
-        HttpHeaders headers=new HttpHeaders();
-        headers.add("Content-Disposition", "attachment;filename="+fileName);
-        HttpStatus statusCode = HttpStatus.OK;
-        responseEntity = new ResponseEntity<>(buffer, headers, statusCode);
+        byte[] buffer = new byte[2048];
+        int rd = 0;
+        OutputStream os = response.getOutputStream();
+        while ((rd = is.read(buffer)) > 0) {
+            os.write(buffer, 0, rd);
+        }
         EntityUtils.consume(httpEntity);
-        return responseEntity;
     }
 
-    public static ResponseEntity<byte[]> processPOSTDownload(String url, String json) throws Exception{
+    public static void processPOSTDownload(String url, String json, HttpServletResponse response) throws Exception{
         HttpPost httpPost = new HttpPost(url);
-        RequestConfig
+        RequestConfig requestConfig = RequestConfig
                 .custom()
                 .setSocketTimeout(25000)
                 .setConnectTimeout(3000)
@@ -190,21 +187,19 @@ public class RequestTools {
         httpPost.setHeader("Content-Type", "application/json");
         StringEntity s = new StringEntity(json, "utf-8");
         s.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-
-        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(25000).setConnectTimeout(3000).build();
-
         httpPost.setEntity(s);
         httpPost.setConfig(requestConfig);
 
-        CloseableHttpResponse response = HttpClientPool.getHttpClient().execute(httpPost);
-        HttpEntity entity = response.getEntity();
+        CloseableHttpResponse r = HttpClientPool.getHttpClient().execute(httpPost);
+        HttpEntity entity = r.getEntity();
         InputStream is = entity.getContent();
-        byte[] buffer = new byte[is.available()];
-        is.read(buffer);
-        HttpHeaders headers=new HttpHeaders();
-        HttpStatus statusCode = HttpStatus.OK;
-        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(buffer, headers, statusCode);
-        EntityUtils.consume(entity);
-        return responseEntity;
+        byte[] buffer = new byte[1024];
+        int len = 0;
+        OutputStream os = response.getOutputStream();
+        while ((len = is.read(buffer)) > 0) {
+            os.write(buffer, 0, len);
+        }
+        os.flush();
+        is.close();
     }
 }

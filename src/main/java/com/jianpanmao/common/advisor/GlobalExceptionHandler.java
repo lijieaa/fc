@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     public ResultEntity existException(HttpServletResponse response,MySQLIntegrityConstraintViolationException e){
         response.setStatus(HttpStatus.OK.value());
-        return new ResultEntity(10000,e.getMessage(),"不被允许的重复内容");
+        return new ResultEntity(10000,e.getMessage(),"操作数据库失败");
     }
 
 }
