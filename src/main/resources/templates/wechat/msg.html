@@ -2,6 +2,25 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
     <style>
+        img {
+            vertical-align: middle;
+            width: 80px;
+            height: 80px;
+        }
+        table tr td:first-child{
+            width: 150px;
+            border-right: none!important;
+            cursor: pointer;
+        }
+        table tr td:nth-of-type(2){
+            border-left: none!important;
+            text-align: left;
+            border-right: none!important;
+        }
+        table tr td:nth-of-type(3){
+            border-left: none!important;
+            text-align: right;
+        }
         .gzh-manage-menu{
             margin-top: 15px;
             margin-left: 5px;
@@ -20,6 +39,14 @@
         }
         .dataTables_wrapper .row:first-child{
             background: none;
+        }
+        .chat-type{
+            height: 30px;
+            line-height: 30px;
+        }
+        .chat-type span{
+            padding:10px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -55,6 +82,37 @@
                 </div>
             </section>
         </div>
+    </div>
+    <!--公众号聊天页面-->
+    <div id="chating-per" style="height: 768px;width:95%;display: none;margin-left: 2.5%;">
+        <button class="btn btn-info search text-center pull-right" id="backUlManage" style="margin-top: -20px;margin-right: 10px;">返回</button>
+        <section class="gzh-chat" style="margin-top: 20px;">
+            <h5>与<span class="chat-user">公众号1</span>聊天中</h5>
+            <div class="marginLeft-1" style="width: 98%;border: 1px #4d4d4d solid;">
+                <div class="chat-type">
+                    <span data-id="1"><i class="glyphicon glyphicon-film"></i>图文消息</span>
+                    <span data-id="2"><i class="glyphicon glyphicon-pencil"></i>文字</span>
+                    <span data-id="3"><i class="glyphicon glyphicon-picture"></i>图片</span>
+                    <span data-id="4"><i class="glyphicon glyphicon-ice-lolly"></i>语音</span>
+                    <span data-id="5"><i class="glyphicon glyphicon-hd-video"></i>视频</span>
+                </div>
+                <textarea class="form-control" rows="7" id="textInput"></textarea>
+            </div>
+            <button type="button" class="btn btn-info search marginLeft-1" style="margin-top:1%;width: 100px;display: inline-block;">发送</button>
+            <a style="display: inline-block;">还可以输入100字</a>
+            <h5 class="marginTop-2 marginLeft-1">最近20条聊天记录</h5>
+            <div class="col-md-12">
+                <table id="gzh-ul-manage-son" class="display table table-bordered table-hover dataTable" style="width:100%;">
+                    <thead style="display: none;">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </section>
     </div>
 </div>
 <script th:src="@{/dist/js/gzh/gzh-common.js}"></script>
@@ -104,6 +162,61 @@
             "fnInitComplete": function() {//初始化完毕事件
             }
         } );
+
+        function userTableSon() {
+            //var webdata={"page":1,"rows":10,"wxPublicId":wxPublicId,"publicName":serName}
+            $('#gzh-ul-manage-son').DataTable( {
+                bAutoWidth: true,
+                ajax:{
+                    url: contextPath +"wxUsers/page?page=1&rows=10&wxPublicId="+wxPublicId,
+                    dataSrc:"content.data.list",
+                    // contentType:'application/json; charset=utf-8',
+                },
+                "info":false,
+                "searching": false,
+                "lengthChange": false,
+                "ordering": false,
+                "language": {
+                    "paginate": {
+                        "next": "下一页",
+                        "previous": "上一页"
+                    }
+                },
+                "columns": [
+                    { "data": "headimgurl",width:150,render:function (data, type, row, meta) {
+                            var html="<img src="+data+" class='chatOne' />";
+                            return html;
+                        }
+                    },
+                    { "data": "",render:function (data, type, row, meta) {
+                            console.log(row)
+                            var html="<div class='chatOne'>"+row.nickname+"</div>" +
+                                "<div>"+row.openid+"</div>";
+                            return html;
+                        }
+                    },
+                    { "data": "",render:function (data, type, row, meta) {
+                            var html="<div class='chatOne'>"+row.subscribe_time+"</div>";
+                            return html;
+                        }
+                    }
+
+                ],
+                "pageLength": 5,
+                "fnInitComplete": function() {//初始化完毕事件
+                }
+            } );
+        }
+        //聊天表格
+        userTableSon()
+
+        $(document).on("click",".chatOne",function () {
+            $("#chating-per").show().siblings().hide();
+        });
+        //返回
+        $(document).on("click","#backUlManage",function () {
+            $("#gzh-manage").show().siblings().hide();
+        })
 
     })
 </script>

@@ -47,6 +47,75 @@
             background: #b8b8b8;
             font-weight: 500;
         }
+        #imgShow li{
+            width: 150px;
+            height: 150px;
+            display: inline-block;
+            border: 1px #727272 solid;
+            list-style: none;
+        }
+        #imgShow li img{
+            width: 150px;
+            height: 150px;
+            display: inline-block;
+            border: 1px #727272 solid;
+        }
+        #pagingTest a{
+            border: 1px solid #b0b0b0;
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        #pagingTest{
+            margin-left: 20px;
+            margin-top: 30px;
+        }
+        #pagingTest a:hover{
+         text-decoration: none;
+        }
+        #pagingTest a.current{
+            color: white;
+            background: deepskyblue;
+        }
+        #pagingTest a.disable{
+            background: gray;
+            color: white;
+            cursor: default;
+        }
+        #mpShow li{
+            width: 180px;
+            height: 180px;
+            display: inline-block;
+            border: 1px #727272 solid;
+            margin-left: 15px;
+            margin-top: 15px;
+        }
+        #mpShow li audio{
+            width: 180px;
+            height: 180px;
+            display: inline-block;
+            border: 1px #727272 solid;
+            cursor: pointer;
+        }
+        #vidShow li{
+            width: 180px;
+            height: 180px;
+            display: inline-block;
+            border: 1px #727272 solid;
+            margin-left: 15px;
+            margin-top: 15px;
+        }
+        #vidShow li video{
+            width: 180px;
+            height: 180px;
+            display: inline-block;
+            border: 1px #727272 solid;
+            cursor: pointer;
+        }
+        .newPhotoText a{
+            display: inline-block;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body layout:fragment="content">
@@ -101,6 +170,34 @@
             </div>
         </div>
     </div>
+    <!--新建图文素材-->
+    <div id="new-photo-text" style="display: none;">
+        <div class="source-title" style="margin-top: 15px;margin-left: 20px;">新建图文消息</div>
+        <button class="btn btn-info search text-center pull-right" id="backStore" style="margin-right: 35px;margin-top: -35px;">返回</button>
+        <div style="margin-left: 10%;margin-top:2%;width: 80%;height: 600px;">
+            <section class="float-left" style="width: 65%;height: 99%;">
+                <div>
+                      <textarea name="editor1" id="editor1">
+                          <div style="height: 60px;line-height: 60px;" id="ptTitle">请在这里输入标题</div>
+                          <div style="height: 60px;line-height: 60px;" id="ptdigest">请输入标题</div>
+                          <div style="height: 60px;line-height: 60px;" id="ptAutor">作者</div>
+                          <hr/>
+                          <div id="ptcontent">从这里开始写正文</div>
+                      </textarea>
+                </div>
+                <button style="width: 65px;height: 35px;display: block;" id="savapt">保存</button>
+            </section>
+            <section class="float-left" style="width: 15%;margin-left: 1.5%">
+                <label style="width:100%;margin-top: 15px;margin-left: 35px;" class="text-center;">多媒体</label>
+                <div style="width: 60%;margin-left: 20%;margin-top: 20px;" class="newPhotoText">
+                    <a style="width: 100%;height: 50px;line-height:50px;text-align: center;border: 1px #bcbcbc solid;font-size: 16px;border-bottom: none;">图片</a>
+                    <a style="width: 100%;height: 50px;line-height:50px;text-align: center;border: 1px #bcbcbc solid;font-size: 16px;border-bottom: none;">视频</a>
+                    <a style="width: 100%;height: 50px;line-height:50px;text-align: center;border: 1px #bcbcbc solid;font-size: 16px;">音频</a>
+                </div>
+            </section>
+        </div>
+
+    </div>
 </div>
 <script th:src="@{/dist/js/gzh/gzh-common.js}"></script>
 <script th:src="@{/dist/js/gzh/webuploader.js}"></script>
@@ -111,9 +208,25 @@
     var wxPublicId = /*[[${wxPublicId}]]*/;
     /*]]>*/
     $(function () {
+       $(document).on("click",".disable",function () {
+           return false;
+       })
+        //菜单选中
         $(document).on("click",".gzh-source-type>a",function () {
             $(this).addClass("tex-bgcolor").siblings().removeClass("tex-bgcolor");
         });
+       //上传bug
+        setTimeout(function(){
+            $(".webuploader-pick").next().css({
+                position: "absolute",
+                top: "0px",
+                left: "15px",
+                width: "85px",
+                height: "40px",
+                overflow: "hidden",
+                opacity: 0
+            });
+        }, 1000);
         //点击tab页面切换功能
         $(".gzh-source-type a").click(function () {
             var cliID=$(this).attr("data-id");
@@ -131,13 +244,42 @@
                 $(".new-type-name").text("语音");
                 $("#filePicker2").show().siblings().hide();
                 $("#source").show().siblings().hide();
-                // ajaxMp(1);
+                ajaxMp(1);
             } else if(cliID=="4"){
                 $(".new-type-name").text("视频");
                 $("#filePicker3").show().siblings().hide();
                 $("#vid").show().siblings().hide();
-                // ajaxVid(1);
+                ajaxVid(1);
             }
+        })
+        //新建素材页面
+        $(document).on("click","#filePicker",function () {
+           $("#new-photo-text").show().siblings().hide();
+        });
+        //文本编辑器
+        function textEdior(){
+            CKEDITOR.replace( 'editor1', {
+                height:520,
+                customConfig: '',
+                filebrowserImageUploadUrl:"skins",
+                removeDialogTabs:"image:advanced;image:Link",
+                toolbarGroups: [
+                    {"name":"basicstyles","groups":["basicstyles"]},
+                    {"name":"links","groups":["links"]},
+                    {"name":"paragraph","groups":["list","blocks"]},
+                    // {"name":"document","groups":["mode"]},
+                    {"name":"insert","groups":["insert"]},
+//                {"name":"styles","groups":["styles"]},
+                    {"name":"about","groups":["about"]}
+                ],
+                removePlugins:"elementspath"
+//            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
+            });
+        }
+        textEdior();
+        //新建素材返回菜单
+        $(document).on("click","#backStore",function () {
+            $("#gzh-manage").show().siblings().hide();
         })
     })
 </script>

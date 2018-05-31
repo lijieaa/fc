@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jianpanmao.dataStatistics.dao.DataStatisticsMapper">
 
-  <select id="IntermediaryDeviceCount" resultType="java.util.HashMap">
+    <!--中间商设备数排名-->
+  <select id="intermediaryDeviceCount" resultType="java.util.HashMap">
 SELECT COUNT(d.device_id) count,
  i.intermediary_name
  from device d
@@ -11,4 +12,27 @@ SELECT COUNT(d.device_id) count,
 GROUP BY i.intermediary_name
 ORDER BY count DESC
   </select>
+
+    <!--中间商地势分布占比-->
+    <select id="intermediaryArea" resultType="java.util.HashMap">
+        SELECT
+COUNT(i.intermediary_id),
+a.name
+FROM intermediary i
+LEFT JOIN area a
+ON i.area_id  = a.ID
+GROUP BY a.name
+    </select>
+
+    <!--各地市项目占比情况-->
+    <select id="deviceArea" resultType="java.util.HashMap">
+        SELECT
+COUNT(p.project_id),
+a.`NAME`
+FROM project p
+LEFT JOIN area a
+ON p.area_id = a.ID
+WHERE p.project_status = 1
+GROUP BY a.name
+    </select>
 </mapper>

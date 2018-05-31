@@ -21,6 +21,6 @@ public class DataStatisticsRestController {
 
     @GetMapping("/intermediaryDeviceCount")
         public List<Map> intermediaryDeviceCount(){
-        return dao.IntermediaryDeviceCount();
+        return dao.intermediaryDeviceCount();
     }
 }
