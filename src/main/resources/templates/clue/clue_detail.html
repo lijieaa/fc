@@ -14,6 +14,24 @@
         .page-header{
             margin-bottom: 0;
         }
+        .col-back-page-right{
+            background: #eee;
+            min-height: 110px;
+        }
+        .clue-table{
+            width: 100%;
+            text-align: center;
+        }
+        .clue-table tr{
+            height: 30px;
+        }
+        .clue-table tr td {
+            border: 1px solid #d1d1d1;
+        }
+        .clue-back{
+            background: #f8f8f8;
+            height: 30px;
+        }
     </style>
 </head>
 <body layout:fragment="content">
@@ -27,28 +45,34 @@
     <div class="content-wrapper">
         <section class="content-list overflow-hidden ">
             <div class="page-content margin-top-15 padding-bottom-10">
+                <p class="bottom-font">线索简介</p>
                 <div class="row">
-                    <div class=" col-xs-12 border-left-blue">
-                        <p class="padding-top-10 bottom-font">项目简介</p>
-                        <table class="proDetail-ul">
-                            <tr>
-                                <td class="back-f8">姓名</td>
-                                <td class="back-f8">公司</td>
-                                <td class="back-f8">电话</td>
-                                <td class="back-f8">手机</td>
-                                <td class="back-f8">跟进状态</td>
-                                <td class="back-f8">备注</td>
+                    <div class=" col-xs-9 border-left-blue">
+                        <table class="clue-table">
+                            <tr class="clue-back">
+                                <td>负责人</td>
+                                <td>业主联系电话</td>
+                                <td>线索编号</td>
                             </tr>
                             <tr>
-                                <td>姓名</td>
-                                <td>公司</td>
-                                <td>电话</td>
-                                <td>手机</td>
-                                <td>跟进状态</td>
-                                <td>备注</td>
+                                <td>{{clueComment.projectContactUser.name}}</td>
+                                <td>{{clueComment.projectOwnerContactTel}}</td>
+                                <td>{{clueComment.projectId}}</td>
                             </tr>
-
+                            <tr class="clue-back">
+                                <td>项目名称</td>
+                                <td>业主名</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>{{clueComment.projectName}}</td>
+                                <td>{{clueComment.projectOwnerContact}}</td>
+                                <td></td>
+                            </tr>
                         </table>
+                    </div>
+                    <div class=" col-xs-3 col-back-page-right">
+                        <img :src="clueComment.projectLogo"  alt="">
                     </div>
                 </div>
             </div>
@@ -94,7 +118,7 @@
                 </div>
             </div>
             <div class="clubs-editor margin-top-15">
-                <p class="padding-top-10 margin-left-10">发表项目评论</p>
+                <p class="padding-top-10 margin-left-10">发表线索评论</p>
                 <textarea name="editor1"  id="editor1" rows="10" cols="80"></textarea>
             </div>
         </section>
@@ -114,10 +138,21 @@
     </div>
 </div>
 <script type="text/javascript" th:inline="javascript">
+    var clubslID  = [[${id}]];
     var Vm =  new Vue({
         el:"#clubsDetail",
         data:{
-            show: false
+            show: false,
+            clueComment:{
+                projectContactUser:{ //负责人
+                    name:""
+                },
+                projectOwnerContactTel:"",//业主联系电话
+                projectOwnerContact:"",//业主
+                projectName:"",
+                projectId:"",
+                projectLogo:""
+            }
         },
         methods:{
             closeDelPop:function(){
@@ -158,7 +193,14 @@
         mounted:function () {
             var _this = this;
             _this.editorFun(); //初始化生成编辑器
-            var clubslID  = location.search.substring(1).split("&")[1];
+            // var clubslID  = location.search.substring(1).split("&")[1];
+            $.ajax({
+                url:contextPath+"api/project?id="+clubslID,
+                type:"get",
+                success:function (data) {
+                    _this.clueComment = data.content;
+                }
+            })
         }
     });
     // var responseUrl;

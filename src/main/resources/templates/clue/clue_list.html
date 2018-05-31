@@ -112,8 +112,8 @@
                                         <span class="lbl"></span>
                                     </label>
                                 </th>
-                                <th>项目编号</th>
-                                <th>项目名称</th>
+                                <th>线索编号</th>
+                                <th>线索名称</th>
                                 <th>负责人</th>
                                 <th>业主名</th>
                                 <th>业主联系电话</th>
@@ -154,7 +154,6 @@
                                     var draw=data.draw;
 
                                     var orderByClause="";
-
                                     for(var i=0;i<data.order.length;i++){
                                         var obj=data.order[i];
                                         var col=obj.column;
@@ -164,7 +163,7 @@
                                     }
                                     orderByClause = orderByClause.substr(0,orderByClause.lastIndexOf(","));
 
-                                    var param="?pageNum="+pageNum+"&pageSize="+pageSize+"&"+formData+"&draw="+draw+"&od="+orderByClause+"&projectStatus=1";
+                                    var param="?pageNum="+pageNum+"&pageSize="+pageSize+"&"+formData+"&draw="+draw+"&od="+orderByClause+"&projectStatus=0";
                                     $.ajax({
                                         "url": contextPath+"api/project/page"+param,
                                         "type": "get",
@@ -466,11 +465,11 @@
                 var rows = myTable.rows('.selected').data();
 
                 if(rows.length<=0){
-                    bootbox.alert("请�?�择你要删除的对�?!");
+                    bootbox.alert("请选择你要删除的线索?!");
                     return;
                 }
                 bootbox.confirm( {
-                    message: "您真的要删除�?",
+                    message: "您真的要删除吗?",
                     buttons: {
                         confirm: {
                             label: '确定',
