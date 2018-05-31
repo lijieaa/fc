@@ -10,5 +10,9 @@ import java.util.Map;
  */
 @Mapper
 public interface DataStatisticsMapper {
-    List<Map> IntermediaryDeviceCount();
+    List<Map> intermediaryDeviceCount();
+    List<Map> intermediaryArea();
+    List<Map> deviceArea();
+
+
 }
