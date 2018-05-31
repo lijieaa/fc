@@ -244,3 +244,6 @@ div.dataTables_wrapper div.dataTables_paginate{
 .overflow-hidden{
     overflow: hidden;
 }
+.btn, .border-none {
+    border: 1px solid #6FB3E0;
+}

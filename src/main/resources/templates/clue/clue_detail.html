@@ -1,35 +1,159 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
-    <title>首页</title>
+    <link rel="stylesheet" th:href="@{/dist/css/common.css}">
+    <link rel="stylesheet" th:href="@{/dist/css/club/detail.css}">
     <style>
-        .aa{
-            background-color: #1a1a1a;
-            width: 1000px;
-            height: 1000px;
+        .modal-dialog{
+            margin-top: 70px;
+        }
+        #cke_editor1{
+            width: 97%;
+            margin: 0 auto;
+        }
+        .page-header{
+            margin-bottom: 0;
         }
     </style>
 </head>
 <body layout:fragment="content">
-<div class="row">
-<div class="aa"></div>
+<div class="page-header">
+    <h1>
+        线索评论
+    </h1>
+</div>
+<div class="wrapper" id="clubsDetail">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <section class="content-list overflow-hidden ">
+            <div class="page-content margin-top-15 padding-bottom-10">
+                <div class="row">
+                    <div class=" col-xs-12 border-left-blue">
+                        <p class="padding-top-10 bottom-font">项目简介</p>
+                        <table class="proDetail-ul">
+                            <tr>
+                                <td class="back-f8">姓名</td>
+                                <td class="back-f8">公司</td>
+                                <td class="back-f8">电话</td>
+                                <td class="back-f8">手机</td>
+                                <td class="back-f8">跟进状态</td>
+                                <td class="back-f8">备注</td>
+                            </tr>
+                            <tr>
+                                <td>姓名</td>
+                                <td>公司</td>
+                                <td>电话</td>
+                                <td>手机</td>
+                                <td>跟进状态</td>
+                                <td>备注</td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="clubs-comment margin-top-15">
+                <div class="row ">
+                    <div class=" col-xs-12">
+                        <p class="padding-top-10 margin-left-10 bottom-font">线索评论</p>
+                        <div class="clubs-list">
+                            <div class="clubs-header back-f8">
+                                <div class="left-clubs float-left padding-left-6">
+                                    <img src="../../dist/img/img-head.png" class="" alt="">
+                                    <span>销售员老李</span>
+                                </div>
+                                <div class="right-clubs float-right padding-right-6">
+                                    <span class="bd-r">第 <span>121</span>条留言</span>
+                                    <span class="bd-r">2016.0804</span>
+                                    <span class="bd-r color-b">删除</span>
+                                    <span class="color-b">评论</span>
+                                </div>
+                            </div>
+                            <div class="clubs-content-list padding-bottom-10">
+                                <div class="detail-list margin-left-10">
+                                    <span class="font-weight padding-left-6">销售员老李:</span>
+                                    <span class="content-topic">
+                                        就发了就打瞌睡的惊世毒妃静安寺空当接龙角度来讲的身份结束了剪短发垃圾的设计费尽快落实到解放啦见识到了较大三角阀聊时间打开了房间阿拉斯加
+                                    </span>
+                                    <span class="color-gray bd-g">删除</span>
+                                    <span class="color-gray bd-g">时间</span>
+                                    <span class="color-gray">回复</span>
+                                    <div class="input-group margin-top-6 margin-right-10">
+                                        <input type="text" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn border-none btn-info btn-flat">评论</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clubs-editor margin-top-15">
+                <p class="padding-top-10 margin-left-10">发表项目评论</p>
+                <textarea name="editor1"  id="editor1" rows="10" cols="80"></textarea>
+            </div>
+        </section>
+    </div>
+    <div class="modal fade modalAll" id="errMsg">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body padding-top-15 text-align" style="padding-top: 15px">
+                    验证失败？
+                </div>
+                <div class="modal-footer text-align">
+                    <button type="button" class="btn btn-info search margin-right-4" @click="closeDelPop">确定</button>
+                    <button type="button" class="btn reset-btn search" @click = "closeDelPop">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script type="text/javascript" th:inline="javascript">
-
-    jQuery(function($) {
-        var id=[[${id}]];
-        $.ajax({
-            url: contextPath+"api/project?id="+id,
-            method: "get",
-            success: function (data) {
-                console.log(data);
+    var Vm =  new Vue({
+        el:"#clubsDetail",
+        data:{
+            show: false
+        },
+        methods:{
+            closeDelPop:function(){
+                $(".modalAll").removeClass("in").css("display","none");
             },
-            error: function (data) {
-                alert("查询数据出错�?");
+            editorFun:function(){
+                CKEDITOR.replace( 'editor1', {
+                    customConfig: '',
+                    filebrowserImageUploadUrl:"skins",
+                    removeDialogTabs:"image:advanced;image:Link",
+                    toolbarGroups: [
+                        {"name":"basicstyles","groups":["basicstyles"]},
+                        {"name":"links","groups":["links"]},
+                        {"name":"paragraph","groups":["list","blocks"]},
+                        // {"name":"document","groups":["mode"]},
+                        {"name":"insert","groups":["insert"]},
+//                {"name":"styles","groups":["styles"]},
+                        {"name":"about","groups":["about"]}
+                    ],
+                    removePlugins:"elementspath"
+//            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
+                });
+            },
+            closePop:function(){
+                $("#modal-default").removeClass("in").css("display","none")
+            },
+            backMediary:function(){
+                location.reload();
             }
-        })
-
-    })
+        },
+        mounted:function () {
+            var _this = this;
+            _this.editorFun(); //初始化生成编辑器
+            var clubslID  = location.search.substring(1).split("&")[1];
+        }
+    });
+    // var responseUrl;
+    jQuery(function($) {})
 </script>
 </body>
 </html>
