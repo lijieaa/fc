@@ -2,6 +2,7 @@ package com.jianpanmao.projectComments.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
@@ -25,6 +26,8 @@ public class ProjectComments implements Serializable {
     @NotNull(message = "projectId不能为空！")
     private Integer projectId;
 
+    private Integer projectTopCommentsId;
+
     //创建时间
     private Date projectCommentsCreateTime;
 
@@ -34,6 +37,34 @@ public class ProjectComments implements Serializable {
     //评论内容
     @NotNull(message = "projectCommentsContent不能为空！")
     private String projectCommentsContent;
+
+    private Integer count;
+
+    private List<ProjectComments> children;
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public Integer getProjectTopCommentsId() {
+        return projectTopCommentsId;
+    }
+
+    public void setProjectTopCommentsId(Integer projectTopCommentsId) {
+        this.projectTopCommentsId = projectTopCommentsId;
+    }
+
+    public List<ProjectComments> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<ProjectComments> children) {
+        this.children = children;
+    }
 
     private static final long serialVersionUID = 1L;
 

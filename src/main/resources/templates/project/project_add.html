@@ -80,6 +80,9 @@
         .menu-list{
             max-height: 300px;
         }
+        .btn, .border-none {
+            border: 1px solid #6FB3E0;
+        }
     </style>
 </head>
 <body layout:fragment="content">
@@ -253,7 +256,7 @@
             },
             methods:{
                 backList:function(){
-                    location.href=contextPath+"clue/list";
+                    location.href=contextPath+"project/list";
                 },
                 zTreeInit:function(){
                     var _this = this;

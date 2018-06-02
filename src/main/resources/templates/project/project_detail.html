@@ -32,6 +32,9 @@
             background: #f8f8f8;
             height: 30px;
         }
+        .btn, .border-none {
+            border: 1px solid #6FB3E0;
+        }
     </style>
 </head>
 <body layout:fragment="content">
@@ -86,7 +89,7 @@
                 <div class="row">
                     <div class=" col-xs-12 text-align-right" style="cursor: pointer">
                         <i class="icon-color-9c fa fa-fw  fa-commenting"></i>
-                        <span>评论(122)</span>
+                        <span @click="linkComments">评论(122)</span>
                     </div>
                 </div>
             </div>
@@ -138,7 +141,7 @@
     </div>
 </div>
 <script type="text/javascript" th:inline="javascript">
-    var clubslID  = [[${id}]];
+    var projectId  = [[${id}]];
     var Vm =  new Vue({
         el:"#clubsDetail",
         data:{
@@ -155,6 +158,9 @@
             }
         },
         methods:{
+            linkComments:function(){
+                location.href=contextPath+"project/projectComments?id="+projectId;
+            },
             backList:function(){
                 location.href=contextPath+"project/list";
             },
@@ -172,7 +178,7 @@
             var _this = this;
             // var clubslID  = location.search.substring(1).split("&")[1];
             $.ajax({
-                url:contextPath+"api/project?id="+clubslID,
+                url:contextPath+"api/project?id="+projectId,
                 type:"get",
                 success:function (data) {
                     _this.clueComment = data.content;
@@ -309,7 +315,7 @@
                         "render": function (data, type, row) {
                             return '<div class="hidden-sm hidden-xs action-buttons">'
                                 [# sec:authorize="hasAuthority('project:edit')"]
-                            + '<a class="green" href="edit/?id='+data.projectId+'" title="编辑"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
+                            + '<a class="green" href="../../project/detailEditDevice/?id='+data.projectId+'" title="编辑"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:delete')"]
                             + '<a class="red delete" data-id="'+data.projectId+'" title="删除"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
@@ -317,7 +323,7 @@
                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
                                 [# sec:authorize="hasAuthority('project:edit')"]
-                            + '<li><a href="edit/?id='+data.projectId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
+                            + '<li><a href="../../project/detailEditDevice/?id='+data.projectId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:delete')"]
                             + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.projectId+'"><span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
