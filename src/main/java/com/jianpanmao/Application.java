@@ -1,7 +1,10 @@
 package com.jianpanmao;
 
 import com.jianpanmao.common.filter.ModifyParametersFilter;
+import com.jianpanmao.common.mybatis.interceptor.AddGlobeInterceptor;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
+import org.apache.ibatis.session.Configuration;
+import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -119,6 +122,5 @@ public class Application extends SpringBootServletInitializer{
         message.setCacheSeconds(0);
         return message;
     }
-
 
 }
