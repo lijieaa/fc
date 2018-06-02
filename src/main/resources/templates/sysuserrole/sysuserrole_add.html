@@ -7,42 +7,18 @@
         <div class="row">
             <form class="form-horizontal" id="validation-form" method="post">
                 <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="roleGroupCreateTime">roleGroupCreateTime:</label>
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="roleId">roleId:</label>
                     <div class="col-xs-12 col-sm-9">
                         <div class="clearfix">
-                            <input type="text" name="roleGroupCreateTime" id="roleGroupCreateTime" class="col-xs-12 col-sm-6" />
+                            <input type="text" name="roleId" id="roleId" class="col-xs-12 col-sm-6" />
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="roleName">roleName:</label>
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="userId">userId:</label>
                     <div class="col-xs-12 col-sm-9">
                         <div class="clearfix">
-                            <input type="text" name="roleName" id="roleName" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="isDel">isDel:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="isDel" id="isDel" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryId">intermediaryId:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="intermediaryId" id="intermediaryId" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="roleGroupUpdateTime">roleGroupUpdateTime:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="roleGroupUpdateTime" id="roleGroupUpdateTime" class="col-xs-12 col-sm-6" />
+                            <input type="text" name="userId" id="userId" class="col-xs-12 col-sm-6" />
                         </div>
                     </div>
                 </div>
@@ -78,19 +54,10 @@
             focusInvalid: false,
             ignore: "",
             rules: {
-                roleGroupCreateTime: {
+                roleId: {
                     required: true
                 },
-                roleName: {
-                    required: true
-                },
-                isDel: {
-                    required: true
-                },
-                intermediaryId: {
-                    required: true
-                },
-                roleGroupUpdateTime: {
+                userId: {
                     required: true
                 },
             },
@@ -113,13 +80,13 @@
                 var data = $(form).serializeObject();
 
                 $.ajax({
-                    url: contextPath+"api/sysrolegroup/",
+                    url: contextPath+"api/sysuserrole/",
                     method: "post",
                     data : JSON.stringify(data),
                     contentType: "application/json",
                     dataType : "json",
                     success: function (data) {
-                       location.href=contextPath+"sysrolegroup/list";
+                       location.href=contextPath+"sysuserrole/list";
                     },
                     error: function (data) {
                         console.log(data);

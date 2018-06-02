@@ -11,11 +11,11 @@ public class SysRole implements Serializable {
     //
     private Integer roleId;
 
-    //
+    @NotNull(message = "角色名称不能为空！")
     private String roleName;
 
     //角色名称
-    @NotNull(message = "roleDescription不能为空！")
+
     private String roleDescription;
 
     //
@@ -35,7 +35,6 @@ public class SysRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    String od;
 
     public Integer getRoleId() {
         return roleId;
@@ -130,4 +129,15 @@ public class SysRole implements Serializable {
     }
 
     private List<SysMenu> menus=new ArrayList<>();
+
+
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
+
+    private Integer groupId;
 }

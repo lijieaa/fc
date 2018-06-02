@@ -31,19 +31,10 @@
                             <div class="widget-main">
                                 <form class="form-horizontal" id="search-form">
         <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="roleGroupCreateTime">roleGroupCreateTime:</label>
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="menuId">menuId:</label>
             <div class="col-xs-12 col-sm-9">
                 <div class="clearfix">
-                    <input type="text" name="roleGroupCreateTime" id="roleGroupCreateTime" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="roleName">roleName:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="roleName" id="roleName" class="col-xs-12 col-sm-6" />
+                    <input type="text" name="menuId" id="menuId" class="col-xs-12 col-sm-6" />
                 </div>
             </div>
         </div>
@@ -58,28 +49,19 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="isDel">isDel:</label>
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="menuId">menuId:</label>
             <div class="col-xs-12 col-sm-9">
                 <div class="clearfix">
-                    <input type="text" name="isDel" id="isDel" class="col-xs-12 col-sm-6" />
+                    <input type="text" name="menuId" id="menuId" class="col-xs-12 col-sm-6" />
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryId">intermediaryId:</label>
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="roleId">roleId:</label>
             <div class="col-xs-12 col-sm-9">
                 <div class="clearfix">
-                    <input type="text" name="intermediaryId" id="intermediaryId" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="roleGroupUpdateTime">roleGroupUpdateTime:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="roleGroupUpdateTime" id="roleGroupUpdateTime" class="col-xs-12 col-sm-6" />
+                    <input type="text" name="roleId" id="roleId" class="col-xs-12 col-sm-6" />
                 </div>
             </div>
         </div>
@@ -106,8 +88,8 @@
                     <div class="clearfix">
                         <div class="pull-left tableTools-container-left">
                             <div class="btn-group">
-                                <a type="button" class="btn" th:href="@{/sysrolegroup/add}" sec:authorize="hasAuthority('sysrolegroup:add')">创建</a>
-                                <button type="button" class="btn btn-danger" id="batch-delete" sec:authorize="hasAuthority('sysrolegroup:delete')">批量删除</button>
+                                <a type="button" class="btn" th:href="@{/sysrolemenu/add}" sec:authorize="hasAuthority('sysrolemenu:add')">创建</a>
+                                <button type="button" class="btn btn-danger" id="batch-delete" sec:authorize="hasAuthority('sysrolemenu:delete')">批量删除</button>
                             </div>
                         </div>
                         <div class="pull-right tableTools-container"></div>
@@ -126,17 +108,13 @@
                                         <span class="lbl"></span>
                                     </label>
                                 </th>
-        <th>roleGroupCreateTime</th>
-
-        <th>roleName</th>
+        <th>menuId</th>
 
         <th>roleId</th>
 
-        <th>isDel</th>
+        <th>menuId</th>
 
-        <th>intermediaryId</th>
-
-        <th>roleGroupUpdateTime</th>
+        <th>roleId</th>
 
                                 <th></th>
                             </tr>
@@ -187,7 +165,7 @@
 
                                     var param="?pageNum="+pageNum+"&pageSize="+pageSize+"&"+formData+"&draw="+draw+"&od="+orderByClause;
                                     $.ajax({
-                                        "url": contextPath+"api/sysrolegroup/page"+param,
+                                        "url": contextPath+"api/sysrolemenu/page"+param,
                                         "type": "get",
                                         dataType:"json",
                                         contentType:'application/json',
@@ -207,12 +185,10 @@
                                 },
                                 "columns": [
                                     {"data": null},
-        {"data": "roleGroupCreateTime"},
-        {"data": "roleName"},
+                                    {"data": "menuId"},
+        {"data": "roleId"},
+        {"data": "menuId"},
                                     {"data": "roleId"},
-        {"data": "isDel"},
-        {"data": "intermediaryId"},
-        {"data": "roleGroupUpdateTime"},
                                     {"data": null}
                                 ],
                                 "columnDefs": [
@@ -264,48 +240,30 @@
 
                                     },
                                     {
-                                        "targets": 5,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
-
-                                    },
-                                    {
-                                        "targets": 6,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
-
-                                    },
-                                    {
                                         "targets": -1,
                                         "orderable": false,
                                         data: null,
                                         "render": function (data, type, row) {
                                             return '<div class="hidden-sm hidden-xs action-buttons">'
-                                                    [# sec:authorize="hasAuthority('sysrolegroup:view')"]
-                                            + '<a class="blue" href="detail/?id='+data.roleId+'"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
+                                                    [# sec:authorize="hasAuthority('sysrolemenu:view')"]
+                                            + '<a class="blue" href="detail/?id='+data.menuId+'"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
                                                     [/]
-                                            [# sec:authorize="hasAuthority('sysrolegroup:edit')"]
-                                            + '<a class="green" href="edit/?id='+data.roleId+'"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
+                                            [# sec:authorize="hasAuthority('sysrolemenu:edit')"]
+                                            + '<a class="green" href="edit/?id='+data.menuId+'"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
                                                     [/]
-                                            [# sec:authorize="hasAuthority('sysrolegroup:delete')"]
-                                            + '<a class="red delete" data-id="'+data.roleId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
+                                            [# sec:authorize="hasAuthority('sysrolemenu:delete')"]
+                                            + '<a class="red delete" data-id="'+data.menuId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
                                                     [/]
                                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
-                                                    [# sec:authorize="hasAuthority('sysrolegroup:view')"]
-                                            + '<li><a href="detail/?id='+data.roleId+'" class="tooltip-info" data-rel="tooltip" title="查看"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
+                                                    [# sec:authorize="hasAuthority('sysrolemenu:view')"]
+                                            + '<li><a href="detail/?id='+data.menuId+'" class="tooltip-info" data-rel="tooltip" title="查看"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
                                                     [/]
-                                            [# sec:authorize="hasAuthority('sysrolegroup:edit')"]
-                                            + '<li><a href="edit/?id='+data.roleId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
+                                            [# sec:authorize="hasAuthority('sysrolemenu:edit')"]
+                                            + '<li><a href="edit/?id='+data.menuId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
                                                     [/]
-                                            [# sec:authorize="hasAuthority('sysrolegroup:delete')"]
-                                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.roleId+'"><span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
+                                            [# sec:authorize="hasAuthority('sysrolemenu:delete')"]
+                                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.menuId+'"><span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
                                                     [/]
                                             +'</ul></div></div>';
                                         }
@@ -452,7 +410,7 @@
                 return 'left';
             }
 
-            [# sec:authorize="hasAuthority('sysrolegroup:delete')"]
+            [# sec:authorize="hasAuthority('sysrolemenu:delete')"]
             //单个删除
             $('#dynamic-table tbody').on( 'click', 'a.delete', function () {
                 var id = $(this).attr('data-id');
@@ -472,7 +430,7 @@
 
                        if(result){
                            $.ajax({
-                               url: contextPath+"api/sysrolegroup/?id="+id,
+                               url: contextPath+"api/sysrolemenu/?id="+id,
                                method: "delete",
                                success: function (data) {
                                    if(data.status==200){
@@ -489,7 +447,7 @@
 
             } );
             [/]
-            [# sec:authorize="hasAuthority('sysrolegroup:delete')"]
+            [# sec:authorize="hasAuthority('sysrolemenu:delete')"]
             $("#batch-delete").on("click", function () {
 
                 var rows = myTable.rows('.selected').data();
@@ -518,13 +476,13 @@
                             var ids=[];
 
                             for(var i=0;i<rows.length;i++){
-                                ids.push(rows[i].roleId);
+                                ids.push(rows[i].menuId);
                             }
 
                             console.log(ids);
 
                             $.ajax({
-                                url: contextPath+"api/sysrolegroup/batch",
+                                url: contextPath+"api/sysrolemenu/batch",
                                 method : "delete" ,
                                 data : JSON.stringify(ids),
                                 contentType: "application/json",
