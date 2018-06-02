@@ -10,6 +10,8 @@
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
     <result column="project_comments_create_time" jdbcType="TIMESTAMP" property="projectCommentsCreateTime" />
     <result column="project_comments_update_time" jdbcType="TIMESTAMP" property="projectCommentsUpdateTime" />
+    <result column="project_comments_content" jdbcType="VARCHAR" property="projectCommentsContent"/>
+    <result column="project_top_comments_id" jdbcType="INTEGER" property="projectTopCommentsId"/>
 
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jianpanmao.projectComments.entity.ProjectComments">
@@ -135,7 +137,8 @@
     project_comments_type,
     project_comments_status,
     project_id,
-    project_comments_content
+    project_comments_content,
+    project_top_comments_id
       )
     values (
       #{projectCommentsParent,jdbcType=INTEGER},
@@ -143,7 +146,8 @@
       #{projectCommentsType,jdbcType=TINYINT},
       #{projectCommentsStatus,jdbcType=TINYINT},
       #{projectId,jdbcType=INTEGER},
-      #{projectCommentsContent,jdbcType=LONGVARCHAR}
+      #{projectCommentsContent,jdbcType=LONGVARCHAR},
+      #{projectTopCommentsId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.projectComments.entity.ProjectComments">
@@ -340,37 +344,36 @@
               #{item}
     </foreach>
   </delete>
+
   <select id="selectByDto" parameterType="com.jianpanmao.projectComments.dto.ProjectCommentsDto" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List" /> from project_comments where 1=1
-    <if test="projectCommentsId!=null">
-      and project_comments_id=#{projectCommentsId}
-    </if>
-    <if test="projectCommentsParent!=null">
-      and project_comments_parent=#{projectCommentsParent}
-    </if>
-    <if test="projectCommentsNickname!=null and '' neq projectCommentsNickname">
-      and project_comments_nickname=#{projectCommentsNickname}
-    </if>
-    <if test="projectCommentsType!=null">
-      and project_comments_type=#{projectCommentsType}
-    </if>
-    <if test="projectCommentsStatus!=null">
-      and project_comments_status=#{projectCommentsStatus}
-    </if>
-    <if test="projectId!=null">
-      and project_id=#{projectId}
-    </if>
-    <if test="projectCommentsCreateTime!=null">
-      and project_comments_create_time=#{projectCommentsCreateTime}
-    </if>
-    <if test="projectCommentsUpdateTime!=null">
-      and project_comments_update_time=#{projectCommentsUpdateTime}
-    </if>
-    <if test="projectCommentsContent!=null and '' neq projectCommentsContent">
-      and project_comments_content=#{projectCommentsContent}
-    </if>
-    <if test="od!=null and od neq ''">
-      order by ${od}
-    </if>
+    SELECT * FROM project_comments pc
+  WHERE pc.project_top_comments_id = 0
+  and pc.project_comments_type = #{projectCommentsType}
+  and pc.project_comments_status = #{projectCommentsStatus}
+  and pc.project_id = #{projectId}
+  ORDER BY pc.project_comments_create_time DESC
+  </select>
+  
+  <!--查询评论下所有回复-->
+  <select id="projectTopComments" resultMap="BaseResultMap">
+    SELECT * FROM project_comments pc
+    WHERE pc.project_top_comments_id = #{0}
+    ORDER BY pc.project_comments_create_time DESC
+  </select>
+
+  <!--查询评论下回复个数-->
+  <select id="topCommentsUnderCount" resultType="java.lang.Integer">
+     SELECT COUNT(pc.project_comments_id)
+     FROM project_comments pc
+    WHERE pc.project_top_comments_id = #{0}
+  </select>
+
+  <!--查询项目下评论个数-->
+  <select id="commentsCount" resultType="java.lang.Integer">
+    SELECT
+COUNT(project_comments_id)
+FROM project_comments pc
+WHERE pc.project_id = #{0}
+and pc.project_comments_parent = 0
   </select>
 </mapper>
