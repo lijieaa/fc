@@ -100,7 +100,7 @@
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_role_group
-    where role_id = #{roleId,jdbcType=INTEGER}
+    where role_id = #{roleId,jdbcType=INTEGER} AND is_del=0;
   </delete>
   <delete id="deleteByExample" parameterType="com.jianpanmao.sys.entity.SysRoleGroupExample">
     delete from sys_role_group

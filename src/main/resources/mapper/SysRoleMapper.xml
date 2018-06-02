@@ -126,13 +126,16 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into sys_role (role_id, role_name, role_description, 
-      pid, intermediary_id)
+      intermediary_id,group_id)
     values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleDescription,jdbcType=VARCHAR}, 
-      #{pid,jdbcType=INTEGER}, #{intermediaryId,jdbcType=INTEGER})
+       #{intermediaryId,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER})
   </insert>
   <insert id="insertRM">
     insert into sys_role_menu (role_id, menu_id) values (#{0},#{1})
   </insert>
+  <delete id="deleteRM">
+    delete from sys_role_menu WHERE role_id=#{0}
+  </delete>
   <insert id="insertSelective" parameterType="com.jianpanmao.sys.entity.SysRole">
     insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -271,11 +274,7 @@
     update sys_role
     set role_name = #{roleName,jdbcType=VARCHAR},
       role_description = #{roleDescription,jdbcType=VARCHAR},
-      group_id = #{pid,jdbcType=INTEGER},
-      intermediary_id = #{intermediaryId,jdbcType=INTEGER},
-      role_update_time = #{roleUpdateTime,jdbcType=TIMESTAMP},
-      role_create_time = #{roleCreateTime,jdbcType=TIMESTAMP},
-      is_del = #{isDel,jdbcType=INTEGER}
+      group_id = #{groupId,jdbcType=INTEGER}
     where role_id = #{roleId,jdbcType=INTEGER}
   </update>
   <select id="selectAll" parameterType="com.jianpanmao.sys.entity.SysRole" resultMap="BaseResultMap">
