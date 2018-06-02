@@ -1,7 +1,9 @@
 package com.jianpanmao.sys.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
@@ -80,4 +82,14 @@ public class SysRoleGroup implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    public List<SysRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<SysRole> roles) {
+        this.roles = roles;
+    }
+
+    private List<SysRole> roles=new ArrayList<>();
 }

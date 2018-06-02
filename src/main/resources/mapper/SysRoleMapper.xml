@@ -85,7 +85,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    role_id, role_name, role_description, pid, intermediary_id, role_update_time, role_create_time, 
+    role_id, role_name, role_description, pid, intermediary_id, role_update_time, role_create_time,
     is_del
   </sql>
   <select id="selectByExample" parameterType="com.jianpanmao.sys.entity.SysRoleExample" resultMap="BaseResultMap">
@@ -229,13 +229,13 @@
   <update id="updateByExample" parameterType="map">
     update sys_role
     set role_id = #{record.roleId,jdbcType=INTEGER},
-      role_name = #{record.roleName,jdbcType=VARCHAR},
-      role_description = #{record.roleDescription,jdbcType=VARCHAR},
-      pid = #{record.pid,jdbcType=INTEGER},
-      intermediary_id = #{record.intermediaryId,jdbcType=INTEGER},
-      role_update_time = #{record.roleUpdateTime,jdbcType=TIMESTAMP},
-      role_create_time = #{record.roleCreateTime,jdbcType=TIMESTAMP},
-      is_del = #{record.isDel,jdbcType=INTEGER}
+    role_name = #{record.roleName,jdbcType=VARCHAR},
+    role_description = #{record.roleDescription,jdbcType=VARCHAR},
+    group_id = #{record.pid,jdbcType=INTEGER},
+    intermediary_id = #{record.intermediaryId,jdbcType=INTEGER},
+    role_update_time = #{record.roleUpdateTime,jdbcType=TIMESTAMP},
+    role_create_time = #{record.roleCreateTime,jdbcType=TIMESTAMP},
+    is_del = #{record.isDel,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -271,7 +271,7 @@
     update sys_role
     set role_name = #{roleName,jdbcType=VARCHAR},
       role_description = #{roleDescription,jdbcType=VARCHAR},
-      pid = #{pid,jdbcType=INTEGER},
+      group_id = #{pid,jdbcType=INTEGER},
       intermediary_id = #{intermediaryId,jdbcType=INTEGER},
       role_update_time = #{roleUpdateTime,jdbcType=TIMESTAMP},
       role_create_time = #{roleCreateTime,jdbcType=TIMESTAMP},
@@ -300,7 +300,7 @@
       and role_description=#{roleDescription}
     </if>
     <if test="pid!=null">
-      and pid=#{pid}
+      and group_id=#{pid}
     </if>
     <if test="intermediaryId!=null">
       and intermediary_id=#{intermediaryId}
@@ -317,5 +317,9 @@
     <if test="od!=null and od neq ''">
       order by ${od}
     </if>
+  </select>
+
+  <select id="findByGroupId" resultMap="BaseResultMap">
+    select * from sys_role a WHERE a.group_id=#{0}
   </select>
 </mapper>

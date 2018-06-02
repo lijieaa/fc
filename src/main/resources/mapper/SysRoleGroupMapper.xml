@@ -7,6 +7,13 @@
     <result column="intermediary_id" jdbcType="INTEGER" property="intermediaryId" />
     <result column="role_group_create_time" jdbcType="TIMESTAMP" property="roleGroupCreateTime" />
     <result column="role_group_update_time" jdbcType="TIMESTAMP" property="roleGroupUpdateTime" />
+    <collection property="roles"
+                ofType="com.jianpanmao.sys.entity.SysRole"
+                javaType="ArrayList"
+                select="com.jianpanmao.sys.dao.SysRoleMapper.findByGroupId" column="role_group_id">
+      <result property="roleId" column="role_id"/>
+      <result property="roleName" column="role_name"/>
+    </collection>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>

@@ -19,7 +19,7 @@ public class SysRole implements Serializable {
     private String roleDescription;
 
     //
-    private Integer pid;
+    //private Integer pid;
 
     //
     private Integer intermediaryId;
@@ -61,14 +61,14 @@ public class SysRole implements Serializable {
         this.roleDescription = roleDescription == null ? null : roleDescription.trim();
     }
 
-    public Integer getPid() {
+  /*  public Integer getPid() {
         return pid;
     }
 
     public void setPid(Integer pid) {
         this.pid = pid;
     }
-
+*/
     public Integer getIntermediaryId() {
         return intermediaryId;
     }
@@ -110,7 +110,7 @@ public class SysRole implements Serializable {
         sb.append(", roleId=").append(roleId);
         sb.append(", roleName=").append(roleName);
         sb.append(", roleDescription=").append(roleDescription);
-        sb.append(", pid=").append(pid);
+        //sb.append(", pid=").append(pid);
         sb.append(", intermediaryId=").append(intermediaryId);
         sb.append(", roleUpdateTime=").append(roleUpdateTime);
         sb.append(", roleCreateTime=").append(roleCreateTime);
