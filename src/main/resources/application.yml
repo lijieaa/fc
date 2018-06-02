@@ -5,6 +5,9 @@ spring:
  jackson:
   time: GMT+8
   date-format: yyyy-MM-dd HH:mm:ss
+ servlet:
+   multipart:
+     max-file-size: 10MB
 
 mybatis:
  config-location: classpath:mybatis-config.xml
