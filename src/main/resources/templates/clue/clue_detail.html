@@ -35,12 +35,20 @@
     </style>
 </head>
 <body layout:fragment="content">
-<div class="page-header">
-    <h1>
-        线索评论
-    </h1>
-</div>
 <div class="wrapper" id="clubsDetail">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-9 col-sm-9">
+                <div class="float-left">
+                    <span class="font-size-18 border-left-blue">线索评论</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 text-align-right">
+                <button type="button" data-toggle="modal" @click="backList" class="btn back-btn btn-info padding-right-15">返回
+                </button>
+            </div>
+        </div>
+    </div>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <section class="content-list overflow-hidden ">
@@ -60,7 +68,7 @@
                                 <td>{{clueComment.projectId}}</td>
                             </tr>
                             <tr class="clue-back">
-                                <td>项目名称</td>
+                                <td>线索名称</td>
                                 <td>业主名</td>
                                 <td></td>
                             </tr>
@@ -155,6 +163,10 @@
             }
         },
         methods:{
+            backList:function(){
+                location.href=contextPath+"clue/list";
+            },
+
             closeDelPop:function(){
                 $(".modalAll").removeClass("in").css("display","none");
             },

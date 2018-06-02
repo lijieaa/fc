@@ -9,13 +9,17 @@
     </style>
 </head>
 <div class="page-header">
-    <h1>
-        设备日志
-        <small>
-            <i class="ace-icon fa fa-angle-double-right"></i>
-            Static &amp; Dynamic Tables
-        </small>
-    </h1>
+    <div class="row">
+        <div class="col-md-9 col-sm-9">
+            <div class="float-left">
+                <span class="font-size-18 border-left-blue">设备日志</span>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 text-align-right">
+            <button type="button" data-toggle="modal"id="backList" class="btn back-btn btn-info padding-right-15">返回
+            </button>
+        </div>
+    </div>
 </div>
     <div class="row">
         <div class="col-xs-12">
@@ -99,6 +103,9 @@
     </div>
     <script type="text/javascript" th:inline="javascript">
         jQuery(function ($) {
+            $("#backList").click(function(){
+                location.href=contextPath+"device/list";
+            });
             //initiate dataTables plugin
             var myTable =$('#dynamic-table')
                         //.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
