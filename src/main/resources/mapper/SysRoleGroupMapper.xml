@@ -109,12 +109,8 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.jianpanmao.sys.entity.SysRoleGroup">
-    insert into sys_role_group (role_id, role_name, intermediary_id, 
-      role_group_create_time, role_group_update_time, 
-      is_del)
-    values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{intermediaryId,jdbcType=INTEGER}, 
-      #{roleGroupCreateTime,jdbcType=TIMESTAMP}, #{roleGroupUpdateTime,jdbcType=TIMESTAMP}, 
-      #{isDel,jdbcType=INTEGER})
+    insert into sys_role_group (role_id, role_name, intermediary_id)
+    values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{intermediaryId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.sys.entity.SysRoleGroup">
     insert into sys_role_group
@@ -227,10 +223,7 @@
   <update id="updateByPrimaryKey" parameterType="com.jianpanmao.sys.entity.SysRoleGroup">
     update sys_role_group
     set role_name = #{roleName,jdbcType=VARCHAR},
-      intermediary_id = #{intermediaryId,jdbcType=INTEGER},
-      role_group_create_time = #{roleGroupCreateTime,jdbcType=TIMESTAMP},
-      role_group_update_time = #{roleGroupUpdateTime,jdbcType=TIMESTAMP},
-      is_del = #{isDel,jdbcType=INTEGER}
+      intermediary_id = #{intermediaryId,jdbcType=INTEGER}
     where role_id = #{roleId,jdbcType=INTEGER}
   </update>
   <select id="selectAll" parameterType="com.jianpanmao.sys.entity.SysRoleGroup" resultMap="BaseResultMap">
