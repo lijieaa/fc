@@ -23,14 +23,32 @@ return od;
 public void setOd(String od) {
 this.od = od;
 }
-private String roleGroupName ;
+private Integer roleId ;
 
-public String getRoleGroupName() {
-return roleGroupName;
+public Integer getRoleId() {
+return roleId;
 }
 
-public void setRoleGroupName(String roleGroupName) {
-this.roleGroupName = roleGroupName;
+public void setRoleId(Integer roleId) {
+this.roleId = roleId;
+}
+private String roleName ;
+
+public String getRoleName() {
+return roleName;
+}
+
+public void setRoleName(String roleName) {
+this.roleName = roleName;
+}
+private Integer isDel ;
+
+public Integer getIsDel() {
+return isDel;
+}
+
+public void setIsDel(Integer isDel) {
+this.isDel = isDel;
 }
 private Integer intermediaryId ;
 
@@ -49,14 +67,5 @@ return roleGroupUpdateTime;
 
 public void setRoleGroupUpdateTime(Date roleGroupUpdateTime) {
 this.roleGroupUpdateTime = roleGroupUpdateTime;
-}
-private Integer roleGroupId ;
-
-public Integer getRoleGroupId() {
-return roleGroupId;
-}
-
-public void setRoleGroupId(Integer roleGroupId) {
-this.roleGroupId = roleGroupId;
 }
 }

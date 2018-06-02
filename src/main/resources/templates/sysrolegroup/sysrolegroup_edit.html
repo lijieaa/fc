@@ -16,15 +16,25 @@
         </div>
 
 
-    <input type="hidden" name="roleGroupId"  id="roleGroupId">
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="roleName">roleName:</label>
+            <div class="col-xs-12 col-sm-9">
+                <div class="clearfix">
+                    <input type="text" name="roleName" id="roleName" class="col-xs-12 col-sm-6" />
+                </div>
+            </div>
+        </div>
+
+
+    <input type="hidden" name="roleId"  id="roleId">
 
 
 
         <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="roleGroupName">roleGroupName:</label>
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="isDel">isDel:</label>
             <div class="col-xs-12 col-sm-9">
                 <div class="clearfix">
-                    <input type="text" name="roleGroupName" id="roleGroupName" class="col-xs-12 col-sm-6" />
+                    <input type="text" name="isDel" id="isDel" class="col-xs-12 col-sm-6" />
                 </div>
             </div>
         </div>
@@ -97,7 +107,10 @@
                 roleGroupCreateTime: {
                     required: true
                 },
-                roleGroupName: {
+                roleName: {
+                    required: true
+                },
+                isDel: {
                     required: true
                 },
                 intermediaryId: {

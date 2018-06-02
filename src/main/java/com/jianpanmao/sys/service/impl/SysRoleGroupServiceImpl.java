@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SysRoleGroupServiceImpl extends BaseServiceImpl<SysRoleGroup,SysRoleGroupExample,SysRoleGroupDto,Integer> implements SysRoleGroupService {
-
     @Override
     public int add(SysRoleGroup record) {
         DingtalkUser addUser = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
