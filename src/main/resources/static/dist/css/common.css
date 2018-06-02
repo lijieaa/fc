@@ -247,3 +247,14 @@ div.dataTables_wrapper div.dataTables_paginate{
 .btn, .border-none {
     border: 1px solid #6FB3E0;
 }
+.back-btn {
+    position: absolute;
+    right: 40px;
+}
+.border-left-blue {
+    border-left: 3px solid #38adff;
+    padding-left: 5px;
+}
+.icon-color-9c {
+    color: #9c9c9c;
+}
