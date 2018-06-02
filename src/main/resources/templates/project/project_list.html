@@ -261,7 +261,7 @@
                             + '<a class="blue" href="detail/?id='+data.projectId+'" title="详情"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:view')"]
-                            + '<a class="blue" href="detail/?id='+data.projectId+'" title="关联"><i class="ace-icon fa fa-exchange bigger-130"></i></a>'
+                            + '<a class="blue" href="projectAssociation?id='+data.projectId+'" title="关联"><i class="ace-icon fa fa-exchange bigger-130"></i></a>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:edit')"]
                             + '<a class="green" href="edit/?id='+data.projectId+'"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
@@ -275,7 +275,7 @@
                             + '<li><a href="detail/?id='+data.projectId+'" class="tooltip-info" data-rel="tooltip" title="详情"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:view')"]
-                            + '<li><a href="detail/?id='+data.projectId+'" class="tooltip-info" data-rel="tooltip" title="关联"><span class="blue"><i class="ace-icon fa fa-exchange bigger-120"></i></span></a></li>'
+                            + '<li><a href="projectAssociation?id='+data.projectId+'" class="tooltip-info" data-rel="tooltip" title="关联"><span class="blue"><i class="ace-icon fa fa-exchange bigger-120"></i></span></a></li>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:edit')"]
                             + '<li><a href="edit/?id='+data.projectId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
