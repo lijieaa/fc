@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -38,10 +39,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .anyRequest().authenticated()
+                .anyRequest().authenticated();
                 //.anyRequest().permitAll()
+
+        http
+                .sessionManagement()
+                .maximumSessions(1)
+                .expiredUrl("/session_timeout")
+                .maxSessionsPreventsLogin(true)
                 .and()
-                .sessionManagement().maximumSessions(100).expiredUrl("/session_timeout");
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                .invalidSessionUrl("/session_timeout");
 
 
         http .formLogin()
