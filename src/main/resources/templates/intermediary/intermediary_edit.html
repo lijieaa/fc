@@ -80,10 +80,26 @@
         .menu-list{
             max-height: 300px;
         }
+        .btn, .border-none {
+            border: 1px solid #6FB3E0;
+        }
     </style>
 </head>
 <body layout:fragment="content">
 <div id="myMediary">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-9 col-sm-9">
+                <div class="float-left">
+                    <span class="font-size-18 border-left-blue">编辑中间商</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 text-align-right">
+                <button type="button" data-toggle="modal" @click="backList" class="btn back-btn btn-info padding-right-15">返回
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-xs-12">
             <div class="row">
@@ -245,6 +261,9 @@
                 }
             },
             methods:{
+                backList:function(){
+                    location.href=contextPath+"intermediary/list";
+                },
                 zTreeInit:function(){
                     var _this = this;
                     return {

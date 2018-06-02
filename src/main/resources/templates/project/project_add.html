@@ -1,202 +1,518 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <link rel="stylesheet" th:href="@{/dist/css/common.css}">
+    <style>
+        #fileList{
+            width: 55%;
+            min-height: 110px;
+            outline: 1px solid #ececec;
+            background: #eee;
+        }
+        #fileList.active {
+            outline: none;
+            border:none!important;
+        }
+        #treeDemo{
+            width: 60%;
+            background: #fff;
+            /*outline: 1px solid #3c8dbc;*/
+        }
+        #editor1{
+            resize: none;
+        }
+        .intermediary-title{
+            height: 40px;
+            line-height: 40px;
+            background: rgb(228,228,228);
+            padding-left: 10px;
+        }
+        .img-div{
+            /*width: 40%;*/
+            /*height: 150px;*/
+            min-height: 150px;
+            border: 1px dotted black;
+            margin-top: 5px;
+        }
+        .img-div>img{
+            width: 110px;
+        }
+        .inter-img input[type=file]{
+            width: 100%;
+        }
+        .tree-div-contain{
+            display: none;
+            position: absolute;
+            width: 96.5%;
+            z-index: 3;
+            overflow: auto;
+            background: white;
+            top: 38px;
+            left: 11px;
+            outline: 1px solid darkgreen;
+        }
+        .search-list{
+            margin: 0;
+            list-style: none;
+            padding: 0;
+            padding-left: 10px;
+        }
+        .search-list li{
+            height: 30px;
+            line-height: 30px;
+        }
+        .webuploader-pick {
+            position: relative;
+            display: none;
+            cursor: pointer;
+            background: #00b7ee;
+            padding: 10px 15px;
+            color: #fff;
+            text-align: center;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .search-btn-list{
+            height: 34px;
+            line-height: 7px;
+            margin-left: 10px;
+        }
+        .menu-list{
+            max-height: 300px;
+        }
+        .btn, .border-none {
+            border: 1px solid #6FB3E0;
+        }
+    </style>
+</head>
 <body layout:fragment="content">
-
-<div class="row">
-    <div class="col-xs-12">
+<div id="myMediary">
+    <div class="page-header">
         <div class="row">
-            <form class="form-horizontal" id="validation-form" method="post">
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectContactUserId">联系人:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="projectContactUserId" id="projectContactUserId" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
+            <div class="col-md-9 col-sm-9">
+                <div class="float-left">
+                    <span class="font-size-18 border-left-blue">添加项目</span>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectCreateTime">创建时间:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="projectCreateTime" id="projectCreateTime" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectStatus">状态:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="projectStatus" id="projectStatus" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="areaId">所属地区:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="areaId" id="areaId" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectLogo">logo:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="projectLogo" id="projectLogo" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectCreateUserId">创建人:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="projectCreateUserId" id="projectCreateUserId" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectOwnerContactTel">业主联系电话:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="projectOwnerContactTel" id="projectOwnerContactTel" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectName">名称:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="projectName" id="projectName" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectUpdateTime">修改时间:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="projectUpdateTime" id="projectUpdateTime" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectOwnerContact">业主联系人:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="projectOwnerContact" id="projectOwnerContact" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectTopicStatus">线索跟进状态:</label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="projectTopicStatus" id="projectTopicStatus" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="space-4"></div>
-                <div class="clearfix form-actions">
-                    <div class="col-md-offset-3 col-md-9">
-                        <button class="btn btn-info" type="submit" id="submit">
-                            <i class="ace-icon fa fa-check bigger-110"></i>
-                            提交
-                        </button>
-
-                        &nbsp; &nbsp; &nbsp;
-                        <button class="btn" type="reset">
-                            <i class="ace-icon fa fa-undo bigger-110"></i>
-                            重置
-                        </button>
-                    </div>
-                </div>
-            </form>
+            </div>
+            <div class="col-md-3 col-sm-3 text-align-right">
+                <button type="button" data-toggle="modal" @click="backList" class="btn back-btn btn-info padding-right-15">返回
+                </button>
+            </div>
         </div>
-        <!-- PAGE CONTENT ENDS -->
     </div>
-    <!-- /.col -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <form class="form-horizontal" id="validation-form">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectName">项目名称:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text" name="projectName" id="projectName" v-model="editList.projectName" class="col-xs-12 col-sm-6" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="">负责人:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <!--<input type="text" name="projectContactUserId" id="" v-model="editList.projectContactUserId" class="col-xs-12 col-sm-6" >-->
+                                <select name="projectContactUser" class="col-xs-12 col-sm-6" v-model="editList.userId">
+                                    <option :value="item1.userid" v-for="item1 in editList.userList">{{item1.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="areaId">地区:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <!--<input type="text" name="areaId" id="areaId" class="col-xs-12 col-sm-6" />-->
+                                <input type="text" name="areaId" class="col-xs-12 col-sm-6" id="areaId" readonly="readonly" required="required" onclick="showMenu()" v-bind:data-id="editList.area.id" v-model="editList.area.name" >
+                                <div class="tree-div-contain">
+                                    <div class="margin-left-10 margin-top-6">
+                                        <input type="text" class="col-xs-8 col-sm-6 limit-style" v-model="searchVal">
+                                        <button  type="button" class="btn btn-info padding-right-15 search-btn-list" @click="searchZtree">搜索</button>
+                                    </div>
+                                    <div class="menu-list margin-left-10">
+                                        <ul id="treeDemo" class="ztree"></ul>
+                                        <ul class="search-list">
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectOwnerContact">业主名:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text" name="projectOwnerContact" id="projectOwnerContact" v-model="editList.projectOwnerContact" class="col-xs-12 col-sm-6" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectOwnerContactTel">业主联系电话:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text" name="projectOwnerContactTel" id="projectOwnerContactTel" v-model="editList.projectOwnerContactTel" class="col-xs-12 col-sm-6" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">LOGO:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="hidden" name="intermediaryLogoUrl"  id="responseUrl" value="" class="col-xs-12 col-sm-6">
+                                <div id="fileList" class="uploader-list" name="intermediaryLogoUrl">
+                                    <!--<img src="" id="imgInter" alt="">-->
+                                </div>
+                                <div id="filePicker" class="margin-top-6">选择图片</div>
+                            </div>
+
+                            <!--<div class="clearfix">-->
+                            <!--<input type="text" name="intermediaryLogoUrl" id="intermediaryLogoUrl" class="col-xs-12 col-sm-6" />-->
+                            <!--</div>-->
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">项目跟进状态:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <!--<input type="text" name="projectTopicStatus" id="projectTopicStatus" class="col-xs-12 col-sm-6" />-->
+                                <select name="projectTopicStatus" class="col-xs-12 col-sm-6" v-model="editList.projectTopicStatus">
+                                    <option value="0">已处理</option>
+                                    <option value="1">正在处理</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button class="btn btn-info" type="submit" id="submit">
+                                <i class="ace-icon fa fa-check bigger-110"></i>
+                                提交
+                            </button>
+
+                            &nbsp; &nbsp; &nbsp;
+                            <button class="btn" type="reset">
+                                <i class="ace-icon fa fa-undo bigger-110"></i>
+                                重置
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- PAGE CONTENT ENDS -->
+        </div>
+        <!-- /.col -->
+    </div>
 </div>
+<script th:src="@{/js/webuploader.js}"></script>
 <script type="text/javascript" th:inline="javascript">
-
+    function showMenu() {
+        $(".tree-div-contain").show();
+        $("body").unbind("mousedown", onBodyDown);
+    }
+    function hideMenu() {
+        $(".tree-div-contain").hide();
+        $("body").unbind("mousedown", onBodyDown);
+    }
+    function onBodyDown(event) {
+        if (!(event.target.id == "areaId"  || event.target.className == "tree-div-contain" || $(event.target).parents(".tree-div-contain").length>0)) {
+            hideMenu();
+        }
+    }
+    $(document).bind("click",function(e){
+        onBodyDown(e) ;
+    });
+    // var responseUrl;
     jQuery(function($) {
+        new Vue({
+            el:"#myMediary",
+            data:{
+                searchVal:"",
 
-        var $form = $('#validation-form').validate({
-            errorElement: 'div',
-            errorClass: 'help-block',
-            focusInvalid: false,
-            ignore: "",
-            rules: {
-                projectContactUserId: {
-                    required: true
-                },
-                projectCreateTime: {
-                    required: true
-                },
-                projectStatus: {
-                    required: true
-                },
-                areaId: {
-                    required: true
-                },
-                projectLogo: {
-                    required: true
-                },
-                projectCreateUserId: {
-                    required: true
-                },
-                projectOwnerContactTel: {
-                    required: true
-                },
-                projectName: {
-                    required: true
-                },
-                projectUpdateTime: {
-                    required: true
-                },
-                projectOwnerContact: {
-                    required: true
-                },
-                projectTopicStatus: {
-                    required: true
-                },
-            },
-
-            highlight: function (e) {
-                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-            },
-
-            success: function (e) {
-                $(e).closest('.form-group').removeClass('has-error');
-                $(e).remove();
-            },
-
-            errorPlacement: function (error, element) {
-                 error.insertAfter(element.parent());
-            },
-
-            submitHandler: function (form) {
-
-                var data = $(form).serializeObject();
-
-                $.ajax({
-                    url: contextPath+"api/project/",
-                    method: "post",
-                    data : JSON.stringify(data),
-                    contentType: "application/json",
-                    dataType : "json",
-                    success: function (data) {
-                       location.href=contextPath+"project/list";
+                editList:{
+                    area:{
+                        name:"",
+                        id:""
                     },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                })
-
-
+                    id: 1,
+                    projectName: "", //项目名称
+                    // projectContactUserId: "", //负责人
+                    projectOwnerContact:"",
+                    projectOwnerContactTel: "",
+                    intermediaryLogoUrl: "",
+                    projectTopicStatus:1,
+                    userList:"",
+                    userId:1
+                }
             },
-            invalidHandler: function (form) {
+            methods:{
+                backList:function(){
+                    location.href=contextPath+"project/list";
+                },
+                zTreeInit:function(){
+                    var _this = this;
+                    return {
+                        useTree : function(ele,zNodes,inputEle){
+                            var setting = {
+                                async: {
+                                    enable: true,
+                                    url: getUrl,
+                                    type: "get",
+                                    dataFilter: ajaxDataFilter
+                                },
+                                data: {
+                                    simpleData: {
+                                        enable: true
+                                    }
+                                },
+                                callback: {
+                                    onClick:zTreeOnclick,
+                                    beforeExpand: beforeExpand,
+                                    onAsyncSuccess:onAsyncSuccess
+                                },
+                                view: {
+                                    fontCss: getFontCss,
+                                    showLine: false
+                                    // showIcon:false
+                                }
+                            };
+                            function getFontCss(treeId, treeNode) {
+                                return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
+                            }
+                            //异步加载返回的数据
+                            function ajaxDataFilter(treeId, parentNode, responseData) {
+                                console.log(responseData.content +"=======================");
+                                return responseData.content;
+                            }
+                            function zTreeOnclick(event, treeId, treeNode) {
+                                _this.editList.area.name = treeNode.name;
+                                _this.editList.area.id = treeNode.id;
+                                $(".tree-div-contain").hide();
+                                _this.searchVal = "";
+                                $("#areaId").parent().next().remove();
+                                $("#areaId").parents(".form-group").removeClass("has-error")
+                            }
+                            function getUrl(treeId, treeNode){
+                                return contextPath +"api/area/condition?level="+parseInt(treeNode.level+2)+"&parent="+treeNode.id;
+                            }
+                            function beforeExpand(treeId, treeNode) {
+                                if (!treeNode.isAjaxing) {
+                                    return true;
+                                } else {
+                                    alert("zTree 正在下载数据中，请稍后展开节点。。。");
+                                    return false;
+                                }
+                            }
+                            function onAsyncSuccess(event, treeId, treeNode, msg) {
+                                var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                                treeObj.updateNode(treeNode);
+                            }
+                            $.fn.zTree.init(ele, setting, zNodes);
+                        }
+                    }
+                },
+                searchZtree:function(){
+                    var searchVal = this.searchVal;
+                    if(searchVal.length != 0){
+                        $.axspost(contextPath + "api/area/?shortName="+searchVal,"get","",function (data) {
+                            var getData = data.content;
+                            $(".search-list").html("");
+                            if(getData.length != 0){
+                                getData.forEach(function(item,i){
+                                    var li = "<li data-id="+getData[i].id+">"+getData[i].name+"</li>";
+                                    $(".search-list").append(li).show();
+                                    $("#treeDemo").hide();
+                                })
+                            }
+                        },function (data) {
+                        });
+                    }else{
+                        $("#treeDemo").show();
+                        $(".search-list").hide();
+                    }
+                },
+                sureSubmit:function () {
+                    var _this = this;
+                    var data = {
+                        projectName:_this.editList.projectName, //项目名称
+                        // projectContactUserId:_this.editList.projectContactUserId,//负责人
+                        projectContactUser:{
+                            "userid":_this.editList.userId
+                        },
+                        projectOwnerContact:_this.editList.projectOwnerContact,//业主名
+                        projectOwnerContactTel:_this.editList.projectOwnerContactTel, //业主联系方式
+                        projectLogo:   $("#responseUrl").val(),
+                        projectTopicStatus:_this.editList.projectTopicStatus,
+                        area:{
+                            id:_this.editList.area.id
+                        },
+                        projectStatus:1
+                    };
+                    $.ajax({
+                        url: contextPath+"api/project",
+                        method: "post",
+                        data : JSON.stringify(data),
+                        contentType: "application/json",
+                        dataType : "json",
+                        success: function (data) {
+                            if(data.status == 200){
+                                location.href=contextPath+"project/list";
+                            }else{
+                                bootbox.alert("添加失败");
+                            }
+                        },
+                        error: function (data) {
+                            // alert(2);
+                            // console.log(data);
+                        }
+                    })
+                }
+            },
+            mounted:function () {
+                var _this = this;
+                // _this.uploaderFun();  //上传图片
+                jQuery.validator.addMethod("isMobile", function(value, element) {
+                    var length = value.length;
+                    var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+                    return this.optional(element) || (length == 11 && mobile.test(value));
+                }, "请正确填写您的手机号码");
+                //所属区域
+                $.axspost(contextPath + "api/area/condition?level=1","get","",function(data){
+                    // _this.facList = data.content;
+                    data.content.forEach(function(item,i){
+                        data.content[i].isParent  = true;
+                        _this.facList = data.content;
+                    });
+                    _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
+                },function (data) {});
+                //负责人
+                $.ajax({
+                    url:contextPath+"api/dingtalkuser/idNameList",
+                    type:"get",
+                    success:function(data){
+                        _this.editList.userList = data.content
+                    }
+                });
+                var $form = $('#validation-form').validate({
+                    errorElement: 'div',
+                    errorClass: 'help-block',
+                    focusInvalid: false,
+                    ignore: "",
+                    rules: {
+                        projectName: {
+                            required: true
 
+                        },
+                        projectContactUserId: {
+                            required: true
+                        },
+                        areaId: {
+                            required: true
+                        },
+                        intermediaryLogoUrl: {
+                            required: true
+                        },
+                        projectOwnerContact:{
+                            required: true
+                        },
+                        projectOwnerContactTel: {
+                            required: true,
+                            isMobile:true
+                        },
+                        projectTopicStatus:{
+                            required: true
+                        }
+                    },
+                    highlight: function (e) {
+                        $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                    },
+                    success: function (e) {
+                        $(e).closest('.form-group').removeClass('has-error');
+                        $(e).remove();
+                    },
+                    errorPlacement: function (error, element) {
+                        error.insertAfter(element.parent());
+                    },
+                    submitHandler: function (form) {
+                        // var data = $(form).serializeObject();
+                        _this.sureSubmit();
+                    },
+                    invalidHandler: function (form) {
+                    }
+                });
             }
+        });
+        $(document).on("click",".search-list >li",function(){
+            $(".tree-div-contain").hide();
+            $("#areaId").val($(this).text()).attr("data-id",
+                $(this).attr("data-id"));
+            $("#treeDemo").show();
+            $(".search-list").hide();
+            var text = $(this).text();
+            var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+            var nodes = treeObj.transformToArray(treeObj.getNodes());
+            $(".limit-style").val("");
+            $("#areaId").parent().next().remove();
+            $("#areaId").parents(".form-group").removeClass("has-error");
+            nodes.forEach(function(item,i){
+                if(nodes[i].name == text){
+                    treeObj.selectNode(nodes[i]);
+                }
+            });
+        });
+        $("button[type=reset]").click(function(){
+            $("#responseUrl").val("");
+            $("#imgInter").attr("src","");
+        });
+        setTimeout(function(){
+            $(".webuploader-pick").css("display","inline-block");
+            $(".webuploader-pick").next().css({
+                position: "absolute",
+                top: "121px",
+                left: "15px",
+                width: "85px",
+                height: "40px",
+                overflow: "hidden",
+                opacity: 0
+            });
+        }, 30);
+        var uploader = WebUploader.create({
+            // 选完文件后，是否自动上传。
+            auto: true,
+            // swf文件路径
+            swf: contextPath + '/dist/js/Uploader.swf',
+            // 文件接收服务端。
+            server: contextPath+'upload',
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#filePicker',
+            // 只允许选择图片文件。
+            /*accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/!*'
+            },*/
+        });
+        uploader.on( 'uploadSuccess', function( file,response ) {
+            $("#responseUrl").val(response.content.path);
+            $("#responseUrl").parent().next().remove();
+            $("#responseUrl").parents(".form-group").removeClass("has-error")
+        });
+        uploader.on( 'fileQueued', function( file ) {
+            var $li = $('<img src="" id="imgInter">');
+            $("#fileList").html($li);
+            uploader.makeThumb(file, function (error, src) {
+                $("#imgInter").attr("src",src);
+            });
         });
     })
 </script>

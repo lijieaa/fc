@@ -5,19 +5,27 @@
         .form-actions{
             overflow: hidden;
         }
+        .btn, .border-none {
+            border: 1px solid #6FB3E0;
+        }
     </style>
 </head>
 <body layout:fragment="content">
-<div class="page-header">
-    <h1>
-        添加设备
-        <small>
-            <!--<i class="ace-icon fa fa-angle-double-right"></i>-->
-            <!--Static &amp; Dynamic Tables-->
-        </small>
-    </h1>
-</div>
+
 <div class="row" id="deviceAdd">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-9 col-sm-9">
+                <div class="float-left">
+                    <span class="font-size-18 border-left-blue">添加设备</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 text-align-right">
+                <button type="button" style="right: 50px;" data-toggle="modal" @click="backList" class="btn back-btn btn-info padding-right-15">返回
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="col-xs-12">
         <div class="row">
             <!--<form class="" id="">-->
@@ -84,6 +92,9 @@
                 deviceProductionNum:[]
             },
             methods:{
+                backList:function(){
+                    location.href=contextPath+"device/list";
+                },
                 changeNum:function (item) {
                     console.log($("#Num").val());
                     if($("#Num").val().trim() == ""){

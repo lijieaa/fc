@@ -41,4 +41,33 @@ public String detail(@RequestParam("id") Integer id, Model model){
 model.addAttribute("id",id);
 return "project/project_detail";
 }
+
+/**
+ * 项目评论
+ */
+@PreAuthorize("hasAuthority('project:view')")
+@RequestMapping(method = RequestMethod.GET,value = "projectComments")
+public String projectComments(@RequestParam("id") Integer id, Model model){
+    model.addAttribute("id",id);
+    return "project/project_comments";
+}
+
+    /**
+     * 项目关联
+     */
+    @PreAuthorize("hasAuthority('project:edit')")
+    @RequestMapping(method = RequestMethod.GET,value = "projectAssociation")
+    public String projectAssociation(){
+        return "project/project_association";
+    }
+
+    /**
+     * 项目详情编辑设备
+     */
+    @PreAuthorize("hasAuthority('project:edit')")
+    @RequestMapping(method = RequestMethod.GET,value = "detailEditDevice")
+    public String detailEditDevice(){
+        return "project/project_EditDevice";
+    }
+
 }

@@ -1,4 +1,6 @@
 spring:
+ session:
+  timeout: 30
  thymeleaf:
   cache: false
   mode: LEGACYHTML5

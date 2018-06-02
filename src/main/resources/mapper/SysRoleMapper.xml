@@ -5,7 +5,7 @@
     <id column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
     <result column="role_description" jdbcType="VARCHAR" property="roleDescription" />
-    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
     <result column="intermediary_id" jdbcType="INTEGER" property="intermediaryId" />
     <result column="role_update_time" jdbcType="TIMESTAMP" property="roleUpdateTime" />
     <result column="role_create_time" jdbcType="TIMESTAMP" property="roleCreateTime" />
@@ -85,8 +85,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    role_id, role_name, role_description, pid, intermediary_id, role_update_time, role_create_time, 
-    is_del
+    role_id, role_name, role_description,intermediary_id, role_update_time, role_create_time,group_id,is_del
   </sql>
   <select id="selectByExample" parameterType="com.jianpanmao.sys.entity.SysRoleExample" resultMap="BaseResultMap">
     select
@@ -126,13 +125,16 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into sys_role (role_id, role_name, role_description, 
-      pid, intermediary_id)
+      intermediary_id,group_id)
     values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleDescription,jdbcType=VARCHAR}, 
-      #{pid,jdbcType=INTEGER}, #{intermediaryId,jdbcType=INTEGER})
+       #{intermediaryId,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER})
   </insert>
   <insert id="insertRM">
     insert into sys_role_menu (role_id, menu_id) values (#{0},#{1})
   </insert>
+  <delete id="deleteRM">
+    delete from sys_role_menu WHERE role_id=#{0}
+  </delete>
   <insert id="insertSelective" parameterType="com.jianpanmao.sys.entity.SysRole">
     insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -229,13 +231,13 @@
   <update id="updateByExample" parameterType="map">
     update sys_role
     set role_id = #{record.roleId,jdbcType=INTEGER},
-      role_name = #{record.roleName,jdbcType=VARCHAR},
-      role_description = #{record.roleDescription,jdbcType=VARCHAR},
-      pid = #{record.pid,jdbcType=INTEGER},
-      intermediary_id = #{record.intermediaryId,jdbcType=INTEGER},
-      role_update_time = #{record.roleUpdateTime,jdbcType=TIMESTAMP},
-      role_create_time = #{record.roleCreateTime,jdbcType=TIMESTAMP},
-      is_del = #{record.isDel,jdbcType=INTEGER}
+    role_name = #{record.roleName,jdbcType=VARCHAR},
+    role_description = #{record.roleDescription,jdbcType=VARCHAR},
+    group_id = #{record.pid,jdbcType=INTEGER},
+    intermediary_id = #{record.intermediaryId,jdbcType=INTEGER},
+    role_update_time = #{record.roleUpdateTime,jdbcType=TIMESTAMP},
+    role_create_time = #{record.roleCreateTime,jdbcType=TIMESTAMP},
+    is_del = #{record.isDel,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -271,11 +273,7 @@
     update sys_role
     set role_name = #{roleName,jdbcType=VARCHAR},
       role_description = #{roleDescription,jdbcType=VARCHAR},
-      pid = #{pid,jdbcType=INTEGER},
-      intermediary_id = #{intermediaryId,jdbcType=INTEGER},
-      role_update_time = #{roleUpdateTime,jdbcType=TIMESTAMP},
-      role_create_time = #{roleCreateTime,jdbcType=TIMESTAMP},
-      is_del = #{isDel,jdbcType=INTEGER}
+      group_id = #{groupId,jdbcType=INTEGER}
     where role_id = #{roleId,jdbcType=INTEGER}
   </update>
   <select id="selectAll" parameterType="com.jianpanmao.sys.entity.SysRole" resultMap="BaseResultMap">
@@ -300,7 +298,7 @@
       and role_description=#{roleDescription}
     </if>
     <if test="pid!=null">
-      and pid=#{pid}
+      and group_id=#{pid}
     </if>
     <if test="intermediaryId!=null">
       and intermediary_id=#{intermediaryId}
@@ -317,5 +315,9 @@
     <if test="od!=null and od neq ''">
       order by ${od}
     </if>
+  </select>
+
+  <select id="findByGroupId" resultMap="BaseResultMap">
+    select * from sys_role a WHERE a.group_id=#{0}
   </select>
 </mapper>

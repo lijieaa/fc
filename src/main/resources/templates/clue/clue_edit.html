@@ -80,15 +80,26 @@
         .menu-list{
             max-height: 300px;
         }
+        .btn, .border-none {
+            border: 1px solid #6FB3E0;
+        }
     </style>
 </head>
 <body layout:fragment="content">
-<div class="page-header">
-    <h1>
-        线索添加
-    </h1>
-</div>
 <div id="myMediary">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-9 col-sm-9">
+                <div class="float-left">
+                    <span class="font-size-18 border-left-blue">编辑线索</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 text-align-right">
+                <button type="button" data-toggle="modal" @click="backList" class="btn back-btn btn-info padding-right-15">返回
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-xs-12">
             <div class="row">
@@ -246,6 +257,10 @@
                 }
             },
             methods:{
+                backList:function(){
+                    location.href=contextPath+"clue/list";
+                },
+
                 zTreeInit:function(){
                     var _this = this;
                     return {
@@ -283,6 +298,7 @@
                             }
                             function zTreeOnclick(event, treeId, treeNode) {
                                 _this.editList.area.name = treeNode.name;
+                                console.log(treeNode.name);
                                 _this.editList.area.id = treeNode.id;
                                 $(".tree-div-contain").hide();
                                 _this.searchVal = "";

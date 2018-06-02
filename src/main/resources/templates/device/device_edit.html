@@ -1,8 +1,28 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <style>
+        .btn, .border-none {
+            border: 1px solid #6FB3E0;
+        }
+    </style>
+</head>
 <body layout:fragment="content">
 <div class="row">
     <div class="col-xs-12" id="editDevice">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-9 col-sm-9">
+                    <div class="float-left">
+                        <span class="font-size-18 border-left-blue">编辑设备</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 text-align-right">
+                    <button type="button" data-toggle="modal" @click="backList" class="btn back-btn btn-info padding-right-15">返回
+                    </button>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <form class="form-horizontal" id="form" method="post">
                 <div class="form-group">
@@ -95,6 +115,9 @@
                     this.selectOperate = "";
                     this.selectTranscribe = "";
                     this.selectIntermediary = "";
+                },
+                backList:function(){
+                    location.href=contextPath+"device/list";
                 }
             },
             mounted:function(){

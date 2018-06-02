@@ -11,15 +11,15 @@ public class SysRole implements Serializable {
     //
     private Integer roleId;
 
-    //
+    @NotNull(message = "角色名称不能为空！")
     private String roleName;
 
     //角色名称
-    @NotNull(message = "roleDescription不能为空！")
+
     private String roleDescription;
 
     //
-    private Integer pid;
+    //private Integer pid;
 
     //
     private Integer intermediaryId;
@@ -35,7 +35,6 @@ public class SysRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    String od;
 
     public Integer getRoleId() {
         return roleId;
@@ -61,14 +60,14 @@ public class SysRole implements Serializable {
         this.roleDescription = roleDescription == null ? null : roleDescription.trim();
     }
 
-    public Integer getPid() {
+  /*  public Integer getPid() {
         return pid;
     }
 
     public void setPid(Integer pid) {
         this.pid = pid;
     }
-
+*/
     public Integer getIntermediaryId() {
         return intermediaryId;
     }
@@ -110,7 +109,7 @@ public class SysRole implements Serializable {
         sb.append(", roleId=").append(roleId);
         sb.append(", roleName=").append(roleName);
         sb.append(", roleDescription=").append(roleDescription);
-        sb.append(", pid=").append(pid);
+        //sb.append(", pid=").append(pid);
         sb.append(", intermediaryId=").append(intermediaryId);
         sb.append(", roleUpdateTime=").append(roleUpdateTime);
         sb.append(", roleCreateTime=").append(roleCreateTime);
@@ -130,4 +129,15 @@ public class SysRole implements Serializable {
     }
 
     private List<SysMenu> menus=new ArrayList<>();
+
+
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
+
+    private Integer groupId;
 }

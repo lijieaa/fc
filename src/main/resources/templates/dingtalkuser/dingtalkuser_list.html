@@ -7,89 +7,90 @@
     </head>
 <body layout:fragment="content">
 <div class="row">
-    <div class="col-sm-12">
-        <div class="tabbable">
-            <ul class="nav nav-tabs" id="myTab">
-                <li class="col-sm-6 active no-padding">
-                    <a data-toggle="tab" href="#insidecontacts" aria-expanded="true">
-                        <i class="green ace-icon fa fa-home bigger-120"></i>
-                        内部通讯录管理
-                    </a>
-                </li>
-                <li class="col-sm-6 no-padding">
-                    <a data-toggle="tab" href="#outcontacts" aria-expanded="false">
-                        <i class="green ace-icon fa fa-home bigger-120"></i>
-                        外部联系人
-                    </a>
-                </li>
-            </ul>
 
-            <div class="tab-content border-none">
-                <!-- 内部通讯录管理 -->
-                <div id="insidecontacts" class="tab-pane fade active in background-white">
-                    <div class="page-header">
-                        <h1>通讯录管理</h1>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="input-group">
-                                <input type="text" class="form-control search-query" placeholder="输入关键字搜索">
-                                <span class="input-group-btn">
+    <div class="page-header">
+        <h1>通讯录管理</h1>
+    </div>
+    <div class="tabbable">
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="col-sm-6 active no-padding">
+                <a data-toggle="tab" href="#insidecontacts" aria-expanded="true">
+                    <i class="green ace-icon fa fa-home bigger-120"></i>
+                    内部通讯录管理
+                </a>
+            </li>
+            <li class="col-sm-6 no-padding">
+                <a data-toggle="tab" href="#outcontacts" aria-expanded="false">
+                    <i class="green ace-icon fa fa-home bigger-120"></i>
+                    外部联系人
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content border-none">
+            <!-- 内部通讯录管理 -->
+            <div id="insidecontacts" class="tab-pane fade active in background-white">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control search-query" placeholder="输入关键字搜索">
+                            <span class="input-group-btn">
                                     <button type="button" class="btn btn-purple btn-sm">
                                         <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
                                         搜索
                                     </button>
                                 </span>
-                            </div>
-                            <div class="tabbable">
-                                <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                                    <li class="active organization-menu">
-                                        <a data-toggle="tab" href="#organization-menu" aria-expanded="true">组织架构</a>
-                                    </li>
-                                    <li class="role-menu">
-                                        <a data-toggle="tab" href="#role-menu" aria-expanded="false">角色</a>
-                                    </li>
-                                </ul>
+                        </div>
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                                <li class="active organization-menu">
+                                    <a data-toggle="tab" href="#organization-menu" aria-expanded="true">组织架构</a>
+                                </li>
+                                <li class="role-menu">
+                                    <a data-toggle="tab" href="#role-menu" aria-expanded="false">角色</a>
+                                </li>
+                            </ul>
 
-                                <div class="tab-content">
-                                    <div id="organization-menu" class="tab-pane active">
-                                        <ul id="organization-list"  class="ztree"></ul>
-                                    </div>
+                            <div class="tab-content">
+                                <div id="organization-menu" class="tab-pane active">
+                                    <ul id="organization-list"  class="ztree"></ul>
+                                </div>
 
-                                    <div id="role-menu" class="tab-pane align-center">
-                                        <p><button type="button" class="btn btn-white btn-default add-role-group">新增角色组</button><button type="button" class="btn btn-white btn-default add-role-person">新增角色</button></p>
-                                    </div>
+                                <div id="role-menu" class="tab-pane align-center">
+                                    <p><button type="button" class="btn btn-white btn-default add-role-group-btn">新增角色组</button><button type="button" class="btn btn-white btn-default add-role-person-btn">新增角色</button></p>
+                                    <ul id="role-list"  class="ztree"></ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-8">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <!-- 组织架构 -->
-                                    <div class="widget-box widget-main organization-container">
-                                        <h3 class="header smaller lighter blue margin-top-0">
-                                            <span class="department-name"></span>
-                                            <!--<small class="btn-warning padding-3">全员群</small>-->
-                                            <button id="edit-department-btn" type="button" class="btn btn-white btn-sm btn-primary">设置</button>
-                                        </h3>
-                                        <!-- 下级部门 -->
-                                        <div class="sub-department">
-                                            <h4 class="pink">
-                                                <i class="ace-icon fa fa-sitemap icon-animated-hand-pointer blue"></i>
-                                                <a href="#modal-table" role="button" class="green" data-toggle="modal"> 下级部门</a>
-                                            </h4>
-                                            <div class="hr hr-18 dotted hr-double"></div>
-                                            <div class="widget-header widget-header-flat">
-                                                <h4 class="smaller">
-                                                    <button id="add-sub-department-btn" class="btn btn-white btn-info btn-bold">
-                                                        <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
-                                                        添加子部门
-                                                    </button>
-                                                    <button class="btn btn-white btn-info btn-bold sub-department-queue display-none">
-                                                        <i class="ace-icon fa fa-bars small bigger-120 blue"></i>
-                                                        调整顺序
-                                                    </button>
-                                                    <span class="sub-department-queue-save-cancel display-none">
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <!-- 组织架构 -->
+                                <div class="widget-box widget-main organization-container">
+                                    <h3 class="header smaller lighter blue margin-top-0">
+                                        <span class="department-name"></span>
+                                        <!--<small class="btn-warning padding-3">全员群</small>-->
+                                        <button id="edit-department-btn" type="button" class="btn btn-white btn-sm btn-primary">设置</button>
+                                    </h3>
+                                    <!-- 下级部门 -->
+                                    <div class="sub-department">
+                                        <h4 class="pink">
+                                            <i class="ace-icon fa fa-sitemap icon-animated-hand-pointer blue"></i>
+                                            <a href="#modal-table" role="button" class="green" data-toggle="modal"> 下级部门</a>
+                                        </h4>
+                                        <div class="hr hr-18 dotted hr-double"></div>
+                                        <div class="widget-header widget-header-flat">
+                                            <h4 class="smaller">
+                                                <button id="add-sub-department-btn" class="btn btn-white btn-info btn-bold">
+                                                    <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
+                                                    添加子部门
+                                                </button>
+                                                <button class="btn btn-white btn-info btn-bold sub-department-queue display-none">
+                                                    <i class="ace-icon fa fa-bars small bigger-120 blue"></i>
+                                                    调整顺序
+                                                </button>
+                                                <span class="sub-department-queue-save-cancel display-none">
                                                         <button type="button" class="btn btn-white btn-default save">
                                                             <i class="ace-icon fa fa-floppy-o bigger-120 blue"></i>保存
                                                         </button>
@@ -97,158 +98,157 @@
                                                             <i class="ace-icon fa fa-times red2"></i>取消
                                                         </button>
                                                     </span>
-                                                </h4>
-                                            </div>
-                                            <div class="widget-body">
-                                                <div class="row">
-                                                    <div class="col-xs-12">
-                                                        <div  class="dd" id="sub-department">
-                                                            <ol class="dd-list">
-                                                                <!--<li class="dd-item" data-id="1">
-                                                                    <div class="dd-handle">
-                                                                        <i></i>
-                                                                        飞创科技技术调研组（3人）
-                                                                    </div>
-                                                                </li>
-                                                                <li class="dd-item" data-id="2">
-                                                                    <div class="dd-handle">
-                                                                        <i></i>
-                                                                        飞创科技技术研发组（13人）
-                                                                    </div>
-                                                                </li>-->
-                                                            </ol>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- 部门人员 -->
-                                        <div class="department-staff">
-                                            <h4 class="pink">
-                                                <i class="ace-icon fa fa-users icon-animated-hand-pointer blue"></i>
-                                                <a href="#modal-table" role="button" class="green" data-toggle="modal"> 部门成员</a>
                                             </h4>
-                                            <div class="hr hr-18 dotted hr-double"></div>
-
-
-                                            <div class="widget-header widget-header-flat">
-                                                <h4 class="smaller">
-                                                    <button id="add-department-staff-btn" class="btn btn-white btn-info btn-bold">
-                                                        <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
-                                                        添加成员
-                                                    </button>
-                                                    <button class="btn btn-white btn-warning btn-bold">
-                                                        <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
-                                                        批量删除
-                                                    </button>
-                                                </h4>
-                                            </div>
-                                            <div class="widget-body">
-                                                <div class="row">
-                                                    <div class="col-xs-12">
-                                                        <table id="department-staff" class="table  table-bordered table-hover">
-                                                            <thead class="department-staff-head">
-                                                                <tr>
-                                                                    <th class="center">
-                                                                        <label class="pos-rel">
-                                                                            <input type="checkbox" class="ace">
-                                                                            <span class="lbl checkbox-all"></span>
-                                                                        </label>
-                                                                    </th>
-                                                                    <th class="center">姓名</th>
-                                                                    <th class="center">职位</th>
-                                                                    <th class="center">工号</th>
-                                                                    <th class="center">手机号</th>
-                                                                    <th class="center">邮箱</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody class="department-staff-body center">
-                                                                <!--<tr>
-                                                                    <td>
-                                                                        <label class="pos-rel">
-                                                                            <input type="checkbox" class="ace">
-                                                                            <span class="lbl"></span>
-                                                                        </label>
-                                                                    </td>
-                                                                    <td>彭松涛</td>
-                                                                    <td>保洁大叔</td>
-                                                                    <td>9527</td>
-                                                                    <td>1878192830</td>
-                                                                    <td>santoetch@qq.com</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <label class="pos-rel">
-                                                                            <input type="checkbox" class="ace">
-                                                                            <span class="lbl"></span>
-                                                                        </label>
-                                                                    </td>
-                                                                    <td>彭松涛</td>
-                                                                    <td>保洁大叔</td>
-                                                                    <td>9527</td>
-                                                                    <td>1878192830</td>
-                                                                    <td>santoetch@qq.com</td>
-                                                                </tr>-->
-                                                            </tbody>
-                                                        </table>
+                                        </div>
+                                        <div class="widget-body">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div  class="dd" id="sub-department">
+                                                        <ol class="dd-list">
+                                                            <!--<li class="dd-item" data-id="1">
+                                                                <div class="dd-handle">
+                                                                    <i></i>
+                                                                    飞创科技技术调研组（3人）
+                                                                </div>
+                                                            </li>
+                                                            <li class="dd-item" data-id="2">
+                                                                <div class="dd-handle">
+                                                                    <i></i>
+                                                                    飞创科技技术研发组（13人）
+                                                                </div>
+                                                            </li>-->
+                                                        </ol>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!-- 角色管理 -->
-                                    <div class="widget-box widget-main role-container display-none">
-                                        <h3 class="header smaller lighter blue margin-top-0">
-                                            主管理员
-                                            <button type="button" class="btn btn-white btn-sm btn-primary">编辑</button>
-                                        </h3>
-                                        <div class="role-group-person-list">
-                                            <div class="widget-header widget-header-flat">
-                                                <h4 class="smaller">
-                                                    <button class="btn btn-white btn-info btn-bold">
-                                                        <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
-                                                        添加成员
-                                                    </button>
-                                                    <button class="btn btn-white btn-warning btn-bold">
-                                                        <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
-                                                        批量删除
-                                                    </button>
-                                                </h4>
+                                    <!-- 部门人员 -->
+                                    <div class="department-staff">
+                                        <h4 class="pink">
+                                            <i class="ace-icon fa fa-users icon-animated-hand-pointer blue"></i>
+                                            <a href="#modal-table" role="button" class="green" data-toggle="modal"> 部门成员</a>
+                                        </h4>
+                                        <div class="hr hr-18 dotted hr-double"></div>
+
+
+                                        <div class="widget-header widget-header-flat">
+                                            <h4 class="smaller">
+                                                <button id="add-department-staff-btn" class="btn btn-white btn-info btn-bold">
+                                                    <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
+                                                    添加成员
+                                                </button>
+                                                <button class="btn btn-white btn-warning btn-bold">
+                                                    <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
+                                                    批量删除
+                                                </button>
+                                            </h4>
+                                        </div>
+                                        <div class="widget-body">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <table id="department-staff" class="table  table-bordered table-hover">
+                                                        <thead class="department-staff-head">
+                                                        <tr>
+                                                            <th class="center">
+                                                                <label class="pos-rel">
+                                                                    <input type="checkbox" class="ace">
+                                                                    <span class="lbl checkbox-all"></span>
+                                                                </label>
+                                                            </th>
+                                                            <th class="center">姓名</th>
+                                                            <th class="center">职位</th>
+                                                            <th class="center">工号</th>
+                                                            <th class="center">手机号</th>
+                                                            <th class="center">邮箱</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="department-staff-body center">
+                                                        <!--<tr>
+                                                            <td>
+                                                                <label class="pos-rel">
+                                                                    <input type="checkbox" class="ace">
+                                                                    <span class="lbl"></span>
+                                                                </label>
+                                                            </td>
+                                                            <td>彭松涛</td>
+                                                            <td>保洁大叔</td>
+                                                            <td>9527</td>
+                                                            <td>1878192830</td>
+                                                            <td>santoetch@qq.com</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <label class="pos-rel">
+                                                                    <input type="checkbox" class="ace">
+                                                                    <span class="lbl"></span>
+                                                                </label>
+                                                            </td>
+                                                            <td>彭松涛</td>
+                                                            <td>保洁大叔</td>
+                                                            <td>9527</td>
+                                                            <td>1878192830</td>
+                                                            <td>santoetch@qq.com</td>
+                                                        </tr>-->
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
-                                            <div class="widget-body">
-                                                <div class="row">
-                                                    <div class="col-xs-12">
-                                                        <table id="role-group-person-list" class="table  table-bordered table-hover">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="center">
-                                                                        <label class="pos-rel">
-                                                                            <input type="checkbox" class="ace">
-                                                                            <span class="lbl checkbox-all"></span>
-                                                                        </label>
-                                                                    </th>
-                                                                    <th class="center">姓名</th>
-                                                                    <th class="center">部门</th>
-                                                                    <th class="center">工号</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr class="center">
-                                                                    <td>
-                                                                        <label class="pos-rel">
-                                                                            <input type="checkbox" class="ace">
-                                                                            <span class="lbl"></span>
-                                                                        </label>
-                                                                    </td>
-                                                                    <td>彭松涛</td>
-                                                                    <td>技术部</td>
-                                                                    <td>9527</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 角色管理 -->
+                                <div class="widget-box widget-main role-container display-none">
+                                    <h3 class="header smaller lighter blue margin-top-0">
+                                        <span id="role-person-name">主管理员</span>
+                                        <button type="button" class="btn btn-white btn-sm btn-primary" id="edit-role-person-btn">编辑</button>
+                                    </h3>
+                                    <div class="role-group-person-list">
+                                        <div class="widget-header widget-header-flat">
+                                            <h4 class="smaller">
+                                                <!--<button class="btn btn-white btn-info btn-bold">
+                                                    <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
+                                                    添加成员
+                                                </button>-->
+                                                <button class="btn btn-white btn-warning btn-bold">
+                                                    <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
+                                                    批量删除
+                                                </button>
+                                            </h4>
+                                        </div>
+                                        <div class="widget-body">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <table id="role-group-person-list" class="table  table-bordered table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="center">
+                                                                <label class="pos-rel">
+                                                                    <input type="checkbox" class="ace">
+                                                                    <span class="lbl checkbox-all"></span>
+                                                                </label>
+                                                            </th>
+                                                            <th class="center">姓名</th>
+                                                            <th class="center">部门</th>
+                                                            <th class="center">工号</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr class="center">
+                                                            <td>
+                                                                <label class="pos-rel">
+                                                                    <input type="checkbox" class="ace">
+                                                                    <span class="lbl"></span>
+                                                                </label>
+                                                            </td>
+                                                            <td>彭松涛</td>
+                                                            <td>技术部</td>
+                                                            <td>9527</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
@@ -258,92 +258,89 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- 外部联系人 -->
-                <div id="outcontacts" class="tab-pane fade background-white">
-                    <div class="page-header">
-                        <h1>通讯录管理</h1>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="input-group">
-                                <input type="text" class="form-control search-query" placeholder="输入关键字搜索">
-                                <span class="input-group-btn">
+            <!-- 外部联系人 -->
+            <div id="outcontacts" class="tab-pane fade background-white">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control search-query" placeholder="输入关键字搜索">
+                            <span class="input-group-btn">
                                     <button type="button" class="btn btn-purple btn-sm">
                                         <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
                                         搜索
                                     </button>
                                 </span>
-                            </div>
                         </div>
-                        <div class="col-sm-8">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="widget-box widget-main">
-                                        <div class="outcontacts-container">
-                                            <h4 class="pink">
-                                                <i class="ace-icon fa fa-users icon-animated-hand-pointer blue"></i>
-                                                <a href="#modal-table" role="button" class="green" data-toggle="modal">外部联系人</a>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="widget-box widget-main">
+                                    <div class="outcontacts-container">
+                                        <h4 class="pink">
+                                            <i class="ace-icon fa fa-users icon-animated-hand-pointer blue"></i>
+                                            <a href="#modal-table" role="button" class="green" data-toggle="modal">外部联系人</a>
+                                        </h4>
+                                        <div class="hr hr-18 dotted hr-double"></div>
+                                        <div class="widget-header widget-header-flat">
+                                            <h4 class="smaller">
+                                                <button class="btn btn-white btn-info btn-bold">
+                                                    <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
+                                                    添加成员
+                                                </button>
+                                                <button class="btn btn-white btn-warning btn-bold">
+                                                    <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
+                                                    批量删除
+                                                </button>
                                             </h4>
-                                            <div class="hr hr-18 dotted hr-double"></div>
-                                            <div class="widget-header widget-header-flat">
-                                                <h4 class="smaller">
-                                                    <button class="btn btn-white btn-info btn-bold">
-                                                        <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
-                                                        添加成员
-                                                    </button>
-                                                    <button class="btn btn-white btn-warning btn-bold">
-                                                        <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
-                                                        批量删除
-                                                    </button>
-                                                </h4>
-                                            </div>
-                                            <div class="widget-body">
-                                                <div class="row">
-                                                    <div class="col-xs-12">
-                                                        <table id="outcontacts-list" class="table  table-bordered table-hover">
-                                                            <thead class="department-staff-head">
-                                                            <tr>
-                                                                <th class="center">
-                                                                    <label class="pos-rel">
-                                                                        <input type="checkbox" class="ace">
-                                                                        <span class="lbl checkbox-all"></span>
-                                                                    </label>
-                                                                </th>
-                                                                <th class="center">姓名</th>
-                                                                <th class="center">电话</th>
-                                                                <th class="center">公司</th>
-                                                                <th class="center">负责人</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody class="department-staff-body center">
-                                                            <tr>
-                                                                <td>
-                                                                    <label class="pos-rel">
-                                                                        <input type="checkbox" class="ace">
-                                                                        <span class="lbl"></span>
-                                                                    </label>
-                                                                </td>
-                                                                <td>彭松涛</td>
-                                                                <td>1782232131</td>
-                                                                <td>天马公司</td>
-                                                                <td>天马</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <label class="pos-rel">
-                                                                        <input type="checkbox" class="ace">
-                                                                        <span class="lbl"></span>
-                                                                    </label>
-                                                                </td>
-                                                                <td>彭松涛</td>
-                                                                <td>1782232131</td>
-                                                                <td>天马公司</td>
-                                                                <td>天马</td>
-                                                            </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                        </div>
+                                        <div class="widget-body">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <table id="outcontacts-list" class="table  table-bordered table-hover">
+                                                        <thead class="department-staff-head">
+                                                        <tr>
+                                                            <th class="center">
+                                                                <label class="pos-rel">
+                                                                    <input type="checkbox" class="ace">
+                                                                    <span class="lbl checkbox-all"></span>
+                                                                </label>
+                                                            </th>
+                                                            <th class="center">姓名</th>
+                                                            <th class="center">电话</th>
+                                                            <th class="center">公司</th>
+                                                            <th class="center">负责人</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="department-staff-body center">
+                                                        <tr>
+                                                            <td>
+                                                                <label class="pos-rel">
+                                                                    <input type="checkbox" class="ace">
+                                                                    <span class="lbl"></span>
+                                                                </label>
+                                                            </td>
+                                                            <td>彭松涛</td>
+                                                            <td>1782232131</td>
+                                                            <td>天马公司</td>
+                                                            <td>天马</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <label class="pos-rel">
+                                                                    <input type="checkbox" class="ace">
+                                                                    <span class="lbl"></span>
+                                                                </label>
+                                                            </td>
+                                                            <td>彭松涛</td>
+                                                            <td>1782232131</td>
+                                                            <td>天马公司</td>
+                                                            <td>天马</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
@@ -353,8 +350,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+
         </div>
     </div>
 </div>
@@ -404,37 +401,161 @@
 </div>
 
 <!-- 添加部门成员 -->
-<!--<div id="add-department-staff-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
+<div id="add-department-staff-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
     <form class="form-horizontal" role="form">
         <h4>部门信息</h4>
         <div class="hr hr-12 hr-double"></div>
-
-        <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="add-sub-department-name">姓名:</label>
-            <div class="col-sm-9">
-                <input type="text" id="add-sub-department-name" placeholder="请填姓名" class="form-control">
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3  col-md-3 control-label no-padding-right" for="add-department-staff-username">姓名:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="add-department-staff-username" name="username" placeholder="请输入姓名" class="form-control">
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="add-upper-department-name">部门:</label>
-            <div class="col-sm-9">
-                <input type="text" id="add-upper-department-name" class="form-control">
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-departmentname">部门:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="add-department-staff-departmentname" name="departmentname" placeholder="请选择部门" class="form-control">
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="add-upper-department-name">职位:</label>
-            <div class="col-sm-9">
-                <input type="text" id="add-upper-department-name" class="form-control">
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-position">职位:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="add-department-staff-position" placeholder="请输入职位" class="form-control">
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="add-upper-department-name">邮箱:</label>
-            <div class="col-sm-9">
-                <input type="text" id="add-upper-department-name" class="form-control">
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-role">角色:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="add-department-staff-role" name="role" placeholder="请选择角色" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-jobnumber">工号:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="add-department-staff-jobnumber" placeholder="请输入工号" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-phone">手机号:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="add-department-staff-phone" name="phone" placeholder="请输入手机号" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-tel">分机号:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="add-department-staff-tel" placeholder="请输入分机号" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-email">邮箱:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="add-department-staff-email" placeholder="请输入邮箱" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-workplace">办公地点:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="add-department-staff-workplace" placeholder="请输入办公地点" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-remark">备注:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="add-department-staff-remark" placeholder="请输入备注" class="form-control">
             </div>
         </div>
     </form>
-</div>-->
+</div>
+
+<!-- 新增角色组 -->
+<div id="add-role-group-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
+    <form class="form-horizontal" role="form">
+        <h4>角组信息</h4>
+        <div class="hr hr-12 hr-double"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="add-role-group-name">角色组名称:</label>
+            <div class="col-sm-9">
+                <input type="text" id="add-role-group-name" name="roleName" placeholder="请填写角色组名称" class="form-control">
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- 编辑角色组 -->
+<div id="edit-role-group-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
+    <form class="form-horizontal" role="form">
+        <h4>角组信息</h4>
+        <div class="hr hr-12 hr-double"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="edit-role-group-name">角色组名称:</label>
+            <div class="col-sm-9">
+                <input type="text" id="edit-role-group-name" name="roleName" placeholder="请填写角色组名称" class="form-control">
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- 新增角色 -->
+<div id="add-role-person-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
+    <form class="form-horizontal" role="form">
+        <h4>角色信息</h4>
+        <div class="hr hr-12 hr-double"></div>
+
+        <div class="form-group col-sm-12">
+            <label class="col-sm-3 control-label no-padding-right" for="add-role-person-name">角色名称:</label>
+            <div class="col-sm-9">
+                <input type="text" id="add-role-person-name" name="roleName" placeholder="请填写角色组名称" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="col-sm-3 control-label no-padding-right" for="add-role-person-rcompetence">权限:</label>
+            <div class="col-sm-9">
+                <button type="button" id="add-role-person-rcompetence" name="role" class="form-control btn btn-white btn-default">请选择权限</button>
+                <ul id="add-role-person-competence-select"  class="ztree display-none"></ul>
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="col-sm-3 control-label no-padding-right" for="add-role-group-name">分组到:</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="add-role-person-group" name="groupId">
+                    <option value="" disabled selected class="first-option">请选择角色组</option>
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- 新增角色 -->
+<div id="edit-role-person-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
+    <form class="form-horizontal" role="form">
+        <h4>角色信息</h4>
+        <div class="hr hr-12 hr-double"></div>
+
+        <div class="form-group col-sm-12">
+            <label class="col-sm-3 control-label no-padding-right" for="edit-role-person-name">角色名称:</label>
+            <div class="col-sm-9">
+                <input type="text" id="edit-role-person-name" name="roleName" placeholder="请填写角色组名称" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="col-sm-3 control-label no-padding-right" for="edit-role-person-rcompetence">权限:</label>
+            <div class="col-sm-9">
+                <button type="button" id="edit-role-person-rcompetence" name="role" class="form-control btn btn-white btn-default">更改权限</button>
+                <ul id="edit-role-person-competence-select"  class="ztree display-none"></ul>
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="col-sm-3 control-label no-padding-right" for="add-role-group-name">分组到:</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="edit-role-person-group" name="groupId">
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
 
 <script type="text/javascript" th:inline="javascript">
     $(function () {
@@ -507,7 +628,6 @@
                 showLine: false
             }
         };
-
         function ajaxDataFilterFn(treeId, parentNode, responseData) {
             return responseData.content;
 
@@ -543,11 +663,11 @@
                                     } else {
                                         $(".sub-department-queue").addClass("display-none");
                                         subDepartmentHtml = '<div class="alert alert-info center">'+
-                                                '<button type="button" class="close" data-dismiss="alert">'+
-                                                '<i class="ace-icon fa fa-times"></i>'+
-                                                '</button>'+
-                                                '当前部门不包含下级部门请添加子部门'+
-                                                '</div>';
+                                                                '<button type="button" class="close" data-dismiss="alert">'+
+                                                                '<i class="ace-icon fa fa-times"></i>'+
+                                                                '</button>'+
+                                                                '当前部门不包含下级部门请添加子部门'+
+                                                            '</div>';
                                     }
                                     subDepartmentOlBox.append(subDepartmentHtml);
                                     //默认部门人员列表
@@ -679,9 +799,6 @@
                 else title.text($title);
             }
         }));
-
-
-
         //编辑部门信息
         $( "#edit-department-btn" ).on('click', function(e) {
             $("#edit-department-name").val($(".department-name").text()).attr("data-id", $(".department-name").attr("data-id"));
@@ -842,7 +959,7 @@
 
         });
 
-
+        //添加子部门
         var $form = $('#add-sub-department-container>form').validate({
             errorElement: 'span',
             errorClass: 'help-block col-sm-3 control-label no-padding-right',
@@ -866,8 +983,6 @@
             invalidHandler: function (form) {
             }
         });
-
-        //添加子部门
         $( "#add-sub-department-btn" ).on('click', function(e) {
             $("#add-upper-department-name").val($(".department-name").text());
             $("#add-upper-department-id").val($(".department-name").attr("data-id"));
@@ -919,11 +1034,43 @@
         });
 
         //添加部门成员
+        var $formAddDepartmentStaff = $('#add-department-staff-container>form').validate({
+            errorElement: 'span',
+            errorClass: 'help-block col-sm-3 control-label no-padding-right',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                username: {
+                    required: true
+                },
+                departmentname: {
+                    required: true
+                },
+                role: {
+                    required: true
+                },
+                phone: {
+                    required: true
+                }
+            },
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent());
+            },
+            invalidHandler: function (form) {
+            }
+        });
         $( "#add-department-staff-btn" ).on('click', function(e) {
             e.preventDefault();
             var dialog = $( "#add-department-staff-container" ).removeClass('hide').dialog({
                 resizable: false,
-                width: '600',
+                width: '680',
                 modal: true,
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;添加成员</h4></div>",
                 title_html: true,
@@ -932,7 +1079,27 @@
                         text: "保存",
                         "class" : "btn btn-primary btn-minier",
                         click: function() {
-                            $( this ).dialog( "close" );
+                            var _this = $(this);
+                            var flag = $formAddDepartmentStaff.form();
+                            if(flag){
+                                var data = {
+                                    "username": $("#add-department-staff-username").val()
+                                }
+                                $.ajax({
+                                    url: contextPath+"api/dingtalkdept/",
+                                    type: "post",
+                                    data : JSON.stringify(data),
+                                    contentType: "application/json",
+                                    dataType : "json",
+                                    success: function (data) {
+                                        organizationRefreshNode();
+                                        _this.dialog( "close" );
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                    }
+                                })
+                            }
                         }
                     },
                     {
@@ -945,6 +1112,636 @@
                 ]
             });
         });
+
+
+
+        //获取角色列表
+        var roleSettings = {
+            async: {
+                enable: true,
+                dataType: "json",
+                type: "get",
+                url: contextPath+"api/sysrolegroup/list",
+                dataFilter: ajaxDataFilterFn
+            },
+            data:{
+                key: {
+                    name: "roleName"
+                },
+                simpleData : {
+                    enable : false
+                }
+            },
+            callback: {
+                onAsyncSuccess: roleOnAsyncSuccessFn,
+                onClick: roleOnClick
+            },
+            view: {
+                addHoverDom: addHoverDom,
+                removeHoverDom: removeHoverDom,
+                showLine: false
+            }
+        };
+        function roleOnAsyncSuccessFn(event, treeId, treeNode, msg) {
+            // 角色组
+            if (msg.content.length) {
+                var addRoleRersonGroupBox = $("#add-role-person-group .first-option"), addRoleRersonGroupHtml = '';
+                $.each(msg.content, function (i, item) {
+                    addRoleRersonGroupHtml += '<option value="'+ item.roleId +'">'+ item.roleName +'</option>'
+                });
+                $(addRoleRersonGroupHtml).insertAfter(addRoleRersonGroupBox[0])
+            }
+        }
+        function roleOnClick(event, treeId, treeNode) {
+            console.log(treeNode);
+            if (!treeNode.isParent) {
+                $("#role-person-name").text(treeNode.roleName);
+                var id = treeNode.id;
+                $("#edit-role-person-btn").attr("data-roleId", treeNode.roleId).attr("data-isDel", treeNode.isDel);
+                /*$.ajax({
+                    async : false,
+                    cache:false,
+                    type: 'get',
+                    dataType : "json",
+                    contentType: "application/json",
+                    url: contextPath + "api/dingtalkdept/pid?pid="+id,
+                    success:function(data){
+                        if (data.status == "200") {
+                            //默认部门人员列表
+                            /!*departmentStaffBodyBox.html('');
+                             if (data.content.users.length) {
+                             var departmentStaffUserListHtml = '';
+                             $.each(data.content.users, function (i, item) {
+                             departmentStaffUserListHtml += '<tr>'+
+                             '<td>'+
+                             '<label class="pos-rel">'+
+                             '<input type="checkbox" class="ace">'+
+                             '<span class="lbl"></span>'+
+                             '</label>'+
+                             '</td>'+
+                             '<td>'+ item.name +'</td>'+
+                             '<td>'+ item.position +'</td>'+
+                             '<td>'+ item.jobnumber +'</td>'+
+                             '</tr>';
+                             });
+                             } else {
+                             departmentStaffUserListHtml = '<tr><td colspan="4">'+
+                             '<div class="alert alert-info">'+
+                             '<button type="button" class="close" data-dismiss="alert">'+
+                             '<i class="ace-icon fa fa-times"></i>'+
+                             '</button>'+
+                             '当前部门暂无人员请添加成员'+
+                             '</div>'+
+                             '</td></tr>';
+                             }
+                             departmentStaffBodyBox.append(departmentStaffUserListHtml);*!/
+                        }
+                    },
+                    error: function () {
+                        alert('请求失败');
+                    }
+                });*/
+            }
+
+        }
+        function roleRefreshNode() {
+            var zTree = $.fn.zTree.getZTreeObj("role-list");
+            zTree.reAsyncChildNodes(null, "refresh");
+        }
+        function addHoverDom(treeId, treeNode) {
+            if (treeNode.isParent && !treeNode.isDel) {
+                var aObj = $("#" + treeNode.tId + "_a");
+                if ($("#diyBtn_"+treeNode.id).length>0) return;
+                var editStr = "<span id='diyBtn_space_" +treeNode.id+ "' > </span>"
+                        + "<button type='button' class='btn btn-white btn-sm btn-primary' id='diyBtn_" + treeNode.id
+                        + "' onfocus='this.blur();'>编辑</button>";
+                aObj.append(editStr);
+                var btn = $("#diyBtn_"+treeNode.id), displayStyle = "display-none", roleId = treeNode.roleId;
+                if (btn) btn.bind("click", function(){
+                    //编辑角色组
+                    console.log(treeNode);
+                    console.log(treeNode.roleName);
+                    $("#edit-role-group-name").val(treeNode.roleName);
+                    if (!treeNode.isDel) {
+                        displayStyle = "display-inlin-block";
+                    }
+                    var $formEditRoleGroup = $('#edit-role-group-container>form').validate({
+                        errorElement: 'span',
+                        errorClass: 'help-block col-sm-3 control-label no-padding-right',
+                        focusInvalid: false,
+                        ignore: "",
+                        rules: {
+                            roleName: {
+                                required: true
+                            }
+                        },
+                        highlight: function (e) {
+                            $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                        },
+                        success: function (e) {
+                            $(e).closest('.form-group').removeClass('has-error');
+                            $(e).remove();
+                        },
+                        errorPlacement: function (error, element) {
+                            error.insertAfter(element.parent());
+                        },
+                        invalidHandler: function (form) {
+                        }
+                    });
+                    var dialog = $( "#edit-role-group-container" ).removeClass('hide').dialog({
+                        resizable: false,
+                        width: '600',
+                        modal: true,
+                        title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑角色组</h4></div>",
+                        title_html: true,
+                        buttons: [
+                            {
+                                text: "保存",
+                                "class" : "btn btn-primary btn-minier",
+                                click: function() {
+                                    var _this = $(this);
+                                    var flag = $formEditRoleGroup.form();
+                                    if(flag){
+                                        var data = {
+                                            "roleName": $("#edit-role-group-name").val(),
+                                            "roleId": roleId
+                                        };
+                                        $.ajax({
+                                            url: contextPath+"api/sysrolegroup",
+                                            type: "put",
+                                            data : JSON.stringify(data),
+                                            contentType: "application/json",
+                                            dataType : "json",
+                                            success: function (data) {
+                                                roleRefreshNode();
+                                                _this.dialog( "close" );
+                                            },
+                                            error: function (data) {
+                                                console.log(data);
+                                            }
+                                        })
+
+                                    }
+
+
+                                }
+                            },
+                            {
+                                text: "删除",
+                                "class" : "btn btn-danger btn-minier "+displayStyle,
+                                click: function() {
+                                    var _this = $(this);
+                                    $.ajax({
+                                        url: contextPath+"api/sysrolegroup/?id="+roleId,
+                                        type: "delete",
+                                        contentType: "application/json",
+                                        dataType : "json",
+                                        success: function (data) {
+                                            roleRefreshNode();
+                                            _this.dialog( "close" );
+                                        },
+                                        error: function (data) {
+                                            console.log(data);
+                                        }
+                                    });
+                                }
+                            },
+                            {
+                                text: "取消",
+                                "class" : "btn btn-minier",
+                                click: function() {
+                                    $( this ).dialog( "close" );
+                                }
+                            }
+                        ]
+                    });
+                });
+            }
+
+        }
+        function removeHoverDom(treeId, treeNode) {
+            $("#diyBtn_"+treeNode.id).unbind().remove();
+            $("#diyBtn_space_" +treeNode.id).unbind().remove();
+        }
+        $.fn.zTree.init($("#role-list"), roleSettings);
+
+        // 新增角色组
+        var $formAddRoleGroup = $('#add-role-group-container>form').validate({
+            errorElement: 'span',
+            errorClass: 'help-block col-sm-3 control-label no-padding-right',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                roleName: {
+                    required: true
+                }
+            },
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent());
+            },
+            invalidHandler: function (form) {
+            }
+        });
+        $(".add-role-group-btn").on("click", function () {
+            var dialog = $( "#add-role-group-container" ).removeClass('hide').dialog({
+                resizable: false,
+                width: '600',
+                modal: true,
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;新增角色组</h4></div>",
+                title_html: true,
+                buttons: [
+                    {
+                        text: "保存",
+                        "class" : "btn btn-primary btn-minier",
+                        click: function() {
+                            var _this = $(this);
+                            var flag = $formAddRoleGroup.form();
+                            if(flag){
+                                var data = $('#add-role-group-container>form').serializeObject();
+                                $.ajax({
+                                    url: contextPath+"api/sysrolegroup",
+                                    type: "post",
+                                    data : JSON.stringify(data),
+                                    contentType: "application/json",
+                                    dataType : "json",
+                                    success: function (data) {
+                                        roleRefreshNode();
+                                        _this.dialog( "close" );
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                    }
+                                })
+
+                            }
+
+
+                        }
+                    },
+                    {
+                        text: "取消",
+                        "class" : "btn btn-minier",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                ]
+            });
+        });
+
+        //获取权限
+        var competenceSettings = {
+            async: {
+                enable: true,
+                dataType: "json",
+                type: "get",
+                url: contextPath+"api/sysmenu/list",
+                dataFilter: ajaxDataFilterFn
+            },
+            data:{
+                key: {
+                    name: "menuName"
+                },
+                simpleData : {
+                    enable : true,
+                    idKey: "menuId",
+                    pIdKey: "menuParentId",
+                    rootPId: 0
+                }
+            },
+            view: {
+                showLine: false
+            },
+            check: {
+                enable: true,
+                chkStyle: "checkbox"
+            }
+        };
+        $.fn.zTree.init($("#add-role-person-competence-select"), competenceSettings);
+        $("#add-role-person-rcompetence").on("click", function () {
+            if ($("#add-role-person-competence-select").hasClass("display-none")) {
+                $("#add-role-person-competence-select").removeClass("display-none")
+            } else {
+                $("#add-role-person-competence-select").addClass("display-none");
+            }
+
+        });
+
+
+        //新增角色
+        var $formAddRolePerson = $('#add-role-person-container>form').validate({
+            errorElement: 'span',
+            errorClass: 'help-block col-sm-3 control-label no-padding-right',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                roleName: {
+                    required: true
+                },
+                groupId: {
+                    required: true
+                }
+            },
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent());
+            },
+            invalidHandler: function (form) {
+            }
+        });
+        $(".add-role-person-btn").on("click", function () {
+            var dialog = $( "#add-role-person-container" ).removeClass('hide').dialog({
+                resizable: false,
+                width: '600',
+                modal: true,
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;新增角色</h4></div>",
+                title_html: true,
+                buttons: [
+                    {
+                        text: "保存",
+                        "class" : "btn btn-primary btn-minier",
+                        click: function() {
+                            var _this = $(this);
+                            var flag = $formAddRolePerson.form();
+                            if(flag){
+                                var treeObj = $.fn.zTree.getZTreeObj("add-role-person-competence-select");
+                                var nodes = treeObj.getCheckedNodes(true), menuIdArr = [];
+                                console.log(nodes);
+                                if (nodes.length) {
+                                    $.each(nodes, function (i, item) {
+                                        menuIdArr.push({"menuId": item.menuId})
+                                    })
+                                }
+                                var data = {
+                                            "roleName": $("#add-role-person-name").val(),
+                                            "groupId":$("#add-role-person-group").val(),
+                                            "menus": menuIdArr
+                                        }
+                                        ;
+                                $.ajax({
+                                    url: contextPath+"api/sysrole/",
+                                    type: "post",
+                                    data : JSON.stringify(data),
+                                    contentType: "application/json",
+                                    dataType : "json",
+                                    success: function (data) {
+                                        roleRefreshNode();
+                                        _this.dialog( "close" );
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                    }
+                                })
+
+                            }
+
+
+                        }
+                    },
+                    {
+                        text: "取消",
+                        "class" : "btn btn-minier",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                ]
+            });
+        })
+        
+        //编辑角色
+        var $formEditRolePerson = $('#edit-role-person-container>form').validate({
+            errorElement: 'span',
+            errorClass: 'help-block col-sm-3 control-label no-padding-right',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                roleName: {
+                    required: true
+                },
+                groupId: {
+                    required: true
+                }
+            },
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent());
+            },
+            invalidHandler: function (form) {
+            }
+        });
+        $("#edit-role-person-btn").on("click", function () {
+            var _this = $(this), roleId = _this.attr("data-roleId"), groupId = "";
+            var displayStyle = "display-none";
+            if (!$(this).attr("data-isDel").isDel) {
+                displayStyle = "display-inlin-block";
+            }
+
+            $("#edit-role-person-rcompetence").on("click", function () {
+                if ($("#edit-role-person-competence-select").hasClass("display-none")) {
+                    $("#edit-role-person-competence-select").removeClass("display-none")
+                } else {
+                    $("#edit-role-person-competence-select").addClass("display-none");
+                }
+
+            });
+            //权限初始化 edit-role-person-competence-select
+            $.ajax({
+                asysnc: false,
+                url: contextPath+"api/sysrole/?id="+roleId,
+                contentType: "application/json",
+                dataType : "json",
+                success: function (data) {
+                    if (data.status == "200") {
+                        groupId = data.content.groupId;
+                        $("#edit-role-person-name").val(data.content.roleName);
+                        if (data.content.menus) {
+                            var competenceSettings = {
+                                async: {
+                                    enable: true,
+                                    dataType: "json",
+                                    type: "get",
+                                    url: contextPath+"api/sysmenu/list",
+                                    dataFilter: competenceAjaxDataFilterFn
+                                },
+                                data:{
+                                    key: {
+                                        name: "menuName"
+                                    },
+                                    simpleData : {
+                                        enable : true,
+                                        idKey: "menuId",
+                                        pIdKey: "menuParentId",
+                                        rootPId: 0
+                                    }
+                                },
+                                view: {
+                                    showLine: false
+                                },
+                                check: {
+                                    enable: true,
+                                    chkStyle: "checkbox"
+                                }
+                            };
+                            $.fn.zTree.init($("#edit-role-person-competence-select"), competenceSettings);
+                            function competenceAjaxDataFilterFn(treeId, parentNode, responseData) {
+                                if (responseData.content) {
+                                    $.each(responseData.content, function (i, item) {
+                                        $.each(data.content.menus, function (j, jtem) {
+                                            if (item.menuId == jtem.menuId) {
+                                                item["checked"] = true;
+                                            }
+                                        })
+                                    });
+                                    return responseData.content;
+                                }
+                            }
+                        }
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
+            //角色组
+            var roleSettings = {
+                async: {
+                    enable: true,
+                    dataType: "json",
+                    type: "get",
+                    url: contextPath+"api/sysrolegroup/list",
+                    dataFilter: ajaxDataFilterFn
+                },
+                data:{
+                    key: {
+                        name: "roleName"
+                    },
+                    simpleData : {
+                        enable : false
+                    }
+                },
+                callback: {
+                    onAsyncSuccess: roleOnAsyncSuccessFn
+                }
+            };
+            function roleOnAsyncSuccessFn(event, treeId, treeNode, msg) {
+                if (msg.content.length) {
+                    var editRoleRersonGroupBox = $("#edit-role-person-group"), editRoleRersonGroupHtml = '';
+                    editRoleRersonGroupBox.html("");
+                    $.each(msg.content, function (i, item) {
+                        if (groupId == item.roleId) {
+                            editRoleRersonGroupHtml += '<option value="'+ item.roleId +'" selected>'+ item.roleName +'</option>'
+                        } else {
+                            editRoleRersonGroupHtml += '<option value="'+ item.roleId +'">'+ item.roleName +'</option>'
+                        }
+                    });
+                    editRoleRersonGroupBox.append(editRoleRersonGroupHtml);
+                }
+            }
+            $.fn.zTree.init($("#role-list"), roleSettings);
+
+            var dialog = $( "#edit-role-person-container" ).removeClass('hide').dialog({
+                resizable: false,
+                width: '600',
+                modal: true,
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑角色</h4></div>",
+                title_html: true,
+                buttons: [
+                    {
+                        text: "保存",
+                        "class" : "btn btn-primary btn-minier",
+                        click: function() {
+                            var _this = $(this);
+                            var flag = $formEditRolePerson.form();
+                            if(flag){
+                                var treeObj = $.fn.zTree.getZTreeObj("edit-role-person-competence-select");
+                                var nodes = treeObj.getCheckedNodes(true), menuIdArr = [];
+                                console.log(nodes);
+                                if (nodes.length) {
+                                    $.each(nodes, function (i, item) {
+                                        menuIdArr.push({"menuId": item.menuId})
+                                    })
+                                }
+                                var data = {
+                                    "roleName": $("#edit-role-person-name").val(),
+                                    "roleId": roleId,
+                                    "groupId": $("#edit-role-person-group").val(),
+                                    "menus": menuIdArr
+                                };
+                                $.ajax({
+                                    url: contextPath+"api/sysrole/",
+                                    type: "put",
+                                    data : JSON.stringify(data),
+                                    contentType: "application/json",
+                                    dataType : "json",
+                                    success: function (data) {
+                                        roleRefreshNode();
+                                        _this.dialog( "close" );
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                    }
+                                })
+
+                            }
+
+
+                        }
+                    },
+                    {
+                        text: "删除",
+                        "class" : "btn btn-danger btn-minier "+displayStyle,
+                        click: function() {
+                            var _this = $(this),
+                                    data = {
+                                        "id": $("#edit-department-name").attr("data-id")
+                                    };
+                            $.ajax({
+                                url: contextPath+"api/sysrole/?id="+roleId,
+                                type: "delete",
+                                contentType: "application/json",
+                                dataType : "json",
+                                success: function (data) {
+                                    roleRefreshNode();
+                                    _this.dialog( "close" );
+                                },
+                                error: function (data) {
+                                    console.log(data);
+                                }
+                            });
+                        }
+                    },
+                    {
+                        text: "取消",
+                        "class" : "btn btn-minier",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                ]
+            });
+        })
+
     });
 </script>
 </body>

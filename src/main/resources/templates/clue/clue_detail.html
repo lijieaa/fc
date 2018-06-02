@@ -3,6 +3,8 @@
 <head>
     <link rel="stylesheet" th:href="@{/dist/css/common.css}">
     <link rel="stylesheet" th:href="@{/dist/css/club/detail.css}">
+    <link rel="stylesheet" th:href="@{/dist/css/page.css}">
+    <script type="text/javascript" th:src= "@{/dist/js/hand-paging.js}"></script>
     <style>
         .modal-dialog{
             margin-top: 70px;
@@ -32,15 +34,26 @@
             background: #f8f8f8;
             height: 30px;
         }
+        .btn, .border-none {
+            border: 1px solid #6FB3E0;
+        }
     </style>
 </head>
 <body layout:fragment="content">
-<div class="page-header">
-    <h1>
-        线索评论
-    </h1>
-</div>
 <div class="wrapper" id="clubsDetail">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-9 col-sm-9">
+                <div class="float-left">
+                    <span class="font-size-18 border-left-blue">线索评论</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 text-align-right">
+                <button type="button" data-toggle="modal" @click="backList" class="btn back-btn btn-info padding-right-15">返回
+                </button>
+            </div>
+        </div>
+    </div>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <section class="content-list overflow-hidden ">
@@ -60,7 +73,7 @@
                                 <td>{{clueComment.projectId}}</td>
                             </tr>
                             <tr class="clue-back">
-                                <td>项目名称</td>
+                                <td>线索名称</td>
                                 <td>业主名</td>
                                 <td></td>
                             </tr>
@@ -90,7 +103,7 @@
                                     <span class="bd-r">第 <span>121</span>条留言</span>
                                     <span class="bd-r">2016.0804</span>
                                     <span class="bd-r color-b">删除</span>
-                                    <span class="color-b">评论</span>
+                                    <span class="color-b" @click="compoment">评论</span>
                                 </div>
                             </div>
                             <div class="clubs-content-list padding-bottom-10">
@@ -120,6 +133,13 @@
             <div class="clubs-editor margin-top-15">
                 <p class="padding-top-10 margin-left-10">发表线索评论</p>
                 <textarea name="editor1"  id="editor1" rows="10" cols="80"></textarea>
+            </div>
+            <div class="clearfix form-actions">
+                <div class="col-md-offset-3 col-md-9">
+                    <button type="submit" id="submit" class="btn btn-info">
+                        <i class="ace-icon fa fa-check bigger-110"></i>发表
+                    </button>
+                </div>
             </div>
         </section>
     </div>
@@ -155,6 +175,13 @@
             }
         },
         methods:{
+            backList:function(){
+                location.href=contextPath+"clue/list";
+            },
+            compoment:function(){
+                var editor = CKEDITOR.instances.editor1;
+                editor.focus();
+            },
             closeDelPop:function(){
                 $(".modalAll").removeClass("in").css("display","none");
             },
