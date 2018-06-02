@@ -5,7 +5,7 @@
     <id column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
     <result column="role_description" jdbcType="VARCHAR" property="roleDescription" />
-    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
     <result column="intermediary_id" jdbcType="INTEGER" property="intermediaryId" />
     <result column="role_update_time" jdbcType="TIMESTAMP" property="roleUpdateTime" />
     <result column="role_create_time" jdbcType="TIMESTAMP" property="roleCreateTime" />
@@ -85,8 +85,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    role_id, role_name, role_description, pid, intermediary_id, role_update_time, role_create_time,
-    is_del
+    role_id, role_name, role_description,intermediary_id, role_update_time, role_create_time,group_id,is_del
   </sql>
   <select id="selectByExample" parameterType="com.jianpanmao.sys.entity.SysRoleExample" resultMap="BaseResultMap">
     select
