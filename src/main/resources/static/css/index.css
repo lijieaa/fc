@@ -58,7 +58,9 @@ li {
 .display-block {
     display: block;
 }
-
+.widget-body.panel-body>.form-group>label[class*=col-] {
+    margin-top: 7px;
+}
 .map-container {
 }
 .page-content {

@@ -4,3 +4,7 @@
 #edit-upper-department-name-select[readonly] {
     background: #fff!important;
 }
+#add-role-person-competence-select {
+    max-height: 200px;
+    overflow-y: scroll;
+}
