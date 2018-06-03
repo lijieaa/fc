@@ -60,7 +60,7 @@ public class DingtalkUserRestController {
 
     @NoResultEntity
     @PreAuthorize("hasAuthority('dingtalkuser:view')")
-    @RequestMapping(method = RequestMethod.GET,value = "mobile")
+    @RequestMapping(method = RequestMethod.POST,value = "mobile")
     public Boolean findByMobile(@RequestParam("mobile") String mobile) {
         DingtalkUser byMobile = dingtalkuserService.findByMobile(mobile);
         if(null==byMobile){
