@@ -3,17 +3,17 @@
     margin: 0;
     list-style: none;
 }
-a,span{
+#pagingTest a,#pagingTest span{
     border: 1px solid #b0b0b0;
     padding: 5px 10px;
     margin: 0 5px;
     cursor: pointer;
 }
-a.current{
+#pagingTest a.current{
     color: white;
     background: deepskyblue;
 }
-a.disable{
+#pagingTest a.disable{
     background: gray;
     color: white;
     cursor: default;

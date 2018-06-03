@@ -26,12 +26,12 @@
     display: inline-block;
 }
 .clubs-comment,.clubs-editor{
-    background: #fff;
+    /*background: #fff;*/
 }
 
 /*线索评论*/
 .clubs-header{
-    border: 1px solid #d1d1d1;
+    border-bottom: 1px solid #d1d1d1;
     overflow: hidden;
     line-height: 46px;
 }

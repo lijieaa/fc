@@ -19,7 +19,7 @@ html,body{
 .text-align-left{
     text-align: left;
 }
-.display-block{
+.display-inline-block{
     display: inline-block;
 }
 .width-80{
