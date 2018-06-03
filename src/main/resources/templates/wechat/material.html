@@ -2,6 +2,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
     <link rel="stylesheet" th:href="@{/dist/css/gzh-l/webuploader.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/gzh-l/gzh-common.css}"/>
     <style>
         .gzh-manage-menu{
             margin-top: 15px;
@@ -53,12 +54,15 @@
             display: inline-block;
             border: 1px #727272 solid;
             list-style: none;
+            margin: 5px;
+            position: relative;
         }
         #imgShow li img{
             width: 150px;
             height: 150px;
             display: inline-block;
             border: 1px #727272 solid;
+            cursor: pointer;
         }
         #pagingTest a{
             border: 1px solid #b0b0b0;
@@ -115,6 +119,12 @@
         .newPhotoText a{
             display: inline-block;
             cursor: pointer;
+            width: 100%;
+            height: 50px;
+            line-height:50px;
+            text-align: center;
+            border: 1px #bcbcbc solid;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -131,7 +141,7 @@
         </section>
         <div style="margin-top:2%;width: 98%;height: auto;font-size: 13px;">
             <div class="content-header gzh-source-type">
-                <a class="tex-bgcolor" data-id="1">图文消息</a>
+                <a class="" data-id="1">图文消息</a>
                 <a class="" data-id="2">图片</a>
                 <a class="" data-id="3">语音</a>
                 <a class="" data-id="4">视频</a>
@@ -190,13 +200,32 @@
             <section class="float-left" style="width: 15%;margin-left: 1.5%">
                 <label style="width:100%;margin-top: 15px;margin-left: 35px;" class="text-center;">多媒体</label>
                 <div style="width: 60%;margin-left: 20%;margin-top: 20px;" class="newPhotoText">
-                    <a style="width: 100%;height: 50px;line-height:50px;text-align: center;border: 1px #bcbcbc solid;font-size: 16px;border-bottom: none;">图片</a>
-                    <a style="width: 100%;height: 50px;line-height:50px;text-align: center;border: 1px #bcbcbc solid;font-size: 16px;border-bottom: none;">视频</a>
-                    <a style="width: 100%;height: 50px;line-height:50px;text-align: center;border: 1px #bcbcbc solid;font-size: 16px;">音频</a>
+                    <a style="border-bottom: none;" data-id="1">图片</a>
+                    <a style="border-bottom: none;" data-id="2">视频</a>
+                    <a style="" data-id="3">音频</a>
                 </div>
             </section>
         </div>
-
+    </div>
+    <!--素材库弹窗-->
+    <div class="modal" id="sourceRoom" tabindex="-1" role="dialog" aria-labelledby="mySource" style="position: absolute;top:12%;">
+        <div class="modal-dialog" role="document" style="width: 50%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-left" id="mySource"></h4>
+                </div>
+                <div class="modal-body" style="min-height: 400px;">
+                    <ul id="popImg"></ul>
+                    <div id="popPagingTest" class="pageIndex"></div>
+                    <input type="hidden" value="" id="popPage">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn-sure-source" class="btn btn-primary text-center" data-dismiss="modal">确定</button>
+                    <button type="button" id="btn-cancel-source" class="btn btn-primary text-center" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script th:src="@{/dist/js/gzh/gzh-common.js}"></script>
@@ -208,9 +237,45 @@
     var wxPublicId = /*[[${wxPublicId}]]*/;
     /*]]>*/
     $(function () {
-       $(document).on("click",".disable",function () {
-           return false;
-       })
+        //从外部获取该相应的菜单
+        function getUrlParms(name){
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)
+                return unescape(r[2]);
+            return null;
+        }
+        var id = getUrlParms("id");
+        if(id==null){
+            $(".gzh-source-type>a:eq(0)").addClass("tex-bgcolor").siblings().removeClass("tex-bgcolor");
+            $(".new-type-name").text("图文消息");
+            $("#filePicker").show().siblings().hide();
+            $("#photo-tx").show().siblings().hide();
+        }else if(id==1){
+            $(".gzh-source-type>a:eq(0)").addClass("tex-bgcolor").siblings().removeClass("tex-bgcolor");
+            $(".gzh-source-type>a:eq(0)").addClass("tex-bgcolor").siblings().removeClass("tex-bgcolor");
+            $(".new-type-name").text("图文消息");
+            $("#filePicker").show().siblings().hide();
+            $("#photo-tx").show().siblings().hide();
+        }else if(id==2){
+            $(".gzh-source-type>a:eq(1)").addClass("tex-bgcolor").siblings().removeClass("tex-bgcolor");
+            $(".new-type-name").text("图片");
+            $("#filePicker1").show().siblings().hide();
+            $("#photo-show").show().siblings().hide();
+            ajaxData(1);
+        }else if(id==3){
+            $(".gzh-source-type>a:eq(2)").addClass("tex-bgcolor").siblings().removeClass("tex-bgcolor");
+            $(".new-type-name").text("语音");
+            $("#filePicker2").show().siblings().hide();
+            $("#source").show().siblings().hide();
+            ajaxMp(1);
+        }else if(id==4){
+            $(".gzh-source-type>a:eq(3)").addClass("tex-bgcolor").siblings().removeClass("tex-bgcolor");
+            $(".new-type-name").text("视频");
+            $("#filePicker3").show().siblings().hide();
+            $("#vid").show().siblings().hide();
+            //ajaxVid(1);
+        }
         //菜单选中
         $(document).on("click",".gzh-source-type>a",function () {
             $(this).addClass("tex-bgcolor").siblings().removeClass("tex-bgcolor");
@@ -258,6 +323,7 @@
         });
         //文本编辑器
         function textEdior(){
+            //var editor;
             CKEDITOR.replace( 'editor1', {
                 height:520,
                 customConfig: '',
@@ -275,12 +341,36 @@
                 removePlugins:"elementspath"
 //            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
             });
+            // CKEDITOR.on( 'instanceReady', function ( ev ) {
+            //     editor = ev.editor;
+            //     var title = '<input type="text" id="editInput" placeholder="请输入标题"  onfocus="toggleReadOnly();" onblur="toggleReadOnly( false );">';
+            //     $("#cke_1_contents").before(title);
+            //     var editor1 = CKEDITOR.instances.editor1;
+            //     editor1.focus();
+            // });
+            // function toggleReadOnly( isReadOnly ) {
+            //     editor.setReadOnly( isReadOnly );
+            // }
         }
         textEdior();
         //新建素材返回菜单
         $(document).on("click","#backStore",function () {
             $("#gzh-manage").show().siblings().hide();
         })
+        //多媒体选中newPhotoText
+        $(document).on("click",".newPhotoText a",function () {
+            var thisId=$(this).attr("data-id");
+            $('#sourceRoom').modal();
+            if(thisId==1){
+                $("#mySource").text("选择图片");
+            }else if(thisId==2){
+                $("#mySource").text("选择视频");
+            }else if (thisId==3){
+                $("#mySource").text("选择音频");
+            }
+            //$("#gzh-manage").show().siblings().hide();
+        })
+
     })
 </script>
 

@@ -144,9 +144,11 @@ function yyupload() {
         alert('success');
     });
     uploader.onError = function( code ) {
-        alert( 'Eroor: ' + code );
+        //alert( 'Eroor: ' + code );
         if (code=="Q_TYPE_DENIED"){
             alert("请上传MP3格式的文件");
+        }else if(code=="Q_EXCEED_SIZE_LIMIT"){
+            alert("文件大小超过限制");
         }
     };
 }
@@ -187,86 +189,89 @@ function  ajaxMp(pageNo) {
 // });
 
 
-// function videoupload() {
-//     var uploader = WebUploader.create({
-//         auto: true,//是否自动上传
-//         swf: '../js/dist/Uploader.swf',
-//         pick: '#filePicker3',
-//         server: contextPath + 'material/upload',
-//         formData: {
-//             wxPublicId: 14,
-//             wxtype:'video'
-//         },
-//         accept: {
-//             title: 'video',
-//             extensions: 'mp4,ogg',
-//             mimeTypes: 'video/*'
-//         },
-//         fileVal:"media",
-//         duplicate:true,
-//         fileSizeLimit: 10*1024*1024  //限制大小10M，所有被选文件，超出选择不上
-//     });
-//     uploader.on('uploadBeforeSend',function(obj,file,head) {
-//         delete file['id'];
-//         delete file['name'];
-//         delete file['lastModifiedDate'];
-//         delete file['type'];
-//         var description={"title":"标题","introduction":"视频"};
-//         file.description=JSON.stringify(description);
-//     });
-//     uploader.on('fileQueued',function(file) {
-//         console.log(file);
-//     });
-//     uploader.on( 'uploadSuccess', function( file ) {
-//         alert('success');
-//     });
-//     uploader.onError = function( code ) {
-//         alert( 'Eroor: ' + code );
-//     };
-// }
-// videoupload();
-// function  ajaxVid(pageNo) {
-//     var webdata={"wxtype":"video","wxPublicId":14,"rows":10,"page":pageNo}
-//     $.ajax({
-//         url:contextPath +"material/page",
-//         type: "get",
-//         data: $.param(webdata),
-//         success:function(data){
-//             var dataList = data.content.data.list;
-//             $("#vidShow").html("");
-//             var videoArr=[];
-//             for(var i=0;i<dataList.length;i++){
-//                 videoArr.push(data.content.data.list[i].mediaId)
-//             }
-//             for(var i=0;i<videoArr.length;i++){
-//                 var wxPublicId=14;
-//                 var mediaId=videoArr[i];
-//                 $.ajax({
-//                     url:contextPath+'material/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId,
-//                     type: "get",
-//                     success:function (data) {
-//                         $("#vidShow").append("<li><video src='"+data.content.down_url+"' controls='controls'></video></li>");
-//                     }
-//                 })
-//
-//             }
-//             $("#pagingTest2").paging1({
-//                 pageNo:pageNo,
-//                 totalPage:data.content.data.pages
-//             })
-//         }
-//     });
-// }
-// $(document).on("click","a",function () {
-//     var val = $("#page2").val();
-//     ajaxVid(val);
-// });
+function videoupload() {
+    var uploader = WebUploader.create({
+        auto: true,//是否自动上传
+        swf: '../js/dist/Uploader.swf',
+        pick: '#filePicker3',
+        server: contextPath + 'material/upload',
+        formData: {
+            wxPublicId: 14,
+            wxtype:'video'
+        },
+        accept: {
+            title: 'video',
+            extensions: 'mp4,ogg',
+            mimeTypes: 'video/*'
+        },
+        fileVal:"media",
+        duplicate:true,
+        fileSizeLimit: 10*1024*1024  //限制大小10M，所有被选文件，超出选择不上
+    });
+    uploader.on('uploadBeforeSend',function(obj,file,head) {
+        delete file['id'];
+        delete file['name'];
+        delete file['lastModifiedDate'];
+        delete file['type'];
+        var description={"title":"标题","introduction":"视频"};
+        file.description=JSON.stringify(description);
+    });
+    uploader.on('fileQueued',function(file) {
+        console.log(file);
+    });
+    uploader.on( 'uploadSuccess', function( file ) {
+        alert('success');
+    });
+    uploader.onError = function( code ) {
+        alert( 'Eroor: ' + code );
+    };
+}
+videoupload();
+function  ajaxVid(pageNo) {
+    var webdata={"wxtype":"video","wxPublicId":14,"rows":10,"page":pageNo}
+    $.ajax({
+        url:contextPath +"material/page",
+        type: "get",
+        data: $.param(webdata),
+        success:function(data){
+            var dataList = data.content.data.list;
+            $("#vidShow").html("");
+            var videoArr=[];
+            for(var i=0;i<dataList.length;i++){
+                videoArr.push(data.content.data.list[i].mediaId)
+            }
+            for(var i=0;i<videoArr.length;i++){
+                var wxPublicId=14;
+                var mediaId=videoArr[i];
+                var name="test.mp4";
+                $.ajax({
+                    url:contextPath+'material/video/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name,
+                    type: "get",
+                    success:function (data) {
+                        $("#vidShow").append("<li><video src='"+data.content.down_url+"' controls='controls'></video></li>");
+                    }
+                })
+
+            }
+            $("#pagingTest2").paging1({
+                pageNo:pageNo,
+                totalPage:data.content.data.pages
+            })
+        }
+    });
+}
+$(document).on("click","a",function () {
+    var val = $("#page2").val();
+    ajaxVid(val);
+});
 
 
-//点击图片
+//点击图片选中状态
 $(document).on("click","#imgShow li img",function () {
-    var thisAttr=$(this).attr("src");
-    alert(thisAttr)
+    var thisSrc=$(this).attr("src");
+    $(this).addClass("opactiy").parent().siblings().children().removeClass("opactiy");
+    $(this).parent().append("<a class='bgimg'></a>").siblings().children("a").remove();
+//            alert(thisSrc)
 })
 
 

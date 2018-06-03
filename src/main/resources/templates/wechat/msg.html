@@ -48,6 +48,9 @@
             padding:10px;
             cursor: pointer;
         }
+        .txt-green{
+            color: #44b549;
+        }
     </style>
 </head>
 <body layout:fragment="content">
@@ -91,15 +94,17 @@
             <div class="marginLeft-1" style="width: 98%;border: 1px #4d4d4d solid;">
                 <div class="chat-type">
                     <span data-id="1"><i class="glyphicon glyphicon-film"></i>图文消息</span>
-                    <span data-id="2"><i class="glyphicon glyphicon-pencil"></i>文字</span>
+                    <span data-id="2" class="txt-green"><i class="glyphicon glyphicon-pencil"></i>文字</span>
                     <span data-id="3"><i class="glyphicon glyphicon-picture"></i>图片</span>
                     <span data-id="4"><i class="glyphicon glyphicon-ice-lolly"></i>语音</span>
                     <span data-id="5"><i class="glyphicon glyphicon-hd-video"></i>视频</span>
                 </div>
                 <textarea class="form-control" rows="7" id="textInput"></textarea>
             </div>
-            <button type="button" class="btn btn-info search marginLeft-1" style="margin-top:1%;width: 100px;display: inline-block;">发送</button>
-            <a style="display: inline-block;">还可以输入100字</a>
+            <div style="position: relative;">
+                <button type="button" class="btn btn-info search marginLeft-1" style="margin-top:1%;width: 100px;display: inline-block;">发送</button>
+                <div style="display: inline-block;position: absolute;top: 40%;left: 110px;">还可以输入<span id="limNum">100</span>字</div>
+            </div>
             <h5 class="marginTop-2 marginLeft-1">最近20条聊天记录</h5>
             <div class="col-md-12">
                 <table id="gzh-ul-manage-son" class="display table table-bordered table-hover dataTable" style="width:100%;">
@@ -113,6 +118,28 @@
                 </table>
             </div>
         </section>
+    </div>
+    <!--素材库弹窗-->
+    <div class="modal" id="sourceRoom" tabindex="-1" role="dialog" aria-labelledby="mySource" style="position: absolute;top:12%;">
+        <div class="modal-dialog" role="document" style="width: 50%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-left" id="mySource">选择素材</h4>
+                    <button type="button" class="btn btn-info float-right new-source">新建图文消息</button>
+
+                </div>
+                <div class="modal-body" style="min-height: 400px;">
+                    <ul id="popImg"></ul>
+                    <div id="popPagingTest" class="pageIndex"></div>
+                    <input type="hidden" value="" id="popPage">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn-sure-source" class="btn btn-primary text-center" data-dismiss="modal">确定</button>
+                    <button type="button" id="btn-cancel-source" class="btn btn-primary text-center" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script th:src="@{/dist/js/gzh/gzh-common.js}"></script>
