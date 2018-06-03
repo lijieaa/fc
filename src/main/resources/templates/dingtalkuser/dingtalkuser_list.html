@@ -1616,49 +1616,29 @@
                                 }
                             }
                         }
+
+                        //角色组
+                        var treeObj = $.fn.zTree.getZTreeObj("role-list");
+                        var nodes = treeObj.getNodes();
+                        console.log(nodes);
+                        if (nodes) {
+                            var editRoleRersonGroupBox = $("#edit-role-person-group"), editRoleRersonGroupHtml = '';
+                            editRoleRersonGroupBox.html("");
+                            $.each(nodes, function (i, item) {
+                                if (groupId == item.roleId) {
+                                    editRoleRersonGroupHtml += '<option value="'+ item.roleId +'" selected>'+ item.roleName +'</option>'
+                                } else {
+                                    editRoleRersonGroupHtml += '<option value="'+ item.roleId +'">'+ item.roleName +'</option>'
+                                }
+                            });
+                            editRoleRersonGroupBox.append(editRoleRersonGroupHtml);
+                        }
                     }
                 },
                 error: function (data) {
                     console.log(data);
                 }
             });
-
-            //角色组
-            var roleSettings = {
-                async: {
-                    enable: true,
-                    dataType: "json",
-                    type: "get",
-                    url: contextPath+"api/sysrolegroup/list",
-                    dataFilter: ajaxDataFilterFn
-                },
-                data:{
-                    key: {
-                        name: "roleName"
-                    },
-                    simpleData : {
-                        enable : false
-                    }
-                },
-                callback: {
-                    onAsyncSuccess: roleOnAsyncSuccessFn
-                }
-            };
-            function roleOnAsyncSuccessFn(event, treeId, treeNode, msg) {
-                if (msg.content.length) {
-                    var editRoleRersonGroupBox = $("#edit-role-person-group"), editRoleRersonGroupHtml = '';
-                    editRoleRersonGroupBox.html("");
-                    $.each(msg.content, function (i, item) {
-                        if (groupId == item.roleId) {
-                            editRoleRersonGroupHtml += '<option value="'+ item.roleId +'" selected>'+ item.roleName +'</option>'
-                        } else {
-                            editRoleRersonGroupHtml += '<option value="'+ item.roleId +'">'+ item.roleName +'</option>'
-                        }
-                    });
-                    editRoleRersonGroupBox.append(editRoleRersonGroupHtml);
-                }
-            }
-            $.fn.zTree.init($("#role-list"), roleSettings);
 
             var dialog = $( "#edit-role-person-container" ).removeClass('hide').dialog({
                 resizable: false,
