@@ -57,6 +57,13 @@ public class DingtalkUserServiceImpl extends BaseServiceImpl<DingtalkUser,Dingta
     DingtalkUserDeptService userDeptService;
 
 
+    @Override
+    public int removeBatch(Integer[] ids) {
+        int i = super.removeBatch(ids);
+        userRoleService.removeBatch(ids);
+        userDeptService.removeBatch(ids);
+        return i;
+    }
 
     @Override
     public int add(DingtalkUser record) {
