@@ -36,4 +36,9 @@ public class DingtalkUserServiceImpl extends BaseServiceImpl<DingtalkUser,Dingta
         user.setIntermediaryId(cuser.getIntermediaryId());
         return dingtalkUserMapper.selectByLikeName(user);
     }
+
+    @Override
+    public List<DingtalkUser> selectByRoleId(Integer roleId) {
+        return dingtalkUserMapper.selectByRoleId(roleId);
+    }
 }

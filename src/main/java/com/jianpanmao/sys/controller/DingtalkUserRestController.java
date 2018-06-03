@@ -84,4 +84,11 @@ public class DingtalkUserRestController {
         DingtalkUser dingtalkUser = UserUtils.getUser();
         return dao.idNameList(dingtalkUser.getIntermediary().getIntermediaryId());
     }
+
+
+    @PreAuthorize("hasAuthority('dingtalkuser:view')")
+    @RequestMapping(method = RequestMethod.GET, value = "role")
+    public List<DingtalkUser> findByRoleId(@RequestParam(value = "roleid",required = true)Integer roleId) {
+        return dao.selectByRoleId(roleId);
+    }
 }
