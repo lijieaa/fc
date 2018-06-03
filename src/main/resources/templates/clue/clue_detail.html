@@ -37,6 +37,11 @@
         .btn, .border-none {
             border: 1px solid #6FB3E0;
         }
+        .clubs-list{
+            border: 1px solid #D5D5D5;
+            margin-bottom: 10px;
+            background: white;
+        }
     </style>
 </head>
 <body layout:fragment="content">
@@ -93,42 +98,62 @@
                 <div class="row ">
                     <div class=" col-xs-12">
                         <p class="padding-top-10 margin-left-10 bottom-font">线索评论</p>
-                        <div class="clubs-list">
-                            <div class="clubs-header back-f8">
-                                <div class="left-clubs float-left padding-left-6">
-                                    <img src="../../dist/img/img-head.png" class="" alt="">
-                                    <span>销售员老李</span>
+                        <template v-for="item in projectComment">
+                            <div class="clubs-list">
+                                <div class="clubs-header back-f8">
+                                    <div class="left-clubs float-left padding-left-6">
+                                        <img src="../../dist/img/img-head.png" class="" alt="">
+                                        <span>{{item.projectCommentsNickname}}</span>
+                                    </div>
+                                    <div class="right-clubs float-right padding-right-6">
+                                        <span class="bd-r">第 <span>121</span>条留言</span>
+                                        <span class="bd-r">{{item.projectCommentsCreateTime}}</span>
+                                        <span class="bd-r color-b">删除</span>
+                                        <span class="color-b" @click="compoment">评论</span>
+                                    </div>
                                 </div>
-                                <div class="right-clubs float-right padding-right-6">
-                                    <span class="bd-r">第 <span>121</span>条留言</span>
-                                    <span class="bd-r">2016.0804</span>
-                                    <span class="bd-r color-b">删除</span>
-                                    <span class="color-b" @click="compoment">评论</span>
+                                <div class="clubs-content-list">
+                                    <div class="detail-list margin-left-10">
+                                        <span class="font-weight padding-left-6">{{item.projectCommentsNickname}}:</span>
+                                        <span class="content-topic display-inline-block" v-html="item.projectCommentsContent"></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="clubs-content-list padding-bottom-10">
-                                <div class="detail-list margin-left-10">
-                                    <span class="font-weight padding-left-6">销售员老李:</span>
-                                    <span class="content-topic">
-                                        就发了就打瞌睡的惊世毒妃静安寺空当接龙角度来讲的身份结束了剪短发垃圾的设计费尽快落实到解放啦见识到了较大三角阀聊时间打开了房间阿拉斯加
-                                    </span>
-                                    <span class="color-gray bd-g">删除</span>
-                                    <span class="color-gray bd-g">时间</span>
-                                    <span class="color-gray" @click="reply($event)">回复</span>
-                                    <transition name="fade">
-                                        <div class="input-group margin-top-6 margin-right-10" style="display: none">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-btn">
-                                                <button type="button" class="btn border-none btn-info btn-flat">回复</button>
-                                            </span>
+                                <template v-if="item.children.length>0" v-for = "list in item.children">
+                                    <div class="clubs-content-list padding-bottom-10">
+                                        <div class="detail-list margin-left-10">
+                                            <span class="font-weight padding-left-6">{{list.projectCommentsNickname}}:</span>
+                                            <span class="content-topic" v-html="list.projectCommentsContent"></span>
+                                            <span class="color-gray bd-g">删除</span>
+                                            <span class="color-gray bd-g">{{list.projectCommentsCreateTime}}</span>
+                                            <span class="color-gray" @click="reply($event)">回复</span>
+                                            <transition name="fade">
+                                                <div class="input-group margin-top-6 margin-right-10" style="display: none">
+                                                    <input type="text" class="form-control">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn border-none btn-info btn-flat">回复</button>
+                                                    </span>
+                                                </div>
+                                            </transition>
                                         </div>
-                                    </transition>
+                                    </div>
+                                </template>
+                                <div class="input-group padding-bottom-10 margin-left-10 margin-right-10">
+                                    <input type="text" class="form-control">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn border-none btn-info btn-flat" @click="replayComment(item.projectCommentsId,$event)">回复</button>
+                                    </span>
                                 </div>
                             </div>
 
-                        </div>
+
+                        </template>
+
                     </div>
                 </div>
+            </div>
+            <div class="margin-top-15">
+                <ul id="list"></ul>
+                <div id="pagingTest"></div>
             </div>
             <div class="clubs-editor margin-top-15">
                 <p class="padding-top-10 margin-left-10">发表线索评论</p>
@@ -136,7 +161,7 @@
             </div>
             <div class="clearfix form-actions">
                 <div class="col-md-offset-3 col-md-9">
-                    <button type="submit" id="submit" class="btn btn-info">
+                    <button type="submit" @click="submitComment" class="btn btn-info">
                         <i class="ace-icon fa fa-check bigger-110"></i>发表
                     </button>
                 </div>
@@ -172,7 +197,8 @@
                 projectName:"",
                 projectId:"",
                 projectLogo:""
-            }
+            },
+            projectComment:[]
         },
         methods:{
             backList:function(){
@@ -206,28 +232,93 @@
             closePop:function(){
                 $("#modal-default").removeClass("in").css("display","none")
             },
-            backMediary:function(){
-                location.reload();
-            },
             reply:function(event){
                 // alert(1);
                 var _this = this;
                 var comment = $(event.currentTarget);
                 // bus.$emit('change',msg ,_this.$refs.msg1);
                 comment.next().toggle();
+            },
+            ajaxData:function(pageNo){
+                var _this = this;
+                var data = {
+                    page:pageNo,
+                    rows:10,
+                    projectCommentsType:0,
+                    projectCommentsStatus:0,
+                    projectId:clubslID
+                };
+                $.ajax({
+                    url:contextPath+"api/projectcomments/page?pageNum="+pageNo+"&pageSize=2&" +
+                    "projectCommentsType=0&projectCommentsStatus=0&projectId="+clubslID,
+                    type:"get",
+                    contentType: "application/json",
+                    dataType : "json",
+                    success:function(data){
+                        var dataList = data.content.list;
+                        _this.projectComment = dataList;
+                        // dataList.map(function(v){
+                        //     // var li = "<li>"+v.name+"</li>";
+                        //     // $("#list").append(li);
+                        //     console.log(v);
+                        // });
+                        $("#pagingTest").paging1({
+                            pageNo:pageNo,
+                            totalPage:data.content.size
+                        })
+                    }
+                });
+            },
+            submitComment:function(){
+                var data = {
+                    "projectCommentsParent":0,
+                    "projectId":clubslID,
+                    "projectCommentsContent":CKEDITOR.instances.editor1.getData(),
+                    "projectTopCommentsId":0
+                };
+                $.ajax({
+                    url:contextPath+"api/projectcomments",
+                    type:"post",
+                    contentType: "application/json",
+                    data:JSON.stringify(data)
+                })
+            },
+            replayComment:function(id,event){
+                var comment = $(event.currentTarget);
+                console.log(comment.parent().prev().val());
+                var data = {
+                    "projectCommentsParent":id,
+                    "projectId":clubslID,
+                    "projectCommentsContent": comment.parent().prev().val(),
+                    "projectTopCommentsId":id
+                };
+                $.ajax({
+                    url:contextPath+"api/projectcomments",
+                    type:"post",
+                    contentType: "application/json",
+                    data:JSON.stringify(data)
+                })
             }
         },
         mounted:function () {
             var _this = this;
             _this.editorFun(); //初始化生成编辑器
             // var clubslID  = location.search.substring(1).split("&")[1];
+            //查询详情
             $.ajax({
                 url:contextPath+"api/project?id="+clubslID,
                 type:"get",
                 success:function (data) {
                     _this.clueComment = data.content;
                 }
-            })
+            });
+
+        //    查询评论
+            _this.ajaxData(1);
+            $(document).on("click","a",function () {
+                var val = $("#page").val();
+                ajaxData(val);
+            });
         }
     });
     // var responseUrl;
