@@ -1069,7 +1069,7 @@
                 },
                 phone: {
                     required: true,
-                    remote: {
+                   /* remote: {
                         url: contextPath+"api/dingtalkuser/mobile",
                         type: "post",               //数据发送方式
                         dataType: "json",           //接受数据格式
@@ -1078,7 +1078,7 @@
                                 return $("#add-department-staff-phone").val();
                             }
                         })
-                    }
+                    }*/
                 },
                 password: {
                     required: true
@@ -1223,7 +1223,7 @@
                                     "name": $("#add-department-staff-username").val(),
                                     "depts": departmentnameArr,
                                     "position": $("#add-department-staff-position").val(),
-                                    "role": roleArr,
+                                    "roles": roleArr,
                                     "jobnumber": $("#add-department-staff-jobnumber").val(),
                                     "mobile": $("#add-department-staff-phone").val(),
                                     "tel": $("#add-department-staff-tel").val(),

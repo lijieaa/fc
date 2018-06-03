@@ -576,8 +576,8 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from dingtalk_user,dingtalk_user_dept
-    where dept_id = #{0}
+    from dingtalk_user a,dingtalk_user_dept b
+    where a.userid=b.user_id and b.dept_id=#{0}
   </select>
 
 

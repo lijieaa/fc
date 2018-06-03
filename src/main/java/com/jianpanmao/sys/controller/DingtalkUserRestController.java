@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -60,8 +61,9 @@ public class DingtalkUserRestController {
 
     @NoResultEntity
     @PreAuthorize("hasAuthority('dingtalkuser:view')")
-    @RequestMapping(method = RequestMethod.POST,value = "mobile")
-    public Boolean findByMobile(@RequestParam("mobile") String mobile) {
+    @RequestMapping(value = "mobile")
+    public Boolean findByMobile(HttpServletRequest request) {
+        String mobile = request.getParameter("mobile");
         DingtalkUser byMobile = dingtalkuserService.findByMobile(mobile);
         if(null==byMobile){
             return false;
