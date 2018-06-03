@@ -1204,23 +1204,38 @@
                         click: function() {
                             var _this = $(this);
                             var flag = $formAddDepartmentStaff.form();
+                            var treeObj = $.fn.zTree.getZTreeObj("add-department-staff-departmentname-select");
+                            var nodes = treeObj.getCheckedNodes(true), departmentnameArr = [];
+                            if (nodes.length) {
+                                $.each(nodes, function (i, item) {
+                                    departmentnameArr.push({"id":item.id})
+                                })
+                            }
+                            var treeObjtwo = $.fn.zTree.getZTreeObj("add-department-staff-role-select");
+                            var nodestwo = treeObjtwo.getCheckedNodes(true), roleArr = [];
+                            if (nodestwo.length) {
+                                $.each(nodestwo, function (i, item) {
+                                    roleArr.push({"roleId":item.roleId})
+                                })
+                            }
                             if(flag){
                                 var data = {
-                                    "username": $("#add-department-staff-username").val(),
-                                    "departmentname": "",
+                                    "name": $("#add-department-staff-username").val(),
+                                    "depts": departmentnameArr,
                                     "position": $("#add-department-staff-position").val(),
-                                    "role": "",
+                                    "role": roleArr,
                                     "jobnumber": $("#add-department-staff-jobnumber").val(),
-                                    "phone": $("#add-department-staff-phone").val(),
+                                    "mobile": $("#add-department-staff-phone").val(),
                                     "tel": $("#add-department-staff-tel").val(),
                                     "email": $("#add-department-staff-email").val(),
                                     "workplace": $("#add-department-staff-workplace").val(),
                                     "remark": $("#add-department-staff-remark").val(),
                                     "password": $("#add-department-staff-password").val()
                                 };
-                                return;
+                                console.log(data);
+//                                return;
                                 $.ajax({
-                                    url: contextPath+"api/dingtalkdept/",
+                                    url: contextPath+"api/dingtalkuser/",
                                     type: "post",
                                     data : JSON.stringify(data),
                                     contentType: "application/json",
