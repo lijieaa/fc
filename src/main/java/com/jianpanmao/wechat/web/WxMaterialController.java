@@ -3,7 +3,6 @@ package com.jianpanmao.wechat.web;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jianpanmao.common.annotation.NoResultEntity;
-import com.jianpanmao.http.RequestTools;
 import com.jianpanmao.unit.ResponseEntity;
 import com.jianpanmao.utils.GsonUtils;
 import com.jianpanmao.utils.WxUtils;

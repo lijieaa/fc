@@ -586,6 +586,10 @@
   </select>
 
 
+  <select id="selectByRoleId"  resultMap="BaseResultMap">
+   SELECT b.* FROM sys_user_role a,dingtalk_user b where a.user_id=b.userid AND a.role_id=#{0}
+  </select>
+
 
 
 </mapper>
