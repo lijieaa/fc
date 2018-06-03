@@ -2,6 +2,7 @@ package com.jianpanmao.sys.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.common.entity.DataTablesResponseEntity;
 import com.jianpanmao.sys.dao.DingtalkUserMapper;
 import com.jianpanmao.sys.dto.DingtalkUserDto;
@@ -54,6 +55,19 @@ public class DingtalkUserRestController {
     @RequestMapping(method = RequestMethod.GET)
     public DingtalkUser get(@RequestParam("id") Integer id) {
         return dingtalkuserService.get(id);
+    }
+
+
+    @NoResultEntity
+    @PreAuthorize("hasAuthority('dingtalkuser:view')")
+    @RequestMapping(method = RequestMethod.GET,value = "mobile")
+    public Boolean findByMobile(@RequestParam("mobile") String mobile) {
+        DingtalkUser byMobile = dingtalkuserService.findByMobile(mobile);
+        if(null==byMobile){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     @PreAuthorize("hasAuthority('dingtalkuser:view')")

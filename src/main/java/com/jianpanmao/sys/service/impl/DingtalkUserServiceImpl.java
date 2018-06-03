@@ -6,11 +6,9 @@ import com.jianpanmao.sys.entity.*;
 import com.jianpanmao.sys.dto.*;
 import com.jianpanmao.sys.service.DingtalkUserDeptService;
 import com.jianpanmao.sys.service.DingtalkUserService;
-import com.jianpanmao.sys.service.SysRoleService;
 import com.jianpanmao.sys.service.SysUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
