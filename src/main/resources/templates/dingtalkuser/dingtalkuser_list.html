@@ -139,7 +139,7 @@
                                                     <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
                                                     添加成员
                                                 </button>
-                                                <button class="btn btn-white btn-warning btn-bold">
+                                                <button id="add-department-staff-del-btn" class="btn btn-white btn-warning btn-bold">
                                                     <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
                                                     批量删除
                                                 </button>
@@ -166,32 +166,6 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody class="department-staff-body center">
-                                                        <!--<tr>
-                                                            <td>
-                                                                <label class="pos-rel">
-                                                                    <input type="checkbox" class="ace">
-                                                                    <span class="lbl"></span>
-                                                                </label>
-                                                            </td>
-                                                            <td>彭松涛</td>
-                                                            <td>保洁大叔</td>
-                                                            <td>9527</td>
-                                                            <td>1878192830</td>
-                                                            <td>santoetch@qq.com</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <label class="pos-rel">
-                                                                    <input type="checkbox" class="ace">
-                                                                    <span class="lbl"></span>
-                                                                </label>
-                                                            </td>
-                                                            <td>彭松涛</td>
-                                                            <td>保洁大叔</td>
-                                                            <td>9527</td>
-                                                            <td>1878192830</td>
-                                                            <td>santoetch@qq.com</td>
-                                                        </tr>-->
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -213,7 +187,7 @@
                                                     <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
                                                     添加成员
                                                 </button>-->
-                                                <button class="btn btn-white btn-warning btn-bold">
+                                                <button id="role-group-person-list-del" class="btn btn-white btn-warning btn-bold">
                                                     <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
                                                     批量删除
                                                 </button>
@@ -223,7 +197,7 @@
                                             <div class="row">
                                                 <div class="col-xs-12">
                                                     <table id="role-group-person-list" class="table  table-bordered table-hover">
-                                                        <thead>
+                                                        <thead class="role-group-person-list-head">
                                                             <tr>
                                                                 <th class="center">
                                                                     <label class="pos-rel">
@@ -236,8 +210,8 @@
                                                                 <th class="center">工号</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
-                                                            <tr class="center">
+                                                        <tbody class="role-group-person-list-body">
+                                                           <!-- <tr class="center">
                                                                 <td>
                                                                     <label class="pos-rel">
                                                                         <input type="checkbox" class="ace">
@@ -247,7 +221,7 @@
                                                                 <td>彭松涛</td>
                                                                 <td>技术部</td>
                                                                 <td>9527</td>
-                                                            </tr>
+                                                            </tr>-->
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -315,7 +289,7 @@
                                                             <th class="center">负责人</th>
                                                         </tr>
                                                         </thead>
-                                                        <tbody class="department-staff-body center">
+                                                        <tbody class="department-staff-bodyss center">
                                                         <tr>
                                                             <td>
                                                                 <label class="pos-rel">
@@ -606,12 +580,12 @@
         $('th input[type=checkbox], td input[type=checkbox]').prop('checked', false);
         $(".department-staff-head .checkbox-all").on("click", function () {
             var departmentStaffBodyTr = $(".department-staff-body tr");
-            if (departmentStaffBodyTr.hasClass("active")) {
-                departmentStaffBodyTr.removeClass("active");
+            if ($(this).hasClass("active")) {
+                $(this).removeClass("active");
                 departmentStaffBodyTr.find("td input[type=checkbox]").prop('checked', false)
             } else {
-                departmentStaffBodyTr.addClass("active");
-                departmentStaffBodyTr.find("td input[type=checkbox]").prop('checked', true)
+                $(this).addClass("active");
+                departmentStaffBodyTr.find("td input[type=checkbox]:not(:disabled)").prop('checked', true)
             }
         });
 
@@ -691,10 +665,14 @@
                                     if (data.content.users.length) {
                                         var departmentStaffUserListHtml = '';
                                         $.each(data.content.users, function (i, item) {
+                                            var checkedDisabled = "";
+                                            if (item.isAdmin) {
+                                                checkedDisabled = "disabled";
+                                            }
                                             departmentStaffUserListHtml += '<tr>'+
                                                     '<td>'+
                                                     '<label class="pos-rel">'+
-                                                    '<input type="checkbox" class="ace">'+
+                                                    '<input type="checkbox" '+ checkedDisabled +' data-id="'+ item.userid +'" data-del="'+ item.isAdmin +'" class="ace">'+
                                                     '<span class="lbl"></span>'+
                                                     '</label>'+
                                                     '</td>'+
@@ -770,7 +748,7 @@
                                 departmentStaffUserListHtml += '<tr>'+
                                         '<td>'+
                                         '<label class="pos-rel">'+
-                                        '<input type="checkbox" class="ace">'+
+                                        '<input type="checkbox"  data-id="'+ item.userid +'" data-del="'+ item.isAdmin +'" class="ace">'+
                                         '<span class="lbl"></span>'+
                                         '</label>'+
                                         '</td>'+
@@ -1263,6 +1241,43 @@
         });
 
 
+        //批量删除部门成员
+        //选所有checkbox
+        $(".department-staff-head .checkbox-all").on("click", function () {
+            var departmentStaffBodyTr = $(".department-staff-body tr");
+            if ($(this).hasClass("active")) {
+                $(this).removeClass("active");
+                departmentStaffBodyTr.find("td input[type=checkbox]").prop('checked', false)
+            } else {
+                $(this).addClass("active");
+                departmentStaffBodyTr.find("td input[type=checkbox]:not(:disabled)").prop('checked', true)
+            }
+        });
+        $("#add-department-staff-del-btn").on("click", function () {
+            var selectBoxlist = $(".department-staff-body input:checkbox:checked"), data = [];
+            if (selectBoxlist.length) {
+                selectBoxlist.each(function (i, item) {
+                    if (!$(item).attr("disabled")) {
+                        data.push($(item).attr("data-id"))
+                    }
+                })
+            }
+            console.log(data);
+            $.ajax({
+                url: contextPath+"api/dingtalkuser/batch",
+                type: "delete",
+                data : JSON.stringify(data),
+                contentType: "application/json",
+                dataType : "json",
+                success: function (data) {
+                    organizationRefreshNode();
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            })
+        });
+
 
         //获取角色列表
         var roleSettings = {
@@ -1321,10 +1336,14 @@
                              if (data.content.length) {
                                  var roleGroupPersonListHtml = '';
                                  $.each(data.content, function (i, item) {
+                                     var checkedDisabled = "";
+                                     if (item.isAdmin) {
+                                         checkedDisabled = "disabled";
+                                     }
                                      roleGroupPersonListHtml += '<tr class="align-center">'+
                                          '<td>'+
                                              '<label class="pos-rel">'+
-                                             '<input type="checkbox" class="ace">'+
+                                             '<input type="checkbox" class="ace" data-id="'+ item.userid +'" '+ checkedDisabled +'>'+
                                              '<span class="lbl"></span>'+
                                              '</label>'+
                                          '</td>'+
@@ -1474,6 +1493,41 @@
             $("#diyBtn_space_" +treeNode.id).unbind().remove();
         }
         $.fn.zTree.init($("#role-list"), roleSettings);
+
+        //角色成员批量删除
+        $(".role-group-person-list-head .checkbox-all").on("click", function () {
+            var roleGroupPersonListBodyTr = $(".role-group-person-list-body tr");
+            if ($(this).hasClass("active")) {
+                $(this).removeClass("active");
+                roleGroupPersonListBodyTr.find("td input[type=checkbox]").prop('checked', false)
+            } else {
+                $(this).addClass("active");
+                roleGroupPersonListBodyTr.find("td input[type=checkbox]:not(:disabled)").prop('checked', true)
+            }
+        });
+        $("#role-group-person-list-del").on("click", function () {
+            var selectBoxlist = $(".role-group-person-list-body input:checkbox:checked"), data = [];
+            if (selectBoxlist.length) {
+                selectBoxlist.each(function (i, item) {
+                    if (!$(item).attr("disabled")) {
+                        data.push($(item).attr("data-id"))
+                    }
+                })
+            }
+            $.ajax({
+                url: contextPath+"api/sysuserrole/batch",
+                type: "delete",
+                data : JSON.stringify(data),
+                contentType: "application/json",
+                dataType : "json",
+                success: function (data) {
+                    roleRefreshNode();
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            })
+        });
 
         // 新增角色组
         var $formAddRoleGroup = $('#add-role-group-container>form').validate({
