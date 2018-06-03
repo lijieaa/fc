@@ -162,6 +162,7 @@
                                                             <th class="center">工号</th>
                                                             <th class="center">手机号</th>
                                                             <th class="center">邮箱</th>
+                                                            <th class="center">操作</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody class="department-staff-body center">
@@ -223,30 +224,30 @@
                                                 <div class="col-xs-12">
                                                     <table id="role-group-person-list" class="table  table-bordered table-hover">
                                                         <thead>
-                                                        <tr>
-                                                            <th class="center">
-                                                                <label class="pos-rel">
-                                                                    <input type="checkbox" class="ace">
-                                                                    <span class="lbl checkbox-all"></span>
-                                                                </label>
-                                                            </th>
-                                                            <th class="center">姓名</th>
-                                                            <th class="center">部门</th>
-                                                            <th class="center">工号</th>
-                                                        </tr>
+                                                            <tr>
+                                                                <th class="center">
+                                                                    <label class="pos-rel">
+                                                                        <input type="checkbox" class="ace">
+                                                                        <span class="lbl checkbox-all"></span>
+                                                                    </label>
+                                                                </th>
+                                                                <th class="center">姓名</th>
+                                                                <th class="center">部门</th>
+                                                                <th class="center">工号</th>
+                                                            </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr class="center">
-                                                            <td>
-                                                                <label class="pos-rel">
-                                                                    <input type="checkbox" class="ace">
-                                                                    <span class="lbl"></span>
-                                                                </label>
-                                                            </td>
-                                                            <td>彭松涛</td>
-                                                            <td>技术部</td>
-                                                            <td>9527</td>
-                                                        </tr>
+                                                            <tr class="center">
+                                                                <td>
+                                                                    <label class="pos-rel">
+                                                                        <input type="checkbox" class="ace">
+                                                                        <span class="lbl"></span>
+                                                                    </label>
+                                                                </td>
+                                                                <td>彭松涛</td>
+                                                                <td>技术部</td>
+                                                                <td>9527</td>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -412,9 +413,10 @@
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-departmentname">部门:</label>
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-departmentname-btn">部门:</label>
             <div class="col-sm-9 col-md-9">
-                <input type="text" id="add-department-staff-departmentname" name="departmentname" placeholder="请选择部门" class="form-control">
+                <button type="button" id="add-department-staff-departmentname-btn" name="role" class="form-control btn btn-white btn-default">请选择部门</button>
+                <ul id="add-department-staff-departmentname-select"  class="ztree display-none"></ul>
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-6">
@@ -424,9 +426,11 @@
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-role">角色:</label>
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-role-btn">角色:</label>
             <div class="col-sm-9 col-md-9">
-                <input type="text" id="add-department-staff-role" name="role" placeholder="请选择角色" class="form-control">
+                <!--<input type="text" id="add-department-staff-role" name="role" placeholder="请选择角色" class="form-control">-->
+                <button type="button" id="add-department-staff-role-btn" name="role" class="form-control btn btn-white btn-default">请选择角色</button>
+                <ul id="add-department-staff-role-select"  class="ztree display-none"></ul>
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-6">
@@ -463,6 +467,18 @@
             <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-remark">备注:</label>
             <div class="col-sm-9 col-md-9">
                 <input type="text" id="add-department-staff-remark" placeholder="请输入备注" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-password">密码:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="password" id="add-department-staff-password" name="password" placeholder="请输入密码" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-repassword">确认密码:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="password" id="add-department-staff-repassword" name="confirm_password" placeholder="请输入备注" class="form-control">
             </div>
         </div>
     </form>
@@ -528,7 +544,7 @@
     </form>
 </div>
 
-<!-- 新增角色 -->
+<!-- 编辑角色 -->
 <div id="edit-role-person-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
     <form class="form-horizontal" role="form">
         <h4>角色信息</h4>
@@ -687,10 +703,11 @@
                                                     '<td>'+ item.jobnumber +'</td>'+
                                                     '<td>'+ item.mobile +'</td>'+
                                                     '<td>'+ item.email +'</td>'+
+                                                    '<td><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only"></i></td>'+
                                                     '</tr>';
                                         });
                                     } else {
-                                        departmentStaffUserListHtml = '<tr><td colspan="6">'+
+                                        departmentStaffUserListHtml = '<tr><td colspan="7">'+
                                                 '<div class="alert alert-info">'+
                                                 '<button type="button" class="close" data-dismiss="alert">'+
                                                 '<i class="ace-icon fa fa-times"></i>'+
@@ -762,10 +779,11 @@
                                         '<td>'+ item.jobnumber +'</td>'+
                                         '<td>'+ item.mobile +'</td>'+
                                         '<td>'+ item.email +'</td>'+
+                                        '<td><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only"></i></td>'+
                                         '</tr>';
                             });
                         } else {
-                            departmentStaffUserListHtml = '<tr><td colspan="6">'+
+                            departmentStaffUserListHtml = '<tr><td colspan="7">'+
                                         '<div class="alert alert-info">'+
                                             '<button type="button" class="close" data-dismiss="alert">'+
                                             '<i class="ace-icon fa fa-times"></i>'+
@@ -882,7 +900,7 @@
                     $(e).remove();
                 },
                 errorPlacement: function (error, element) {
-                    error.insertAfter(element.parent());
+//                    error.insertAfter(element.parent());
                 },
                 invalidHandler: function (form) {
                 }
@@ -978,7 +996,7 @@
                 $(e).remove();
             },
             errorPlacement: function (error, element) {
-                error.insertAfter(element.parent());
+//                error.insertAfter(element.parent());
             },
             invalidHandler: function (form) {
             }
@@ -1050,8 +1068,28 @@
                     required: true
                 },
                 phone: {
+                    required: true,
+                    remote: {
+                        url: contextPath+"api/dingtalkuser/mobile",
+                        type: "post",               //数据发送方式
+                        dataType: "json",           //接受数据格式
+                        data: JSON.stringify({                     //要传递的数据
+                            mobile: function() {
+                                return $("#add-department-staff-phone").val();
+                            }
+                        })
+                    }
+                },
+                password: {
                     required: true
+                },
+                confirm_password: {
+                    required: true,
+                    equalTo: "#add-department-staff-repassword"
                 }
+            },
+            messages: {
+                remote: "该用户已经存在"
             },
             highlight: function (e) {
                 $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
@@ -1067,6 +1105,91 @@
             }
         });
         $( "#add-department-staff-btn" ).on('click', function(e) {
+            //选择部门
+            var organizationSettings = {
+                async: {
+                    enable: true,
+                    dataType: "json",
+                    type: "get",
+                    url: contextPath+"api/dingtalkdept/list",
+                    dataFilter: ajaxDataFilterFns
+                },
+                data:{
+                    key: {
+                        name: "name"
+                    },
+                    simpleData : {
+                        enable : true,
+                        idKey: "id",
+                        pIdKey: "parentid",
+                        rootPId: 0
+                    }
+                },
+                check: {
+                    enable: true,
+                    chkStyle: "checkbox",
+                    chkboxType: { "Y" : "", "N" : "" }
+                },
+                view: {
+                    showLine: false
+                }
+            };
+            function ajaxDataFilterFns(treeId, parentNode, responseData) {
+                console.log(responseData.content);
+                if (responseData.content) {
+                    $.each(responseData.content, function (i, item) {
+                        if (item.id == $(".department-name").attr("data-id")) {
+                            item["checked"] = true;
+                        }
+                    })
+                }
+                console.log(responseData.content);
+                return responseData.content;
+            }
+            $.fn.zTree.init($("#add-department-staff-departmentname-select"), organizationSettings);
+            $("#add-department-staff-departmentname-btn").unbind();
+            $("#add-department-staff-departmentname-btn").on("click", function () {
+                if ($("#add-department-staff-departmentname-select").hasClass("display-none")) {
+                    $("#add-department-staff-departmentname-select").removeClass("display-none")
+                } else {
+                    $("#add-department-staff-departmentname-select").addClass("display-none")
+                }
+            });
+
+            //选择角色
+            var roleSettings = {
+                async: {
+                    enable: true,
+                    dataType: "json",
+                    type: "get",
+                    url: contextPath+"api/sysrole/list",
+                    dataFilter: ajaxDataFilterFn
+                },
+                data:{
+                    key: {
+                        name: "roleName"
+                    },
+                    simpleData : {
+                        enable : false
+                    }
+                },
+                check: {
+                    enable: true,
+                    chkStyle: "checkbox"
+                },
+                view: {
+                    showLine: false
+                }
+            };
+            $.fn.zTree.init($("#add-department-staff-role-select"), roleSettings);
+            $("#add-department-staff-role-btn").unbind();
+            $("#add-department-staff-role-btn").on("click", function () {
+                if ($("#add-department-staff-role-select").hasClass("display-none")) {
+                    $("#add-department-staff-role-select").removeClass("display-none")
+                } else {
+                    $("#add-department-staff-role-select").addClass("display-none")
+                }
+            });
             e.preventDefault();
             var dialog = $( "#add-department-staff-container" ).removeClass('hide').dialog({
                 resizable: false,
@@ -1083,8 +1206,19 @@
                             var flag = $formAddDepartmentStaff.form();
                             if(flag){
                                 var data = {
-                                    "username": $("#add-department-staff-username").val()
-                                }
+                                    "username": $("#add-department-staff-username").val(),
+                                    "departmentname": "",
+                                    "position": $("#add-department-staff-position").val(),
+                                    "role": "",
+                                    "jobnumber": $("#add-department-staff-jobnumber").val(),
+                                    "phone": $("#add-department-staff-phone").val(),
+                                    "tel": $("#add-department-staff-tel").val(),
+                                    "email": $("#add-department-staff-email").val(),
+                                    "workplace": $("#add-department-staff-workplace").val(),
+                                    "remark": $("#add-department-staff-remark").val(),
+                                    "password": $("#add-department-staff-password").val()
+                                };
+                                return;
                                 $.ajax({
                                     url: contextPath+"api/dingtalkdept/",
                                     type: "post",
@@ -1156,51 +1290,52 @@
             console.log(treeNode);
             if (!treeNode.isParent) {
                 $("#role-person-name").text(treeNode.roleName);
-                var id = treeNode.id;
+                var id = treeNode.roleId;
                 $("#edit-role-person-btn").attr("data-roleId", treeNode.roleId).attr("data-isDel", treeNode.isDel);
-                /*$.ajax({
+                $.ajax({
                     async : false,
                     cache:false,
                     type: 'get',
                     dataType : "json",
                     contentType: "application/json",
-                    url: contextPath + "api/dingtalkdept/pid?pid="+id,
+                    url: contextPath + "api/dingtalkuser/role?roleid="+id,
                     success:function(data){
                         if (data.status == "200") {
-                            //默认部门人员列表
-                            /!*departmentStaffBodyBox.html('');
-                             if (data.content.users.length) {
-                             var departmentStaffUserListHtml = '';
-                             $.each(data.content.users, function (i, item) {
-                             departmentStaffUserListHtml += '<tr>'+
-                             '<td>'+
-                             '<label class="pos-rel">'+
-                             '<input type="checkbox" class="ace">'+
-                             '<span class="lbl"></span>'+
-                             '</label>'+
-                             '</td>'+
-                             '<td>'+ item.name +'</td>'+
-                             '<td>'+ item.position +'</td>'+
-                             '<td>'+ item.jobnumber +'</td>'+
-                             '</tr>';
-                             });
+                            //角色人员列表
+                            $("#role-group-person-list>tbody").html('');
+                             if (data.content.length) {
+                                 var roleGroupPersonListHtml = '';
+                                 $.each(data.content, function (i, item) {
+                                     roleGroupPersonListHtml += '<tr class="align-center">'+
+                                         '<td>'+
+                                             '<label class="pos-rel">'+
+                                             '<input type="checkbox" class="ace">'+
+                                             '<span class="lbl"></span>'+
+                                             '</label>'+
+                                         '</td>'+
+                                         '<td>'+ item.name +'</td>'+
+                                         '<td>'+ item.position +'</td>'+
+                                         '<td>'+ item.jobnumber +'</td>'+
+                                     '</tr>';
+                                 });
                              } else {
-                             departmentStaffUserListHtml = '<tr><td colspan="4">'+
-                             '<div class="alert alert-info">'+
-                             '<button type="button" class="close" data-dismiss="alert">'+
-                             '<i class="ace-icon fa fa-times"></i>'+
-                             '</button>'+
-                             '当前部门暂无人员请添加成员'+
-                             '</div>'+
-                             '</td></tr>';
+                                 roleGroupPersonListHtml = '<tr><td colspan="4">'+
+                                 '<div class="alert alert-info">'+
+                                     '<button type="button" class="close" data-dismiss="alert">'+
+                                     '<i class="ace-icon fa fa-times"></i>'+
+                                     '</button>'+
+                                     '当前角色暂无人员请添加成员'+
+                                 '</div>'+
+                                 '</td>' +
+                             '</tr>';
                              }
-                             departmentStaffBodyBox.append(departmentStaffUserListHtml);*!/
+                             $("#role-group-person-list>tbody").append(roleGroupPersonListHtml);
                         }
                     },
                     error: function () {
                         alert('请求失败');
                     }
-                });*/
+                });
             }
 
         }
@@ -1243,7 +1378,7 @@
                             $(e).remove();
                         },
                         errorPlacement: function (error, element) {
-                            error.insertAfter(element.parent());
+//                            error.insertAfter(element.parent());
                         },
                         invalidHandler: function (form) {
                         }
@@ -1344,7 +1479,7 @@
                 $(e).remove();
             },
             errorPlacement: function (error, element) {
-                error.insertAfter(element.parent());
+//                error.insertAfter(element.parent());
             },
             invalidHandler: function (form) {
             }
@@ -1457,7 +1592,7 @@
                 $(e).remove();
             },
             errorPlacement: function (error, element) {
-                error.insertAfter(element.parent());
+//                error.insertAfter(element.parent());
             },
             invalidHandler: function (form) {
             }
@@ -1544,7 +1679,7 @@
                 $(e).remove();
             },
             errorPlacement: function (error, element) {
-                error.insertAfter(element.parent());
+//                error.insertAfter(element.parent());
             },
             invalidHandler: function (form) {
             }
@@ -1620,7 +1755,6 @@
                         //角色组
                         var treeObj = $.fn.zTree.getZTreeObj("role-list");
                         var nodes = treeObj.getNodes();
-                        console.log(nodes);
                         if (nodes) {
                             var editRoleRersonGroupBox = $("#edit-role-person-group"), editRoleRersonGroupHtml = '';
                             editRoleRersonGroupBox.html("");
