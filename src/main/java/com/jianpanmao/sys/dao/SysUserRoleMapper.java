@@ -8,4 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface SysUserRoleMapper extends BaseDao<SysUserRole, SysUserRoleExample, SysUserRoleDto, Integer> {
+
+    int deleteByUserId(Integer userId);
 }

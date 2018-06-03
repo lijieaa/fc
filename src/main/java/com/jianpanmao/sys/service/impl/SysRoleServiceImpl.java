@@ -2,6 +2,7 @@ package com.jianpanmao.sys.service.impl;
 
 import com.jianpanmao.common.service.impl.BaseServiceImpl;
 import com.jianpanmao.sys.dao.SysRoleMapper;
+import com.jianpanmao.sys.dao.SysUserRoleMapper;
 import com.jianpanmao.sys.entity.*;
 import com.jianpanmao.sys.dto.*;
 import com.jianpanmao.sys.service.SysRoleMenuService;
@@ -17,6 +18,11 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole,SysRoleExample,S
 
     @Autowired
     SysRoleMapper roleMapper;
+
+    @Autowired
+    SysUserRoleMapper userRoleMapper;
+
+
 
 
     @Autowired
@@ -45,7 +51,6 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole,SysRoleExample,S
         }
         return add;
     }
-
     @Override
     public int update(SysRole record) {
         sysRoleMenuService.remove(record.getRoleId());
@@ -55,4 +60,8 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole,SysRoleExample,S
         return super.update(record);
     }
 
+    @Override
+    public int unbindUser(Integer userId) {
+        return userRoleMapper.deleteByUserId(userId);
+    }
 }

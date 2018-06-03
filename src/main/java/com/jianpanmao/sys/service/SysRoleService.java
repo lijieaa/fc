@@ -8,5 +8,5 @@ import com.jianpanmao.sys.dto.*;
 
 
 public interface SysRoleService extends BaseService<SysRole, SysRoleExample,SysRoleDto,Integer>{
-
+    public int unbindUser(Integer userId);
 }

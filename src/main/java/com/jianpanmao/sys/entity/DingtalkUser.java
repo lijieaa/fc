@@ -50,7 +50,6 @@ public class DingtalkUser implements Serializable,UserDetails {
     private Boolean issenior;
 
     //中间商ID
-    @NotNull(message = "intermediaryId不能为空！")
     private Integer intermediaryId;
 
     //
