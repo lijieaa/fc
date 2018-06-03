@@ -2,6 +2,7 @@ package com.jianpanmao.sys.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.common.entity.DataTablesResponseEntity;
 import com.jianpanmao.sys.dao.DingtalkUserMapper;
 import com.jianpanmao.sys.dto.DingtalkUserDto;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -54,6 +56,20 @@ public class DingtalkUserRestController {
     @RequestMapping(method = RequestMethod.GET)
     public DingtalkUser get(@RequestParam("id") Integer id) {
         return dingtalkuserService.get(id);
+    }
+
+
+    @NoResultEntity
+    @PreAuthorize("hasAuthority('dingtalkuser:view')")
+    @RequestMapping(value = "mobile")
+    public Boolean findByMobile(HttpServletRequest request) {
+        String mobile = request.getParameter("mobile");
+        DingtalkUser byMobile = dingtalkuserService.findByMobile(mobile);
+        if(null==byMobile){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     @PreAuthorize("hasAuthority('dingtalkuser:view')")

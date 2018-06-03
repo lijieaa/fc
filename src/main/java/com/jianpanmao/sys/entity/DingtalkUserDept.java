@@ -4,25 +4,26 @@ import java.io.Serializable;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
-public class SysUserRole implements Serializable {
-    //
-    @NotNull(message = "userId不能为空！")
+public class DingtalkUserDept implements Serializable {
+    //用户ID
     private Integer userId;
 
-    //
-    @NotNull(message = "roleId不能为空！")
-    private Integer roleId;
+    //部门ID
+    private Integer deptId;
+
+    //用户在某个部门里的排序字段
+    private Integer order;
 
     private static final long serialVersionUID = 1L;
 
-    public SysUserRole(@NotNull(message = "userId不能为空！") Integer userId, @NotNull(message = "roleId不能为空！") Integer roleId) {
+
+    public DingtalkUserDept(Integer userId, Integer deptId) {
         this.userId = userId;
-        this.roleId = roleId;
+        this.deptId = deptId;
     }
 
-    public SysUserRole() {
+    public DingtalkUserDept() {
     }
-
 
     public Integer getUserId() {
         return userId;
@@ -32,12 +33,20 @@ public class SysUserRole implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getRoleId() {
-        return roleId;
+    public Integer getDeptId() {
+        return deptId;
     }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public void setDeptId(Integer deptId) {
+        this.deptId = deptId;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 
     @Override
@@ -47,7 +56,8 @@ public class SysUserRole implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", userId=").append(userId);
-        sb.append(", roleId=").append(roleId);
+        sb.append(", deptId=").append(deptId);
+        sb.append(", order=").append(order);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

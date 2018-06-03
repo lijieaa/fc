@@ -153,19 +153,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.jianpanmao.sys.entity.DingtalkUser">
+    <selectKey keyProperty="userid" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into dingtalk_user (userid, `name`, `position`, 
       mobile, tel, workPlace, 
       remark, email, orgEmail, 
       jobnumber, isHide, isSenior, 
-      intermediary_id, create_time, update_time, 
-      is_admin, `password`, extattr
+      intermediary_id, `password`, extattr
       )
     values (#{userid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
       #{mobile,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{workplace,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{orgemail,jdbcType=VARCHAR}, 
       #{jobnumber,jdbcType=VARCHAR}, #{ishide,jdbcType=BIT}, #{issenior,jdbcType=BIT}, 
-      #{intermediaryId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{isAdmin,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{extattr,jdbcType=LONGVARCHAR}
+      #{intermediaryId,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{extattr,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.sys.entity.DingtalkUser">
@@ -575,8 +576,8 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from dingtalk_user,dingtalk_user_dept
-    where dept_id = #{0}
+    from dingtalk_user a,dingtalk_user_dept b
+    where a.userid=b.user_id and b.dept_id=#{0}
   </select>
 
 
