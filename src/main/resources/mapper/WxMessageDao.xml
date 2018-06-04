@@ -73,4 +73,11 @@
         DELETE FROM wx_message WHERE to_user = #{toUser} and from_user = #{fromUser}
     </delete>
 
+    <select id="findByPublicId" resultMap="wxMessageMap">
+        SELECT m.*
+        FROM wx_message m, wx_user_openid o
+        WHERE o.public_id = #{0} AND o.openid = m.from_user
+        ORDER BY m.create_time DESC
+    </select>
+
 </mapper>

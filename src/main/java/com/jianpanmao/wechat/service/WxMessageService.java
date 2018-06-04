@@ -44,4 +44,11 @@ public interface WxMessageService extends BaseService<WxMessage> {
      * @throws Exception
      */
     void sendMsg2user(String accessToken, Msg msg, WxMessage wxMessage) throws Exception;
+
+    /**
+     * 查询公众号消息
+     * @param wxPublicId
+     * @return
+     */
+    List<WxMessage> findByPublicId(Integer wxPublicId);
 }
