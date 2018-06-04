@@ -126,6 +126,17 @@
             border: 1px #bcbcbc solid;
             font-size: 16px;
         }
+        .addInp{
+            width: 90%;
+            margin-left: 5%;
+            height: 40px;
+            line-height: 40px;
+            margin-top: 30px;
+            border: none!important;
+        }
+        #editInputAutor{
+            border-bottom: 1px #e5e5e5 solid!important;
+        }
     </style>
 </head>
 <body layout:fragment="content">
@@ -188,11 +199,7 @@
             <section class="float-left" style="width: 65%;height: 99%;">
                 <div>
                       <textarea name="editor1" id="editor1">
-                          <div style="height: 60px;line-height: 60px;" id="ptTitle">请在这里输入标题</div>
-                          <div style="height: 60px;line-height: 60px;" id="ptdigest">请输入标题</div>
-                          <div style="height: 60px;line-height: 60px;" id="ptAutor">作者</div>
-                          <hr/>
-                          <div id="ptcontent">从这里开始写正文</div>
+
                       </textarea>
                 </div>
                 <button style="width: 65px;height: 35px;display: block;" id="savapt">保存</button>
@@ -322,37 +329,55 @@
            $("#new-photo-text").show().siblings().hide();
         });
         //文本编辑器
-        function textEdior(){
-            //var editor;
-            CKEDITOR.replace( 'editor1', {
-                height:520,
-                customConfig: '',
-                filebrowserImageUploadUrl:"skins",
-                removeDialogTabs:"image:advanced;image:Link",
-                toolbarGroups: [
-                    {"name":"basicstyles","groups":["basicstyles"]},
-                    {"name":"links","groups":["links"]},
-                    {"name":"paragraph","groups":["list","blocks"]},
-                    // {"name":"document","groups":["mode"]},
-                    {"name":"insert","groups":["insert"]},
-//                {"name":"styles","groups":["styles"]},
-                    {"name":"about","groups":["about"]}
-                ],
-                removePlugins:"elementspath"
-//            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
-            });
-            // CKEDITOR.on( 'instanceReady', function ( ev ) {
-            //     editor = ev.editor;
-            //     var title = '<input type="text" id="editInput" placeholder="请输入标题"  onfocus="toggleReadOnly();" onblur="toggleReadOnly( false );">';
-            //     $("#cke_1_contents").before(title);
-            //     var editor1 = CKEDITOR.instances.editor1;
-            //     editor1.focus();
-            // });
-            // function toggleReadOnly( isReadOnly ) {
-            //     editor.setReadOnly( isReadOnly );
-            // }
-        }
-        textEdior();
+//         function textEdior(){
+//             //var editor;
+//             CKEDITOR.replace( 'editor1', {
+//                 height:520,
+//                 customConfig: '',
+//                 filebrowserImageUploadUrl:"skins",
+//                 removeDialogTabs:"image:advanced;image:Link",
+//                 toolbarGroups: [
+//                     {"name":"basicstyles","groups":["basicstyles"]},
+//                     {"name":"links","groups":["links"]},
+//                     {"name":"paragraph","groups":["list","blocks"]},
+//                     // {"name":"document","groups":["mode"]},
+//                     {"name":"insert","groups":["insert"]},
+// //                {"name":"styles","groups":["styles"]},
+//                     {"name":"about","groups":["about"]}
+//                 ],
+//                 removePlugins:"elementspath"
+//             });
+//         }
+//         textEdior();
+        CKEDITOR.replace( 'editor1',{
+            height:450,
+            toolbarGroups: [
+                {"name":"basicstyles","groups":["basicstyles"]},
+                {"name":"links","groups":["links"]},
+                {"name":"paragraph","groups":["list","blocks"]},
+//            {"name":"document","groups":["mode"]},
+                {"name":"insert","groups":["insert"]},
+                //{"name":"styles","groups":["styles"]},
+//            {"name":"about","groups":["about"]}
+            ]
+        });
+        CKEDITOR.on( 'instanceReady', function (ev) {
+
+            var title = '<input type="text" id="editInputTitle" class="addInp" placeholder="请输入标题" style="font-size: 20px;">' +
+                '<input type="text" id="editInputAutor" class="addInp" placeholder="请输入作者" >';
+            $("#cke_1_contents").before(title);
+            $(".addInp").on('focus',function(){
+                ev.editor.setReadOnly( true );
+            })
+            $(".addInp").on('blur',function(){
+                ev.editor.setReadOnly( false );
+            })
+            var editor1 = CKEDITOR.instances.editor1;
+            editor1.focus();
+        });
+
+
+
         //新建素材返回菜单
         $(document).on("click","#backStore",function () {
             $("#gzh-manage").show().siblings().hide();
