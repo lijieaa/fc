@@ -511,7 +511,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/message/page",
+    "url": "/message/user/page",
     "title": "获取用户消息(分页)",
     "name": "getUserMsg",
     "group": "wxMessage",
@@ -554,6 +554,50 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/message/page",
+    "title": "获取公从号消息(分页)",
+    "name": "getWxPublicMsg",
+    "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "rows",
+            "description": "<p>一页显示的条数</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "localhost:8080/message/page?page=1&rows=10&wxPublicId=14",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "D:/fc/src/main/java/com/jianpanmao/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "get",
     "url": "/wxUsers/page",
     "title": "用户列表(分页)",
     "name": "getWxUsers",
@@ -567,6 +611,13 @@ define({ "api": [
             "optional": false,
             "field": "wxPublicId",
             "description": "<p>公众号ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>用户名称</p>"
           }
         ]
       }
