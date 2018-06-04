@@ -147,6 +147,7 @@ package com.jianpanmao.wechat.doc;
  * @apiName getWxUsers
  * @apiGroup wxMessage
  * @apiParam {Number} wxPublicId 公众号ID
+ * @apiParam {String} nickname 用户名称
  * @apiExample Request-Example:
  * localhost:8080/wxUsers/page?page=1&rows=10&wxPublicId=1
  *
@@ -404,7 +405,7 @@ package com.jianpanmao.wechat.doc;
  */
 
 /**
- * @api {get} /message/page 获取用户消息(分页)
+ * @api {get} /message/user/page 获取用户消息(分页)
  * @apiName getUserMsg
  * @apiGroup wxMessage
  * @apiExample Request-Example:
@@ -725,6 +726,17 @@ package com.jianpanmao.wechat.doc;
  * @apiParam name 素材名称（xxx.jpg/xxx.png）
  * @apiExample Request - Example:
  * localhost:8080/material/image/detail?url=http://mmbiz.qpic.cn/mmbiz_jpg/FwRDKpzzTCMeic3kUEqYZiahRLxpa3WQ8YYpmKjmq9LiawOgb5lKGaT7FOG0ahPCMYibB6Cox3kztDQrvDsicACltSg/0?wx_fmt=jpeg&name=11.jpg
+ */
+
+/**
+ * @api {get} /message/page 获取公从号消息(分页)
+ * @apiName getWxPublicMsg
+ * @apiGroup wxMessage
+ * @apiParam {Number} wxPublicId 公众号ID
+ * @apiParam {Number} page 当前页
+ * @apiParam {Number} rows 一页显示的条数
+ * @apiExample Request-Example:
+ * localhost:8080/message/page?page=1&rows=10&wxPublicId=14
  */
 
 public class WxDocumentation {

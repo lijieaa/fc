@@ -32,6 +32,21 @@ public class WxMessageController{
     @ResponseBody
     public ResponseEntity page(Integer page,
                                Integer rows,
+                               Integer wxPublicId,
+                               HttpSession session) throws Exception{
+        ResponseEntity responseEntity = new ResponseEntity();
+        WxUtils.checkParam(session, wxPublicId);
+        PageHelper.startPage(page,rows);
+        List<WxMessage> list = wxMessageService.findByPublicId(wxPublicId);
+        PageInfo pageInfo = new PageInfo(list);
+        responseEntity.setData(Arrays.asList(pageInfo));
+        return responseEntity;
+    }
+
+    @GetMapping("user/page")
+    @ResponseBody
+    public ResponseEntity pageForUser(Integer page,
+                               Integer rows,
                                String openId,
                                Integer wxPublicId,
                                HttpSession session){

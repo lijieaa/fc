@@ -72,4 +72,9 @@ public class WxMessageServiceImpl extends BaseServiceImpl<WxMessage> implements 
         wxMessage.setCreateTime(new Date().getTime());
         wxMessageDao.insert(wxMessage);
     }
+
+    @Override
+    public List<WxMessage> findByPublicId(Integer wxPublicId) {
+        return wxMessageDao.findByPublicId(wxPublicId);
+    }
 }
