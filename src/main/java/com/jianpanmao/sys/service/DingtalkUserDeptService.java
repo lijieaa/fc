@@ -7,6 +7,6 @@ import com.jianpanmao.sys.dto.*;
 
 
 
-public interface SysRoleService extends BaseService<SysRole, SysRoleExample,SysRoleDto,Integer>{
-    public int unbindUser(Integer userId);
+public interface DingtalkUserDeptService extends BaseService<DingtalkUserDept, DingtalkUserDeptExample,DingtalkUserDeptDto,Integer>{
+
 }

@@ -6,8 +6,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.validation.constraints.NotNull;
 
 public class DingtalkUser implements Serializable,UserDetails {
@@ -50,7 +52,6 @@ public class DingtalkUser implements Serializable,UserDetails {
     private Boolean issenior;
 
     //中间商ID
-    @NotNull(message = "intermediaryId不能为空！")
     private Integer intermediaryId;
 
     //
@@ -205,7 +206,7 @@ public class DingtalkUser implements Serializable,UserDetails {
         return null;
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -283,4 +284,25 @@ public class DingtalkUser implements Serializable,UserDetails {
     public void setIntermediary(Intermediary intermediary) {
         this.intermediary = intermediary;
     }
+
+
+    private List<DingtalkDept> depts=new ArrayList<>();
+
+    public List<DingtalkDept> getDepts() {
+        return depts;
+    }
+
+    public void setDepts(List<DingtalkDept> depts) {
+        this.depts = depts;
+    }
+
+    public List<SysRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<SysRole> roles) {
+        this.roles = roles;
+    }
+
+    private List<SysRole> roles=new ArrayList<>();
 }

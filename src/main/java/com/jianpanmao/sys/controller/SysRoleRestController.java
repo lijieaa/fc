@@ -59,6 +59,12 @@ public class SysRoleRestController {
     }
 
 
+    @PreAuthorize("hasAuthority('sysrole:view')")
+    @RequestMapping(method = RequestMethod.GET,value = "list")
+    public List<SysRole> list() {
+        return sysroleService.getAll(null);
+    }
+
 
     @PreAuthorize("hasAuthority('sysrole:view')")
     @RequestMapping(method = RequestMethod.GET, value = "page")

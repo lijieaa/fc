@@ -4,9 +4,12 @@ import com.jianpanmao.common.service.impl.BaseServiceImpl;
 import com.jianpanmao.sys.dao.DingtalkUserMapper;
 import com.jianpanmao.sys.entity.*;
 import com.jianpanmao.sys.dto.*;
+import com.jianpanmao.sys.service.DingtalkUserDeptService;
 import com.jianpanmao.sys.service.DingtalkUserService;
+import com.jianpanmao.sys.service.SysUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,5 +43,57 @@ public class DingtalkUserServiceImpl extends BaseServiceImpl<DingtalkUser,Dingta
     @Override
     public List<DingtalkUser> selectByRoleId(Integer roleId) {
         return dingtalkUserMapper.selectByRoleId(roleId);
+    }
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+
+    @Autowired
+    SysUserRoleService userRoleService;
+
+
+    @Autowired
+    DingtalkUserDeptService userDeptService;
+
+
+    @Override
+    public int removeBatch(Integer[] ids) {
+        int i = super.removeBatch(ids);
+        userRoleService.removeBatch(ids);
+        userDeptService.removeBatch(ids);
+        return i;
+    }
+
+    @Override
+    public int add(DingtalkUser record) {
+
+        String password = record.getPassword();
+
+        String encode = passwordEncoder.encode(password);
+
+        record.setPassword(encode);
+
+        DingtalkUser cuser = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+
+        record.setIntermediaryId(cuser.getIntermediaryId());
+
+
+        int add = super.add(record);
+
+        List<SysRole> roles = record.getRoles();
+
+        for (SysRole role : roles) {
+            userRoleService.add(new SysUserRole(record.getUserid(),role.getRoleId()));
+        }
+
+
+        List<DingtalkDept> depts = record.getDepts();
+
+        for (DingtalkDept dept : depts) {
+            userDeptService.add(new DingtalkUserDept(record.getUserid(),dept.getId()));
+        }
+
+        return add;
     }
 }
