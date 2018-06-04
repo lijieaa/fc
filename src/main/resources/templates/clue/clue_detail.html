@@ -39,8 +39,11 @@
         }
         .clubs-list{
             border: 1px solid #D5D5D5;
-            margin-bottom: 10px;
-            background: white;
+            /*margin-bottom: 10px;*/
+            /*background: white;*/
+        }
+        .clubs-list.children-item{
+            /*margin-top:15px;*/
         }
     </style>
 </head>
@@ -98,56 +101,9 @@
                 <div class="row ">
                     <div class=" col-xs-12">
                         <p class="padding-top-10 margin-left-10 bottom-font">线索评论</p>
-                        <template v-for="item in projectComment">
-                            <div class="clubs-list">
-                                <div class="clubs-header back-f8">
-                                    <div class="left-clubs float-left padding-left-6">
-                                        <img src="../../dist/img/img-head.png" class="" alt="">
-                                        <span>{{item.projectCommentsNickname}}</span>
-                                    </div>
-                                    <div class="right-clubs float-right padding-right-6">
-                                        <span class="bd-r">第 <span>121</span>条留言</span>
-                                        <span class="bd-r">{{item.projectCommentsCreateTime}}</span>
-                                        <span class="bd-r color-b">删除</span>
-                                        <span class="color-b" @click="compoment">评论</span>
-                                    </div>
-                                </div>
-                                <div class="clubs-content-list">
-                                    <div class="detail-list margin-left-10">
-                                        <span class="font-weight padding-left-6">{{item.projectCommentsNickname}}:</span>
-                                        <span class="content-topic display-inline-block" v-html="item.projectCommentsContent"></span>
-                                    </div>
-                                </div>
-                                <template v-if="item.children.length>0" v-for = "list in item.children">
-                                    <div class="clubs-content-list padding-bottom-10">
-                                        <div class="detail-list margin-left-10">
-                                            <span class="font-weight padding-left-6">{{list.projectCommentsNickname}}:</span>
-                                            <span class="content-topic" v-html="list.projectCommentsContent"></span>
-                                            <span class="color-gray bd-g">删除</span>
-                                            <span class="color-gray bd-g">{{list.projectCommentsCreateTime}}</span>
-                                            <span class="color-gray" @click="reply($event)">回复</span>
-                                            <transition name="fade">
-                                                <div class="input-group margin-top-6 margin-right-10" style="display: none">
-                                                    <input type="text" class="form-control">
-                                                    <span class="input-group-btn">
-                                                        <button type="button" class="btn border-none btn-info btn-flat">回复</button>
-                                                    </span>
-                                                </div>
-                                            </transition>
-                                        </div>
-                                    </div>
-                                </template>
-                                <div class="input-group padding-bottom-10 margin-left-10 margin-right-10">
-                                    <input type="text" class="form-control">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn border-none btn-info btn-flat" @click="replayComment(item.projectCommentsId,$event)">回复</button>
-                                    </span>
-                                </div>
-                            </div>
-
-
-                        </template>
-
+                        <div id="demo">
+                            <item class="item" :model="projectComment"></item>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -182,8 +138,106 @@
         </div>
     </div>
 </div>
+<script type="text/x-template" id="item-template">
+    <div class="clubs-list" :data-id="model.projectCommentsId" :class="{'parent':(model.projectCommentsParent==0)}">
+        <div class="clubs-header back-f8"  v-if="model.projectCommentsParent !=null && model.projectCommentsParent == 0">
+            <div class="left-clubs float-left padding-left-6">
+                <img src="../../dist/img/img-head.png" class="" alt="">
+                <span>{{model.projectCommentsNickname}}</span>
+            </div>
+            <div class="right-clubs float-right padding-right-6">
+                <span class="bd-r">第 <span>121</span>条留言</span>
+                <span class="bd-r">{{model.projectCommentsCreateTime}}</span>
+                <span class="bd-r color-b">删除</span>
+                <span class="color-b">评论</span>
+            </div>
+        </div>
+        <div class="clubs-content-list" v-if="model.projectCommentsParent !=null">
+            <div class="detail-list margin-left-10">
+                <span class="font-weight padding-left-6">{{model.projectCommentsNickname}}:</span>
+                <span class="content-topic display-inline-block" v-html="model.projectCommentsContent"></span>
+                <span class="color-gray bd-g" v-if="model.projectCommentsParent != 0">删除</span>
+                <span class="color-gray bd-g" v-if="model.projectCommentsParent != 0">{{model.projectCommentsCreateTime}}</span>
+                <span class="color-gray" v-if="model.projectCommentsParent !=0"
+                      @click="reply(model.projectCommentsParent,model.projectCommentsNickname,$event)">回复</span>
+            </div>
+        </div>
+        <div class = "list-contain" :class="{'active':(model.projectCommentsParent == 0)}">
+            <item
+                    class="item children-item"  style="background: white"
+                    v-for="(model, index) in model.children"
+                    :key="index"
+                    :model="model">
+            </item>
+        </div>
+
+        <div v-if="model.projectCommentsParent == 0" class="area-comment">
+            <div id="reply" class="margin-left-10"></div>
+            <div class="input-group padding-bottom-10 margin-left-10 margin-right-10">
+                <input type="text" class="form-control">
+                <span class="input-group-btn">
+                  <span id="replay"></span>
+                  <button type="button" class="btn border-none btn-info btn-flat" @click="replayComment(model.projectCommentsId,$event)">回复</button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+</script>
 <script type="text/javascript" th:inline="javascript">
     var clubslID  = [[${id}]];
+    var clubDetail = new Vue();
+    Vue.component('item', {
+        template: '#item-template',
+        props: {
+            model: Object
+        },
+        data: function () {
+            return {
+                projectCommentsParent:"",
+                projectTopCommentsId:"",
+                inutContent:"",
+                open: false
+            }
+        },
+        methods: {
+            //点击回复输入框获取焦点
+            reply:function(id,name,event){
+                var _this = this;
+                var comment = $(event.currentTarget);
+                comment.parents(".active").next().find("input").focus();
+                comment.parents(".active").next().find("#reply").attr("parent-id",id).
+                attr("commentId",comment.parents(".parent").attr("data-id")).
+                    html("回复："+name+"");
+            },
+            replayComment:function(id,event){
+                var _this =  this;
+                var comment = $(event.currentTarget);
+                var findEle = $(event.currentTarget).parents(".area-comment").find("#reply");
+                var projectCommentsParent = findEle.attr("parent-id") == undefined ? id : findEle.attr("parent-id");
+                var projectTopCommentsId = findEle.attr("commentid") == undefined ? id : findEle.attr("commentid");
+                // console.log(projectCommentsParent);
+                // console.log(projectTopCommentsId);
+                // console.log(id);
+                var data = {
+                    "projectCommentsParent":projectCommentsParent,
+                    "projectId":clubslID,
+                    "projectCommentsContent": comment.parent().prev().val(),
+                    "projectTopCommentsId":projectTopCommentsId
+                };
+                $.ajax({
+                    url:contextPath+"api/projectcomments",
+                    type:"post",
+                    contentType: "application/json",
+                    data:JSON.stringify(data),
+                    success:function(data){
+                        comment.parent().prev().val("");
+                        clubDetail.$emit("change");
+                    }
+                })
+            }
+        }
+    });
     var Vm =  new Vue({
         el:"#clubsDetail",
         data:{
@@ -198,7 +252,9 @@
                 projectId:"",
                 projectLogo:""
             },
-            projectComment:[]
+            projectComment:{
+                children:[]
+            }
         },
         methods:{
             backList:function(){
@@ -232,13 +288,14 @@
             closePop:function(){
                 $("#modal-default").removeClass("in").css("display","none")
             },
+
             reply:function(event){
-                // alert(1);
                 var _this = this;
                 var comment = $(event.currentTarget);
                 // bus.$emit('change',msg ,_this.$refs.msg1);
                 comment.next().toggle();
             },
+
             ajaxData:function(pageNo){
                 var _this = this;
                 var data = {
@@ -256,12 +313,8 @@
                     dataType : "json",
                     success:function(data){
                         var dataList = data.content.list;
-                        _this.projectComment = dataList;
-                        // dataList.map(function(v){
-                        //     // var li = "<li>"+v.name+"</li>";
-                        //     // $("#list").append(li);
-                        //     console.log(v);
-                        // });
+                        _this.projectComment.children = dataList;
+                        console.log(_this.projectComment);
                         $("#pagingTest").paging1({
                             pageNo:pageNo,
                             totalPage:data.content.size
@@ -283,14 +336,17 @@
                     data:JSON.stringify(data)
                 })
             },
-            replayComment:function(id,event){
+
+            selfReply:function(parentId,ids,event){
+                console.log(parentId);
+                // console.log(ids);
                 var comment = $(event.currentTarget);
-                console.log(comment.parent().prev().val());
+                // console.log(comment.parent().prev().val());
                 var data = {
-                    "projectCommentsParent":id,
+                    "projectCommentsParent":parentId,
                     "projectId":clubslID,
                     "projectCommentsContent": comment.parent().prev().val(),
-                    "projectTopCommentsId":id
+                    "projectTopCommentsId":ids
                 };
                 $.ajax({
                     url:contextPath+"api/projectcomments",
@@ -313,6 +369,9 @@
                 }
             });
 
+            clubDetail.$on('change', function () {
+                _this.ajaxData(1);
+            });
         //    查询评论
             _this.ajaxData(1);
             $(document).on("click","a",function () {
