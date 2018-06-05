@@ -107,12 +107,14 @@
                     </div>
                 </div>
             </div>
-            <div class="margin-top-15">
+            <div class="margin-top-15 text-align-center">
                 <ul id="list"></ul>
                 <div id="pagingTest"></div>
+                <input type="hidden" value="" id="page">
             </div>
             <div class="clubs-editor margin-top-15">
                 <p class="padding-top-10 margin-left-10">发表线索评论</p>
+                <input type="hidden" id="getComment">
                 <textarea name="editor1"  id="editor1" rows="10" cols="80"></textarea>
             </div>
             <div class="clearfix form-actions">
@@ -146,20 +148,25 @@
                 <span>{{model.projectCommentsNickname}}</span>
             </div>
             <div class="right-clubs float-right padding-right-6">
-                <span class="bd-r">第 <span>121</span>条留言</span>
+                <span class="bd-r">第 <span>{{model.count}}</span>条留言</span>
                 <span class="bd-r">{{model.projectCommentsCreateTime}}</span>
-                <span class="bd-r color-b">删除</span>
-                <span class="color-b">评论</span>
+                <span class="bd-r color-b"  @click="deleteComment(model.projectCommentsId)">删除</span>
+                <span class="color-b" @click="compomentRedirct(model.projectCommentsId,$event)">回复</span>
             </div>
         </div>
         <div class="clubs-content-list" v-if="model.projectCommentsParent !=null">
             <div class="detail-list margin-left-10">
-                <span class="font-weight padding-left-6">{{model.projectCommentsNickname}}:</span>
+                <span class="font-weight padding-left-6"
+                      v-if="model.projectCommentsParent !=0" >
+                    <span style="color: #1794e4">{{model.projectCommentsNickname}}</span> 回复:
+                    <span style="color: #1794e4">{{model.parentName}}</span>
+                    <span v-if = "model.projectCommentsParent == model.projectCommentsId">{{model.projectCommentsNickname}}</span>
+                </span>
                 <span class="content-topic display-inline-block" v-html="model.projectCommentsContent"></span>
-                <span class="color-gray bd-g" v-if="model.projectCommentsParent != 0">删除</span>
+                <span class="color-gray bd-g" v-if="model.projectCommentsParent != 0" @click="deleteComment(model.projectCommentsId)">删除</span>
                 <span class="color-gray bd-g" v-if="model.projectCommentsParent != 0">{{model.projectCommentsCreateTime}}</span>
                 <span class="color-gray" v-if="model.projectCommentsParent !=0"
-                      @click="reply(model.projectCommentsParent,model.projectCommentsNickname,$event)">回复</span>
+                      @click="reply(model.projectCommentsParent,model.projectCommentsId,model.projectCommentsNickname,$event)">回复</span>
             </div>
         </div>
         <div class = "list-contain" :class="{'active':(model.projectCommentsParent == 0)}">
@@ -171,8 +178,8 @@
             </item>
         </div>
 
-        <div v-if="model.projectCommentsParent == 0" class="area-comment">
-            <div id="reply" class="margin-left-10"></div>
+        <div v-if="model.projectCommentsParent == 0" class="area-comment" style="display: none">
+            <div id="reply" class="margin-left-10" style="display: none"></div>
             <div class="input-group padding-bottom-10 margin-left-10 margin-right-10">
                 <input type="text" class="form-control">
                 <span class="input-group-btn">
@@ -202,12 +209,13 @@
         },
         methods: {
             //点击回复输入框获取焦点
-            reply:function(id,name,event){
+            reply:function(id,parentId,name,event){
                 var _this = this;
                 var comment = $(event.currentTarget);
+                comment.parents(".active").next().show();
                 comment.parents(".active").next().find("input").focus();
-                comment.parents(".active").next().find("#reply").attr("parent-id",id).
-                attr("commentId",comment.parents(".parent").attr("data-id")).
+                comment.parents(".active").next().find("#reply").attr("parent-id",parentId).
+                attr("commentId",id).
                     html("回复："+name+"");
             },
             replayComment:function(id,event){
@@ -215,26 +223,60 @@
                 var comment = $(event.currentTarget);
                 var findEle = $(event.currentTarget).parents(".area-comment").find("#reply");
                 var projectCommentsParent = findEle.attr("parent-id") == undefined ? id : findEle.attr("parent-id");
-                var projectTopCommentsId = findEle.attr("commentid") == undefined ? id : findEle.attr("commentid");
-                // console.log(projectCommentsParent);
-                // console.log(projectTopCommentsId);
-                // console.log(id);
+                // var projectTopCommentsId = findEle.attr("commentid") == undefined ? id : findEle.attr("commentid");
+                var projectTopCommentsId = comment.parents(".clubs-list").attr("data-id");
+
                 var data = {
                     "projectCommentsParent":projectCommentsParent,
                     "projectId":clubslID,
                     "projectCommentsContent": comment.parent().prev().val(),
                     "projectTopCommentsId":projectTopCommentsId
                 };
-                $.ajax({
-                    url:contextPath+"api/projectcomments",
-                    type:"post",
-                    contentType: "application/json",
-                    data:JSON.stringify(data),
-                    success:function(data){
-                        comment.parent().prev().val("");
-                        clubDetail.$emit("change");
+                if(comment.parent().prev().val() != ""){
+                    $.ajax({
+                        url:contextPath+"api/projectcomments",
+                        type:"post",
+                        contentType: "application/json",
+                        data:JSON.stringify(data),
+                        success:function(data){
+                            comment.parent().prev().val("");
+                            clubDetail.$emit("change");
+                        }
+                    })
+                }
+
+            },
+            deleteComment:function (id) {
+                bootbox.confirm({
+                    message: "您真的要删除?",
+                    confirm: {
+                        label: '确定',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: '取消',
+                        className: 'btn-danger'
+                    },
+                    callback:function (result) {
+                        if(result){
+                            $.ajax({
+                                url:contextPath+"api/projectcomments?id="+id,
+                                type:"delete",
+                                success:function(data){
+                                    clubDetail.$emit("change");
+                                }
+                            })
+                        }
                     }
                 })
+            },
+            compomentRedirct:function(id,event){
+                var comment = $(event.currentTarget);
+                var inputEle  = comment.parents(".clubs-header").parent();
+                inputEle.find("input").focus();
+                inputEle.find(".area-comment").show();
+                inputEle.find("#reply").attr("parent-id",id).
+                attr("commentId",id);
             }
         }
     });
@@ -260,10 +302,6 @@
             backList:function(){
                 location.href=contextPath+"clue/list";
             },
-            compoment:function(){
-                var editor = CKEDITOR.instances.editor1;
-                editor.focus();
-            },
             closeDelPop:function(){
                 $(".modalAll").removeClass("in").css("display","none");
             },
@@ -288,14 +326,6 @@
             closePop:function(){
                 $("#modal-default").removeClass("in").css("display","none")
             },
-
-            reply:function(event){
-                var _this = this;
-                var comment = $(event.currentTarget);
-                // bus.$emit('change',msg ,_this.$refs.msg1);
-                comment.next().toggle();
-            },
-
             ajaxData:function(pageNo){
                 var _this = this;
                 var data = {
@@ -317,43 +347,34 @@
                         console.log(_this.projectComment);
                         $("#pagingTest").paging1({
                             pageNo:pageNo,
-                            totalPage:data.content.size
+                            totalPage:data.content.pages
                         })
                     }
                 });
             },
             submitComment:function(){
+                var _this = this;
+                var commentId  =  $("#getComment").val() == "" ? 0 :parseInt( $("#getComment").val());
                 var data = {
-                    "projectCommentsParent":0,
+                    "projectCommentsParent":commentId,
                     "projectId":clubslID,
                     "projectCommentsContent":CKEDITOR.instances.editor1.getData(),
-                    "projectTopCommentsId":0
+                    "projectTopCommentsId":commentId
                 };
-                $.ajax({
-                    url:contextPath+"api/projectcomments",
-                    type:"post",
-                    contentType: "application/json",
-                    data:JSON.stringify(data)
-                })
-            },
+                if(CKEDITOR.instances.editor1.getData() != ""){
+                    $.ajax({
+                        url:contextPath+"api/projectcomments",
+                        type:"post",
+                        contentType: "application/json",
+                        data:JSON.stringify(data),
+                        success:function () {
+                            var val = $("#page").val();
+                            CKEDITOR.instances.editor1.setData('');
+                            _this.ajaxData(val);
+                        }
+                    })
+                }
 
-            selfReply:function(parentId,ids,event){
-                console.log(parentId);
-                // console.log(ids);
-                var comment = $(event.currentTarget);
-                // console.log(comment.parent().prev().val());
-                var data = {
-                    "projectCommentsParent":parentId,
-                    "projectId":clubslID,
-                    "projectCommentsContent": comment.parent().prev().val(),
-                    "projectTopCommentsId":ids
-                };
-                $.ajax({
-                    url:contextPath+"api/projectcomments",
-                    type:"post",
-                    contentType: "application/json",
-                    data:JSON.stringify(data)
-                })
             }
         },
         mounted:function () {
@@ -370,13 +391,14 @@
             });
 
             clubDetail.$on('change', function () {
-                _this.ajaxData(1);
+                var val = $("#page").val();
+                _this.ajaxData(val);
             });
         //    查询评论
             _this.ajaxData(1);
             $(document).on("click","a",function () {
                 var val = $("#page").val();
-                ajaxData(val);
+                _this.ajaxData(val);
             });
         }
     });

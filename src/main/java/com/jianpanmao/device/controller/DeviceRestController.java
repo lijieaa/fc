@@ -119,6 +119,23 @@ public class DeviceRestController {
         deviceMapper.updateDeviceUser(deviceDto);
     }
 
+    /**
+     * 关联设备列表
+     */
+    @PreAuthorize("hasAuthority('devicelog:view')")
+    @GetMapping("freeDeviceList")
+    public Object freeDeviceList(@RequestParam(value = "pageNum", defaultValue = "1", required = true) Integer pageNum,
+                                 @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize){
+        PageHelper.startPage(pageNum, pageSize);
+        List<Device> devices = deviceMapper.freeDeviceList();
+        PageInfo pageInfo = new PageInfo(devices);
+        return pageInfo;
+    }
+
+    /**
+     * 关联设备
+     * @param dpDto
+     */
     @PreAuthorize("hasAuthority('device:edit')")
     @PutMapping("projectId")
     public void updateProjectId(@RequestBody DpDto dpDto) {
