@@ -19,3 +19,25 @@
 .wrapper .toolbar a.tab-link{
   border:1px solid #d5d5d5;
 }
+
+.wrapper .companyTime{
+  background:#d5d5d5 ;
+  padding:2px 6px;
+  border-radius: 2px;
+  color:#666666;
+
+}
+
+.ios .wrapper .page{
+  background: none;
+}
+
+.wrapper .shareBtn{
+  flex-shrink: 0;
+  width: 1.5rem !important;
+}
+
+.wrapper .toolbar a{
+  color:#333333 ;
+  font-size:0.32rem;
+}
