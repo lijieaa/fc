@@ -31,7 +31,7 @@
 
 /*线索评论*/
 .clubs-header{
-    border-bottom: 1px solid #d1d1d1;
+    border: 1px solid #d1d1d1;
     overflow: hidden;
     line-height: 46px;
 }
