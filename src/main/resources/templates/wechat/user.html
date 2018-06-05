@@ -237,7 +237,7 @@
             $(document).on("click",".seaName",function () {
                 var inpText=$("#inpText").val();
                 // // myTable.ajax.reload( inpText, false )
-                myTable.ajax.url(contextPath +"wxUsers/page?page=1&rows=10&wxPublicId="+wxPublicId+"&publicName="+inpText).load();
+                myTable.ajax.url(contextPath +"wxUsers/page?page=1&rows=10&wxPublicId="+wxPublicId+"&nickname="+inpText).load();
                 //myTable.destroy();
             });
             $(document).on("click",".chatOne",function () {

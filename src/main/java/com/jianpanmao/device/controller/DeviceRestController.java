@@ -15,6 +15,7 @@ import com.jianpanmao.device.service.DeviceService;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import com.jianpanmao.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -89,15 +90,37 @@ public class DeviceRestController {
 
     }
 
+    /**
+     * 项目详情 项目设备列表
+     * @param pageNum
+     * @param pageSize
+     * @param projectId
+     * @return
+     */
     @PreAuthorize("hasAuthority('devicelog:view')")
     @GetMapping("byProjectId")
-    public List<Device> byProjectId(Integer projectId) {
+    public Object byProjectId(@RequestParam(value = "pageNum", defaultValue = "1", required = true) Integer pageNum,
+                              @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
+                              Integer projectId) {
+        PageHelper.startPage(pageNum, pageSize);
         List<Device> devices = deviceMapper.findByProject(projectId);
-        return devices;
+        PageInfo pageInfo = new PageInfo(devices);
+        return pageInfo;
+    }
+
+    /**
+     * 项目详情 项目设备编辑/删除关系
+     * @param deviceDto
+     */
+    @PreAuthorize("hasAuthority('device:edit')")
+    @PutMapping("updateProjectId")
+    @Transactional
+    public void updateDeviceUser(@RequestBody DeviceDto deviceDto) {
+        deviceMapper.updateDeviceUser(deviceDto);
     }
 
     @PreAuthorize("hasAuthority('device:edit')")
-    @PutMapping("updateProjectId")
+    @PutMapping("projectId")
     public void updateProjectId(@RequestBody DpDto dpDto) {
         deviceMapper.updateProjectId(dpDto);
     }
@@ -126,7 +149,7 @@ public class DeviceRestController {
         calendar.setTime(timestamp);
         SystemTime systemTime = new SystemTime();
         systemTime.setYear(calendar.get(Calendar.YEAR));
-        systemTime.setMonth(calendar.get(Calendar.MONTH)+1);
+        systemTime.setMonth(calendar.get(Calendar.MONTH) + 1);
         systemTime.setDay(calendar.get(Calendar.DAY_OF_MONTH));
         systemTime.setHour(calendar.get(Calendar.HOUR_OF_DAY));
         systemTime.setMinute(calendar.get(Calendar.MINUTE));
@@ -134,7 +157,6 @@ public class DeviceRestController {
         deviceControlVo.setSystem_time(systemTime);
         return deviceControlVo;
     }
-
 
 
 }

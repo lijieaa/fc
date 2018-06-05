@@ -434,6 +434,7 @@
     ORDER BY d.device_create_time DESC
   </select>
 
+  <!--项目详情页 项目设备列表-->
   <select id="findByProject" resultMap="BaseResultMap">
     select d.*,operateUser.userid o_user_id,operateUser.name o_user_name,transcribeUser.userid t_user_id,transcribeUser.name t_user_name
     from device d LEFT JOIN dingtalk_user operateUser
@@ -445,6 +446,14 @@
     WHERE d.valid = 0
     and p.project_id = #{0}
   </select>
+  <!--项目详情页 项目设备编辑-->
+  <update id="updateDeviceUser" parameterType="com.jianpanmao.device.dto.DeviceDto">
+    update device
+    set operate_user_id = #{operateUser.userid,jdbcType=INTEGER},
+        transcribe_user_id = #{transcribeUser.userid,jdbcType=INTEGER},
+        project_id = #{project.projectId,jdbcType=INTEGER}
+        where device_id = #{deviceId,jdbcType=INTEGER}
+  </update>
 
   <!--设备关联-->
   <update id="updateProjectId" parameterType="com.jianpanmao.device.dto.DpDto">
