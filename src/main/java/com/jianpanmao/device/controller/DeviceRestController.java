@@ -120,7 +120,7 @@ public class DeviceRestController {
     }
 
     @PreAuthorize("hasAuthority('device:edit')")
-    @PutMapping("updateProjectId")
+    @PutMapping("projectId")
     public void updateProjectId(@RequestBody DpDto dpDto) {
         deviceMapper.updateProjectId(dpDto);
     }
