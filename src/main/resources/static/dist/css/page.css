@@ -9,9 +9,9 @@
     margin: 0 5px;
     cursor: pointer;
 }
-#pagingTest a.current{
+#pagingTest a.current {
     color: white;
-    background: deepskyblue;
+    background: #1794e4;
 }
 #pagingTest a.disable{
     background: gray;

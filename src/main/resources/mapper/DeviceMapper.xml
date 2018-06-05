@@ -455,7 +455,14 @@
         where device_id = #{deviceId,jdbcType=INTEGER}
   </update>
 
-  <!--设备关联-->
+  <!--设备关联 设备列表-->
+  <select id="freeDeviceList" resultMap="BaseResultMap">
+    select d.*
+    from device d
+    WHERE d.valid = 0
+    and d.project_id IS NULL
+  </select>
+  <!--设备关联 关联设备-->
   <update id="updateProjectId" parameterType="com.jianpanmao.device.dto.DpDto">
     update device
     set
