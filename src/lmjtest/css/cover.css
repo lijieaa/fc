@@ -1,0 +1,21 @@
+
+.wrapper .navbar{
+  background:#3c8dbc;
+/*  height: 0.96rem;*/
+  color:#FFFFFF;
+}
+
+.wrapper .navbar .title{
+  font-size:0.36rem;
+}
+
+.wrapper .navbar a{
+  color:#ffffff;
+}
+
+.wrapper .toolbar-inner{
+  padding:0 0;
+}
+.wrapper .toolbar a.tab-link{
+  border:1px solid #d5d5d5;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html class="with-statusbar ios device-pixel-ratio-2 device-retina device-ios device-ios-11 device-ios-11-0 device-ios-gt-10 device-ios-gt-9 device-ios-gt-8 device-ios-gt-7 device-ios-gt-6 support-position-sticky">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#2196f3">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+    <title>成都环太</title>
+    <link rel="stylesheet" href="css/framework7.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/cover.css">
+    <script>
+        var deviceWidth = document.documentElement.clientWidth;
+        if(deviceWidth > 1080) deviceWidth = 1080;
+        document.documentElement.style.fontSize = deviceWidth / 10.8 + 'px';
+    </script>
+</head>
+<body>
+<div id="app" class="wrapper framework7-root">
+    <div class="statusbar"></div>
+
+    <div class="view view-main view-init ios-edges" >
+        <div class="navbar no-hairline">
+            <div class="navbar-inner">
+                <div class="left" style="width:28px">
+                    <a href="#" class="link back">
+                        <i class="f7-icons size-22" style="color:#FFFFFF" >left</i>
+                    </a>
+                </div>
+                <div class="title">成都公司环太净化科技有限公司</div>
+                <div class="right" style="width:28px">   <i class="f7-icons size-18" >&bull;&bull;&bull;</i></div>
+            </div>
+
+        </div>
+        <div class="pages">
+            <div class="page" data-page="home">
+                <div class="page-content">
+                    ... page content goes here ...
+                </div>
+            </div>
+        </div>
+        <div class="toolbar tabbar">
+            <div class="toolbar-inner">
+                <!-- Links have "tab-link" class instead of just "link" to switch tabs -->
+                <a href="#tab-1" class="tab-link tab-link-active">Tab 1</a>
+                <a href="#tab-2" class="tab-link">公司简介</a>
+                <a href="#tab-3" class="tab-link">项目情况</a>
+            </div>
+    </div>
+</div>
+
+</body>
+</html>
