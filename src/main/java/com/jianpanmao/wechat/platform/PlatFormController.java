@@ -1,5 +1,6 @@
 package com.jianpanmao.wechat.platform;
 
+import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.utils.XmlUtils;
 import com.jianpanmao.wechat.entity.WxMessage;
 import com.jianpanmao.wechat.entity.WxMessageType;
@@ -26,6 +27,7 @@ public class PlatFormController {
 
     @GetMapping
     @ResponseBody
+    @NoResultEntity
     public String valid(Token token){
         if(TokenUtils.checkSignature(token))
             return token.getEchostr();
@@ -35,6 +37,7 @@ public class PlatFormController {
 
     @PostMapping
     @ResponseBody
+    @NoResultEntity
     public String recevieMsg(HttpServletRequest request) throws IOException {
         InputStream inputStream = request.getInputStream();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));

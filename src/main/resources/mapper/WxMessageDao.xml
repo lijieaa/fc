@@ -73,11 +73,17 @@
         DELETE FROM wx_message WHERE to_user = #{toUser} and from_user = #{fromUser}
     </delete>
 
-    <select id="findByPublicId" resultMap="wxMessageMap">
-        SELECT m.*
-        FROM wx_message m, wx_user_openid o
-        WHERE o.public_id = #{0} AND o.openid = m.from_user
-        ORDER BY m.create_time DESC
+    <select id="findByPublicId" resultType="com.jianpanmao.wechat.entity.WxMessage">
+        SELECT
+          m.content 'Content',
+          m.create_time 'CreateTime',
+          d.nickname 'wxUserDetail.nickname',
+          d.headimgurl 'wxUserDetail.headimgurl',
+          d.openid 'wxUserDetail.openid'
+        FROM wx_message m, wx_user_openid o, wx_user_detail d
+        WHERE o.public_id = #{0}
+        AND o.openid = m.from_user
+        AND m.from_user = d.openid
     </select>
 
 </mapper>

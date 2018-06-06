@@ -94,6 +94,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring()
                 .antMatchers("/ace/**")
                 .antMatchers("/js/**")
+                .antMatchers("/wx/**")
                 .antMatchers("/plugins/**");
         super.configure(web);
     }
