@@ -41,3 +41,62 @@
   color:#333333 ;
   font-size:0.32rem;
 }
+
+.text-base-color{
+  color:#333333!important;
+}
+
+.text-color{
+  color:#8f8f8e!important;
+}
+
+.wrapper .page,.wrapper .page .block{
+  color:#333333!important;
+}
+
+.break
+{
+  white-space:normal;
+  word-break:break-all;
+  word-wrap:break-word;
+}
+
+.col{
+  background: #fff;
+  text-align: center;
+  color: #000;
+/*  border: 1px solid #ddd;*/
+  padding: 5px;
+  margin-bottom: 15px;
+  font-size: 12px;
+}
+
+.f36{
+  font-size:0.36rem !important;
+}
+
+.f32{
+  font-size:0.32rem !important;
+}
+
+.f30{
+  font-size:0.30rem !important;
+}
+
+.f24{
+  font-size:0.24rem !important;
+}
+
+.fw{
+  font-weight:bold;
+}
+
+.tx2{
+  text-indent: 2em;
+}
+
+ul{
+  list-style: none;
+  padding:0
+
+}
