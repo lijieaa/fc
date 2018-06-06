@@ -15,4 +15,7 @@ public interface DataStatisticsMapper {
     List<Map> deviceArea();
 
 
+    List<Map> intermediary();
+    List<Map> device();
+
 }

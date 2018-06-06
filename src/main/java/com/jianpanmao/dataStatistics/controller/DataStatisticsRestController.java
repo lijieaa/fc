@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,5 +23,23 @@ public class DataStatisticsRestController {
     @GetMapping("/intermediaryDeviceCount")
         public List<Map> intermediaryDeviceCount(){
         return dao.intermediaryDeviceCount();
+    }
+
+    @GetMapping("/intermediaryArea")
+    public List<Map> intermediaryArea(){
+        return dao.intermediaryArea();
+    }
+    @GetMapping("/deviceArea")
+    public List<Map> deviceArea(){
+        return dao.deviceArea();
+    }
+    @GetMapping("/fiveYearDicount")
+    public Map<String,List<Map>> fiveYearDicount(){
+        Map<String,List<Map>> map = new HashMap<>();
+        List<Map> iMap = dao.intermediary();
+        List<Map> dMap = dao.device();
+        map.put("intermediary",iMap);
+        map.put("device",dMap);
+        return map;
     }
 }

@@ -35,4 +35,27 @@ ON p.area_id = a.ID
 WHERE p.project_status = 1
 GROUP BY a.name
     </select>
+
+    <!--近五年中间商设备趋势-->
+    <!--中间商-->
+    <select id="intermediary" resultType="java.util.HashMap">
+select
+DATE_FORMAT(i.intermediary_create_time,'%Y') year,
+COUNT(i.intermediary_id) count
+FROM
+intermediary i
+WHERE i.is_plat = 0
+AND  DATE_FORMAT(i.intermediary_create_time,'%Y') > DATE_FORMAT(DATE_ADD(NOW(),INTERVAL -5 YEAR),'%Y')
+GROUP BY intermediaryYear
+    </select>
+    <!--设备-->
+    <select id="device" resultType="java.util.HashMap">
+SELECT
+DATE_FORMAT(d.device_create_time,'%Y') year,
+COUNT(d.device_id) count
+FROM device d
+WHERE d.valid = 0
+AND DATE_FORMAT(d.device_create_time,'%Y') > DATE_FORMAT(DATE_ADD(NOW(),INTERVAL -5 YEAR),'%Y')
+GROUP BY deviceYear
+    </select>
 </mapper>
