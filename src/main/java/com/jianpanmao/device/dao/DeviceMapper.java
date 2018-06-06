@@ -16,7 +16,9 @@ import java.util.List;
 @Mapper
 public interface DeviceMapper extends BaseDao<Device, DeviceExample, DeviceDto, Integer> {
     List<Device> findByProject(Integer projectId);
+    void updateDeviceUser(DeviceDto deviceDto);
 
+    List<Device> freeDeviceList();
     void updateProjectId(DpDto dpDto);
 
     List<Device> homePageDevice(Integer intermediaryId);

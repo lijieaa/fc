@@ -31,7 +31,7 @@
 
 /*线索评论*/
 .clubs-header{
-    border-bottom: 1px solid #d1d1d1;
+    border: 1px solid #d1d1d1;
     overflow: hidden;
     line-height: 46px;
 }
@@ -73,4 +73,7 @@
 #demo>.clubs-list>.children-item{
     border: 1px solid #D5D5D5;
     margin-top: 12px;
+}
+.text-align-center{
+    text-align: center;
 }

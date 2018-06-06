@@ -1,0 +1,43 @@
+
+.wrapper .navbar{
+  background:#3c8dbc;
+/*  height: 0.96rem;*/
+  color:#FFFFFF;
+}
+
+.wrapper .navbar .title{
+  font-size:0.36rem;
+}
+
+.wrapper .navbar a{
+  color:#ffffff;
+}
+
+.wrapper .toolbar-inner{
+  padding:0 0;
+}
+.wrapper .toolbar a.tab-link{
+  border:1px solid #d5d5d5;
+}
+
+.wrapper .companyTime{
+  background:#d5d5d5 ;
+  padding:2px 6px;
+  border-radius: 2px;
+  color:#666666;
+
+}
+
+.ios .wrapper .page{
+  background: none;
+}
+
+.wrapper .shareBtn{
+  flex-shrink: 0;
+  width: 1.5rem !important;
+}
+
+.wrapper .toolbar a{
+  color:#333333 ;
+  font-size:0.32rem;
+}

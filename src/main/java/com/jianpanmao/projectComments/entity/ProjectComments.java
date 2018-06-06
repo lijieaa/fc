@@ -40,7 +40,18 @@ public class ProjectComments implements Serializable {
 
     private Integer count;
 
+    private String parentName;//上级评论人
+
     private List<ProjectComments> children;
+
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
 
     public Integer getCount() {
         return count;
