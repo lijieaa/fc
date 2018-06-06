@@ -1,6 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
+    <link rel="stylesheet" th:href="@{/dist/css/gzh-l/webuploader.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/gzh-l/gzh-common.css}"/>
     <style>
         img {
             vertical-align: middle;
@@ -51,6 +53,26 @@
         .txt-green{
             color: #44b549;
         }
+        .imgShow li{
+            width: 150px;
+            height: 150px;
+            display: inline-block;
+            border: 1px #727272 solid;
+            list-style: none;
+            margin: 5px;
+            position: relative;
+        }
+        .imgShow li img{
+            width: 150px;
+            height: 150px;
+            display: inline-block;
+            border: 1px #727272 solid;
+            cursor: pointer;
+        }
+        .content-img{
+            width: 200px;
+            height: 140px;
+        }
     </style>
 </head>
 <body layout:fragment="content">
@@ -100,10 +122,11 @@
                     <span data-id="5"><i class="glyphicon glyphicon-hd-video"></i>视频</span>
                 </div>
                 <textarea class="form-control" rows="7" id="textInput"></textarea>
+                <div style="border: 1px black solid;height: 150px;display: none;" class="col-md-12" id="mediaDiv"></div>
             </div>
             <div style="position: relative;">
-                <button type="button" class="btn btn-info search marginLeft-1" style="margin-top:1%;width: 100px;display: inline-block;">发送</button>
-                <div style="display: inline-block;position: absolute;top: 40%;left: 110px;">还可以输入<span id="limNum">100</span>字</div>
+                <button type="button" class="btn btn-info search marginLeft-1" style="margin-top:1%;width: 100px;display: inline-block;" id="sender" data-id="2">发送</button>
+                <a style="display: inline-block;">还可以输入<span id="limNum">100</span>字</a>
             </div>
             <h5 class="marginTop-2 marginLeft-1">最近20条聊天记录</h5>
             <div class="col-md-12">
@@ -130,7 +153,7 @@
 
                 </div>
                 <div class="modal-body" style="min-height: 400px;">
-                    <ul id="popImg"></ul>
+                    <ul id="popImg" class="imgShow"></ul>
                     <div id="popPagingTest" class="pageIndex"></div>
                     <input type="hidden" value="" id="popPage">
                 </div>
@@ -142,6 +165,9 @@
         </div>
     </div>
 </div>
+<script th:src="@{/dist/js/gzh/webuploader.js}"></script>
+<script th:src="@{/dist/js/gzh/upload.js}"></script>
+<script th:src="@{/dist/js/gzh/hand-paging.js}"></script>
 <script th:src="@{/dist/js/gzh/gzh-common.js}"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
@@ -149,11 +175,12 @@
     /*]]>*/
     jQuery(function ($) {
         $('#gzh-msg-manage').DataTable( {
-            bAutoWidth: true,
+            bAutoWidth: false,
             ajax:{
-                url: contextPath +"wxUsers/page?page=1&rows=10&wxPublicId="+wxPublicId,
-                dataSrc:"content.data.list",
-                // contentType:'application/json; charset=utf-8',
+                url: contextPath +"message/page?page=1&rows=10&wxPublicId="+wxPublicId,
+                dataSrc:"content.data.0.list",
+                type: "get",
+                 contentType:'application/json; charset=utf-8',
             },
             "info":false,
             "searching": false,
@@ -166,20 +193,19 @@
                 }
             },
             "columns": [
-                { "data": "headimgurl",render:function (data, type, row, meta) {
-                        var html="<img src="+data+" class='chatOne' />";
+                { "data": "wxUserDetail.headimgurl",render:function (data, type, row, meta) {
+                        var html="<img src="+data+" class='chatOne' data-id="+row.wxUserDetail.openid+" />";
                         return html;
                     }
                 },
                 { "data": "",render:function (data, type, row, meta) {
-                    console.log(row)
-                        var html="<div class='chatOne'>"+row.nickname+"</div>" +
-                            "<div>"+row.openid+"</div>";
+                        var html="<div class='chatOne'>"+row.wxUserDetail.nickname+"</div>" +
+                            "<div>"+row.content+"</div>";
                         return html;
                     }
                 },
                 { "data": "",render:function (data, type, row, meta) {
-                        var html="<div class='chatOne'>"+row.subscribe_time+"</div>";
+                        var html="<div class='chatOne'>"+row.createTime+"</div>";
                         return html;
                     }
                 }
@@ -190,13 +216,13 @@
             }
         } );
 
-        function userTableSon() {
+        function userTableSon(openid) {
             //var webdata={"page":1,"rows":10,"wxPublicId":wxPublicId,"publicName":serName}
             $('#gzh-ul-manage-son').DataTable( {
                 bAutoWidth: true,
                 ajax:{
-                    url: contextPath +"wxUsers/page?page=1&rows=10&wxPublicId="+wxPublicId,
-                    dataSrc:"content.data.list",
+                    url: contextPath +"message/user/page?page=1&rows=10&wxPublicId="+wxPublicId+"&openId="+openid,
+                    dataSrc:"content.data.0.list",
                     // contentType:'application/json; charset=utf-8',
                 },
                 "info":false,
@@ -216,14 +242,13 @@
                         }
                     },
                     { "data": "",render:function (data, type, row, meta) {
-                            console.log(row)
                             var html="<div class='chatOne'>"+row.nickname+"</div>" +
-                                "<div>"+row.openid+"</div>";
+                                "<div>"+row.content+"</div>";
                             return html;
                         }
                     },
                     { "data": "",render:function (data, type, row, meta) {
-                            var html="<div class='chatOne'>"+row.subscribe_time+"</div>";
+                            var html="<div class='chatOne'>"+row.createTime+"</div>";
                             return html;
                         }
                     }
@@ -234,15 +259,17 @@
                 }
             } );
         }
-        //聊天表格
-        userTableSon()
 
         $(document).on("click",".chatOne",function () {
             $("#chating-per").show().siblings().hide();
+            var thidid=$(this).attr("data-id");
+            $("#sender").attr("data-name",thidid)
+            userTableSon(thidid)
         });
         //返回
         $(document).on("click","#backUlManage",function () {
             $("#gzh-manage").show().siblings().hide();
+            window.location.reload()
         })
 
     })

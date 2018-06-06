@@ -175,7 +175,7 @@
                     },
                     "columns": [
                         { "data": "headimgurl",render:function (data, type, row, meta) {
-                                var html="<img src="+data+" class='chatOne' />";
+                                var html="<img src="+data+" class='chatOne' data-id="+row.openid+" />";
                                 return html;
                             }},
                         { "data": "nickname"},
@@ -187,13 +187,13 @@
                     }
                 } );
 
-            function userTableSon() {
+            function userTableSon(openid) {
                 //var webdata={"page":1,"rows":10,"wxPublicId":wxPublicId,"publicName":serName}
                 $('#gzh-ul-manage-son').DataTable( {
                     bAutoWidth: true,
                     ajax:{
-                        url: contextPath +"wxUsers/page?page=1&rows=10&wxPublicId="+wxPublicId,
-                        dataSrc:"content.data.list",
+                        url: contextPath +"message/user/page?page=1&rows=10&wxPublicId="+wxPublicId+"&openId="+openid,
+                        dataSrc:"content.data.0.list",
                         // contentType:'application/json; charset=utf-8',
                     },
                     "info":false,
@@ -214,12 +214,12 @@
                         },
                         { "data": "",render:function (data, type, row, meta) {
                                 var html="<div class='chatOne'>"+row.nickname+"</div>" +
-                                    "<div>"+row.openid+"</div>";
+                                    "<div>"+row.content+"</div>";
                                 return html;
                             }
                         },
                         { "data": "",render:function (data, type, row, meta) {
-                                var html="<div class='chatOne'>"+row.subscribe_time+"</div>";
+                                var html="<div class='chatOne'>"+row.createTime+"</div>";
                                 return html;
                             }
                         }
@@ -230,8 +230,6 @@
                     }
                 } );
             }
-            //聊天表格
-            userTableSon()
             //搜索
             $(document).on("click",".seaName",function () {
                 var inpText=$("#inpText").val();
@@ -241,10 +239,13 @@
             });
             $(document).on("click",".chatOne",function () {
                 $("#chating-per").show().siblings().hide();
+                var thidid=$(this).attr("data-id");
+                userTableSon(thidid)
             });
             //返回backUlManage
             $(document).on("click","#backUlManage",function () {
                 $("#gzh-manage").show().siblings().hide();
+                window.location.reload();
             })
 
         })

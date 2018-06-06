@@ -25,21 +25,37 @@ $(function () {
         var data_id=$(this).attr("data-id");
         $(this).addClass("txt-green").siblings().removeClass("txt-green");
         if(data_id==2){
+            $("#textInput").show();
+            $("#mediaDiv").hide();
             $("#textInput").focus();
+            $("#sender").attr("data-id",2);
         }else{
             $('#sourceRoom').modal();
             if(data_id==1){
+                $("#textInput").hide();
+                $("#mediaDiv").show();
                 $("#mySource").text("选择素材");
                 $(".new-source").text("新建图文消息").attr("data-id","1");
+                $("#sender").attr("data-id",1);
             }else if(data_id==3){
+                $("#textInput").hide();
+                $("#mediaDiv").show();
                 $("#mySource").text("选择图片");
                 $(".new-source").text("上传图片").attr("data-id","2");
+                $("#sender").attr("data-id",3);
+                ajaxDataPop(1);
             }else if(data_id==4){
+                $("#textInput").hide();
+                $("#mediaDiv").show();
                 $("#mySource").text("选择语音");
                 $(".new-source").text("上传语音").attr("data-id","3");
+                $("#sender").attr("data-id",4);
             }else if(data_id==5){
+                $("#textInput").hide();
+                $("#mediaDiv").show();
                 $("#mySource").text("选择视频");
                 $(".new-source").text("上传视频").attr("data-id","4");
+                $("#sender").attr("data-id",5);
             }
         }
     })
@@ -76,28 +92,59 @@ $(function () {
     $(".new-source").click(function () {
         var cliText=$(this).attr("data-id");
         window.location.href="/wxPublic/material?wxPublicId="+wxPublicId+"&id="+cliText;
-        //$("#sourceRoom").modal("hide");
-        // if(cliText=="1"){
-        //     $(".gzh-source-type a:eq(0)").addClass("cli-color").siblings().removeClass("cli-color");
-        //     $(".new-type-name").text("图文消息");
-        //     $("#filePicker").show().siblings().hide();
-        //     $("#photo-tx").show().siblings().hide();
-        // } else if(cliText=="2"){
-        //     $(".gzh-source-type a:eq(1)").addClass("cli-color").siblings().removeClass("cli-color");
-        //     $(".new-type-name").text("图片");
-        //     $("#filePicker1").show().siblings().hide();
-        //     $("#photo-show").show().siblings().hide();
-        // } else if(cliText=="3"){
-        //     $(".gzh-source-type a:eq(2)").addClass("cli-color").siblings().removeClass("cli-color");
-        //     $(".new-type-name").text("语音");
-        //     $("#filePicker2").show().siblings().hide();
-        //     $("#source").show().siblings().hide();
-        // } else if(cliText=="4"){
-        //     $(".gzh-source-type a:eq(3)").addClass("cli-color").siblings().removeClass("cli-color");
-        //     $(".new-type-name").text("视频");
-        //     $("#filePicker3").show().siblings().hide();
-        //     $("#vid").show().siblings().hide();
-        // }
+
     })
+    //图片选中
+    var thisSrc;
+    var thisphotoId;
+    $(document).on("click","#popImg li img",function () {
+        thisSrc=$(this).attr("src");
+        thisphotoId=$(this).attr("title");
+        $(this).addClass("opactiy").parent().siblings().children().removeClass("opactiy");
+        $(this).parent().append("<a class='bgimg'></a>").siblings().children("a").remove();
+    });
+    $(document).on("click","#btn-sure-source",function () {
+        $('#sourceRoom').modal("hide");
+        var title1 = '<img class="content-img" src='+thisSrc+'>';
+        $("#mediaDiv").append(title1);
+    })
+//发送消息
+    $(document).on("click","#sender",function () {
+          var thisName=$(this).attr("data-name");
+          var thisID=$(this).attr("data-id");
+          if(thisID==2){
+              var content=$("#textInput").val();
+              var webdata={"ToUserName":thisName,"wxPublicId":14,"MsgType":"text","Content":content};
+              $.ajax({
+                  url:contextPath +"message",
+                  type: "POST",
+                  data: $.param(webdata),
+                  success:function(data){
+                      alert(data.status)
+                  },
+                  error:function (data) {
+                      alert(data.status)
+                  }
+
+              });
+          }
+        if(thisID==3){
+            var content=$("#textInput").val();
+            var webdata={"ToUserName":thisName,"wxPublicId":14,"MsgType":"image","MediaId":thisphotoId};
+            $.ajax({
+                url:contextPath +"message",
+                type: "POST",
+                data: $.param(webdata),
+                success:function(data){
+                    alert(data.status)
+                },
+                error:function (data) {
+                    alert(data.status)
+                }
+
+            });
+        }
+    })
+
 
 })
