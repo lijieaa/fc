@@ -44,7 +44,6 @@ function  ajaxData(pageNo) {
     var webdata={"wxtype":'image',"wxPublicId":14,"rows":10,"page":pageNo};
     $.ajax({
         url:contextPath +"material/page",
-        //url: contextPath +"material/page?wxtype=image&total=0&records=0&rows=10&wxPublicId=14&page="+pageNo,
         type: "get",
         data:$.param(webdata),
         success:function(data){
@@ -66,46 +65,41 @@ function  ajaxData(pageNo) {
         }
     });
 }
-$(document).on("click","a",function () {
+$(document).on("click","#pagingTest a",function () {
     var val = $("#page").val();
      ajaxData(val);
 });
 
 // 弹窗图片展示
-// function  ajaxDataPop(pageNo) {
-//     $.ajax({
-//         url:contextPath +"material/page",
-//         type: "get",
-//         data: {
-//             wxtype:'image',
-//             wxPublicId:14,
-//             total:0,
-//             records:0,
-//             rows:10,
-//             page:pageNo
-//         },
-//         success:function(data){
-//             var dataList = data.data.list;
-//             $("#popImg").html("");
-//             for(var i=0;i<dataList.length;i++){
-//                 var error="error";
-//                 var url=data.data.list[i].url;
-//                 var name=data.data.list[i].name;
-//                 var urlLink = ''+contextPath+'material/image/detail?url='+url+"&name="+name;
-//                 urlLink = encodeURI(urlLink);
-//                 $("#popImg").append("<li id=''="+data.data.list[i].id+" alt=''="+data.data.list[i].name+"><img src='"+urlLink+"' title='"+data.data.list[i].name+"' alt='"+error+"'></li>");
-//             }
-//             $("#popPagingTest").paging1({
-//                 pageNo:pageNo,
-//                 totalPage:data.data.pages
-//             })
-//         }
-//     });
-// }
-// $(document).on("click","a",function () {
-//     var val = $("#popPage").val();
-//     ajaxDataPop(val);
-// });
+function  ajaxDataPop(pageNo) {
+    var webdata={"wxtype":'image',"wxPublicId":14,"rows":10,"page":pageNo};
+    $.ajax({
+        url:contextPath +"material/page",
+        type: "get",
+        data:$.param(webdata),
+        success:function(data){
+            var dataList = data.content.data.list;
+            $("#popImg").html("");
+            for(var i=0;i<dataList.length;i++){
+                var error="error";
+                var url=data.content.data.list[i].mediaId;
+                //var name=data.content.data.list[i].name;
+                var name="test.jpg";
+                var urlLink = ''+contextPath+'material/image/detail?mediaId='+url+"&name="+name+"&wxPublicId="+14;
+                urlLink = encodeURI(urlLink);
+                $("#popImg").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' title='"+url+"' alt='"+error+"'></li>");
+            }
+            $("#popPagingTest").paging1({
+                pageNo:pageNo,
+                totalPage:data.content.data.pages
+            })
+        }
+    });
+}
+$(document).on("click","#popPagingTest a",function () {
+    var val = $("#popPage").val();
+    ajaxData(val);
+});
 
 //语音上传
 function yyupload() {
@@ -228,7 +222,7 @@ function videoupload() {
 }
 videoupload();
 function  ajaxVid(pageNo) {
-    var webdata={"wxtype":"video","wxPublicId":14,"rows":10,"page":pageNo}
+    var webdata={"wxtype":"video","wxPublicId":14,"rows":10,"page":pageNo};
     $.ajax({
         url:contextPath +"material/page",
         type: "get",

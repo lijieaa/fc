@@ -41,8 +41,6 @@ public class WxUserDetail extends BaseEntity {
 
     private WxPublic wxPublic;
 
-    private Intermediary intermediary;
-
     public Integer getSubscribe() {
         return subscribe;
     }
@@ -163,13 +161,4 @@ public class WxUserDetail extends BaseEntity {
         this.wxPublic = wxPublic;
     }
 
-    @Override
-    public Intermediary getIntermediary() {
-        return intermediary;
-    }
-
-    @Override
-    public void setIntermediary(Intermediary intermediary) {
-        this.intermediary = intermediary;
-    }
 }

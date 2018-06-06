@@ -16,7 +16,7 @@
         <div class="col-xs-12">
             <div class="row">
                 <div class="col-xs-12 widget-container-col" id="widget-container-col-1">
-                    <div class="widget-box" id="widget-box-1">
+                    <div class="widget-box collapsed" id="widget-box-1">
                         <div class="widget-header">
                             <h5 class="widget-title">筛选</h5>
 
@@ -27,7 +27,7 @@
                             </div>
                         </div>
 
-                        <div class="widget-body">
+                        <div class="widget-body" style="display: none;">
                             <div class="widget-main">
                                 <form class="form-horizontal" id="search-form">
 <#list cols?keys as key>

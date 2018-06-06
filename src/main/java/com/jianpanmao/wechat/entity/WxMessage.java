@@ -46,6 +46,16 @@ public class WxMessage{
 
     private String Event;
 
+    private WxUserDetail wxUserDetail;
+
+    public WxUserDetail getWxUserDetail() {
+        return wxUserDetail;
+    }
+
+    public void setWxUserDetail(WxUserDetail wxUserDetail) {
+        this.wxUserDetail = wxUserDetail;
+    }
+
     public String getEvent() {
         return Event;
     }

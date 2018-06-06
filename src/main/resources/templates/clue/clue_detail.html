@@ -107,7 +107,7 @@
                     </div>
                 </div>
             </div>
-            <div class="margin-top-15">
+            <div class="margin-top-15 text-align-center">
                 <ul id="list"></ul>
                 <div id="pagingTest"></div>
                 <input type="hidden" value="" id="page">
@@ -148,7 +148,7 @@
                 <span>{{model.projectCommentsNickname}}</span>
             </div>
             <div class="right-clubs float-right padding-right-6">
-                <span class="bd-r">第 <span>121</span>条留言</span>
+                <span class="bd-r">第 <span>{{model.count}}</span>条留言</span>
                 <span class="bd-r">{{model.projectCommentsCreateTime}}</span>
                 <span class="bd-r color-b"  @click="deleteComment(model.projectCommentsId)">删除</span>
                 <span class="color-b" @click="compomentRedirct(model.projectCommentsId,$event)">回复</span>
@@ -159,7 +159,7 @@
                 <span class="font-weight padding-left-6"
                       v-if="model.projectCommentsParent !=0" >
                     <span style="color: #1794e4">{{model.projectCommentsNickname}}</span> 回复:
-                    <span style="color: #1794e4">{{model.projectCommentsNickname}}</span>
+                    <span style="color: #1794e4">{{model.parentName}}</span>
                     <span v-if = "model.projectCommentsParent == model.projectCommentsId">{{model.projectCommentsNickname}}</span>
                 </span>
                 <span class="content-topic display-inline-block" v-html="model.projectCommentsContent"></span>
@@ -223,7 +223,9 @@
                 var comment = $(event.currentTarget);
                 var findEle = $(event.currentTarget).parents(".area-comment").find("#reply");
                 var projectCommentsParent = findEle.attr("parent-id") == undefined ? id : findEle.attr("parent-id");
-                var projectTopCommentsId = findEle.attr("commentid") == undefined ? id : findEle.attr("commentid");
+                // var projectTopCommentsId = findEle.attr("commentid") == undefined ? id : findEle.attr("commentid");
+                var projectTopCommentsId = comment.parents(".clubs-list").attr("data-id");
+
                 var data = {
                     "projectCommentsParent":projectCommentsParent,
                     "projectId":clubslID,
@@ -245,7 +247,6 @@
 
             },
             deleteComment:function (id) {
-                console.log(id);
                 bootbox.confirm({
                     message: "您真的要删除?",
                     confirm: {
@@ -360,15 +361,20 @@
                     "projectCommentsContent":CKEDITOR.instances.editor1.getData(),
                     "projectTopCommentsId":commentId
                 };
-                $.ajax({
-                    url:contextPath+"api/projectcomments",
-                    type:"post",
-                    contentType: "application/json",
-                    data:JSON.stringify(data),
-                    success:function () {
-                        _this.ajaxData(1);
-                    }
-                })
+                if(CKEDITOR.instances.editor1.getData() != ""){
+                    $.ajax({
+                        url:contextPath+"api/projectcomments",
+                        type:"post",
+                        contentType: "application/json",
+                        data:JSON.stringify(data),
+                        success:function () {
+                            var val = $("#page").val();
+                            CKEDITOR.instances.editor1.setData('');
+                            _this.ajaxData(val);
+                        }
+                    })
+                }
+
             }
         },
         mounted:function () {
@@ -385,13 +391,13 @@
             });
 
             clubDetail.$on('change', function () {
-                _this.ajaxData(1);
+                var val = $("#page").val();
+                _this.ajaxData(val);
             });
         //    查询评论
             _this.ajaxData(1);
             $(document).on("click","a",function () {
                 var val = $("#page").val();
-
                 _this.ajaxData(val);
             });
         }
