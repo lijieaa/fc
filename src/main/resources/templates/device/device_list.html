@@ -65,7 +65,7 @@
                                     <div class="clearfix form-actions">
                                         <div class="col-md-offset-3 col-md-9">
                                             <button class="btn btn-info" type="button" id="search">
-                                                <i class="ace-icon fa fa-check bigger-110"></i>
+                                                <i class="ace-icon glyphicon glyphicon-search"></i>
                                                 搜索
                                             </button>
                                         </div>
@@ -83,7 +83,7 @@
                     <div class="clearfix">
                         <div class="pull-left tableTools-container-left">
                             <div class="btn-group">
-                                <a type="button" class="btn" th:href="@{/device/add}" sec:authorize="hasAuthority('device:add')">创建</a>
+                                <a type="button" class="btn btn-info" th:href="@{/device/add}" sec:authorize="hasAuthority('device:add')">创建</a>
                                 <button type="button" class="btn btn-danger" id="batch-delete" sec:authorize="hasAuthority('device:delete')">批量删除</button>
                             </div>
                         </div>
@@ -336,18 +336,18 @@
                         "text": "<i class='fa fa-search bigger-110 blue'></i> <span class='hidden'>显示/隐藏 列</span>",
                         "className": "btn btn-white btn-primary btn-bold",
                         columns: ':not(:first):not(:last)'
-                    },
+                    }/*,
                     {
                         "extend": "copy",
                         "text": "<i class='fa fa-copy bigger-110 pink'></i> <span class='hidden'>拷贝到剪切板</span>",
                         "className": "btn btn-white btn-primary btn-bold"
-                    },
+                    }*/,
                     {
                         "extend": "csv",
                         "text": "<i class='fa fa-database bigger-110 orange'></i> <span class='hidden'>导出CVS</span>",
                         "className": "btn btn-white btn-primary btn-bold"
                     },
-                    {
+                    /*{
                         "extend": "excel",
                         "text": "<i class='fa fa-file-excel-o bigger-110 green'></i> <span class='hidden'>导出Excel</span>",
                         "className": "btn btn-white btn-primary btn-bold"
@@ -356,7 +356,7 @@
                         "extend": "pdf",
                         "text": "<i class='fa fa-file-pdf-o bigger-110 red'></i> <span class='hidden'>导出PDF</span>",
                         "className": "btn btn-white btn-primary btn-bold"
-                    },
+                    }*/,
                     {
                         "extend": "print",
                         "text": "<i class='fa fa-print bigger-110 grey'></i> <span class='hidden'>打印</span>",
