@@ -77,6 +77,10 @@
         SELECT
           m.content 'Content',
           m.create_time 'CreateTime',
+          m.msg_type 'MsgType',
+          m.media_id 'MediaId',
+          m.pic_url 'PicUrl',
+          m.thumbMedia_id 'ThumbMediaId',
           d.nickname 'wxUserDetail.nickname',
           d.headimgurl 'wxUserDetail.headimgurl',
           d.openid 'wxUserDetail.openid'
