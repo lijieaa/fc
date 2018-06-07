@@ -3,7 +3,7 @@
 
 <body>
 <ul class="submenu" th:fragment="submenu(p)">
-    <li class="" th:each="m : ${session.menus}" th:if=" ${m.menuParentId eq p.menuId and m.menuDisplay eq 1}">
+    <li class="" th:each="m : ${session.menus}" th:if=" ${m.menuParentId eq p.menuId and m.menuDisplay eq 1}" th:class="${#request.getParameter('mid')} eq ${m.menuId}?'active':''">
         <a th:href="@{${#strings.isEmpty(m.menuUrl)?'#':m.menuUrl+'?mid='+m.menuId}}"
            th:class="${#strings.isEmpty(m.menuUrl)}?'dropdown-toggle':''">
             <i class="menu-icon fa fa-caret-right"></i>

@@ -35,12 +35,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http
                 .csrf()
                 .disable()
                 .authorizeRequests()
                 .anyRequest().authenticated();
                 //.anyRequest().permitAll()
+
 
         http
                 .sessionManagement()
@@ -49,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .maxSessionsPreventsLogin(true)
                 .and()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                .invalidSessionUrl("/session_timeout");
+                .invalidSessionUrl("/login");
 
 
         http .formLogin()
