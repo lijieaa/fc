@@ -476,12 +476,14 @@
         </div>-->
         <!-- /.sidebar-shortcuts -->
         <ul class="nav nav-list">
-            <li  th:each="m:${session.menus}" th:if="${m.menuParentId eq 0}">
+            <li  th:each="m:${session.menus}" th:class="${#request.getParameter('mid')} eq ${m.menuId}?'active':''" th:if="${m.menuParentId eq 0}" >
                 <a th:href="@{${#strings.isEmpty(m.menuUrl)?'#':m.menuUrl+'?mid='+m.menuId}}" th:class="${#strings.isEmpty(m.menuUrl)}?'dropdown-toggle':''">
                     <i class="menu-icon fa fa-desktop"></i>
 							<span class="menu-text" th:text="${m.menuName}">
 
 							</span>
+
+
 
                     <b th:class="${#strings.isEmpty(m.menuUrl)}?'arrow fa fa-angle-down':'arrow'"></b>
                 </a>
