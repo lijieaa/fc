@@ -21,7 +21,7 @@ public class ProjectCommentsServiceImpl extends BaseServiceImpl<ProjectComments,
     public int add(ProjectComments record) {
         DingtalkUser user = UserUtils.getUser();
         Project project = projectMapper.selectByPrimaryKey(record.getProjectId());
-        record.setProjectCommentsNickname(user.getName());
+        record.setUser(user);
         record.setProjectCommentsStatus(project.getProjectStatus());
         record.setProjectCommentsType(new Byte("0"));
         return super.add(record);

@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.jianpanmao.projectComments.entity.ProjectComments">
     <id column="project_comments_id" jdbcType="INTEGER" property="projectCommentsId" />
     <result column="project_comments_parent" jdbcType="INTEGER" property="projectCommentsParent" />
-    <result column="project_comments_nickname" jdbcType="VARCHAR" property="projectCommentsNickname" />
     <result column="project_comments_type" jdbcType="TINYINT" property="projectCommentsType" />
     <result column="project_comments_status" jdbcType="TINYINT" property="projectCommentsStatus" />
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
@@ -12,6 +11,10 @@
     <result column="project_comments_update_time" jdbcType="TIMESTAMP" property="projectCommentsUpdateTime" />
     <result column="project_comments_content" jdbcType="VARCHAR" property="projectCommentsContent"/>
     <result column="project_top_comments_id" jdbcType="INTEGER" property="projectTopCommentsId"/>
+    <association property="user" javaType="com.jianpanmao.sys.entity.DingtalkUser">
+      <id column="id" property="userid"></id>
+      <result column="name" property="name"></result>
+    </association>
 
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jianpanmao.projectComments.entity.ProjectComments">
@@ -133,7 +136,7 @@
   <insert id="insert" parameterType="com.jianpanmao.projectComments.entity.ProjectComments">
     insert into project_comments (
      project_comments_parent,
-    project_comments_nickname,
+    user_id,
     project_comments_type,
     project_comments_status,
     project_id,
@@ -142,7 +145,7 @@
       )
     values (
       #{projectCommentsParent,jdbcType=INTEGER},
-      #{projectCommentsNickname,jdbcType=VARCHAR},
+      #{user.userid,jdbcType=VARCHAR},
       #{projectCommentsType,jdbcType=TINYINT},
       #{projectCommentsStatus,jdbcType=TINYINT},
       #{projectId,jdbcType=INTEGER},
@@ -346,7 +349,10 @@
   </delete>
 
   <select id="selectByDto" parameterType="com.jianpanmao.projectComments.dto.ProjectCommentsDto" resultMap="BaseResultMap">
-    SELECT * FROM project_comments pc
+    SELECT pc.*,user.userid,user.name
+    FROM project_comments pc
+    LEFT JOIN dingtalk_user user
+    ON pc.user_id = user.userid
   WHERE pc.project_top_comments_id = 0
   and pc.project_comments_type = #{projectCommentsType}
   and pc.project_comments_status = #{projectCommentsStatus}
@@ -356,7 +362,10 @@
   
   <!--查询评论下所有回复-->
   <select id="projectTopComments" resultMap="BaseResultMap">
-    SELECT * FROM project_comments pc
+    SELECT pc.*,user.userid,user.name
+     FROM project_comments pc
+      LEFT JOIN dingtalk_user user
+    ON pc.user_id = user.userid
     WHERE pc.project_top_comments_id = #{0}
     ORDER BY pc.project_comments_create_time DESC
   </select>
