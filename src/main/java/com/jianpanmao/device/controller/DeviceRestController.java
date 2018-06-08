@@ -125,9 +125,10 @@ public class DeviceRestController {
     @PreAuthorize("hasAuthority('devicelog:view')")
     @GetMapping("freeDeviceList")
     public Object freeDeviceList(@RequestParam(value = "pageNum", defaultValue = "1", required = true) Integer pageNum,
-                                 @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize){
+                                 @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
+                                 @RequestParam(value = "num",required = false)String num){
         PageHelper.startPage(pageNum, pageSize);
-        List<Device> devices = deviceMapper.freeDeviceList();
+        List<Device> devices = deviceMapper.freeDeviceList(num);
         PageInfo pageInfo = new PageInfo(devices);
         return pageInfo;
     }

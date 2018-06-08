@@ -456,11 +456,15 @@
   </update>
 
   <!--设备关联 设备列表-->
-  <select id="freeDeviceList" resultMap="BaseResultMap">
+  <select id="freeDeviceList" resultMap="BaseResultMap" parameterType="java.lang.String">
     select d.*
     from device d
     WHERE d.valid = 0
     and d.project_id IS NULL
+    <if test="num != null and num!=''">
+      and d.device_production_num LIKE CONCAT('%',#{num},'%')
+    </if>
+
   </select>
   <!--设备关联 关联设备-->
   <update id="updateProjectId" parameterType="com.jianpanmao.device.dto.DpDto">
