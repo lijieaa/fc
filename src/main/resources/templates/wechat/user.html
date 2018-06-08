@@ -2,7 +2,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
 <style>
-    img {
+    #gzh-ul-manage-son img,#gzh-ul-manage img{
         vertical-align: middle;
         width: 80px;
         height: 80px;
@@ -94,7 +94,7 @@
     <div id="chating-per" style="height: 768px;width:95%;display: none;margin-left: 2.5%;">
         <button class="btn btn-info search text-center pull-right" id="backUlManage" style="margin-top: -20px;margin-right: 10px;">返回</button>
         <section class="gzh-chat" style="margin-top: 20px;">
-            <h5>与<span class="chat-user">公众号1</span>聊天中</h5>
+            <h5>与<span class="chat-user"></span>聊天中</h5>
             <div class="marginLeft-1" style="width: 98%;border: 1px #4d4d4d solid;">
                 <div class="chat-type">
                     <span data-id="1"><i class="glyphicon glyphicon-film"></i>图文消息</span>
@@ -152,7 +152,22 @@
         var wxPublicId = /*[[${wxPublicId}]]*/;
         /*]]>*/
         jQuery(function ($) {
-                //var webdata={"page":1,"rows":10,"wxPublicId":wxPublicId,"publicName":serName}
+            //将lone型数据转换为datetime型
+            function datetimeFormat(longTypeDate){
+                var date = new Date();
+                date.setTime(longTypeDate);
+                var mouth =  parseInt(date.getMonth()+1);
+                var dateDay = date.getDate();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var showMonth = mouth<10 ? "0"+mouth :mouth;
+                var showDay = dateDay<10 ? "0"+dateDay :dateDay;
+                var showHour = hours<10 ? "0"+hours :hours;
+                var showMinutes = minutes<10 ? "0"+minutes :minutes;
+                var datetimeType = date.getFullYear()+"-"+showMonth+"-"+showDay+
+                    "&nbsp;"+showHour+":"+showMinutes;//yyyy-MM-dd 00:00:00格式日期
+                return datetimeType;
+            }
             var myTable=$('#gzh-ul-manage').DataTable( {
                     bAutoWidth: false,
                     ajax:{
@@ -175,7 +190,7 @@
                     },
                     "columns": [
                         { "data": "headimgurl",render:function (data, type, row, meta) {
-                                var html="<img src="+data+" class='chatOne' data-id="+row.openid+" />";
+                                var html="<img src="+data+" class='chatOne' data-id="+row.openid+" data-img="+row.headimgurl+" data-name="+row.nickname+" />";
                                 return html;
                             }},
                         { "data": "nickname"},
@@ -187,8 +202,7 @@
                     }
                 } );
 
-            function userTableSon(openid) {
-                //var webdata={"page":1,"rows":10,"wxPublicId":wxPublicId,"publicName":serName}
+            function userTableSon(openid,imgHref,nickName) {
                 $('#gzh-ul-manage-son').DataTable( {
                     bAutoWidth: true,
                     ajax:{
@@ -207,19 +221,19 @@
                         }
                     },
                     "columns": [
-                        { "data": "headimgurl",width:150,render:function (data, type, row, meta) {
-                                var html="<img src="+data+" class='chatOne' />";
+                        { "data": "",width:150,render:function (data, type, row, meta) {
+                                var html="<img src="+imgHref+" />";
                                 return html;
                             }
                         },
                         { "data": "",render:function (data, type, row, meta) {
-                                var html="<div class='chatOne'>"+row.nickname+"</div>" +
+                                var html="<div>"+nickName+"</div>" +
                                     "<div>"+row.content+"</div>";
                                 return html;
                             }
                         },
                         { "data": "",render:function (data, type, row, meta) {
-                                var html="<div class='chatOne'>"+row.createTime+"</div>";
+                                var html="<div>"+datetimeFormat(row.createTime)+"</div>";
                                 return html;
                             }
                         }
@@ -240,7 +254,11 @@
             $(document).on("click",".chatOne",function () {
                 $("#chating-per").show().siblings().hide();
                 var thidid=$(this).attr("data-id");
-                userTableSon(thidid)
+                var imghref=$(this).attr("data-img");
+                var nickname=$(this).attr("data-name");
+                $(".chat-user").text(nickname);
+                $("#sender").attr("data-name",thidid);
+                userTableSon(thidid,imghref,nickname)
             });
             //返回backUlManage
             $(document).on("click","#backUlManage",function () {
