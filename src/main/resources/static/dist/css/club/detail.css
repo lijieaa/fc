@@ -61,16 +61,25 @@
     width: 1px;
     border-right: 2px solid #b0b0b0;
 }
-#demo>.clubs-list>.clubs-content-list{
+#demo>.clubs-list>.clubs-content-list,
+#wbDemo>.clubs-list>.clubs-content-list,
+#histroyDemo>.clubs-list>.clubs-content-list
+{
     margin-top: 15px;
 }
 .clubs-list.item.children-item{
     border: none;
 }
-#demo>.clubs-list{
+#demo>.clubs-list,
+#wbDemo>.clubs-list,
+#histroyDemo>.clubs-list
+{
     border: none;
 }
-#demo>.clubs-list>.children-item{
+#demo>.clubs-list>.children-item,
+#wbDemo>.clubs-list>.children-item,
+#histroyDemo>.clubs-list>.children-item
+{
     border: 1px solid #D5D5D5;
     margin-top: 12px;
 }

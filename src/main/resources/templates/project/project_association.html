@@ -131,7 +131,7 @@
 
                     var param="?pageNum="+pageNum+"&pageSize="+pageSize+"&"+formData+"&draw="+draw+"&od="+orderByClause+"&projectStatus=1";
                     $.ajax({
-                        "url": contextPath+"api/project/page"+param,
+                        "url": contextPath+"api/device/freeDeviceList"+param,
                         "type": "get",
                         dataType:"json",
                         contentType:'application/json',
