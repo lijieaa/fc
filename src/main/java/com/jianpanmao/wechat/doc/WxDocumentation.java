@@ -739,5 +739,15 @@ package com.jianpanmao.wechat.doc;
  * localhost:8080/message/page?page=1&rows=10&wxPublicId=14
  */
 
+/**
+ * @api {get} /material/temp 获取单个临时素材（用户发给公众号的图片、语音、视频是临时素材）
+ * @apiName getMaterialTemp
+ * @apiGroup wxMessage
+ * @apiParam {Number} wxPublicId 公众号ID
+ * @apiParam {String} mediaId mediaId
+ * @apiExample Request-Example:
+ * localhost:8080/material/temp?wxPublicId=14&mediaId=05b2fLSN6Eo2ynAuNFdvR8171MDyWICjhnrL5RNwu5OTLtlNgYjCSrmqt8mTNz2U
+ */
+
 public class WxDocumentation {
 }
