@@ -129,7 +129,7 @@
                     }
                     orderByClause = orderByClause.substr(0,orderByClause.lastIndexOf(","));
 
-                    var param="?pageNum="+pageNum+"&pageSize="+pageSize+"&"+formData+"&draw="+draw+"&od="+orderByClause+"&projectStatus=1";
+                    var param="?pageNum="+pageNum+"&pageSize="+pageSize+"&"+formData+"&draw="+draw+"&od="+orderByClause+"&num=1";
                     $.ajax({
                         "url": contextPath+"api/device/freeDeviceList"+param,
                         "type": "get",

@@ -106,6 +106,15 @@ public class WxApiHandler {
         file.delete();
         return result;
     }
+
+    // 获取临时素材
+    public void getTempMaterial(String mediaId, String accessToken, HttpServletResponse response) throws Exception{
+
+        String url = "https://api.weixin.qq.com/cgi-bin/media/get?access_token=" + accessToken + "&media_id=" + mediaId;
+
+        RequestTools.processGETDownload(url, response);
+    }
+
     // 添加素材(图文)
     public String addNewsMaterial(WxNews wxNews, String accessToken) throws Exception{
 
