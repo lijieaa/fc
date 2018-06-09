@@ -104,7 +104,7 @@
         <div class="clubs-header back-f8"  v-if="model.projectCommentsParent !=null && model.projectCommentsParent == 0">
             <div class="left-clubs float-left padding-left-6">
                 <img src="../../dist/img/img-head.png" class="" alt="">
-                <span>{{model.projectCommentsNickname}}</span>
+                <span>{{model.user.name}}</span>
             </div>
             <div class="right-clubs float-right padding-right-6">
                 <span class="bd-r">第 <span>{{model.count}}</span>条留言</span>
@@ -117,7 +117,7 @@
             <div class="detail-list margin-left-10">
                 <span class="font-weight padding-left-6"
                       v-if="model.projectCommentsParent !=0" >
-                    <span style="color: #1794e4">{{model.projectCommentsNickname}}</span> 回复:
+                    <span style="color: #1794e4">{{model.user.name}}</span> 回复:
                     <span style="color: #1794e4">{{model.parentName}}</span>
                     <span v-if = "model.projectCommentsParent == model.projectCommentsId">{{model.projectCommentsNickname}}</span>
                 </span>
