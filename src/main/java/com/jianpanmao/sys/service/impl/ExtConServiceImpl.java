@@ -23,6 +23,12 @@ public class ExtConServiceImpl extends BaseServiceImpl<ExtCon,ExtConExample,ExtC
     ExtConMapper extConMapper;
 
     @Override
+    public int remove(Integer TId) {
+        conLabService.remove(TId);
+        return super.remove(TId);
+    }
+
+    @Override
     public int add(ExtCon record) {
 
         int add = super.add(record);
