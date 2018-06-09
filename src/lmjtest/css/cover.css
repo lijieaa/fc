@@ -82,7 +82,9 @@
 .f30{
   font-size:0.30rem !important;
 }
-
+.f28{
+  font-size:0.28rem !important;
+}
 .f24{
   font-size:0.24rem !important;
 }
@@ -194,4 +196,22 @@ ul{
 .infinite-scroll-preloader .preloader {
   width:34px;
   height:34px;
+}
+
+.saleimg{
+  width:0.5rem;height:0.5rem;
+  border-radius: 90px;
+  overflow: hidden;
+
+}
+
+.f-u,.t-u{
+  color:#666666 !important;
+}
+.item-text{
+  color:#333333 !important;;
+}
+
+.ios .list .item-text{
+  max-height: 100%;
 }
