@@ -18,6 +18,8 @@ public interface DingtalkDeptMapper extends BaseDao<DingtalkDept, DingtalkDeptEx
 
     List<DingtalkDept> selectByLikeName(DingtalkDept deptName);
 
+    List<DingtalkDept> findByUserId(Integer uid);
+
     void updatePath(DingtalkDept dept);
 
     void sort(DingtalkDept dept);

@@ -1,7 +1,9 @@
 package com.jianpanmao.sys.service.impl;
 
 import com.jianpanmao.common.service.impl.BaseServiceImpl;
+import com.jianpanmao.sys.dao.DingtalkUserDeptMapper;
 import com.jianpanmao.sys.dao.DingtalkUserMapper;
+import com.jianpanmao.sys.dao.SysUserRoleMapper;
 import com.jianpanmao.sys.entity.*;
 import com.jianpanmao.sys.dto.*;
 import com.jianpanmao.sys.service.DingtalkUserDeptService;
@@ -11,11 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-public class DingtalkUserServiceImpl extends BaseServiceImpl<DingtalkUser,DingtalkUserExample,DingtalkUserDto,Integer> implements DingtalkUserService {
+public class DingtalkUserServiceImpl extends BaseServiceImpl<DingtalkUser, DingtalkUserExample, DingtalkUserDto, Integer> implements DingtalkUserService {
 
     @Autowired
     DingtalkUserMapper dingtalkUserMapper;
@@ -33,8 +36,8 @@ public class DingtalkUserServiceImpl extends BaseServiceImpl<DingtalkUser,Dingta
     @Override
     public List<DingtalkUser> selectByLikeName(String name) {
 
-        DingtalkUser cuser = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
-        DingtalkUser user=new DingtalkUser();
+        DingtalkUser cuser = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        DingtalkUser user = new DingtalkUser();
         user.setName(name);
         user.setIntermediaryId(cuser.getIntermediaryId());
         return dingtalkUserMapper.selectByLikeName(user);
@@ -74,7 +77,7 @@ public class DingtalkUserServiceImpl extends BaseServiceImpl<DingtalkUser,Dingta
 
         record.setPassword(encode);
 
-        DingtalkUser cuser = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+        DingtalkUser cuser = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         record.setIntermediaryId(cuser.getIntermediaryId());
 
@@ -84,16 +87,52 @@ public class DingtalkUserServiceImpl extends BaseServiceImpl<DingtalkUser,Dingta
         List<SysRole> roles = record.getRoles();
 
         for (SysRole role : roles) {
-            userRoleService.add(new SysUserRole(record.getUserid(),role.getRoleId()));
+            userRoleService.add(new SysUserRole(record.getUserid(), role.getRoleId()));
         }
 
 
         List<DingtalkDept> depts = record.getDepts();
 
         for (DingtalkDept dept : depts) {
-            userDeptService.add(new DingtalkUserDept(record.getUserid(),dept.getId()));
+            userDeptService.add(new DingtalkUserDept(record.getUserid(), dept.getId()));
         }
 
         return add;
+    }
+
+
+    @Autowired
+    DingtalkUserDeptMapper userDeptMapper;
+
+
+    @Autowired
+    SysUserRoleMapper userRoleMapper;
+
+
+    @Transactional
+    @Override
+    public int update(DingtalkUser record) {
+
+
+        userDeptMapper.deleteByPrimaryKey(record.getUserid());
+
+
+        userRoleMapper.deleteByUserId(record.getUserid());
+
+
+        List<SysRole> roles = record.getRoles();
+
+        for (SysRole role : roles) {
+            userRoleService.add(new SysUserRole(record.getUserid(), role.getRoleId()));
+        }
+
+
+        List<DingtalkDept> depts = record.getDepts();
+
+        for (DingtalkDept dept : depts) {
+            userDeptService.add(new DingtalkUserDept(record.getUserid(), dept.getId()));
+        }
+
+        return super.update(record);
     }
 }
