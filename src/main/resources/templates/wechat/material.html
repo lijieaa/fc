@@ -143,7 +143,15 @@
         }
         .cke_inner{
             max-height: 600px!important;
-            overflow: auto!important;
+            /*overflow: auto!important;*/
+        }
+        .content-img img{
+            width: 200px;
+            height: 140px;
+        }
+        .cke_editable p img{
+            width: 200px;
+            height: 140px;
         }
     </style>
 </head>
@@ -210,7 +218,7 @@
 
                       </textarea>
                 </div>
-                <button style="width: 65px;height: 35px;display: block;" id="savapt">保存</button>
+                <button style="width: 65px;height: 35px;display: block;margin-top: 35px;" id="savapt">保存</button>
             </section>
             <section class="float-left" style="width: 15%;margin-left: 1.5%">
                 <label style="width:100%;margin-top: 15px;margin-left: 35px;" class="text-center;">多媒体</label>
@@ -353,6 +361,7 @@
 
             var title = '<input type="text" id="editInputTitle" class="addInp" placeholder="请输入标题" style="font-size: 20px;">' +
                 '<input type="text" id="editInputAutor" class="addInp" placeholder="请输入作者" >';
+            var title2='<input type="text"  class="addInp" placeholder="请输入文章摘要">';
             $("#cke_1_contents").before(title);
             $(".addInp").on('focus',function(){
                 ev.editor.setReadOnly( true );
@@ -396,8 +405,10 @@
         //选择图片确定
         $(document).on("click","#btn-sure-source",function () {
             $('#sourceRoom').modal("hide");
-            var title1 = '<p><img class="content-img" src='+thisSrc+'></p>';
-            $("#cke_1_contents").before(title1);
+            var title1 = '<p class="content-img"><img style="width: 200px;height: 150px;" src='+thisSrc+'></p>';
+            // $("#cke_1_contents").before(title1);
+            var oEditor = CKEDITOR.instances.editor1;
+            oEditor.insertHtml(title1);
         })
         //保存图文信息
         $(document).on("click","#savapt",function () {

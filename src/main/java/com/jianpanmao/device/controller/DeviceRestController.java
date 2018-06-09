@@ -101,11 +101,19 @@ public class DeviceRestController {
     @GetMapping("byProjectId")
     public Object byProjectId(@RequestParam(value = "pageNum", defaultValue = "1", required = true) Integer pageNum,
                               @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
+                              @RequestParam(value = "draw", required = false) Integer draw,
                               Integer projectId) {
         PageHelper.startPage(pageNum, pageSize);
         List<Device> devices = deviceMapper.findByProject(projectId);
         PageInfo pageInfo = new PageInfo(devices);
-        return pageInfo;
+
+        //draw 不等于空是datatables分页
+        if (draw != null) {
+            DataTablesResponseEntity<Device> responseEntity = new DataTablesResponseEntity(draw, pageInfo.getTotal(), pageInfo.getTotal(), pageInfo.getList());
+            return responseEntity;
+        } else {
+            return pageInfo;
+        }
     }
 
     /**
@@ -126,11 +134,19 @@ public class DeviceRestController {
     @GetMapping("freeDeviceList")
     public Object freeDeviceList(@RequestParam(value = "pageNum", defaultValue = "1", required = true) Integer pageNum,
                                  @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
+                                 @RequestParam(value = "draw", required = false) Integer draw,
                                  @RequestParam(value = "num",required = false)String num){
         PageHelper.startPage(pageNum, pageSize);
         List<Device> devices = deviceMapper.freeDeviceList(num);
         PageInfo pageInfo = new PageInfo(devices);
-        return pageInfo;
+
+        //draw 不等于空是datatables分页
+        if (draw != null) {
+            DataTablesResponseEntity<Device> responseEntity = new DataTablesResponseEntity(draw, pageInfo.getTotal(), pageInfo.getTotal(), pageInfo.getList());
+            return responseEntity;
+        } else {
+            return pageInfo;
+        }
     }
 
     /**

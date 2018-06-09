@@ -320,4 +320,12 @@
   <select id="findByGroupId" resultMap="BaseResultMap">
     select * from sys_role a WHERE a.group_id=#{0}
   </select>
+
+
+  <select id="findByUserId" resultMap="BaseResultMap">
+    select * from dingtalk_user u,sys_user_role ur,sys_role r where u.userid=ur.user_id AND r.role_id=ur.role_id and u.userid=#{0}
+  </select>
+
+
+
 </mapper>

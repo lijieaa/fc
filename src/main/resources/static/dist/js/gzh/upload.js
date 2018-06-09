@@ -308,7 +308,7 @@ function  ajaxVidPop(pageNo) {
             }
             for(var i=0;i<videoArr.length;i++){
                 var wxPublicId=14;
-                var mediaId=videoArr[i];
+                let mediaId=videoArr[i];
                 var name="test.mp4";
                 $.ajax({
                     url:contextPath+'material/video/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name,

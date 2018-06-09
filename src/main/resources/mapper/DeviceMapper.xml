@@ -436,15 +436,17 @@
 
   <!--项目详情页 项目设备列表-->
   <select id="findByProject" resultMap="BaseResultMap">
-    select d.*,operateUser.userid o_user_id,operateUser.name o_user_name,transcribeUser.userid t_user_id,transcribeUser.name t_user_name
+   select d.*,operateUser.userid o_user_id,operateUser.name o_user_name,transcribeUser.userid t_user_id,transcribeUser.name t_user_name,intermediary.intermediary_id,intermediary.intermediary_name,project.project_id,project.project_name
     from device d LEFT JOIN dingtalk_user operateUser
     ON d.operate_user_id = operateUser.userid
     LEFT JOIN dingtalk_user transcribeUser
     ON d.transcribe_user_id = transcribeUser.userid
-    LEFT JOIN project p
-    ON d.project_id = p.project_id
+    LEFT JOIN project project
+    ON d.project_id = project.project_id
+    LEFT JOIN intermediary intermediary
+    ON intermediary.intermediary_id = d.intermediary_id
     WHERE d.valid = 0
-    and p.project_id = #{0}
+    and project.project_id = #{0}
   </select>
   <!--项目详情页 项目设备编辑-->
   <update id="updateDeviceUser" parameterType="com.jianpanmao.device.dto.DeviceDto">
@@ -457,8 +459,15 @@
 
   <!--设备关联 设备列表-->
   <select id="freeDeviceList" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select d.*
-    from device d
+    select d.*,operateUser.userid o_user_id,operateUser.name o_user_name,transcribeUser.userid t_user_id,transcribeUser.name t_user_name,intermediary.intermediary_id,intermediary.intermediary_name,project.project_id,project.project_name
+    from device d LEFT JOIN dingtalk_user operateUser
+    ON d.operate_user_id = operateUser.userid
+    LEFT JOIN dingtalk_user transcribeUser
+    ON d.transcribe_user_id = transcribeUser.userid
+    LEFT JOIN project project
+    ON d.project_id = project.project_id
+    LEFT JOIN intermediary intermediary
+    ON intermediary.intermediary_id = d.intermediary_id
     WHERE d.valid = 0
     and d.project_id IS NULL
     <if test="num != null and num!=''">
