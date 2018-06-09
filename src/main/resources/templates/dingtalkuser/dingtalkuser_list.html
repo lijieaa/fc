@@ -246,7 +246,21 @@
                                         <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
                                         搜索
                                     </button>
-                                </span>
+                            </span>
+                        </div>
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue"  id="myTab5">
+                                <li class="active tag-menu">
+                                    <a data-toggle="tab" href="#tag-menu" aria-expanded="true">标签</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id="tag-menu" class="align-center">
+                                    <p><button type="button" class="btn btn-white btn-default add-tag-group-btn">新增标签组</button><button type="button" class="btn btn-white btn-default add-tag-btn">新增标签</button></p>
+                                    <ul id="tag-list"  class="ztree"></ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-8">
@@ -261,11 +275,11 @@
                                         <div class="hr hr-18 dotted hr-double"></div>
                                         <div class="widget-header widget-header-flat">
                                             <h4 class="smaller">
-                                                <button class="btn btn-white btn-info btn-bold">
+                                                <button class="btn btn-white btn-info btn-bold add-outcontacts-btn">
                                                     <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
                                                     添加成员
                                                 </button>
-                                                <button class="btn btn-white btn-warning btn-bold">
+                                                <button class="btn btn-white btn-warning btn-bold del-outcontacts-btn">
                                                     <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
                                                     批量删除
                                                 </button>
@@ -287,10 +301,11 @@
                                                             <th class="center">电话</th>
                                                             <th class="center">公司</th>
                                                             <th class="center">负责人</th>
+                                                            <th class="center">操作</th>
                                                         </tr>
                                                         </thead>
-                                                        <tbody class="department-staff-bodyss center">
-                                                        <tr>
+                                                        <tbody class="outcontacts-list-body center">
+                                                        <!--<tr>
                                                             <td>
                                                                 <label class="pos-rel">
                                                                     <input type="checkbox" class="ace">
@@ -313,7 +328,7 @@
                                                             <td>1782232131</td>
                                                             <td>天马公司</td>
                                                             <td>天马</td>
-                                                        </tr>
+                                                        </tr>-->
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -378,7 +393,7 @@
 <!-- 添加部门成员 -->
 <div id="add-department-staff-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
     <form class="form-horizontal" role="form">
-        <h4>部门信息</h4>
+        <h4>用户信息</h4>
         <div class="hr hr-12 hr-double"></div>
         <div class="form-group col-sm-12 col-md-6">
             <label class="col-sm-3  col-md-3 control-label no-padding-right" for="add-department-staff-username">姓名:</label>
@@ -458,6 +473,77 @@
     </form>
 </div>
 
+<!-- 编辑部门成员 -->
+<div id="edit-department-staff-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
+    <form class="form-horizontal" role="form">
+        <h4>用户信息</h4>
+        <div class="hr hr-12 hr-double"></div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3  col-md-3 control-label no-padding-right" for="edit-department-staff-username">姓名:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="edit-department-staff-username" name="username" placeholder="请输入姓名" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-departmentname-btn">部门:</label>
+            <div class="col-sm-9 col-md-9">
+                <button type="button" id="edit-department-staff-departmentname-btn" name="role" class="form-control btn btn-white btn-default">请选择部门</button>
+                <ul id="edit-department-staff-departmentname-select"  class="ztree display-none"></ul>
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-position">职位:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="edit-department-staff-position" placeholder="请输入职位" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-role-btn">角色:</label>
+            <div class="col-sm-9 col-md-9">
+                <!--<input type="text" id="edit-department-staff-role" name="role" placeholder="请选择角色" class="form-control">-->
+                <button type="button" id="edit-department-staff-role-btn" name="role" class="form-control btn btn-white btn-default">请选择角色</button>
+                <ul id="edit-department-staff-role-select"  class="ztree display-none"></ul>
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-jobnumber">工号:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="edit-department-staff-jobnumber" placeholder="请输入工号" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-phone">手机号:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="edit-department-staff-phone" name="phone" placeholder="请输入手机号" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-tel">分机号:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="edit-department-staff-tel" placeholder="请输入分机号" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-email">邮箱:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="edit-department-staff-email" placeholder="请输入邮箱" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-workplace">办公地点:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="edit-department-staff-workplace" placeholder="请输入办公地点" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-remark">备注:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="edit-department-staff-remark" placeholder="请输入备注" class="form-control">
+            </div>
+        </div>
+    </form>
+</div>
+
 <!-- 新增角色组 -->
 <div id="add-role-group-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
     <form class="form-horizontal" role="form">
@@ -476,7 +562,7 @@
 <!-- 编辑角色组 -->
 <div id="edit-role-group-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
     <form class="form-horizontal" role="form">
-        <h4>角组信息</h4>
+        <h4>角色组信息</h4>
         <div class="hr hr-12 hr-double"></div>
 
         <div class="form-group">
@@ -542,6 +628,166 @@
             <div class="col-sm-9">
                 <select class="form-control" id="edit-role-person-group" name="groupId">
                 </select>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- 改变密码 -->
+<div id="change-password-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
+    <form class="form-horizontal" role="form">
+        <h4>用户密码</h4>
+        <div class="hr hr-12 hr-double"></div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="change-password-password">密码:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="password" id="change-password-password" name="password" placeholder="请输入密码" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="change-password-repassword">确认密码:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="password" id="change-password-repassword" name="confirm_password" placeholder="请输入备注" class="form-control">
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--  外部联系人 -->
+<!-- 新增标签组 -->
+<div id="add-tag-group-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
+    <form class="form-horizontal" role="form">
+        <h4>标签组信息</h4>
+        <div class="hr hr-12 hr-double"></div>
+
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 control-label no-padding-right" for="add-tag-group-name">标签组名称:</label>
+            <div class="col-sm-9">
+                <input type="text" id="add-tag-group-name" name="roleName" placeholder="请填写标签组名称" class="form-control">
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- 编辑标签组 -->
+<div id="edit-tag-group-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
+    <form class="form-horizontal" role="form">
+        <h4>标签组信息</h4>
+        <div class="hr hr-12 hr-double"></div>
+
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 control-label no-padding-right" for="edit-tag-group-name">标签组名称:</label>
+            <div class="col-sm-9">
+                <input type="text" id="edit-tag-group-name" name="tagName" placeholder="请填写标签组名称" class="form-control">
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- 新增标签 -->
+<div id="add-tag-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
+    <form class="form-horizontal" role="form">
+        <h4>标签信息</h4>
+        <div class="hr hr-12 hr-double"></div>
+
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 control-label no-padding-right" for="add-role-group-name">标签组:</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="add-tag-group" name="groupId">
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 control-label no-padding-right" for="add-tag-name">标签名称:</label>
+            <div class="col-sm-9">
+                <input type="text" id="add-tag-name" name="roleName" placeholder="请填写标签名称" class="form-control">
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- 编辑标签 -->
+<div id="edit-tag-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
+    <form class="form-horizontal" role="form">
+        <h4>标签信息</h4>
+        <div class="hr hr-12 hr-double"></div>
+
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 control-label no-padding-right" for="edit-tag-group">标签组:</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="edit-tag-group" name="groupId">
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 control-label no-padding-right" for="edit-tag-name">标签名称:</label>
+            <div class="col-sm-9">
+                <input type="text" id="edit-tag-name" name="tagName" placeholder="请填写标签名称" class="form-control">
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- 添加外部成员 -->
+<div id="add-outcontacts-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
+    <form class="form-horizontal" role="form">
+        <h4>外部联系人详情</h4>
+        <div class="hr hr-12 hr-double"></div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3  col-md-3 control-label no-padding-right" for="add-outcontacts-username">姓名:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="add-outcontacts-username" name="username" placeholder="请输入姓名" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-outcontacts-phone">手机号:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="add-outcontacts-phone" name="phone" placeholder="请输入手机号" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-outcontacts-company">公司:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="add-outcontacts-company" placeholder="请输入公司" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-outcontacts-position">职位:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="add-outcontacts-position" placeholder="请输入职位" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-outcontacts-email">邮箱:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="add-outcontacts-email" placeholder="请输入邮箱" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-outcontacts-address">地址:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="add-outcontacts-address" placeholder="请输入地址" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-outcontacts-remark">备注:</label>
+            <div class="col-sm-9 col-md-9">
+                <input type="text" id="add-outcontacts-remark" placeholder="请输入备注" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 control-label no-padding-right" for="outcontacts-principal">负责人:</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="outcontacts-principal" name="groupId">
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6">
+            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-outcontacts-tag-btn">标签:</label>
+            <div class="col-sm-9 col-md-9">
+                <button type="button" id="add-outcontacts-tag-btn" name="role" class="form-control btn btn-white btn-default">请选择标签</button>
+                <ul id="add-outcontacts-tag-select"  class="ztree display-none"></ul>
             </div>
         </div>
     </form>
@@ -681,7 +927,7 @@
                                                     '<td>'+ item.jobnumber +'</td>'+
                                                     '<td>'+ item.mobile +'</td>'+
                                                     '<td>'+ item.email +'</td>'+
-                                                    '<td><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only"></i></td>'+
+                                                    '<td data-id="'+ item.userid +'" data-isAdmin="'+ item.isAdmin +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-btn" title="编辑信息"></i>&nbsp;&nbsp;<i class="ace-icon fa fa-key bigger-110 icon-only change-password-btn" title="修改密码"></i></td>'+
                                                     '</tr>';
                                         });
                                     } else {
@@ -695,6 +941,14 @@
                                                 '</td></tr>';
                                     }
                                     departmentStaffBodyBox.append(departmentStaffUserListHtml);
+                                    $("#department-staff .edit-btn").on("click", function () {
+                                        var _this = $(this);
+                                        editDepartmentStaffInfo(_this.parents("td").attr("data-id"), _this.parents("td").attr("data-isAdmin"));
+                                    });
+                                    $(".change-password-btn").on("click", function () {
+                                        var _this = $(this);
+                                        changePassword(_this.parents("td").attr("data-id"))
+                                    });
                                 }
                             },
                             error: function () {
@@ -757,7 +1011,7 @@
                                         '<td>'+ item.jobnumber +'</td>'+
                                         '<td>'+ item.mobile +'</td>'+
                                         '<td>'+ item.email +'</td>'+
-                                        '<td><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only"></i></td>'+
+                                        '<td data-id="'+ item.userid +'" data-isAdmin="'+ item.isAdmin +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-btn" title="编辑信息"></i>&nbsp;&nbsp;<i class="ace-icon fal fa-unlock-alt bigger-110 icon-only change-password-btn" title="修改密码"></i></td>'+
                                         '</tr>';
                             });
                         } else {
@@ -771,6 +1025,14 @@
                                     '</td></tr>';
                         }
                         departmentStaffBodyBox.append(departmentStaffUserListHtml);
+                        $("#department-staff .edit-btn").on("click", function () {
+                            var _this = $(this);
+                            editDepartmentStaffInfo(_this.parents("td").attr("data-id"), _this.parents("td").attr("data-isAdmin"));
+                        });
+                        $(".change-password-btn").on("click", function () {
+                            var _this = $(this);
+                            changePassword(_this.parents("td").attr("data-id"))
+                        });
                     }
                 },
                 error: function () {
@@ -1240,7 +1502,350 @@
             });
         });
 
+        //编辑部门成员
+        function editDepartmentStaffInfo(id, isAdmin) {
+            var $formEditDepartmentStaff = $('#edit-department-staff-container>form').validate({
+                errorElement: 'span',
+                errorClass: 'help-block col-sm-3 control-label no-padding-right',
+                focusInvalid: false,
+                ignore: "",
+                rules: {
+                    username: {
+                        required: true
+                    },
+                    departmentname: {
+                        required: true
+                    },
+                    role: {
+                        required: true
+                    },
+                    phone: {
+                        required: true,
+                        /* remote: {
+                         url: contextPath+"api/dingtalkuser/mobile",
+                         type: "post",               //数据发送方式
+                         dataType: "json",           //接受数据格式
+                         data: JSON.stringify({                     //要传递的数据
+                         mobile: function() {
+                         return $("#add-department-staff-phone").val();
+                         }
+                         })
+                         }*/
+                    },
+                    password: {
+                        required: true
+                    },
+                    confirm_password: {
+                        required: true,
+                        equalTo: "#add-department-staff-repassword"
+                    }
+                },
+                messages: {
+                    remote: "该用户已经存在"
+                },
+                highlight: function (e) {
+                    $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                },
+                success: function (e) {
+                    $(e).closest('.form-group').removeClass('has-error');
+                    $(e).remove();
+                },
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element.parent());
+                },
+                invalidHandler: function (form) {
+                }
+            });
+            var displayStyle = "display-none";
+            if (isAdmin == "0") {
+                displayStyle = "display-inlin-block";
+            }
+            $.ajax({
+                url: contextPath+"api/dingtalkuser/?id="+id,
+                type: "get",
+                contentType: "application/json",
+                dataType : "json",
+                success: function (data) {
+                    var result = data.content, department = data.content.depts, roleList = data.content.roles;
+                    $("#edit-department-staff-username").val(result.name);
+                    $("#edit-department-staff-position").val(result.position);
+                    $("#edit-department-staff-jobnumber").val(result.jobnumber);
+                    $("#edit-department-staff-phone").val(result.mobile);
+                    $("#edit-department-staff-tel").val(result.tel);
+                    $("#edit-department-staff-email").val(result.email);
+                    $("#edit-department-staff-workplace").val(result.workplace);
+                    $("#edit-department-staff-remark").val(result.remark);
+                    //选择部门
+                    var organizationSettings = {
+                        async: {
+                            enable: true,
+                            dataType: "json",
+                            type: "get",
+                            url: contextPath+"api/dingtalkdept/list",
+                            dataFilter: ajaxDataFilterFns
+                        },
+                        data:{
+                            key: {
+                                name: "name"
+                            },
+                            simpleData : {
+                                enable : true,
+                                idKey: "id",
+                                pIdKey: "parentid",
+                                rootPId: 0
+                            }
+                        },
+                        check: {
+                            enable: true,
+                            chkStyle: "checkbox",
+                            chkboxType: { "Y" : "", "N" : "" }
+                        },
+                        view: {
+                            showLine: false
+                        }
+                    };
+                    function ajaxDataFilterFns(treeId, parentNode, responseData) {
+                        if (responseData.content) {
+                            if (department.length) {
+                                $.each(department, function (j, jtem) {
+                                    $.each(responseData.content, function (i, item) {
+                                        if (item.id == jtem.id) {
+                                            item["checked"] = true;
+                                        }
+                                    })
+                                })
+                            }
+                        }
+                        return responseData.content;
+                    }
+                    $.fn.zTree.init($("#edit-department-staff-departmentname-select"), organizationSettings);
+                    $("#edit-department-staff-departmentname-btn").unbind();
+                    $("#edit-department-staff-departmentname-btn").on("click", function () {
+                        if ($("#edit-department-staff-departmentname-select").hasClass("display-none")) {
+                            $("#edit-department-staff-departmentname-select").removeClass("display-none")
+                        } else {
+                            $("#edit-department-staff-departmentname-select").addClass("display-none")
+                        }
+                    });
 
+                    //选择角色
+                    var roleSettings = {
+                        async: {
+                            enable: true,
+                            dataType: "json",
+                            type: "get",
+                            url: contextPath+"api/sysrole/list",
+                            dataFilter: ajaxDataFilterFnSettings
+                        },
+                        data:{
+                            key: {
+                                name: "roleName"
+                            },
+                            simpleData : {
+                                enable : false
+                            }
+                        },
+                        check: {
+                            enable: true,
+                            chkStyle: "checkbox"
+                        },
+                        view: {
+                            showLine: false
+                        }
+                    };
+                    function ajaxDataFilterFnSettings(treeId, parentNode, responseData) {
+                        if (responseData.content) {
+                            if (roleList.length) {
+                                $.each(roleList, function (j, jtem) {
+                                    $.each(responseData.content, function (i, item) {
+                                        if (item.roleId == jtem.roleId) {
+                                            item["checked"] = true;
+                                        }
+                                    })
+                                })
+                            }
+                        }
+                        return responseData.content;
+                    }
+                    $.fn.zTree.init($("#edit-department-staff-role-select"), roleSettings);
+                    $("#edit-department-staff-role-btn").unbind();
+                    $("#edit-department-staff-role-btn").on("click", function () {
+                        if ($("#edit-department-staff-role-select").hasClass("display-none")) {
+                            $("#edit-department-staff-role-select").removeClass("display-none")
+                        } else {
+                            $("#edit-department-staff-role-select").addClass("display-none")
+                        }
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+            var dialog = $( "#edit-department-staff-container" ).removeClass('hide').dialog({
+                resizable: false,
+                width: '680',
+                modal: true,
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑成员</h4></div>",
+                title_html: true,
+                buttons: [
+                    {
+                        text: "保存",
+                        "class" : "btn btn-primary btn-minier",
+                        click: function() {
+                            var _this = $(this);
+                            var flag = $formEditDepartmentStaff.form();
+                            var treeObj = $.fn.zTree.getZTreeObj("edit-department-staff-departmentname-select");
+                            var nodes = treeObj.getCheckedNodes(true), departmentnameArr = [];
+                            if (nodes.length) {
+                                $.each(nodes, function (i, item) {
+                                    departmentnameArr.push({"id":item.id})
+                                })
+                            }
+                            var treeObjtwo = $.fn.zTree.getZTreeObj("edit-department-staff-role-select");
+                            var nodestwo = treeObjtwo.getCheckedNodes(true), roleArr = [];
+                            if (nodestwo.length) {
+                                $.each(nodestwo, function (i, item) {
+                                    roleArr.push({"roleId":item.roleId})
+                                })
+                            }
+                            if(flag){
+                                var data = {
+                                    "userid": id,
+                                    "name": $("#edit-department-staff-username").val(),
+                                    "depts": departmentnameArr,
+                                    "position": $("#edit-department-staff-position").val(),
+                                    "roles": roleArr,
+                                    "jobnumber": $("#edit-department-staff-jobnumber").val(),
+                                    "mobile": $("#edit-department-staff-phone").val(),
+                                    "tel": $("#edit-department-staff-tel").val(),
+                                    "email": $("#edit-department-staff-email").val(),
+                                    "workplace": $("#edit-department-staff-workplace").val(),
+                                    "remark": $("#edit-department-staff-remark").val()
+                                };
+                                console.log(data);
+//                                return;
+                                $.ajax({
+                                    url: contextPath+"api/dingtalkuser/",
+                                    type: "put",
+                                    data : JSON.stringify(data),
+                                    contentType: "application/json",
+                                    dataType : "json",
+                                    success: function (data) {
+                                        organizationRefreshNode();
+                                        _this.dialog( "close" );
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                    }
+                                })
+                            }
+                        }
+                    },
+                    {
+                        text: "删除",
+                        "class" : "btn btn-danger btn-minier "+displayStyle,
+                        click: function() {
+                            var _this = $(this);
+                            $.ajax({
+                                url: contextPath+"dingtalkuser/batch",
+                                type: "delete",
+                                data : JSON.stringify([id]),
+                                contentType: "application/json",
+                                dataType : "json",
+                                success: function (data) {
+                                    organizationRefreshNode();
+                                    _this.dialog( "close" );
+                                },
+                                error: function (data) {
+                                    console.log(data);
+                                }
+                            });
+                        }
+                    },
+                    {
+                        text: "取消",
+                        "class" : "btn btn-minier",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                ]
+            });
+        }
+        //修改用户密码
+        function changePassword(id) {
+            var $formChangePassword = $('#change-password-container>form').validate({
+                errorElement: 'span',
+                errorClass: 'help-block col-sm-3 control-label no-padding-right',
+                focusInvalid: false,
+                ignore: "",
+                rules: {
+                    password: {
+                        required: true
+                    },
+                    confirm_password: {
+                        required: true,
+                        equalTo: "#add-department-staff-repassword"
+                    }
+                },
+                highlight: function (e) {
+                    $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                },
+                success: function (e) {
+                    $(e).closest('.form-group').removeClass('has-error');
+                    $(e).remove();
+                },
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element.parent());
+                },
+                invalidHandler: function (form) {
+                }
+            });
+            var dialog = $( "#change-password-container" ).removeClass('hide').dialog({
+                resizable: false,
+                width: '680',
+                modal: true,
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;修改密码</h4></div>",
+                title_html: true,
+                buttons: [
+                    {
+                        text: "保存",
+                        "class" : "btn btn-primary btn-minier",
+                        click: function() {
+                            var _this = $(this);
+                            var flag = $formChangePassword.form();
+
+                            if(flag){
+                                var data = {
+                                    "password": $("#change-password-password").val()
+                                };
+                                $.ajax({
+                                    url: contextPath+"api/dingtalkuser/",
+                                    type: "post",
+                                    data : JSON.stringify(data),
+                                    contentType: "application/json",
+                                    dataType : "json",
+                                    success: function (data) {
+                                        _this.dialog( "close" );
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                    }
+                                })
+                            }
+                        }
+                    },
+                    {
+                        text: "取消",
+                        "class" : "btn btn-minier",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                ]
+            });
+        }
+        
         //批量删除部门成员
         //选所有checkbox
         $(".department-staff-head .checkbox-all").on("click", function () {
@@ -1924,6 +2529,679 @@
                 ]
             });
         })
+
+
+
+        /* 外部联系人 */
+        //获取角色列表
+        var tagSettings = {
+            async: {
+                enable: true,
+                dataType: "json",
+                type: "get",
+                url: contextPath+"api/labgroup/list",
+                dataFilter: ajaxDataFilterFn
+            },
+            data:{
+                key: {
+                    name: "name"
+                },
+                simpleData : {
+                    enable : false
+                }
+            },
+            callback: {
+                onAsyncSuccess: tagOnAsyncSuccessFn,
+                onClick: tagOnClick
+            },
+            view: {
+                addHoverDom: tagAddHoverDom,
+                removeHoverDom: tagRemoveHoverDom,
+                showLine: false
+            }
+        };
+        function tagOnAsyncSuccessFn(event, treeId, treeNode, msg) {
+            if (msg.content.length) { //add-tag-group
+                console.log(msg.content);
+                //初始化选择标签组
+                var adTagGroupBox = $("#add-tag-container #add-tag-group, #edit-tag-container #edit-tag-group"), adTagGroupHtml = '';
+                adTagGroupBox.html("");
+                $.each(msg.content, function (i, item) {
+                    adTagGroupHtml += '<option value="'+ item.id +'">'+ item.name +'</option>'
+                });
+                adTagGroupBox.append(adTagGroupHtml);
+            }
+        }
+        function tagOnClick(event, treeId, treeNode) {
+            console.log(treeNode);
+            if (treeNode.gid) {
+                $.ajax({
+                    async : false,
+                    cache:false,
+                    type: 'get',
+                    dataType : "json",
+                    contentType: "application/json",
+                    url: contextPath + "api/extcon/labid?labid="+treeNode.id,
+                    success:function(data){
+                        if (data.status == "200") {
+                            //人员列表
+                            console.log(data);
+                            $("#outcontacts-list>tbody").html('');
+                            if (data.content.length) {
+                                var outcontactsListHtml = '';
+                                $.each(data.content, function (i, item) {
+                                    outcontactsListHtml += '<tr class="align-center">'+
+                                            '<td>'+
+                                            '<label class="pos-rel">'+
+                                            '<input type="checkbox" class="ace" data-id="'+ item.id +'">'+
+                                            '<span class="lbl"></span>'+
+                                            '</label>'+
+                                            '</td>'+
+                                            '<td>'+ item.username +'</td>'+
+                                            '<td>'+ item.tel +'</td>'+
+                                            '<td>'+ item.company +'</td>'+
+                                            '<td>'+ item.charge.name +'</td>'+
+                                            '<td data-id="'+ item.id +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-btn" title="编辑信息"></i></td>'+
+                                            '</tr>';
+                                });
+                            } else {
+                                outcontactsListHtml = '<tr><td colspan="5">'+
+                                        '<div class="alert alert-info">'+
+                                        '<button type="button" class="close" data-dismiss="alert">'+
+                                        '<i class="ace-icon fa fa-times"></i>'+
+                                        '</button>'+
+                                        '当前角色暂无人员请添加成员'+
+                                        '</div>'+
+                                        '</td>' +
+                                        '</tr>';
+                            }
+                            $("#outcontacts-list>tbody").append(outcontactsListHtml);
+                        }
+                    },
+                    error: function () {
+                        alert('请求失败');
+                    }
+                });
+            }
+            /*$("#role-person-name").text(treeNode.roleName);
+            var id = treeNode.roleId;
+            $("#edit-role-person-btn").attr("data-roleId", treeNode.roleId).attr("data-isDel", treeNode.isDel);
+            $.ajax({
+                async : false,
+                cache:false,
+                type: 'get',
+                dataType : "json",
+                contentType: "application/json",
+                url: contextPath + "api/dingtalkuser/role?roleid="+id,
+                success:function(data){
+                    if (data.status == "200") {
+                        //角色人员列表
+                        $("#role-group-person-list>tbody").html('');
+                        if (data.content.length) {
+                            var roleGroupPersonListHtml = '';
+                            $.each(data.content, function (i, item) {
+                                var checkedDisabled = "";
+                                if (item.isAdmin) {
+                                    checkedDisabled = "disabled";
+                                }
+                                roleGroupPersonListHtml += '<tr class="align-center">'+
+                                        '<td>'+
+                                        '<label class="pos-rel">'+
+                                        '<input type="checkbox" class="ace" data-id="'+ item.userid +'" '+ checkedDisabled +'>'+
+                                        '<span class="lbl"></span>'+
+                                        '</label>'+
+                                        '</td>'+
+                                        '<td>'+ item.name +'</td>'+
+                                        '<td>'+ item.position +'</td>'+
+                                        '<td>'+ item.jobnumber +'</td>'+
+                                        '</tr>';
+                            });
+                        } else {
+                            roleGroupPersonListHtml = '<tr><td colspan="4">'+
+                                    '<div class="alert alert-info">'+
+                                    '<button type="button" class="close" data-dismiss="alert">'+
+                                    '<i class="ace-icon fa fa-times"></i>'+
+                                    '</button>'+
+                                    '当前角色暂无人员请添加成员'+
+                                    '</div>'+
+                                    '</td>' +
+                                    '</tr>';
+                        }
+                        $("#role-group-person-list>tbody").append(roleGroupPersonListHtml);
+                    }
+                },
+                error: function () {
+                    alert('请求失败');
+                }
+            });*/
+
+        }
+        function tagRefreshNode() {
+            var zTree = $.fn.zTree.getZTreeObj("tag-list");
+            zTree.reAsyncChildNodes(null, "refresh");
+        }
+        function tagAddHoverDom(treeId, treeNode) {
+            var aObj = $("#" + treeNode.tId + "_a");
+            if ($("#diyBtn_"+treeNode.id).length>0) return;
+            var editStr = "<span id='diyBtn_space_" +treeNode.id+ "' > </span>"
+                    + "<button type='button' class='btn btn-white btn-sm btn-primary' id='diyBtn_" + treeNode.id
+                    + "' onfocus='this.blur();'>编辑</button>";
+            aObj.append(editStr);
+            var btn = $("#diyBtn_"+treeNode.id), id = treeNode.id;
+            if (btn) btn.bind("click", function(){
+                //编辑标签组
+                console.log(treeNode);
+                if (!treeNode.gid) {
+                    $("#edit-tag-group-name").val(treeNode.name);
+                    var $formEditTagGroup = $('#edit-tag-group-container>form').validate({
+                        errorElement: 'span',
+                        errorClass: 'help-block col-sm-3 control-label no-padding-right',
+                        focusInvalid: false,
+                        ignore: "",
+                        rules: {
+                            tagName: {
+                                required: true
+                            }
+                        },
+                        highlight: function (e) {
+                            $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                        },
+                        success: function (e) {
+                            $(e).closest('.form-group').removeClass('has-error');
+                            $(e).remove();
+                        },
+                        errorPlacement: function (error, element) {
+//                error.insertAfter(element.parent());
+                        },
+                        invalidHandler: function (form) {
+                        }
+                    });
+                    var dialog = $( "#edit-tag-group-container" ).removeClass('hide').dialog({
+                        resizable: false,
+                        width: '600',
+                        modal: true,
+                        title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑标签组</h4></div>",
+                        title_html: true,
+                        buttons: [
+                            {
+                                text: "保存",
+                                "class" : "btn btn-primary btn-minier",
+                                click: function() {
+                                    var _this = $(this);
+                                    var flag = $formEditTagGroup.form();
+                                    if(flag){
+                                        var data = {
+                                            "id": id,
+                                            "name": $("#edit-tag-group-name").val()
+                                        };
+                                        $.ajax({
+                                            url: contextPath+"api/labgroup/",
+                                            type: "put",
+                                            data : JSON.stringify(data),
+                                            contentType: "application/json",
+                                            dataType : "json",
+                                            success: function (data) {
+                                                tagRefreshNode();
+                                                _this.dialog( "close" );
+                                            },
+                                            error: function (data) {
+                                                console.log(data);
+                                            }
+                                        })
+
+                                    }
+
+
+                                }
+                            },
+                            {
+                                text: "删除",
+                                "class" : "btn btn-danger btn-minier ",
+                                click: function() {
+                                    var _this = $(this);
+                                    $.ajax({
+                                        url: contextPath+"api/labgroup/?id="+id,
+                                        type: "delete",
+                                        contentType: "application/json",
+                                        dataType : "json",
+                                        success: function (data) {
+                                            tagRefreshNode();
+                                            _this.dialog( "close" );
+                                        },
+                                        error: function (data) {
+                                            console.log(data);
+                                        }
+                                    });
+                                }
+                            },
+                            {
+                                text: "取消",
+                                "class" : "btn btn-minier",
+                                click: function() {
+                                    $( this ).dialog( "close" );
+                                }
+                            }
+                        ]
+                    });
+                } else {
+                    //编辑标签
+                    $("#edit-tag-name").val(treeNode.name);
+                    var optionList = $("#edit-tag-group option");
+                    optionList.each(function (i, item) {
+                        if ($(item).attr("value") == treeNode.gid) {
+                            $(item).attr("selected","selected")
+                        }
+                    });
+                    var $formEditTag = $('#edit-tag-container>form').validate({
+                        errorElement: 'span',
+                        errorClass: 'help-block col-sm-3 control-label no-padding-right',
+                        focusInvalid: false,
+                        ignore: "",
+                        rules: {
+                            tagName: {
+                                required: true
+                            }
+                        },
+                        highlight: function (e) {
+                            $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                        },
+                        success: function (e) {
+                            $(e).closest('.form-group').removeClass('has-error');
+                            $(e).remove();
+                        },
+                        errorPlacement: function (error, element) {
+//                error.insertAfter(element.parent());
+                        },
+                        invalidHandler: function (form) {
+                        }
+                    });
+                    var dialog = $( "#edit-tag-container" ).removeClass('hide').dialog({
+                        resizable: false,
+                        width: '600',
+                        modal: true,
+                        title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑标签</h4></div>",
+                        title_html: true,
+                        buttons: [
+                            {
+                                text: "保存",
+                                "class" : "btn btn-primary btn-minier",
+                                click: function() {
+                                    var _this = $(this);
+                                    var flag = $formEditTag.form();
+                                    if(flag){
+                                        var data = {
+                                            "id": id,
+                                            "name": $("#edit-tag-group-name").val()
+                                        };
+                                        $.ajax({
+                                            url: contextPath+"api/labgroup/",
+                                            type: "put",
+                                            data : JSON.stringify(data),
+                                            contentType: "application/json",
+                                            dataType : "json",
+                                            success: function (data) {
+                                                tagRefreshNode();
+                                                _this.dialog( "close" );
+                                            },
+                                            error: function (data) {
+                                                console.log(data);
+                                            }
+                                        })
+
+                                    }
+
+
+                                }
+                            },
+                            {
+                                text: "删除",
+                                "class" : "btn btn-danger btn-minier ",
+                                click: function() {
+                                    var _this = $(this);
+                                    $.ajax({
+                                        url: contextPath+"api/extconlab/?id="+id,
+                                        type: "delete",
+                                        contentType: "application/json",
+                                        dataType : "json",
+                                        success: function (data) {
+                                            tagRefreshNode();
+                                            _this.dialog( "close" );
+                                        },
+                                        error: function (data) {
+                                            console.log(data);
+                                        }
+                                    });
+                                }
+                            },
+                            {
+                                text: "取消",
+                                "class" : "btn btn-minier",
+                                click: function() {
+                                    $( this ).dialog( "close" );
+                                }
+                            }
+                        ]
+                    });
+                }
+
+
+            });
+
+        }
+        function tagRemoveHoverDom(treeId, treeNode) {
+            $("#diyBtn_"+treeNode.id).unbind().remove();
+            $("#diyBtn_space_" +treeNode.id).unbind().remove();
+        }
+        $.fn.zTree.init($("#tag-list"), tagSettings);
+
+        //新增标签组
+        var $formAddTagGroup = $('#add-tag-group-container>form').validate({
+            errorElement: 'span',
+            errorClass: 'help-block col-sm-3 control-label no-padding-right',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                tagName: {
+                    required: true
+                }
+            },
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+//                error.insertAfter(element.parent());
+            },
+            invalidHandler: function (form) {
+            }
+        });
+        $(".add-tag-group-btn").on("click", function () {
+
+            var dialog = $( "#add-tag-group-container" ).removeClass('hide').dialog({
+                resizable: false,
+                width: '600',
+                modal: true,
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;新增标签组</h4></div>",
+                title_html: true,
+                buttons: [
+                    {
+                        text: "保存",
+                        "class" : "btn btn-primary btn-minier",
+                        click: function() {
+                            var _this = $(this);
+                            var flag = $formAddTagGroup.form();
+                            if(flag){
+                                var data = {
+                                    "name": $("#add-tag-group-name").val()
+                                };
+                                $.ajax({
+                                    url: contextPath+"api/labgroup/",
+                                    type: "post",
+                                    data : JSON.stringify(data),
+                                    contentType: "application/json",
+                                    dataType : "json",
+                                    success: function (data) {
+                                        tagRefreshNode();
+                                        _this.dialog( "close" );
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                    }
+                                })
+
+                            }
+
+
+                        }
+                    },
+                    {
+                        text: "取消",
+                        "class" : "btn btn-minier",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                ]
+            });
+        });
+
+        //新增标签
+        var $formAddTag = $('#add-tag-container>form').validate({
+            errorElement: 'span',
+            errorClass: 'help-block col-sm-3 control-label no-padding-right',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                tagName: {
+                    required: true
+                }
+            },
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+//                error.insertAfter(element.parent());
+            },
+            invalidHandler: function (form) {
+            }
+        });
+        $(".add-tag-btn").on("click", function () {
+
+            var dialog = $( "#add-tag-container" ).removeClass('hide').dialog({
+                resizable: false,
+                width: '600',
+                modal: true,
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;新增标签组</h4></div>",
+                title_html: true,
+                buttons: [
+                    {
+                        text: "保存",
+                        "class" : "btn btn-primary btn-minier",
+                        click: function() {
+                            var _this = $(this);
+                            var flag = $formAddTag.form();
+                            if(flag){
+                                var data = {
+                                    "gid": $("#add-tag-group").val(),
+                                    "name": $("#add-tag-name").val()
+                                };
+                                $.ajax({
+                                    url: contextPath+"api/extconlab/",
+                                    type: "post",
+                                    data : JSON.stringify(data),
+                                    contentType: "application/json",
+                                    dataType : "json",
+                                    success: function (data) {
+                                        tagRefreshNode();
+                                        _this.dialog( "close" );
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                    }
+                                })
+
+                            }
+
+
+                        }
+                    },
+                    {
+                        text: "取消",
+                        "class" : "btn btn-minier",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                ]
+            });
+        });
+
+        //添加外部联系人
+        var $formAddOutcontacts = $('#add-outcontacts-container>form').validate({
+            errorElement: 'span',
+            errorClass: 'help-block col-sm-3 control-label no-padding-right',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                username: {
+                    required: true
+                },
+                departmentname: {
+                    required: true
+                },
+                role: {
+                    required: true
+                },
+                phone: {
+                    required: true,
+                    /* remote: {
+                     url: contextPath+"api/dingtalkuser/mobile",
+                     type: "post",               //数据发送方式
+                     dataType: "json",           //接受数据格式
+                     data: JSON.stringify({                     //要传递的数据
+                     mobile: function() {
+                     return $("#add-department-staff-phone").val();
+                     }
+                     })
+                     }*/
+                },
+                password: {
+                    required: true
+                },
+                confirm_password: {
+                    required: true,
+                    equalTo: "#add-department-staff-repassword"
+                }
+            },
+            messages: {
+                remote: "该用户已经存在"
+            },
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent());
+            },
+            invalidHandler: function (form) {
+            }
+        });
+        $( ".add-outcontacts-btn" ).on('click', function(e) {
+
+            //选择标签
+            var tagSettings = {
+                async: {
+                    enable: true,
+                    dataType: "json",
+                    type: "get",
+                    url: contextPath+"api/labgroup/list",
+                    dataFilter: ajaxDataFilterFn
+                },
+                data:{
+                    key: {
+                        name: "name"
+                    },
+                    simpleData : {
+                        enable : false
+                    }
+                },
+                check: {
+                    enable: true,
+                    chkStyle: "checkbox"
+                },
+                view: {
+                    showLine: false
+                }
+            };
+            $.fn.zTree.init($("#add-outcontacts-tag-select"), tagSettings);
+            $("#add-outcontacts-tag-btn").unbind();
+            $("#add-outcontacts-tag-btn").on("click", function () {
+                if ($("#add-outcontacts-tag-select").hasClass("display-none")) {
+                    $("#add-outcontacts-tag-select").removeClass("display-none")
+                } else {
+                    $("#add-outcontacts-tag-select").addClass("display-none")
+                }
+            });
+            var dialog = $( "#add-outcontacts-container" ).removeClass('hide').dialog({
+                resizable: false,
+                width: '680',
+                modal: true,
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;添加成员</h4></div>",
+                title_html: true,
+                buttons: [
+                    {
+                        text: "保存",
+                        "class" : "btn btn-primary btn-minier",
+                        click: function() {
+                            var _this = $(this);
+                            var flag = $formAddOutcontacts.form();
+                            var treeObj = $.fn.zTree.getZTreeObj("add-department-staff-departmentname-select");
+                            var nodes = treeObj.getCheckedNodes(true), departmentnameArr = [];
+                            if (nodes.length) {
+                                $.each(nodes, function (i, item) {
+                                    departmentnameArr.push({"id":item.id})
+                                })
+                            }
+                            var treeObjtwo = $.fn.zTree.getZTreeObj("add-department-staff-role-select");
+                            var nodestwo = treeObjtwo.getCheckedNodes(true), roleArr = [];
+                            if (nodestwo.length) {
+                                $.each(nodestwo, function (i, item) {
+                                    roleArr.push({"roleId":item.roleId})
+                                })
+                            }
+                            if(flag){
+                                var data = {
+                                    "name": $("#add-department-staff-username").val(),
+                                    "depts": departmentnameArr,
+                                    "position": $("#add-department-staff-position").val(),
+                                    "roles": roleArr,
+                                    "jobnumber": $("#add-department-staff-jobnumber").val(),
+                                    "mobile": $("#add-department-staff-phone").val(),
+                                    "tel": $("#add-department-staff-tel").val(),
+                                    "email": $("#add-department-staff-email").val(),
+                                    "workplace": $("#add-department-staff-workplace").val(),
+                                    "remark": $("#add-department-staff-remark").val(),
+                                    "password": $("#add-department-staff-password").val()
+                                };
+                                console.log(data);
+//                                return;
+                                $.ajax({
+                                    url: contextPath+"api/dingtalkuser/",
+                                    type: "post",
+                                    data : JSON.stringify(data),
+                                    contentType: "application/json",
+                                    dataType : "json",
+                                    success: function (data) {
+                                        organizationRefreshNode();
+                                        _this.dialog( "close" );
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                    }
+                                })
+                            }
+                        }
+                    },
+                    {
+                        text: "取消",
+                        "class" : "btn btn-minier",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                ]
+            });
+        });
 
     });
 </script>
