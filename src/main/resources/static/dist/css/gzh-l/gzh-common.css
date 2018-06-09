@@ -9,3 +9,34 @@
     height: 50px;
     background: url("../../img/gg.png") no-repeat center center;
 }
+.imgShow li{
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+    list-style: none;
+    margin: 5px;
+    position: relative;
+}
+.imgShow li img{
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+    border: 1px #727272 solid;
+    cursor: pointer;
+}
+.imgShow li audio{
+    width: 150px;
+    height: 150px;
+    margin:0 15px;
+    display: inline-block;
+    border: 1px #727272 solid;
+    cursor: pointer;
+}
+.imgShow li video{
+    width: 150px;
+    height: 150px;
+    margin:0 15px;
+    display: inline-block;
+    border: 1px #727272 solid;
+    cursor: pointer;
+}

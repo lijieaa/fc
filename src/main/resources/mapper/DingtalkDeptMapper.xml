@@ -472,4 +472,11 @@
 
 
 
+    <select id="findByUserId" parameterType="com.jianpanmao.sys.entity.DingtalkDept" resultMap="BaseResultMap">
+        select d.* from dingtalk_user u,dingtalk_user_dept ud,dingtalk_dept d WHERE u.userid=ud.user_id AND ud.dept_id=d.id and u.userid=#{0}
+    </select>
+
+
+
+
 </mapper>

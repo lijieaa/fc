@@ -22,6 +22,8 @@
     <association property="intermediary" resultMap="com.jianpanmao.intermediary.dao.IntermediaryMapper.BaseResultMap">
 
     </association>
+    <collection property="roles" ofType="com.jianpanmao.sys.entity.SysRole" select="com.jianpanmao.sys.dao.SysRoleMapper.findByUserId" column="userid"/>
+    <collection property="depts" ofType="com.jianpanmao.sys.entity.DingtalkDept" select="com.jianpanmao.sys.dao.DingtalkDeptMapper.findByUserId" column="userid"/>
   </resultMap>
 
 
@@ -467,13 +469,7 @@
       email = #{email,jdbcType=VARCHAR},
       orgEmail = #{orgemail,jdbcType=VARCHAR},
       jobnumber = #{jobnumber,jdbcType=VARCHAR},
-      isHide = #{ishide,jdbcType=BIT},
       isSenior = #{issenior,jdbcType=BIT},
-      intermediary_id = #{intermediaryId,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      is_admin = #{isAdmin,jdbcType=INTEGER},
-      `password` = #{password,jdbcType=VARCHAR},
       extattr = #{extattr,jdbcType=LONGVARCHAR}
     where userid = #{userid,jdbcType=INTEGER}
   </update>
@@ -487,14 +483,7 @@
       remark = #{remark,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       orgEmail = #{orgemail,jdbcType=VARCHAR},
-      jobnumber = #{jobnumber,jdbcType=VARCHAR},
-      isHide = #{ishide,jdbcType=BIT},
-      isSenior = #{issenior,jdbcType=BIT},
-      intermediary_id = #{intermediaryId,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      is_admin = #{isAdmin,jdbcType=INTEGER},
-      `password` = #{password,jdbcType=VARCHAR}
+      jobnumber = #{jobnumber,jdbcType=VARCHAR}
     where userid = #{userid,jdbcType=INTEGER}
   </update>
   <select id="selectAll" parameterType="com.jianpanmao.sys.entity.DingtalkUser" resultMap="BaseResultMap">

@@ -1,11 +1,13 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
+    <link rel="stylesheet" th:href="@{/dist/css/gzh-l/webuploader.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/gzh-l/gzh-common.css}"/>
 <style>
-    img {
+    #gzh-ul-manage-son img,#gzh-ul-manage img{
         vertical-align: middle;
-        width: 80px;
-        height: 80px;
+        width: 60px;
+        height: 60px;
     }
     table tr td:first-child{
         width: 150px;
@@ -51,6 +53,10 @@
     .txt-green{
         color: #44b549;
     }
+    .content-img{
+        width: 200px;
+        height: 140px;
+    }
 
 </style>
 </head>
@@ -94,7 +100,7 @@
     <div id="chating-per" style="height: 768px;width:95%;display: none;margin-left: 2.5%;">
         <button class="btn btn-info search text-center pull-right" id="backUlManage" style="margin-top: -20px;margin-right: 10px;">返回</button>
         <section class="gzh-chat" style="margin-top: 20px;">
-            <h5>与<span class="chat-user">公众号1</span>聊天中</h5>
+            <h5>与<span class="chat-user"></span>聊天中</h5>
             <div class="marginLeft-1" style="width: 98%;border: 1px #4d4d4d solid;">
                 <div class="chat-type">
                     <span data-id="1"><i class="glyphicon glyphicon-film"></i>图文消息</span>
@@ -104,10 +110,11 @@
                     <span data-id="5"><i class="glyphicon glyphicon-hd-video"></i>视频</span>
                 </div>
                 <textarea class="form-control" rows="7" id="textInput"></textarea>
+                <div style="border: 1px black solid;height: 150px;display: none;" class="col-md-12" id="mediaDiv"></div>
             </div>
             <div style="position: relative;">
-                <button type="button" class="btn btn-info search marginLeft-1" style="margin-top:1%;width: 100px;display: inline-block;">发送</button>
-                <div style="display: inline-block;position: absolute;top: 40%;left: 110px;">还可以输入<span id="limNum">100</span>字</div>
+                <button type="button" class="btn btn-info search marginLeft-1" style="margin-top:1%;width: 100px;display: inline-block;" id="sender" data-id="2">发送</button>
+                <a style="display: inline-block;" id="numBit">还可以输入<span id="limNum">100</span>字</a>
             </div>
             <h5 class="marginTop-2 marginLeft-1">最近20条聊天记录</h5>
             <div class="col-md-12">
@@ -134,7 +141,7 @@
 
                 </div>
                 <div class="modal-body" style="min-height: 400px;">
-                    <ul id="popImg"></ul>
+                    <ul id="popImg" class="imgShow"></ul>
                     <div id="popPagingTest" class="pageIndex"></div>
                     <input type="hidden" value="" id="popPage">
                 </div>
@@ -146,19 +153,38 @@
         </div>
     </div>
 </div>
+<script th:src="@{/dist/js/gzh/webuploader.js}"></script>
+<script th:src="@{/dist/js/gzh/upload.js}"></script>
+<script th:src="@{/dist/js/gzh/hand-paging.js}"></script>
 <script th:src="@{/dist/js/gzh/gzh-common.js}"></script>
 <script th:inline="javascript">
         /*<![CDATA[*/
         var wxPublicId = /*[[${wxPublicId}]]*/;
         /*]]>*/
         jQuery(function ($) {
-                //var webdata={"page":1,"rows":10,"wxPublicId":wxPublicId,"publicName":serName}
+            //将lone型数据转换为datetime型
+            function datetimeFormat(longTypeDate){
+                var date = new Date();
+                date.setTime(longTypeDate);
+                var mouth =  parseInt(date.getMonth()+1);
+                var dateDay = date.getDate();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var showMonth = mouth<10 ? "0"+mouth :mouth;
+                var showDay = dateDay<10 ? "0"+dateDay :dateDay;
+                var showHour = hours<10 ? "0"+hours :hours;
+                var showMinutes = minutes<10 ? "0"+minutes :minutes;
+                var datetimeType = date.getFullYear()+"-"+showMonth+"-"+showDay+
+                    "&nbsp;"+showHour+":"+showMinutes;//yyyy-MM-dd 00:00:00格式日期
+                return datetimeType;
+            }
             var myTable=$('#gzh-ul-manage').DataTable( {
                     bAutoWidth: false,
                     ajax:{
                         url: contextPath +"wxUsers/page?page=1&rows=10&wxPublicId="+wxPublicId,
                         //url: contextPath +"wxUsers/page",
                         type: "get",
+                        processData:true,
                         //data:$.param(webdata),
                         dataSrc:"content.data.list"
                         // contentType:'application/json; charset=utf-8',
@@ -175,25 +201,25 @@
                     },
                     "columns": [
                         { "data": "headimgurl",render:function (data, type, row, meta) {
-                                var html="<img src="+data+" class='chatOne' data-id="+row.openid+" />";
+                                var html="<img src="+data+" class='chatOne' data-id="+row.openid+" data-img="+row.headimgurl+" data-name="+row.nickname+" />";
                                 return html;
                             }},
                         { "data": "nickname"},
                         { "data": "wxPublic.publicName"}
 
                     ],
-                    "pageLength": 5,
+                    "pageLength": 8,
                     "fnInitComplete": function() {//初始化完毕事件
                     }
                 } );
 
-            function userTableSon(openid) {
-                //var webdata={"page":1,"rows":10,"wxPublicId":wxPublicId,"publicName":serName}
+            function userTableSon(openid,imgHref,nickName) {
                 $('#gzh-ul-manage-son').DataTable( {
                     bAutoWidth: true,
                     ajax:{
                         url: contextPath +"message/user/page?page=1&rows=10&wxPublicId="+wxPublicId+"&openId="+openid,
                         dataSrc:"content.data.0.list",
+                        processData:true
                         // contentType:'application/json; charset=utf-8',
                     },
                     "info":false,
@@ -207,19 +233,19 @@
                         }
                     },
                     "columns": [
-                        { "data": "headimgurl",width:150,render:function (data, type, row, meta) {
-                                var html="<img src="+data+" class='chatOne' />";
+                        { "data": "",width:150,render:function (data, type, row, meta) {
+                                var html="<img src="+imgHref+" />";
                                 return html;
                             }
                         },
                         { "data": "",render:function (data, type, row, meta) {
-                                var html="<div class='chatOne'>"+row.nickname+"</div>" +
+                                var html="<div>"+nickName+"</div>" +
                                     "<div>"+row.content+"</div>";
                                 return html;
                             }
                         },
                         { "data": "",render:function (data, type, row, meta) {
-                                var html="<div class='chatOne'>"+row.createTime+"</div>";
+                                var html="<div>"+datetimeFormat(row.createTime)+"</div>";
                                 return html;
                             }
                         }
@@ -240,7 +266,11 @@
             $(document).on("click",".chatOne",function () {
                 $("#chating-per").show().siblings().hide();
                 var thidid=$(this).attr("data-id");
-                userTableSon(thidid)
+                var imghref=$(this).attr("data-img");
+                var nickname=$(this).attr("data-name");
+                $(".chat-user").text(nickname);
+                $("#sender").attr("data-name",thidid);
+                userTableSon(thidid,imghref,nickname)
             });
             //返回backUlManage
             $(document).on("click","#backUlManage",function () {

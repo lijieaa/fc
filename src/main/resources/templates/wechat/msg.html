@@ -4,10 +4,10 @@
     <link rel="stylesheet" th:href="@{/dist/css/gzh-l/webuploader.css}"/>
     <link rel="stylesheet" th:href="@{/dist/css/gzh-l/gzh-common.css}"/>
     <style>
-        img {
+        #gzh-msg-manage img,#gzh-ul-manage-son img {
             vertical-align: middle;
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
         }
         table tr td:first-child{
             width: 150px;
@@ -53,22 +53,6 @@
         .txt-green{
             color: #44b549;
         }
-        .imgShow li{
-            width: 150px;
-            height: 150px;
-            display: inline-block;
-            border: 1px #727272 solid;
-            list-style: none;
-            margin: 5px;
-            position: relative;
-        }
-        .imgShow li img{
-            width: 150px;
-            height: 150px;
-            display: inline-block;
-            border: 1px #727272 solid;
-            cursor: pointer;
-        }
         .content-img{
             width: 200px;
             height: 140px;
@@ -112,7 +96,7 @@
     <div id="chating-per" style="height: 768px;width:95%;display: none;margin-left: 2.5%;">
         <button class="btn btn-info search text-center pull-right" id="backUlManage" style="margin-top: -20px;margin-right: 10px;">返回</button>
         <section class="gzh-chat" style="margin-top: 20px;">
-            <h5>与<span class="chat-user">公众号1</span>聊天中</h5>
+            <h5>与<span class="chat-user"></span>聊天中</h5>
             <div class="marginLeft-1" style="width: 98%;border: 1px #4d4d4d solid;">
                 <div class="chat-type">
                     <span data-id="1"><i class="glyphicon glyphicon-film"></i>图文消息</span>
@@ -126,7 +110,7 @@
             </div>
             <div style="position: relative;">
                 <button type="button" class="btn btn-info search marginLeft-1" style="margin-top:1%;width: 100px;display: inline-block;" id="sender" data-id="2">发送</button>
-                <a style="display: inline-block;">还可以输入<span id="limNum">100</span>字</a>
+                <a style="display: inline-block;" id="numBit">还可以输入<span id="limNum">100</span>字</a>
             </div>
             <h5 class="marginTop-2 marginLeft-1">最近20条聊天记录</h5>
             <div class="col-md-12">
@@ -158,7 +142,7 @@
                     <input type="hidden" value="" id="popPage">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="btn-sure-source" class="btn btn-primary text-center" data-dismiss="modal">确定</button>
+                    <button type="button" id="btn-sure-source" class="btn btn-primary text-center" data-dismiss="modal" data-id="">确定</button>
                     <button type="button" id="btn-cancel-source" class="btn btn-primary text-center" data-dismiss="modal">取消</button>
                 </div>
             </div>
@@ -174,13 +158,30 @@
     var wxPublicId = /*[[${wxPublicId}]]*/;
     /*]]>*/
     jQuery(function ($) {
+        //将lone型数据转换为datetime型
+        function datetimeFormat(longTypeDate){
+            var date = new Date();
+            date.setTime(longTypeDate);
+            var mouth =  parseInt(date.getMonth()+1);
+            var dateDay = date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var showMonth = mouth<10 ? "0"+mouth :mouth;
+            var showDay = dateDay<10 ? "0"+dateDay :dateDay;
+            var showHour = hours<10 ? "0"+hours :hours;
+            var showMinutes = minutes<10 ? "0"+minutes :minutes;
+            var datetimeType = date.getFullYear()+"-"+showMonth+"-"+showDay+
+                "&nbsp;"+showHour+":"+showMinutes;//yyyy-MM-dd 00:00:00格式日期
+            return datetimeType;
+        }
         $('#gzh-msg-manage').DataTable( {
             bAutoWidth: false,
             ajax:{
                 url: contextPath +"message/page?page=1&rows=10&wxPublicId="+wxPublicId,
                 dataSrc:"content.data.0.list",
                 type: "get",
-                 contentType:'application/json; charset=utf-8',
+                processData:true,
+                contentType:'application/json; charset=utf-8',
             },
             "info":false,
             "searching": false,
@@ -194,7 +195,7 @@
             },
             "columns": [
                 { "data": "wxUserDetail.headimgurl",render:function (data, type, row, meta) {
-                        var html="<img src="+data+" class='chatOne' data-id="+row.wxUserDetail.openid+" />";
+                        var html="<img src="+data+" class='chatOne' data-id="+row.wxUserDetail.openid+" data-img="+row.wxUserDetail.headimgurl+" data-name="+row.wxUserDetail.nickname+" />";
                         return html;
                     }
                 },
@@ -205,24 +206,24 @@
                     }
                 },
                 { "data": "",render:function (data, type, row, meta) {
-                        var html="<div class='chatOne'>"+row.createTime+"</div>";
+                        var html="<div class='chatOne'>"+datetimeFormat(row.createTime)+"</div>";
                         return html;
                     }
                 }
 
             ],
-            "pageLength": 5,
+            "pageLength": 8,
             "fnInitComplete": function() {//初始化完毕事件
             }
         } );
 
-        function userTableSon(openid) {
-            //var webdata={"page":1,"rows":10,"wxPublicId":wxPublicId,"publicName":serName}
+        function userTableSon(openid,imgHref,nickName) {
             $('#gzh-ul-manage-son').DataTable( {
                 bAutoWidth: true,
                 ajax:{
                     url: contextPath +"message/user/page?page=1&rows=10&wxPublicId="+wxPublicId+"&openId="+openid,
                     dataSrc:"content.data.0.list",
+                    processData:true
                     // contentType:'application/json; charset=utf-8',
                 },
                 "info":false,
@@ -236,19 +237,19 @@
                     }
                 },
                 "columns": [
-                    { "data": "headimgurl",width:150,render:function (data, type, row, meta) {
-                            var html="<img src="+data+" class='chatOne' />";
+                    { "data": "",render:function (data, type, row, meta) {
+                            var html="<img src="+imgHref+" />";
                             return html;
                         }
                     },
                     { "data": "",render:function (data, type, row, meta) {
-                            var html="<div class='chatOne'>"+row.nickname+"</div>" +
+                            var html="<div>"+nickName+"</div>" +
                                 "<div>"+row.content+"</div>";
                             return html;
                         }
                     },
                     { "data": "",render:function (data, type, row, meta) {
-                            var html="<div class='chatOne'>"+row.createTime+"</div>";
+                            var html="<div>"+datetimeFormat(row.createTime)+"</div>";
                             return html;
                         }
                     }
@@ -263,8 +264,11 @@
         $(document).on("click",".chatOne",function () {
             $("#chating-per").show().siblings().hide();
             var thidid=$(this).attr("data-id");
-            $("#sender").attr("data-name",thidid)
-            userTableSon(thidid)
+            var imghref=$(this).attr("data-img");
+            var nickname=$(this).attr("data-name");
+            $(".chat-user").text(nickname);
+            $("#sender").attr("data-name",thidid);
+            userTableSon(thidid,imghref,nickname)
         });
         //返回
         $(document).on("click","#backUlManage",function () {
