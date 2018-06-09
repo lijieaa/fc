@@ -200,9 +200,31 @@
                     }
                 },
                 { "data": "",render:function (data, type, row, meta) {
-                        var html="<div class='chatOne'>"+row.wxUserDetail.nickname+"</div>" +
-                            "<div>"+row.content+"</div>";
-                        return html;
+                    console.log(row)
+                        var mediaId=row.mediaId;
+                        var resourceSrc = contextPath+'material/temp?wxPublicId='+wxPublicId+"&mediaId="+mediaId;
+                        var htmlDiv = "<div class='chatOne'>"+row.wxUserDetail.nickname+"</div>";
+                        if(row.msgType=="text"){
+                            var html=htmlDiv +
+                                "<div>"+row.content+"</div>";
+                            return html;
+                        }
+                        if(row.msgType=="image"){
+                            var html=htmlDiv +
+                                "<img src='"+resourceSrc+"'>";
+                            return html;
+                        }
+                        if(row.msgType=="video"){
+                            var html=htmlDiv +
+                                "<video style='width: 100px;height: 100px;' src='"+resourceSrc+"' controls='controls'></video>";
+                            return html;
+                        }
+                        if(row.msgType=="voice"){
+                            var html=htmlDiv +
+                                "<audio controls='controls' preload='auto'><source src='"+resourceSrc+"'></audio>";
+                            return html;
+                        }
+
                     }
                 },
                 { "data": "",render:function (data, type, row, meta) {
