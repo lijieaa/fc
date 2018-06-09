@@ -93,6 +93,7 @@
     delete from lab_group
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
   <delete id="deleteByExample" parameterType="com.jianpanmao.sys.entity.LabGroupExample">
     delete from lab_group
     <if test="_parameter != null">

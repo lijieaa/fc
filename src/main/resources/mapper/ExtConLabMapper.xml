@@ -259,4 +259,12 @@
       order by ${od}
     </if>
   </select>
+
+
+  <delete id="deleteByGroupId" parameterType="java.lang.Integer">
+    delete from ext_con_lab
+    where gid = #{0}
+  </delete>
+
+
 </mapper>

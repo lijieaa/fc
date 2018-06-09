@@ -8,4 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface ExtConLabMapper extends BaseDao<ExtConLab, ExtConLabExample, ExtConLabDto, Integer> {
+
+    int deleteByGroupId(Integer gid);
 }
