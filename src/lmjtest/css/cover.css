@@ -100,3 +100,98 @@ ul{
   padding:0
 
 }
+
+
+.ptbox{
+  position: relative;
+}
+
+.ptbox:before{
+  content:"";
+  display: block;
+  position: absolute;
+  width:100%;
+  height:0.1rem;
+  border-top:2px dashed #c9c9c9;
+  border-bottom:1px solid #c9c9c9;
+  top:50%;
+  margin-top:-0.05rem;
+  z-index: -1;
+
+}
+.portrait{
+ width:0.9rem;height:0.9rem;background:#438eb9;
+  border-radius: 90px;
+  overflow: hidden;
+
+}
+
+
+.w100{
+  width:100%;
+}
+
+.proview{
+  width:2rem;
+  height:2rem;
+}
+
+ .plist .item-text{
+  line-height:1.15em  !important;
+   font-size:0.3rem !important;
+}
+
+ .plist .item-text>span{
+   color:#333333;
+ }
+
+ .ios .list ul:before, .ios .list ul:after{
+   background:none;
+ }
+
+ .ios .card {
+   box-shadow: 0 1px 3px 0px rgba(0,0,0,.3);
+ }
+ .pkee{
+   height:0.58rem;
+   line-height:0.58rem;
+   box-sizing: border-box;
+   border:1px solid #c1c1c0;
+   padding:2px 3px
+ }
+
+.ios .searchbar .ser-box{
+  flex-shrink: 1;
+  width: 100%;
+  position: relative;;
+}
+
+ .ios .searchbar .ser-box input[type=search]{
+   border-radius: 0;
+   height:0.58rem;
+   line-height:0.58rem;
+   box-sizing: border-box;
+   background: none;
+   border:1px solid #c1c1c0;
+ }
+
+.ser-btn{
+  flex-shrink: 0;
+  width:1.1rem;
+  height:0.58rem;
+  line-height:0.58rem;
+  box-sizing: border-box;
+  border:1px solid #c1c1c0;
+  background: #c1c1c0;
+  text-align: center;
+
+}
+.infinite-scroll-preloader {
+  margin-top:-20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.infinite-scroll-preloader .preloader {
+  width:34px;
+  height:34px;
+}

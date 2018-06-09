@@ -123,4 +123,13 @@ public class WxMaterialController {
         String accessToken = WxUtils.getAccessToken(session, wxPublicId);
         return GsonUtils.toBean(wxApiHandler.getNewsDetail(accessToken, mediaId), NewsDTOUT.class);
     }
+
+    @GetMapping("temp")
+    @ResponseBody
+    @NoResultEntity
+    public void temp(String mediaId, Integer wxPublicId, HttpSession session, HttpServletResponse response) throws Exception{
+        WxUtils.checkParam(session, wxPublicId);
+        String accessToken = WxUtils.getAccessToken(session, wxPublicId);
+        wxApiHandler.getTempMaterial(mediaId, accessToken, response);
+    }
 }

@@ -391,6 +391,43 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/material/temp",
+    "title": "获取单个临时素材（用户发给公众号的图片、语音、视频是临时素材）",
+    "name": "getMaterialTemp",
+    "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "mediaId",
+            "description": "<p>mediaId</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "localhost:8080/material/temp?wxPublicId=14&mediaId=05b2fLSN6Eo2ynAuNFdvR8171MDyWICjhnrL5RNwu5OTLtlNgYjCSrmqt8mTNz2U",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "D:/fc/src/main/java/com/jianpanmao/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "get",
     "url": "/material/video/detail",
     "title": "获取单个视频素材内容",
     "name": "getMaterialVideoDetail",
