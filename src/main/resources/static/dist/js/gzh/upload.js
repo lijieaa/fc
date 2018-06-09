@@ -28,8 +28,7 @@ function imgupload() {
     uploader.on('fileQueued',function(file) {
     });
     uploader.on( 'uploadSuccess', function( file ) {
-        //ajaxData(1);
-        alert(1)
+        ajaxData(1);
     });
     uploader.onError = function( code ) {
         alert( 'Eroor: ' + code );
@@ -135,7 +134,7 @@ function yyupload() {
         // console.log(file);
     });
     uploader.on( 'uploadSuccess', function( file ) {
-        alert('success');
+        ajaxMp(1);
     });
     uploader.onError = function( code ) {
         //alert( 'Eroor: ' + code );
@@ -197,7 +196,7 @@ function  ajaxMpPop(pageNo) {
             for(var i=0;i<mpArr.length;i++){
                 var wxPublicId=14;
                 var mediaId=mpArr[i];
-                var name="test.mp3";
+                var name="wx.mp3";
                 var urlLink = ''+contextPath+'material/voice/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name;
                 urlLink = encodeURI(urlLink);
                 $("#popImg").append("<li><audio controls='controls' preload='auto' data-src='"+urlLink+"' data-id='"+mediaId+"'><source src='"+urlLink+"' type=\"audio/mpeg\"></audio></li>");
@@ -246,7 +245,7 @@ function videoupload() {
         console.log(file);
     });
     uploader.on( 'uploadSuccess', function( file ) {
-        alert('success');
+        ajaxVid(1);
     });
     uploader.onError = function( code ) {
         alert( 'Eroor: ' + code );
@@ -270,7 +269,7 @@ function  ajaxVid(pageNo) {
             for(var i=0;i<videoArr.length;i++){
                 var wxPublicId=14;
                 var mediaId=videoArr[i];
-                var name="test.mp4";
+                var name="wx.mp4";
                 $.ajax({
                     url:contextPath+'material/video/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name,
                     type: "get",
@@ -339,4 +338,27 @@ $(document).on("click","#imgShow li img",function () {
 //            alert(thisSrc)
 })
 
+// 图文展示
+function photoText() {
+    $.ajax({
+        url:contextPath +"material/page?page=1&rows=10&wxtype=news&wxPublicId=14",
+        type: "get",
+        success:function(data){
+            var list = data.content.data.list;
+            if(data.status == 200 && list.length){
+                for(var i=0; i<list.length;i++){
+                    let html = `<li class="messageLi">
+                                    <div>
+                                        <p>标题：${list[i].title}</p>
+                                        <p>作者：${list[i].author}</p>
+                                        <p>文章摘要：${list[i].digest}</p>
+                                        <p>内容：${list[i].content}</p>
+                                    </div>
+                                </li>`
+                    $("#photo-tx ul").append(html);
+                }
+            }
+        }
+    });
+}
 
