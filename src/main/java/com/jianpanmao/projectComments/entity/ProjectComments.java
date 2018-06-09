@@ -1,5 +1,7 @@
 package com.jianpanmao.projectComments.entity;
 
+import com.jianpanmao.sys.entity.DingtalkUser;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +16,7 @@ public class ProjectComments implements Serializable {
     private Integer projectCommentsParent;
 
     //评论人
-    private String projectCommentsNickname;
+    private DingtalkUser user;
 
     //评论类型：0内部评论，1外部评论
     private Byte projectCommentsType;
@@ -97,12 +99,12 @@ public class ProjectComments implements Serializable {
         this.projectCommentsParent = projectCommentsParent;
     }
 
-    public String getProjectCommentsNickname() {
-        return projectCommentsNickname;
+    public DingtalkUser getUser() {
+        return user;
     }
 
-    public void setProjectCommentsNickname(String projectCommentsNickname) {
-        this.projectCommentsNickname = projectCommentsNickname == null ? null : projectCommentsNickname.trim();
+    public void setUser(DingtalkUser user) {
+        this.user = user;
     }
 
     public Byte getProjectCommentsType() {
@@ -153,23 +155,4 @@ public class ProjectComments implements Serializable {
         this.projectCommentsContent = projectCommentsContent == null ? null : projectCommentsContent.trim();
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", projectCommentsId=").append(projectCommentsId);
-        sb.append(", projectCommentsParent=").append(projectCommentsParent);
-        sb.append(", projectCommentsNickname=").append(projectCommentsNickname);
-        sb.append(", projectCommentsType=").append(projectCommentsType);
-        sb.append(", projectCommentsStatus=").append(projectCommentsStatus);
-        sb.append(", projectId=").append(projectId);
-        sb.append(", projectCommentsCreateTime=").append(projectCommentsCreateTime);
-        sb.append(", projectCommentsUpdateTime=").append(projectCommentsUpdateTime);
-        sb.append(", projectCommentsContent=").append(projectCommentsContent);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
 }

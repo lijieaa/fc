@@ -54,7 +54,7 @@
     </div>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <section class="content-list overflow-hidden ">
+        <section class="content-list overflow-hidden">
             <div class="page-content margin-top-15 padding-bottom-10">
                 <p class="bottom-font">项目简介</p>
                 <div class="row">
@@ -89,7 +89,7 @@
                 <div class="row">
                     <div class=" col-xs-12 text-align-right" style="cursor: pointer">
                         <i class="icon-color-9c fa fa-fw  fa-commenting"></i>
-                        <span @click="linkComments">评论(122)</span>
+                        <span @click="linkComments">评论({{clueComment.count}})</span>
                     </div>
                 </div>
             </div>
@@ -154,7 +154,8 @@
                 projectOwnerContact:"",//业主
                 projectName:"",
                 projectId:"",
-                projectLogo:""
+                projectLogo:"",
+                count:""
             }
         },
         methods:{
