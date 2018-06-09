@@ -6,8 +6,8 @@
     <style>
         #gzh-msg-manage img,#gzh-ul-manage-son img {
             vertical-align: middle;
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
         }
         table tr td:first-child{
             width: 150px;
@@ -52,37 +52,6 @@
         }
         .txt-green{
             color: #44b549;
-        }
-        .imgShow li{
-            width: 150px;
-            height: 150px;
-            display: inline-block;
-            list-style: none;
-            margin: 5px;
-            position: relative;
-        }
-        .imgShow li img{
-            width: 150px;
-            height: 150px;
-            display: inline-block;
-            border: 1px #727272 solid;
-            cursor: pointer;
-        }
-        .imgShow li audio{
-            width: 150px;
-            height: 150px;
-            margin:0 15px;
-            display: inline-block;
-            border: 1px #727272 solid;
-            cursor: pointer;
-        }
-        .imgShow li video{
-            width: 150px;
-            height: 150px;
-            margin:0 15px;
-            display: inline-block;
-            border: 1px #727272 solid;
-            cursor: pointer;
         }
         .content-img{
             width: 200px;
@@ -211,7 +180,8 @@
                 url: contextPath +"message/page?page=1&rows=10&wxPublicId="+wxPublicId,
                 dataSrc:"content.data.0.list",
                 type: "get",
-                 contentType:'application/json; charset=utf-8',
+                processData:true,
+                contentType:'application/json; charset=utf-8',
             },
             "info":false,
             "searching": false,
@@ -242,7 +212,7 @@
                 }
 
             ],
-            "pageLength": 10,
+            "pageLength": 8,
             "fnInitComplete": function() {//初始化完毕事件
             }
         } );
@@ -253,6 +223,7 @@
                 ajax:{
                     url: contextPath +"message/user/page?page=1&rows=10&wxPublicId="+wxPublicId+"&openId="+openid,
                     dataSrc:"content.data.0.list",
+                    processData:true
                     // contentType:'application/json; charset=utf-8',
                 },
                 "info":false,
@@ -284,7 +255,7 @@
                     }
 
                 ],
-                "pageLength": 10,
+                "pageLength": 5,
                 "fnInitComplete": function() {//初始化完毕事件
                 }
             } );
