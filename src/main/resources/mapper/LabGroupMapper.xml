@@ -7,6 +7,10 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="intermediary_id" jdbcType="INTEGER" property="intermediaryId" />
+    <collection property="children"
+                ofType="com.jianpanmao.sys.entity.ExtConLab"
+                select="com.jianpanmao.sys.dao.ExtConLabMapper.selectByGroupId"
+                column="id"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>

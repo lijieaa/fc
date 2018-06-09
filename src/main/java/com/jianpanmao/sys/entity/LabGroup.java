@@ -1,6 +1,8 @@
 package com.jianpanmao.sys.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
@@ -80,4 +82,14 @@ public class LabGroup implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    public Collection<ExtConLab> getChildren() {
+        return children;
+    }
+
+    public void setChildren(Collection<ExtConLab> children) {
+        this.children = children;
+    }
+
+    private Collection<ExtConLab> children=new ArrayList<>();
 }

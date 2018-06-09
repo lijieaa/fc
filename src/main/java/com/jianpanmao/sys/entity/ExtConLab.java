@@ -26,7 +26,6 @@ public class ExtConLab implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    String od;
 
     public Integer getId() {
         return id;

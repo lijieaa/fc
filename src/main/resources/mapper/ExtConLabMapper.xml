@@ -90,6 +90,12 @@
     from ext_con_lab
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByGroupId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ext_con_lab
+    where gid = #{0}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from ext_con_lab
     where id = #{id,jdbcType=INTEGER}
@@ -102,10 +108,10 @@
   </delete>
   <insert id="insert" parameterType="com.jianpanmao.sys.entity.ExtConLab">
     insert into ext_con_lab (id, `name`, gid, 
-      intermediary_id, create_time, update_time
+      intermediary_id
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gid,jdbcType=INTEGER}, 
-      #{intermediaryId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      #{intermediaryId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.sys.entity.ExtConLab">
@@ -218,15 +224,11 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.jianpanmao.sys.entity.ExtConLab">
     update ext_con_lab
-    set `name` = #{name,jdbcType=VARCHAR},
-      gid = #{gid,jdbcType=INTEGER},
-      intermediary_id = #{intermediaryId,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    set `name` = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAll" parameterType="com.jianpanmao.sys.entity.ExtConLab" resultMap="BaseResultMap">
-    select * from ext_con_lab
+    select * from ext_con_lab a WHERE a.intermediary_id=#{intermediaryId}
   </select>
   <delete id="deleteBatch" parameterType="java.util.ArrayList">
     delete from ext_con_lab
