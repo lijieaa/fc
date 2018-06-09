@@ -39,6 +39,14 @@ public class ExtConServiceImpl extends BaseServiceImpl<ExtCon,ExtConExample,ExtC
     @Override
     public int update(ExtCon record) {
 
+        int remove = conLabService.remove(record.getId());
+
+        List<ExtConLab> labs = record.getLabs();
+        for (ExtConLab lab : labs) {
+            ConLab cl=new ConLab(lab.getId(),record.getId());
+            conLabService.add(cl);
+        }
+
         return super.update(record);
     }
 
