@@ -16,7 +16,7 @@ ORDER BY count DESC
     <!--中间商地势分布占比-->
     <select id="intermediaryArea" resultType="java.util.HashMap">
         SELECT
-COUNT(i.intermediary_id),
+COUNT(i.intermediary_id) count,
 a.name
 FROM intermediary i
 LEFT JOIN area a
@@ -25,9 +25,9 @@ GROUP BY a.name
     </select>
 
     <!--各地市项目占比情况-->
-    <select id="deviceArea" resultType="java.util.HashMap">
+    <select id="projectArea" resultType="java.util.HashMap">
         SELECT
-COUNT(p.project_id),
+COUNT(p.project_id) count,
 a.`NAME`
 FROM project p
 LEFT JOIN area a
@@ -46,7 +46,7 @@ FROM
 intermediary i
 WHERE i.is_plat = 0
 AND  DATE_FORMAT(i.intermediary_create_time,'%Y') > DATE_FORMAT(DATE_ADD(NOW(),INTERVAL -5 YEAR),'%Y')
-GROUP BY intermediaryYear
+GROUP BY year
     </select>
     <!--设备-->
     <select id="device" resultType="java.util.HashMap">
@@ -56,6 +56,6 @@ COUNT(d.device_id) count
 FROM device d
 WHERE d.valid = 0
 AND DATE_FORMAT(d.device_create_time,'%Y') > DATE_FORMAT(DATE_ADD(NOW(),INTERVAL -5 YEAR),'%Y')
-GROUP BY deviceYear
+GROUP BY year
     </select>
 </mapper>
