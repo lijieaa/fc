@@ -17,4 +17,6 @@ public interface DingtalkUserService extends BaseService<DingtalkUser, DingtalkU
     List<DingtalkUser> selectByRoleId(Integer roleId);
 
     Integer editPwd(Integer id, String pwd);
+
+    Integer updateInfo(DingtalkUser entity);
 }

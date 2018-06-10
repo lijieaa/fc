@@ -490,6 +490,16 @@
   </update>
 
 
+  <update id="updateInfo" parameterType="com.jianpanmao.sys.entity.DingtalkUser">
+    update dingtalk_user
+    set `name` = #{name,jdbcType=VARCHAR},
+    mobile = #{mobile,jdbcType=VARCHAR},
+    email = #{email,jdbcType=VARCHAR},
+    headPic = #{head_pic,jdbcType=VARCHAR},
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+
+
   <update id="editPwd">
     update dingtalk_user
     set password = #{1}
