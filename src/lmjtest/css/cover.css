@@ -258,3 +258,35 @@ ul{
   text-align: center;
 
 }
+
+.cstatus{
+  color:#00c0ef
+}
+
+.ios .toggle input[type=checkbox]:checked+.toggle-icon{
+  background: #00c0ef;
+}
+
+.ios  .operate .list li{
+  border-bottom:1px solid #dcdcdc;
+}
+
+.ios  .operate .list li:last-child{
+  border:none;
+}
+.ios  .operate .links-list a{
+/*  padding-left:20px;*/
+}
+.operate  .list .item-title{
+/*  padding-left:5px;*/
+}
+
+.ios .operate .links-list a:after{
+  width:0;
+}
+.ios .operate .toggle{
+  transform: scale(0.6);
+}
+.wrapper .eqinfo{
+
+}
