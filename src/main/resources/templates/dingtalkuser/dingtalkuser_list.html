@@ -32,7 +32,7 @@
             <div id="insidecontacts" class="tab-pane fade active in background-white">
                 <div class="row">
                     <div class="col-sm-4">
-                        <div class="input-group">
+                        <div class="input-group display-none">
                             <input type="text" class="form-control search-query" placeholder="输入关键字搜索">
                             <span class="input-group-btn">
                                     <button type="button" class="btn btn-purple btn-sm">
@@ -239,7 +239,7 @@
             <div id="outcontacts" class="tab-pane fade background-white">
                 <div class="row">
                     <div class="col-sm-4">
-                        <div class="input-group">
+                        <div class="input-group display-none">
                             <input type="text" class="form-control search-query" placeholder="输入关键字搜索">
                             <span class="input-group-btn">
                                     <button type="button" class="btn btn-purple btn-sm">
@@ -289,7 +289,7 @@
                                             <div class="row">
                                                 <div class="col-xs-12">
                                                     <table id="outcontacts-list" class="table  table-bordered table-hover">
-                                                        <thead class="department-staff-head">
+                                                        <thead class="outcontacts-list-head">
                                                         <tr>
                                                             <th class="center">
                                                                 <label class="pos-rel">
@@ -353,13 +353,13 @@
         <div class="hr hr-12 hr-double"></div>
 
         <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="edit-department-name">部门名称:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="edit-department-name">部门名称:</label>
             <div class="col-sm-9">
                 <input type="text" id="edit-department-name" name="name" placeholder="请填写部门名称" class="form-control">
             </div>
         </div>
         <div class="form-group edit-organization-list-select display-none">
-            <label class="col-sm-3 control-label no-padding-right" for="edit-upper-department-name-select">上级部门:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="edit-upper-department-name-select">上级部门:</label>
             <div class="col-sm-9">
                 <input type="text" id="edit-upper-department-name-select" class="form-control" readonly>
                 <ul id="edit-organization-list-select"  class="ztree display-none"></ul>
@@ -375,13 +375,13 @@
         <div class="hr hr-12 hr-double"></div>
 
         <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="add-sub-department-name">部门名称:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="add-sub-department-name">部门名称:</label>
             <div class="col-sm-9">
                 <input type="text" id="add-sub-department-name" name="name" placeholder="请填写部门名称" class="form-control">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="add-upper-department-name">上级部门:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="add-upper-department-name">上级部门:</label>
             <div class="col-sm-9">
                 <input type="hidden" name="parentid" id="add-upper-department-id">
                 <input type="text" id="add-upper-department-name" class="form-control" readonly>
@@ -395,78 +395,78 @@
     <form class="form-horizontal" role="form">
         <h4>用户信息</h4>
         <div class="hr hr-12 hr-double"></div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3  col-md-3 control-label no-padding-right" for="add-department-staff-username">姓名:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-department-staff-username">姓名:</label>
+            <div class="col-sm-9">
                 <input type="text" id="add-department-staff-username" name="username" placeholder="请输入姓名" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-departmentname-btn">部门:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-department-staff-departmentname-btn">部门:</label>
+            <div class="col-sm-9">
                 <button type="button" id="add-department-staff-departmentname-btn" name="role" class="form-control btn btn-white btn-default">请选择部门</button>
                 <ul id="add-department-staff-departmentname-select"  class="ztree display-none"></ul>
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-position">职位:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-department-staff-position">职位:</label>
+            <div class="col-sm-9">
                 <input type="text" id="add-department-staff-position" placeholder="请输入职位" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-role-btn">角色:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-department-staff-role-btn">角色:</label>
+            <div class="col-sm-9">
                 <!--<input type="text" id="add-department-staff-role" name="role" placeholder="请选择角色" class="form-control">-->
                 <button type="button" id="add-department-staff-role-btn" name="role" class="form-control btn btn-white btn-default">请选择角色</button>
                 <ul id="add-department-staff-role-select"  class="ztree display-none"></ul>
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-jobnumber">工号:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-department-staff-jobnumber">工号:</label>
+            <div class="col-sm-9">
                 <input type="text" id="add-department-staff-jobnumber" placeholder="请输入工号" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-phone">手机号:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-department-staff-phone">手机号:</label>
+            <div class="col-sm-9">
                 <input type="text" id="add-department-staff-phone" name="phone" placeholder="请输入手机号" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-tel">分机号:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-department-staff-tel">分机号:</label>
+            <div class="col-sm-9">
                 <input type="text" id="add-department-staff-tel" placeholder="请输入分机号" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-email">邮箱:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-department-staff-email">邮箱:</label>
+            <div class="col-sm-9">
                 <input type="text" id="add-department-staff-email" placeholder="请输入邮箱" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-workplace">办公地点:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-department-staff-workplace">办公地点:</label>
+            <div class="col-sm-9">
                 <input type="text" id="add-department-staff-workplace" placeholder="请输入办公地点" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-remark">备注:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-department-staff-remark">备注:</label>
+            <div class="col-sm-9">
                 <input type="text" id="add-department-staff-remark" placeholder="请输入备注" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-password">密码:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-department-staff-password">密码:</label>
+            <div class="col-sm-9">
                 <input type="password" id="add-department-staff-password" name="password" placeholder="请输入密码" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-department-staff-repassword">确认密码:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-department-staff-repassword">确认密码:</label>
+            <div class="col-sm-9">
                 <input type="password" id="add-department-staff-repassword" name="confirm_password" placeholder="请输入备注" class="form-control">
             </div>
         </div>
@@ -478,66 +478,66 @@
     <form class="form-horizontal" role="form">
         <h4>用户信息</h4>
         <div class="hr hr-12 hr-double"></div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3  col-md-3 control-label no-padding-right" for="edit-department-staff-username">姓名:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-department-staff-username">姓名:</label>
+            <div class="col-sm-9">
                 <input type="text" id="edit-department-staff-username" name="username" placeholder="请输入姓名" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-departmentname-btn">部门:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-department-staff-departmentname-btn">部门:</label>
+            <div class="col-sm-9">
                 <button type="button" id="edit-department-staff-departmentname-btn" name="role" class="form-control btn btn-white btn-default">请选择部门</button>
                 <ul id="edit-department-staff-departmentname-select"  class="ztree display-none"></ul>
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-position">职位:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-department-staff-position">职位:</label>
+            <div class="col-sm-9">
                 <input type="text" id="edit-department-staff-position" placeholder="请输入职位" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-role-btn">角色:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-department-staff-role-btn">角色:</label>
+            <div class="col-sm-9">
                 <!--<input type="text" id="edit-department-staff-role" name="role" placeholder="请选择角色" class="form-control">-->
                 <button type="button" id="edit-department-staff-role-btn" name="role" class="form-control btn btn-white btn-default">请选择角色</button>
                 <ul id="edit-department-staff-role-select"  class="ztree display-none"></ul>
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-jobnumber">工号:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-department-staff-jobnumber">工号:</label>
+            <div class="col-sm-9">
                 <input type="text" id="edit-department-staff-jobnumber" placeholder="请输入工号" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-phone">手机号:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-department-staff-phone">手机号:</label>
+            <div class="col-sm-9">
                 <input type="text" id="edit-department-staff-phone" name="phone" placeholder="请输入手机号" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-tel">分机号:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-department-staff-tel">分机号:</label>
+            <div class="col-sm-9">
                 <input type="text" id="edit-department-staff-tel" placeholder="请输入分机号" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-email">邮箱:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-department-staff-email">邮箱:</label>
+            <div class="col-sm-9">
                 <input type="text" id="edit-department-staff-email" placeholder="请输入邮箱" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-workplace">办公地点:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-department-staff-workplace">办公地点:</label>
+            <div class="col-sm-9">
                 <input type="text" id="edit-department-staff-workplace" placeholder="请输入办公地点" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="edit-department-staff-remark">备注:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-department-staff-remark">备注:</label>
+            <div class="col-sm-9">
                 <input type="text" id="edit-department-staff-remark" placeholder="请输入备注" class="form-control">
             </div>
         </div>
@@ -551,7 +551,7 @@
         <div class="hr hr-12 hr-double"></div>
 
         <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="add-role-group-name">角色组名称:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="add-role-group-name">角色组名称:</label>
             <div class="col-sm-9">
                 <input type="text" id="add-role-group-name" name="roleName" placeholder="请填写角色组名称" class="form-control">
             </div>
@@ -566,7 +566,7 @@
         <div class="hr hr-12 hr-double"></div>
 
         <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="edit-role-group-name">角色组名称:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="edit-role-group-name">角色组名称:</label>
             <div class="col-sm-9">
                 <input type="text" id="edit-role-group-name" name="roleName" placeholder="请填写角色组名称" class="form-control">
             </div>
@@ -581,20 +581,20 @@
         <div class="hr hr-12 hr-double"></div>
 
         <div class="form-group col-sm-12">
-            <label class="col-sm-3 control-label no-padding-right" for="add-role-person-name">角色名称:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="add-role-person-name">角色名称:</label>
             <div class="col-sm-9">
                 <input type="text" id="add-role-person-name" name="roleName" placeholder="请填写角色组名称" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-12">
-            <label class="col-sm-3 control-label no-padding-right" for="add-role-person-rcompetence">权限:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="add-role-person-rcompetence">权限:</label>
             <div class="col-sm-9">
                 <button type="button" id="add-role-person-rcompetence" name="role" class="form-control btn btn-white btn-default">请选择权限</button>
                 <ul id="add-role-person-competence-select"  class="ztree display-none"></ul>
             </div>
         </div>
         <div class="form-group col-sm-12">
-            <label class="col-sm-3 control-label no-padding-right" for="add-role-group-name">分组到:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="add-role-group-name">分组到:</label>
             <div class="col-sm-9">
                 <select class="form-control" id="add-role-person-group" name="groupId">
                     <option value="" disabled selected class="first-option">请选择角色组</option>
@@ -611,20 +611,20 @@
         <div class="hr hr-12 hr-double"></div>
 
         <div class="form-group col-sm-12">
-            <label class="col-sm-3 control-label no-padding-right" for="edit-role-person-name">角色名称:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="edit-role-person-name">角色名称:</label>
             <div class="col-sm-9">
                 <input type="text" id="edit-role-person-name" name="roleName" placeholder="请填写角色组名称" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-12">
-            <label class="col-sm-3 control-label no-padding-right" for="edit-role-person-rcompetence">权限:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="edit-role-person-rcompetence">权限:</label>
             <div class="col-sm-9">
                 <button type="button" id="edit-role-person-rcompetence" name="role" class="form-control btn btn-white btn-default">更改权限</button>
                 <ul id="edit-role-person-competence-select"  class="ztree display-none"></ul>
             </div>
         </div>
         <div class="form-group col-sm-12">
-            <label class="col-sm-3 control-label no-padding-right" for="add-role-group-name">分组到:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="add-role-group-name">分组到:</label>
             <div class="col-sm-9">
                 <select class="form-control" id="edit-role-person-group" name="groupId">
                 </select>
@@ -638,15 +638,15 @@
     <form class="form-horizontal" role="form">
         <h4>用户密码</h4>
         <div class="hr hr-12 hr-double"></div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="change-password-password">密码:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="change-password-password">密码:</label>
+            <div class="col-sm-9">
                 <input type="password" id="change-password-password" name="password" placeholder="请输入密码" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="change-password-repassword">确认密码:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="change-password-repassword">确认密码:</label>
+            <div class="col-sm-9">
                 <input type="password" id="change-password-repassword" name="confirm_password" placeholder="请输入备注" class="form-control">
             </div>
         </div>
@@ -660,8 +660,8 @@
         <h4>标签组信息</h4>
         <div class="hr hr-12 hr-double"></div>
 
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 control-label no-padding-right" for="add-tag-group-name">标签组名称:</label>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-tag-group-name">标签组名称:</label>
             <div class="col-sm-9">
                 <input type="text" id="add-tag-group-name" name="roleName" placeholder="请填写标签组名称" class="form-control">
             </div>
@@ -675,8 +675,8 @@
         <h4>标签组信息</h4>
         <div class="hr hr-12 hr-double"></div>
 
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 control-label no-padding-right" for="edit-tag-group-name">标签组名称:</label>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-tag-group-name">标签组名称:</label>
             <div class="col-sm-9">
                 <input type="text" id="edit-tag-group-name" name="tagName" placeholder="请填写标签组名称" class="form-control">
             </div>
@@ -690,15 +690,15 @@
         <h4>标签信息</h4>
         <div class="hr hr-12 hr-double"></div>
 
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 control-label no-padding-right" for="add-role-group-name">标签组:</label>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-role-group-name">标签组:</label>
             <div class="col-sm-9">
                 <select class="form-control" id="add-tag-group" name="groupId">
                 </select>
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 control-label no-padding-right" for="add-tag-name">标签名称:</label>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-tag-name">标签名称:</label>
             <div class="col-sm-9">
                 <input type="text" id="add-tag-name" name="roleName" placeholder="请填写标签名称" class="form-control">
             </div>
@@ -712,15 +712,15 @@
         <h4>标签信息</h4>
         <div class="hr hr-12 hr-double"></div>
 
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 control-label no-padding-right" for="edit-tag-group">标签组:</label>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-tag-group">标签组:</label>
             <div class="col-sm-9">
                 <select class="form-control" id="edit-tag-group" name="groupId">
                 </select>
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 control-label no-padding-right" for="edit-tag-name">标签名称:</label>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-tag-name">标签名称:</label>
             <div class="col-sm-9">
                 <input type="text" id="edit-tag-name" name="tagName" placeholder="请填写标签名称" class="form-control">
             </div>
@@ -733,61 +733,126 @@
     <form class="form-horizontal" role="form">
         <h4>外部联系人详情</h4>
         <div class="hr hr-12 hr-double"></div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3  col-md-3 control-label no-padding-right" for="add-outcontacts-username">姓名:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-username">姓名:</label>
+            <div class="col-sm-9">
                 <input type="text" id="add-outcontacts-username" name="username" placeholder="请输入姓名" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-outcontacts-phone">手机号:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-phone">手机号:</label>
+            <div class="col-sm-9">
                 <input type="text" id="add-outcontacts-phone" name="phone" placeholder="请输入手机号" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-outcontacts-company">公司:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-company">公司:</label>
+            <div class="col-sm-9">
                 <input type="text" id="add-outcontacts-company" placeholder="请输入公司" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-outcontacts-position">职位:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-position">职位:</label>
+            <div class="col-sm-9">
                 <input type="text" id="add-outcontacts-position" placeholder="请输入职位" class="form-control">
             </div>
         </div>
 
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-outcontacts-email">邮箱:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-email">邮箱:</label>
+            <div class="col-sm-9">
                 <input type="text" id="add-outcontacts-email" placeholder="请输入邮箱" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-outcontacts-address">地址:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-address">地址:</label>
+            <div class="col-sm-9">
                 <input type="text" id="add-outcontacts-address" placeholder="请输入地址" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-outcontacts-remark">备注:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-remark">备注:</label>
+            <div class="col-sm-9">
                 <input type="text" id="add-outcontacts-remark" placeholder="请输入备注" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 control-label no-padding-right" for="outcontacts-principal">负责人:</label>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="outcontacts-principal">负责人:</label>
             <div class="col-sm-9">
                 <select class="form-control" id="outcontacts-principal" name="groupId">
                 </select>
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-6">
-            <label class="col-sm-3 col-md-3  control-label no-padding-right" for="add-outcontacts-tag-btn">标签:</label>
-            <div class="col-sm-9 col-md-9">
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-tag-btn">标签:</label>
+            <div class="col-sm-9">
                 <button type="button" id="add-outcontacts-tag-btn" name="role" class="form-control btn btn-white btn-default">请选择标签</button>
-                <ul id="add-outcontacts-tag-select"  class="ztree display-none"></ul>
+                <ul id="add-outcontacts-tag-select" ></ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--编辑外部成员 -->
+<div id="edit-outcontacts-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
+    <form class="form-horizontal" role="form">
+        <h4>外部联系人详情</h4>
+        <div class="hr hr-12 hr-double"></div>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-username">姓名:</label>
+            <div class="col-sm-9">
+                <input type="text" id="edit-outcontacts-username" name="username" placeholder="请输入姓名" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-phone">手机号:</label>
+            <div class="col-sm-9">
+                <input type="text" id="edit-outcontacts-phone" name="phone" placeholder="请输入手机号" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-company">公司:</label>
+            <div class="col-sm-9">
+                <input type="text" id="edit-outcontacts-company" placeholder="请输入公司" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-position">职位:</label>
+            <div class="col-sm-9">
+                <input type="text" id="edit-outcontacts-position" placeholder="请输入职位" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-email">邮箱:</label>
+            <div class="col-sm-9">
+                <input type="text" id="edit-outcontacts-email" placeholder="请输入邮箱" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-address">地址:</label>
+            <div class="col-sm-9">
+                <input type="text" id="edit-outcontacts-address" placeholder="请输入地址" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-remark">备注:</label>
+            <div class="col-sm-9">
+                <input type="text" id="edit-outcontacts-remark" placeholder="请输入备注" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-principal">负责人:</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="edit-outcontacts-principal" name="groupId">
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-tag-btn">标签:</label>
+            <div class="col-sm-9">
+                <button type="button" id="edit-outcontacts-tag-btn" name="role" class="form-control btn btn-white btn-default">请选择标签</button>
+                <ul id="edit-outcontacts-tag-select" ></ul>
             </div>
         </div>
     </form>
@@ -822,20 +887,8 @@
             $(".sub-department-queue-save-cancel").addClass("display-none");
         });
 
-        //选所有checkbox
+        //取消所有checkbox
         $('th input[type=checkbox], td input[type=checkbox]').prop('checked', false);
-        $(".department-staff-head .checkbox-all").on("click", function () {
-            var departmentStaffBodyTr = $(".department-staff-body tr");
-            if ($(this).hasClass("active")) {
-                $(this).removeClass("active");
-                departmentStaffBodyTr.find("td input[type=checkbox]").prop('checked', false)
-            } else {
-                $(this).addClass("active");
-                departmentStaffBodyTr.find("td input[type=checkbox]:not(:disabled)").prop('checked', true)
-            }
-        });
-
-
         //获取组织架构列表 ztree
         var organizationSettings = {
             async: {
@@ -1124,7 +1177,7 @@
 
             var validateForm = $('#edit-department-container>form').validate({
                 errorElement: 'span',
-                errorClass: 'help-block col-sm-3 control-label no-padding-right',
+                errorClass: 'help-block col-sm-2 control-label no-padding-right',
                 focusInvalid: false,
                 ignore: "",
                 rules: {
@@ -1220,7 +1273,7 @@
         //添加子部门
         var $form = $('#add-sub-department-container>form').validate({
             errorElement: 'span',
-            errorClass: 'help-block col-sm-3 control-label no-padding-right',
+            errorClass: 'help-block col-sm-2 control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
@@ -1294,7 +1347,7 @@
         //添加部门成员
         var $formAddDepartmentStaff = $('#add-department-staff-container>form').validate({
             errorElement: 'span',
-            errorClass: 'help-block col-sm-3 control-label no-padding-right',
+            errorClass: 'help-block col-sm-2 control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
@@ -1506,7 +1559,7 @@
         function editDepartmentStaffInfo(id, isAdmin) {
             var $formEditDepartmentStaff = $('#edit-department-staff-container>form').validate({
                 errorElement: 'span',
-                errorClass: 'help-block col-sm-3 control-label no-padding-right',
+                errorClass: 'help-block col-sm-2 control-label no-padding-right',
                 focusInvalid: false,
                 ignore: "",
                 rules: {
@@ -1776,7 +1829,7 @@
         function changePassword(id) {
             var $formChangePassword = $('#change-password-container>form').validate({
                 errorElement: 'span',
-                errorClass: 'help-block col-sm-3 control-label no-padding-right',
+                errorClass: 'help-block col-sm-2 control-label no-padding-right',
                 focusInvalid: false,
                 ignore: "",
                 rules: {
@@ -1785,7 +1838,7 @@
                     },
                     confirm_password: {
                         required: true,
-                        equalTo: "#add-department-staff-repassword"
+                        equalTo: "#change-password-password"
                     }
                 },
                 highlight: function (e) {
@@ -1816,13 +1869,9 @@
                             var flag = $formChangePassword.form();
 
                             if(flag){
-                                var data = {
-                                    "password": $("#change-password-password").val()
-                                };
                                 $.ajax({
-                                    url: contextPath+"api/dingtalkuser/",
-                                    type: "post",
-                                    data : JSON.stringify(data),
+                                    url: contextPath+"api/dingtalkuser/editPwd?id="+ id +"&pwd="+$("#change-password-password").val(),
+                                    type: "put",
                                     contentType: "application/json",
                                     dataType : "json",
                                     success: function (data) {
@@ -2001,7 +2050,7 @@
                     }
                     var $formEditRoleGroup = $('#edit-role-group-container>form').validate({
                         errorElement: 'span',
-                        errorClass: 'help-block col-sm-3 control-label no-padding-right',
+                        errorClass: 'help-block col-sm-2 control-label no-padding-right',
                         focusInvalid: false,
                         ignore: "",
                         rules: {
@@ -2137,7 +2186,7 @@
         // 新增角色组
         var $formAddRoleGroup = $('#add-role-group-container>form').validate({
             errorElement: 'span',
-            errorClass: 'help-block col-sm-3 control-label no-padding-right',
+            errorClass: 'help-block col-sm-2 control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
@@ -2247,7 +2296,7 @@
         //新增角色
         var $formAddRolePerson = $('#add-role-person-container>form').validate({
             errorElement: 'span',
-            errorClass: 'help-block col-sm-3 control-label no-padding-right',
+            errorClass: 'help-block col-sm-2 control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
@@ -2329,12 +2378,12 @@
                     }
                 ]
             });
-        })
+        });
         
         //编辑角色
         var $formEditRolePerson = $('#edit-role-person-container>form').validate({
             errorElement: 'span',
-            errorClass: 'help-block col-sm-3 control-label no-padding-right',
+            errorClass: 'help-block col-sm-2 control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
@@ -2528,7 +2577,7 @@
                     }
                 ]
             });
-        })
+        });
 
 
 
@@ -2575,6 +2624,7 @@
         function tagOnClick(event, treeId, treeNode) {
             console.log(treeNode);
             if (treeNode.gid) {
+                $(".outcontacts-container").attr("data-labid", treeNode.id);
                 $.ajax({
                     async : false,
                     cache:false,
@@ -2600,22 +2650,27 @@
                                             '<td>'+ item.username +'</td>'+
                                             '<td>'+ item.tel +'</td>'+
                                             '<td>'+ item.company +'</td>'+
-                                            '<td>'+ item.charge.name +'</td>'+
-                                            '<td data-id="'+ item.id +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-btn" title="编辑信息"></i></td>'+
+                                            '<td>'+ item.changeUser.name +'</td>'+
+                                            '<td data-id="'+ item.id +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" title="编辑信息"></i></td>'+
                                             '</tr>';
                                 });
                             } else {
-                                outcontactsListHtml = '<tr><td colspan="5">'+
+                                outcontactsListHtml = '<tr><td colspan="6">'+
                                         '<div class="alert alert-info">'+
                                         '<button type="button" class="close" data-dismiss="alert">'+
                                         '<i class="ace-icon fa fa-times"></i>'+
                                         '</button>'+
-                                        '当前角色暂无人员请添加成员'+
+                                        '当前暂无人员请添加成员'+
                                         '</div>'+
                                         '</td>' +
                                         '</tr>';
                             }
                             $("#outcontacts-list>tbody").append(outcontactsListHtml);
+
+                            //编辑外部联系人
+                            $(".edit-outcontacts-btn").on("click", function () {
+                                editOutcontacts($(this).parent().attr("data-id"));
+                            });
                         }
                     },
                     error: function () {
@@ -2623,57 +2678,6 @@
                     }
                 });
             }
-            /*$("#role-person-name").text(treeNode.roleName);
-            var id = treeNode.roleId;
-            $("#edit-role-person-btn").attr("data-roleId", treeNode.roleId).attr("data-isDel", treeNode.isDel);
-            $.ajax({
-                async : false,
-                cache:false,
-                type: 'get',
-                dataType : "json",
-                contentType: "application/json",
-                url: contextPath + "api/dingtalkuser/role?roleid="+id,
-                success:function(data){
-                    if (data.status == "200") {
-                        //角色人员列表
-                        $("#role-group-person-list>tbody").html('');
-                        if (data.content.length) {
-                            var roleGroupPersonListHtml = '';
-                            $.each(data.content, function (i, item) {
-                                var checkedDisabled = "";
-                                if (item.isAdmin) {
-                                    checkedDisabled = "disabled";
-                                }
-                                roleGroupPersonListHtml += '<tr class="align-center">'+
-                                        '<td>'+
-                                        '<label class="pos-rel">'+
-                                        '<input type="checkbox" class="ace" data-id="'+ item.userid +'" '+ checkedDisabled +'>'+
-                                        '<span class="lbl"></span>'+
-                                        '</label>'+
-                                        '</td>'+
-                                        '<td>'+ item.name +'</td>'+
-                                        '<td>'+ item.position +'</td>'+
-                                        '<td>'+ item.jobnumber +'</td>'+
-                                        '</tr>';
-                            });
-                        } else {
-                            roleGroupPersonListHtml = '<tr><td colspan="4">'+
-                                    '<div class="alert alert-info">'+
-                                    '<button type="button" class="close" data-dismiss="alert">'+
-                                    '<i class="ace-icon fa fa-times"></i>'+
-                                    '</button>'+
-                                    '当前角色暂无人员请添加成员'+
-                                    '</div>'+
-                                    '</td>' +
-                                    '</tr>';
-                        }
-                        $("#role-group-person-list>tbody").append(roleGroupPersonListHtml);
-                    }
-                },
-                error: function () {
-                    alert('请求失败');
-                }
-            });*/
 
         }
         function tagRefreshNode() {
@@ -2695,7 +2699,7 @@
                     $("#edit-tag-group-name").val(treeNode.name);
                     var $formEditTagGroup = $('#edit-tag-group-container>form').validate({
                         errorElement: 'span',
-                        errorClass: 'help-block col-sm-3 control-label no-padding-right',
+                        errorClass: 'help-block col-sm-2 control-label no-padding-right',
                         focusInvalid: false,
                         ignore: "",
                         rules: {
@@ -2794,7 +2798,7 @@
                     });
                     var $formEditTag = $('#edit-tag-container>form').validate({
                         errorElement: 'span',
-                        errorClass: 'help-block col-sm-3 control-label no-padding-right',
+                        errorClass: 'help-block col-sm-2 control-label no-padding-right',
                         focusInvalid: false,
                         ignore: "",
                         rules: {
@@ -2897,7 +2901,7 @@
         //新增标签组
         var $formAddTagGroup = $('#add-tag-group-container>form').validate({
             errorElement: 'span',
-            errorClass: 'help-block col-sm-3 control-label no-padding-right',
+            errorClass: 'help-block col-sm-2 control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
@@ -2971,7 +2975,7 @@
         //新增标签
         var $formAddTag = $('#add-tag-container>form').validate({
             errorElement: 'span',
-            errorClass: 'help-block col-sm-3 control-label no-padding-right',
+            errorClass: 'help-block col-sm-2 control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
@@ -3046,7 +3050,7 @@
         //添加外部联系人
         var $formAddOutcontacts = $('#add-outcontacts-container>form').validate({
             errorElement: 'span',
-            errorClass: 'help-block col-sm-3 control-label no-padding-right',
+            errorClass: 'help-block col-sm-2 control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
@@ -3099,31 +3103,67 @@
         $( ".add-outcontacts-btn" ).on('click', function(e) {
 
             //选择标签
-            var tagSettings = {
-                async: {
-                    enable: true,
-                    dataType: "json",
-                    type: "get",
-                    url: contextPath+"api/labgroup/list",
-                    dataFilter: ajaxDataFilterFn
-                },
-                data:{
-                    key: {
-                        name: "name"
-                    },
-                    simpleData : {
-                        enable : false
+            $.ajax({
+                url: contextPath+"api/labgroup/list",
+                type: "get",
+                contentType: "application/json",
+                dataType : "json",
+                success: function (data) {
+                    if (data.content.length) {
+                        var addOutcontactsTagSelectBox = $("#add-outcontacts-tag-select");
+                        addOutcontactsTagSelectBox.html("");
+                        $.each(data.content, function (i, item) {
+                            var addOutcontactsTagSelectHtml = "", addOutcontactsChildrenTagSelectHtml = "", num = i;
+                            if (item.children.length) {
+                                $.each(item.children, function (i, item) {
+                                    addOutcontactsChildrenTagSelectHtml += '<div class="radio inline">' +
+                                        '<label>' +
+                                        '<input name="form-field-checkbox'+ num +'" type="checkbox" class="ace" value="'+ item.id +'">' +
+                                        '<span class="lbl">'+ item.name +'</span>' +
+                                        '</label>' +
+                                    '</div>';
+                                });
+                                addOutcontactsTagSelectHtml = '<li>' +
+                                        '<div class="control-group" style="">' +
+                                        '<label class="control-label bolder blue block align-left">'+ item.name +'</label>' +
+                                            addOutcontactsChildrenTagSelectHtml+
+                                        '</div>'+
+                                        '</li>'
+                            }
+                            addOutcontactsTagSelectBox.append(addOutcontactsTagSelectHtml);
+                            $("#add-outcontacts-tag-select>li .control-group input[type=checkbox]").on("click", function () {
+                                $(this).parents("div").siblings().find("input").attr("checked", false);
+
+                            });
+                        });
                     }
                 },
-                check: {
-                    enable: true,
-                    chkStyle: "checkbox"
-                },
-                view: {
-                    showLine: false
+                error: function (data) {
+                    console.log(data);
                 }
-            };
-            $.fn.zTree.init($("#add-outcontacts-tag-select"), tagSettings);
+            });
+
+            //选择负责人
+            $.ajax({
+                url: contextPath+"api/dingtalkuser/intermediary_id",
+                type: "get",
+                contentType: "application/json",
+                dataType : "json",
+                success: function (data) {
+                    if (data.content.length) {
+                        var outcontactsPrincipalBox = $("#outcontacts-principal");
+                        outcontactsPrincipalBox.html("");
+                        $.each(data.content, function (i, item) {
+                            var  outcontactsPrincipalHtml = "";
+                            outcontactsPrincipalHtml = '<option value="'+ item.userid +'">'+ item.name +'</option>';
+                            outcontactsPrincipalBox.append(outcontactsPrincipalHtml);
+                        });
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
             $("#add-outcontacts-tag-btn").unbind();
             $("#add-outcontacts-tag-btn").on("click", function () {
                 if ($("#add-outcontacts-tag-select").hasClass("display-none")) {
@@ -3132,6 +3172,7 @@
                     $("#add-outcontacts-tag-select").addClass("display-none")
                 }
             });
+
             var dialog = $( "#add-outcontacts-container" ).removeClass('hide').dialog({
                 resizable: false,
                 width: '680',
@@ -3144,45 +3185,32 @@
                         "class" : "btn btn-primary btn-minier",
                         click: function() {
                             var _this = $(this);
-                            var flag = $formAddOutcontacts.form();
-                            var treeObj = $.fn.zTree.getZTreeObj("add-department-staff-departmentname-select");
-                            var nodes = treeObj.getCheckedNodes(true), departmentnameArr = [];
-                            if (nodes.length) {
-                                $.each(nodes, function (i, item) {
-                                    departmentnameArr.push({"id":item.id})
-                                })
-                            }
-                            var treeObjtwo = $.fn.zTree.getZTreeObj("add-department-staff-role-select");
-                            var nodestwo = treeObjtwo.getCheckedNodes(true), roleArr = [];
-                            if (nodestwo.length) {
-                                $.each(nodestwo, function (i, item) {
-                                    roleArr.push({"roleId":item.roleId})
-                                })
-                            }
+                            var flag = $formAddOutcontacts.form(), labsList = $("#add-outcontacts-container .control-group input[type=checkbox]:checked"), arrLabs = [];
+                            labsList.each(function (i, item) {
+                                arrLabs.push({"id": $(item).val()});
+                            });
                             if(flag){
                                 var data = {
-                                    "name": $("#add-department-staff-username").val(),
-                                    "depts": departmentnameArr,
-                                    "position": $("#add-department-staff-position").val(),
-                                    "roles": roleArr,
-                                    "jobnumber": $("#add-department-staff-jobnumber").val(),
-                                    "mobile": $("#add-department-staff-phone").val(),
-                                    "tel": $("#add-department-staff-tel").val(),
-                                    "email": $("#add-department-staff-email").val(),
-                                    "workplace": $("#add-department-staff-workplace").val(),
-                                    "remark": $("#add-department-staff-remark").val(),
-                                    "password": $("#add-department-staff-password").val()
+                                    "username": $("#add-outcontacts-username").val(),
+                                    "company": $("#add-outcontacts-company").val(),
+                                    "pos": $("#add-outcontacts-position").val(),
+                                    "email": $("#add-outcontacts-email").val(),
+                                    "tel": $("#add-outcontacts-phone").val(),
+                                    "adress": $("#add-outcontacts-address").val(),
+                                    "charge": $("#outcontacts-principal").val(),
+                                    "remark": $("#add-outcontacts-remark").val(),
+                                    "labs": arrLabs
                                 };
                                 console.log(data);
 //                                return;
                                 $.ajax({
-                                    url: contextPath+"api/dingtalkuser/",
+                                    url: contextPath+"api/extcon/",
                                     type: "post",
                                     data : JSON.stringify(data),
                                     contentType: "application/json",
                                     dataType : "json",
                                     success: function (data) {
-                                        organizationRefreshNode();
+                                        tagRefreshNode();
                                         _this.dialog( "close" );
                                     },
                                     error: function (data) {
@@ -3203,6 +3231,370 @@
             });
         });
 
+        //编辑外部联系人 
+        function editOutcontacts(id) {
+            $.ajax({
+                url: contextPath+"api/extcon/?id="+id,
+                type: "get",
+                contentType: "application/json",
+                dataType : "json",
+                success: function (data) {
+                    if (data.content) {
+                        console.log(data);
+                        var result = data.content, charge = result.charge, labsObj = result.labs;
+                        $("#edit-outcontacts-username").val(result.username);
+                        $("#edit-outcontacts-company").val(result.company);
+                        $("#edit-outcontacts-position").val(result.pos);
+                        $("#edit-outcontacts-email").val(result.email);
+                        $("#edit-outcontacts-phone").val(result.tel);
+                        $("#edit-outcontacts-address").val(result.adress);
+                        $("#edit-outcontacts-remark").val(result.mark);
+
+                        //选择标签
+                        $.ajax({
+                            url: contextPath+"api/labgroup/list",
+                            type: "get",
+                            contentType: "application/json",
+                            dataType : "json",
+                            success: function (data) {
+                                if (data.content.length) {
+                                    var editOutcontactsTagSelectBox = $("#edit-outcontacts-tag-select");
+                                    editOutcontactsTagSelectBox.html("");
+                                    $.each(data.content, function (k, ktem) {
+                                        var editOutcontactsTagSelectHtml = $('<li><div class="control-group" style=""><label class="control-label bolder blue block align-left"></label></div></li>');
+                                        editOutcontactsTagSelectHtml.find('label').text(ktem.name);
+                                        editOutcontactsTagSelectBox.append(editOutcontactsTagSelectHtml);
+
+
+                                        if (ktem.children.length) {
+                                            $.each(ktem.children, function (i, item) {
+                                                var editOutcontactsChildrenTagSelectHtml = $('<div class="radio inline"><label><input  type="checkbox" class="ace"><span class="lbl"></span></label></div>');
+                                                editOutcontactsChildrenTagSelectHtml.find("span.lbl").text(item.name);
+
+                                                editOutcontactsChildrenTagSelectHtml.find("input").attr("name","form-field-checkbox"+i);
+
+                                                editOutcontactsChildrenTagSelectHtml.find("input").attr("value",item.id);
+
+                                                editOutcontactsTagSelectHtml.find("div.control-group").append(editOutcontactsChildrenTagSelectHtml);
+                                                if (labsObj.length) {
+                                                    $.each(labsObj,function (j, jtem) {
+                                                        if (item.id == jtem.id) {
+                                                            editOutcontactsChildrenTagSelectHtml.find("input[type=checkbox]").attr("checked",true);
+                                                        }
+                                                    });
+                                                }
+                                            });
+
+                                        }
+                                        $("#edit-outcontacts-tag-select>li .control-group input[type=checkbox]").on("click", function () {
+                                            $(this).parents("div").siblings().find("input").attr("checked", false);
+
+                                        });
+                                    });
+                                }
+                            },
+                            error: function (data) {
+                                console.log(data);
+                            }
+                        });
+                        //选择负责人
+                        $.ajax({
+                            url: contextPath+"api/dingtalkuser/intermediary_id",
+                            type: "get",
+                            contentType: "application/json",
+                            dataType : "json",
+                            success: function (data) {
+                                if (data.content.length) {
+                                    var editOutcontactsPrincipalBox = $("#edit-outcontacts-principal");
+                                    editOutcontactsPrincipalBox.html("");
+                                    $.each(data.content, function (i, item) {
+                                        var editOutcontactsPrincipalHtml = "";
+                                        if (item.userid == charge) {
+                                            editOutcontactsPrincipalHtml = '<option value="'+ item.userid +'" selected>'+ item.name +'</option>';
+                                            editOutcontactsPrincipalBox.append(editOutcontactsPrincipalHtml);
+                                        } else {
+                                            editOutcontactsPrincipalHtml = '<option value="'+ item.userid +'">'+ item.name +'</option>';
+                                            editOutcontactsPrincipalBox.append(editOutcontactsPrincipalHtml);
+                                        }
+
+                                    });
+                                }
+                            },
+                            error: function (data) {
+                                console.log(data);
+                            }
+                        });
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
+            var $formEditOutcontacts = $('#edit-outcontacts-container>form').validate({
+                errorElement: 'span',
+                errorClass: 'help-block col-sm-2 control-label no-padding-right',
+                focusInvalid: false,
+                ignore: "",
+                rules: {
+                    username: {
+                        required: true
+                    },
+                    departmentname: {
+                        required: true
+                    },
+                    phone: {
+                        required: true,
+                        /* remote: {
+                         url: contextPath+"api/dingtalkuser/mobile",
+                         type: "post",               //数据发送方式
+                         dataType: "json",           //接受数据格式
+                         data: JSON.stringify({                     //要传递的数据
+                         mobile: function() {
+                         return $("#add-department-staff-phone").val();
+                         }
+                         })
+                         }*/
+                    }
+                },
+                highlight: function (e) {
+                    $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                },
+                success: function (e) {
+                    $(e).closest('.form-group').removeClass('has-error');
+                    $(e).remove();
+                },
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element.parent());
+                },
+                invalidHandler: function (form) {
+                }
+            });
+            $("#edit-outcontacts-tag-btn").unbind();
+            $("#edit-outcontacts-tag-btn").on("click", function () {
+                if ($("#edit-outcontacts-tag-select").hasClass("display-none")) {
+                    $("#edit-outcontacts-tag-select").removeClass("display-none")
+                } else {
+                    $("#edit-outcontacts-tag-select").addClass("display-none")
+                }
+            });
+
+            var dialog = $( "#edit-outcontacts-container" ).removeClass('hide').dialog({
+                resizable: false,
+                width: '680',
+                modal: true,
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;添加成员</h4></div>",
+                title_html: true,
+                buttons: [
+                    {
+                        text: "保存",
+                        "class" : "btn btn-primary btn-minier",
+                        click: function() {
+                            var _this = $(this);
+                            var flag = $formEditOutcontacts.form(), labsList = $("#edit-outcontacts-container .control-group input[type=checkbox]:checked"), arrLabs = [];
+                            labsList.each(function (i, item) {
+                                arrLabs.push({"id": $(item).val()});
+                            });
+                            if(flag){
+                                var data = {
+                                    "id": id,
+                                    "username": $("#edit-outcontacts-username").val(),
+                                    "company": $("#edit-outcontacts-company").val(),
+                                    "pos": $("#edit-outcontacts-position").val(),
+                                    "email": $("#edit-outcontacts-email").val(),
+                                    "tel": $("#edit-outcontacts-phone").val(),
+                                    "adress": $("#edit-outcontacts-address").val(),
+                                    "charge": $("#edit-outcontacts-principal").val(),
+                                    "remark": $("#edit-outcontacts-remark").val(),
+                                    "labs": arrLabs
+                                };
+                                console.log(data);
+//                                return;
+                                $.ajax({
+                                    url: contextPath+"api/extcon/",
+                                    type: "put",
+                                    data : JSON.stringify(data),
+                                    contentType: "application/json",
+                                    dataType : "json",
+                                    success: function (data) {
+                                        tagRefreshNode();
+                                        _this.dialog( "close" );
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                    }
+                                })
+                            }
+                        }
+                    },
+                    {
+                        text: "删除",
+                        "class" : "btn btn-danger btn-minier ",
+                        click: function() {
+                            var _this = $(this);
+                            $.ajax({
+                                url: contextPath+"api/extcon/?id="+id,
+                                type: "delete",
+                                contentType: "application/json",
+                                dataType : "json",
+                                success: function (data) {
+                                    $.ajax({
+                                        async : false,
+                                        cache:false,
+                                        type: 'get',
+                                        dataType : "json",
+                                        contentType: "application/json",
+                                        url: contextPath + "api/extcon/labid?labid="+$(".outcontacts-container").attr("data-labid"),
+                                        success:function(data){
+                                            if (data.status == "200") {
+                                                //人员列表
+                                                console.log(data);
+                                                $("#outcontacts-list>tbody").html('');
+                                                if (data.content.length) {
+                                                    var outcontactsListHtml = '';
+                                                    $.each(data.content, function (i, item) {
+                                                        outcontactsListHtml += '<tr class="align-center">'+
+                                                                '<td>'+
+                                                                '<label class="pos-rel">'+
+                                                                '<input type="checkbox" class="ace" data-id="'+ item.id +'">'+
+                                                                '<span class="lbl"></span>'+
+                                                                '</label>'+
+                                                                '</td>'+
+                                                                '<td>'+ item.username +'</td>'+
+                                                                '<td>'+ item.tel +'</td>'+
+                                                                '<td>'+ item.company +'</td>'+
+                                                                '<td>'+ item.changeUser.name +'</td>'+
+                                                                '<td data-id="'+ item.id +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" title="编辑信息"></i></td>'+
+                                                                '</tr>';
+                                                    });
+                                                } else {
+                                                    outcontactsListHtml = '<tr><td colspan="6">'+
+                                                            '<div class="alert alert-info">'+
+                                                            '<button type="button" class="close" data-dismiss="alert">'+
+                                                            '<i class="ace-icon fa fa-times"></i>'+
+                                                            '</button>'+
+                                                            '当前暂无人员请添加成员'+
+                                                            '</div>'+
+                                                            '</td>' +
+                                                            '</tr>';
+                                                }
+                                                $("#outcontacts-list>tbody").append(outcontactsListHtml);
+
+                                                //编辑外部联系人
+                                                $(".edit-outcontacts-btn").on("click", function () {
+                                                    editOutcontacts($(this).parent().attr("data-id"));
+                                                });
+                                            }
+                                        },
+                                        error: function () {
+                                            alert('请求失败');
+                                        }
+                                    });
+                                    _this.dialog( "close" );
+                                },
+                                error: function (data) {
+                                    console.log(data);
+                                }
+                            });
+                        }
+                    },
+                    {
+                        text: "取消",
+                        "class" : "btn btn-minier",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                ]
+            });
+        }
+
+        //删除外部联系人
+        $(".outcontacts-list-head .checkbox-all").on("click", function () {
+            var outcontactsListBodyTr = $(".outcontacts-list-body tr");
+            if ($(this).hasClass("active")) {
+                $(this).removeClass("active");
+                outcontactsListBodyTr.find("td input[type=checkbox]").prop('checked', false)
+            } else {
+                $(this).addClass("active");
+                outcontactsListBodyTr.find("td input[type=checkbox]:not(:disabled)").prop('checked', true)
+            }
+        });
+        $(".del-outcontacts-btn").on("click", function () {
+            var selectBoxlist = $(".outcontacts-list-body input:checkbox:checked"), data = [];
+            if (selectBoxlist.length) {
+                selectBoxlist.each(function (i, item) {
+                    if (!$(item).attr("disabled")) {
+                        data.push($(item).attr("data-id"))
+                    }
+                })
+            }
+            console.log(data);
+            $.ajax({
+                url: contextPath+"api/extcon/batch",
+                type: "delete",
+                data : JSON.stringify(data),
+                contentType: "application/json",
+                dataType : "json",
+                success: function (data) {
+                    $.ajax({
+                        async : false,
+                        cache:false,
+                        type: 'get',
+                        dataType : "json",
+                        contentType: "application/json",
+                        url: contextPath + "api/extcon/labid?labid="+$(".outcontacts-container").attr("data-labid"),
+                        success:function(data){
+                            if (data.status == "200") {
+                                //人员列表
+                                console.log(data);
+                                $("#outcontacts-list>tbody").html('');
+                                if (data.content.length) {
+                                    var outcontactsListHtml = '';
+                                    $.each(data.content, function (i, item) {
+                                        outcontactsListHtml += '<tr class="align-center">'+
+                                                '<td>'+
+                                                '<label class="pos-rel">'+
+                                                '<input type="checkbox" class="ace" data-id="'+ item.id +'">'+
+                                                '<span class="lbl"></span>'+
+                                                '</label>'+
+                                                '</td>'+
+                                                '<td>'+ item.username +'</td>'+
+                                                '<td>'+ item.tel +'</td>'+
+                                                '<td>'+ item.company +'</td>'+
+                                                '<td>'+ item.changeUser.name +'</td>'+
+                                                '<td data-id="'+ item.id +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" title="编辑信息"></i></td>'+
+                                                '</tr>';
+                                    });
+                                } else {
+                                    outcontactsListHtml = '<tr><td colspan="6">'+
+                                            '<div class="alert alert-info">'+
+                                            '<button type="button" class="close" data-dismiss="alert">'+
+                                            '<i class="ace-icon fa fa-times"></i>'+
+                                            '</button>'+
+                                            '当前暂无人员请添加成员'+
+                                            '</div>'+
+                                            '</td>' +
+                                            '</tr>';
+                                }
+                                $("#outcontacts-list>tbody").append(outcontactsListHtml);
+
+                                //编辑外部联系人
+                                $(".edit-outcontacts-btn").on("click", function () {
+                                    editOutcontacts($(this).parent().attr("data-id"));
+                                });
+                            }
+                        },
+                        error: function () {
+                            alert('请求失败');
+                        }
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            })
+        });
     });
 </script>
 </body>
