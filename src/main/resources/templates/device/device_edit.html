@@ -1,5 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <style>
         .btn, .border-none {
@@ -96,7 +97,6 @@
 
     jQuery(function($) {
         var id=[[${id}]];
-
         new Vue({
             el:"#editDevice",
             data:{

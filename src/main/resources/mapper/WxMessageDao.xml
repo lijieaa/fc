@@ -88,6 +88,7 @@
         WHERE o.public_id = #{0}
         AND o.openid = m.from_user
         AND m.from_user = d.openid
+        ORDER BY m.create_time DESC
     </select>
 
 </mapper>
