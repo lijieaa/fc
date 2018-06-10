@@ -27,3 +27,9 @@ pagehelper:
   support-methods-arguments: true
   params: count=countSql
 
+
+
+fc:
+ imgContext: img
+ uploadPath: c:\upload\
+

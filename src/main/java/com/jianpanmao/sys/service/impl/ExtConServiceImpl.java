@@ -24,6 +24,17 @@ public class ExtConServiceImpl extends BaseServiceImpl<ExtCon,ExtConExample,ExtC
     ExtConMapper extConMapper;
 
     @Override
+    public int removeBatch(Integer[] ids) {
+        //return super.removeBatch(ids);
+        int remove=0;
+        for (Integer id : ids) {
+            remove = this.remove(id);
+        }
+
+        return remove;
+    }
+
+    @Override
     public int remove(Integer TId) {
         conLabService.remove(TId);
         return super.remove(TId);

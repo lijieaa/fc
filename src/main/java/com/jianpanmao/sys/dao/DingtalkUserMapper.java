@@ -23,4 +23,6 @@ public interface DingtalkUserMapper extends BaseDao<DingtalkUser, DingtalkUserEx
 
 
     Integer editPwd(Integer id, String pwd);
+
+    Integer updateInfo(DingtalkUser entity);
 }

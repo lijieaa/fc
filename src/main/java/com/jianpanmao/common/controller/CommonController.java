@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jianpanmao.Application;
 import com.jianpanmao.attach.entity.Attach;
 import com.jianpanmao.attach.service.AttachService;
+import com.jianpanmao.common.config.MyConfig;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -45,6 +46,12 @@ public class CommonController{
     }
 
 
+    @RequestMapping("info")
+    public String info(){
+        return "info";
+    }
+
+
     @RequestMapping("editIntermediary")
     public String editIntermediary(Model model){
         DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
@@ -56,6 +63,10 @@ public class CommonController{
     @Autowired
     AttachService attachService;
 
+
+
+    //@Autowired
+    //MyConfig config;
 
     @PostMapping("/upload")
     @ResponseBody

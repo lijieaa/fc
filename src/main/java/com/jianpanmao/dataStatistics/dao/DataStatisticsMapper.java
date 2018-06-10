@@ -12,7 +12,7 @@ import java.util.Map;
 public interface DataStatisticsMapper {
     List<Map> intermediaryDeviceCount();
     List<Map> intermediaryArea();
-    List<Map> deviceArea();
+    List<Map> projectArea();
 
 
     List<Map> intermediary();

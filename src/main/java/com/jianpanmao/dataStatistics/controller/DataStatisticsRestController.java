@@ -29,10 +29,12 @@ public class DataStatisticsRestController {
     public List<Map> intermediaryArea(){
         return dao.intermediaryArea();
     }
-    @GetMapping("/deviceArea")
-    public List<Map> deviceArea(){
-        return dao.deviceArea();
+
+    @GetMapping("/projectArea")
+    public List<Map> projectArea(){
+        return dao.projectArea();
     }
+
     @GetMapping("/fiveYearDicount")
     public Map<String,List<Map>> fiveYearDicount(){
         Map<String,List<Map>> map = new HashMap<>();

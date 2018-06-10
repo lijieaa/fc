@@ -19,6 +19,7 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="is_admin" jdbcType="INTEGER" property="isAdmin" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="headPic" jdbcType="VARCHAR" property="head_pic" />
     <association property="intermediary" resultMap="com.jianpanmao.intermediary.dao.IntermediaryMapper.BaseResultMap">
 
     </association>
@@ -90,7 +91,7 @@
   </sql>
   <sql id="Base_Column_List">
     userid, `name`, `position`, mobile, tel, workPlace, remark, email, orgEmail, jobnumber, 
-    isHide, isSenior, intermediary_id, create_time, update_time, is_admin, `password`
+    isHide, isSenior, intermediary_id, create_time, update_time, is_admin, `password`,head_pic
   </sql>
   <sql id="Blob_Column_List">
     extattr
@@ -162,13 +163,13 @@
       mobile, tel, workPlace, 
       remark, email, orgEmail, 
       jobnumber, isHide, isSenior, 
-      intermediary_id, `password`, extattr
+      intermediary_id, `password`, extattr,head_pic
       )
     values (#{userid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
       #{mobile,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{workplace,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{orgemail,jdbcType=VARCHAR}, 
       #{jobnumber,jdbcType=VARCHAR}, #{ishide,jdbcType=BIT}, #{issenior,jdbcType=BIT}, 
-      #{intermediaryId,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{extattr,jdbcType=LONGVARCHAR}
+      #{intermediaryId,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{extattr,jdbcType=LONGVARCHAR},#{headPic,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.sys.entity.DingtalkUser">
@@ -483,7 +484,18 @@
       remark = #{remark,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       orgEmail = #{orgemail,jdbcType=VARCHAR},
+      headPic = #{head_pic,jdbcType=VARCHAR},
       jobnumber = #{jobnumber,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+
+
+  <update id="updateInfo" parameterType="com.jianpanmao.sys.entity.DingtalkUser">
+    update dingtalk_user
+    set `name` = #{name,jdbcType=VARCHAR},
+    mobile = #{mobile,jdbcType=VARCHAR},
+    email = #{email,jdbcType=VARCHAR},
+    headPic = #{head_pic,jdbcType=VARCHAR},
     where userid = #{userid,jdbcType=INTEGER}
   </update>
 

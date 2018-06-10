@@ -54,6 +54,11 @@ public class DingtalkUserServiceImpl extends BaseServiceImpl<DingtalkUser, Dingt
         return dingtalkUserMapper.editPwd(id,newPwd);
     }
 
+    @Override
+    public Integer updateInfo(DingtalkUser entity) {
+        return dingtalkUserMapper.updateInfo(entity);
+    }
+
     @Autowired
     PasswordEncoder passwordEncoder;
 
