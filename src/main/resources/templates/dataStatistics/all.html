@@ -48,174 +48,263 @@
 <script type="text/javascript" th:inline="javascript">
     $(function(){
         var myChart = echarts.init(document.getElementById('chartOne'));
-        option = {
-            title: {
-                left:'center',
-                subtext: '中间商设备数排名',
-                subtextStyle:{
-                    color:"#000",
-                    align: 'center',
-                    fontSize:16
-                }
+        $.ajax({
+            url: contextPath+"api/dataStatistics/intermediaryDeviceCount",
+            method: "get",
+            dataType : "json",
+            success: function (data) {
+                var dataOne = data.content;
+                var name = [];
+                var count = [];
+                dataOne.map(function(v){
+                    name.push(v.intermediary_name);
+                    count.push(v.count);
+                });
+                option = {
+                    title: {
+                        left:'center',
+                        subtext: '中间商设备数排名',
+                        subtextStyle:{
+                            color:"#000",
+                            align: 'center',
+                            fontSize:16
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: name
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    series: [
+                        {
+                            data: count,
+                            barWidth:30,
+                            type: 'bar'
+                        }
+                    ]
+                };
+                myChart.setOption(option);
             },
-            xAxis: {
-                type: 'category',
-                data: ['中间商1', '中间商2', '中间商3', '中间商4', '中间商5',
-                    '中间商6', '中间商7']
-            },
-            yAxis: {
-                type: 'value'
-            },
-            series: [{
-                data: [120, 200, 150, 80, 70, 110, 130],
-                barWidth:30,
-                type: 'bar'
-            }]
-        };
-        myChart.setOption(option);
+            error: function (data) {
+            }
+        });
+
 
     //    中间商地市分布占比
         var myChartTwo = echarts.init(document.getElementById('chartTwo'));
-        option2 = {
-            title : {
-                left:'center',
-                subtext: '中间商地市分布占比',
-                subtextStyle:{
-                    color:"#000",
-                    align: 'center',
-                    fontSize:16
-                }
-            },
-            tooltip : {
-                trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
-            },
-            legend: {
-                orient: 'vertical',
-                left: 'right',
-                top:40,
-                data: ['重庆','成都','上海','北京','杭州'],
-            },
-            series : [
-                {
-                    name: '访问来源',
-                    type: 'pie',
-                    itemStyle : {
-                        normal : {
-                            label : {
-                                show : false   //隐藏标示文字
-                            },
-                            labelLine : {
-                                show : false   //隐藏标示线
-                            }
+        $.ajax({
+            url: contextPath+"api/dataStatistics/intermediaryArea",
+            method: "get",
+            dataType : "json",
+            success: function (data) {
+                var dataTwo = data.content;
+                var name = [];
+                var count = [];
+                dataTwo.map(function(v){
+                    name.push(v.name);
+                    var data  = {
+                        value:v.count,
+                        name:v.name
+                    };
+                    count.push(data)
+                });
+                console.log(name);
+                console.log(count);
+                option2 = {
+                    title : {
+                        left:'center',
+                        subtext: '中间商地市分布占比',
+                        subtextStyle:{
+                            color:"#000",
+                            align: 'center',
+                            fontSize:16
                         }
                     },
-                    radius : '60%',
-                    center: ['35%', '60%'],
-                    data:[
-                        {value:335, name:'重庆'},
-                        {value:310, name:'成都'},
-                        {value:234, name:'上海'},
-                        {value:135, name:'北京'},
-                        {value:1548, name:'杭州'}
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        left: 'right',
+                        top:40,
+                        data:name
+                    },
+                    series : [
+                        {
+                            name: '访问来源',
+                            type: 'pie',
+                            itemStyle : {
+                                normal : {
+                                    label : {
+                                        show : false   //隐藏标示文字
+                                    },
+                                    labelLine : {
+                                        show : false   //隐藏标示线
+                                    }
+                                }
+                            },
+                            radius : '60%',
+                            center: ['35%', '45%'],
+                            data:count
+                        }
                     ]
-                }
-            ]
-        };
-        myChartTwo.setOption(option2);
+                };
+                myChartTwo.setOption(option2);
+            },
+            error: function (data) {
+            }
+        });
+
 
         //    各地市项目占比情况
         var chartThree = echarts.init(document.getElementById('chartThree'));
-        option3 = {
-            title : {
-                left:'center',
-                subtext: '各地市项目占比情况',
-                subtextStyle:{
-                    color:"#000",
-                    align: 'center',
-                    fontSize:16
-                }
+        $.ajax({
+            url: contextPath+"api/dataStatistics/projectArea",
+            method: "get",
+            dataType : "json",
+            success: function (data) {
+                var dataTwo = data.content;
+                var name = [];
+                var count = [];
+                dataTwo.map(function(v){
+                    name.push(v.NAME);
+                    count.push(v.count);
+                });
+                option3 = {
+                    title : {
+                        left:'center',
+                        subtext: '各地市项目占比情况',
+                        subtextStyle:{
+                            color:"#000",
+                            align: 'center',
+                            fontSize:16
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'value',
+                        boundaryGap: [0, 0.01]
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: name
+                    },
+                    series: [
+                        {
+                            name: '2011年',
+                            type: 'bar',
+                            data: count
+                        }
+                    ]
+                };
+                chartThree.setOption(option3);
             },
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'shadow'
-                }
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            xAxis: {
-                type: 'value',
-                boundaryGap: [0, 0.01]
-            },
-            yAxis: {
-                type: 'category',
-                data: ['成都','北京','上海','印度','中国','兰州']
-            },
-            series: [
-                {
-                    name: '2011年',
-                    type: 'bar',
-                    data: [55, 66, 44, 55, 78, 75]
-                }
-            ]
-        };
-        chartThree.setOption(option3);
+            error: function (data) {
+            }
+        });
+
 
     //    近五年中间商设备趋势
         var chartFour = echarts.init(document.getElementById('chartFour'));
-        option4 = {
-            title : {
-                left:'center',
-                subtext: '近五年中间商设备趋势',
-                subtextStyle:{
-                    color:"#000",
-                    align: 'center',
-                    fontSize:16
-                }
+        $.ajax({
+            url: contextPath+"api/dataStatistics/fiveYearDicount",
+            method: "get",
+            dataType : "json",
+            success: function (data) {
+                var dataFourDevice = data.content.device;
+                var dataFourIntermediary = data.content.intermediary;
+                var device = [];
+                var intermediary = [];
+                var year = [];
+                dataFourDevice.map(function(v){
+                    device.push(v.count);
+                    year.push(v.year)
+                });
+                dataFourIntermediary.map(function(v){
+                    intermediary.push(v.count);
+                });
+                console.log(device);
+                console.log(intermediary);
+                console.log(year);
+                option4 = {
+                    title : {
+                        left:'center',
+                        subtext: '近五年中间商设备趋势',
+                        subtextStyle:{
+                            color:"#000",
+                            align: 'center',
+                            fontSize:16
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:['中间商数量','设备数'],
+                        top:20,
+                        left: 'right',
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: year
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            name:'中间商数量',
+                            type:'line',
+                            stack: '总量',
+                            data:intermediary
+                        },
+                        {
+                            name:'设备数',
+                            type:'line',
+                            stack: '总量',
+                            data:device
+                        }
+                    ]
+                };
+                chartFour.setOption(option4);
             },
-            tooltip: {
-                trigger: 'axis'
-            },
-            legend: {
-                data:['邮件营销','联盟广告'],
-                top:20,
-                left: 'right',
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                data: ['2014','2015','2016','2017','2018']
-            },
-            yAxis: {
-                type: 'value'
-            },
-            series: [
-                {
-                    name:'邮件营销',
-                    type:'line',
-                    stack: '总量',
-                    data:[120, 132, 101, 134, 90, 230, 210]
-                },
-                {
-                    name:'联盟广告',
-                    type:'line',
-                    stack: '总量',
-                    data:[220, 182, 191, 234, 290, 330, 310]
-                }
-            ]
-        };
-        chartFour.setOption(option4);
+            error: function (data) {
+            }
+        });
+
+        window.onresize = function () {
+            myChart.resize();
+            myChartTwo.resize();
+            chartThree.resize();
+            chartFour.resize();
+        }
     })
 </script>
 </body>
