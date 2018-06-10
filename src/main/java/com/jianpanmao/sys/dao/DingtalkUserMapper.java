@@ -22,4 +22,5 @@ public interface DingtalkUserMapper extends BaseDao<DingtalkUser, DingtalkUserEx
     List<DingtalkUser> selectByRoleId(Integer roleId);
 
 
+    Integer editPwd(Integer id, String pwd);
 }

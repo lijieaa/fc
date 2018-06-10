@@ -15,4 +15,6 @@ public interface DingtalkUserService extends BaseService<DingtalkUser, DingtalkU
     List<DingtalkUser> selectByLikeName(String name);
 
     List<DingtalkUser> selectByRoleId(Integer roleId);
+
+    Integer editPwd(Integer id, String pwd);
 }

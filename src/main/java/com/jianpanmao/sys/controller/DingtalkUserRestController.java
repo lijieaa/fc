@@ -53,6 +53,14 @@ public class DingtalkUserRestController {
         return dingtalkuserService.update(entity);
     }
 
+
+    @PreAuthorize("hasAuthority('dingtalkuser:edit')")
+    @RequestMapping(method = RequestMethod.PUT,value = "editPwd")
+    public Integer editPwd(@RequestParam(value = "id",required = true) Integer id,
+                           @RequestParam(value = "pwd",required = true) String pwd) {
+        return dingtalkuserService.editPwd(id, pwd);
+    }
+
     @PreAuthorize("hasAuthority('dingtalkuser:view')")
     @RequestMapping(method = RequestMethod.GET)
     public DingtalkUser get(@RequestParam("id") Integer id) {
