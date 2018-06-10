@@ -10,6 +10,7 @@ import com.jianpanmao.sys.entity.DingtalkUser;
 import com.jianpanmao.sys.service.DingtalkUserService;
 import com.jianpanmao.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -56,6 +57,23 @@ public class DingtalkUserRestController {
     @RequestMapping(method = RequestMethod.GET)
     public DingtalkUser get(@RequestParam("id") Integer id) {
         return dingtalkuserService.get(id);
+    }
+
+
+
+    @PreAuthorize("hasAuthority('dingtalkuser:view')")
+    @RequestMapping(method = RequestMethod.GET,value = "intermediary_id")
+    public List<DingtalkUser> getByintermediaryId(@RequestParam(value = "intermediary_id",required = false) Integer id) {
+        DingtalkUserDto dto=new DingtalkUserDto();
+        if (id==null) {
+            DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+            dto.setIntermediaryId(user.getIntermediaryId());
+        }else {
+            dto.setIntermediaryId(id);
+        }
+
+        List<DingtalkUser> list = dingtalkuserService.getByDto(dto);
+        return list;
     }
 
 
