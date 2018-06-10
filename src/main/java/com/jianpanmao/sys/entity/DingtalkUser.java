@@ -71,6 +71,17 @@ public class DingtalkUser implements Serializable,UserDetails {
 
     private Intermediary intermediary;
 
+
+    public String getHeadPic() {
+            return headPic;
+    }
+
+    public void setHeadPic(String headPic) {
+        this.headPic = headPic;
+    }
+
+    private String headPic;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getUserid() {
