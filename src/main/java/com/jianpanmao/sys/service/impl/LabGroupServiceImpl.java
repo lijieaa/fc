@@ -4,11 +4,13 @@ import com.jianpanmao.common.service.impl.BaseServiceImpl;
 import com.jianpanmao.sys.dao.ExtConLabMapper;
 import com.jianpanmao.sys.entity.*;
 import com.jianpanmao.sys.dto.*;
+import com.jianpanmao.sys.service.ExtConLabService;
 import com.jianpanmao.sys.service.LabGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -18,9 +20,23 @@ public class LabGroupServiceImpl extends BaseServiceImpl<LabGroup,LabGroupExampl
     ExtConLabMapper extConLabMapper;
 
 
+    @Autowired
+    ExtConLabService extConLabService;
+
     @Override
     public int remove(Integer TId) {
-        extConLabMapper.deleteByGroupId(TId);
+        //extConLabMapper.deleteByGroupId(TId);
+        LabGroup group = super.get(TId);
+
+        Collection<ExtConLab> children = group.getChildren();
+
+        for (ExtConLab child : children) {
+            extConLabService.remove(child.getId());
+        }
+
+
+
+
         return super.remove(TId);
     }
 
