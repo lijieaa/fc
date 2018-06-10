@@ -148,7 +148,7 @@ function yyupload() {
 yyupload();
 //语音展示
 function  ajaxMp(pageNo) {
-    var webdata={"wxtype":'voice',"wxPublicId":14,"total":0,"records":0,"rows":10,"page":pageNo};
+    var webdata={"wxtype":'voice',"wxPublicId":14,"total":0,"records":0,"rows":5,"page":pageNo};
     $.ajax({
         url:contextPath +"material/page",
         type: "get",
@@ -167,6 +167,14 @@ function  ajaxMp(pageNo) {
                 var urlLink = ''+contextPath+'material/voice/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name;
                 urlLink = encodeURI(urlLink);
                 $("#mpShow").append("<li><audio controls='controls' preload='auto' ><source src='"+urlLink+"' type=\"audio/mpeg\"></audio></li>");
+                // $("#mpShow").append("<li ></li>");
+                // var wxAudio = new Wxaudio({
+                //     ele: '#mpShow li',
+                //     title: 'Jar Of Love',
+                //     disc: 'Break Me Up',
+                //     src: urlLink,
+                //     width: '500px'
+                // });
             }
             $("#pagingTest1").paging1({
                 pageNo:pageNo,
@@ -348,11 +356,11 @@ function photoText() {
             if(data.status == 200 && list.length){
                 for(var i=0; i<list.length;i++){
                     let html = `<li class="messageLi">
-                                    <div>
-                                        <p>标题：${list[i].title}</p>
-                                        <p>作者：${list[i].author}</p>
-                                        <p>文章摘要：${list[i].digest}</p>
-                                        <p>内容：${list[i].content}</p>
+                                    <div style="height: 250px;overflow: hidden">
+                                        <p>${list[i].title}</p>
+                                        <p>${list[i].author}</p>
+                                        <p>${list[i].content}</p>
+                                        <p>${list[i].digest}</p>
                                     </div>
                                 </li>`
                     $("#photo-tx ul").append(html);
