@@ -89,7 +89,16 @@
     <include refid="Base_Column_List" />
     from ext_con_lab
     where id = #{id,jdbcType=INTEGER}
+
+
   </select>
+
+  <select id="selectByConId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+    SELECT  c.*  FROM ext_con a,con_lab b,ext_con_lab c WHERE a.id=b.user_id AND b.lab_id=c.id AND a.id=#{0};
+  </select>
+
+
   <select id="selectByGroupId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
