@@ -389,7 +389,7 @@
 
                 <li class="light-blue dropdown-modal">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        <img class="nav-user-photo" th:src="@{/ace/assets/images/avatars/user.jpg}" alt="Jason's Photo"/>
+                        <img class="nav-user-photo" th:src="${session.user.headPic}?${session.user.headPic}:@{/ace/assets/images/avatars/user.jpg}" alt="Jason's Photo"/>
 								<span class="user-info">
 									<small>欢迎,</small>
 									[[${session.user.username}]]
