@@ -14,6 +14,9 @@
     <result column="intermediary_id" jdbcType="INTEGER" property="intermediaryId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <association property="changeUser"  select="com.jianpanmao.sys.dao.DingtalkUserMapper.selectByPrimaryKey" column="charge">
+
+    </association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -97,6 +100,12 @@
     from ext_con
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByLabId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+SELECT a.* FROM ext_con a,con_lab b,ext_con_lab c WHERE a.id=b.user_id AND b.lab_id=c.id AND c.id=#{0}
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from ext_con
     where id = #{id,jdbcType=INTEGER}
@@ -108,15 +117,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.jianpanmao.sys.entity.ExtCon">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into ext_con (id, username, tel, 
       company, pos, email, 
       adress, mark, charge, 
-      intermediary_id, create_time, update_time
+      intermediary_id
       )
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
       #{company,jdbcType=VARCHAR}, #{pos,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{adress,jdbcType=VARCHAR}, #{mark,jdbcType=VARCHAR}, #{charge,jdbcType=INTEGER}, 
-      #{intermediaryId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      #{intermediaryId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.sys.entity.ExtCon">
@@ -314,15 +326,18 @@
       email = #{email,jdbcType=VARCHAR},
       adress = #{adress,jdbcType=VARCHAR},
       mark = #{mark,jdbcType=VARCHAR},
-      charge = #{charge,jdbcType=INTEGER},
-      intermediary_id = #{intermediaryId,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      charge = #{charge,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAll" parameterType="com.jianpanmao.sys.entity.ExtCon" resultMap="BaseResultMap">
     select * from ext_con
   </select>
+
+  <select id="selectBLabId" parameterType="com.jianpanmao.sys.entity.ExtCon" resultMap="BaseResultMap">
+    select * from ext_con a
+  </select>
+
+
   <delete id="deleteBatch" parameterType="java.util.ArrayList">
     delete from ext_con
     where id in

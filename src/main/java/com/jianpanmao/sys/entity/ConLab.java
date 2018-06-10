@@ -18,6 +18,14 @@ public class ConLab implements Serializable {
 
     String od;
 
+    public ConLab(Integer labId, Integer userId) {
+        this.labId = labId;
+        this.userId = userId;
+    }
+
+    public ConLab() {
+    }
+
     public Integer getId() {
         return id;
     }

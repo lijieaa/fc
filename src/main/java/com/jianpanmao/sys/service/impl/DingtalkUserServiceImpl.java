@@ -48,6 +48,12 @@ public class DingtalkUserServiceImpl extends BaseServiceImpl<DingtalkUser, Dingt
         return dingtalkUserMapper.selectByRoleId(roleId);
     }
 
+    @Override
+    public Integer editPwd(Integer id, String pwd) {
+        String newPwd=passwordEncoder.encode(pwd);
+        return dingtalkUserMapper.editPwd(id,newPwd);
+    }
+
     @Autowired
     PasswordEncoder passwordEncoder;
 

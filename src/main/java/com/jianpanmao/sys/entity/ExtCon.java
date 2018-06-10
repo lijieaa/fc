@@ -1,7 +1,9 @@
 package com.jianpanmao.sys.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
@@ -46,7 +48,6 @@ public class ExtCon implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    String od;
 
     public Integer getId() {
         return id;
@@ -166,4 +167,28 @@ public class ExtCon implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+
+    public List<ExtConLab> getLabs() {
+        return labs;
+    }
+
+    public void setLabs(List<ExtConLab> labs) {
+        this.labs = labs;
+    }
+
+    private List<ExtConLab> labs=new ArrayList<>();
+
+
+    public DingtalkUser getChangeUser() {
+        return changeUser;
+    }
+
+    public void setChangeUser(DingtalkUser changeUser) {
+        this.changeUser = changeUser;
+    }
+
+    private DingtalkUser changeUser;
+
+
 }

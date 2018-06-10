@@ -12,10 +12,15 @@ import java.util.List;
 public interface DingtalkUserMapper extends BaseDao<DingtalkUser, DingtalkUserExample, DingtalkUserDto, Integer> {
 
     DingtalkUser findByMobile(String mobile);
+
     List<DingtalkUser> idNameList(Integer intermediaryId);
+
     List<DingtalkUser> selectByDeptId(Integer deptId);
+
     List<DingtalkUser> selectByLikeName(DingtalkUser user);
 
     List<DingtalkUser> selectByRoleId(Integer roleId);
 
+
+    Integer editPwd(Integer id, String pwd);
 }
