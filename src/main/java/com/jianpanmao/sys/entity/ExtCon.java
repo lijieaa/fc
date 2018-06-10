@@ -180,4 +180,15 @@ public class ExtCon implements Serializable {
     private List<ExtConLab> labs=new ArrayList<>();
 
 
+    public DingtalkUser getChangeUser() {
+        return changeUser;
+    }
+
+    public void setChangeUser(DingtalkUser changeUser) {
+        this.changeUser = changeUser;
+    }
+
+    private DingtalkUser changeUser;
+
+
 }

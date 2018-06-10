@@ -14,4 +14,7 @@ public interface ExtConLabMapper extends BaseDao<ExtConLab, ExtConLabExample, Ex
     int deleteByGroupId(Integer gid);
 
     List<ExtConLab> selectByGroupId(Integer gid);
+
+
+    List<ExtConLab> selectByConId(Integer conId);
 }

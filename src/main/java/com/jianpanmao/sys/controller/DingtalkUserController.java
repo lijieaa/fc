@@ -13,32 +13,32 @@ import org.springframework.web.bind.annotation.*;
 public class DingtalkUserController {
 
 
-@Autowired
-DingtalkUserService dingtalkuserService;
+    @Autowired
+    DingtalkUserService dingtalkuserService;
 
-@PreAuthorize("hasAuthority('dingtalkuser:view')")
-@RequestMapping(method = RequestMethod.GET,value = "list")
-public String list(){
-return "dingtalkuser/dingtalkuser_list";
-}
+    @PreAuthorize("hasAuthority('dingtalkuser:view')")
+    @RequestMapping(method = RequestMethod.GET, value = "list")
+    public String list() {
+        return "dingtalkuser/dingtalkuser_list";
+    }
 
-@PreAuthorize("hasAuthority('dingtalkuser:add')")
-@RequestMapping(method = RequestMethod.GET,value = "add")
-public String add(){
-return "dingtalkuser/dingtalkuser_add";
-}
+    @PreAuthorize("hasAuthority('dingtalkuser:add')")
+    @RequestMapping(method = RequestMethod.GET, value = "add")
+    public String add() {
+        return "dingtalkuser/dingtalkuser_add";
+    }
 
-@PreAuthorize("hasAuthority('dingtalkuser:edit')")
-@RequestMapping(method = RequestMethod.GET,value = "edit")
-public String edit(@RequestParam("id") Integer id, Model model){
-model.addAttribute("id",id);
-return "dingtalkuser/dingtalkuser_edit";
-}
+    @PreAuthorize("hasAuthority('dingtalkuser:edit')")
+    @RequestMapping(method = RequestMethod.GET, value = "edit")
+    public String edit(@RequestParam("id") Integer id, Model model) {
+        model.addAttribute("id", id);
+        return "dingtalkuser/dingtalkuser_edit";
+    }
 
-@PreAuthorize("hasAuthority('dingtalkuser:view')")
-@RequestMapping(method = RequestMethod.GET,value = "detail")
-public String detail(@RequestParam("id") Integer id, Model model){
-model.addAttribute("id",id);
-return "dingtalkuser/dingtalkuser_detail";
-}
+    @PreAuthorize("hasAuthority('dingtalkuser:view')")
+    @RequestMapping(method = RequestMethod.GET, value = "detail")
+    public String detail(@RequestParam("id") Integer id, Model model) {
+        model.addAttribute("id", id);
+        return "dingtalkuser/dingtalkuser_detail";
+    }
 }

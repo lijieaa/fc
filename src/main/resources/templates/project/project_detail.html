@@ -206,7 +206,6 @@
                 'searching': false,
                 "ajax": function (data, callback, settings) {
                     var formData = $("#search-form").serialize();
-                    console.log(formData);
                     var pageNum=data.start/data.length+1;
                     var pageSize=data.length;
                     var draw=data.draw;
@@ -221,9 +220,9 @@
                     }
                     orderByClause = orderByClause.substr(0,orderByClause.lastIndexOf(","));
 
-                    var param="?pageNum="+pageNum+"&pageSize="+pageSize+"&"+formData+"&draw="+draw+"&od="+orderByClause+"&projectStatus=1";
+                    var param="?pageNum="+pageNum+"&pageSize="+pageSize+"&"+formData+"&draw="+draw+"&od="+orderByClause+"&projectId="+projectId;
                     $.ajax({
-                        "url": contextPath+"api/project/page"+param,
+                        "url": contextPath+"api/device/byProjectId"+param,
                         "type": "get",
                         dataType:"json",
                         contentType:'application/json',
@@ -243,11 +242,11 @@
                 },
                 "columns": [
                     {"data": null},
-                    {"data": "projectId"},
-                    {"data": "projectName"},
-                    {"data": "projectOwnerContact"},
-                    {"data": "projectContactUser.name"},
-                    {"data": "projectOwnerContactTel"},
+                    {"data": "deviceProductionNum"},
+                    {"data": "deviceType"},
+                    {"data": "project.projectName"},
+                    {"data": "operateUser.name"},
+                    {"data": "transcribeUser.name"},
                     {"data": null}
                 ],
                 "columnDefs": [
@@ -307,27 +306,25 @@
                         }
 
                     },
-
-
                     {
                         "targets": -1,
                         "orderable": false,
                         data: null,
                         "render": function (data, type, row) {
                             return '<div class="hidden-sm hidden-xs action-buttons">'
-                                [# sec:authorize="hasAuthority('project:edit')"]
-                            + '<a class="green" href="../../project/detailEditDevice/?id='+data.projectId+'" title="编辑"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
+                                [# sec:authorize="hasAuthority('project:edit')"] //projectId
+                            + '<a class="green" href="../../project/detailEditDevice/?id='+data.deviceId+'='+projectId+'" title="编辑"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:delete')"]
-                            + '<a class="red delete" data-id="'+data.projectId+'" title="删除"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
+                            + '<a class="red delete" data-id="'+data.projectId+'" title="删除" data-operateUser="'+row.operateUser.userid+'" data-transcribeUser="'+row.transcribeUser.userid+'" data-device="'+row.deviceId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
                                 [/]
                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
                                 [# sec:authorize="hasAuthority('project:edit')"]
-                            + '<li><a href="../../project/detailEditDevice/?id='+data.projectId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
+                            + '<li><a href="../../project/detailEditDevice/?id='+data.deviceId+'='+projectId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:delete')"]
-                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.projectId+'"><span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
+                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.projectId+'" data-operateUser="'+row.operateUser.userid+'" data-transcribeUser="'+row.transcribeUser.userid+'" data-device="'+row.deviceId+'"><span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
                                 [/]
                             +'</ul></div></div>';
                         }
@@ -475,6 +472,10 @@
         //单个删除
         $('#dynamic-table tbody').on( 'click', 'a.delete', function () {
             var id = $(this).attr('data-id');
+            var operateUserId = $(this).attr("data-operateUser");
+            var transcribeUserId = $(this).attr("data-transcribeUser");
+            var deviceId = $(this).attr("data-device");
+
             bootbox.confirm( {
                 message: "您真的要删除?",
                 buttons: {
@@ -488,11 +489,25 @@
                     }
                 },
                 callback: function (result) {
-
                     if(result){
+                        var postData = {
+                            project:{
+                                projectId:""
+                            },
+                            operateUser:{
+                                userid:operateUserId
+                            },
+                            transcribeUser:{
+                                userid:transcribeUserId
+                            },
+                            deviceId:deviceId
+                        };
                         $.ajax({
-                            url: contextPath+"api/project/?id="+id,
-                            method: "delete",
+                            url: contextPath+"api/device/updateProjectId",
+                            method: "put",
+                            data : JSON.stringify(postData),
+                            contentType: "application/json",
+                            dataType : "json",
                             success: function (data) {
                                 if(data.status==200){
                                     myTable.draw();
@@ -540,7 +555,6 @@
                             ids.push(rows[i].projectId);
                         }
 
-                        console.log(ids);
 
                         $.ajax({
                             url: contextPath+"api/project/batch",
