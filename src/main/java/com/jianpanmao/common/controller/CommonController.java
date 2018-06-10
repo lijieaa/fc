@@ -46,6 +46,12 @@ public class CommonController{
     }
 
 
+    @RequestMapping("info")
+    public String info(){
+        return "info";
+    }
+
+
     @RequestMapping("editIntermediary")
     public String editIntermediary(Model model){
         DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
