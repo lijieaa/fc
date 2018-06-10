@@ -155,7 +155,7 @@ ul{
    box-shadow: 0 1px 3px 0px rgba(0,0,0,.3);
  }
  .pkee{
-   height:0.58rem;
+   height:0.58rem !important;
    line-height:0.58rem;
    box-sizing: border-box;
    border:1px solid #c1c1c0;
@@ -285,8 +285,12 @@ ul{
   width:0;
 }
 .ios .operate .toggle{
-  transform: scale(0.6);
+  transform: scale(0.6) translate(20px);
 }
 .wrapper .eqinfo{
 
+}
+
+.ios  .params  .toggle{
+  transform: scale(0.6) translate(20px);
 }
