@@ -63,8 +63,17 @@ public class DingtalkUserRestController {
 
     @PreAuthorize("hasAuthority('dingtalkuser:view')")
     @RequestMapping(method = RequestMethod.GET)
-    public DingtalkUser get(@RequestParam("id") Integer id) {
-        return dingtalkuserService.get(id);
+    public DingtalkUser get(@RequestParam(value = "id",required = false) Integer id) {
+
+
+        if(id==null){
+            DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+            return dingtalkuserService.get(user.getUserid());
+        }else {
+            return dingtalkuserService.get(id);
+        }
+
+
     }
 
 
