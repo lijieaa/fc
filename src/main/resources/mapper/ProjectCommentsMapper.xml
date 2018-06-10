@@ -12,7 +12,7 @@
     <result column="project_comments_content" jdbcType="VARCHAR" property="projectCommentsContent"/>
     <result column="project_top_comments_id" jdbcType="INTEGER" property="projectTopCommentsId"/>
     <association property="user" javaType="com.jianpanmao.sys.entity.DingtalkUser">
-      <id column="id" property="userid"></id>
+      <id column="userid" property="userid"></id>
       <result column="name" property="name"></result>
     </association>
 
@@ -116,11 +116,10 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from project_comments
+    SELECT pc.*,user.userid,user.name
+    FROM project_comments pc
+    LEFT JOIN dingtalk_user user
+    ON pc.user_id = user.userid
     where project_comments_id = #{projectCommentsId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
