@@ -7,6 +7,7 @@ import com.jianpanmao.sys.dto.*;
 import com.jianpanmao.sys.service.ConLabService;
 import com.jianpanmao.sys.service.ExtConService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +31,10 @@ public class ExtConServiceImpl extends BaseServiceImpl<ExtCon,ExtConExample,ExtC
 
     @Override
     public int add(ExtCon record) {
+
+        DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+
+        record.setIntermediaryId(user.getIntermediaryId());
 
         int add = super.add(record);
 
