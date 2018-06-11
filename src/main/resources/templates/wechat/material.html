@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" th:href="@{/dist/css/gzh-l/webuploader.css}"/>
     <link rel="stylesheet" th:href="@{/dist/css/gzh-l/gzh-common.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/gzh-l/wx-audio.css}"/>
     <style>
         .gzh-manage-menu{
             margin-top: 15px;
@@ -121,12 +122,21 @@
         #editInputAutor{
             border-bottom: 1px #e5e5e5 solid!important;
         }
+        .messageUl{
+            margin-left: 0px;
+        }
         .messageUl .messageLi{
             list-style: none;
             border: 1px solid #a8a8a8;
-            width: 250px;
+            width: 230px;
             float: left;
-            margin: 0 10px;
+            margin: 10px;
+        }
+        .messageUl .messageLi div p{
+            margin-left: 15px;
+        }
+        .contentP{
+            height: 125px;
         }
     </style>
 </head>
@@ -178,7 +188,7 @@
                     <input type="hidden" value="" id="page">
                 </div>
                 <!--语音-->
-                <div id="source" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;">
+                <div id="source" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;overflow: auto;">
                     <ul id="mpShow"></ul>
                     <div id="pagingTest1" class="pageIndex"></div>
                     <input type="hidden" value="" id="page1">
@@ -240,6 +250,7 @@
 <script th:src="@{/dist/js/gzh/webuploader.js}"></script>
 <script th:src="@{/dist/js/gzh/upload.js}"></script>
 <script th:src="@{/dist/js/gzh/hand-paging.js}"></script>
+<script th:src="@{/dist/js/gzh/wx-audio.js}"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
     var wxPublicId = /*[[${wxPublicId}]]*/;
@@ -371,33 +382,67 @@
             var thisId=$(this).attr("data-id");
             $('#sourceRoom').modal();
             if(thisId==1){
+                $("#btn-sure-source").attr("data-id",1);
                 $("#mySource").text("选择图片");
                 ajaxDataPop(1)
             }
             if(thisId==2){
+                $("#btn-sure-source").attr("data-id",2);
                 $("#mySource").text("选择视频");
                 ajaxVidPop(1);
             }
             if (thisId==3){
+                $("#btn-sure-source").attr("data-id",3);
                 $("#mySource").text("选择音频");
                 ajaxMpPop(1);
             }
-        })
-        //弹窗图片选中
+        });
+        //图片选中
         var thisSrc;
-        var thisId;
+        var thisphotoId;
+        var thisYsrc;
+        var thisYId;
+        var thisVsrc;
+        var thisVId;
         $(document).on("click","#popImg li img",function () {
-             thisSrc=$(this).attr("src");
-             thisId=$(this).attr("title");
+            thisSrc=$(this).attr("src");
+            thisphotoId=$(this).attr("title");
             $(this).addClass("opactiy").parent().siblings().children().removeClass("opactiy");
             $(this).parent().append("<a class='bgimg'></a>").siblings().children("a").remove();
-        })
+        });
+        //音频选中
+        $(document).on("click","#popImg li audio",function () {
+            thisYsrc=$(this).attr("data-src");
+            thisYId=$(this).attr("data-id");
+            $(this).addClass("opactiy").parent().siblings().children().removeClass("opactiy");
+            $(this).parent().append("<a class='bgimg'></a>").siblings().children("a").remove();
+        });
+        //视频选中
+        $(document).on("click","#popImg li video",function () {
+            thisVsrc=$(this).attr("src");
+            thisVId=$(this).attr("data-id");
+            $(this).addClass("opactiy").parent().siblings().children().removeClass("opactiy");
+            $(this).parent().append("<a class='bgimg'></a>").siblings().children("a").remove();
+        });
         //选择图片确定
         $(document).on("click","#btn-sure-source",function () {
+            var thisId=$(this).attr("data-id");
             $('#sourceRoom').modal("hide");
-            var title1 = '<p><img style="width: 200px;height: 150px;" src='+thisSrc+'></p>';
             var oEditor = CKEDITOR.instances.editor1;
-            oEditor.insertHtml(title1);
+            var title3 = '<p><audio src='+thisYsrc+'></audio></p>';
+            oEditor.insertHtml(title3);
+            // if(thisId==1){
+            //     var title1 = '<p><img style="width:200px;height:150px;" src='+thisSrc+'></p>';
+            //     oEditor.insertHtml(title1);
+            // }
+            // if(thisId==2){
+            //     var title2 = '<video style="width:200px;height:150px;" controls="controls" src='+thisVsrc+'></video>';
+            //     oEditor.insertHtml(title2);
+            // }
+            // if(thisId==3){
+            //     var title3 = '<p><audio src='+thisYsrc+'></audio></p>';
+            //     oEditor.insertHtml(title3);
+            // }
         })
         //保存图文信息
         $(document).on("click","#savapt",function () {
@@ -405,7 +450,7 @@
             var title=$("#editInputTitle").val();
             var autor=$("#editInputAutor").val();
             var zaiyao=$("#editWen").val();
-            var webdata={"title":title,"wxPublicId":14,"thumb_media_id":thisId,"author":autor,"show_cover_pic":1,"content":CHtml,"digest":zaiyao,"content_source_url":"http://www.baidu.com"};
+            var webdata={"title":title,"wxPublicId":14,"thumb_media_id":thisId,"author":autor,"show_cover_pic":1,"content":CHtml,"digest":zaiyao,"content_source_url":""};
             $.ajax({
                 url:contextPath +"material/upload/news",
                 type: "POST",

@@ -18,3 +18,8 @@
     color: white;
     cursor: default;
 }
+
+.user-info-container, .change-password-container {
+    max-width: 680px;
+    margin: 0 auto;
+}
