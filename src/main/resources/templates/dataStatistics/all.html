@@ -235,17 +235,16 @@
                 var dataFourIntermediary = data.content.intermediary;
                 var device = [];
                 var intermediary = [];
-                var year = [];
+                var yearDevice = [];
+                var yearIntermediary = [];
                 dataFourDevice.map(function(v){
                     device.push(v.count);
-                    year.push(v.year)
+                    yearDevice.push(v.year)
                 });
                 dataFourIntermediary.map(function(v){
                     intermediary.push(v.count);
+                    yearIntermediary.push(v.year);
                 });
-                console.log(device);
-                console.log(intermediary);
-                console.log(year);
                 option4 = {
                     title : {
                         left:'center',
@@ -261,8 +260,8 @@
                     },
                     legend: {
                         data:['中间商数量','设备数'],
-                        top:20,
-                        left: 'right',
+                        top:30,
+                        left: 'right'
                     },
                     grid: {
                         left: '3%',
@@ -270,11 +269,50 @@
                         bottom: '3%',
                         containLabel: true
                     },
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: false,
-                        data: year
-                    },
+                    xAxis: [
+                        {
+                            type: 'category',
+                            axisTick: {
+                                alignWithLabel: true
+                            },
+                            axisLine: {
+                                onZero: false,
+                                // lineStyle: {
+                                //     color: 'blue'
+                                // }
+                            },
+                            axisPointer: {
+                                label: {
+                                    formatter: function (params) {
+                                        return '设备数  ' + params.value
+                                            + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+                                    }
+                                }
+                            },
+                            data: yearDevice
+                        },
+                        {
+                            type: 'category',
+                            axisTick: {
+                                alignWithLabel: true
+                            },
+                            axisLine: {
+                                onZero: false,
+                                // lineStyle: {
+                                //     color: 'red'
+                                // }
+                            },
+                            axisPointer: {
+                                label: {
+                                    formatter: function (params) {
+                                        return '中间商  ' + params.value
+                                            + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+                                    }
+                                }
+                            },
+                            data: yearIntermediary
+                        }
+                    ],
                     yAxis: {
                         type: 'value'
                     },
@@ -282,12 +320,15 @@
                         {
                             name:'中间商数量',
                             type:'line',
+                            xAxisIndex: 1,
+                            smooth: true,
                             stack: '总量',
                             data:intermediary
                         },
                         {
                             name:'设备数',
                             type:'line',
+                            smooth: true,
                             stack: '总量',
                             data:device
                         }
