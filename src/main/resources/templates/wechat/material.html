@@ -101,7 +101,7 @@
             border: 1px #727272 solid;
             cursor: pointer;
         }
-        .newPhotoText a{
+        .newPhotoText span{
             display: inline-block;
             cursor: pointer;
             width: 100%;
@@ -109,7 +109,26 @@
             line-height:50px;
             text-align: center;
             border: 1px #bcbcbc solid;
-            font-size: 16px;
+            color: #818181;
+            font-size: 14px;
+        }
+        .newPhotoText i{
+            padding-right: 10px;
+            font-size: 18px;
+            color: #818181;
+            margin-top: 5px;
+        }
+        #topCheck{
+            width: 100%;
+            margin-left: 20%;
+            margin-top: 20px;
+            height: 50px;
+            line-height: 50px;
+            border: 1px #ccc solid;
+            text-align: center;
+            color: #818181;
+            font-size: 14px;
+            cursor: pointer;
         }
         .addInp{
             width: 90%;
@@ -137,6 +156,10 @@
         }
         .contentP{
             height: 125px;
+        }
+        .cke_bottom{
+            background: none!important;
+            border-top: none!important;
         }
     </style>
 </head>
@@ -169,7 +192,7 @@
             </div>
             <!--素材库图文消息内容-->
             <div>
-                <div style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 98%;margin-left: 2%;" id="photo-tx">
+                <div style="height: 550px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 98%;margin-left: 2%;overflow: auto" id="photo-tx">
                     <ul class="messageUl">
                         <!--<li class="messageLi">-->
                             <!--<div>-->
@@ -209,19 +232,22 @@
         <div style="margin-left: 10%;margin-top:2%;width: 80%;height: 600px;">
             <section class="float-left" style="width: 65%;height: 99%;">
                 <div>
-                      <textarea name="editor1" id="editor1">
+                      <textarea name="editor1" id="editor1" style="resize: none;">
 
                       </textarea>
+                      <textarea placeholder="请输入文章摘要" class="col-xs-12"  rows="3" style="resize: none;" id="autorAbout"></textarea>
                 </div>
-                <button style="width: 65px;height: 35px;display: block;margin-top: 15px;" id="savapt">保存</button>
+                <div style="width: 65px;height: 42px;line-height:42px;cursor:pointer;text-align:center;display: block;margin-top: 15px;float: right;background: #6FB3E0;color: #ffffff;" id="savapt">保存</div>
             </section>
             <section class="float-left" style="width: 15%;margin-left: 1.5%">
-                <label style="width:100%;margin-top: 15px;margin-left: 35px;" class="text-center;">多媒体</label>
-                <div style="width: 60%;margin-left: 20%;margin-top: 20px;" class="newPhotoText">
-                    <a style="border-bottom: none;" data-id="1">图片</a>
-                    <a style="border-bottom: none;" data-id="2">视频</a>
-                    <a style="" data-id="3">音频</a>
+                <label style="width:100%;margin-left: 20%;margin-top: 15px;text-align: center;" class="text-center;">多媒体</label>
+                <div style="width: 100%;margin-left: 20%;margin-top: 10px;" class="newPhotoText">
+                    <span style="border-bottom: none;" data-id="1"><i class="glyphicon glyphicon-picture"></i>图片</span>
+                    <span style="border-bottom: none;" data-id="2"><i class="glyphicon glyphicon-hd-video"></i>视频</span>
+                    <span style="" data-id="3"><i class="glyphicon glyphicon-ice-lolly"></i>音频</span>
                 </div>
+                <div id="topCheck">选择图文封面</div>
+                <div id="photoTop" style="margin-top: 20px;"></div>
             </section>
         </div>
     </div>
@@ -344,7 +370,7 @@
         //文本编辑器
         var editor;
         CKEDITOR.replace( 'editor1',{
-             height:350,
+             height:300,
             toolbarGroups: [
                 {"name":"basicstyles","groups":["basicstyles"]},
                 {"name":"links","groups":["links"]},
@@ -359,9 +385,7 @@
             editor = ev.editor;
             var title = '<input type="text" id="editInputTitle" class="addInp" placeholder="请输入标题" style="font-size: 20px;">' +
                 '<input type="text" id="editInputAutor" class="addInp" placeholder="请输入作者" >';
-            var title2='<input type="text"  class="addInp" id="editWen" placeholder="请输入文章摘要" style="border: 1px #cecece solid;height: 30px;">';
             $("#cke_1_contents").before(title);
-            $("#cke_1_contents").after(title2);
             $(".addInp").on('focus',function(){
                 editor.setReadOnly( true );
             })
@@ -379,7 +403,7 @@
             $("#gzh-manage").show().siblings().hide();
         })
         //多媒体选中newPhotoText
-        $(document).on("click",".newPhotoText>a",function () {
+        $(document).on("click",".newPhotoText>span",function () {
             var thisId=$(this).attr("data-id");
             $('#sourceRoom').modal();
             if(thisId==1){
@@ -425,11 +449,21 @@
             $(this).addClass("opactiy").parent().siblings().children().removeClass("opactiy");
             $(this).parent().append("<a class='bgimg'></a>").siblings().children("a").remove();
         });
-        //选择图片确定
+        //封面选择
+         $(document).on("click","#topCheck",function () {
+             $('#sourceRoom').modal();
+             ajaxDataPop(1);
+             $("#btn-sure-source").attr("data-id",0);
+         })
+        //选择多媒体确定
         $(document).on("click","#btn-sure-source",function () {
             var thisId=$(this).attr("data-id");
             $('#sourceRoom').modal("hide");
             var oEditor = CKEDITOR.instances.editor1;
+            if(thisId==0){
+                var title = '<img style="width:200px;height:150px;" src='+thisSrc+' data-id='+thisphotoId+'>';
+                $("#photoTop").empty().append(title)
+            }
             if(thisId==1){
                 var title1 = '<p><img style="width:200px;height:150px;" src='+thisSrc+'></p>';
                 oEditor.insertHtml(title1);
@@ -455,11 +489,12 @@
         })
         //保存图文信息
         $(document).on("click","#savapt",function () {
+            var photoID=$("#photoTop>img").attr("data-id");
             var CHtml= CKEDITOR.instances.editor1.getData();
             var title=$("#editInputTitle").val();
             var autor=$("#editInputAutor").val();
-            var zaiyao=$("#editWen").val();
-            var webdata={"title":title,"wxPublicId":14,"thumb_media_id":thisphotoId,"author":autor,"show_cover_pic":1,"content":CHtml,"digest":zaiyao,"content_source_url":""};
+            var zaiyao=$("#autorAbout").val();
+            var webdata={"title":title,"wxPublicId":14,"thumb_media_id":photoID,"author":autor,"show_cover_pic":1,"content":CHtml,"digest":zaiyao,"content_source_url":""};
             $.ajax({
                 url:contextPath +"material/upload/news",
                 type: "POST",
@@ -468,7 +503,7 @@
                 processData:true,
                 data: JSON.stringify(webdata),
                 success:function(data){
-                    alert("添加成功");
+                    alert(data.messages);
                 },
                 error:function (data) {
                     alert(data.status);

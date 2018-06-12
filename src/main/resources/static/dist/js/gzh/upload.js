@@ -355,12 +355,14 @@ function photoText() {
             var list = data.content.data.list;
             if(data.status == 200 && list.length){
                 for(var i=0; i<list.length;i++){
+                     var id=list[i].thumbMediaId;
+                    var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxPublicId;
                     let html = `<li class="messageLi">
                                     <div style="height: 250px;overflow: hidden">
                                         <p>${list[i].title}</p>
-                                        <p>${list[i].author}</p>
-                                        <p>${list[i].content}</p>
+                                        <p><img src="${urlLink}" style="width: 200px;height: 150px;"> </p>
                                         <p>${list[i].digest}</p>
+                                        <p>${list[i].updateTime}</p>
                                     </div>
                                 </li>`
                     $("#photo-tx ul").append(html);
