@@ -342,6 +342,7 @@
            $("#new-photo-text").show().siblings().hide();
         });
         //文本编辑器
+        var editor;
         CKEDITOR.replace( 'editor1',{
              height:350,
             toolbarGroups: [
@@ -355,17 +356,17 @@
             ]
         });
         CKEDITOR.on( 'instanceReady', function (ev) {
-
+            editor = ev.editor;
             var title = '<input type="text" id="editInputTitle" class="addInp" placeholder="请输入标题" style="font-size: 20px;">' +
                 '<input type="text" id="editInputAutor" class="addInp" placeholder="请输入作者" >';
             var title2='<input type="text"  class="addInp" id="editWen" placeholder="请输入文章摘要" style="border: 1px #cecece solid;height: 30px;">';
             $("#cke_1_contents").before(title);
             $("#cke_1_contents").after(title2);
             $(".addInp").on('focus',function(){
-                ev.editor.setReadOnly( true );
+                editor.setReadOnly( true );
             })
             $(".addInp").on('blur',function(){
-                ev.editor.setReadOnly( false );
+                editor.setReadOnly( false );
             })
             var editor1 = CKEDITOR.instances.editor1;
             editor1.focus();
@@ -429,20 +430,28 @@
             var thisId=$(this).attr("data-id");
             $('#sourceRoom').modal("hide");
             var oEditor = CKEDITOR.instances.editor1;
-            var title3 = '<p><audio src='+thisYsrc+'></audio></p>';
-            oEditor.insertHtml(title3);
-            // if(thisId==1){
-            //     var title1 = '<p><img style="width:200px;height:150px;" src='+thisSrc+'></p>';
-            //     oEditor.insertHtml(title1);
-            // }
-            // if(thisId==2){
-            //     var title2 = '<video style="width:200px;height:150px;" controls="controls" src='+thisVsrc+'></video>';
-            //     oEditor.insertHtml(title2);
-            // }
-            // if(thisId==3){
-            //     var title3 = '<p><audio src='+thisYsrc+'></audio></p>';
-            //     oEditor.insertHtml(title3);
-            // }
+            if(thisId==1){
+                var title1 = '<p><img style="width:200px;height:150px;" src='+thisSrc+'></p>';
+                oEditor.insertHtml(title1);
+            }
+            if(thisId==2){
+                var url = thisVsrc;
+                var video = editor.document.createElement( 'video' );
+                video.setAttribute('src', url);
+                video.setAttribute('width', 200);
+                video.setAttribute('height', 150);
+                video.setAttribute('controls', 'controls');
+                editor.insertElement( video );
+            }
+            if(thisId==3){
+                var url = thisYsrc;
+                var video = editor.document.createElement( 'video' );
+                video.setAttribute('src', url);
+                video.setAttribute('width', 200);
+                video.setAttribute('height', 50);
+                video.setAttribute('controls', 'controls');
+                editor.insertElement( video );
+            }
         })
         //保存图文信息
         $(document).on("click","#savapt",function () {
@@ -450,7 +459,7 @@
             var title=$("#editInputTitle").val();
             var autor=$("#editInputAutor").val();
             var zaiyao=$("#editWen").val();
-            var webdata={"title":title,"wxPublicId":14,"thumb_media_id":thisId,"author":autor,"show_cover_pic":1,"content":CHtml,"digest":zaiyao,"content_source_url":""};
+            var webdata={"title":title,"wxPublicId":14,"thumb_media_id":thisphotoId,"author":autor,"show_cover_pic":1,"content":CHtml,"digest":zaiyao,"content_source_url":""};
             $.ajax({
                 url:contextPath +"material/upload/news",
                 type: "POST",

@@ -27,7 +27,7 @@
     <select id="selectAll" resultMap="wxUserDetailMap">
         SELECT * FROM wx_user_detail WHERE intermediary_id = #{intermediary.intermediaryId}
         <if test="nickname != null and nickname !=''">
-            and nickname LIKE CONTACT('%',#{nickname},'%')
+            and nickname LIKE CONCAT('%',#{nickname},'%')
         </if>
     </select>
 
