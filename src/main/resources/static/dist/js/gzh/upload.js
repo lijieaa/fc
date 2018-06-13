@@ -349,7 +349,7 @@ $(document).on("click","#imgShow li img",function () {
 // 图文展示
 function photoText() {
     $.ajax({
-        url:contextPath +"material/page?page=1&rows=10&wxtype=news&wxPublicId=14",
+        url:contextPath +"material/page?page=1&rows=10&wxtype=news&wxPublicId="+wxPublicId,
         type: "get",
         success:function(data){
             var list = data.content.data.list;
@@ -357,7 +357,7 @@ function photoText() {
                 for(var i=0; i<list.length;i++){
                      var id=list[i].thumbMediaId;
                     var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxPublicId;
-                    let html = `<li class="messageLi">
+                    let html = `<li class="messageLi" data-id="${list[i].mediaId}">
                                     <div style="height: 250px;overflow: hidden">
                                         <p>${list[i].title}</p>
                                         <p><img src="${urlLink}" style="width: 200px;height: 150px;"> </p>
@@ -371,4 +371,25 @@ function photoText() {
         }
     });
 }
+//单个图文悬浮效果
+$(document).on("mouseenter",".messageLi",function () {
+    $(this).append("<a class='bgshadow'>预览文章</a>").siblings().find("a").remove();
+});
+//单个图文点击跳转
+$(document).on("click",".messageLi",function () {
+    var thistwID=$(this).attr("data-id");
+    $.ajax({
+        url: contextPath +"material/news/detail?page=1&rows=10&wxPublicId="+wxPublicId+"&mediaId="+thistwID,
+        type: "get",
+        processData:true,
+        success:function (data) {
+            $('#aphoto').modal();
+            $("#mySourcePhoto").text(data.content.news_item[0].title);
+            $("#photoAutor>span:eq(0)").text(data.content.news_item[0].author);
+            $("#photoContent").html(data.content.news_item[0].content)
+        }
+    })
+
+
+});
 

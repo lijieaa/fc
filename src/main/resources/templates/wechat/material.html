@@ -150,6 +150,8 @@
             width: 230px;
             float: left;
             margin: 10px;
+            position: relative;
+            cursor: pointer;
         }
         .messageUl .messageLi div p{
             margin-left: 15px;
@@ -268,6 +270,23 @@
                     <button type="button" id="btn-sure-source" class="btn btn-primary text-center">确定</button>
                     <button type="button" id="btn-cancel-source" class="btn btn-primary text-center" data-dismiss="modal">取消</button>
                 </div>
+            </div>
+        </div>
+    </div>
+    <!--单个图文弹窗-->
+    <div class="modal" id="aphoto" tabindex="-1" role="dialog" aria-labelledby="mySourcePhoto" style="position: absolute;top:12%;">
+        <div class="modal-dialog" role="document" style="width: 50%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-left" id="mySourcePhoto"></h4>
+                </div>
+                <div class="modal-body" style="min-height: 400px;">
+                   <div id="photoAutor"><span></span><span></span><span></span></div>
+                   <div id="photoContent"></div>
+                </div>
+
+
             </div>
         </div>
     </div>
@@ -503,7 +522,7 @@
                 processData:true,
                 data: JSON.stringify(webdata),
                 success:function(data){
-                    alert(data.messages);
+                    alert("success");
                 },
                 error:function (data) {
                     alert(data.status);
