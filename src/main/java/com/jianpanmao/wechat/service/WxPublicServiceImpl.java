@@ -72,4 +72,9 @@ public class WxPublicServiceImpl extends BaseServiceImpl<WxPublic> implements Wx
         return wxPublicDao.findByCompanyId(companyId);
     }
 
+    @Override
+    public WxPublic findBySourceId(String sourceId) {
+        return wxPublicDao.findBySourceId(sourceId);
+    }
+
 }

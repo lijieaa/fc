@@ -23,6 +23,7 @@
         <result property="Title" column="title"></result>
         <result property="Description" column="description"></result>
         <result property="Url" column="url"></result>
+        <result property="localFile" column="local_file"></result>
     </resultMap>
 
     <insert id="insert">
@@ -43,7 +44,8 @@
           title,
           description,
           url,
-          msg_id
+          msg_id,
+          local_file
         )
         VALUES(
           #{FromUserName},
@@ -62,7 +64,8 @@
           #{Title},
           #{Description},
           #{Url},
-          #{MsgId}
+          #{MsgId},
+          #{localFile}
         )
     </insert>
     <select id="findBySourceIdAndOpenId" resultMap="wxMessageMap">
@@ -81,6 +84,7 @@
           m.media_id 'MediaId',
           m.pic_url 'PicUrl',
           m.thumbMedia_id 'ThumbMediaId',
+          m.local_file 'localFile',
           d.nickname 'wxUserDetail.nickname',
           d.headimgurl 'wxUserDetail.headimgurl',
           d.openid 'wxUserDetail.openid'

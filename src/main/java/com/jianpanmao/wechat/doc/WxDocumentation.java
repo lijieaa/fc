@@ -740,13 +740,12 @@ package com.jianpanmao.wechat.doc;
  */
 
 /**
- * @api {get} /material/temp 获取单个临时素材（用户发给公众号的图片、语音、视频是临时素材）
+ * @api {get} /message/attachment 获取用户消息附件（用户发给公众号的图片、语音、视频是临时素材）
  * @apiName getMaterialTemp
  * @apiGroup wxMessage
- * @apiParam {Number} wxPublicId 公众号ID
- * @apiParam {String} mediaId mediaId
+ * @apiParam {String} msgType 消息类型image,voice,video
  * @apiExample Request-Example:
- * localhost:8080/material/temp?wxPublicId=14&mediaId=05b2fLSN6Eo2ynAuNFdvR8171MDyWICjhnrL5RNwu5OTLtlNgYjCSrmqt8mTNz2U
+ * http://localhost:8080/material/news/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2DwUEW17GfO3pKxwBULLFxg&wxPublicId=14
  */
 
 public class WxDocumentation {

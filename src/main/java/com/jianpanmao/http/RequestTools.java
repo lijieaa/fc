@@ -1,5 +1,7 @@
 package com.jianpanmao.http;
 
+import com.jianpanmao.utils.CommonUtils;
+import com.jianpanmao.utils.WxUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
@@ -16,9 +18,6 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -174,7 +173,8 @@ public class RequestTools {
         while ((rd = is.read(buffer)) > 0) {
             os.write(buffer, 0, rd);
         }
-        EntityUtils.consume(httpEntity);
+        os.flush();
+        is.close();
     }
 
     public static void processPOSTDownload(String url, String json, HttpServletResponse response) throws Exception{
@@ -201,5 +201,36 @@ public class RequestTools {
         }
         os.flush();
         is.close();
+    }
+
+    // 保存文件到本地
+    public static String downloadToLocal(String url, String path, String fileExtname) throws Exception{
+
+        HttpGet httpGet = new HttpGet(url);
+        RequestConfig
+                .custom()
+                .setSocketTimeout(25000)
+                .setConnectTimeout(3000)
+                .build();
+        HttpResponse r = HttpClientPool.getHttpClient().execute(httpGet);
+        HttpEntity httpEntity = r.getEntity();
+        InputStream is = httpEntity.getContent();
+        String filename = CommonUtils.uuid() + "." + fileExtname;
+        File dir = new File(path);
+        if(!dir.exists()) dir.mkdirs();
+        File file = new File(path + filename);
+        OutputStream os = new FileOutputStream(file);
+        byte[] buffer = new byte[1024];
+        int rd = 0;
+        while ((rd = is.read(buffer)) > 0) {
+            os.write(buffer, 0, rd);
+        }
+        os.flush();
+        is.close();
+        os.close();
+        if(fileExtname.equalsIgnoreCase("amr")){
+            return WxUtils.amr2mp3(file, path);
+        }
+        return filename;
     }
 }
