@@ -8,6 +8,9 @@ import com.jianpanmao.wechat.service.WxPublicService;
 import com.jianpanmao.wechat.service.WxPublicServiceImpl;
 
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
 import java.util.List;
 
 /**
@@ -59,5 +62,25 @@ public class WxUtils {
         WxPublicService wxPublicService = SpringUtils.getBean("wxPublicServiceImpl", WxPublicServiceImpl.class);
         List<WxPublic> wxPublics = wxPublicService.findByCompanyId(getCompany(session).getIntermediaryId());
         return wxPublics;
+    }
+
+    public static String amr2mp3(File amrFile, String path) {
+        try {
+            String exe = "ffmpeg.exe -i " + amrFile + " " + path + FileUtils.getFileMainname(amrFile.getName()) + ".mp3";
+            System.out.println(exe);
+            Runtime runtime = Runtime.getRuntime();
+            Process process = runtime.exec(exe);
+            BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
+            String line = null;
+            StringBuilder build = new StringBuilder();
+            while ((line = br.readLine()) != null) {
+                build.append(line);
+            }
+            System.out.println(build);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        amrFile.delete();
+        return FileUtils.getFileMainname(amrFile.getName()) + ".mp3";
     }
 }

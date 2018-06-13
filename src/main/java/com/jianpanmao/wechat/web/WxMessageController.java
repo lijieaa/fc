@@ -3,6 +3,7 @@ package com.jianpanmao.wechat.web;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jianpanmao.unit.ResponseEntity;
+import com.jianpanmao.utils.FileUtils;
 import com.jianpanmao.utils.GsonUtils;
 import com.jianpanmao.utils.WxUtils;
 import com.jianpanmao.wechat.api.msg.*;
@@ -10,10 +11,13 @@ import com.jianpanmao.wechat.entity.WxMessage;
 import com.jianpanmao.wechat.entity.WxPublic;
 import com.jianpanmao.wechat.service.WxMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,6 +31,9 @@ import java.util.List;
 public class WxMessageController{
 
     @Autowired private WxMessageService wxMessageService;
+
+    @Value("${fc.wx.user-msg-material.path}")
+    private String filepath;
 
     @GetMapping("page")
     @ResponseBody
@@ -121,5 +128,22 @@ public class WxMessageController{
         msg.setTouser(wxMessage.getToUserName());
         msg.setMsgtype(wxMessage.getMsgType());
         return msg;
+    }
+
+    @GetMapping("attachment")
+    @ResponseBody
+    public void attachment(String msgType, String localFile, HttpServletResponse response) throws Exception {
+
+        String contentType = null;
+        if(msgType.equalsIgnoreCase("image")){
+            contentType = "image/jpeg";
+        }else if(msgType.equalsIgnoreCase("voice")){
+            contentType = "audio/mp3";
+        }else if(msgType.equalsIgnoreCase("video")){
+            contentType = "video/mp4";
+        }
+        response.setHeader("Content-Type", contentType);
+        response.addHeader("Content-Disposition", "attachment;filename=" + localFile);
+        FileUtils.download(new File(filepath + localFile), response);
     }
 }

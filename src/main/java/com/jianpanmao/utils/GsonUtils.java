@@ -10,7 +10,7 @@ import com.google.gson.GsonBuilder;
 
 public class GsonUtils {
 
-    private static Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+    private static Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
     public static<T> T toBean(String json, Class<T> c){
         return gson.fromJson(json, c);
@@ -18,6 +18,18 @@ public class GsonUtils {
 
     public static<T> String toJson(T t){
         return gson.toJson(t);
+    }
+
+    class Test{
+        private String str;
+
+        public String getStr() {
+            return str;
+        }
+
+        public void setStr(String str) {
+            this.str = str;
+        }
     }
 
 }

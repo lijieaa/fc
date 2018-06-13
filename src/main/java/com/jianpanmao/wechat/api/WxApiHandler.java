@@ -11,7 +11,9 @@ import com.jianpanmao.wechat.api.response.AccessTokenResponse;
 import com.jianpanmao.wechat.api.response.OpenIdResponse;
 import com.jianpanmao.wechat.api.response.ResponseStatus;
 import com.jianpanmao.wechat.api.response.SubmitResponse;
+import com.jianpanmao.wechat.entity.WxMessageType;
 import com.jianpanmao.wechat.entity.WxUserDetail;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +31,8 @@ import java.util.HashMap;
 @Component
 public class WxApiHandler {
 
+    @Value("${fc.wx.user-msg-material.path}")
+    private String filepath;
 
     public String getAccessToken(String appId, String appSecret) throws Exception{
 
@@ -108,11 +112,19 @@ public class WxApiHandler {
     }
 
     // 获取临时素材
-    public void getTempMaterial(String mediaId, String accessToken, HttpServletResponse response) throws Exception{
+    public String downloadTempMaterial(String mediaId, String accessToken, String msgType) throws Exception{
 
         String url = "https://api.weixin.qq.com/cgi-bin/media/get?access_token=" + accessToken + "&media_id=" + mediaId;
 
-        RequestTools.processGETDownload(url, response);
+        String extname = null;
+        if(msgType.equalsIgnoreCase(WxMessageType.IMAGE)){
+            extname = "jpg";
+        }else if(msgType.equalsIgnoreCase(WxMessageType.VOICE)){
+            extname = "amr";
+        }else if(msgType.equalsIgnoreCase(WxMessageType.VIDEO)){
+            extname = "mp4";
+        }
+        return RequestTools.downloadToLocal(url, filepath, extname);
     }
 
     // 添加素材(图文)

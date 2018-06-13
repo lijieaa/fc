@@ -48,6 +48,16 @@ public class WxMessage{
 
     private WxUserDetail wxUserDetail;
 
+    private String localFile;
+
+    public String getLocalFile() {
+        return localFile;
+    }
+
+    public void setLocalFile(String localFile) {
+        this.localFile = localFile;
+    }
+
     public WxUserDetail getWxUserDetail() {
         return wxUserDetail;
     }

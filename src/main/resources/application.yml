@@ -32,4 +32,7 @@ pagehelper:
 fc:
  imgContext: img
  uploadPath: c:\upload\
+ wx:
+   user-msg-material:
+     path: c:\wx_users_msg_material\
 

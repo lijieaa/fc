@@ -2,9 +2,12 @@ package com.jianpanmao.wechat.platform;
 
 import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.utils.XmlUtils;
+import com.jianpanmao.wechat.api.WxApiHandler;
 import com.jianpanmao.wechat.entity.WxMessage;
 import com.jianpanmao.wechat.entity.WxMessageType;
+import com.jianpanmao.wechat.entity.WxPublic;
 import com.jianpanmao.wechat.service.WxMessageService;
+import com.jianpanmao.wechat.service.WxPublicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,10 @@ import java.io.InputStreamReader;
 public class PlatFormController {
 
     @Autowired private WxMessageService wxMessageService;
+
+    @Autowired private WxApiHandler wxApiHandler;
+
+    @Autowired private WxPublicService wxPublicService;
 
     @GetMapping
     @ResponseBody
@@ -48,7 +55,7 @@ public class PlatFormController {
         }
         try {
             WxMessage wxMessage = XmlUtils.fromXmlString(sb.toString());
-            String msgType = (wxMessage.getMsgType());
+            String msgType = wxMessage.getMsgType();
             if(msgType.equalsIgnoreCase(WxMessageType.EVENT)){
                 String event = wxMessage.getEvent();
                 if(event.equalsIgnoreCase(WxMessageType.EVENT_SUBSCRIBE)){
@@ -64,6 +71,15 @@ public class PlatFormController {
             }else{
                 // 将微信消息时间转换成标准时间
                 wxMessage.setCreateTime(wxMessage.getCreateTime() * 1000L);
+                // 如果是图片、语音、视频，保存到本地服务器
+                if(msgType.equalsIgnoreCase(WxMessageType.IMAGE)
+                        || msgType.equalsIgnoreCase(WxMessageType.VOICE)
+                        || msgType.equalsIgnoreCase(WxMessageType.VIDEO)){
+                    WxPublic wxPublic = wxPublicService.findBySourceId(wxMessage.getToUserName());
+                    String accessToken = wxApiHandler.getAccessToken(wxPublic.getAppId(), wxPublic.getAppSecret());
+                    String filename = wxApiHandler.downloadTempMaterial(wxMessage.getMediaId(), accessToken,msgType);
+                    wxMessage.setLocalFile(filename);
+                }
                 wxMessageService.insert(wxMessage);
             }
         } catch (Exception e) {

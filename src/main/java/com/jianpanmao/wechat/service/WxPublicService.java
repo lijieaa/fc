@@ -13,4 +13,6 @@ import java.util.List;
 public interface WxPublicService extends BaseService<WxPublic> {
 
     List<WxPublic> findByCompanyId(Integer companyId);
+
+    WxPublic findBySourceId(String sourceId);
 }
