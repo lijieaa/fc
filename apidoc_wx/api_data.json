@@ -391,8 +391,8 @@
   },
   {
     "type": "get",
-    "url": "/material/temp",
-    "title": "获取单个临时素材（用户发给公众号的图片、语音、视频是临时素材）",
+    "url": "/message/attachment",
+    "title": "获取用户消息附件（用户发给公众号的图片、语音、视频是临时素材）",
     "name": "getMaterialTemp",
     "group": "wxMessage",
     "parameter": {
@@ -400,17 +400,10 @@
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "wxPublicId",
-            "description": "<p>公众号ID</p>"
-          },
-          {
-            "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "mediaId",
-            "description": "<p>mediaId</p>"
+            "field": "msgType",
+            "description": "<p>消息类型image,voice,video</p>"
           }
         ]
       }
@@ -418,7 +411,7 @@
     "examples": [
       {
         "title": "Request-Example:",
-        "content": "localhost:8080/material/temp?wxPublicId=14&mediaId=05b2fLSN6Eo2ynAuNFdvR8171MDyWICjhnrL5RNwu5OTLtlNgYjCSrmqt8mTNz2U",
+        "content": "http://localhost:8080/material/news/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2DwUEW17GfO3pKxwBULLFxg&wxPublicId=14",
         "type": "json"
       }
     ],
