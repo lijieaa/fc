@@ -9,6 +9,18 @@
     height: 50px;
     background: url("../../img/gg.png") no-repeat center center;
 }
+.bgshadow{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: #ffffff!important;
+    line-height: 230px;
+    text-underline: none!important;
+    background: rgba(0, 0, 0, 0.5);
+}
 .imgShow li{
     width: 150px;
     height: 150px;
