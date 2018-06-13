@@ -404,6 +404,13 @@ define({ "api": [
             "optional": false,
             "field": "msgType",
             "description": "<p>消息类型image,voice,video</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "localFile",
+            "description": "<p>文件名</p>"
           }
         ]
       }
@@ -411,7 +418,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Request-Example:",
-        "content": "http://localhost:8080/material/news/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2DwUEW17GfO3pKxwBULLFxg&wxPublicId=14",
+        "content": "http://localhost:8080/message/attachment/msgType=voice&localFile=sdfjwefjj-23lfjk20.mp3",
         "type": "json"
       }
     ],

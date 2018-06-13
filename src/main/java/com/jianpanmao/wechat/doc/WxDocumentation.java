@@ -744,8 +744,9 @@ package com.jianpanmao.wechat.doc;
  * @apiName getMaterialTemp
  * @apiGroup wxMessage
  * @apiParam {String} msgType 消息类型image,voice,video
+ * @apiParam {String} localFile 文件名
  * @apiExample Request-Example:
- * http://localhost:8080/material/news/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2DwUEW17GfO3pKxwBULLFxg&wxPublicId=14
+ * http://localhost:8080/message/attachment/msgType=voice&localFile=sdfjwefjj-23lfjk20.mp3
  */
 
 public class WxDocumentation {
