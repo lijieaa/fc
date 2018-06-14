@@ -623,9 +623,9 @@ package com.jianpanmao.wechat.doc;
  * @apiName getMaterialNewsDetail
  * @apiGroup wxMessage
  * @apiParam wxPublicId 公众号ID
- * @apiParam mediaId 素材mediaId
+ * @apiParam materialId 素材Id
  * @apiExample Request-Example:
- * localhost:8080/material/news/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14
+ * http://localhost:8080/material/news/detail?wxPublicId=14&materialId=59
  */
 
 /**

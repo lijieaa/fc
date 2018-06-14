@@ -66,4 +66,8 @@
             and material_type = #{wxtype}
         </if>
     </select>
+
+    <select id="selectByPrimaryKey" resultMap="materialMap">
+        SELECT * FROM wx_material WHERE material_id = #{0}
+    </select>
 </mapper>
