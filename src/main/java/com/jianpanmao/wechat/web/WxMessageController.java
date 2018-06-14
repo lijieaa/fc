@@ -2,6 +2,7 @@ package com.jianpanmao.wechat.web;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.unit.ResponseEntity;
 import com.jianpanmao.utils.FileUtils;
 import com.jianpanmao.utils.GsonUtils;
@@ -132,6 +133,7 @@ public class WxMessageController{
 
     @GetMapping("attachment")
     @ResponseBody
+    @NoResultEntity
     public void attachment(String msgType, String localFile, HttpServletResponse response) throws Exception {
 
         String contentType = null;

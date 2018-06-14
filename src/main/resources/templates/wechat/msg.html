@@ -174,6 +174,8 @@
                 "&nbsp;"+showHour+":"+showMinutes;//yyyy-MM-dd 00:00:00格式日期
             return datetimeType;
         }
+
+
         $('#gzh-msg-manage').DataTable( {
             bAutoWidth: false,
             ajax:{
@@ -188,6 +190,7 @@
             "lengthChange": false,
             "ordering": false,
             "language": {
+                "paging": true,
                 "paginate": {
                     "next": "下一页",
                     "previous": "上一页"
@@ -200,9 +203,13 @@
                     }
                 },
                 { "data": "",render:function (data, type, row, meta) {
-                    console.log(row)
-                        var mediaId=row.mediaId;
-                        var resourceSrc = contextPath+'material/temp?wxPublicId='+wxPublicId+"&mediaId="+mediaId;
+                        var localFile=row.localFile;
+                        var img='image';
+                        var voice='voice';
+                        var video='video';
+                        var resourceSrcImg = contextPath+'message/attachment?msgType='+img+"&localFile="+localFile;
+                        var resourceSrcVoice = contextPath+'message/attachment?msgType='+voice+"&localFile="+localFile;
+                        var resourceSrcVideo = contextPath+'message/attachment?msgType='+video+"&localFile="+localFile;
                         var htmlDiv = "<div class='chatOne'>"+row.wxUserDetail.nickname+"</div>";
                         if(row.msgType=="text"){
                             var html=htmlDiv +
@@ -211,17 +218,17 @@
                         }
                         if(row.msgType=="image"){
                             var html=htmlDiv +
-                                "<img src='"+resourceSrc+"'>";
+                                "<img src='"+resourceSrcImg+"'>";
                             return html;
                         }
                         if(row.msgType=="video"){
                             var html=htmlDiv +
-                                "<video style='width: 100px;height: 100px;' src='"+resourceSrc+"' controls='controls'></video>";
+                                "<video style='width: 100px;height: 100px;' src='"+resourceSrcVideo+"' controls='controls'></video>";
                             return html;
                         }
                         if(row.msgType=="voice"){
                             var html=htmlDiv +
-                                "<audio controls='controls' preload='auto'><source src='"+resourceSrc+"'></audio>";
+                                "<audio controls='controls' preload='auto'><source src='"+resourceSrcVoice+"'></audio>";
                             return html;
                         }
 
@@ -234,7 +241,7 @@
                 }
 
             ],
-            "pageLength": 8,
+            "pageLength": 10,
             "fnInitComplete": function() {//初始化完毕事件
             }
         } );
@@ -265,9 +272,34 @@
                         }
                     },
                     { "data": "",render:function (data, type, row, meta) {
-                            var html="<div>"+nickName+"</div>" +
-                                "<div>"+row.content+"</div>";
-                            return html;
+                            var localFile=row.localFile;
+                            var img='image';
+                            var voice='voice';
+                            var video='video';
+                            var resourceSrcImg = contextPath+'message/attachment?msgType='+img+"&localFile="+localFile;
+                            var resourceSrcVoice = contextPath+'message/attachment?msgType='+voice+"&localFile="+localFile;
+                            var resourceSrcVideo = contextPath+'message/attachment?msgType='+video+"&localFile="+localFile;
+                            var htmlDiv = "<div class='chatOne'>"+row.wxUserDetail.nickname+"</div>";
+                            if(row.msgType=="text"){
+                                var html=htmlDiv +
+                                    "<div>"+row.content+"</div>";
+                                return html;
+                            }
+                            if(row.msgType=="image"){
+                                var html=htmlDiv +
+                                    "<img src='"+resourceSrcImg+"'>";
+                                return html;
+                            }
+                            if(row.msgType=="video"){
+                                var html=htmlDiv +
+                                    "<video style='width: 100px;height: 100px;' src='"+resourceSrcVideo+"' controls='controls'></video>";
+                                return html;
+                            }
+                            if(row.msgType=="voice"){
+                                var html=htmlDiv +
+                                    "<audio controls='controls' preload='auto'><source src='"+resourceSrcVoice+"'></audio>";
+                                return html;
+                            }
                         }
                     },
                     { "data": "",render:function (data, type, row, meta) {

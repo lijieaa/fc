@@ -8,7 +8,6 @@ import com.jianpanmao.utils.GsonUtils;
 import com.jianpanmao.utils.WxUtils;
 import com.jianpanmao.wechat.api.WxApiHandler;
 import com.jianpanmao.wechat.api.news.WxNewsContent;
-import com.jianpanmao.wechat.dto.NewsDTOUT;
 import com.jianpanmao.wechat.dto.VideoDTO;
 import com.jianpanmao.wechat.entity.WxMaterial;
 import com.jianpanmao.wechat.service.WxMaterialService;
@@ -118,9 +117,8 @@ public class WxMaterialController {
 
     @GetMapping("news/detail")
     @ResponseBody
-    public NewsDTOUT newsDetail(String mediaId, Integer wxPublicId, HttpSession session) throws Exception{
+    public WxMaterial newsDetail(Integer materialId, Integer wxPublicId, HttpSession session) throws Exception{
         WxUtils.checkParam(session, wxPublicId);
-        String accessToken = WxUtils.getAccessToken(session, wxPublicId);
-        return GsonUtils.toBean(wxApiHandler.getNewsDetail(accessToken, mediaId), NewsDTOUT.class);
+        return wxMaterialService.selectByPrimaryKey(materialId);
     }
 }

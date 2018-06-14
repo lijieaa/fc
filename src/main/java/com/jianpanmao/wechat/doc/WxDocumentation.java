@@ -623,9 +623,9 @@ package com.jianpanmao.wechat.doc;
  * @apiName getMaterialNewsDetail
  * @apiGroup wxMessage
  * @apiParam wxPublicId 公众号ID
- * @apiParam mediaId 素材mediaId
+ * @apiParam materialId 素材Id
  * @apiExample Request-Example:
- * localhost:8080/material/news/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14
+ * http://localhost:8080/material/news/detail?wxPublicId=14&materialId=59
  */
 
 /**
@@ -746,7 +746,7 @@ package com.jianpanmao.wechat.doc;
  * @apiParam {String} msgType 消息类型image,voice,video
  * @apiParam {String} localFile 文件名
  * @apiExample Request-Example:
- * http://localhost:8080/message/attachment/msgType=voice&localFile=sdfjwefjj-23lfjk20.mp3
+ * http://localhost:8080/message/attachment?msgType=voice&localFile=sdfjwefjj-23lfjk20.mp3
  */
 
 public class WxDocumentation {
