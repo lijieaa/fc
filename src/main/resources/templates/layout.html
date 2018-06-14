@@ -104,7 +104,7 @@
 </head>
 
 <body class="no-skin">
-<div id="navbar" class="navbar navbar-default          ace-save-state">
+<div id="navbar" class="navbar navbar-default noticeBarRead ace-save-state">
     <div class="navbar-container ace-save-state" id="navbar-container">
         <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
             <span class="sr-only">Toggle sidebar</span>
@@ -275,113 +275,42 @@
                 <li class="green dropdown-modal">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
-                        <span class="badge badge-success">5</span>
+                        <span class="badge badge-success">{{noticeList.length}}</span>
                     </a>
 
                     <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
                         <li class="dropdown-header">
                             <i class="ace-icon fa fa-envelope-o"></i>
-                            5 Messages
+                            {{noticeList.length}} Messages
                         </li>
 
                         <li class="dropdown-content">
                             <ul class="dropdown-menu dropdown-navbar">
-                                <li>
+                                <li v-for="item in noticeList" :data-id="item.noticeId"
+                                    @click="changeAlreadyRead(item.noticeId,item.noticeComments.projectId)">
                                     <a href="#" class="clearfix">
-                                        <!--<img th:src="@{/ace/assets/images/avatars/avatar.png}" class="msg-photo"-->
-                                             <!--alt="Alex's Avatar"/>-->
+                                        <img th:src="@{/ace/assets/images/avatars/avatar.png}" class="msg-photo"/>
+                                        <span class="msg-body">
+                                            <span class="msg-title">
+                                                <span class="blue">{{item.noticeUser.name}}:</span>
+                                                {{item.noticeComments.projectCommentsContent}}
+                                            </span>
 
-												<span class="msg-body">
-													<span class="msg-title">
-														<span class="blue">Alex:</span>
-														Ciao sociis natoque penatibus et auctor ...
-													</span>
-
-													<span class="msg-time">
-														<i class="ace-icon fa fa-clock-o"></i>
-														<span>a moment ago</span>
-													</span>
-												</span>
+                                            <span class="msg-time">
+                                                <i class="ace-icon fa fa-clock-o"></i>
+                                                <span>{{item.noticeCreateTime}}</span>
+                                            </span>
+                                        </span>
                                     </a>
                                 </li>
 
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <img th:src="@{/ace/assets/images/avatars/avatar3.png}" class="msg-photo"
-                                             alt="Susan's Avatar"/>
-												<span class="msg-body">
-													<span class="msg-title">
-														<span class="blue">Susan:</span>
-														Vestibulum id ligula porta felis euismod ...
-													</span>
 
-													<span class="msg-time">
-														<i class="ace-icon fa fa-clock-o"></i>
-														<span>20 minutes ago</span>
-													</span>
-												</span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <img th:src="@{/ace/assets/images/avatars/avatar4.png}" class="msg-photo"
-                                             alt="Bob's Avatar"/>
-												<span class="msg-body">
-													<span class="msg-title">
-														<span class="blue">Bob:</span>
-														Nullam quis risus eget urna mollis ornare ...
-													</span>
-
-													<span class="msg-time">
-														<i class="ace-icon fa fa-clock-o"></i>
-														<span>3:15 pm</span>
-													</span>
-												</span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <img th:src="@{/ace/assets/images/avatars/avatar2.png}" class="msg-photo"
-                                             alt="Kate's Avatar"/>
-												<span class="msg-body">
-													<span class="msg-title">
-														<span class="blue">Kate:</span>
-														Ciao sociis natoque eget urna mollis ornare ...
-													</span>
-
-													<span class="msg-time">
-														<i class="ace-icon fa fa-clock-o"></i>
-														<span>1:33 pm</span>
-													</span>
-												</span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <img th:src="@{/ace/assets/images/avatars/avatar5.png}" class="msg-photo"
-                                             alt="Fred's Avatar"/>
-												<span class="msg-body">
-													<span class="msg-title">
-														<span class="blue">Fred:</span>
-														Vestibulum id penatibus et auctor  ...
-													</span>
-
-													<span class="msg-time">
-														<i class="ace-icon fa fa-clock-o"></i>
-														<span>10:09 am</span>
-													</span>
-												</span>
-                                    </a>
-                                </li>
                             </ul>
                         </li>
 
                         <li class="dropdown-footer">
                             <a href="inbox.html">
-                                See all messages
+                               更多消息
                                 <i class="ace-icon fa fa-arrow-right"></i>
                             </a>
                         </li>
@@ -696,13 +625,35 @@
 <script th:src="@{/plugins/autofill/jquery.formautofill.min.js}"></script>
 <script th:src="@{/plugins/zTree_v3/js/jquery.ztree.all.js}"></script>
 <script type="text/javascript">
-    $.ajax({
-        url:contextPath+"notice/select?userId=1",
-        type:"get",
-        success:function(data){
-            console.log(data);
+    new Vue({
+        el:".noticeBarRead",
+        data:{
+            noticeList:[]
+        },
+        methods:{
+            changeAlreadyRead:function(id){
+                $.ajax({
+                    url:contextPath+"notice/check?noticeId="+id,
+                    type:"put",
+                    success:function (data) {
+
+                    }
+                })
+            }
+        },
+        mounted:function(){
+            var _this = this;
+            $.ajax({
+            url:contextPath+"notice/select?userId=1",
+            type:"get",
+            success:function(data){
+                // console.log(data);
+                _this.noticeList = data.content
+            }
+        })
         }
-    })
+    });
+
 
 </script>
 </body>

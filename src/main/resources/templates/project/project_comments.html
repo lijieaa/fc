@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
-    <meta charset="UTF-8">
+    <!--<meta charset="UTF-8">-->
     <link rel="stylesheet" th:href="@{/dist/css/common.css}">
     <link rel="stylesheet" th:href="@{/dist/css/club/detail.css}">
     <link rel="stylesheet" th:href="@{/dist/css/page.css}">
@@ -351,7 +351,8 @@
             //    查询评论
             _this.ajaxData(1,0,1);
 
-            $(document).on("click","#pagingTest a",function () {
+            $(document).on("click","a",function () {
+                // alert(1);
                 var val = $("#page").val();
                 _this.ajaxData(val,_this.type,_this.status);
             });
