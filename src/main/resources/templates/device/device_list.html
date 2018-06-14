@@ -291,7 +291,12 @@
                                                 'dden-xs action-buttons">'
                                                     [# sec:authorize="hasAuthority('device:view')"] //控制
                                             // data.deviceId  deviceProductionNum
-                                            + '<a class="blue" href="detail/?id='+data.deviceId+'#deviceProductionNum='+data.deviceProductionNum+'" title="控制"><i class="ace-icon fa fa-cogs bigger-130"></i></a>'
+                                            + '<a class="blue" title="转为项目">' +
+                                            '<i class="ace-icon fa fa-exchange  bigger-130"></i></a>'
+                                                [/]
+                                                [# sec:authorize="hasAuthority('device:view')"] //转换
+                                            + '<a class="blue" href="detail/?id='+data.deviceId+'#deviceProductionNum='+data.deviceProductionNum+'" title="控制">' +
+                                            '<i class="ace-icon fa fa-cogs bigger-130"></i></a>'
                                                     [/]
                                                 [# sec:authorize="hasAuthority('device:view')"] //日志
                                             + '<a class="blue" href="../devicelog/list/?id='+data.deviceId+'" title="日志"><i class="ace-icon fa fa-envelope bigger-130"></i></a>'
@@ -305,6 +310,11 @@
                                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
                                                     [# sec:authorize="hasAuthority('device:view')"]
+                                            + '<li><a  class="tooltip-info" data-rel="tooltip" title="转为项目">' +
+                                            '<span class="blue"><i class="ace-icon fa fa-exchange bigger-120"></i></span></a></li>'
+                                                [/]
+                                                [# sec:authorize="hasAuthority('device:view')"]
+
                                             + '<li><a href="detail/?id='+data.deviceId+'#deviceProductionNum='+data.deviceProductionNum+'" class="tooltip-info" data-rel="tooltip" title="控制"><span class="blue"><i class="ace-icon fa fa-cogs bigger-120"></i></span></a></li>'
                                                     [/]
                                                 [# sec:authorize="hasAuthority('device:view')"]

@@ -288,8 +288,9 @@
                             <ul class="dropdown-menu dropdown-navbar">
                                 <li>
                                     <a href="#" class="clearfix">
-                                        <img th:src="@{/ace/assets/images/avatars/avatar.png}" class="msg-photo"
-                                             alt="Alex's Avatar"/>
+                                        <!--<img th:src="@{/ace/assets/images/avatars/avatar.png}" class="msg-photo"-->
+                                             <!--alt="Alex's Avatar"/>-->
+
 												<span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Alex:</span>
@@ -694,6 +695,15 @@
 <script th:src="@{/ace/assets/js/ace.min.js}"></script>
 <script th:src="@{/plugins/autofill/jquery.formautofill.min.js}"></script>
 <script th:src="@{/plugins/zTree_v3/js/jquery.ztree.all.js}"></script>
+<script type="text/javascript">
+    $.ajax({
+        url:contextPath+"notice/select?userId=1",
+        type:"get",
+        success:function(data){
+            console.log(data);
+        }
+    })
 
+</script>
 </body>
 </html>
