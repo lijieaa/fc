@@ -239,9 +239,34 @@
                             }
                         },
                         { "data": "",render:function (data, type, row, meta) {
-                                var html="<div>"+nickName+"</div>" +
-                                    "<div>"+row.content+"</div>";
-                                return html;
+                                var localFile=row.localFile;
+                                var img='image';
+                                var voice='voice';
+                                var video='video';
+                                var resourceSrcImg = contextPath+'message/attachment?msgType='+img+"&localFile="+localFile;
+                                var resourceSrcVoice = contextPath+'message/attachment?msgType='+voice+"&localFile="+localFile;
+                                var resourceSrcVideo = contextPath+'message/attachment?msgType='+video+"&localFile="+localFile;
+                                var htmlDiv = "<div class='chatOne'>"+row.wxUserDetail.nickname+"</div>";
+                                if(row.msgType=="text"){
+                                    var html=htmlDiv +
+                                        "<div>"+row.content+"</div>";
+                                    return html;
+                                }
+                                if(row.msgType=="image"){
+                                    var html=htmlDiv +
+                                        "<img src='"+resourceSrcImg+"'>";
+                                    return html;
+                                }
+                                if(row.msgType=="video"){
+                                    var html=htmlDiv +
+                                        "<video style='width: 100px;height: 100px;' src='"+resourceSrcVideo+"' controls='controls'></video>";
+                                    return html;
+                                }
+                                if(row.msgType=="voice"){
+                                    var html=htmlDiv +
+                                        "<audio controls='controls' preload='auto'><source src='"+resourceSrcVoice+"'></audio>";
+                                    return html;
+                                }
                             }
                         },
                         { "data": "",render:function (data, type, row, meta) {

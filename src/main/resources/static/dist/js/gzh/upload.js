@@ -357,7 +357,7 @@ function photoText() {
                 for(var i=0; i<list.length;i++){
                      var id=list[i].thumbMediaId;
                     var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxPublicId;
-                    let html = `<li class="messageLi" data-id="${list[i].mediaId}">
+                    let html = `<li class="messageLi" data-id="${list[i].id}">
                                     <div style="height: 250px;overflow: hidden">
                                         <p>${list[i].title}</p>
                                         <p><img src="${urlLink}" style="width: 200px;height: 150px;"> </p>
@@ -379,14 +379,15 @@ $(document).on("mouseenter",".messageLi",function () {
 $(document).on("click",".messageLi",function () {
     var thistwID=$(this).attr("data-id");
     $.ajax({
-        url: contextPath +"material/news/detail?page=1&rows=10&wxPublicId="+wxPublicId+"&mediaId="+thistwID,
+        url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+thistwID,
         type: "get",
         processData:true,
         success:function (data) {
             $('#aphoto').modal();
-            $("#mySourcePhoto").text(data.content.news_item[0].title);
-            $("#photoAutor>span:eq(0)").text(data.content.news_item[0].author);
-            $("#photoContent").html(data.content.news_item[0].content)
+            $("#mySourcePhoto").text(data.content.title);
+            $("#photoAutor>span:eq(0)").text(data.content.author);
+            $("#photoAutor>span:eq(2)").text(data.content.updateTime);
+            $("#photoContent").html(data.content.content)
         }
     })
 
