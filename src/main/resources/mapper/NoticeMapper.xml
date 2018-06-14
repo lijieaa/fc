@@ -47,7 +47,12 @@
   </insert>
 
   <select id="select" resultMap="BaseResultMap">
-    SELECT * FROM notice n WHERE n.notice_be_userid = #{0} and n.notice_ischeck = 0
+    SELECT n.* ,noticeUser.name,noticeComments.project_comments_content commentsContent
+    FROM notice n LEFT JOIN dingtalk_user noticeUser
+    ON n.notice_userid = noticeUser.userid
+    LEFT JOIN project_comments noticeComments
+    ON n.notice_comments = noticeComments.project_comments_id
+     WHERE n.notice_be_userid = #{0} and n.notice_ischeck = 0
   </select>
 
   <update id="check">
