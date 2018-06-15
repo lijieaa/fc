@@ -180,19 +180,35 @@
             }
             var myTable=$('#gzh-ul-manage').DataTable( {
                     bAutoWidth: false,
-                    ajax:{
-                        url: contextPath +"wxUsers/page?page=1&rows=10&wxPublicId="+wxPublicId,
-                        //url: contextPath +"wxUsers/page",
-                        type: "get",
-                        processData:true,
-                        //data:$.param(webdata),
-                        dataSrc:"content.data.list"
-                        // contentType:'application/json; charset=utf-8',
-                    },
+                "ajax": function (data, callback, settings) {
+                    var pageNum=data.start/data.length+1;
+                    var pageSize=data.length;
+                    var draw=data.draw;
+                    var param="?page="+pageNum+"&rows="+pageSize+"&draw="+draw
+                    $.ajax({
+                        "url":contextPath +"wxUsers/page"+param+"&wxPublicId="+wxPublicId,
+                        "type": "get",
+                        dataType:"json",
+                        contentType:'application/json',
+                        "success": function (json) {
+                            if (json.status == 200) {
+                                var data = {};
+                                data.recordsTotal = json.content.recordsTotal;
+                                data.recordsFiltered = json.content.recordsFiltered;
+                                data.data = json.content.data;
+                                callback(data);
+                            }
+                        },
+                        "error": function (XMLHttpRequest, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                        }
+                    });
+                },
                     "info":false,
                     "searching": false,
                     "lengthChange": false,
                     "ordering": false,
+                    "serverSide": true,
                     "language": {
                         "paginate": {
                             "next": "下一页",

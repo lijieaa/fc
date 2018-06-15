@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 public class Area implements Serializable {
 
+
     private boolean isParent;
     //
     private Integer id;
