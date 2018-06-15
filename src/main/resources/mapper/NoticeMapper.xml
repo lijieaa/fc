@@ -55,6 +55,12 @@
      WHERE n.notice_be_userid = #{0} and n.notice_ischeck = 0
   </select>
 
+  <select id="selectCount" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    FROM notice n
+     WHERE n.notice_be_userid = #{0} and n.notice_ischeck = 0
+  </select>
+
   <update id="check">
 UPDATE notice SET notice_ischeck = 1 WHERE notice_id = #{0}
   </update>

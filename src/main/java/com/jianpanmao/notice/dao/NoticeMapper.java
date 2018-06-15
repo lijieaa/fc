@@ -13,5 +13,6 @@ public interface NoticeMapper {
     void add(Notice notice);
     List<Notice> select(Integer userId);
     void check(Integer noticeId);
+    Integer selectCount(Integer userId);
     }
 

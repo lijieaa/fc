@@ -82,4 +82,10 @@ public class ProjectRestController {
     public List<Project> idNameList() {
         return dao.selectIdNameList();
     }
+
+    @PreAuthorize("hasAuthority('project:edit')")
+    @PutMapping("status")
+    public void updateProjectStatus(Integer projectId){
+        dao.updateProjectStatus(projectId);
+    }
 }
