@@ -287,7 +287,8 @@
                         <li class="dropdown-content">
                             <ul class="dropdown-menu dropdown-navbar">
                                 <li v-for="item in noticeList" :data-id="item.noticeId"
-                                    @click="changeAlreadyRead(item.noticeId,item.noticeComments.projectId)">
+                                    @click="changeAlreadyRead(item.noticeId,
+                                    item.noticeComments.projectCommentsId,item.noticeComments.projectCommentsStatus)">
                                     <a href="#" class="clearfix">
                                         <img th:src="@{/ace/assets/images/avatars/avatar.png}" class="msg-photo"/>
                                         <span class="msg-body">
@@ -632,12 +633,18 @@
             noticeList:[]
         },
         methods:{
-            changeAlreadyRead:function(id){
+            changeAlreadyRead:function(id,projectId,status){
                 $.ajax({
                     url:contextPath+"notice/check?noticeId="+id,
                     type:"put",
                     success:function (data) {
-
+                        if(status == 0){ //0是线索 1是项目
+                            location.href = contextPath+"clue/detail/?id="+projectId
+                        }else{
+                            location.href = contextPath+"project/projectComments?id="+projectId
+                        }
+                        console.log(status);
+                        console.log(projectId);
                     }
                 })
             }
@@ -649,7 +656,7 @@
             type:"get",
             success:function(data){
                 // console.log(data);
-                _this.noticeList = data.content
+                _this.noticeList = data.content.notices
             }
         })
         }

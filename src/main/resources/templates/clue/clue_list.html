@@ -258,7 +258,7 @@
                                         "render": function (data, type, row) {
                                             return '<div class="hidden-sm hidden-xs action-buttons">'
                                                     [# sec:authorize="hasAuthority('project:view')"]
-                                            + '<a class="blue"  title="转为线索"  data-id="'+data.projectId+'" id="changeProject"><i class="ace-icon fa fa-exchange bigger-130"></i></a>'
+                                            + '<a class="blue" id="changeProject"  data-id="'+data.projectId+'"  title="转为项目"><i class="ace-icon fa fa-exchange bigger-130"></i></a>'
                                                     [/]
                                                 [# sec:authorize="hasAuthority('project:view')"]
                                             + '<a class="blue" href="detail/?id='+data.projectId+'" title="线索评论"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
@@ -272,7 +272,7 @@
                                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
                                                     [# sec:authorize="hasAuthority('project:view')"]
-                                            + '<li><a  class="tooltip-info" data-rel="tooltip" data-id="'+data.projectId+'" id="changeProject" title="转为线索"><span class="blue"><i class="ace-icon fa fa-exchange bigger-120"></i></span></a></li>'
+                                            + '<li><a  class="tooltip-info" data-rel="tooltip" data-id="'+data.projectId+'" id="changeProject" title="转为项目"><span class="blue"><i class="ace-icon fa fa-exchange bigger-120"></i></span></a></li>'
                                                     [/]
                                                 [# sec:authorize="hasAuthority('project:view')"]
                                             + '<li><a href="detail/?id='+data.projectId+'" class="tooltip-info" data-rel="tooltip" title="线索评论"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
@@ -285,7 +285,6 @@
                                                     [/]
                                             +'</ul></div></div>';
                                         }
-
                                     }
                                 ],
                                 select: {
@@ -531,10 +530,11 @@
                     url:contextPath+"api/project/status?projectId="+id,
                     type:"put",
                     success:function (data) {
-
+                        myTable.draw();
                     }
                 })
             })
+
         })
     </script>
 </body>
