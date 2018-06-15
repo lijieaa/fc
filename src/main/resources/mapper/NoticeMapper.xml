@@ -21,6 +21,8 @@
     <association property="noticeComments" javaType="com.jianpanmao.projectComments.entity.ProjectComments">
       <id property="projectCommentsId" column="notice_comments"></id>
       <result property="projectCommentsContent" column="commentsContent"></result>
+      <result property="projectCommentsStatus" column="project_comments_status"></result>
+      <result property="projectId" column="project_id"></result>
     </association>
     <association property="project" javaType="com.jianpanmao.project.entity.Project">
       <id property="projectId" column="notice_be_project"></id>
@@ -47,7 +49,7 @@
   </insert>
 
   <select id="select" resultMap="BaseResultMap">
-    SELECT n.* ,noticeUser.name,noticeComments.project_comments_content commentsContent
+    SELECT n.* ,noticeUser.name,noticeComments.project_comments_content commentsContent,noticeComments.project_comments_status,noticeComments.project_id
     FROM notice n LEFT JOIN dingtalk_user noticeUser
     ON n.notice_userid = noticeUser.userid
     LEFT JOIN project_comments noticeComments
