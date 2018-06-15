@@ -67,7 +67,7 @@ public class WxMaterialController {
 
     @GetMapping("page")
     @ResponseBody
-    public ResponseEntity pageList(Integer page, Integer rows, WxMaterial wxMaterial, HttpSession session) {
+    public Object pageList(Integer page, Integer rows, WxMaterial wxMaterial, HttpSession session) {
         ResponseEntity responseEntity = new ResponseEntity();
         try {
             WxUtils.checkParam(session, wxMaterial.getWxPublicId());

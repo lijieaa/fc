@@ -3,6 +3,8 @@ package com.jianpanmao.wechat.web;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jianpanmao.common.annotation.NoResultEntity;
+import com.jianpanmao.common.entity.DataTablesResponseEntity;
+import com.jianpanmao.project.entity.Project;
 import com.jianpanmao.unit.ResponseEntity;
 import com.jianpanmao.utils.FileUtils;
 import com.jianpanmao.utils.GsonUtils;
@@ -38,39 +40,40 @@ public class WxMessageController{
 
     @GetMapping("page")
     @ResponseBody
-    public ResponseEntity page(Integer page,
+    public Object page(Integer page,
                                Integer rows,
                                Integer wxPublicId,
+                                @RequestParam(value = "draw", required = false) Integer draw,
                                HttpSession session) throws Exception{
-        ResponseEntity responseEntity = new ResponseEntity();
         WxUtils.checkParam(session, wxPublicId);
         PageHelper.startPage(page,rows);
         List<WxMessage> list = wxMessageService.findByPublicId(wxPublicId);
         PageInfo pageInfo = new PageInfo(list);
-        responseEntity.setData(Arrays.asList(pageInfo));
-        return responseEntity;
+        if (draw != null) {
+            DataTablesResponseEntity<Project> responseEntity = new DataTablesResponseEntity(draw, pageInfo.getTotal(), pageInfo.getTotal(), pageInfo.getList());
+            return responseEntity;
+        } else {
+            return pageInfo;
+        }
     }
 
     @GetMapping("user/page")
     @ResponseBody
-    public ResponseEntity pageForUser(Integer page,
+    public Object pageForUser(Integer page,
                                Integer rows,
                                String openId,
                                Integer wxPublicId,
-                               HttpSession session){
-        ResponseEntity responseEntity = new ResponseEntity();
-        try {
-            WxPublic wxPublic = WxUtils.checkParam(session, wxPublicId);
-            PageHelper.startPage(page,rows);
-            List<WxMessage> list = wxMessageService.findBySourceIdAndOpenId(wxPublic.getSourceId(), openId);
-            PageInfo pageInfo = new PageInfo(list);
-            responseEntity.setData(Arrays.asList(pageInfo));
+                               @RequestParam(value = "draw", required = false) Integer draw,
+                               HttpSession session) throws Exception {
+        WxPublic wxPublic = WxUtils.checkParam(session, wxPublicId);
+        PageHelper.startPage(page,rows);
+        List<WxMessage> list = wxMessageService.findBySourceIdAndOpenId(wxPublic.getSourceId(), openId);
+        PageInfo pageInfo = new PageInfo(list);
+        if (draw != null) {
+            DataTablesResponseEntity<Project> responseEntity = new DataTablesResponseEntity(draw, pageInfo.getTotal(), pageInfo.getTotal(), pageInfo.getList());
             return responseEntity;
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity.setStatus("500");
-            responseEntity.setMessages("获取失败"+e.getMessage());
-            return responseEntity;
+        } else {
+            return pageInfo;
         }
     }
 
