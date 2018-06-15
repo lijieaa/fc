@@ -566,18 +566,9 @@
 
             $("#search").on("click",function(e){
                 myTable.draw();
-            })
-            $(document).on("click","#changeProject",function(){
-                var id = $(this).attr("data-id");
-                console.log(id);
-                $.ajax({
-                    url:contextPath+"api/project/status?projectId="+id,
-                    type:"get",
-                    success:function (data) {
+            });
 
-                    }
-                })
-            })
+
         })
     </script>
 </body>
