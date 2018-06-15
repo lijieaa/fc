@@ -1,6 +1,4 @@
 spring:
- session:
-  timeout: 30
  thymeleaf:
   cache: false
   mode: LEGACYHTML5
@@ -20,6 +18,8 @@ server:
  port: 8080
  servlet:
   contextPath: /
+  session:
+   timeout: 30
 
 pagehelper:
   helper-dialect: mysql
