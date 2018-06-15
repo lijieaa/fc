@@ -181,12 +181,12 @@
             var myTable=$('#gzh-ul-manage').DataTable( {
                     bAutoWidth: false,
                     ajax:{
-                        url: contextPath +"wxUsers/page?page=1&rows=10&wxPublicId="+wxPublicId,
+                        url: contextPath +"wxUsers/page?page=1&rows=10&drew=10&wxPublicId="+wxPublicId,
                         //url: contextPath +"wxUsers/page",
                         type: "get",
                         processData:true,
                         //data:$.param(webdata),
-                        dataSrc:"content.data.list"
+                        dataSrc:"content.list"
                         // contentType:'application/json; charset=utf-8',
                     },
                     "info":false,
@@ -208,7 +208,7 @@
                         { "data": "wxPublic.publicName"}
 
                     ],
-                    "pageLength": 8,
+                    "pageLength": 10,
                     "fnInitComplete": function() {//初始化完毕事件
                     }
                 } );
