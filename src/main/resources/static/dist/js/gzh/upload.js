@@ -28,7 +28,7 @@ function imgupload() {
     uploader.on('fileQueued',function(file) {
     });
     uploader.on( 'uploadSuccess', function( file ) {
-        ajaxData(1);
+        photoShow();
     });
     uploader.onError = function( code ) {
         alert( 'Eroor: ' + code );
@@ -39,34 +39,45 @@ function imgupload() {
 }
 imgupload();
 // 图片展示
-function  ajaxData(pageNo) {
-    var webdata={"wxtype":'image',"wxPublicId":14,"rows":10,"page":pageNo};
-    $.ajax({
-        url:contextPath +"material/page",
-        type: "get",
-        data:$.param(webdata),
-        success:function(data){
-            var dataList = data.content.data.list;
-            $("#imgShow").html("");
-            for(var i=0;i<dataList.length;i++){
-                var error="error";
-                var url=data.content.data.list[i].mediaId;
-                //var name=data.content.data.list[i].name;
-                var name="test.jpg";
-                var urlLink = ''+contextPath+'material/image/detail?mediaId='+url+"&name="+name+"&wxPublicId="+14;
-                urlLink = encodeURI(urlLink);
-                $("#imgShow").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' title='"+name+"' alt='"+error+"'></li>");
+var totalPage;
+    function  ajaxData(pageNo) {
+        var webdata={"wxtype":'image',"wxPublicId":14,"rows":10,"page":pageNo};
+        $.ajax({
+            url:contextPath +"material/page",
+            type: "get",
+            data:$.param(webdata),
+            success:function(data){
+                totalPage=data.content.data.pages;
+                $("#NumMater").text(data.content.data.total);
+                var dataList = data.content.data.list;
+                $("#imgShow").html("");
+                for(var i=0;i<dataList.length;i++){
+                    var error="error";
+                    var url=data.content.data.list[i].mediaId;
+                    var name="test.jpg";
+                    var urlLink = ''+contextPath+'material/image/detail?mediaId='+url+"&name="+name+"&wxPublicId="+14;
+                    urlLink = encodeURI(urlLink);
+                    $("#imgShow").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' title='"+name+"' alt='"+error+"'></li>");
+                }
+                $("#pagingTest").paging1({
+                    pageNo:pageNo,
+                    totalPage:totalPage
+                })
             }
-            $("#pagingTest").paging1({
-                pageNo:pageNo,
-                totalPage:data.content.data.pages
-            })
-        }
-    });
-}
-$(document).on("click","#pagingTest a",function () {
+        });
+
+    }
+$(document).on("click","a",function () {
     var val = $("#page").val();
-     ajaxData(val);
+    if(!$(this).hasClass("disable")){
+        ajaxData(val);
+    }else{
+        $("#pagingTest").paging1({
+            pageNo:val,
+            totalPage:totalPage
+        })
+    }
+
 });
 
 // 弹窗图片展示

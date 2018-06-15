@@ -184,17 +184,17 @@
                 <a class="" data-id="4">视频</a>
             </div>
             <div style="margin-top: 2%;">
-                <span style="margin-left: 2%"><a class="new-type-name">图文消息</a><a>（共1条）</a></span>
+                <span style="margin-left: 2%"><a class="new-type-name">图文消息</a><a>（共<span id="NumMater"></span>条）</a></span>
                 <div style="width: 120px;height: 30px;float: right;">
-                    <div id="filePicker" style="width: 120px;height: 42px;background: #666e95;text-align: center;line-height: 42px;color: #FFFFFF;border-radius: 5px;">新建图文信息</div>
-                    <div id="filePicker1" style="display: none">上传图片</div>
-                    <div id="filePicker2" style="display: none">添加语音</div>
-                    <div id="filePicker3" style="display: none;">添加视频</div>
+                    <div id="filePicker" style="width: 120px;height: 42px;background: #666e95;text-align: center;line-height: 42px;color: #FFFFFF;border-radius: 5px;margin-top: -10px;">新建图文信息</div>
+                    <div id="filePicker1" style="display: none;margin-top: -10px;">上传图片</div>
+                    <div id="filePicker2" style="display: none;margin-top: -10px;">添加语音</div>
+                    <div id="filePicker3" style="display: none;margin-top: -10px;">添加视频</div>
                 </div>
             </div>
             <!--素材库图文消息内容-->
             <div>
-                <div style="height: 550px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 98%;margin-left: 2%;overflow: auto" id="photo-tx">
+                <div style="height: 550px;border: 1px #e0e0e0 solid;margin-top: 2.5%;width: 98%;margin-left: 2%;overflow: auto" id="photo-tx">
                     <ul class="messageUl">
                         <!--<li class="messageLi">-->
                             <!--<div>-->
@@ -207,19 +207,19 @@
                     </ul>
                 </div>
                 <!--图片-->
-                <div id="photo-show" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;overflow: auto;">
+                <div id="photo-show" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2.5%;width: 95%;margin-left: 2%;display: none;overflow: auto;">
                     <ul id="imgShow" class="imgShow"></ul>
                     <div id="pagingTest" class="pageIndex"></div>
                     <input type="hidden" value="" id="page">
                 </div>
                 <!--语音-->
-                <div id="source" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;overflow: auto;">
+                <div id="source" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2.5%;width: 95%;margin-left: 2%;display: none;overflow: auto;">
                     <ul id="mpShow"></ul>
                     <div id="pagingTest1" class="pageIndex"></div>
                     <input type="hidden" value="" id="page1">
                 </div>
                 <!--视频-->
-                <div id="vid" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2%;width: 95%;margin-left: 2%;display: none;">
+                <div id="vid" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2.5%;width: 95%;margin-left: 2%;display: none;">
                     <ul id="vidShow"></ul>
                     <div id="pagingTest2" class="pageIndex"></div>
                     <input type="hidden" value="" id="page2">
@@ -369,7 +369,7 @@
                 $(".new-type-name").text("图片");
                 $("#filePicker1").show().siblings().hide();
                 $("#photo-show").show().siblings().hide();
-                 ajaxData(1);
+                ajaxData(1);
             } else if(cliID=="3"){
                 $(".new-type-name").text("语音");
                 $("#filePicker2").show().siblings().hide();
@@ -528,7 +528,11 @@
                     alert(data.status);
                 }
             });
-        })
+        });
+
+
+
+
 
     })
 </script>
