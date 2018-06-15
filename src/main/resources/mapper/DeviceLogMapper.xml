@@ -266,7 +266,12 @@
     ON d.user_id = user.userid
     WHERE 1=1
     <if test="createTimeStr !=null">
-      and DATE_FORMAT(d.device_log_create_time,'%Y-%m-%d') = #{createTimeStr}
+      and DATE_FORMAT(d.device_log_create_time,'%Y-%m-%d') >=#{createTimeStr}
+    </if>
+    <if test="endTimeStr !=null">
+      <![CDATA[
+      and  DATE_FORMAT(d.device_log_create_time,'%Y-%m-%d') <= #{endTimeStr}
+            ]]>
     </if>
   </select>
 </mapper>

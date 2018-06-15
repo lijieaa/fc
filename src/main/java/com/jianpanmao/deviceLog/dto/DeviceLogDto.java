@@ -1,4 +1,5 @@
 package com.jianpanmao.deviceLog.dto;
+
 import com.jianpanmao.sys.entity.DingtalkUser;
 
 import java.math.BigDecimal;
@@ -7,54 +8,69 @@ import java.util.Date;
 public class DeviceLogDto {
 
 
-private String operateCommand ;
+    private String operateCommand;
 
-public String getOperateCommand() {
-return operateCommand;
-}
+    public String getOperateCommand() {
+        return operateCommand;
+    }
 
-public void setOperateCommand(String operateCommand) {
-this.operateCommand = operateCommand;
-}
-private Date deviceLogCreateTime ;
+    public void setOperateCommand(String operateCommand) {
+        this.operateCommand = operateCommand;
+    }
 
-public Date getDeviceLogCreateTime() {
-return deviceLogCreateTime;
-}
+    private Date deviceLogCreateTime;
 
-public void setDeviceLogCreateTime(Date deviceLogCreateTime) {
-this.deviceLogCreateTime = deviceLogCreateTime;
-}
-private Integer deviceLogId ;
+    public Date getDeviceLogCreateTime() {
+        return deviceLogCreateTime;
+    }
 
-public Integer getDeviceLogId() {
-return deviceLogId;
-}
+    public void setDeviceLogCreateTime(Date deviceLogCreateTime) {
+        this.deviceLogCreateTime = deviceLogCreateTime;
+    }
 
-public void setDeviceLogId(Integer deviceLogId) {
-this.deviceLogId = deviceLogId;
-}
-private Date deviceLogUpdateTime ;
+    private Integer deviceLogId;
 
-public Date getDeviceLogUpdateTime() {
-return deviceLogUpdateTime;
-}
+    public Integer getDeviceLogId() {
+        return deviceLogId;
+    }
 
-public void setDeviceLogUpdateTime(Date deviceLogUpdateTime) {
-this.deviceLogUpdateTime = deviceLogUpdateTime;
-}
-private String operateCommandDesc ;
+    public void setDeviceLogId(Integer deviceLogId) {
+        this.deviceLogId = deviceLogId;
+    }
 
-public String getOperateCommandDesc() {
-return operateCommandDesc;
-}
+    private Date deviceLogUpdateTime;
 
-public void setOperateCommandDesc(String operateCommandDesc) {
-this.operateCommandDesc = operateCommandDesc;
-}
-private String od ;
+    public Date getDeviceLogUpdateTime() {
+        return deviceLogUpdateTime;
+    }
+
+    public void setDeviceLogUpdateTime(Date deviceLogUpdateTime) {
+        this.deviceLogUpdateTime = deviceLogUpdateTime;
+    }
+
+    private String operateCommandDesc;
+
+    public String getOperateCommandDesc() {
+        return operateCommandDesc;
+    }
+
+    public void setOperateCommandDesc(String operateCommandDesc) {
+        this.operateCommandDesc = operateCommandDesc;
+    }
+
+    private String od;
 
     private String createTimeStr;
+
+    private String endTimeStr;
+
+    public String getEndTimeStr() {
+        return endTimeStr;
+    }
+
+    public void setEndTimeStr(String endTimeStr) {
+        this.endTimeStr = endTimeStr;
+    }
 
     public String getCreateTimeStr() {
         return createTimeStr;
@@ -65,13 +81,14 @@ private String od ;
     }
 
     public String getOd() {
-return od;
-}
+        return od;
+    }
 
-public void setOd(String od) {
-this.od = od;
-}
-private DingtalkUser user ;
+    public void setOd(String od) {
+        this.od = od;
+    }
+
+    private DingtalkUser user;
 
     public DingtalkUser getUser() {
         return user;
@@ -81,13 +98,13 @@ private DingtalkUser user ;
         this.user = user;
     }
 
-    private String deviceProductionNum ;
+    private String deviceProductionNum;
 
-public String getDeviceProductionNum() {
-return deviceProductionNum;
-}
+    public String getDeviceProductionNum() {
+        return deviceProductionNum;
+    }
 
-public void setDeviceProductionNum(String deviceProductionNum) {
-this.deviceProductionNum = deviceProductionNum;
-}
+    public void setDeviceProductionNum(String deviceProductionNum) {
+        this.deviceProductionNum = deviceProductionNum;
+    }
 }
