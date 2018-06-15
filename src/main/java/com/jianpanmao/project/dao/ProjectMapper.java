@@ -13,4 +13,5 @@ import java.util.List;
 public interface ProjectMapper extends BaseDao<Project, ProjectExample, ProjectDto, Integer> {
     Project selectByIdStatus(@Param("id") Integer id, @Param("statusId") Byte statusId);
     List<Project> selectIdNameList();
+    void updateProjectStatus(Integer projectId);
 }

@@ -1,6 +1,7 @@
 package com.jianpanmao.notice.controller;
 
 import com.jianpanmao.notice.dao.NoticeMapper;
+import com.jianpanmao.notice.dto.NoticeDto;
 import com.jianpanmao.notice.entity.Notice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,11 @@ public class NoticeController {
     NoticeMapper noticeMapper;
 
     @GetMapping("select")
-    public List<Notice> select(Integer userId) {
-        return noticeMapper.select(userId);
+    public NoticeDto select(Integer userId) {
+        NoticeDto noticeDto = new NoticeDto();
+        noticeDto.setNotices(noticeMapper.select(userId));
+        noticeDto.setCount(noticeMapper.selectCount(userId));
+        return noticeDto;
     }
 
     @PutMapping("check")

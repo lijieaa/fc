@@ -2,6 +2,8 @@ package com.jianpanmao.wechat.web;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.jianpanmao.common.entity.DataTablesResponseEntity;
+import com.jianpanmao.project.entity.Project;
 import com.jianpanmao.unit.ResponseEntity;
 import com.jianpanmao.utils.WxUtils;
 import com.jianpanmao.wechat.entity.WxUserDetail;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -28,23 +31,21 @@ public class WxUserDetailController  {
 
     @GetMapping("page")
     @ResponseBody
-    public ResponseEntity pageList(Integer page,
-                                   Integer rows,
-                                   WxUserDetail wxUserDetail,
-                                   HttpSession session) {
-        ResponseEntity responseEntity = new ResponseEntity();
-        try {
-            WxUtils.checkParam(session, wxUserDetail.getWxPublicId());
-            PageHelper.startPage(page, rows);
-            wxUserDetail.setIntermediary(WxUtils.getCompany(session));
-            List<WxUserDetail> list = wxUserDetailService.selectAll(wxUserDetail);
-            PageInfo pageInfo = new PageInfo(list);
-            responseEntity.setData(pageInfo);
+    public Object pageList(Integer page,
+                                             Integer rows,
+                                             @RequestParam(value = "draw", required = false) Integer draw,
+                                             WxUserDetail wxUserDetail,
+                                             HttpSession session) throws Exception{
+        WxUtils.checkParam(session, wxUserDetail.getWxPublicId());
+        PageHelper.startPage(page, rows);
+        wxUserDetail.setIntermediary(WxUtils.getCompany(session));
+        List<WxUserDetail> list = wxUserDetailService.selectAll(wxUserDetail);
+        PageInfo pageInfo = new PageInfo(list);
+        if (draw != null) {
+            DataTablesResponseEntity<Project> responseEntity = new DataTablesResponseEntity(draw, pageInfo.getTotal(), pageInfo.getTotal(), pageInfo.getList());
             return responseEntity;
-        } catch (Exception e) {
-            responseEntity.setMessages(e.getMessage());
-            responseEntity.setStatus("500");
-            return responseEntity;
+        } else {
+            return pageInfo;
         }
     }
 }

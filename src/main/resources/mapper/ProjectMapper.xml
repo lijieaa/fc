@@ -378,4 +378,10 @@
   <select id="selectIdNameList" resultMap="idNameResultMap">
     SELECT p.project_id,p.project_name  from project p WHERE p.project_status = 1
   </select>
+  <!--线索改为项目-->
+  <update id="updateProjectStatus" parameterType="java.lang.Integer">
+    update project
+    set project_status = 1
+    where project_id = #{0}
+  </update>
 </mapper>
