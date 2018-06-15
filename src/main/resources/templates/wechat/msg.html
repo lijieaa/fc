@@ -174,21 +174,30 @@
                 "&nbsp;"+showHour+":"+showMinutes;//yyyy-MM-dd 00:00:00格式日期
             return datetimeType;
         }
+//初始化分页参数
 
 
         $('#gzh-msg-manage').DataTable( {
             bAutoWidth: false,
+            "info":false,
+            "searching": false,
+            "lengthChange": false,
+            "ordering": false,
+            bFilter: false,
+
+            // "serverSide": true,//服务器端获取数据
+            // "paging": true,//开启分页
             ajax:{
                 url: contextPath +"message/page?page=1&rows=10&wxPublicId="+wxPublicId,
                 dataSrc:"content.data.0.list",
                 type: "get",
                 processData:true,
-                contentType:'application/json; charset=utf-8',
+                contentType:'application/json; charset=utf-8'
             },
-            "info":false,
-            "searching": false,
-            "lengthChange": false,
-            "ordering": false,
+
+
+
+
             "language": {
                 "paging": true,
                 "paginate": {
