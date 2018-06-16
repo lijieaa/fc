@@ -73,6 +73,7 @@ public class DingtalkDeptServiceImpl extends BaseServiceImpl<DingtalkDept,Dingta
 
         DingtalkDept dept=new DingtalkDept();
         dept.setPath(dingtalkDept.getId() + "");
+        dept.setIntermediaryId(cuser.getIntermediaryId());
 
         List<DingtalkDept> dingtalkDepts = dingtalkDeptMapper.selectByPath(dept);
 
