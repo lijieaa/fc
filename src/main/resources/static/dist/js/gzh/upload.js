@@ -28,7 +28,7 @@ function imgupload() {
     uploader.on('fileQueued',function(file) {
     });
     uploader.on( 'uploadSuccess', function( file ) {
-        photoShow();
+        ajaxData(1);
     });
     uploader.onError = function( code ) {
         alert( 'Eroor: ' + code );
@@ -54,7 +54,7 @@ var totalPage;
                 for(var i=0;i<dataList.length;i++){
                     var error="error";
                     var url=data.content.data.list[i].mediaId;
-                    var name="test.jpg";
+                    var name="uoload.jpg";
                     var urlLink = ''+contextPath+'material/image/detail?mediaId='+url+"&name="+name+"&wxPublicId="+14;
                     urlLink = encodeURI(urlLink);
                     $("#imgShow").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' title='"+name+"' alt='"+error+"'></li>");
@@ -67,15 +67,20 @@ var totalPage;
         });
 
     }
-$(document).on("click","a",function () {
-    var val = $("#page").val();
-    if(!$(this).hasClass("disable")){
-        ajaxData(val);
+    //分页
+$("#pagingTest").on("click","a",function () {
+    var val = $(this).text();
+    if($(this).hasClass("disable")){
+
     }else{
-        $("#pagingTest").paging1({
-            pageNo:val,
-            totalPage:totalPage
-        })
+        var pageNo = parseInt($(this).siblings('.current').text());
+        if($(this).attr('id')==='prevPage'){
+            ajaxData(pageNo-1);
+        }else if($(this).attr('id')==='nextPage'){
+            ajaxData(pageNo+1);
+        }else{
+            ajaxData(val);
+        }
     }
 
 });
@@ -94,7 +99,7 @@ function  ajaxDataPop(pageNo) {
                 var error="error";
                 var url=data.content.data.list[i].mediaId;
                 //var name=data.content.data.list[i].name;
-                var name="test.jpg";
+                var name="upload.jpg";
                 var urlLink = ''+contextPath+'material/image/detail?mediaId='+url+"&name="+name+"&wxPublicId="+14;
                 urlLink = encodeURI(urlLink);
                 $("#popImg").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' title='"+url+"' alt='"+error+"'></li>");
@@ -106,10 +111,10 @@ function  ajaxDataPop(pageNo) {
         }
     });
 }
-$(document).on("click","#popPagingTest a",function () {
-    var val = $("#popPage").val();
-    ajaxData(val);
-});
+// $(document).on("click","#popPagingTest a",function () {
+//     var val = $("#popPage").val();
+//     ajaxData(val);
+// });
 
 //语音上传
 function yyupload() {
@@ -122,7 +127,6 @@ function yyupload() {
         timeout: 0,
         formData: {
             wxPublicId: 14,
-            //media:'u=177485426,2064801038&fm=27&gp=0.jpg',
             wxtype:'voice'
         },
         accept: {
@@ -159,12 +163,13 @@ function yyupload() {
 yyupload();
 //语音展示
 function  ajaxMp(pageNo) {
-    var webdata={"wxtype":'voice',"wxPublicId":14,"total":0,"records":0,"rows":5,"page":pageNo};
+    var webdata={"wxtype":'voice',"wxPublicId":14,"total":0,"records":0,"rows":10,"page":pageNo};
     $.ajax({
         url:contextPath +"material/page",
         type: "get",
         data: $.param(webdata),
         success:function(data){
+            $("#NumMater").text(data.content.data.total);
             var dataList = data.content.data.list;
             $("#mpShow").html("");
             var mpArr=[];
@@ -174,18 +179,10 @@ function  ajaxMp(pageNo) {
             for(var i=0;i<mpArr.length;i++){
                 var wxPublicId=14;
                 var mediaId=mpArr[i];
-                var name="test.mp3";
+                var name="upload.mp3";
                 var urlLink = ''+contextPath+'material/voice/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name;
                 urlLink = encodeURI(urlLink);
                 $("#mpShow").append("<li><audio controls='controls' preload='auto' ><source src='"+urlLink+"' type=\"audio/mpeg\"></audio></li>");
-                // $("#mpShow").append("<li ></li>");
-                // var wxAudio = new Wxaudio({
-                //     ele: '#mpShow li',
-                //     title: 'Jar Of Love',
-                //     disc: 'Break Me Up',
-                //     src: urlLink,
-                //     width: '500px'
-                // });
             }
             $("#pagingTest1").paging1({
                 pageNo:pageNo,
@@ -194,10 +191,23 @@ function  ajaxMp(pageNo) {
         }
     });
 }
-// $(document).on("click","a",function () {
-//     var val = $("#page1").val();
-//     ajaxMp(val);
-// });
+//分页
+$("#pagingTest1").on("click","a",function () {
+    var val = $(this).text();
+    if($(this).hasClass("disable")){
+
+    }else{
+        var pageNo = parseInt($(this).siblings('.current').text());
+        if($(this).attr('id')==='prevPage'){
+            ajaxMp(pageNo-1);
+        }else if($(this).attr('id')==='nextPage'){
+            ajaxMp(pageNo+1);
+        }else{
+            ajaxMp(val);
+        }
+    }
+
+});
 // 语音弹窗展示
 function  ajaxMpPop(pageNo) {
     var webdata={"wxtype":'voice',"wxPublicId":14,"total":0,"records":0,"rows":10,"page":pageNo};
@@ -227,10 +237,6 @@ function  ajaxMpPop(pageNo) {
         }
     });
 }
-// $(document).on("click","#popPagingTest a",function () {
-//     var val = $("#popPage").val();
-//     ajaxMp(val);
-// });
 
 
 function videoupload() {
@@ -279,6 +285,7 @@ function  ajaxVid(pageNo) {
         type: "get",
         data: $.param(webdata),
         success:function(data){
+            $("#NumMater").text(data.content.data.total);
             var dataList = data.content.data.list;
             $("#vidShow").html("");
             var videoArr=[];
@@ -305,10 +312,23 @@ function  ajaxVid(pageNo) {
         }
     });
 }
-// $(document).on("click","a",function () {
-//     var val = $("#page2").val();
-//     ajaxVid(val);
-// });
+//分页
+$("#pagingTest2").on("click","a",function () {
+    var val = $(this).text();
+    if($(this).hasClass("disable")){
+
+    }else{
+        var pageNo = parseInt($(this).siblings('.current').text());
+        if($(this).attr('id')==='prevPage'){
+            ajaxVid(pageNo-1);
+        }else if($(this).attr('id')==='nextPage'){
+            ajaxVid(pageNo+1);
+        }else{
+            ajaxVid(val);
+        }
+    }
+
+});
 
 // 视频弹窗展示
 function  ajaxVidPop(pageNo) {
@@ -344,26 +364,24 @@ function  ajaxVidPop(pageNo) {
         }
     });
 }
-// $(document).on("click","#popPagingTest a",function () {
-//     var val = $("#popPage").val();
-//     ajaxMp(val);
-// });
 
 //点击图片选中状态
-$(document).on("click","#imgShow li img",function () {
-    var thisSrc=$(this).attr("src");
-    $(this).addClass("opactiy").parent().siblings().children().removeClass("opactiy");
-    $(this).parent().append("<a class='bgimg'></a>").siblings().children("a").remove();
-//            alert(thisSrc)
-})
+// $(document).on("click","#imgShow li img",function () {
+//     var thisSrc=$(this).attr("src");
+//     $(this).addClass("opactiy").parent().siblings().children().removeClass("opactiy");
+//     $(this).parent().append("<a class='bgimg'></a>").siblings().children("a").remove();
+// //            alert(thisSrc)
+// })
 
 // 图文展示
-function photoText() {
+function photoText(pageNo) {
     $.ajax({
-        url:contextPath +"material/page?page=1&rows=10&wxtype=news&wxPublicId="+wxPublicId,
+        url:contextPath +"material/page?rows=2&wxtype=news&wxPublicId="+wxPublicId+"&page="+pageNo,
         type: "get",
         success:function(data){
+            $("#NumMater").text(data.content.data.total);
             var list = data.content.data.list;
+            $("#photo-tx ul").empty();
             if(data.status == 200 && list.length){
                 for(var i=0; i<list.length;i++){
                      var id=list[i].thumbMediaId;
@@ -379,9 +397,30 @@ function photoText() {
                     $("#photo-tx ul").append(html);
                 }
             }
+            $("#pagingTest3").paging1({
+                pageNo:pageNo,
+                totalPage:data.content.data.pages
+            })
         }
     });
 }
+//分页
+$("#pagingTest3").on("click","a",function () {
+    var val = $(this).text();
+    if($(this).hasClass("disable")){
+
+    }else{
+        var pageNo = parseInt($(this).siblings('.current').text());
+        if($(this).attr('id')==='prevPage'){
+            photoText(pageNo-1);
+        }else if($(this).attr('id')==='nextPage'){
+            photoText(pageNo+1);
+        }else{
+            photoText(val);
+        }
+    }
+
+});
 //单个图文悬浮效果
 $(document).on("mouseenter",".messageLi",function () {
     $(this).append("<a class='bgshadow'>预览文章</a>").siblings().find("a").remove();

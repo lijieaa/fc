@@ -18,8 +18,10 @@
             var current = _self.$options.pageNo;
             var totalSize = _self.$options.totalSize;
             var totalPage = _self.$options.totalPage;
+            var prevDisableFlag = current == 1 ? 'disable' : '';
+            var nextDisableFlag = current == totalPage ? 'disable' : '';
             var content = "";
-            content += "<a id='prevPage'>上一页</a>";
+            content += "<a id='prevPage' class='"+prevDisableFlag+"'>上一页</a>";
             if(totalPage>4){
                 if(current < 3){
                     for(var i = 1;i < 4;i++){
@@ -66,7 +68,7 @@
                     }
                 }
             }
-            content += "<a id='nextPage'>下一页</a>";
+            content += "<a id='nextPage' class='"+nextDisableFlag+"'>下一页</a>";
             _self.$paging.append(content);
         },
         inital:function(){
@@ -74,18 +76,11 @@
             _self.$paging.on('click', 'a', function() {
                 var id = $(this).attr("id");
                 if(id == "prevPage"){
-                    if(_self.$options.pageNo == 1){
-
-                        $("#prevPage").addClass("disable");
-                        _self.$options.pageNo = 1;
-                    }else{
+                    if(_self.$options.pageNo != 1){
                         _self.$options.pageNo =  _self.$options.pageNo - 1;
                     }
                 }else if(id == "nextPage"){
-                   if(_self.$options.pageNo  == _self.$options.totalPage){
-                       _self.$options.pageNo = _self.$options.totalPage;
-                       $("#nextPage").addClass("disable");
-                   }else{
+                   if(_self.$options.pageNo  != _self.$options.totalPage){
                        _self.$options.pageNo = parseInt(_self.$options.pageNo)+1;
                    }
                 }else{
@@ -94,13 +89,6 @@
                 $("#page").val( _self.$options.pageNo);
                 _self.renderDom();
             });
-            if(_self.$options.pageNo == 1){
-                $("#prevPage").addClass("disable");
-            }
-            if(_self.$options.pageNo  == _self.$options.totalPage){
-                $("#nextPage").addClass("disable");
-            }
-
         }
     };
     $.fn.extend({

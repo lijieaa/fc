@@ -72,10 +72,10 @@
         </section>
         <div style="margin-left: 2.5%;margin-top:3%;width: 95%;height: auto;">
             <section class="float-left gzh-search" style="width: 100%;">
-                <div class="input-group" style="margin: 1% 0 0 0px;">
-                    <select style="width: 180px;"><option>时间排序</option></select>
-                    <select style="width: 180px;margin-left: 30px;"><option>最近五天</option></select>
-                </div>
+                <!--<div class="input-group" style="margin: 1% 0 0 0px;">-->
+                    <!--<select style="width: 180px;"><option>时间排序</option></select>-->
+                    <!--<select style="width: 180px;margin-left: 30px;"><option>最近五天</option></select>-->
+                <!--</div>-->
                 <div class="row">
                     <div class="col-md-12">
                         <table id="gzh-msg-manage" class="display table table-bordered table-hover dataTable" style="width:100%;">
@@ -174,32 +174,40 @@
                 "&nbsp;"+showHour+":"+showMinutes;//yyyy-MM-dd 00:00:00格式日期
             return datetimeType;
         }
-//初始化分页参数
 
 
         $('#gzh-msg-manage').DataTable( {
+            "ajax": function (data, callback, settings) {
+                var pageNum=data.start/data.length+1;
+                var pageSize=data.length;
+                var draw=data.draw;
+                var param="?page="+pageNum+"&rows="+pageSize+"&draw="+draw;
+                $.ajax({
+                    "url":contextPath +"message/page"+param+"&wxPublicId="+wxPublicId,
+                    "type": "get",
+                    dataType:"json",
+                    contentType:'application/json',
+                    "success": function (json) {
+                        if (json.status == 200) {
+                            var data = {};
+                            data.recordsTotal = json.content.recordsTotal;
+                            data.recordsFiltered = json.content.recordsFiltered;
+                            data.data = json.content.data;
+                            callback(data);
+                        }
+                    },
+                    "error": function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                    }
+                });
+            },
             bAutoWidth: false,
             "info":false,
             "searching": false,
             "lengthChange": false,
             "ordering": false,
-            bFilter: false,
-
-            // "serverSide": true,//服务器端获取数据
-            // "paging": true,//开启分页
-            ajax:{
-                url: contextPath +"message/page?page=1&rows=10&wxPublicId="+wxPublicId,
-                dataSrc:"content.data.0.list",
-                type: "get",
-                processData:true,
-                contentType:'application/json; charset=utf-8'
-            },
-
-
-
-
+            "serverSide": true,
             "language": {
-                "paging": true,
                 "paginate": {
                     "next": "下一页",
                     "previous": "上一页"
@@ -258,16 +266,35 @@
         function userTableSon(openid,imgHref,nickName) {
             $('#gzh-ul-manage-son').DataTable( {
                 bAutoWidth: true,
-                ajax:{
-                    url: contextPath +"message/user/page?page=1&rows=10&wxPublicId="+wxPublicId+"&openId="+openid,
-                    dataSrc:"content.data.0.list",
-                    processData:true
-                    // contentType:'application/json; charset=utf-8',
+                "ajax": function (data, callback, settings) {
+                    var pageNum=data.start/data.length+1;
+                    var pageSize=data.length;
+                    var draw=data.draw;
+                    var param="?page="+pageNum+"&rows="+pageSize+"&draw="+draw;
+                    $.ajax({
+                        "url":contextPath +"message/user/page"+param+"&wxPublicId="+wxPublicId+"&openId="+openid,
+                        "type": "get",
+                        dataType:"json",
+                        contentType:'application/json',
+                        "success": function (json) {
+                            if (json.status == 200) {
+                                var data = {};
+                                data.recordsTotal = json.content.recordsTotal;
+                                data.recordsFiltered = json.content.recordsFiltered;
+                                data.data = json.content.data;
+                                callback(data);
+                            }
+                        },
+                        "error": function (XMLHttpRequest, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                        }
+                    });
                 },
                 "info":false,
                 "searching": false,
                 "lengthChange": false,
                 "ordering": false,
+                "serverSide": true,
                 "language": {
                     "paginate": {
                         "next": "下一页",

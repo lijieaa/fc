@@ -52,3 +52,26 @@
     border: 1px #727272 solid;
     cursor: pointer;
 }
+/*公用分页样式*/
+.pagingTest a{
+    border: 1px solid #b0b0b0;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+.pagingTest{
+    margin-left: 20px;
+    margin-top: 30px;
+}
+.pagingTest a:hover{
+    text-decoration: none;
+}
+.pagingTest a.current{
+    color: white;
+    background: deepskyblue;
+}
+.pagingTest a.disable{
+    background: gray;
+    color: white;
+    cursor: default;
+}

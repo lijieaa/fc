@@ -49,28 +49,6 @@
             background: #b8b8b8;
             font-weight: 500;
         }
-        #pagingTest a{
-            border: 1px solid #b0b0b0;
-            padding: 5px 10px;
-            margin: 0 5px;
-            cursor: pointer;
-        }
-        #pagingTest{
-            margin-left: 20px;
-            margin-top: 30px;
-        }
-        #pagingTest a:hover{
-         text-decoration: none;
-        }
-        #pagingTest a.current{
-            color: white;
-            background: deepskyblue;
-        }
-        #pagingTest a.disable{
-            background: gray;
-            color: white;
-            cursor: default;
-        }
         #mpShow li{
             width: 180px;
             height: 180px;
@@ -143,6 +121,7 @@
         }
         .messageUl{
             margin-left: 0px;
+            position: relative;
         }
         .messageUl .messageLi{
             list-style: none;
@@ -195,7 +174,7 @@
             <!--素材库图文消息内容-->
             <div>
                 <div style="height: 550px;border: 1px #e0e0e0 solid;margin-top: 2.5%;width: 98%;margin-left: 2%;overflow: auto" id="photo-tx">
-                    <ul class="messageUl">
+                    <ul class="messageUl" style="height: auto;">
                         <!--<li class="messageLi">-->
                             <!--<div>-->
                                 <!--<p>标题：</p>-->
@@ -205,24 +184,26 @@
                             <!--</div>-->
                         <!--</li>-->
                     </ul>
+                    <div id="pagingTest3" class="pageIndex pagingTest" style="position: absolute;bottom: 0px;"></div>
+
                 </div>
                 <!--图片-->
                 <div id="photo-show" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2.5%;width: 95%;margin-left: 2%;display: none;overflow: auto;">
                     <ul id="imgShow" class="imgShow"></ul>
-                    <div id="pagingTest" class="pageIndex"></div>
-                    <input type="hidden" value="" id="page">
+                    <div id="pagingTest" class="pageIndex pagingTest" style="position: absolute;bottom: 0px;"></div>
+                    <!--<input type="hidden" value="" id="page">-->
                 </div>
                 <!--语音-->
                 <div id="source" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2.5%;width: 95%;margin-left: 2%;display: none;overflow: auto;">
                     <ul id="mpShow"></ul>
-                    <div id="pagingTest1" class="pageIndex"></div>
-                    <input type="hidden" value="" id="page1">
+                    <div id="pagingTest1" class="pageIndex pagingTest" style="position: absolute;bottom: 0px;"></div>
+                    <!--<input type="hidden" value="" id="page1">-->
                 </div>
                 <!--视频-->
                 <div id="vid" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2.5%;width: 95%;margin-left: 2%;display: none;">
                     <ul id="vidShow"></ul>
-                    <div id="pagingTest2" class="pageIndex"></div>
-                    <input type="hidden" value="" id="page2">
+                    <div id="pagingTest2" class="pageIndex pagingTest" style="position: absolute;bottom: 0px;"></div>
+                    <!--<input type="hidden" value="" id="page2">-->
                 </div>
             </div>
         </div>
@@ -301,7 +282,7 @@
     var wxPublicId = /*[[${wxPublicId}]]*/;
     /*]]>*/
     $(function () {
-        photoText();
+        photoText(1);
         //从外部获取该相应的菜单
         function getUrlParms(name){
             var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");

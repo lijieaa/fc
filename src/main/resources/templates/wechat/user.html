@@ -185,7 +185,7 @@
                     var pageNum=data.start/data.length+1;
                     var pageSize=data.length;
                     var draw=data.draw;
-                    var param="?page="+pageNum+"&rows="+pageSize+"&draw="+draw
+                    var param="?page="+pageNum+"&rows="+pageSize+"&draw="+draw;
                     $.ajax({
                         "url":contextPath +"wxUsers/page"+param+"&wxPublicId="+wxPublicId,
                         "type": "get",
@@ -234,16 +234,35 @@
             function userTableSon(openid,imgHref,nickName) {
                 $('#gzh-ul-manage-son').DataTable( {
                     bAutoWidth: true,
-                    ajax:{
-                        url: contextPath +"message/user/page?page=1&rows=10&wxPublicId="+wxPublicId+"&openId="+openid,
-                        dataSrc:"content.data.0.list",
-                        processData:true
-                        // contentType:'application/json; charset=utf-8',
+                    "ajax": function (data, callback, settings) {
+                        var pageNum=data.start/data.length+1;
+                        var pageSize=data.length;
+                        var draw=data.draw;
+                        var param="?page="+pageNum+"&rows="+pageSize+"&draw="+draw;
+                        $.ajax({
+                            "url":contextPath +"message/user/page"+param+"&wxPublicId="+wxPublicId+"&openId="+openid,
+                            "type": "get",
+                            dataType:"json",
+                            contentType:'application/json',
+                            "success": function (json) {
+                                if (json.status == 200) {
+                                    var data = {};
+                                    data.recordsTotal = json.content.recordsTotal;
+                                    data.recordsFiltered = json.content.recordsFiltered;
+                                    data.data = json.content.data;
+                                    callback(data);
+                                }
+                            },
+                            "error": function (XMLHttpRequest, textStatus, errorThrown) {
+                                console.log(errorThrown);
+                            }
+                        });
                     },
                     "info":false,
                     "searching": false,
                     "lengthChange": false,
                     "ordering": false,
+                    "serverSide": true,
                     "language": {
                         "paginate": {
                             "next": "下一页",
@@ -294,7 +313,7 @@
                         }
 
                     ],
-                    "pageLength": 5,
+                    "pageLength": 1,
                     "fnInitComplete": function() {//初始化完毕事件
                     }
                 } );
