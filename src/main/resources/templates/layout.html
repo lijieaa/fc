@@ -68,7 +68,11 @@
         var contextPath = /*[[@{/}]]*/;
         var ip = /*[[${#request.getLocalAddr()}]]*/;
         var port = /*[[${#request.getLocalPort()}]]*/;
-        var absolutePath = ip+":"+port;
+        var scheme=/*[[${#request.getScheme()}]]*/;
+        var serverName=/*[[${#request.getServerName()}]]*/;
+        var port=/*[[${#request.getServerPort()}]]*/;
+        var absolutePath = scheme+"://"+serverName+":"+port;
+        console.log(absolutePath);
         $.ajaxSetup({
             timeout: 3000,
             dataType: 'json',
