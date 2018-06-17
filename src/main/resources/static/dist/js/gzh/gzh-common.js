@@ -1,9 +1,5 @@
 
 $(function () {
-    //子页面返回主页面
-    // $(document).on("click","#backUlOther",function () {
-    //     window.location.href="/wxPublic/index?mid=11";
-    // })
     $(document).on("click","#backUl",function () {
         window.location.href="/wxPublic/index?mid=11";
     })
@@ -48,6 +44,21 @@ $(function () {
                 $("#sender").attr("data-id",3);
                 $("#btn-sure-source").attr("data-id",3);
                 ajaxDataPop(1);
+                $(".pagetwo").on("click","a",function () {
+                    var val = $(this).text();
+                    if($(this).hasClass("disable")){
+                    }else{
+                        var pageNo = parseInt($(this).siblings('.current').text());
+                        if($(this).attr('id')==='prevPage'){
+                            ajaxDataPop(pageNo-1);
+                        }else if($(this).attr('id')==='nextPage'){
+                            ajaxDataPop(pageNo+1);
+                        }else{
+                            ajaxDataPop(val);
+                        }
+                    }
+
+                });
             }else if(data_id==4){
                 $("#textInput").hide();
                 $("#mediaDiv").show();
@@ -129,7 +140,7 @@ $(function () {
            $("#mediaDiv").append(yy);
        }
        if(thisID==5){
-            var video='<video class="content-img" controls="controls" src='+thisVsrc+'></video>'
+            var video='<video class="content-img" controls="controls" src='+thisVsrc+'></video>';
            $("#mediaDiv").append(video);
        }
 

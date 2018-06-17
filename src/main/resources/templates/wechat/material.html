@@ -22,62 +22,39 @@
             margin-top: -10px;
         }
         .gzh-source-type{
-            margin-top: 2%;
-            height: 40px;
-            line-height: 40px;
+            margin-top: 4%;
+            height: 32px;
+            line-height: 32px;
             width: 100%;
             margin-left: 20px;
-            background: #F5F5F5;
-            box-shadow: #9c9c9c 3px 3px 3px 3px;
+            /*background: #F5F5F5;*/
+
         }
         .gzh-source-type a{
             font-size: 16px;
             color: #626262;
-            padding: 0 15px;
             cursor: pointer;
             width: 100px;
             display: inline-block;
            text-align: center;
+            border: 1px #c7c7c7 solid;
+            border-bottom: none;
+            background: #F5F5F5;
         }
         .gzh-source-type a:hover{
             text-decoration: none;
         }
         .tex-bgcolor {
-            height: 40px!important;
             color: #1d1d1d !important;
             display: inline-block;
-            background: #b8b8b8;
+            background: #ffffff!important;
             font-weight: 500;
+            border-top: 2px #6FB3E0 solid!important;
         }
-        #mpShow li{
-            width: 180px;
-            height: 180px;
-            display: inline-block;
-            border: 1px #727272 solid;
-            margin-left: 15px;
-            margin-top: 15px;
-        }
-        #mpShow li audio{
-            width: 180px;
-            height: 180px;
-            display: inline-block;
-            border: 1px #727272 solid;
-            cursor: pointer;
-        }
-        #vidShow li{
-            width: 180px;
-            height: 180px;
-            display: inline-block;
-            border: 1px #727272 solid;
-            margin-left: 15px;
-            margin-top: 15px;
-        }
-        #vidShow li video{
-            width: 180px;
-            height: 180px;
-            display: inline-block;
-            border: 1px #727272 solid;
-            cursor: pointer;
+        .bor-top{
+            border-top: 2px #c7c7c7 solid;
+            margin-top: 1.1px;
+            margin-left: 20px;
         }
         .newPhotoText span{
             display: inline-block;
@@ -142,6 +119,14 @@
             background: none!important;
             border-top: none!important;
         }
+        .webuploader-pick{
+            height: 32px;
+            line-height: 32px;
+            padding: 0 0;
+            display: block;
+            margin-top: -57px;
+            background:#6FB3E0!important;
+        }
     </style>
 </head>
 <body layout:fragment="content">
@@ -157,15 +142,13 @@
         </section>
         <div style="margin-top:2%;width: 98%;height: auto;font-size: 13px;">
             <div class="content-header gzh-source-type">
-                <a class="" data-id="1">图文消息</a>
-                <a class="" data-id="2">图片</a>
-                <a class="" data-id="3">语音</a>
-                <a class="" data-id="4">视频</a>
+                <a class="" data-id="1" style="border-right: none;">图文消息</a><a class="" data-id="2" style="border-right: none;">图片</a><a class="" data-id="3" style="border-right: none;">语音</a><a class="" data-id="4">视频</a>
             </div>
+            <div class="bor-top"></div>
             <div style="margin-top: 2%;">
                 <span style="margin-left: 2%"><a class="new-type-name">图文消息</a><a>（共<span id="NumMater"></span>条）</a></span>
                 <div style="width: 120px;height: 30px;float: right;">
-                    <div id="filePicker" style="width: 120px;height: 42px;background: #666e95;text-align: center;line-height: 42px;color: #FFFFFF;border-radius: 5px;margin-top: -10px;">新建图文信息</div>
+                    <div id="filePicker" style="width: 120px;height: 32px;background: #6FB3E0;text-align: center;line-height: 32px;color: #FFFFFF;border-radius: 3px;margin-top: -57px;">新建图文信息</div>
                     <div id="filePicker1" style="display: none;margin-top: -10px;">上传图片</div>
                     <div id="filePicker2" style="display: none;margin-top: -10px;">添加语音</div>
                     <div id="filePicker3" style="display: none;margin-top: -10px;">添加视频</div>
@@ -184,25 +167,25 @@
                             <!--</div>-->
                         <!--</li>-->
                     </ul>
-                    <div id="pagingTest3" class="pageIndex pagingTest" style="position: absolute;bottom: 0px;"></div>
+                    <div id="pagingTest3" class="pageIndex pagingTest" style="position: absolute;bottom: -5px;"></div>
 
                 </div>
                 <!--图片-->
                 <div id="photo-show" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2.5%;width: 95%;margin-left: 2%;display: none;overflow: auto;">
                     <ul id="imgShow" class="imgShow"></ul>
-                    <div id="pagingTest" class="pageIndex pagingTest" style="position: absolute;bottom: 0px;"></div>
+                    <div id="pagingTest" class="pageIndex pagingTest" style="position: absolute;bottom: -5px;"></div>
                     <!--<input type="hidden" value="" id="page">-->
                 </div>
                 <!--语音-->
                 <div id="source" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2.5%;width: 95%;margin-left: 2%;display: none;overflow: auto;">
-                    <ul id="mpShow"></ul>
-                    <div id="pagingTest1" class="pageIndex pagingTest" style="position: absolute;bottom: 0px;"></div>
+                    <ul id="mpShow" class=""></ul>
+                    <div id="pagingTest1" class="pageIndex pagingTest" style="position: absolute;bottom: -5px;"></div>
                     <!--<input type="hidden" value="" id="page1">-->
                 </div>
                 <!--视频-->
                 <div id="vid" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2.5%;width: 95%;margin-left: 2%;display: none;">
                     <ul id="vidShow"></ul>
-                    <div id="pagingTest2" class="pageIndex pagingTest" style="position: absolute;bottom: 0px;"></div>
+                    <div id="pagingTest2" class="pageIndex pagingTest" style="position: absolute;bottom: -5px;"></div>
                     <!--<input type="hidden" value="" id="page2">-->
                 </div>
             </div>
