@@ -96,22 +96,6 @@
         #editInputAutor{
             border-bottom: 1px #e5e5e5 solid!important;
         }
-        .messageUl{
-            margin-left: 0px;
-            position: relative;
-        }
-        .messageUl .messageLi{
-            list-style: none;
-            border: 1px solid #a8a8a8;
-            width: 230px;
-            float: left;
-            margin: 10px;
-            position: relative;
-            cursor: pointer;
-        }
-        .messageUl .messageLi div p{
-            margin-left: 15px;
-        }
         .contentP{
             height: 125px;
         }
@@ -503,6 +487,31 @@
                     alert(data.status);
                 }
             });
+        });
+        //单个图文悬浮效果
+        $(document).on("mouseenter",".messageLi",function () {
+            $(this).append("<a class='bgshadow'>预览文章</a>").siblings().find("a").remove();
+        });
+        $(document).on("mouseleave",".messageLi",function () {
+            $(this).find("a").remove();
+        });
+//单个图文点击跳转
+        $(document).on("click",".messageLi",function () {
+            var thistwID=$(this).attr("data-id");
+            $.ajax({
+                url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+thistwID,
+                type: "get",
+                processData:true,
+                success:function (data) {
+                    $('#aphoto').modal();
+                    $("#mySourcePhoto").text(data.content.title);
+                    $("#photoAutor>span:eq(0)").text(data.content.author);
+                    $("#photoAutor>span:eq(2)").text(data.content.updateTime);
+                    $("#photoContent").html(data.content.content)
+                }
+            })
+
+
         });
 
 

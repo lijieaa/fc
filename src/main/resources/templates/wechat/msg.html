@@ -42,20 +42,17 @@
         .dataTables_wrapper .row:first-child{
             background: none;
         }
-        .chat-type{
-            height: 30px;
-            line-height: 30px;
-        }
-        .chat-type span{
-            padding:10px;
-            cursor: pointer;
-        }
         .txt-green{
             color: #44b549;
         }
         .content-img{
             width: 200px;
             height: 140px;
+        }
+        .messageLi{
+            width: 170px!important;
+            height: 250px!important;
+            border: 1px #727272 solid;
         }
     </style>
 </head>
@@ -105,12 +102,13 @@
                     <span data-id="4"><i class="glyphicon glyphicon-ice-lolly"></i>语音</span>
                     <span data-id="5"><i class="glyphicon glyphicon-hd-video"></i>视频</span>
                 </div>
-                <textarea class="form-control" rows="7" id="textInput"></textarea>
-                <div style="border: 1px black solid;height: 150px;display: none;" class="col-md-12" id="mediaDiv"></div>
+                <textarea class="form-control" rows="7" id="textInput" style="border:1px #e5e5e5 solid; "></textarea>
+                <div style="border: 1px #e5e5e5 solid;height: 200px;display: none;" class="col-md-12" id="mediaDiv"></div>
             </div>
             <div style="position: relative;">
                 <button type="button" class="btn btn-info search marginLeft-1" style="margin-top:1%;width: 100px;display: inline-block;" id="sender" data-id="2">发送</button>
                 <a style="display: inline-block;" id="numBit">还可以输入<span id="limNum">100</span>字</a>
+                <a style="display: inline-block;display: none;" id="numWarn"></a>
             </div>
             <h5 class="marginTop-2 marginLeft-1">最近20条聊天记录</h5>
             <div class="col-md-12">
@@ -138,6 +136,7 @@
                 </div>
                 <div class="modal-body" style="min-height: 400px;">
                     <ul id="popImg" class="imgShow"></ul>
+                    <div id="popPagingText" class="pageIndex pagingTest"></div>
                     <div id="popPagingTest" class="pageIndex pagingTest"></div>
                     <div id="popPagingmp3" class="pageIndex pagingTest"></div>
                     <div id="popPagingmp4" class="pageIndex pagingTest"></div>

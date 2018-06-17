@@ -408,18 +408,10 @@ $("#popPagingmp4").on("click","a",function () {
 
 });
 
-//点击图片选中状态
-// $(document).on("click","#imgShow li img",function () {
-//     var thisSrc=$(this).attr("src");
-//     $(this).addClass("opactiy").parent().siblings().children().removeClass("opactiy");
-//     $(this).parent().append("<a class='bgimg'></a>").siblings().children("a").remove();
-// //            alert(thisSrc)
-// })
-
 // 图文展示
 function photoText(pageNo) {
     $.ajax({
-        url:contextPath +"material/page?rows=2&wxtype=news&wxPublicId="+wxPublicId+"&page="+pageNo,
+        url:contextPath +"material/page?rows=4&wxtype=news&wxPublicId="+wxPublicId+"&page="+pageNo,
         type: "get",
         success:function(data){
             $("#NumMater").text(data.content.data.total);
@@ -464,29 +456,52 @@ $("#pagingTest3").on("click","a",function () {
     }
 
 });
-//单个图文悬浮效果
-$(document).on("mouseenter",".messageLi",function () {
-    $(this).append("<a class='bgshadow'>预览文章</a>").siblings().find("a").remove();
-});
-$(document).on("mouseleave",".messageLi",function () {
-    $(this).find("a").remove();
-});
-//单个图文点击跳转
-$(document).on("click",".messageLi",function () {
-    var thistwID=$(this).attr("data-id");
+// 图文弹窗展示
+function photoTextPop(pageNo) {
     $.ajax({
-        url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+thistwID,
+        url:contextPath +"material/page?rows=4&wxtype=news&wxPublicId="+wxPublicId+"&page="+pageNo,
         type: "get",
-        processData:true,
-        success:function (data) {
-            $('#aphoto').modal();
-            $("#mySourcePhoto").text(data.content.title);
-            $("#photoAutor>span:eq(0)").text(data.content.author);
-            $("#photoAutor>span:eq(2)").text(data.content.updateTime);
-            $("#photoContent").html(data.content.content)
+        success:function(data){
+            var list = data.content.data.list;
+            $("#popImg").empty();
+            if(data.status == 200 && list.length){
+                for(var i=0; i<list.length;i++){
+                    var id=list[i].thumbMediaId;
+                    var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxPublicId;
+                    let html = `<li class="messageLi" data-id="${list[i].id}" data-time="${list[i].updateTime}" data-ttile="${list[i].title}" data-photo="${list[i].thumbMediaId}" data-Des="${list[i].digest}" data-Url="${list[i].contentSourceUrl}" >
+                                    <div style="height: 250px;overflow: hidden">
+                                        <p>${list[i].title}</p>
+                                        <p><img src="${urlLink}" style="width: 200px;height: 150px;"> </p>
+                                        <p>${list[i].digest}</p>
+                                        <p>${list[i].updateTime}</p>
+                                    </div>
+                                </li>`
+                    $("#popImg").append(html);
+                }
+            }
+            $("#popPagingText").paging1({
+                pageNo:pageNo,
+                totalPage:data.content.data.pages
+            })
         }
-    })
+    });
+}
+//分页
+$("#popPagingText").on("click","a",function () {
+    var val = $(this).text();
+    if($(this).hasClass("disable")){
 
+    }else{
+        var pageNo = parseInt($(this).siblings('.current').text());
+        if($(this).attr('id')==='prevPage'){
+            photoTextPop(pageNo-1);
+        }else if($(this).attr('id')==='nextPage'){
+            photoTextPop(pageNo+1);
+        }else{
+            photoTextPop(val);
+        }
+    }
 
 });
+
 

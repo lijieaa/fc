@@ -115,3 +115,33 @@ cursor: pointer;
     color: black;
     cursor:not-allowed;
 }
+
+.messageUl{
+    margin-left: 0px;
+    position: relative;
+}
+.messageUl .messageLi{
+    list-style: none;
+    border: 1px solid #a8a8a8;
+    width: 230px;
+    float: left;
+    margin: 10px;
+    position: relative;
+    cursor: pointer;
+}
+.messageUl .messageLi div p{
+    margin-left: 15px;
+}
+
+.chat-type{
+    height: 35px;
+    line-height: 35px;
+    background: #E5E5E5;
+}
+.chat-type i{
+    margin-right: 3px;
+}
+.chat-type span{
+    padding:15px;
+    cursor: pointer;
+}

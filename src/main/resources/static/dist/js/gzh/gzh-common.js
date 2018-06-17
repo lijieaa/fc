@@ -30,13 +30,19 @@ $(function () {
             $("#numBit").hide();
             $('#sourceRoom').modal();
             if(data_id==1){
+                $("#popPagingText").show();
+                $("#popPagingTest").hide();
+                $("#popPagingmp3").hide();
+                $("#popPagingmp4").hide();
                 $("#textInput").hide();
                 $("#mediaDiv").show();
-                $("#mySource").text("选择素材");
+                $("#mySource").text("选择图文素材");
                 $(".new-source").text("新建图文消息").attr("data-id","1");
                 $("#sender").attr("data-id",1);
                 $("#btn-sure-source").attr("data-id",1);
+                photoTextPop(1)
             }else if(data_id==3){
+                $("#popPagingText").hide();
                 $("#popPagingTest").show();
                 $("#popPagingmp3").hide();
                 $("#popPagingmp4").hide();
@@ -48,6 +54,7 @@ $(function () {
                 $("#btn-sure-source").attr("data-id",3);
                 ajaxDataPop(1);
             }else if(data_id==4){
+                $("#popPagingText").hide();
                 $("#popPagingTest").hide();
                 $("#popPagingmp3").show();
                 $("#popPagingmp4").hide();
@@ -59,6 +66,7 @@ $(function () {
                 $("#btn-sure-source").attr("data-id",4);
                 ajaxMpPop(1)
             }else if(data_id==5){
+                $("#popPagingText").hide();
                 $("#popPagingTest").hide();
                 $("#popPagingmp3").hide();
                 $("#popPagingmp4").show();
@@ -78,8 +86,12 @@ $(function () {
         var remain = $(this).val().length;
         $("#limNum").text(remain)
         if(remain > limitNum){
-            alert("字数超过限制")
-        }else{
+            $("#numBit").hide();
+            $("#numWarn").show().text("字数超过限制").css("color",'red');
+        }
+        if(remain<limitNum){
+            $("#numWarn").hide();
+            $("#numBit").show();
             var result = limitNum - remain;
             $("#limNum").text(result)
         }
@@ -98,11 +110,25 @@ $(function () {
     var thisYId;
     var thisVsrc;
     var thisVId;
-    $(document).on("click","#popImg li img",function () {
+    //图文参数
+    var tpTitle;
+    var tpTime;
+    var tpPhoto;
+    var tpDec;
+    var tpUrl;
+    $(document).on("click","#popImg>li>img",function () {
         thisSrc=$(this).attr("src");
         thisphotoId=$(this).attr("title");
         $(this).addClass("opactiy").parent().siblings().children().removeClass("opactiy");
         $(this).parent().append("<a class='bgimg'></a>").siblings().children("a").remove();
+    });
+    //图文选中
+    $(document).on("click","#popImg>.messageLi",function () {
+        tpTitle=$(this).attr("data-ttile");
+        tpTime=$(this).attr("data-time");
+        tpPhoto=$(this).attr("data-photo");
+        $(this).addClass("opactiy").siblings().removeClass("opactiy");
+        $(this).append("<a class='bgimg'></a>").siblings().find("a").remove();
     });
     //音频选中
     $(document).on("click","#popImg li audio",function () {
@@ -123,7 +149,15 @@ $(function () {
         $("#mediaDiv").empty();
         var thisID=$(this).attr("data-id");
         if(thisID==1){
-
+            var urlLink = ''+contextPath+'material/image/detail?mediaId='+tpPhoto+"&name="+name+"&wxPublicId="+wxPublicId;
+            let html = `<li class="messageLi" style="height: 180px!important;list-style: none">
+                                    <div style="height: 180px;overflow: hidden">
+                                        <p>${tpTime}</p>
+                                        <p><img src="${urlLink}" style="width: 200px;height: 100px;"> </p>
+                                        <p>${tpTitle}</p>
+                                    </div>
+                                </li>`
+            $("#mediaDiv").append(html);
         }
         if(thisID==3){
             var title1 = '<img class="content-img" src='+thisSrc+'>';
@@ -143,6 +177,33 @@ $(function () {
     $(document).on("click","#sender",function () {
           var thisName=$(this).attr("data-name");
           var thisID=$(this).attr("data-id");
+        var urlLink = ''+contextPath+'material/image/detail?mediaId='+tpPhoto+"&name="+name+"&wxPublicId="+wxPublicId;
+          if(thisID==1){
+              var webdata={"ToUserName":thisName,"MsgType":"news","Title":tpTitle,"Description":tpDec,"Url":tpUrl,"PicUrl":urlLink};
+              $.ajax({
+                  url:contextPath +"message",
+                  type: "POST",
+                  dataType:"json",
+                  processData:true,
+                  data:{
+                      wxPublicId:wxPublicId,
+                      json:JSON.stringify(webdata)
+                  },
+                  success:function(data){
+                      if (data.content.status==500){
+                          alert(data.content.messages)
+                      }else if(data.content.status==200){
+                          alert(data.content.messages);
+                      }else {
+                          alert("发送失败");
+                      }
+                  },
+                  error:function (data) {
+                      alert(data.status);
+                  }
+
+              });
+          }
           if(thisID==2){
               var content=$("#textInput").val();
               var webdata={"ToUserName":thisName,"MsgType":"text","Content":content};
@@ -156,7 +217,13 @@ $(function () {
                       json:JSON.stringify(webdata)
                   },
                   success:function(data){
-                      alert("发送成功");
+                      if (data.content.status==500){
+                          alert(data.content.messages)
+                      }else if(data.content.status==200){
+                          alert(data.content.messages);
+                      }else {
+                          alert("发送失败");
+                      }
                   },
                   error:function (data) {
                       alert(data.status);
@@ -177,7 +244,13 @@ $(function () {
                     json:JSON.stringify(webdata)
                 },
                 success:function(data){
-                    alert("发送成功");
+                    if (data.content.status==500){
+                        alert(data.content.messages)
+                    }else if(data.content.status==200){
+                        alert(data.content.messages);
+                    }else {
+                        alert("发送失败");
+                    }
                 },
                 error:function (data) {
                     alert(data.status);
@@ -198,7 +271,13 @@ $(function () {
                     json:JSON.stringify(webdata)
                 },
                 success:function(data){
-                    alert("发送成功");
+                    if (data.content.status==500){
+                        alert(data.content.messages)
+                    }else if(data.content.status==200){
+                        alert(data.content.messages);
+                    }else {
+                        alert("发送失败");
+                    }
                 },
                 error:function (data) {
                     alert(data.status);
@@ -219,7 +298,13 @@ $(function () {
                     json:JSON.stringify(webdata)
                 },
                 success:function(data){
-                    alert("发送成功");
+                    if (data.content.status==500){
+                        alert(data.content.messages)
+                    }else if(data.content.status==200){
+                        alert(data.content.messages);
+                    }else {
+                        alert("发送失败");
+                    }
                 },
                 error:function (data) {
                     alert(data.status);
