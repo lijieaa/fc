@@ -23,30 +23,30 @@
     <div class="statusbar"></div>
 
     <div class="view view-main view-init ios-edges" >
-        <div class="navbar no-hairline">
-            <div class="navbar-inner">
-                <div class="left" style="width:28px">
-                    <a href="#" class="link back">
-                        <i class="f7-icons size-22" style="color:#FFFFFF" >left</i>
-                    </a>
-                </div>
-                <div class="title">项目详情</div>
-                <div class="right" style="width:28px">   <i class="f7-icons size-18" >&bull;&bull;&bull;</i></div>
 
-            </div>
-
-        </div>
-        <div class="fab fab-right-bottom fab-morph" style="bottom:45px">
-            <a href="#">
-                设备<br/>列表
-                <!--<i class="icon f7-icons">add</i>-->
-            </a>
-        </div>
         <div class="pages">
 
             <div class="page" data-page="home">
+                <div class="navbar no-hairline">
+                    <div class="navbar-inner">
+                        <div class="left" style="width:28px">
+                            <a href="#" class="link back">
+                                <i class="f7-icons size-22" style="color:#FFFFFF" >left</i>
+                            </a>
+                        </div>
+                        <div class="title">项目详情</div>
+                        <div class="right" style="width:28px">   <i class="f7-icons size-18" >&bull;&bull;&bull;</i></div>
 
-                <div class="page-content infinite-scroll-content">
+                    </div>
+
+                </div>
+                <div class="fab fab-right-bottom fab-morph"  data-morph-to=".toolbar" style="bottom:45px">
+                    <a href="#">
+                        设备<br/>列表
+                        <!--<i class="icon f7-icons">add</i>-->
+                    </a>
+                </div>
+                <div class="page-content infinite-scroll-content fab-close">
 
                     <div class="list media-list ">
                         <ul id="">
@@ -160,33 +160,56 @@
                     </div>
                     <div class="preloader infinite-scroll-preloader"></div>
                 </div>
+                <div class="toolbar tabbar  ">
+                    <div class="toolbar-inner" style="padding:0 10px">
 
-            </div>
+                        <a class=" toggle-sheet comm1 text-base-color f30" href="#" >
+                            评论
+                        </a>
+                        <div class="messagebar-area  comm2 ">
+                            <textarea class="f28" style="padding:3px;    width: 100%;" ></textarea>
+                        </div>
+                        <a  class="comm3 text-base-color f30" href="#"  >评论</a>
 
-        </div>
-        <div class="toolbar tabbar">
-            <div class="toolbar-inner" style="padding:0 10px">
 
-                    <a class=" toggle-sheet comm1 text-base-color f30" href="#" >
-                        评论
-                    </a>
-                    <div class="messagebar-area  comm2 ">
-                        <textarea class="f28" style="padding:3px;    width: 100%;" ></textarea>
+                        <!--  <div class="pkee text-base-color f30" style="width:40px;flex-shrink:0">
+                              评论
+                          </div>
+
+                          <div class="ser-box">
+                              <input type="search" placeholder="Search">
+                              <i class="searchbar-icon"></i>
+                          </div>
+                          <span class="ser-btn text-base-color f30" style="width:50px" onclick="alr()">搜索</span>-->
                     </div>
-                    <a  class="comm3 text-base-color f30" href="#"  >评论</a>
-
-
-              <!--  <div class="pkee text-base-color f30" style="width:40px;flex-shrink:0">
-                    评论
                 </div>
+                <div class="toolbar tabbar  fab-morph-target" style="z-index:9999">
+                    <div class="toolbar-inner" style="padding:0 10px">
 
-                <div class="ser-box">
-                    <input type="search" placeholder="Search">
-                    <i class="searchbar-icon"></i>
+                        <a class=" toggle-sheet comm1 text-base-color f30" href="#" >
+                            回复
+                        </a>
+                        <div class="messagebar-area  comm2 ">
+                            <textarea class="f28" style="padding:3px;    width: 100%;" ></textarea>
+                        </div>
+                        <a  class="comm3 text-base-color f30" href="#"  >确定</a>
+
+
+                        <!--  <div class="pkee text-base-color f30" style="width:40px;flex-shrink:0">
+                              评论
+                          </div>
+
+                          <div class="ser-box">
+                              <input type="search" placeholder="Search">
+                              <i class="searchbar-icon"></i>
+                          </div>
+                          <span class="ser-btn text-base-color f30" style="width:50px" onclick="alr()">搜索</span>-->
+                    </div>
                 </div>
-                <span class="ser-btn text-base-color f30" style="width:50px" onclick="alr()">搜索</span>-->
             </div>
+
         </div>
+
     </div>
 </div>
 <script>
@@ -289,6 +312,10 @@
             lastItemIndex = $$('.list li').length;
         }, 1000);
     });
+
+    $$(".f-u").on("click",function(){
+        alert(1)
+    })
 </script>
 
 </body>
