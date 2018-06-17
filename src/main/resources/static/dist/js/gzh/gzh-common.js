@@ -150,11 +150,11 @@ $(function () {
         var thisID=$(this).attr("data-id");
         if(thisID==1){
             var urlLink = contextPath+'material/image/detail?mediaId='+tpPhoto+"&name="+name+"&wxPublicId="+wxPublicId;
-            let html = `<li class="messageLi" style="height: 180px!important;list-style: none">
-                                    <div style="height: 180px;overflow: hidden">
-                                        <p>${tpTime}</p>
+            let html = `<li class="messageLi" style="height: 150px!important;list-style: none">
+                                    <div style="height: 150px;overflow: hidden">
+                                        <p style="height: 20px;margin: 0;">${tpTime}</p>
                                         <p><img src="${urlLink}" style="width: 200px;height: 100px;"> </p>
-                                        <p>${tpTitle}</p>
+                                        <p style="height: 20px;margin: 0;">${tpTitle}</p>
                                     </div>
                                 </li>`
             $("#mediaDiv").append(html);
