@@ -2009,11 +2009,17 @@
             ignore: "",
             rules: {
                 password: {
-                    required: true
+                    required: true,
+                    minlength: 6
                 },
                 confirm_password: {
                     required: true,
                     equalTo: "#change-password-password"
+                }
+            },
+            messages: {
+                password: {
+                    minlength: "密码最少长度为6位"
                 }
             },
             highlight: function (e) {
