@@ -110,6 +110,22 @@ function  ajaxDataPop(pageNo) {
         }
     });
 }
+$("#popPagingTest").on("click","a",function () {
+    var val = $(this).text();
+    if($(this).hasClass("disable")){
+
+    }else{
+        var pageNo = parseInt($(this).siblings('.current').text());
+        if($(this).attr('id')==='prevPage'){
+            ajaxDataPop(pageNo-1);
+        }else if($(this).attr('id')==='nextPage'){
+            ajaxDataPop(pageNo+1);
+        }else{
+            ajaxDataPop(val);
+        }
+    }
+
+});
 
 //语音上传
 function yyupload() {
@@ -223,15 +239,31 @@ function  ajaxMpPop(pageNo) {
                 var name="wx.mp3";
                 var urlLink = ''+contextPath+'material/voice/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name;
                 urlLink = encodeURI(urlLink);
-                $("#popImg").append("<li><audio controls='controls' preload='auto' data-src='"+urlLink+"' data-id='"+mediaId+"'><source src='"+urlLink+"' type=\"audio/mpeg\"></audio></li>");
+                $("#popImg").append("<li><audio controls='controls' preload='meta' data-src='"+urlLink+"' data-id='"+mediaId+"' controlsList=\"nodownload\"><source src='"+urlLink+"' type=\"audio/mpeg\"></audio></li>");
             }
-            $("#popPagingTest").paging1({
+            $("#popPagingmp3").paging1({
                 pageNo:pageNo,
                 totalPage:data.content.data.pages
             })
         }
     });
 }
+$("#popPagingmp3").on("click","a",function () {
+    var val = $(this).text();
+    if($(this).hasClass("disable")){
+
+    }else{
+        var pageNo = parseInt($(this).siblings('.current').text());
+        if($(this).attr('id')==='prevPage'){
+            ajaxMpPop(pageNo-1);
+        }else if($(this).attr('id')==='nextPage'){
+            ajaxMpPop(pageNo+1);
+        }else{
+            ajaxMpPop(val);
+        }
+    }
+
+});
 
 
 function videoupload() {
@@ -347,18 +379,34 @@ function  ajaxVidPop(pageNo) {
                     url:contextPath+'material/video/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name,
                     type: "get",
                     success:function (data) {
-                        $("#popImg").append("<li><video src='"+data.content.down_url+"' controls='controls' data-id='"+mediaId+"'></video></li>");
+                        $("#popImg").append("<li><video src='"+data.content.down_url+"' controls='controls' data-id='"+mediaId+"' preload='meta' controlsList=\"nodownload\"></video></li>");
                     }
                 })
 
             }
-            $("#popPagingTest").paging1({
+            $("#popPagingmp4").paging1({
                 pageNo:pageNo,
                 totalPage:data.content.data.pages
             })
         }
     });
 }
+$("#popPagingmp4").on("click","a",function () {
+    var val = $(this).text();
+    if($(this).hasClass("disable")){
+
+    }else{
+        var pageNo = parseInt($(this).siblings('.current').text());
+        if($(this).attr('id')==='prevPage'){
+            ajaxVidPop(pageNo-1);
+        }else if($(this).attr('id')==='nextPage'){
+            ajaxVidPop(pageNo+1);
+        }else{
+            ajaxVidPop(val);
+        }
+    }
+
+});
 
 //点击图片选中状态
 // $(document).on("click","#imgShow li img",function () {

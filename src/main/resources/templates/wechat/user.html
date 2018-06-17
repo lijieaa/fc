@@ -178,14 +178,16 @@
                     "&nbsp;"+showHour+":"+showMinutes;//yyyy-MM-dd 00:00:00格式日期
                 return datetimeType;
             }
+            var draw;
             var myTable=$('#gzh-ul-manage').DataTable( {
                     bAutoWidth: false,
 
                 "ajax": function (data, callback, settings) {
                     var pageNum=data.start/data.length+1;
                     var pageSize=data.length;
-                    var draw=data.draw;
-                    var param="?page="+pageNum+"&rows="+pageSize+"&draw="+draw;
+                    draw=data.draw;
+                    var name="";
+                    var param="?page="+pageNum+"&rows="+pageSize+"&draw="+draw+"&nickname="+name;
                     $.ajax({
                         "url":contextPath +"wxUsers/page"+param+"&wxPublicId="+wxPublicId,
                         "type": "get",
@@ -321,9 +323,12 @@
             //搜索
             $(document).on("click",".seaName",function () {
                 var inpText=$("#inpText").val();
-                // // myTable.ajax.reload( inpText, false )
-                myTable.ajax.url(contextPath +"wxUsers/page?page=1&rows=10&wxPublicId="+wxPublicId+"&nickname="+inpText).load();
-                //myTable.destroy();
+                var draw=1;
+                myTable.ajax.url(contextPath +"wxUsers/page?page=1&rows=10&wxPublicId="+wxPublicId+"&nickname="+inpText+"&draw="+draw).load();
+                // var param={"page":1,"rows":10,"draw":draw,"wxPublicId":wxPublicId,"nickname":inpText};
+                // myTable.settings()[0].ajax.data=param;
+                // myTable.ajax.reload();
+
             });
             $(document).on("click",".chatOne",function () {
                 $("#chating-per").show().siblings().hide();

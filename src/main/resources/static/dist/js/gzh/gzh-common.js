@@ -37,6 +37,9 @@ $(function () {
                 $("#sender").attr("data-id",1);
                 $("#btn-sure-source").attr("data-id",1);
             }else if(data_id==3){
+                $("#popPagingTest").show();
+                $("#popPagingmp3").hide();
+                $("#popPagingmp4").hide();
                 $("#textInput").hide();
                 $("#mediaDiv").show();
                 $("#mySource").text("选择图片");
@@ -44,22 +47,10 @@ $(function () {
                 $("#sender").attr("data-id",3);
                 $("#btn-sure-source").attr("data-id",3);
                 ajaxDataPop(1);
-                $(".pagetwo").on("click","a",function () {
-                    var val = $(this).text();
-                    if($(this).hasClass("disable")){
-                    }else{
-                        var pageNo = parseInt($(this).siblings('.current').text());
-                        if($(this).attr('id')==='prevPage'){
-                            ajaxDataPop(pageNo-1);
-                        }else if($(this).attr('id')==='nextPage'){
-                            ajaxDataPop(pageNo+1);
-                        }else{
-                            ajaxDataPop(val);
-                        }
-                    }
-
-                });
             }else if(data_id==4){
+                $("#popPagingTest").hide();
+                $("#popPagingmp3").show();
+                $("#popPagingmp4").hide();
                 $("#textInput").hide();
                 $("#mediaDiv").show();
                 $("#mySource").text("选择语音");
@@ -68,6 +59,9 @@ $(function () {
                 $("#btn-sure-source").attr("data-id",4);
                 ajaxMpPop(1)
             }else if(data_id==5){
+                $("#popPagingTest").hide();
+                $("#popPagingmp3").hide();
+                $("#popPagingmp4").show();
                 $("#textInput").hide();
                 $("#mediaDiv").show();
                 $("#mySource").text("选择视频");

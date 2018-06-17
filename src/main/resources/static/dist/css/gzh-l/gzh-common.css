@@ -33,26 +33,27 @@
     position: relative;
 }
 .imgShow li img{
-    width: 150px;
-    height: 150px;
+    width: 100%;
+    height: 100%;
     display: inline-block;
     border: 1px #727272 solid;
     cursor: pointer;
 }
 .imgShow li audio{
-    width: 150px;
-    height: 150px;
+    width: 100%;
+    height: 90%;
     margin:0 15px;
     display: inline-block;
     border: 1px #727272 solid;
     cursor: pointer;
+    background: #9cccd6;
 }
 .imgShow li video{
-    width: 150px;
-    height: 150px;
+    width: 100%;
+    height: 100%;
     margin:0 15px;
     display: inline-block;
-    /*border: 1px #727272 solid;*/
+    border: 1px #727272 solid;
     cursor: pointer;
 }
 #mpShow,#vidShow{
@@ -68,6 +69,7 @@ margin: 5px;
 #mpShow li audio{
 width: 100%;
 height: 100%;
+background: #9cccd6;
 display: inline-block;
 cursor: pointer;
 }

@@ -227,8 +227,10 @@
                 </div>
                 <div class="modal-body" style="min-height: 400px;">
                     <ul id="popImg" class="imgShow"></ul>
-                    <div id="popPagingTest" class="pageIndex"></div>
-                    <input type="hidden" value="" id="popPage">
+                    <div id="popPagingTest" class="pageIndex pagingTest"></div>
+                    <div id="popPagingmp3" class="pageIndex pagingTest"></div>
+                    <div id="popPagingmp4" class="pageIndex pagingTest"></div>
+                    <!--<input type="hidden" value="" id="popPage">-->
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="btn-sure-source" class="btn btn-primary text-center">确定</button>
@@ -390,16 +392,25 @@
             var thisId=$(this).attr("data-id");
             $('#sourceRoom').modal();
             if(thisId==1){
+                $("#popPagingTest").show();
+                $("#popPagingmp3").hide();
+                $("#popPagingmp4").hide();
                 $("#btn-sure-source").attr("data-id",1);
                 $("#mySource").text("选择图片");
-                ajaxDataPop(1)
+                ajaxDataPop(1);
             }
             if(thisId==2){
+                $("#popPagingTest").hide();
+                $("#popPagingmp3").hide();
+                $("#popPagingmp4").show();
                 $("#btn-sure-source").attr("data-id",2);
                 $("#mySource").text("选择视频");
                 ajaxVidPop(1);
             }
             if (thisId==3){
+                $("#popPagingTest").hide();
+                $("#popPagingmp3").show();
+                $("#popPagingmp4").hide();
                 $("#btn-sure-source").attr("data-id",3);
                 $("#mySource").text("选择音频");
                 ajaxMpPop(1);
