@@ -177,6 +177,7 @@ $(function () {
     $(document).on("click","#sender",function () {
           var thisName=$(this).attr("data-name");
           var thisID=$(this).attr("data-id");
+          var name="upd.jpg"
         var urlLink = ''+contextPath+'material/image/detail?mediaId='+tpPhoto+"&name="+name+"&wxPublicId="+wxPublicId;
           if(thisID==1){
               var webdata={"ToUserName":thisName,"MsgType":"news","Title":tpTitle,"Description":tpDec,"Url":tpUrl,"PicUrl":urlLink};
