@@ -120,4 +120,13 @@ public class DingtalkDeptServiceImpl extends BaseServiceImpl<DingtalkDept,Dingta
         record.setIntermediaryId(user.getIntermediaryId());
         return dingtalkDeptMapper.selectByParentId(record);
     }
+
+    @Override
+    public DingtalkDept selectByEqName(String name) {
+        DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+        DingtalkDept record=new DingtalkDept();
+        record.setIntermediaryId(user.getIntermediaryId());
+        record.setName(name);
+        return dingtalkDeptMapper.selectByEqName(record);
+    }
 }

@@ -58,6 +58,18 @@ public class DingtalkDeptRestController {
         return dingtalkdeptService.get(id);
     }
 
+    @PreAuthorize("hasAuthority('dingtalkdept:view')")
+    @RequestMapping(method = RequestMethod.GET,value = "eqname")
+    public boolean eqname(@RequestParam("eqname") String name) {
+        DingtalkDept dingtalkDept = dingtalkdeptService.selectByEqName(name);
+        if(dingtalkDept==null){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
 
 
     @PreAuthorize("hasAuthority('dingtalkdept:view')")

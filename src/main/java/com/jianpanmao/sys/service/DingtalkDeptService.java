@@ -13,4 +13,7 @@ public interface DingtalkDeptService extends BaseService<DingtalkDept, DingtalkD
     void sort(List<DingtalkDept> dept);
 
     List<DingtalkDept> selectByParentId(Integer parentId);
+
+
+    DingtalkDept selectByEqName(String name);
 }
