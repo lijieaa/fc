@@ -18,7 +18,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.session.SessionInformationExpiredEvent;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
+import javax.servlet.ServletException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -40,18 +44,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
+                .antMatchers("/session_timeout")
+                .permitAll()
                 .anyRequest().authenticated();
                 //.anyRequest().permitAll()
 
 
         http
                 .sessionManagement()
-                .maximumSessions(1)
-                .expiredUrl("/session_timeout")
-                .maxSessionsPreventsLogin(true)
-                .and()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                .invalidSessionUrl("/login");
+                .invalidSessionUrl("/session_timeout")
+                .maximumSessions(1).expiredUrl("/session_timeout");
 
 
         http .formLogin()

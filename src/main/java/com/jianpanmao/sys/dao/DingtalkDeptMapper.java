@@ -24,5 +24,7 @@ public interface DingtalkDeptMapper extends BaseDao<DingtalkDept, DingtalkDeptEx
 
     void sort(DingtalkDept dept);
 
+    DingtalkDept selectByEqName(DingtalkDept dept);
+
 
 }

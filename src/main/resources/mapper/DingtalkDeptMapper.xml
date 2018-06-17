@@ -453,7 +453,12 @@
 
     <select id="selectByLikeName" parameterType="com.jianpanmao.sys.entity.DingtalkDept" resultMap="BaseResultMap">
       SELECT * FROM dingtalk_dept d where d.name LIKE concat('%',#{name},'%') AND d.intermediary_id=#{intermediaryId}
-  </select>
+    </select>
+
+
+    <select id="selectByEqName" parameterType="com.jianpanmao.sys.entity.DingtalkDept" resultMap="BaseResultMap">
+      SELECT * FROM dingtalk_dept d where d.name =#{name} AND d.intermediary_id=#{intermediaryId}
+    </select>
 
 
     <update id="updatePath">
