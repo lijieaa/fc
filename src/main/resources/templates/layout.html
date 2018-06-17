@@ -66,6 +66,9 @@
 
     <script th:inline="javascript">
         var contextPath = /*[[@{/}]]*/;
+        var ip = /*[[${#request.getLocalAddr()}]]*/;
+        var port = /*[[${#request.getLocalPort()}]]*/;
+        var absolutePath = ip+":"+port;
         $.ajaxSetup({
             timeout: 3000,
             dataType: 'json',
