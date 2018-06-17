@@ -15,13 +15,13 @@
         <ul class="nav nav-tabs" id="myTab">
             <li class="col-sm-6 active no-padding">
                 <a data-toggle="tab" href="#insidecontacts" aria-expanded="true">
-                    <i class="green ace-icon fa fa-home bigger-120"></i>
+                    <i class="green ace-icon fa fa-book bigger-120"></i>
                     内部通讯录管理
                 </a>
             </li>
             <li class="col-sm-6 no-padding">
                 <a data-toggle="tab" href="#outcontacts" aria-expanded="false">
-                    <i class="green ace-icon fa fa-home bigger-120"></i>
+                    <i class="green ace-icon glyphicon glyphicon-list-alt bigger-120"></i>
                     外部联系人
                 </a>
             </li>
@@ -1278,8 +1278,21 @@
             ignore: "",
             rules: {
                 name: {
-                    required: true
+                    required: true,
+                    remote: {
+                        url: contextPath+"api/dingtalkuser/department",
+                        type: "post",
+                        dataType: "json",
+                        data: JSON.stringify({
+                            mobile: function() {
+                                return $(".department-name").text();
+                            }
+                        })
+                    }
                 }
+            },
+            messages: {
+                remote: "该用户已经存在"
             },
             highlight: function (e) {
                 $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
@@ -1302,7 +1315,7 @@
                 resizable: false,
                 width: '600',
                 modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;添加部门</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;添加部门</h4></div>",
                 title_html: true,
                 buttons: [
                     {
@@ -1488,7 +1501,7 @@
                 resizable: false,
                 width: '680',
                 modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;添加成员</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;添加成员</h4></div>",
                 title_html: true,
                 buttons: [
                     {
@@ -2212,7 +2225,7 @@
                 resizable: false,
                 width: '600',
                 modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;新增角色组</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增角色组</h4></div>",
                 title_html: true,
                 buttons: [
                     {
@@ -2325,7 +2338,7 @@
                 resizable: false,
                 width: '600',
                 modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;新增角色</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增角色</h4></div>",
                 title_html: true,
                 buttons: [
                     {
@@ -2928,7 +2941,7 @@
                 resizable: false,
                 width: '600',
                 modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;新增标签组</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增标签组</h4></div>",
                 title_html: true,
                 buttons: [
                     {
@@ -3002,7 +3015,7 @@
                 resizable: false,
                 width: '600',
                 modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;新增标签组</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增标签组</h4></div>",
                 title_html: true,
                 buttons: [
                     {
@@ -3177,7 +3190,7 @@
                 resizable: false,
                 width: '680',
                 modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;添加成员</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;添加成员</h4></div>",
                 title_html: true,
                 buttons: [
                     {
@@ -3383,7 +3396,7 @@
                 resizable: false,
                 width: '680',
                 modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;添加成员</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;添加成员</h4></div>",
                 title_html: true,
                 buttons: [
                     {
