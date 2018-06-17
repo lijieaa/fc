@@ -57,7 +57,7 @@ var totalPage;
                     var name="uoload.jpg";
                     var urlLink = ''+contextPath+'material/image/detail?mediaId='+url+"&name="+name+"&wxPublicId="+14;
                     urlLink = encodeURI(urlLink);
-                    $("#imgShow").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' title='"+name+"' alt='"+error+"'></li>");
+                    $("#imgShow").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' alt='"+error+"'></li>");
                 }
                 $("#pagingTest").paging1({
                     pageNo:pageNo,
@@ -98,11 +98,10 @@ function  ajaxDataPop(pageNo) {
             for(var i=0;i<dataList.length;i++){
                 var error="error";
                 var url=data.content.data.list[i].mediaId;
-                //var name=data.content.data.list[i].name;
                 var name="upload.jpg";
                 var urlLink = ''+contextPath+'material/image/detail?mediaId='+url+"&name="+name+"&wxPublicId="+14;
                 urlLink = encodeURI(urlLink);
-                $("#popImg").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' title='"+url+"' alt='"+error+"'></li>");
+                $("#popImg").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' alt='"+error+"'></li>");
             }
             $("#popPagingTest").paging1({
                 pageNo:pageNo,
@@ -111,10 +110,6 @@ function  ajaxDataPop(pageNo) {
         }
     });
 }
-// $(document).on("click","#popPagingTest a",function () {
-//     var val = $("#popPage").val();
-//     ajaxData(val);
-// });
 
 //语音上传
 function yyupload() {
@@ -182,7 +177,7 @@ function  ajaxMp(pageNo) {
                 var name="upload.mp3";
                 var urlLink = ''+contextPath+'material/voice/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name;
                 urlLink = encodeURI(urlLink);
-                $("#mpShow").append("<li><audio controls='controls' preload='auto' ><source src='"+urlLink+"' type=\"audio/mpeg\"></audio></li>");
+                $("#mpShow").append("<li><audio controls='controls' preload='meta' src='"+urlLink+"' style='border:none;' controlsList=\"nodownload\"></audio></li>");
             }
             $("#pagingTest1").paging1({
                 pageNo:pageNo,
@@ -300,7 +295,7 @@ function  ajaxVid(pageNo) {
                     url:contextPath+'material/video/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name,
                     type: "get",
                     success:function (data) {
-                        $("#vidShow").append("<li><video src='"+data.content.down_url+"' controls='controls'></video></li>");
+                        $("#vidShow").append("<li><video src='"+data.content.down_url+"' controls='controls' preload='meta' controlsList=\"nodownload\"></video></li>");
                     }
                 })
 
@@ -424,6 +419,9 @@ $("#pagingTest3").on("click","a",function () {
 //单个图文悬浮效果
 $(document).on("mouseenter",".messageLi",function () {
     $(this).append("<a class='bgshadow'>预览文章</a>").siblings().find("a").remove();
+});
+$(document).on("mouseleave",".messageLi",function () {
+    $(this).find("a").remove();
 });
 //单个图文点击跳转
 $(document).on("click",".messageLi",function () {

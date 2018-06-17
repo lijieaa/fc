@@ -21,9 +21,12 @@
     text-underline: none!important;
     background: rgba(0, 0, 0, 0.5);
 }
+.imgShow{
+    margin: 0 0;
+}
 .imgShow li{
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     display: inline-block;
     list-style: none;
     margin: 5px;
@@ -49,19 +52,54 @@
     height: 150px;
     margin:0 15px;
     display: inline-block;
-    border: 1px #727272 solid;
+    /*border: 1px #727272 solid;*/
     cursor: pointer;
+}
+#mpShow,#vidShow{
+    margin: 0;
+}
+#mpShow li{
+width: 200px;
+height: 100px;
+display: inline-block;
+border: 1px #727272 solid;
+margin: 5px;
+}
+#mpShow li audio{
+width: 100%;
+height: 100%;
+display: inline-block;
+cursor: pointer;
+}
+#vidShow li{
+width: 180px;
+height: 180px;
+display: inline-block;
+border: 1px #727272 solid;
+margin-left: 15px;
+margin-top: 15px;
+}
+#vidShow li video{
+width: 100%;
+height: 100%;
+display: inline-block;
+cursor: pointer;
 }
 /*公用分页样式*/
+.pagingTest{
+    margin-left: -1px;
+    margin-top: 30px;
+}
 .pagingTest a{
     border: 1px solid #b0b0b0;
-    padding: 5px 10px;
-    margin: 0 5px;
+    padding: 5px 12px;
+    margin: 0 0px;
     cursor: pointer;
+    border-right: none;
+    color: #6FB3E0;
 }
-.pagingTest{
-    margin-left: 20px;
-    margin-top: 30px;
+.pagingTest a:last-child{
+    border-right:1px solid #b0b0b0 ;
 }
 .pagingTest a:hover{
     text-decoration: none;
@@ -71,7 +109,7 @@
     background: deepskyblue;
 }
 .pagingTest a.disable{
-    background: gray;
-    color: white;
-    cursor: default;
+    background: #c7c7c7;
+    color: black;
+    cursor:not-allowed;
 }

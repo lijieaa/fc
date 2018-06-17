@@ -143,7 +143,7 @@
                 <div class="modal-body" style="min-height: 400px;">
                     <ul id="popImg" class="imgShow"></ul>
                     <div id="popPagingTest" class="pageIndex"></div>
-                    <input type="hidden" value="" id="popPage">
+                    <!--<input type="hidden" value="" id="popPage">-->
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="btn-sure-source" class="btn btn-primary text-center" data-dismiss="modal">确定</button>
@@ -283,7 +283,7 @@
                                 var resourceSrcImg = contextPath+'message/attachment?msgType='+img+"&localFile="+localFile;
                                 var resourceSrcVoice = contextPath+'message/attachment?msgType='+voice+"&localFile="+localFile;
                                 var resourceSrcVideo = contextPath+'message/attachment?msgType='+video+"&localFile="+localFile;
-                                var htmlDiv = "<div class='chatOne'>"+row.wxUserDetail.nickname+"</div>";
+                                var htmlDiv = "<div class='chatOne'>"+nickName+"</div>";
                                 if(row.msgType=="text"){
                                     var html=htmlDiv +
                                         "<div>"+row.content+"</div>";
@@ -313,7 +313,7 @@
                         }
 
                     ],
-                    "pageLength": 1,
+                    "pageLength": 5,
                     "fnInitComplete": function() {//初始化完毕事件
                     }
                 } );
