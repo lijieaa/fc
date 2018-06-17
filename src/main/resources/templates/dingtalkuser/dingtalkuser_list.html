@@ -1278,16 +1278,14 @@
             ignore: "",
             rules: {
                 name: {
-                    required: true,
-                    remote: {
-                        url: contextPath+"api/dingtalkuser/department",
-                        type: "post",
-                        dataType: "json",
-                        data: JSON.stringify({
-                            mobile: function() {
-                                return $(".department-name").text();
-                            }
-                        })
+                    remote: function() {
+                        var name = $("#add-sub-department-name").val();
+                        var r = {
+                            url: contextPath+"api/dingtalkdept/eqname",
+                            type: "get",
+                            data: "eqname="+name
+                        }
+                        return r;
                     }
                 }
             },
