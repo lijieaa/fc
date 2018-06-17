@@ -1,7 +1,6 @@
 /**
  * Created by Administrator on 2018/4/11 0011.
  */
-
 //封装ajax
 jQuery.axspost=function(url,type, data, successfn, errorfn) {
     $.ajax({
@@ -18,7 +17,11 @@ jQuery.axspost=function(url,type, data, successfn, errorfn) {
         }
     });
 };
-
+function validateResetForm(validateForm, form) {
+    validateForm.resetForm();
+    form[0].reset();
+    form.find(".has-error").removeClass("has-error");
+}
 //树状菜单
 /**
  * ele 当前dom的元素
