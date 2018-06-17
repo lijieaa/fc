@@ -17,4 +17,6 @@ public interface SysRoleMapper extends BaseDao<SysRole, SysRoleExample, SysRoleD
     List<SysRole> findByGroupId(Integer gid);
 
     List<SysRole> findByUserId(Integer uid,Integer intermediaryId);
+
+    int deleteByGroupId(Integer gid);
 }
