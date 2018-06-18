@@ -86,10 +86,10 @@
                                                     <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
                                                     添加子部门
                                                 </button>
-                                                <button class="btn btn-white btn-info btn-bold sub-department-queue display-none">
+                                                <!--<button class="btn btn-white btn-info btn-bold sub-department-queue display-none">
                                                     <i class="ace-icon fa fa-bars small bigger-120 blue"></i>
                                                     调整顺序
-                                                </button>
+                                                </button>-->
                                                 <span class="sub-department-queue-save-cancel display-none">
                                                         <button type="button" class="btn btn-white btn-default save">
                                                             <i class="ace-icon fa fa-floppy-o bigger-120 blue"></i>保存
@@ -404,7 +404,8 @@
         <div class="form-group col-sm-12 col-md-12">
             <label class="col-sm-2 control-label no-padding-right" for="add-department-staff-departmentname-btn">部门:</label>
             <div class="col-sm-9">
-                <button type="button" id="add-department-staff-departmentname-btn" name="role" class="form-control btn btn-white btn-default">请选择部门</button>
+                <input type="hidden" name="departmentname" class="form-control">
+                <button type="button" id="add-department-staff-departmentname-btn" name="departmentname" class="form-control btn btn-white btn-default">请选择部门</button>
                 <ul id="add-department-staff-departmentname-select"  class="ztree display-none"></ul>
             </div>
         </div>
@@ -417,7 +418,7 @@
         <div class="form-group col-sm-12 col-md-12">
             <label class="col-sm-2 control-label no-padding-right" for="add-department-staff-role-btn">角色:</label>
             <div class="col-sm-9">
-                <!--<input type="text" id="add-department-staff-role" name="role" placeholder="请选择角色" class="form-control">-->
+                <input type="hidden" name="role" class="form-control">
                 <button type="button" id="add-department-staff-role-btn" name="role" class="form-control btn btn-white btn-default">请选择角色</button>
                 <ul id="add-department-staff-role-select"  class="ztree display-none"></ul>
             </div>
@@ -487,6 +488,7 @@
         <div class="form-group col-sm-12 col-md-12">
             <label class="col-sm-2 control-label no-padding-right" for="edit-department-staff-departmentname-btn">部门:</label>
             <div class="col-sm-9">
+                <input type="hidden" name="departmentname" class="form-control">
                 <button type="button" id="edit-department-staff-departmentname-btn" name="role" class="form-control btn btn-white btn-default">请选择部门</button>
                 <ul id="edit-department-staff-departmentname-select"  class="ztree display-none"></ul>
             </div>
@@ -500,7 +502,7 @@
         <div class="form-group col-sm-12 col-md-12">
             <label class="col-sm-2 control-label no-padding-right" for="edit-department-staff-role-btn">角色:</label>
             <div class="col-sm-9">
-                <!--<input type="text" id="edit-department-staff-role" name="role" placeholder="请选择角色" class="form-control">-->
+                <input type="hidden" name="role" class="form-control">
                 <button type="button" id="edit-department-staff-role-btn" name="role" class="form-control btn btn-white btn-default">请选择角色</button>
                 <ul id="edit-department-staff-role-select"  class="ztree display-none"></ul>
             </div>
@@ -514,7 +516,7 @@
         <div class="form-group col-sm-12 col-md-12">
             <label class="col-sm-2 control-label no-padding-right" for="edit-department-staff-phone">手机号:</label>
             <div class="col-sm-9">
-                <input type="text" id="edit-department-staff-phone" name="phone" placeholder="请输入手机号" class="form-control">
+                <input type="text" id="edit-department-staff-phone" name="phone" placeholder="请输入手机号" class="form-control" readonly>
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
@@ -1393,7 +1395,8 @@
                     }
                 },
                 password: {
-                    required: true
+                    required: true,
+                    minlength: 6
                 },
                 confirm_password: {
                     required: true,
@@ -1403,6 +1406,9 @@
             messages: {
                 phone: {
                     remote: "该用户已经存在"
+                },
+                password: {
+                    minlength: "密码最少长度为6位"
                 }
             },
             highlight: function (e) {
@@ -1464,6 +1470,8 @@
             $.fn.zTree.init($("#add-department-staff-departmentname-select"), organizationSettings);
             $("#add-department-staff-departmentname-btn").unbind();
             $("#add-department-staff-departmentname-btn").on("click", function () {
+                $("#departmentname-error").parents(".has-error").removeClass("has-error");
+                $("#departmentname-error").remove();
                 if ($("#add-department-staff-departmentname-select").hasClass("display-none")) {
                     $("#add-department-staff-departmentname-select").removeClass("display-none")
                 } else {
@@ -1499,6 +1507,8 @@
             $.fn.zTree.init($("#add-department-staff-role-select"), roleSettings);
             $("#add-department-staff-role-btn").unbind();
             $("#add-department-staff-role-btn").on("click", function () {
+                $("#role-error").parents(".has-error").removeClass("has-error");
+                $("#role-error").remove();
                 if ($("#add-department-staff-role-select").hasClass("display-none")) {
                     $("#add-department-staff-role-select").removeClass("display-none")
                 } else {
@@ -1518,21 +1528,31 @@
                         "class" : "btn btn-primary btn-minier",
                         click: function() {
                             var _this = $(this);
-                            var flag = $formAddDepartmentStaff.form();
                             var treeObj = $.fn.zTree.getZTreeObj("add-department-staff-departmentname-select");
                             var nodes = treeObj.getCheckedNodes(true), departmentnameArr = [];
                             if (nodes.length) {
+                                $("#add-department-staff-departmentname-btn").siblings("input").val("true");
+                                $("#departmentname-error").parents(".has-error").removeClass("has-error");
+                                $("#departmentname-error").remove();
                                 $.each(nodes, function (i, item) {
                                     departmentnameArr.push({"id":item.id})
                                 })
+                            } else {
+                                $("#add-department-staff-departmentname-btn").siblings("input").val("");
                             }
                             var treeObjtwo = $.fn.zTree.getZTreeObj("add-department-staff-role-select");
                             var nodestwo = treeObjtwo.getCheckedNodes(true), roleArr = [];
                             if (nodestwo.length) {
+                                $("#add-department-staff-role-btn").siblings("input").val("true");
+                                $("#role-error").parents(".has-error").removeClass("has-error");
+                                $("#role-error").remove();
                                 $.each(nodestwo, function (i, item) {
                                     roleArr.push({"roleId":item.roleId})
                                 })
+                            } else {
+                                $("#add-department-staff-role-btn").siblings("input").val("");
                             }
+                            var flag = $formAddDepartmentStaff.form();
                             if(flag){
                                 var data = {
                                     "name": $("#add-department-staff-username").val(),
@@ -1669,10 +1689,10 @@
                 role: {
                     required: true
                 },
-                phone: {
+                /*phone: {
                     equired: true,
                     remote: function() {
-                        var mobile = $("#add-department-staff-phone").val();
+                        var mobile = $("#edit-department-staff-phone").val();
                         var r = {
                             url: contextPath+"api/dingtalkuser/mobile",
                             type: "get",
@@ -1680,19 +1700,12 @@
                         };
                         return r;
                     }
-                },
-                password: {
-                    required: true
-                },
-                confirm_password: {
-                    required: true,
-                    equalTo: "#add-department-staff-repassword"
-                }
+                }*/
             },
             messages: {
-                phone: {
+                /*phone: {
                     remote: "该用户已经存在"
-                }
+                }*/
             },
             highlight: function (e) {
                 $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
@@ -1774,6 +1787,8 @@
                     $.fn.zTree.init($("#edit-department-staff-departmentname-select"), organizationSettings);
                     $("#edit-department-staff-departmentname-btn").unbind();
                     $("#edit-department-staff-departmentname-btn").on("click", function () {
+                        $("#departmentname-error").parents(".has-error").removeClass("has-error");
+                        $("#departmentname-error").remove();
                         if ($("#edit-department-staff-departmentname-select").hasClass("display-none")) {
                             $("#edit-department-staff-departmentname-select").removeClass("display-none")
                         } else {
@@ -1823,6 +1838,8 @@
                     $.fn.zTree.init($("#edit-department-staff-role-select"), roleSettings);
                     $("#edit-department-staff-role-btn").unbind();
                     $("#edit-department-staff-role-btn").on("click", function () {
+                        $("#role-error").parents(".has-error").removeClass("has-error");
+                        $("#role-error").remove();
                         if ($("#edit-department-staff-role-select").hasClass("display-none")) {
                             $("#edit-department-staff-role-select").removeClass("display-none")
                         } else {
@@ -1846,21 +1863,31 @@
                         "class" : "btn btn-primary btn-minier",
                         click: function() {
                             var _this = $(this);
-                            var flag = $formEditDepartmentStaff.form();
                             var treeObj = $.fn.zTree.getZTreeObj("edit-department-staff-departmentname-select");
                             var nodes = treeObj.getCheckedNodes(true), departmentnameArr = [];
                             if (nodes.length) {
+                                $("#edit-department-staff-departmentname-btn").siblings("input").val("true");
+                                $("#departmentname-error").parents(".has-error").removeClass("has-error");
+                                $("#departmentname-error").remove();
                                 $.each(nodes, function (i, item) {
                                     departmentnameArr.push({"id":item.id})
                                 })
+                            } else {
+                                $("#edit-department-staff-departmentname-btn").siblings("input").val("");
                             }
                             var treeObjtwo = $.fn.zTree.getZTreeObj("edit-department-staff-role-select");
                             var nodestwo = treeObjtwo.getCheckedNodes(true), roleArr = [];
                             if (nodestwo.length) {
+                                $("#edit-department-staff-role-btn").siblings("input").val("true");
+                                $("#role-error").parents(".has-error").removeClass("has-error");
+                                $("#role-error").remove();
                                 $.each(nodestwo, function (i, item) {
                                     roleArr.push({"roleId":item.roleId})
                                 })
+                            } else {
+                                $("#edit-department-staff-role-btn").siblings("input").val("");
                             }
+                            var flag = $formEditDepartmentStaff.form();
                             if(flag){
                                 var data = {
                                     "userid": id,
