@@ -109,7 +109,7 @@ public class WxMaterialController {
     @GetMapping("image/detail")
     public void imageDetail(String name, Integer wxPublicId, String mediaId,HttpServletResponse response,HttpSession session) throws Exception{
         response.addHeader("Content-Type","image/jpeg");
-        response.addHeader("Content-Disposition", "attachment;filename=" + name);
+//        response.addHeader("Content-Disposition", "attachment;filename=" + name);
         WxUtils.checkParam(session, wxPublicId);
         String accessToken = WxUtils.getAccessToken(session, wxPublicId);
         wxApiHandler.getStreamDetail(accessToken, mediaId, response);
