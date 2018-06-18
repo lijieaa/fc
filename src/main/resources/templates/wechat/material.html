@@ -22,84 +22,39 @@
             margin-top: -10px;
         }
         .gzh-source-type{
-            margin-top: 2%;
-            height: 40px;
-            line-height: 40px;
+            margin-top: 4%;
+            height: 32px;
+            line-height: 32px;
             width: 100%;
             margin-left: 20px;
-            background: #F5F5F5;
-            box-shadow: #9c9c9c 3px 3px 3px 3px;
+            /*background: #F5F5F5;*/
+
         }
         .gzh-source-type a{
             font-size: 16px;
             color: #626262;
-            padding: 0 15px;
             cursor: pointer;
             width: 100px;
             display: inline-block;
            text-align: center;
+            border: 1px #c7c7c7 solid;
+            border-bottom: none;
+            background: #F5F5F5;
         }
         .gzh-source-type a:hover{
             text-decoration: none;
         }
         .tex-bgcolor {
-            height: 40px!important;
             color: #1d1d1d !important;
             display: inline-block;
-            background: #b8b8b8;
+            background: #ffffff!important;
             font-weight: 500;
+            border-top: 2px #6FB3E0 solid!important;
         }
-        #pagingTest a{
-            border: 1px solid #b0b0b0;
-            padding: 5px 10px;
-            margin: 0 5px;
-            cursor: pointer;
-        }
-        #pagingTest{
+        .bor-top{
+            border-top: 2px #c7c7c7 solid;
+            margin-top: 1.1px;
             margin-left: 20px;
-            margin-top: 30px;
-        }
-        #pagingTest a:hover{
-         text-decoration: none;
-        }
-        #pagingTest a.current{
-            color: white;
-            background: deepskyblue;
-        }
-        #pagingTest a.disable{
-            background: gray;
-            color: white;
-            cursor: default;
-        }
-        #mpShow li{
-            width: 180px;
-            height: 180px;
-            display: inline-block;
-            border: 1px #727272 solid;
-            margin-left: 15px;
-            margin-top: 15px;
-        }
-        #mpShow li audio{
-            width: 180px;
-            height: 180px;
-            display: inline-block;
-            border: 1px #727272 solid;
-            cursor: pointer;
-        }
-        #vidShow li{
-            width: 180px;
-            height: 180px;
-            display: inline-block;
-            border: 1px #727272 solid;
-            margin-left: 15px;
-            margin-top: 15px;
-        }
-        #vidShow li video{
-            width: 180px;
-            height: 180px;
-            display: inline-block;
-            border: 1px #727272 solid;
-            cursor: pointer;
         }
         .newPhotoText span{
             display: inline-block;
@@ -141,27 +96,20 @@
         #editInputAutor{
             border-bottom: 1px #e5e5e5 solid!important;
         }
-        .messageUl{
-            margin-left: 0px;
-        }
-        .messageUl .messageLi{
-            list-style: none;
-            border: 1px solid #a8a8a8;
-            width: 230px;
-            float: left;
-            margin: 10px;
-            position: relative;
-            cursor: pointer;
-        }
-        .messageUl .messageLi div p{
-            margin-left: 15px;
-        }
         .contentP{
             height: 125px;
         }
         .cke_bottom{
             background: none!important;
             border-top: none!important;
+        }
+        .webuploader-pick{
+            height: 32px;
+            line-height: 32px;
+            padding: 0 0;
+            display: block;
+            margin-top: -57px;
+            background:#6FB3E0!important;
         }
     </style>
 </head>
@@ -178,15 +126,13 @@
         </section>
         <div style="margin-top:2%;width: 98%;height: auto;font-size: 13px;">
             <div class="content-header gzh-source-type">
-                <a class="" data-id="1">图文消息</a>
-                <a class="" data-id="2">图片</a>
-                <a class="" data-id="3">语音</a>
-                <a class="" data-id="4">视频</a>
+                <a class="" data-id="1" style="border-right: none;">图文消息</a><a class="" data-id="2" style="border-right: none;">图片</a><a class="" data-id="3" style="border-right: none;">语音</a><a class="" data-id="4">视频</a>
             </div>
+            <div class="bor-top"></div>
             <div style="margin-top: 2%;">
                 <span style="margin-left: 2%"><a class="new-type-name">图文消息</a><a>（共<span id="NumMater"></span>条）</a></span>
                 <div style="width: 120px;height: 30px;float: right;">
-                    <div id="filePicker" style="width: 120px;height: 42px;background: #666e95;text-align: center;line-height: 42px;color: #FFFFFF;border-radius: 5px;margin-top: -10px;">新建图文信息</div>
+                    <div id="filePicker" style="width: 120px;height: 32px;background: #6FB3E0;text-align: center;line-height: 32px;color: #FFFFFF;border-radius: 3px;margin-top: -57px;">新建图文信息</div>
                     <div id="filePicker1" style="display: none;margin-top: -10px;">上传图片</div>
                     <div id="filePicker2" style="display: none;margin-top: -10px;">添加语音</div>
                     <div id="filePicker3" style="display: none;margin-top: -10px;">添加视频</div>
@@ -195,7 +141,7 @@
             <!--素材库图文消息内容-->
             <div>
                 <div style="height: 550px;border: 1px #e0e0e0 solid;margin-top: 2.5%;width: 98%;margin-left: 2%;overflow: auto" id="photo-tx">
-                    <ul class="messageUl">
+                    <ul class="messageUl" style="height: auto;">
                         <!--<li class="messageLi">-->
                             <!--<div>-->
                                 <!--<p>标题：</p>-->
@@ -205,24 +151,26 @@
                             <!--</div>-->
                         <!--</li>-->
                     </ul>
+                    <div id="pagingTest3" class="pageIndex pagingTest" style="position: absolute;bottom: -5px;"></div>
+
                 </div>
                 <!--图片-->
                 <div id="photo-show" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2.5%;width: 95%;margin-left: 2%;display: none;overflow: auto;">
                     <ul id="imgShow" class="imgShow"></ul>
-                    <div id="pagingTest" class="pageIndex"></div>
-                    <input type="hidden" value="" id="page">
+                    <div id="pagingTest" class="pageIndex pagingTest" style="position: absolute;bottom: -5px;"></div>
+                    <!--<input type="hidden" value="" id="page">-->
                 </div>
                 <!--语音-->
                 <div id="source" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2.5%;width: 95%;margin-left: 2%;display: none;overflow: auto;">
-                    <ul id="mpShow"></ul>
-                    <div id="pagingTest1" class="pageIndex"></div>
-                    <input type="hidden" value="" id="page1">
+                    <ul id="mpShow" class=""></ul>
+                    <div id="pagingTest1" class="pageIndex pagingTest" style="position: absolute;bottom: -5px;"></div>
+                    <!--<input type="hidden" value="" id="page1">-->
                 </div>
                 <!--视频-->
                 <div id="vid" style="height: 500px;border: 1px #e0e0e0 solid;margin-top: 2.5%;width: 95%;margin-left: 2%;display: none;">
                     <ul id="vidShow"></ul>
-                    <div id="pagingTest2" class="pageIndex"></div>
-                    <input type="hidden" value="" id="page2">
+                    <div id="pagingTest2" class="pageIndex pagingTest" style="position: absolute;bottom: -5px;"></div>
+                    <!--<input type="hidden" value="" id="page2">-->
                 </div>
             </div>
         </div>
@@ -263,8 +211,10 @@
                 </div>
                 <div class="modal-body" style="min-height: 400px;">
                     <ul id="popImg" class="imgShow"></ul>
-                    <div id="popPagingTest" class="pageIndex"></div>
-                    <input type="hidden" value="" id="popPage">
+                    <div id="popPagingTest" class="pageIndex pagingTest"></div>
+                    <div id="popPagingmp3" class="pageIndex pagingTest"></div>
+                    <div id="popPagingmp4" class="pageIndex pagingTest"></div>
+                    <!--<input type="hidden" value="" id="popPage">-->
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="btn-sure-source" class="btn btn-primary text-center">确定</button>
@@ -301,7 +251,7 @@
     var wxPublicId = /*[[${wxPublicId}]]*/;
     /*]]>*/
     $(function () {
-        photoText();
+        photoText(1);
         //从外部获取该相应的菜单
         function getUrlParms(name){
             var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
@@ -426,16 +376,25 @@
             var thisId=$(this).attr("data-id");
             $('#sourceRoom').modal();
             if(thisId==1){
+                $("#popPagingTest").show();
+                $("#popPagingmp3").hide();
+                $("#popPagingmp4").hide();
                 $("#btn-sure-source").attr("data-id",1);
                 $("#mySource").text("选择图片");
-                ajaxDataPop(1)
+                ajaxDataPop(1);
             }
             if(thisId==2){
+                $("#popPagingTest").hide();
+                $("#popPagingmp3").hide();
+                $("#popPagingmp4").show();
                 $("#btn-sure-source").attr("data-id",2);
                 $("#mySource").text("选择视频");
                 ajaxVidPop(1);
             }
             if (thisId==3){
+                $("#popPagingTest").hide();
+                $("#popPagingmp3").show();
+                $("#popPagingmp4").hide();
                 $("#btn-sure-source").attr("data-id",3);
                 $("#mySource").text("选择音频");
                 ajaxMpPop(1);
@@ -528,6 +487,31 @@
                     alert(data.status);
                 }
             });
+        });
+        //单个图文悬浮效果
+        $(document).on("mouseenter",".messageLi",function () {
+            $(this).append("<a class='bgshadow'>预览文章</a>").siblings().find("a").remove();
+        });
+        $(document).on("mouseleave",".messageLi",function () {
+            $(this).find("a").remove();
+        });
+//单个图文点击跳转
+        $(document).on("click",".messageLi",function () {
+            var thistwID=$(this).attr("data-id");
+            $.ajax({
+                url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+thistwID,
+                type: "get",
+                processData:true,
+                success:function (data) {
+                    $('#aphoto').modal();
+                    $("#mySourcePhoto").text(data.content.title);
+                    $("#photoAutor>span:eq(0)").text(data.content.author);
+                    $("#photoAutor>span:eq(2)").text(data.content.updateTime);
+                    $("#photoContent").html(data.content.content)
+                }
+            })
+
+
         });
 
 

@@ -2,6 +2,7 @@ package com.jianpanmao.sys.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.common.entity.DataTablesResponseEntity;
 import com.jianpanmao.sys.dto.DingtalkDeptDto;
 import com.jianpanmao.sys.entity.DingtalkDept;
@@ -56,6 +57,19 @@ public class DingtalkDeptRestController {
     @RequestMapping(method = RequestMethod.GET)
     public DingtalkDept get(@RequestParam("id") Integer id) {
         return dingtalkdeptService.get(id);
+    }
+
+    @NoResultEntity
+    @PreAuthorize("hasAuthority('dingtalkdept:view')")
+    @RequestMapping(method = RequestMethod.GET,value = "eqname")
+    public boolean eqname(@RequestParam("eqname") String name) {
+        DingtalkDept dingtalkDept = dingtalkdeptService.selectByEqName(name);
+        if(dingtalkDept==null){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
 

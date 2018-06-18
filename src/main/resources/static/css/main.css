@@ -52,10 +52,10 @@ li {
     list-style: none;
 }
 .display-none {
-    display: none;
+    display: none !important;
 }
 .display-block {
-    display: block;
+    display: block !important;
 }
 /* 首页 */
 .company-profile {
@@ -373,5 +373,47 @@ p.edit-info {
     font-size: 15px;
     color: #999;
     top: 20px;
+}
+
+.login-layout.login-container-box {
+    background-image: url("../images/login-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.login-layout.login-container-box .login-container {
+    position: absolute;
+    width: 340px;
+    margin: 0 auto;
+    right: 15%;
+    top: 50%;
+    margin-top: -160px;
+}
+.login-layout.login-container-box .login-container .login-box.widget-box {
+    background-color: rgba(255,255,255, .3);
+}
+.login-layout.login-container-box .login-container .input-icon.input-icon-right>.ace-icon {
+    left: 3px;
+    right: auto;
+    line-height: 34px;
+}
+.login-layout.login-container-box .login-container .error-tips {
+    line-height: 34px;
+}
+.login-layout.login-container-box .login-container .error-tips>span {
+    padding-left: 28px;
+}
+.login-layout.login-container-box .login-container .input-icon.input-icon-right>input {
+    padding-left: 22px;
+    padding-right: 22px;
+}
+.login-layout.login-container-box .login-container .header .title-text {
+    font-size: larger;
+    font-weight: 500;
+    color: #1d74bb;
+}
+.login-layout.login-container-box .login-container .header .btn-primary {
+    display: inline-block;
+    padding: 2px 4px;
+    background: #1d74bb;
 }
 

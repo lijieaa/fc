@@ -1,0 +1,296 @@
+
+.wrapper .navbar{
+  background:#3c8dbc;
+/*  height: 0.96rem;*/
+  color:#FFFFFF;
+}
+
+.wrapper .navbar .title{
+  font-size:0.36rem;
+}
+
+.wrapper .navbar a{
+  color:#ffffff;
+}
+
+.wrapper .toolbar-inner{
+  padding:0 0;
+}
+.wrapper .toolbar a.tab-link{
+  border:1px solid #d5d5d5;
+}
+
+.wrapper .companyTime{
+  background:#d5d5d5 ;
+  padding:2px 6px;
+  border-radius: 2px;
+  color:#666666;
+
+}
+
+.ios .wrapper .page{
+  background: none;
+}
+
+.wrapper .shareBtn{
+  flex-shrink: 0;
+  width: 1.5rem !important;
+}
+
+.wrapper .toolbar a{
+  color:#333333 ;
+  font-size:0.32rem;
+}
+
+.text-base-color{
+  color:#333333!important;
+}
+
+.text-color{
+  color:#8f8f8e!important;
+}
+
+.wrapper .page,.wrapper .page .block{
+  color:#333333!important;
+}
+
+.break
+{
+  white-space:normal;
+  word-break:break-all;
+  word-wrap:break-word;
+}
+
+.col{
+  background: #fff;
+  text-align: center;
+  color: #000;
+/*  border: 1px solid #ddd;*/
+  padding: 5px;
+  margin-bottom: 15px;
+  font-size: 12px;
+}
+
+.f36{
+  font-size:0.36rem !important;
+}
+
+.f32{
+  font-size:0.32rem !important;
+}
+
+.f30{
+  font-size:0.30rem !important;
+}
+.f28{
+  font-size:0.28rem !important;
+}
+.f24{
+  font-size:0.24rem !important;
+}
+
+.fw{
+  font-weight:bold;
+}
+
+.tx2{
+  text-indent: 2em;
+}
+
+ul{
+  list-style: none;
+  padding:0
+
+}
+
+
+.ptbox{
+  position: relative;
+}
+
+.ptbox:before{
+  content:"";
+  display: block;
+  position: absolute;
+  width:100%;
+  height:0.1rem;
+  border-top:2px dashed #c9c9c9;
+  border-bottom:1px solid #c9c9c9;
+  top:50%;
+  margin-top:-0.05rem;
+  z-index: -1;
+
+}
+.portrait{
+ width:0.9rem;height:0.9rem;background:#438eb9;
+  border-radius: 90px;
+  overflow: hidden;
+
+}
+
+
+.w100{
+  width:100%;
+}
+
+.proview{
+  width:2rem;
+  height:2rem;
+}
+
+ .plist .item-text{
+  line-height:1.15em  !important;
+   font-size:0.3rem !important;
+}
+
+ .plist .item-text>span{
+   color:#333333;
+ }
+
+ .ios .list ul:before, .ios .list ul:after{
+   background:none;
+ }
+
+ .ios .card {
+   box-shadow: 0 1px 3px 0px rgba(0,0,0,.3);
+ }
+ .pkee{
+   height:0.58rem !important;
+   line-height:0.58rem;
+   box-sizing: border-box;
+   border:1px solid #c1c1c0;
+   padding:2px 3px
+ }
+
+.ios .searchbar .ser-box{
+  flex-shrink: 1;
+  width: 100%;
+  position: relative;;
+}
+
+ .ios .searchbar .ser-box input[type=search]{
+   border-radius: 0;
+   height:0.58rem;
+   line-height:0.58rem;
+   box-sizing: border-box;
+   background: none;
+   border:1px solid #c1c1c0;
+ }
+
+.ser-btn{
+  flex-shrink: 0;
+  width:1.1rem;
+  height:0.58rem;
+  line-height:0.58rem;
+  box-sizing: border-box;
+  border:1px solid #c1c1c0;
+  background: #c1c1c0;
+  text-align: center;
+
+}
+.infinite-scroll-preloader {
+  margin-top:-20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.infinite-scroll-preloader .preloader {
+  width:34px;
+  height:34px;
+}
+
+.saleimg{
+  width:0.5rem;height:0.5rem;
+  border-radius: 90px;
+  overflow: hidden;
+
+}
+
+.f-u,.t-u{
+  color:#666666 !important;
+}
+.item-text{
+  color:#333333 !important;;
+}
+
+.ios .list .item-text{
+  max-height: 100%;
+}
+
+.comm1{
+  flex-shrink: 0;
+  width: 1.2rem;
+  height: 0.76rem;
+  line-height: 0.76rem;
+  box-sizing: border-box;
+  border-top: 1px solid #c1c1c0;
+  border-left: 1px solid #c1c1c0;
+  border-bottom: 1px solid #c1c1c0;
+  border-right: 1px solid transparent;
+  text-align: center;
+   color:#c1c1c0;
+}
+
+
+.comm2{
+  flex-shrink: 1;
+  width: 100%;
+  height: 0.76rem;
+  line-height: 0.76rem;
+  box-sizing: border-box;
+  border-top: 1px solid #c1c1c0;
+  border-left: 1px solid transparent;
+  border-bottom: 1px solid #c1c1c0;
+  border-right: 1px solid transparent;
+
+  overflow: hidden;
+
+}
+
+
+.comm3{
+  flex-shrink: 0;
+  width: 1.2rem;
+  height: 0.76rem;
+  line-height: 0.76rem;
+  box-sizing: border-box;
+  border: 1px solid #c1c1c0;
+  background: #c1c1c0;
+  text-align: center;
+
+}
+
+.cstatus{
+  color:#00c0ef
+}
+
+.ios .toggle input[type=checkbox]:checked+.toggle-icon{
+  background: #00c0ef;
+}
+
+.ios  .operate .list li{
+  border-bottom:1px solid #dcdcdc;
+}
+
+.ios  .operate .list li:last-child{
+  border:none;
+}
+.ios  .operate .links-list a{
+/*  padding-left:20px;*/
+}
+.operate  .list .item-title{
+/*  padding-left:5px;*/
+}
+
+.ios .operate .links-list a:after{
+  width:0;
+}
+.ios .operate .toggle{
+  transform: scale(0.6) translate(20px);
+}
+.wrapper .eqinfo{
+
+}
+
+.ios  .params  .toggle{
+  transform: scale(0.6) translate(20px);
+}

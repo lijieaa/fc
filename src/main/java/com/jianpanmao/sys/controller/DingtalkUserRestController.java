@@ -110,9 +110,10 @@ public class DingtalkUserRestController {
         String mobile = request.getParameter("mobile");
         DingtalkUser byMobile = dingtalkuserService.findByMobile(mobile);
         if(null==byMobile){
-            return false;
-        }else{
             return true;
+        }else{
+
+            return false;
         }
     }
 

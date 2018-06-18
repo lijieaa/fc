@@ -495,7 +495,7 @@
     set `name` = #{name,jdbcType=VARCHAR},
     mobile = #{mobile,jdbcType=VARCHAR},
     email = #{email,jdbcType=VARCHAR},
-    headPic = #{head_pic,jdbcType=VARCHAR},
+    head_pic = #{headPic,jdbcType=VARCHAR},
     where userid = #{userid,jdbcType=INTEGER}
   </update>
 

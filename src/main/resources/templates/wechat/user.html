@@ -42,20 +42,17 @@
   .dataTables_wrapper .row:first-child{
       background: none;
   }
-    .chat-type{
-        height: 30px;
-        line-height: 30px;
-    }
-    .chat-type span{
-        padding:10px;
-        cursor: pointer;
-    }
     .txt-green{
         color: #44b549;
     }
     .content-img{
         width: 200px;
         height: 140px;
+    }
+    .messageLi{
+        width: 170px!important;
+        height: 250px!important;
+        border: 1px #727272 solid;
     }
 
 </style>
@@ -109,12 +106,13 @@
                     <span data-id="4"><i class="glyphicon glyphicon-ice-lolly"></i>语音</span>
                     <span data-id="5"><i class="glyphicon glyphicon-hd-video"></i>视频</span>
                 </div>
-                <textarea class="form-control" rows="7" id="textInput"></textarea>
-                <div style="border: 1px black solid;height: 150px;display: none;" class="col-md-12" id="mediaDiv"></div>
+                <textarea class="form-control" rows="7" id="textInput" style="border:1px #E5E5E5 solid; "></textarea>
+                <div style="border: 1px #E5E5E5 solid;height: 150px;display: none;" class="col-md-12" id="mediaDiv"></div>
             </div>
             <div style="position: relative;">
                 <button type="button" class="btn btn-info search marginLeft-1" style="margin-top:1%;width: 100px;display: inline-block;" id="sender" data-id="2">发送</button>
                 <a style="display: inline-block;" id="numBit">还可以输入<span id="limNum">100</span>字</a>
+                <a style="display: inline-block;display: none;" id="numWarn"></a>
             </div>
             <h5 class="marginTop-2 marginLeft-1">最近20条聊天记录</h5>
             <div class="col-md-12">
@@ -142,8 +140,11 @@
                 </div>
                 <div class="modal-body" style="min-height: 400px;">
                     <ul id="popImg" class="imgShow"></ul>
-                    <div id="popPagingTest" class="pageIndex"></div>
-                    <input type="hidden" value="" id="popPage">
+                    <div id="popPagingText" class="pageIndex pagingTest"></div>
+                    <div id="popPagingTest" class="pageIndex pagingTest"></div>
+                    <div id="popPagingmp3" class="pageIndex pagingTest"></div>
+                    <div id="popPagingmp4" class="pageIndex pagingTest"></div>
+                    <!--<input type="hidden" value="" id="popPage">-->
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="btn-sure-source" class="btn btn-primary text-center" data-dismiss="modal">确定</button>
@@ -178,14 +179,16 @@
                     "&nbsp;"+showHour+":"+showMinutes;//yyyy-MM-dd 00:00:00格式日期
                 return datetimeType;
             }
+            var draw;
             var myTable=$('#gzh-ul-manage').DataTable( {
                     bAutoWidth: false,
 
                 "ajax": function (data, callback, settings) {
                     var pageNum=data.start/data.length+1;
                     var pageSize=data.length;
-                    var draw=data.draw;
-                    var param="?page="+pageNum+"&rows="+pageSize+"&draw="+draw
+                    draw=data.draw;
+                    var name="";
+                    var param="?page="+pageNum+"&rows="+pageSize+"&draw="+draw+"&nickname="+name;
                     $.ajax({
                         "url":contextPath +"wxUsers/page"+param+"&wxPublicId="+wxPublicId,
                         "type": "get",
@@ -234,16 +237,35 @@
             function userTableSon(openid,imgHref,nickName) {
                 $('#gzh-ul-manage-son').DataTable( {
                     bAutoWidth: true,
-                    ajax:{
-                        url: contextPath +"message/user/page?page=1&rows=10&wxPublicId="+wxPublicId+"&openId="+openid,
-                        dataSrc:"content.data.0.list",
-                        processData:true
-                        // contentType:'application/json; charset=utf-8',
+                    "ajax": function (data, callback, settings) {
+                        var pageNum=data.start/data.length+1;
+                        var pageSize=data.length;
+                        var draw=data.draw;
+                        var param="?page="+pageNum+"&rows="+pageSize+"&draw="+draw;
+                        $.ajax({
+                            "url":contextPath +"message/user/page"+param+"&wxPublicId="+wxPublicId+"&openId="+openid,
+                            "type": "get",
+                            dataType:"json",
+                            contentType:'application/json',
+                            "success": function (json) {
+                                if (json.status == 200) {
+                                    var data = {};
+                                    data.recordsTotal = json.content.recordsTotal;
+                                    data.recordsFiltered = json.content.recordsFiltered;
+                                    data.data = json.content.data;
+                                    callback(data);
+                                }
+                            },
+                            "error": function (XMLHttpRequest, textStatus, errorThrown) {
+                                console.log(errorThrown);
+                            }
+                        });
                     },
                     "info":false,
                     "searching": false,
                     "lengthChange": false,
                     "ordering": false,
+                    "serverSide": true,
                     "language": {
                         "paginate": {
                             "next": "下一页",
@@ -264,7 +286,7 @@
                                 var resourceSrcImg = contextPath+'message/attachment?msgType='+img+"&localFile="+localFile;
                                 var resourceSrcVoice = contextPath+'message/attachment?msgType='+voice+"&localFile="+localFile;
                                 var resourceSrcVideo = contextPath+'message/attachment?msgType='+video+"&localFile="+localFile;
-                                var htmlDiv = "<div class='chatOne'>"+row.wxUserDetail.nickname+"</div>";
+                                var htmlDiv = "<div class='chatOne'>"+nickName+"</div>";
                                 if(row.msgType=="text"){
                                     var html=htmlDiv +
                                         "<div>"+row.content+"</div>";
@@ -302,9 +324,12 @@
             //搜索
             $(document).on("click",".seaName",function () {
                 var inpText=$("#inpText").val();
-                // // myTable.ajax.reload( inpText, false )
-                myTable.ajax.url(contextPath +"wxUsers/page?page=1&rows=10&wxPublicId="+wxPublicId+"&nickname="+inpText).load();
-                //myTable.destroy();
+                var draw=1;
+                myTable.ajax.url(contextPath +"wxUsers/page?page=1&rows=10&wxPublicId="+wxPublicId+"&nickname="+inpText+"&draw="+draw).load();
+                // var param={"page":1,"rows":10,"draw":draw,"wxPublicId":wxPublicId,"nickname":inpText};
+                // myTable.settings()[0].ajax.data=param;
+                // myTable.ajax.reload();
+
             });
             $(document).on("click",".chatOne",function () {
                 $("#chating-per").show().siblings().hide();

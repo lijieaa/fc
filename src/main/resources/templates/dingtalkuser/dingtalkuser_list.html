@@ -15,13 +15,13 @@
         <ul class="nav nav-tabs" id="myTab">
             <li class="col-sm-6 active no-padding">
                 <a data-toggle="tab" href="#insidecontacts" aria-expanded="true">
-                    <i class="green ace-icon fa fa-home bigger-120"></i>
+                    <i class="green ace-icon fa fa-book bigger-120"></i>
                     内部通讯录管理
                 </a>
             </li>
             <li class="col-sm-6 no-padding">
                 <a data-toggle="tab" href="#outcontacts" aria-expanded="false">
-                    <i class="green ace-icon fa fa-home bigger-120"></i>
+                    <i class="green ace-icon glyphicon glyphicon-list-alt bigger-120"></i>
                     外部联系人
                 </a>
             </li>
@@ -1013,7 +1013,6 @@
             }
         }
         function organizationOnClick(event, treeId, treeNode) {
-//            console.log(treeNode.getParentNode());
             var id = treeNode.id;
             $(".department-name").text(treeNode.name).attr("data-id", id).attr("data-parentid", treeNode.parentid).attr("data-parentname", treeNode.getParentNode()?treeNode.getParentNode().name:"");
             $("#edit-department-name").attr("data-parentid", treeNode.parentid);
@@ -1052,10 +1051,14 @@
                         if (data.content.users.length) {
                             var departmentStaffUserListHtml = '';
                             $.each(data.content.users, function (i, item) {
+                                var checkedDisabled = "";
+                                if (item.isAdmin) {
+                                    checkedDisabled = "disabled";
+                                }
                                 departmentStaffUserListHtml += '<tr>'+
                                         '<td>'+
                                         '<label class="pos-rel">'+
-                                        '<input type="checkbox"  data-id="'+ item.userid +'" data-del="'+ item.isAdmin +'" class="ace">'+
+                                        '<input type="checkbox" '+ checkedDisabled +' data-id="'+ item.userid +'" data-del="'+ item.isAdmin +'" class="ace">'+
                                         '<span class="lbl"></span>'+
                                         '</label>'+
                                         '</td>'+
@@ -1064,7 +1067,7 @@
                                         '<td>'+ item.jobnumber +'</td>'+
                                         '<td>'+ item.mobile +'</td>'+
                                         '<td>'+ item.email +'</td>'+
-                                        '<td data-id="'+ item.userid +'" data-isAdmin="'+ item.isAdmin +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-btn" title="编辑信息"></i>&nbsp;&nbsp;<i class="ace-icon fal fa-unlock-alt bigger-110 icon-only change-password-btn" title="修改密码"></i></td>'+
+                                        '<td data-id="'+ item.userid +'" data-isAdmin="'+ item.isAdmin +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-btn" title="编辑信息"></i>&nbsp;&nbsp;<i class="ace-icon fa fa-key bigger-110 icon-only change-password-btn" title="修改密码"></i></td>'+
                                         '</tr>';
                             });
                         } else {
@@ -1110,8 +1113,33 @@
                 else title.text($title);
             }
         }));
+
+        var validateForm = $('#edit-department-container>form').validate({
+            errorElement: 'span',
+            errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                name: {
+                    required: true
+                }
+            },
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent());
+            },
+            invalidHandler: function (form) {
+            }
+        });
         //编辑部门信息
         $( "#edit-department-btn" ).on('click', function(e) {
+            validateResetForm(validateForm, $('#edit-department-container>form'));
             $("#edit-department-name").val($(".department-name").text()).attr("data-id", $(".department-name").attr("data-id"));
             $("#edit-upper-department-name-select").val($(".department-name").attr("data-parentname"));
             var id = $(".department-name").attr("data-id"), parentid = $(".department-name").attr("data-parentid"),
@@ -1174,30 +1202,6 @@
                 $("#edit-upper-department-name-select").val(treeNode.name);
             }
             $.fn.zTree.init($("#edit-organization-list-select"), organizationSettings);
-
-            var validateForm = $('#edit-department-container>form').validate({
-                errorElement: 'span',
-                errorClass: 'help-block col-sm-2 control-label no-padding-right',
-                focusInvalid: false,
-                ignore: "",
-                rules: {
-                    name: {
-                        required: true
-                    }
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-                },
-                success: function (e) {
-                    $(e).closest('.form-group').removeClass('has-error');
-                    $(e).remove();
-                },
-                errorPlacement: function (error, element) {
-//                    error.insertAfter(element.parent());
-                },
-                invalidHandler: function (form) {
-                }
-            });
             e.preventDefault();
             var dialog = $( "#edit-department-container" ).removeClass('hide').dialog({
                 resizable: false,
@@ -1273,12 +1277,26 @@
         //添加子部门
         var $form = $('#add-sub-department-container>form').validate({
             errorElement: 'span',
-            errorClass: 'help-block col-sm-2 control-label no-padding-right',
+            errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
                 name: {
-                    required: true
+                    required: true,
+                    remote: function() {
+                        var name = $("#add-sub-department-name").val();
+                        var remote = {
+                            url: contextPath+"api/dingtalkdept/eqname",
+                            type: "get",
+                            data: "eqname="+name
+                        };
+                        return remote;
+                    }
+                }
+            },
+            messages: {
+                name:{
+                    remote: "该部门已经存在"
                 }
             },
             highlight: function (e) {
@@ -1289,12 +1307,13 @@
                 $(e).remove();
             },
             errorPlacement: function (error, element) {
-//                error.insertAfter(element.parent());
+                error.insertAfter(element.parent());
             },
             invalidHandler: function (form) {
             }
         });
         $( "#add-sub-department-btn" ).on('click', function(e) {
+            validateResetForm($form, $('#add-sub-department-container>form'));
             $("#add-upper-department-name").val($(".department-name").text());
             $("#add-upper-department-id").val($(".department-name").attr("data-id"));
             e.preventDefault();
@@ -1302,7 +1321,7 @@
                 resizable: false,
                 width: '600',
                 modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;添加部门</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;添加部门</h4></div>",
                 title_html: true,
                 buttons: [
                     {
@@ -1337,6 +1356,7 @@
                         text: "取消",
                         "class" : "btn btn-minier",
                         click: function() {
+
                             $( this ).dialog( "close" );
                         }
                     }
@@ -1347,7 +1367,7 @@
         //添加部门成员
         var $formAddDepartmentStaff = $('#add-department-staff-container>form').validate({
             errorElement: 'span',
-            errorClass: 'help-block col-sm-2 control-label no-padding-right',
+            errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
@@ -1362,16 +1382,15 @@
                 },
                 phone: {
                     required: true,
-                   /* remote: {
-                        url: contextPath+"api/dingtalkuser/mobile",
-                        type: "post",               //数据发送方式
-                        dataType: "json",           //接受数据格式
-                        data: JSON.stringify({                     //要传递的数据
-                            mobile: function() {
-                                return $("#add-department-staff-phone").val();
-                            }
-                        })
-                    }*/
+                    remote: function() {
+                        var mobile = $("#add-department-staff-phone").val();
+                        var r = {
+                            url: contextPath+"api/dingtalkuser/mobile",
+                            type: "get",
+                            data: "mobile="+mobile
+                        };
+                        return r;
+                    }
                 },
                 password: {
                     required: true
@@ -1382,7 +1401,9 @@
                 }
             },
             messages: {
-                remote: "该用户已经存在"
+                phone: {
+                    remote: "该用户已经存在"
+                }
             },
             highlight: function (e) {
                 $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
@@ -1398,6 +1419,7 @@
             }
         });
         $( "#add-department-staff-btn" ).on('click', function(e) {
+            validateResetForm($formAddDepartmentStaff, $('#add-department-staff-container>form'));
             //选择部门
             var organizationSettings = {
                 async: {
@@ -1488,7 +1510,7 @@
                 resizable: false,
                 width: '680',
                 modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;添加成员</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;添加成员</h4></div>",
                 title_html: true,
                 buttons: [
                     {
@@ -1525,8 +1547,6 @@
                                     "remark": $("#add-department-staff-remark").val(),
                                     "password": $("#add-department-staff-password").val()
                                 };
-                                console.log(data);
-//                                return;
                                 $.ajax({
                                     url: contextPath+"api/dingtalkuser/",
                                     type: "post",
@@ -1534,7 +1554,85 @@
                                     contentType: "application/json",
                                     dataType : "json",
                                     success: function (data) {
-                                        organizationRefreshNode();
+                                        $.ajax({
+                                            async : false,
+                                            cache:false,
+                                            type: 'get',
+                                            dataType : "json",
+                                            contentType: "application/json",
+                                            url: contextPath + "api/dingtalkdept/pid?pid="+$(".department-name").attr("data-id"),
+                                            success:function(data){
+                                                if (data.status == "200") {
+                                                    //默认子级部门列表
+                                                    var subDepartmentOlBox = $("#sub-department>ol"), departmentStaffBodyBox = $(".department-staff-body");
+                                                    subDepartmentOlBox.html('');
+                                                    if (data.content.depts.length) {
+                                                        var subDepartmentHtml = '';
+                                                        $(".sub-department-queue").removeClass("display-none");
+                                                        $.each(data.content.depts, function (i, item) {
+                                                            subDepartmentHtml += '<li class="dd-item" data-id='+ item.id +'>'+
+                                                                    '<div class="dd-handle"><i></i>&nbsp;'+ item.name + '（'+ item.memberCount +'人）</div>'+
+                                                                    '</li>';
+                                                        });
+                                                    } else {
+                                                        $(".sub-department-queue").addClass("display-none");
+                                                        subDepartmentHtml = '<div class="alert alert-info center">'+
+                                                                '<button type="button" class="close" data-dismiss="alert">'+
+                                                                '<i class="ace-icon fa fa-times"></i>'+
+                                                                '</button>'+
+                                                                '当前部门不包含下级部门请添加子部门'+
+                                                                '</div>';
+                                                    }
+                                                    subDepartmentOlBox.append(subDepartmentHtml);
+                                                    //默认部门人员列表
+                                                    departmentStaffBodyBox.html('');
+                                                    if (data.content.users.length) {
+                                                        var departmentStaffUserListHtml = '';
+                                                        $.each(data.content.users, function (i, item) {
+                                                            var checkedDisabled = "";
+                                                            if (item.isAdmin) {
+                                                                checkedDisabled = "disabled";
+                                                            }
+                                                            departmentStaffUserListHtml += '<tr>'+
+                                                                    '<td>'+
+                                                                    '<label class="pos-rel">'+
+                                                                    '<input type="checkbox" '+ checkedDisabled +' data-id="'+ item.userid +'" data-del="'+ item.isAdmin +'" class="ace">'+
+                                                                    '<span class="lbl"></span>'+
+                                                                    '</label>'+
+                                                                    '</td>'+
+                                                                    '<td>'+ item.name +'</td>'+
+                                                                    '<td>'+ item.position +'</td>'+
+                                                                    '<td>'+ item.jobnumber +'</td>'+
+                                                                    '<td>'+ item.mobile +'</td>'+
+                                                                    '<td>'+ item.email +'</td>'+
+                                                                    '<td data-id="'+ item.userid +'" data-isAdmin="'+ item.isAdmin +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-btn" title="编辑信息"></i>&nbsp;&nbsp;<i class="ace-icon fa fa-key bigger-110 icon-only change-password-btn" title="修改密码"></i></td>'+
+                                                                    '</tr>';
+                                                        });
+                                                    } else {
+                                                        departmentStaffUserListHtml = '<tr><td colspan="7">'+
+                                                                '<div class="alert alert-info">'+
+                                                                '<button type="button" class="close" data-dismiss="alert">'+
+                                                                '<i class="ace-icon fa fa-times"></i>'+
+                                                                '</button>'+
+                                                                '当前部门暂无人员请添加成员'+
+                                                                '</div>'+
+                                                                '</td></tr>';
+                                                    }
+                                                    departmentStaffBodyBox.append(departmentStaffUserListHtml);
+                                                    $("#department-staff .edit-btn").on("click", function () {
+                                                        var _this = $(this);
+                                                        editDepartmentStaffInfo(_this.parents("td").attr("data-id"), _this.parents("td").attr("data-isAdmin"));
+                                                    });
+                                                    $(".change-password-btn").on("click", function () {
+                                                        var _this = $(this);
+                                                        changePassword(_this.parents("td").attr("data-id"))
+                                                    });
+                                                }
+                                            },
+                                            error: function () {
+                                                alert('请求失败');
+                                            }
+                                        });
                                         _this.dialog( "close" );
                                     },
                                     error: function (data) {
@@ -1556,59 +1654,61 @@
         });
 
         //编辑部门成员
-        function editDepartmentStaffInfo(id, isAdmin) {
-            var $formEditDepartmentStaff = $('#edit-department-staff-container>form').validate({
-                errorElement: 'span',
-                errorClass: 'help-block col-sm-2 control-label no-padding-right',
-                focusInvalid: false,
-                ignore: "",
-                rules: {
-                    username: {
-                        required: true
-                    },
-                    departmentname: {
-                        required: true
-                    },
-                    role: {
-                        required: true
-                    },
-                    phone: {
-                        required: true,
-                        /* remote: {
-                         url: contextPath+"api/dingtalkuser/mobile",
-                         type: "post",               //数据发送方式
-                         dataType: "json",           //接受数据格式
-                         data: JSON.stringify({                     //要传递的数据
-                         mobile: function() {
-                         return $("#add-department-staff-phone").val();
-                         }
-                         })
-                         }*/
-                    },
-                    password: {
-                        required: true
-                    },
-                    confirm_password: {
-                        required: true,
-                        equalTo: "#add-department-staff-repassword"
+        var $formEditDepartmentStaff = $('#edit-department-staff-container>form').validate({
+            errorElement: 'span',
+            errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                username: {
+                    required: true
+                },
+                departmentname: {
+                    required: true
+                },
+                role: {
+                    required: true
+                },
+                phone: {
+                    equired: true,
+                    remote: function() {
+                        var mobile = $("#add-department-staff-phone").val();
+                        var r = {
+                            url: contextPath+"api/dingtalkuser/mobile",
+                            type: "get",
+                            data: "eqname="+mobile
+                        };
+                        return r;
                     }
                 },
-                messages: {
-                    remote: "该用户已经存在"
+                password: {
+                    required: true
                 },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-                },
-                success: function (e) {
-                    $(e).closest('.form-group').removeClass('has-error');
-                    $(e).remove();
-                },
-                errorPlacement: function (error, element) {
-                    error.insertAfter(element.parent());
-                },
-                invalidHandler: function (form) {
+                confirm_password: {
+                    required: true,
+                    equalTo: "#add-department-staff-repassword"
                 }
-            });
+            },
+            messages: {
+                phone: {
+                    remote: "该用户已经存在"
+                }
+            },
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent());
+            },
+            invalidHandler: function (form) {
+            }
+        });
+        function editDepartmentStaffInfo(id, isAdmin) {
+            validateResetForm($formEditDepartmentStaff, $('#edit-department-staff-container>form'));
             var displayStyle = "display-none";
             if (isAdmin == "0") {
                 displayStyle = "display-inlin-block";
@@ -1775,8 +1875,6 @@
                                     "workplace": $("#edit-department-staff-workplace").val(),
                                     "remark": $("#edit-department-staff-remark").val()
                                 };
-                                console.log(data);
-//                                return;
                                 $.ajax({
                                     url: contextPath+"api/dingtalkuser/",
                                     type: "put",
@@ -1784,7 +1882,85 @@
                                     contentType: "application/json",
                                     dataType : "json",
                                     success: function (data) {
-                                        organizationRefreshNode();
+                                        $.ajax({
+                                            async : false,
+                                            cache:false,
+                                            type: 'get',
+                                            dataType : "json",
+                                            contentType: "application/json",
+                                            url: contextPath + "api/dingtalkdept/pid?pid="+$(".department-name").attr("data-id"),
+                                            success:function(data){
+                                                if (data.status == "200") {
+                                                    //默认子级部门列表
+                                                    var subDepartmentOlBox = $("#sub-department>ol"), departmentStaffBodyBox = $(".department-staff-body");
+                                                    subDepartmentOlBox.html('');
+                                                    if (data.content.depts.length) {
+                                                        var subDepartmentHtml = '';
+                                                        $(".sub-department-queue").removeClass("display-none");
+                                                        $.each(data.content.depts, function (i, item) {
+                                                            subDepartmentHtml += '<li class="dd-item" data-id='+ item.id +'>'+
+                                                                    '<div class="dd-handle"><i></i>&nbsp;'+ item.name + '（'+ item.memberCount +'人）</div>'+
+                                                                    '</li>';
+                                                        });
+                                                    } else {
+                                                        $(".sub-department-queue").addClass("display-none");
+                                                        subDepartmentHtml = '<div class="alert alert-info center">'+
+                                                                '<button type="button" class="close" data-dismiss="alert">'+
+                                                                '<i class="ace-icon fa fa-times"></i>'+
+                                                                '</button>'+
+                                                                '当前部门不包含下级部门请添加子部门'+
+                                                                '</div>';
+                                                    }
+                                                    subDepartmentOlBox.append(subDepartmentHtml);
+                                                    //默认部门人员列表
+                                                    departmentStaffBodyBox.html('');
+                                                    if (data.content.users.length) {
+                                                        var departmentStaffUserListHtml = '';
+                                                        $.each(data.content.users, function (i, item) {
+                                                            var checkedDisabled = "";
+                                                            if (item.isAdmin) {
+                                                                checkedDisabled = "disabled";
+                                                            }
+                                                            departmentStaffUserListHtml += '<tr>'+
+                                                                    '<td>'+
+                                                                    '<label class="pos-rel">'+
+                                                                    '<input type="checkbox" '+ checkedDisabled +' data-id="'+ item.userid +'" data-del="'+ item.isAdmin +'" class="ace">'+
+                                                                    '<span class="lbl"></span>'+
+                                                                    '</label>'+
+                                                                    '</td>'+
+                                                                    '<td>'+ item.name +'</td>'+
+                                                                    '<td>'+ item.position +'</td>'+
+                                                                    '<td>'+ item.jobnumber +'</td>'+
+                                                                    '<td>'+ item.mobile +'</td>'+
+                                                                    '<td>'+ item.email +'</td>'+
+                                                                    '<td data-id="'+ item.userid +'" data-isAdmin="'+ item.isAdmin +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-btn" title="编辑信息"></i>&nbsp;&nbsp;<i class="ace-icon fa fa-key bigger-110 icon-only change-password-btn" title="修改密码"></i></td>'+
+                                                                    '</tr>';
+                                                        });
+                                                    } else {
+                                                        departmentStaffUserListHtml = '<tr><td colspan="7">'+
+                                                                '<div class="alert alert-info">'+
+                                                                '<button type="button" class="close" data-dismiss="alert">'+
+                                                                '<i class="ace-icon fa fa-times"></i>'+
+                                                                '</button>'+
+                                                                '当前部门暂无人员请添加成员'+
+                                                                '</div>'+
+                                                                '</td></tr>';
+                                                    }
+                                                    departmentStaffBodyBox.append(departmentStaffUserListHtml);
+                                                    $("#department-staff .edit-btn").on("click", function () {
+                                                        var _this = $(this);
+                                                        editDepartmentStaffInfo(_this.parents("td").attr("data-id"), _this.parents("td").attr("data-isAdmin"));
+                                                    });
+                                                    $(".change-password-btn").on("click", function () {
+                                                        var _this = $(this);
+                                                        changePassword(_this.parents("td").attr("data-id"))
+                                                    });
+                                                }
+                                            },
+                                            error: function () {
+                                                alert('请求失败');
+                                            }
+                                        });
                                         _this.dialog( "close" );
                                     },
                                     error: function (data) {
@@ -1826,34 +2002,41 @@
             });
         }
         //修改用户密码
-        function changePassword(id) {
-            var $formChangePassword = $('#change-password-container>form').validate({
-                errorElement: 'span',
-                errorClass: 'help-block col-sm-2 control-label no-padding-right',
-                focusInvalid: false,
-                ignore: "",
-                rules: {
-                    password: {
-                        required: true
-                    },
-                    confirm_password: {
-                        required: true,
-                        equalTo: "#change-password-password"
-                    }
+        var $formChangePassword = $('#change-password-container>form').validate({
+            errorElement: 'span',
+            errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                password: {
+                    required: true,
+                    minlength: 6
                 },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-                },
-                success: function (e) {
-                    $(e).closest('.form-group').removeClass('has-error');
-                    $(e).remove();
-                },
-                errorPlacement: function (error, element) {
-                    error.insertAfter(element.parent());
-                },
-                invalidHandler: function (form) {
+                confirm_password: {
+                    required: true,
+                    equalTo: "#change-password-password"
                 }
-            });
+            },
+            messages: {
+                password: {
+                    minlength: "密码最少长度为6位"
+                }
+            },
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent());
+            },
+            invalidHandler: function (form) {
+            }
+        });
+        function changePassword(id) {
+            validateResetForm($formChangePassword, $('#change-password-container>form'));
             var dialog = $( "#change-password-container" ).removeClass('hide').dialog({
                 resizable: false,
                 width: '680',
@@ -1916,7 +2099,6 @@
                     }
                 })
             }
-            console.log(data);
             $.ajax({
                 url: contextPath+"api/dingtalkuser/batch",
                 type: "delete",
@@ -1924,7 +2106,85 @@
                 contentType: "application/json",
                 dataType : "json",
                 success: function (data) {
-                    organizationRefreshNode();
+                    $.ajax({
+                        async : false,
+                        cache:false,
+                        type: 'get',
+                        dataType : "json",
+                        contentType: "application/json",
+                        url: contextPath + "api/dingtalkdept/pid?pid="+$(".department-name").attr("data-id"),
+                        success:function(data){
+                            if (data.status == "200") {
+                                //默认子级部门列表
+                                var subDepartmentOlBox = $("#sub-department>ol"), departmentStaffBodyBox = $(".department-staff-body");
+                                subDepartmentOlBox.html('');
+                                if (data.content.depts.length) {
+                                    var subDepartmentHtml = '';
+                                    $(".sub-department-queue").removeClass("display-none");
+                                    $.each(data.content.depts, function (i, item) {
+                                        subDepartmentHtml += '<li class="dd-item" data-id='+ item.id +'>'+
+                                                '<div class="dd-handle"><i></i>&nbsp;'+ item.name + '（'+ item.memberCount +'人）</div>'+
+                                                '</li>';
+                                    });
+                                } else {
+                                    $(".sub-department-queue").addClass("display-none");
+                                    subDepartmentHtml = '<div class="alert alert-info center">'+
+                                            '<button type="button" class="close" data-dismiss="alert">'+
+                                            '<i class="ace-icon fa fa-times"></i>'+
+                                            '</button>'+
+                                            '当前部门不包含下级部门请添加子部门'+
+                                            '</div>';
+                                }
+                                subDepartmentOlBox.append(subDepartmentHtml);
+                                //默认部门人员列表
+                                departmentStaffBodyBox.html('');
+                                if (data.content.users.length) {
+                                    var departmentStaffUserListHtml = '';
+                                    $.each(data.content.users, function (i, item) {
+                                        var checkedDisabled = "";
+                                        if (item.isAdmin) {
+                                            checkedDisabled = "disabled";
+                                        }
+                                        departmentStaffUserListHtml += '<tr>'+
+                                                '<td>'+
+                                                '<label class="pos-rel">'+
+                                                '<input type="checkbox" '+ checkedDisabled +' data-id="'+ item.userid +'" data-del="'+ item.isAdmin +'" class="ace">'+
+                                                '<span class="lbl"></span>'+
+                                                '</label>'+
+                                                '</td>'+
+                                                '<td>'+ item.name +'</td>'+
+                                                '<td>'+ item.position +'</td>'+
+                                                '<td>'+ item.jobnumber +'</td>'+
+                                                '<td>'+ item.mobile +'</td>'+
+                                                '<td>'+ item.email +'</td>'+
+                                                '<td data-id="'+ item.userid +'" data-isAdmin="'+ item.isAdmin +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-btn" title="编辑信息"></i>&nbsp;&nbsp;<i class="ace-icon fa fa-key bigger-110 icon-only change-password-btn" title="修改密码"></i></td>'+
+                                                '</tr>';
+                                    });
+                                } else {
+                                    departmentStaffUserListHtml = '<tr><td colspan="7">'+
+                                            '<div class="alert alert-info">'+
+                                            '<button type="button" class="close" data-dismiss="alert">'+
+                                            '<i class="ace-icon fa fa-times"></i>'+
+                                            '</button>'+
+                                            '当前部门暂无人员请添加成员'+
+                                            '</div>'+
+                                            '</td></tr>';
+                                }
+                                departmentStaffBodyBox.append(departmentStaffUserListHtml);
+                                $("#department-staff .edit-btn").on("click", function () {
+                                    var _this = $(this);
+                                    editDepartmentStaffInfo(_this.parents("td").attr("data-id"), _this.parents("td").attr("data-isAdmin"));
+                                });
+                                $(".change-password-btn").on("click", function () {
+                                    var _this = $(this);
+                                    changePassword(_this.parents("td").attr("data-id"))
+                                });
+                            }
+                        },
+                        error: function () {
+                            alert('请求失败');
+                        }
+                    });
                 },
                 error: function (data) {
                     console.log(data);
@@ -1963,6 +2223,7 @@
         function roleOnAsyncSuccessFn(event, treeId, treeNode, msg) {
             // 角色组
             if (msg.content.length) {
+                $("#add-role-person-group").html('<option value="" disabled="" selected="" class="first-option">请选择角色组</option>');
                 var addRoleRersonGroupBox = $("#add-role-person-group .first-option"), addRoleRersonGroupHtml = '';
                 $.each(msg.content, function (i, item) {
                     addRoleRersonGroupHtml += '<option value="'+ item.roleId +'">'+ item.roleName +'</option>'
@@ -1971,7 +2232,6 @@
             }
         }
         function roleOnClick(event, treeId, treeNode) {
-            console.log(treeNode);
             if (!treeNode.isParent) {
                 $("#role-person-name").text(treeNode.roleName);
                 var id = treeNode.roleId;
@@ -2042,15 +2302,13 @@
                 var btn = $("#diyBtn_"+treeNode.id), displayStyle = "display-none", roleId = treeNode.roleId;
                 if (btn) btn.bind("click", function(){
                     //编辑角色组
-                    console.log(treeNode);
-                    console.log(treeNode.roleName);
                     $("#edit-role-group-name").val(treeNode.roleName);
                     if (!treeNode.isDel) {
                         displayStyle = "display-inlin-block";
                     }
                     var $formEditRoleGroup = $('#edit-role-group-container>form').validate({
                         errorElement: 'span',
-                        errorClass: 'help-block col-sm-2 control-label no-padding-right',
+                        errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
                         focusInvalid: false,
                         ignore: "",
                         rules: {
@@ -2066,11 +2324,12 @@
                             $(e).remove();
                         },
                         errorPlacement: function (error, element) {
-//                            error.insertAfter(element.parent());
+                            error.insertAfter(element.parent());
                         },
                         invalidHandler: function (form) {
                         }
                     });
+                    validateResetForm($formEditRoleGroup, $('#edit-role-group-container>form'));
                     var dialog = $( "#edit-role-group-container" ).removeClass('hide').dialog({
                         resizable: false,
                         width: '600',
@@ -2175,7 +2434,54 @@
                 contentType: "application/json",
                 dataType : "json",
                 success: function (data) {
-                    roleRefreshNode();
+                    $.ajax({
+                        async : false,
+                        cache:false,
+                        type: 'get',
+                        dataType : "json",
+                        contentType: "application/json",
+                        url: contextPath + "api/dingtalkuser/role?roleid="+$("#role-person-name").siblings("button").attr("data-roleid"),
+                        success:function(data){
+                            if (data.status == "200") {
+                                //角色人员列表
+                                $("#role-group-person-list>tbody").html('');
+                                if (data.content.length) {
+                                    var roleGroupPersonListHtml = '';
+                                    $.each(data.content, function (i, item) {
+                                        var checkedDisabled = "";
+                                        if (item.isAdmin) {
+                                            checkedDisabled = "disabled";
+                                        }
+                                        roleGroupPersonListHtml += '<tr class="align-center">'+
+                                                '<td>'+
+                                                '<label class="pos-rel">'+
+                                                '<input type="checkbox" class="ace" data-id="'+ item.userid +'" '+ checkedDisabled +'>'+
+                                                '<span class="lbl"></span>'+
+                                                '</label>'+
+                                                '</td>'+
+                                                '<td>'+ item.name +'</td>'+
+                                                '<td>'+ item.position +'</td>'+
+                                                '<td>'+ item.jobnumber +'</td>'+
+                                                '</tr>';
+                                    });
+                                } else {
+                                    roleGroupPersonListHtml = '<tr><td colspan="4">'+
+                                            '<div class="alert alert-info">'+
+                                            '<button type="button" class="close" data-dismiss="alert">'+
+                                            '<i class="ace-icon fa fa-times"></i>'+
+                                            '</button>'+
+                                            '当前角色暂无人员请添加成员'+
+                                            '</div>'+
+                                            '</td>' +
+                                            '</tr>';
+                                }
+                                $("#role-group-person-list>tbody").append(roleGroupPersonListHtml);
+                            }
+                        },
+                        error: function () {
+                            alert('请求失败');
+                        }
+                    });
                 },
                 error: function (data) {
                     console.log(data);
@@ -2186,7 +2492,7 @@
         // 新增角色组
         var $formAddRoleGroup = $('#add-role-group-container>form').validate({
             errorElement: 'span',
-            errorClass: 'help-block col-sm-2 control-label no-padding-right',
+            errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
@@ -2202,17 +2508,18 @@
                 $(e).remove();
             },
             errorPlacement: function (error, element) {
-//                error.insertAfter(element.parent());
+                error.insertAfter(element.parent());
             },
             invalidHandler: function (form) {
             }
         });
         $(".add-role-group-btn").on("click", function () {
+            validateResetForm($formAddRoleGroup, $('#add-role-group-container>form'));
             var dialog = $( "#add-role-group-container" ).removeClass('hide').dialog({
                 resizable: false,
                 width: '600',
                 modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;新增角色组</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增角色组</h4></div>",
                 title_html: true,
                 buttons: [
                     {
@@ -2296,7 +2603,7 @@
         //新增角色
         var $formAddRolePerson = $('#add-role-person-container>form').validate({
             errorElement: 'span',
-            errorClass: 'help-block col-sm-2 control-label no-padding-right',
+            errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
@@ -2315,17 +2622,18 @@
                 $(e).remove();
             },
             errorPlacement: function (error, element) {
-//                error.insertAfter(element.parent());
+                error.insertAfter(element.parent());
             },
             invalidHandler: function (form) {
             }
         });
         $(".add-role-person-btn").on("click", function () {
+            validateResetForm($formAddRolePerson, $('#add-role-person-container>form'));
             var dialog = $( "#add-role-person-container" ).removeClass('hide').dialog({
                 resizable: false,
                 width: '600',
                 modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;新增角色</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增角色</h4></div>",
                 title_html: true,
                 buttons: [
                     {
@@ -2337,7 +2645,6 @@
                             if(flag){
                                 var treeObj = $.fn.zTree.getZTreeObj("add-role-person-competence-select");
                                 var nodes = treeObj.getCheckedNodes(true), menuIdArr = [];
-                                console.log(nodes);
                                 if (nodes.length) {
                                     $.each(nodes, function (i, item) {
                                         menuIdArr.push({"menuId": item.menuId})
@@ -2383,7 +2690,7 @@
         //编辑角色
         var $formEditRolePerson = $('#edit-role-person-container>form').validate({
             errorElement: 'span',
-            errorClass: 'help-block col-sm-2 control-label no-padding-right',
+            errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
@@ -2402,12 +2709,13 @@
                 $(e).remove();
             },
             errorPlacement: function (error, element) {
-//                error.insertAfter(element.parent());
+                error.insertAfter(element.parent());
             },
             invalidHandler: function (form) {
             }
         });
         $("#edit-role-person-btn").on("click", function () {
+            validateResetForm($formEditRolePerson, $('#edit-role-person-container>form'));
             var _this = $(this), roleId = _this.attr("data-roleId"), groupId = "";
             var displayStyle = "display-none";
             if (!$(this).attr("data-isDel").isDel) {
@@ -2513,7 +2821,6 @@
                             if(flag){
                                 var treeObj = $.fn.zTree.getZTreeObj("edit-role-person-competence-select");
                                 var nodes = treeObj.getCheckedNodes(true), menuIdArr = [];
-                                console.log(nodes);
                                 if (nodes.length) {
                                     $.each(nodes, function (i, item) {
                                         menuIdArr.push({"menuId": item.menuId})
@@ -2611,7 +2918,6 @@
         };
         function tagOnAsyncSuccessFn(event, treeId, treeNode, msg) {
             if (msg.content.length) { //add-tag-group
-                console.log(msg.content);
                 //初始化选择标签组
                 var adTagGroupBox = $("#add-tag-container #add-tag-group, #edit-tag-container #edit-tag-group"), adTagGroupHtml = '';
                 adTagGroupBox.html("");
@@ -2622,7 +2928,6 @@
             }
         }
         function tagOnClick(event, treeId, treeNode) {
-            console.log(treeNode);
             if (treeNode.gid) {
                 $(".outcontacts-container").attr("data-labid", treeNode.id);
                 $.ajax({
@@ -2635,7 +2940,6 @@
                     success:function(data){
                         if (data.status == "200") {
                             //人员列表
-                            console.log(data);
                             $("#outcontacts-list>tbody").html('');
                             if (data.content.length) {
                                 var outcontactsListHtml = '';
@@ -2694,12 +2998,11 @@
             var btn = $("#diyBtn_"+treeNode.id), id = treeNode.id;
             if (btn) btn.bind("click", function(){
                 //编辑标签组
-                console.log(treeNode);
                 if (!treeNode.gid) {
                     $("#edit-tag-group-name").val(treeNode.name);
                     var $formEditTagGroup = $('#edit-tag-group-container>form').validate({
                         errorElement: 'span',
-                        errorClass: 'help-block col-sm-2 control-label no-padding-right',
+                        errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
                         focusInvalid: false,
                         ignore: "",
                         rules: {
@@ -2715,11 +3018,12 @@
                             $(e).remove();
                         },
                         errorPlacement: function (error, element) {
-//                error.insertAfter(element.parent());
+                            error.insertAfter(element.parent());
                         },
                         invalidHandler: function (form) {
                         }
                     });
+                    validateResetForm($formEditTagGroup, $('#edit-tag-group-container>form'));
                     var dialog = $( "#edit-tag-group-container" ).removeClass('hide').dialog({
                         resizable: false,
                         width: '600',
@@ -2798,7 +3102,7 @@
                     });
                     var $formEditTag = $('#edit-tag-container>form').validate({
                         errorElement: 'span',
-                        errorClass: 'help-block col-sm-2 control-label no-padding-right',
+                        errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
                         focusInvalid: false,
                         ignore: "",
                         rules: {
@@ -2814,7 +3118,7 @@
                             $(e).remove();
                         },
                         errorPlacement: function (error, element) {
-//                error.insertAfter(element.parent());
+                            error.insertAfter(element.parent());
                         },
                         invalidHandler: function (form) {
                         }
@@ -2901,7 +3205,7 @@
         //新增标签组
         var $formAddTagGroup = $('#add-tag-group-container>form').validate({
             errorElement: 'span',
-            errorClass: 'help-block col-sm-2 control-label no-padding-right',
+            errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
@@ -2917,18 +3221,18 @@
                 $(e).remove();
             },
             errorPlacement: function (error, element) {
-//                error.insertAfter(element.parent());
+                error.insertAfter(element.parent());
             },
             invalidHandler: function (form) {
             }
         });
         $(".add-tag-group-btn").on("click", function () {
-
+            validateResetForm($formAddTagGroup, $('#add-tag-group-container>form'));
             var dialog = $( "#add-tag-group-container" ).removeClass('hide').dialog({
                 resizable: false,
                 width: '600',
                 modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;新增标签组</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增标签组</h4></div>",
                 title_html: true,
                 buttons: [
                     {
@@ -2975,7 +3279,7 @@
         //新增标签
         var $formAddTag = $('#add-tag-container>form').validate({
             errorElement: 'span',
-            errorClass: 'help-block col-sm-2 control-label no-padding-right',
+            errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
@@ -2991,18 +3295,18 @@
                 $(e).remove();
             },
             errorPlacement: function (error, element) {
-//                error.insertAfter(element.parent());
+                error.insertAfter(element.parent());
             },
             invalidHandler: function (form) {
             }
         });
         $(".add-tag-btn").on("click", function () {
-
+            validateResetForm($formAddTag, $('#add-tag-container>form'));
             var dialog = $( "#add-tag-container" ).removeClass('hide').dialog({
                 resizable: false,
                 width: '600',
                 modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;新增标签组</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增标签组</h4></div>",
                 title_html: true,
                 buttons: [
                     {
@@ -3050,7 +3354,7 @@
         //添加外部联系人
         var $formAddOutcontacts = $('#add-outcontacts-container>form').validate({
             errorElement: 'span',
-            errorClass: 'help-block col-sm-2 control-label no-padding-right',
+            errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
@@ -3101,7 +3405,7 @@
             }
         });
         $( ".add-outcontacts-btn" ).on('click', function(e) {
-
+            validateResetForm($formAddOutcontacts, $('#add-outcontacts-container>form'));
             //选择标签
             $.ajax({
                 url: contextPath+"api/labgroup/list",
@@ -3177,7 +3481,7 @@
                 resizable: false,
                 width: '680',
                 modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;添加成员</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;添加成员</h4></div>",
                 title_html: true,
                 buttons: [
                     {
@@ -3201,8 +3505,6 @@
                                     "remark": $("#add-outcontacts-remark").val(),
                                     "labs": arrLabs
                                 };
-                                console.log(data);
-//                                return;
                                 $.ajax({
                                     url: contextPath+"api/extcon/",
                                     type: "post",
@@ -3231,8 +3533,48 @@
             });
         });
 
-        //编辑外部联系人 
+        //编辑外部联系人
+        var $formEditOutcontacts = $('#edit-outcontacts-container>form').validate({
+            errorElement: 'span',
+            errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                username: {
+                    required: true
+                },
+                departmentname: {
+                    required: true
+                },
+                phone: {
+                    required: true,
+                    /* remote: {
+                     url: contextPath+"api/dingtalkuser/mobile",
+                     type: "post",               //数据发送方式
+                     dataType: "json",           //接受数据格式
+                     data: JSON.stringify({                     //要传递的数据
+                     mobile: function() {
+                     return $("#add-department-staff-phone").val();
+                     }
+                     })
+                     }*/
+                }
+            },
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent());
+            },
+            invalidHandler: function (form) {
+            }
+        });
         function editOutcontacts(id) {
+            validateResetForm($formEditOutcontacts, $('#edit-outcontacts-container>form'));
             $.ajax({
                 url: contextPath+"api/extcon/?id="+id,
                 type: "get",
@@ -3331,45 +3673,6 @@
                 }
             });
 
-            var $formEditOutcontacts = $('#edit-outcontacts-container>form').validate({
-                errorElement: 'span',
-                errorClass: 'help-block col-sm-2 control-label no-padding-right',
-                focusInvalid: false,
-                ignore: "",
-                rules: {
-                    username: {
-                        required: true
-                    },
-                    departmentname: {
-                        required: true
-                    },
-                    phone: {
-                        required: true,
-                        /* remote: {
-                         url: contextPath+"api/dingtalkuser/mobile",
-                         type: "post",               //数据发送方式
-                         dataType: "json",           //接受数据格式
-                         data: JSON.stringify({                     //要传递的数据
-                         mobile: function() {
-                         return $("#add-department-staff-phone").val();
-                         }
-                         })
-                         }*/
-                    }
-                },
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-                },
-                success: function (e) {
-                    $(e).closest('.form-group').removeClass('has-error');
-                    $(e).remove();
-                },
-                errorPlacement: function (error, element) {
-                    error.insertAfter(element.parent());
-                },
-                invalidHandler: function (form) {
-                }
-            });
             $("#edit-outcontacts-tag-btn").unbind();
             $("#edit-outcontacts-tag-btn").on("click", function () {
                 if ($("#edit-outcontacts-tag-select").hasClass("display-none")) {
@@ -3383,7 +3686,7 @@
                 resizable: false,
                 width: '680',
                 modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;添加成员</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;添加成员</h4></div>",
                 title_html: true,
                 buttons: [
                     {
@@ -3448,7 +3751,6 @@
                                         success:function(data){
                                             if (data.status == "200") {
                                                 //人员列表
-                                                console.log(data);
                                                 $("#outcontacts-list>tbody").html('');
                                                 if (data.content.length) {
                                                     var outcontactsListHtml = '';
@@ -3529,7 +3831,6 @@
                     }
                 })
             }
-            console.log(data);
             $.ajax({
                 url: contextPath+"api/extcon/batch",
                 type: "delete",
@@ -3547,7 +3848,6 @@
                         success:function(data){
                             if (data.status == "200") {
                                 //人员列表
-                                console.log(data);
                                 $("#outcontacts-list>tbody").html('');
                                 if (data.content.length) {
                                     var outcontactsListHtml = '';

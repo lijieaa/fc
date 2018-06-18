@@ -66,6 +66,13 @@
 
     <script th:inline="javascript">
         var contextPath = /*[[@{/}]]*/;
+        var ip = /*[[${#request.getLocalAddr()}]]*/;
+        var port = /*[[${#request.getLocalPort()}]]*/;
+        var scheme=/*[[${#request.getScheme()}]]*/;
+        var serverName=/*[[${#request.getServerName()}]]*/;
+        var port=/*[[${#request.getServerPort()}]]*/;
+        var absolutePath = scheme+"://"+serverName+":"+port;
+        console.log(absolutePath);
         $.ajaxSetup({
             timeout: 3000,
             dataType: 'json',
@@ -441,18 +448,18 @@
 
     <div class="main-content">
         <div class="main-content-inner">
-            <div class="breadcrumbs ace-save-state" id="breadcrumbs">
-                <!--<ul class="breadcrumb">
-                    <li>
-                        <i class="ace-icon fa fa-home home-icon"></i>
-                        <a th:href="@{/index}">首页</a>
-                    </li>
+            <!-- <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+                 <ul class="breadcrumb">
+                     <li>
+                         <i class="ace-icon fa fa-home home-icon"></i>
+                         <a th:href="@{/index}">首页</a>
+                     </li>
 
-                    <li th:each="m:${session.menus}" th:if="${m.menuParentId eq 0}">
-                        <a href="#">Tables</a>
-                    </li>
-                    &lt;!&ndash;<li class="active">Simple &amp; Dynamic</li>&ndash;&gt;
-                </ul>-->
+                     <li th:each="m:${session.menus}" th:if="${m.menuParentId eq 0}">
+                         <a href="#">Tables</a>
+                     </li>
+                     &lt;!&ndash;<li class="active">Simple &amp; Dynamic</li>&ndash;&gt;
+                 </ul>-->
                 <!-- /.breadcrumb -->
 
                 <!--<div class="nav-search" id="nav-search">
@@ -463,9 +470,9 @@
 									<i class="ace-icon fa fa-search nav-search-icon"></i>
 								</span>
                     </form>
-                </div>-->
-                <!-- /.nav-search -->
-            </div>
+                </div>
+
+            </div>-->
 
             <div class="page-content">
 

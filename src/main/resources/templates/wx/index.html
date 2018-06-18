@@ -1,28 +1,58 @@
 <!DOCTYPE html>
-<html class="ui-page-login">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>公司简介</title>
-    <link type="text/css" rel="stylesheet" th:href="@{/css/main.css}">
+<html class="with-statusbar ios device-pixel-ratio-2 device-retina device-ios device-ios-11 device-ios-11-0 device-ios-gt-10 device-ios-gt-9 device-ios-gt-8 device-ios-gt-7 device-ios-gt-6 support-position-sticky">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#2196f3">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+    <title>成都环太</title>
+    <link rel="stylesheet" th:href="@{/css/framework7.min.css}">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/cover.css}">
+    <script>
+        var deviceWidth = document.documentElement.clientWidth;
+        if(deviceWidth > 1080) deviceWidth = 1080;
+        document.documentElement.style.fontSize = deviceWidth / 10.8 + 'px';
+    </script>
 </head>
-
 <body>
-<section class="company-profile">
-    <img th:src="@{/images/companyprofile.jpg}" alt="公司简介">
-    <p class="indent">成都飞创科技有限公司致力于高科技节能环保事业，秉承“顺应自然”之宗旨，坚持科技创新，专注于电解水处理技术、全自动精确过滤技术和自动控制技术。飞创科技依托四川大学智能控制技术研究所，将智能控制技术与水处理技术融为一体，为工业、市政和农业等领域提供专业水处理服务。主要产品有CWES型环保冷却循环水电解处理系统、EC系列电絮凝高悬浮物废水处理系统、各类自动清洗过滤器系统、智能控制系统等，产品主要应用于冶金、电力、化工、建材、电子、制药、汽车制造和新能源等工业领域和市政领域。 近年来，公司规模迅速成长，管理水平大幅提升，公司通过ISO质量管理体系认证，并注册了“FILTRASCALE ”商标。</p>
-    <p class="indent">飞创科技不断发展得益于公司持续的自主创新能力，近年来，公司数十项技术获得国家专利授权，多项核心技术处于国内领先水平，特别是在循环冷却水处理方面具有领先地位和竞争优势，在电解水处理技术和全自动精确过滤技术方面具有核心技术，已成为该领域为数不多的掌握多项核心技术、且拥有自主知识产权的创新型环保企业之一。</p>
-</section>
+<div id="app" class="wrapper framework7-root">
+    <div class="statusbar"></div>
 
+    <div class="view view-main view-init ios-edges" >
+        <div class="navbar no-hairline">
+            <div class="navbar-inner">
+                <div class="left" style="width:28px">
+                    <a href="#" class="link back">
+                        <i class="f7-icons size-22" style="color:#FFFFFF" >left</i>
+                    </a>
+                </div>
+                <div class="title">成都公司环太净化科技有限公司</div>
+                <div class="right" style="width:28px">   <i class="f7-icons size-18" >&bull;&bull;&bull;</i></div>
+            </div>
 
-<script th:src="@{/js/jquery-2.0.3.min.js}"></script>
+        </div>
+        <div class="pages">
+            <div class="page" data-page="home">
+                <div class="page-content ">
+                    <div class="block-header text-align-center"><div class="display-inline-block companyTime">8:35</div></div>
+                   <div class="block row">
+                       <img th:src="@{/img/company.jpg}" class="col-100" alt=""/>
+                   </div>
+                </div>
+            </div>
+        </div>
+        <div class="toolbar tabbar">
+            <div class="toolbar-inner">
+                <!-- Links have "tab-link" class instead of just "link" to switch tabs -->
+                <a href="#tab-1" class="tab-link  shareBtn"><img th:src="@{/img/share.png}" alt="" style="width:0.61rem"/></a>
+                <a  th:href="@{/wx/common/company}" class="tab-link">公司简介</a>
+                <a href="#tab-3" class="tab-link">项目情况</a>
+            </div>
+    </div>
+</div>
 
-<script>
-    $(function(){
-
-    })
-</script>
 </body>
-
 </html>

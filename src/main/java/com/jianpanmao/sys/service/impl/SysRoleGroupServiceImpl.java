@@ -4,6 +4,7 @@ import com.jianpanmao.common.service.impl.BaseServiceImpl;
 import com.jianpanmao.sys.entity.*;
 import com.jianpanmao.sys.dto.*;
 import com.jianpanmao.sys.service.SysRoleGroupService;
+import com.jianpanmao.sys.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,12 @@ import org.springframework.stereotype.Service;
 public class SysRoleGroupServiceImpl extends BaseServiceImpl<SysRoleGroup,SysRoleGroupExample,SysRoleGroupDto,Integer> implements SysRoleGroupService {
 
 
+    @Autowired
+    SysRoleService sysRoleService;
+
     @Override
     public int remove(Integer id) {
+        sysRoleService.deleteByGroupId(id);
         int remove = super.remove(id);
         return remove;
     }

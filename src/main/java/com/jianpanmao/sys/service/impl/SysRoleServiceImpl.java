@@ -64,4 +64,9 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole,SysRoleExample,S
     public int unbindUser(Integer userId) {
         return userRoleMapper.deleteByUserId(userId);
     }
+
+    @Override
+    public int deleteByGroupId(Integer gid) {
+        return roleMapper.deleteByGroupId(gid);
+    }
 }

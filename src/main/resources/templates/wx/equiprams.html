@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html class=" ios device-pixel-ratio-2 device-retina device-ios device-ios-11 device-ios-11-0 device-ios-gt-10 device-ios-gt-9 device-ios-gt-8 device-ios-gt-7 device-ios-gt-6 support-position-sticky">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#2196f3">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+    <title>公司简介</title>
+    <link rel="stylesheet" th:href="@{/css/framework7.min.css}">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/cover.css}">
+    <script>
+        var deviceWidth = document.documentElement.clientWidth;
+        if(deviceWidth > 1080) deviceWidth = 1080;
+        document.documentElement.style.fontSize = deviceWidth / 10.8 + 'px';
+    </script>
+
+</head>
+<body>
+<div id="app" class="wrapper framework7-root">
+    <div class="statusbar"></div>
+
+    <div class="view view-main view-init ios-edges " >
+        <div class="navbar no-hairline">
+            <div class="navbar-inner">
+                <div class="left" style="width:28px">
+                    <a href="#" class="link back">
+                        <i class="f7-icons size-22" style="color:#FFFFFF" >left</i>
+                    </a>
+                </div>
+                <div class="title">设备参数</div>
+                <div class="right" style="width:28px">   <i class="f7-icons size-18" >&bull;&bull;&bull;</i></div>
+            </div>
+
+        </div>
+        <div class="pages">
+            <div class="page params" data-page="home">
+                <div class="page-content ">
+
+
+                    <div class="list card ">
+                        <ul>
+                            <li><a href="#" class="f30">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">设备信号</div>
+                                        <div class="item-after">
+                                            <div style="flex-shrink:0" >
+                                                <select name="" id="" class="pkee text-base-color f30 "  style="width:125px;">
+                                                    <option value="">水动自清洗过滤器</option>
+                                                </select>
+                                            </div>
+                                            <span class=" ser-btn  text-base-color f7-icons f32"  style="width:15px">&or;</span>
+                                        </div>
+                                    </div>
+                                </div></a></li>
+                            <li><a href="#" class="f30">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">电机</div>
+                                        <div class="item-after">
+                                            <label class="toggle toggle-init">
+                                                <input type="checkbox" checked>
+                                                <span class="toggle-icon"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div></a></li>
+                            <li><a href="#" class="f30">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">行程开关</div>
+                                        <div class="item-after">
+                                            <label class="toggle toggle-init">
+                                                <input type="checkbox">
+                                                <span class="toggle-icon"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div></a></li>
+
+                            <li><a href="#" class="f30">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">电机动作时间</div>
+                                        <div class="item-after">
+                                            <div style="flex-shrink:0" >
+                                                <select name="" id="" class="pkee text-base-color f30 "  style="width:106px;margin-right:4px;">
+                                                    <option value="">34</option>
+                                                </select>
+                                            </div>
+                                            <span class=" pkee text-base-color f30 text-align-center"  style="width:30px">秒</span>
+                                        </div>
+                                    </div>
+                                </div></a></li>
+                            <li><a href="#" class="f30">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">压差开关</div>
+                                        <div class="item-after">
+                                            <div style="flex-shrink:0" >
+                                                <select name="" id="" class="pkee text-base-color f30 "  style="width:125px">
+                                                    <option value="">数字</option>
+                                                </select>
+                                            </div>
+                                            <span class=" ser-btn  text-base-color f7-icons f32"  style="width:15px">&or;</span>
+                                        </div>
+                                    </div>
+                                </div></a></li>
+                            <li><a href="#" class="f30">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">电压告警值</div>
+                                        <div class="item-after">
+                                            <div style="flex-shrink:0" >
+                                                <select name="" id="" class="pkee text-base-color f30 "  style="width:106px;margin-right:4px;">
+                                                    <option value="">34</option>
+                                                </select>
+                                            </div>
+                                            <span class=" pkee text-base-color f30 text-align-center"  style="width:30px">V</span>
+                                        </div>
+                                    </div>
+                                </div></a></li>
+                            <li><a href="#" class="f30">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">主阀</div>
+                                        <div class="item-after">
+                                            <label class="toggle toggle-init">
+                                                <input type="checkbox">
+                                                <span class="toggle-icon"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div></a></li>
+
+                            <li><a href="#" class="f30">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">单元一</div>
+                                        <div class="item-after">
+                                            <label class="toggle toggle-init">
+                                                <input type="checkbox">
+                                                <span class="toggle-icon"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div></a></li>
+                            <li><a href="#" class="f30">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">单元二</div>
+                                        <div class="item-after">
+                                            <label class="toggle toggle-init">
+                                                <input type="checkbox">
+                                                <span class="toggle-icon"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div></a></li>
+                            <li><a href="#" class="f30">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">单元二</div>
+                                        <div class="item-after">
+                                            <label class="toggle toggle-init">
+                                                <input type="checkbox">
+                                                <span class="toggle-icon"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div></a></li>
+                            <li><a href="#" class="f30">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">单元三</div>
+                                        <div class="item-after">
+                                            <label class="toggle toggle-init">
+                                                <input type="checkbox">
+                                                <span class="toggle-icon"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div></a></li>
+                            <li><a href="#" class="f30">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">单元四</div>
+                                        <div class="item-after">
+                                            <label class="toggle toggle-init">
+                                                <input type="checkbox">
+                                                <span class="toggle-icon"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div></a></li>
+                            <li><a href="#" class="f30">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">单元五</div>
+                                        <div class="item-after">
+                                            <label class="toggle toggle-init">
+                                                <input type="checkbox">
+                                                <span class="toggle-icon"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div></a></li>
+                            <li><a href="#" class="f30">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">单元六</div>
+                                        <div class="item-after">
+                                            <label class="toggle toggle-init">
+                                                <input type="checkbox">
+                                                <span class="toggle-icon"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div></a></li>
+                            <li><a href="#" class="f30">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">单元七</div>
+                                        <div class="item-after">
+                                            <label class="toggle toggle-init">
+                                                <input type="checkbox">
+                                                <span class="toggle-icon"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div></a></li>
+                            <li><a href="#" class="f30">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">单元八</div>
+                                        <div class="item-after">
+                                            <label class="toggle toggle-init">
+                                                <input type="checkbox">
+                                                <span class="toggle-icon"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div></a></li>
+                            <li><a href="#" class="f30">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">单元九</div>
+                                        <div class="item-after">
+                                            <label class="toggle toggle-init">
+                                                <input type="checkbox">
+                                                <span class="toggle-icon"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+</body>
+</html>

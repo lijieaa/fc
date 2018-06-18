@@ -28,7 +28,7 @@ function imgupload() {
     uploader.on('fileQueued',function(file) {
     });
     uploader.on( 'uploadSuccess', function( file ) {
-        photoShow();
+        ajaxData(1);
     });
     uploader.onError = function( code ) {
         alert( 'Eroor: ' + code );
@@ -54,10 +54,10 @@ var totalPage;
                 for(var i=0;i<dataList.length;i++){
                     var error="error";
                     var url=data.content.data.list[i].mediaId;
-                    var name="test.jpg";
+                    var name="uoload.jpg";
                     var urlLink = ''+contextPath+'material/image/detail?mediaId='+url+"&name="+name+"&wxPublicId="+14;
                     urlLink = encodeURI(urlLink);
-                    $("#imgShow").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' title='"+name+"' alt='"+error+"'></li>");
+                    $("#imgShow").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' alt='"+error+"'></li>");
                 }
                 $("#pagingTest").paging1({
                     pageNo:pageNo,
@@ -67,15 +67,20 @@ var totalPage;
         });
 
     }
-$(document).on("click","a",function () {
-    var val = $("#page").val();
-    if(!$(this).hasClass("disable")){
-        ajaxData(val);
+    //分页
+$("#pagingTest").on("click","a",function () {
+    var val = $(this).text();
+    if($(this).hasClass("disable")){
+
     }else{
-        $("#pagingTest").paging1({
-            pageNo:val,
-            totalPage:totalPage
-        })
+        var pageNo = parseInt($(this).siblings('.current').text());
+        if($(this).attr('id')==='prevPage'){
+            ajaxData(pageNo-1);
+        }else if($(this).attr('id')==='nextPage'){
+            ajaxData(pageNo+1);
+        }else{
+            ajaxData(val);
+        }
     }
 
 });
@@ -93,11 +98,10 @@ function  ajaxDataPop(pageNo) {
             for(var i=0;i<dataList.length;i++){
                 var error="error";
                 var url=data.content.data.list[i].mediaId;
-                //var name=data.content.data.list[i].name;
-                var name="test.jpg";
+                var name="upload.jpg";
                 var urlLink = ''+contextPath+'material/image/detail?mediaId='+url+"&name="+name+"&wxPublicId="+14;
                 urlLink = encodeURI(urlLink);
-                $("#popImg").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' title='"+url+"' alt='"+error+"'></li>");
+                $("#popImg").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' alt='"+error+"'></li>");
             }
             $("#popPagingTest").paging1({
                 pageNo:pageNo,
@@ -106,9 +110,21 @@ function  ajaxDataPop(pageNo) {
         }
     });
 }
-$(document).on("click","#popPagingTest a",function () {
-    var val = $("#popPage").val();
-    ajaxData(val);
+$("#popPagingTest").on("click","a",function () {
+    var val = $(this).text();
+    if($(this).hasClass("disable")){
+
+    }else{
+        var pageNo = parseInt($(this).siblings('.current').text());
+        if($(this).attr('id')==='prevPage'){
+            ajaxDataPop(pageNo-1);
+        }else if($(this).attr('id')==='nextPage'){
+            ajaxDataPop(pageNo+1);
+        }else{
+            ajaxDataPop(val);
+        }
+    }
+
 });
 
 //语音上传
@@ -122,7 +138,6 @@ function yyupload() {
         timeout: 0,
         formData: {
             wxPublicId: 14,
-            //media:'u=177485426,2064801038&fm=27&gp=0.jpg',
             wxtype:'voice'
         },
         accept: {
@@ -159,12 +174,13 @@ function yyupload() {
 yyupload();
 //语音展示
 function  ajaxMp(pageNo) {
-    var webdata={"wxtype":'voice',"wxPublicId":14,"total":0,"records":0,"rows":5,"page":pageNo};
+    var webdata={"wxtype":'voice',"wxPublicId":14,"total":0,"records":0,"rows":10,"page":pageNo};
     $.ajax({
         url:contextPath +"material/page",
         type: "get",
         data: $.param(webdata),
         success:function(data){
+            $("#NumMater").text(data.content.data.total);
             var dataList = data.content.data.list;
             $("#mpShow").html("");
             var mpArr=[];
@@ -174,18 +190,10 @@ function  ajaxMp(pageNo) {
             for(var i=0;i<mpArr.length;i++){
                 var wxPublicId=14;
                 var mediaId=mpArr[i];
-                var name="test.mp3";
+                var name="upload.mp3";
                 var urlLink = ''+contextPath+'material/voice/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name;
                 urlLink = encodeURI(urlLink);
-                $("#mpShow").append("<li><audio controls='controls' preload='auto' ><source src='"+urlLink+"' type=\"audio/mpeg\"></audio></li>");
-                // $("#mpShow").append("<li ></li>");
-                // var wxAudio = new Wxaudio({
-                //     ele: '#mpShow li',
-                //     title: 'Jar Of Love',
-                //     disc: 'Break Me Up',
-                //     src: urlLink,
-                //     width: '500px'
-                // });
+                $("#mpShow").append("<li><audio controls='controls' preload='meta' src='"+urlLink+"' style='border:none;' controlsList=\"nodownload\"></audio></li>");
             }
             $("#pagingTest1").paging1({
                 pageNo:pageNo,
@@ -194,10 +202,23 @@ function  ajaxMp(pageNo) {
         }
     });
 }
-// $(document).on("click","a",function () {
-//     var val = $("#page1").val();
-//     ajaxMp(val);
-// });
+//分页
+$("#pagingTest1").on("click","a",function () {
+    var val = $(this).text();
+    if($(this).hasClass("disable")){
+
+    }else{
+        var pageNo = parseInt($(this).siblings('.current').text());
+        if($(this).attr('id')==='prevPage'){
+            ajaxMp(pageNo-1);
+        }else if($(this).attr('id')==='nextPage'){
+            ajaxMp(pageNo+1);
+        }else{
+            ajaxMp(val);
+        }
+    }
+
+});
 // 语音弹窗展示
 function  ajaxMpPop(pageNo) {
     var webdata={"wxtype":'voice',"wxPublicId":14,"total":0,"records":0,"rows":10,"page":pageNo};
@@ -218,19 +239,31 @@ function  ajaxMpPop(pageNo) {
                 var name="wx.mp3";
                 var urlLink = ''+contextPath+'material/voice/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name;
                 urlLink = encodeURI(urlLink);
-                $("#popImg").append("<li><audio controls='controls' preload='auto' data-src='"+urlLink+"' data-id='"+mediaId+"'><source src='"+urlLink+"' type=\"audio/mpeg\"></audio></li>");
+                $("#popImg").append("<li><audio controls='controls' preload='meta' data-src='"+urlLink+"' data-id='"+mediaId+"' controlsList=\"nodownload\"><source src='"+urlLink+"' type=\"audio/mpeg\"></audio></li>");
             }
-            $("#popPagingTest").paging1({
+            $("#popPagingmp3").paging1({
                 pageNo:pageNo,
                 totalPage:data.content.data.pages
             })
         }
     });
 }
-// $(document).on("click","#popPagingTest a",function () {
-//     var val = $("#popPage").val();
-//     ajaxMp(val);
-// });
+$("#popPagingmp3").on("click","a",function () {
+    var val = $(this).text();
+    if($(this).hasClass("disable")){
+
+    }else{
+        var pageNo = parseInt($(this).siblings('.current').text());
+        if($(this).attr('id')==='prevPage'){
+            ajaxMpPop(pageNo-1);
+        }else if($(this).attr('id')==='nextPage'){
+            ajaxMpPop(pageNo+1);
+        }else{
+            ajaxMpPop(val);
+        }
+    }
+
+});
 
 
 function videoupload() {
@@ -279,6 +312,7 @@ function  ajaxVid(pageNo) {
         type: "get",
         data: $.param(webdata),
         success:function(data){
+            $("#NumMater").text(data.content.data.total);
             var dataList = data.content.data.list;
             $("#vidShow").html("");
             var videoArr=[];
@@ -293,7 +327,7 @@ function  ajaxVid(pageNo) {
                     url:contextPath+'material/video/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name,
                     type: "get",
                     success:function (data) {
-                        $("#vidShow").append("<li><video src='"+data.content.down_url+"' controls='controls'></video></li>");
+                        $("#vidShow").append("<li><video src='"+data.content.down_url+"' controls='controls' preload='meta' controlsList=\"nodownload\"></video></li>");
                     }
                 })
 
@@ -305,10 +339,23 @@ function  ajaxVid(pageNo) {
         }
     });
 }
-// $(document).on("click","a",function () {
-//     var val = $("#page2").val();
-//     ajaxVid(val);
-// });
+//分页
+$("#pagingTest2").on("click","a",function () {
+    var val = $(this).text();
+    if($(this).hasClass("disable")){
+
+    }else{
+        var pageNo = parseInt($(this).siblings('.current').text());
+        if($(this).attr('id')==='prevPage'){
+            ajaxVid(pageNo-1);
+        }else if($(this).attr('id')==='nextPage'){
+            ajaxVid(pageNo+1);
+        }else{
+            ajaxVid(val);
+        }
+    }
+
+});
 
 // 视频弹窗展示
 function  ajaxVidPop(pageNo) {
@@ -332,38 +379,44 @@ function  ajaxVidPop(pageNo) {
                     url:contextPath+'material/video/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name,
                     type: "get",
                     success:function (data) {
-                        $("#popImg").append("<li><video src='"+data.content.down_url+"' controls='controls' data-id='"+mediaId+"'></video></li>");
+                        $("#popImg").append("<li><video src='"+data.content.down_url+"' controls='controls' data-id='"+mediaId+"' preload='meta' controlsList=\"nodownload\"></video></li>");
                     }
                 })
 
             }
-            $("#popPagingTest").paging1({
+            $("#popPagingmp4").paging1({
                 pageNo:pageNo,
                 totalPage:data.content.data.pages
             })
         }
     });
 }
-// $(document).on("click","#popPagingTest a",function () {
-//     var val = $("#popPage").val();
-//     ajaxMp(val);
-// });
+$("#popPagingmp4").on("click","a",function () {
+    var val = $(this).text();
+    if($(this).hasClass("disable")){
 
-//点击图片选中状态
-$(document).on("click","#imgShow li img",function () {
-    var thisSrc=$(this).attr("src");
-    $(this).addClass("opactiy").parent().siblings().children().removeClass("opactiy");
-    $(this).parent().append("<a class='bgimg'></a>").siblings().children("a").remove();
-//            alert(thisSrc)
-})
+    }else{
+        var pageNo = parseInt($(this).siblings('.current').text());
+        if($(this).attr('id')==='prevPage'){
+            ajaxVidPop(pageNo-1);
+        }else if($(this).attr('id')==='nextPage'){
+            ajaxVidPop(pageNo+1);
+        }else{
+            ajaxVidPop(val);
+        }
+    }
+
+});
 
 // 图文展示
-function photoText() {
+function photoText(pageNo) {
     $.ajax({
-        url:contextPath +"material/page?page=1&rows=10&wxtype=news&wxPublicId="+wxPublicId,
+        url:contextPath +"material/page?rows=4&wxtype=news&wxPublicId="+wxPublicId+"&page="+pageNo,
         type: "get",
         success:function(data){
+            $("#NumMater").text(data.content.data.total);
             var list = data.content.data.list;
+            $("#photo-tx ul").empty();
             if(data.status == 200 && list.length){
                 for(var i=0; i<list.length;i++){
                      var id=list[i].thumbMediaId;
@@ -379,29 +432,76 @@ function photoText() {
                     $("#photo-tx ul").append(html);
                 }
             }
+            $("#pagingTest3").paging1({
+                pageNo:pageNo,
+                totalPage:data.content.data.pages
+            })
         }
     });
 }
-//单个图文悬浮效果
-$(document).on("mouseenter",".messageLi",function () {
-    $(this).append("<a class='bgshadow'>预览文章</a>").siblings().find("a").remove();
-});
-//单个图文点击跳转
-$(document).on("click",".messageLi",function () {
-    var thistwID=$(this).attr("data-id");
-    $.ajax({
-        url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+thistwID,
-        type: "get",
-        processData:true,
-        success:function (data) {
-            $('#aphoto').modal();
-            $("#mySourcePhoto").text(data.content.title);
-            $("#photoAutor>span:eq(0)").text(data.content.author);
-            $("#photoAutor>span:eq(2)").text(data.content.updateTime);
-            $("#photoContent").html(data.content.content)
+//分页
+$("#pagingTest3").on("click","a",function () {
+    var val = $(this).text();
+    if($(this).hasClass("disable")){
+
+    }else{
+        var pageNo = parseInt($(this).siblings('.current').text());
+        if($(this).attr('id')==='prevPage'){
+            photoText(pageNo-1);
+        }else if($(this).attr('id')==='nextPage'){
+            photoText(pageNo+1);
+        }else{
+            photoText(val);
         }
-    })
-
+    }
 
 });
+// 图文弹窗展示
+function photoTextPop(pageNo) {
+    $.ajax({
+        url:contextPath +"material/page?rows=4&wxtype=news&wxPublicId="+wxPublicId+"&page="+pageNo,
+        type: "get",
+        success:function(data){
+            var list = data.content.data.list;
+            $("#popImg").empty();
+            if(data.status == 200 && list.length){
+                for(var i=0; i<list.length;i++){
+                    var id=list[i].thumbMediaId;
+                    var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxPublicId;
+                    let html = `<li class="messageLi" data-id="${list[i].id}" data-time="${list[i].updateTime}" data-ttile="${list[i].title}" data-photo="${list[i].thumbMediaId}" data-Des="${list[i].digest}" data-Url="${list[i].contentSourceUrl}" >
+                                    <div style="height: 250px;overflow: hidden">
+                                        <p>${list[i].title}</p>
+                                        <p><img src="${urlLink}" style="width: 200px;height: 150px;"> </p>
+                                        <p>${list[i].digest}</p>
+                                        <p>${list[i].updateTime}</p>
+                                    </div>
+                                </li>`
+                    $("#popImg").append(html);
+                }
+            }
+            $("#popPagingText").paging1({
+                pageNo:pageNo,
+                totalPage:data.content.data.pages
+            })
+        }
+    });
+}
+//分页
+$("#popPagingText").on("click","a",function () {
+    var val = $(this).text();
+    if($(this).hasClass("disable")){
+
+    }else{
+        var pageNo = parseInt($(this).siblings('.current').text());
+        if($(this).attr('id')==='prevPage'){
+            photoTextPop(pageNo-1);
+        }else if($(this).attr('id')==='nextPage'){
+            photoTextPop(pageNo+1);
+        }else{
+            photoTextPop(val);
+        }
+    }
+
+});
+
 

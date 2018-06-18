@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("wx/common")
 public class WxCommonController {
 
-    @GetMapping("login")
+    @GetMapping("company")
     public String login(){
-        return "wx/login";
+        return "wx/company";
     }
 
     @GetMapping("index")
@@ -23,23 +23,23 @@ public class WxCommonController {
         return "wx/index";
     }
 
-    @GetMapping("productlist")
-    public String productlist(){
-        return "wx/productlist";
+    @GetMapping("equipment")
+    public String equipment(){
+        return "wx/equipment";
     }
 
-    @GetMapping("projectdetails")
-    public String projectdetails(){
-        return "wx/projectdetails";
+    @GetMapping("operate")
+    public String operate(){
+        return "wx/operate";
     }
 
-    @GetMapping("projectlist")
-    public String projectlist(){
-        return "wx/projectlist";
+    @GetMapping("project")
+    public String project(){
+        return "wx/project";
     }
 
-    @GetMapping("productdetails")
-    public String productdetails(){
-        return "wx/productdetails";
+    @GetMapping("projectinfo")
+    public String projectinfo(){
+        return "wx/projectinfo";
     }
 }

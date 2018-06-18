@@ -73,6 +73,7 @@ public class DingtalkDeptServiceImpl extends BaseServiceImpl<DingtalkDept,Dingta
 
         DingtalkDept dept=new DingtalkDept();
         dept.setPath(dingtalkDept.getId() + "");
+        dept.setIntermediaryId(cuser.getIntermediaryId());
 
         List<DingtalkDept> dingtalkDepts = dingtalkDeptMapper.selectByPath(dept);
 
@@ -118,5 +119,14 @@ public class DingtalkDeptServiceImpl extends BaseServiceImpl<DingtalkDept,Dingta
         record.setParentid(parentId);
         record.setIntermediaryId(user.getIntermediaryId());
         return dingtalkDeptMapper.selectByParentId(record);
+    }
+
+    @Override
+    public DingtalkDept selectByEqName(String name) {
+        DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+        DingtalkDept record=new DingtalkDept();
+        record.setIntermediaryId(user.getIntermediaryId());
+        record.setName(name);
+        return dingtalkDeptMapper.selectByEqName(record);
     }
 }
