@@ -73,18 +73,12 @@
                     count.push(v.count);
                 });
                 option = {
-                    // title: {
-                    //     left:'center',
-                    //     subtext: '中间商设备数排名',
-                    //     subtextStyle:{
-                    //         color:"#000",
-                    //         align: 'center',
-                    //         fontSize:16
-                    //     }
-                    // },
                     xAxis: {
                         type: 'category',
                         data: name,
+                        axisLabel:{
+                            rotate:20
+                        },
                         axisLine:{
                             show:false
                         },
@@ -220,15 +214,6 @@
                     count.push(v.count);
                 });
                 option3 = {
-                    // title : {
-                    //     left:'center',
-                    //     subtext: '各地市项目占比情况',
-                    //     subtextStyle:{
-                    //         color:"#000",
-                    //         align: 'center',
-                    //         fontSize:16
-                    //     }
-                    // },
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {
@@ -249,12 +234,18 @@
                         },
                         axisLine:{
                             show:true,
-                            // lineStyle:{
-                            //     color:'#e5e5e5'
-                            // }
+                            lineStyle:{
+                                color:"#d3d3d3"
+                            }
+                        },
+                        splitLine:{
+                            show:false
                         },
                         axisTick:{
                             show:false
+                        },
+                        axisLabel:{
+                            color:"#000"
                         }
                     },
                     yAxis: {
@@ -266,9 +257,13 @@
                         axisTick:{
                             show:false
                         },
-                        splitLine:{
-                            show:false
-                        }
+
+                        // axisLine: {
+                        //     lineStyle:{
+                        //         color:"#d3d3d3"
+                        //     }
+                        // },
+
                     },
                     series: [
                         {
@@ -325,75 +320,26 @@
                     yearIntermediary.push(v.year);
                 });
                 option4 = {
-                    // title : {
-                    //     left:'center',
-                    //     subtext: '近五年中间商设备趋势',
-                    //     subtextStyle:{
-                    //         color:"#000",
-                    //         align: 'center',
-                    //         fontSize:16
-                    //     }
-                    // },
                     tooltip: {
                         trigger: 'axis'
                     },
                     legend: {
-                        data:['中间商数量','设备数'],
-                        top:30,
-                        left: 'right'
+                        data:['中间商数量','设备数']
                     },
                     color:['#faf6c3','#fac9c3'],
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true,
-                    },
-                    xAxis: [
-                        {
-                            type: 'category',
-                            axisTick: {
-                                alignWithLabel: true,
-                                show:false
-                            },
-                            axisLine: {
-                                onZero: false,
-                                show:false
-                                // lineStyle: {
-                                //     color: 'blue'
-                                // }
-                            },
-                            axisPointer: {
-                                label: {
-                                    formatter: function (params) {
-                                        return '设备数  ' + params.value
-                                            + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
-                                    }
-                                }
-                            },
-                            data: yearDevice
+                    xAxis:  {
+                        type: 'category',
+                        boundaryGap: false,
+                        data:yearDevice,
+                        axisLine: {
+                            lineStyle:{
+                                color:"#d3d3d3"
+                            }
                         },
-                        {
-                            type: 'category',
-                            axisTick: {
-                                alignWithLabel: true,
-                                show:false
-                            },
-                            axisLine: {
-                                onZero: false,
-                                show:false
-                            },
-                            axisPointer: {
-                                label: {
-                                    formatter: function (params) {
-                                        return '中间商  ' + params.value
-                                            + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
-                                    }
-                                }
-                            },
-                            data: yearIntermediary
+                        axisLabel:{
+                            color:"#000"
                         }
-                    ],
+                    },
                     yAxis: {
                         type: 'value',
                         axisTick: {
@@ -407,16 +353,11 @@
                         {
                             name:'中间商数量',
                             type:'line',
-                            xAxisIndex: 1,
-                            smooth: true,
-                            stack: '总量',
                             data:intermediary
                         },
                         {
                             name:'设备数',
                             type:'line',
-                            smooth: true,
-                            stack: '总量',
                             data:device
                         }
                     ]
