@@ -1,4 +1,13 @@
 
+//获取公众号id
+function getUrlParms(name){
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if(r!=null)
+        return unescape(r[2]);
+    return null;
+}
+var wxID=getUrlParms("wxPublicId");
 // 图片上传
 function imgupload() {
     var uploader = WebUploader.create({
@@ -7,7 +16,7 @@ function imgupload() {
         pick: '#filePicker1',
         server: contextPath + 'material/upload',//传到服务器的链接
         formData: {
-            wxPublicId: 14,
+            wxPublicId: wxID,
             wxtype:'image'
         },
         accept: {
@@ -41,7 +50,7 @@ imgupload();
 // 图片展示
 var totalPage;
     function  ajaxData(pageNo) {
-        var webdata={"wxtype":'image',"wxPublicId":14,"rows":10,"page":pageNo};
+        var webdata={"wxtype":'image',"wxPublicId":wxID,"rows":10,"page":pageNo};
         $.ajax({
             url:contextPath +"material/page",
             type: "get",
@@ -55,7 +64,7 @@ var totalPage;
                     var error="error";
                     var url=data.content.data.list[i].mediaId;
                     var name="uoload.jpg";
-                    var urlLink = ''+contextPath+'material/image/detail?mediaId='+url+"&name="+name+"&wxPublicId="+14;
+                    var urlLink = ''+contextPath+'material/image/detail?mediaId='+url+"&name="+name+"&wxPublicId="+wxID;
                     urlLink = encodeURI(urlLink);
                     $("#imgShow").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' alt='"+error+"'></li>");
                 }
@@ -87,7 +96,7 @@ $("#pagingTest").on("click","a",function () {
 
 // 弹窗图片展示
 function  ajaxDataPop(pageNo) {
-    var webdata={"wxtype":'image',"wxPublicId":14,"rows":10,"page":pageNo};
+    var webdata={"wxtype":'image',"wxPublicId":wxID,"rows":10,"page":pageNo};
     $.ajax({
         url:contextPath +"material/page",
         type: "get",
@@ -99,9 +108,9 @@ function  ajaxDataPop(pageNo) {
                 var error="error";
                 var url=data.content.data.list[i].mediaId;
                 var name="upload.jpg";
-                var urlLink = ''+contextPath+'material/image/detail?mediaId='+url+"&name="+name+"&wxPublicId="+14;
+                var urlLink = ''+contextPath+'material/image/detail?mediaId='+url+"&name="+name+"&wxPublicId="+wxID;
                 urlLink = encodeURI(urlLink);
-                $("#popImg").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' alt='"+error+"'></li>");
+                $("#popImg").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' alt='"+error+"' data-id='"+url+"'></li>");
             }
             $("#popPagingTest").paging1({
                 pageNo:pageNo,
@@ -137,7 +146,7 @@ function yyupload() {
         server: contextPath + 'material/upload',//传到服务器的链接
         timeout: 0,
         formData: {
-            wxPublicId: 14,
+            wxPublicId: wxID,
             wxtype:'voice'
         },
         accept: {
@@ -174,7 +183,7 @@ function yyupload() {
 yyupload();
 //语音展示
 function  ajaxMp(pageNo) {
-    var webdata={"wxtype":'voice',"wxPublicId":14,"total":0,"records":0,"rows":10,"page":pageNo};
+    var webdata={"wxtype":'voice',"wxPublicId":wxID,"total":0,"records":0,"rows":10,"page":pageNo};
     $.ajax({
         url:contextPath +"material/page",
         type: "get",
@@ -188,10 +197,9 @@ function  ajaxMp(pageNo) {
                 mpArr.push(data.content.data.list[i].mediaId)
             }
             for(var i=0;i<mpArr.length;i++){
-                var wxPublicId=14;
                 var mediaId=mpArr[i];
                 var name="upload.mp3";
-                var urlLink = ''+contextPath+'material/voice/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name;
+                var urlLink = ''+contextPath+'material/voice/detail?wxPublicId='+wxID+"&mediaId="+mediaId+"&name="+name;
                 urlLink = encodeURI(urlLink);
                 $("#mpShow").append("<li><audio controls='controls' preload='meta' src='"+urlLink+"' style='border:none;' controlsList=\"nodownload\"></audio></li>");
             }
@@ -221,7 +229,7 @@ $("#pagingTest1").on("click","a",function () {
 });
 // 语音弹窗展示
 function  ajaxMpPop(pageNo) {
-    var webdata={"wxtype":'voice',"wxPublicId":14,"total":0,"records":0,"rows":10,"page":pageNo};
+    var webdata={"wxtype":'voice',"wxPublicId":wxID,"total":0,"records":0,"rows":10,"page":pageNo};
     $.ajax({
         url:contextPath +"material/page",
         type: "get",
@@ -234,10 +242,9 @@ function  ajaxMpPop(pageNo) {
                 mpArr.push(data.content.data.list[i].mediaId)
             }
             for(var i=0;i<mpArr.length;i++){
-                var wxPublicId=14;
                 var mediaId=mpArr[i];
                 var name="wx.mp3";
-                var urlLink = ''+contextPath+'material/voice/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name;
+                var urlLink = ''+contextPath+'material/voice/detail?wxPublicId='+wxID+"&mediaId="+mediaId+"&name="+name;
                 urlLink = encodeURI(urlLink);
                 $("#popImg").append("<li><audio controls='controls' preload='meta' data-src='"+urlLink+"' data-id='"+mediaId+"' controlsList=\"nodownload\"><source src='"+urlLink+"' type=\"audio/mpeg\"></audio></li>");
             }
@@ -273,7 +280,7 @@ function videoupload() {
         pick: '#filePicker3',
         server: contextPath + 'material/upload',
         formData: {
-            wxPublicId: 14,
+            wxPublicId: wxID,
             wxtype:'video'
         },
         accept: {
@@ -306,7 +313,7 @@ function videoupload() {
 videoupload();
 //视频展示
 function  ajaxVid(pageNo) {
-    var webdata={"wxtype":"video","wxPublicId":14,"rows":10,"page":pageNo};
+    var webdata={"wxtype":"video","wxPublicId":wxID,"rows":10,"page":pageNo};
     $.ajax({
         url:contextPath +"material/page",
         type: "get",
@@ -320,11 +327,10 @@ function  ajaxVid(pageNo) {
                 videoArr.push(data.content.data.list[i].mediaId)
             }
             for(var i=0;i<videoArr.length;i++){
-                var wxPublicId=14;
                 var mediaId=videoArr[i];
                 var name="wx.mp4";
                 $.ajax({
-                    url:contextPath+'material/video/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name,
+                    url:contextPath+'material/video/detail?wxPublicId='+wxID+"&mediaId="+mediaId+"&name="+name,
                     type: "get",
                     success:function (data) {
                         $("#vidShow").append("<li><video src='"+data.content.down_url+"' controls='controls' preload='meta' controlsList=\"nodownload\"></video></li>");
@@ -359,7 +365,7 @@ $("#pagingTest2").on("click","a",function () {
 
 // 视频弹窗展示
 function  ajaxVidPop(pageNo) {
-    var webdata={"wxtype":"video","wxPublicId":14,"rows":10,"page":pageNo};
+    var webdata={"wxtype":"video","wxPublicId":wxID,"rows":10,"page":pageNo};
     $.ajax({
         url:contextPath +"material/page",
         type: "get",
@@ -372,11 +378,10 @@ function  ajaxVidPop(pageNo) {
                 videoArr.push(data.content.data.list[i].mediaId)
             }
             for(var i=0;i<videoArr.length;i++){
-                var wxPublicId=14;
                 let mediaId=videoArr[i];
                 var name="test.mp4";
                 $.ajax({
-                    url:contextPath+'material/video/detail?wxPublicId='+wxPublicId+"&mediaId="+mediaId+"&name="+name,
+                    url:contextPath+'material/video/detail?wxPublicId='+wxID+"&mediaId="+mediaId+"&name="+name,
                     type: "get",
                     success:function (data) {
                         $("#popImg").append("<li><video src='"+data.content.down_url+"' controls='controls' data-id='"+mediaId+"' preload='meta' controlsList=\"nodownload\"></video></li>");
@@ -411,7 +416,7 @@ $("#popPagingmp4").on("click","a",function () {
 // 图文展示
 function photoText(pageNo) {
     $.ajax({
-        url:contextPath +"material/page?rows=4&wxtype=news&wxPublicId="+wxPublicId+"&page="+pageNo,
+        url:contextPath +"material/page?rows=4&wxtype=news&wxPublicId="+wxID+"&page="+pageNo,
         type: "get",
         success:function(data){
             $("#NumMater").text(data.content.data.total);
@@ -420,7 +425,7 @@ function photoText(pageNo) {
             if(data.status == 200 && list.length){
                 for(var i=0; i<list.length;i++){
                      var id=list[i].thumbMediaId;
-                    var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxPublicId;
+                    var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
                     let html = `<li class="messageLi" data-id="${list[i].id}">
                                     <div style="height: 250px;overflow: hidden">
                                         <p>${list[i].title}</p>
@@ -459,7 +464,7 @@ $("#pagingTest3").on("click","a",function () {
 // 图文弹窗展示
 function photoTextPop(pageNo) {
     $.ajax({
-        url:contextPath +"material/page?rows=4&wxtype=news&wxPublicId="+wxPublicId+"&page="+pageNo,
+        url:contextPath +"material/page?rows=4&wxtype=news&wxPublicId="+wxID+"&page="+pageNo,
         type: "get",
         success:function(data){
             var list = data.content.data.list;
@@ -467,7 +472,7 @@ function photoTextPop(pageNo) {
             if(data.status == 200 && list.length){
                 for(var i=0; i<list.length;i++){
                     var id=list[i].thumbMediaId;
-                    var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxPublicId;
+                    var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
                     let html = `<li class="messageLi" data-id="${list[i].id}" data-time="${list[i].updateTime}" data-ttile="${list[i].title}" data-photo="${list[i].thumbMediaId}" data-Des="${list[i].digest}" data-Url="${list[i].contentSourceUrl}" >
                                     <div style="height: 250px;overflow: hidden">
                                         <p>${list[i].title}</p>

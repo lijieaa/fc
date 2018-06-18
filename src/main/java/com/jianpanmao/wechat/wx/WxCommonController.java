@@ -28,6 +28,11 @@ public class WxCommonController {
         return "wx/equipment";
     }
 
+    @GetMapping("equiprams")
+    public String equiprams(){
+        return "wx/equiprams";
+    }
+
     @GetMapping("operate")
     public String operate(){
         return "wx/operate";

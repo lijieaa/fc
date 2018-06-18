@@ -108,7 +108,6 @@
             line-height: 32px;
             padding: 0 0;
             display: block;
-            margin-top: -57px;
             background:#6FB3E0!important;
         }
     </style>
@@ -127,16 +126,16 @@
         <div style="margin-top:2%;width: 98%;height: auto;font-size: 13px;">
             <div class="content-header gzh-source-type">
                 <a class="" data-id="1" style="border-right: none;">图文消息</a><a class="" data-id="2" style="border-right: none;">图片</a><a class="" data-id="3" style="border-right: none;">语音</a><a class="" data-id="4">视频</a>
+                <div style="width: 120px;height: 30px;float: right;">
+                    <div id="filePicker" style="width: 120px;height: 32px;background: #6FB3E0;text-align: center;line-height: 32px;color: #FFFFFF;border-radius: 3px;">新建图文信息</div>
+                    <div id="filePicker1" style="display: none;">上传图片</div>
+                    <div id="filePicker2" style="display: none;">添加语音</div>
+                    <div id="filePicker3" style="display: none;">添加视频</div>
+                </div>
             </div>
             <div class="bor-top"></div>
             <div style="margin-top: 2%;">
                 <span style="margin-left: 2%"><a class="new-type-name">图文消息</a><a>（共<span id="NumMater"></span>条）</a></span>
-                <div style="width: 120px;height: 30px;float: right;">
-                    <div id="filePicker" style="width: 120px;height: 32px;background: #6FB3E0;text-align: center;line-height: 32px;color: #FFFFFF;border-radius: 3px;margin-top: -57px;">新建图文信息</div>
-                    <div id="filePicker1" style="display: none;margin-top: -10px;">上传图片</div>
-                    <div id="filePicker2" style="display: none;margin-top: -10px;">添加语音</div>
-                    <div id="filePicker3" style="display: none;margin-top: -10px;">添加视频</div>
-                </div>
             </div>
             <!--素材库图文消息内容-->
             <div>
@@ -186,8 +185,10 @@
 
                       </textarea>
                       <textarea placeholder="请输入文章摘要" class="col-xs-12"  rows="3" style="resize: none;" id="autorAbout"></textarea>
+                      <input type="text" placeholder="请输入原文链接,以http://开头" class="col-xs-12" id="tpUrl">
                 </div>
                 <div style="width: 65px;height: 42px;line-height:42px;cursor:pointer;text-align:center;display: block;margin-top: 15px;float: right;background: #6FB3E0;color: #ffffff;" id="savapt">保存</div>
+                <label id="errorMsg" style="margin-top: 26px;float: right;margin-right: 20px;"></label>
             </section>
             <section class="float-left" style="width: 15%;margin-left: 1.5%">
                 <label style="width:100%;margin-left: 20%;margin-top: 15px;text-align: center;" class="text-center;">多媒体</label>
@@ -234,6 +235,7 @@
                 <div class="modal-body" style="min-height: 400px;">
                    <div id="photoAutor"><span></span><span></span><span style="margin-left: 10px;"></span></div>
                    <div id="photoContent" style="margin-top: 15px;"> </div>
+                   <a id="photoUrl" style="margin-top: 15px;" href="" target="_blank">阅读原文</a>
                 </div>
 
 
@@ -245,13 +247,11 @@
 <script th:src="@{/dist/js/gzh/webuploader.js}"></script>
 <script th:src="@{/dist/js/gzh/upload.js}"></script>
 <script th:src="@{/dist/js/gzh/hand-paging.js}"></script>
-<script th:src="@{/dist/js/gzh/wx-audio.js}"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
     var wxPublicId = /*[[${wxPublicId}]]*/;
     /*]]>*/
     $(function () {
-        photoText(1);
         //从外部获取该相应的菜单
         function getUrlParms(name){
             var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
@@ -266,12 +266,14 @@
             $(".new-type-name").text("图文消息");
             $("#filePicker").show().siblings().hide();
             $("#photo-tx").show().siblings().hide();
+            photoText(1);
         }else if(id==1){
             $(".gzh-source-type>a:eq(0)").addClass("tex-bgcolor").siblings().removeClass("tex-bgcolor");
             $(".gzh-source-type>a:eq(0)").addClass("tex-bgcolor").siblings().removeClass("tex-bgcolor");
             $(".new-type-name").text("图文消息");
             $("#filePicker").show().siblings().hide();
             $("#photo-tx").show().siblings().hide();
+            photoText(1);
         }else if(id==2){
             $(".gzh-source-type>a:eq(1)").addClass("tex-bgcolor").siblings().removeClass("tex-bgcolor");
             $(".new-type-name").text("图片");
@@ -289,7 +291,7 @@
             $(".new-type-name").text("视频");
             $("#filePicker3").show().siblings().hide();
             $("#vid").show().siblings().hide();
-            //ajaxVid(1);
+            ajaxVid(1);
         }
         //菜单选中
         $(document).on("click",".gzh-source-type>a",function () {
@@ -315,6 +317,7 @@
                 $(".new-type-name").text("图文消息");
                 $("#filePicker").show().siblings().hide();
                 $("#photo-tx").show().siblings().hide();
+                photoText(1);
             } else if(cliID=="2"){
                 $(".new-type-name").text("图片");
                 $("#filePicker1").show().siblings().hide();
@@ -409,7 +412,7 @@
         var thisVId;
         $(document).on("click","#popImg li img",function () {
             thisSrc=$(this).attr("src");
-            thisphotoId=$(this).attr("title");
+            thisphotoId=$(this).attr("data-id");
             $(this).addClass("opactiy").parent().siblings().children().removeClass("opactiy");
             $(this).parent().append("<a class='bgimg'></a>").siblings().children("a").remove();
         });
@@ -472,21 +475,53 @@
             var title=$("#editInputTitle").val();
             var autor=$("#editInputAutor").val();
             var zaiyao=$("#autorAbout").val();
-            var webdata={"title":title,"wxPublicId":14,"thumb_media_id":photoID,"author":autor,"show_cover_pic":1,"content":CHtml,"digest":zaiyao,"content_source_url":""};
-            $.ajax({
-                url:contextPath +"material/upload/news",
-                type: "POST",
-                //dataType:"json",
-                contentType:'application/json; charset=utf-8',
-                processData:true,
-                data: JSON.stringify(webdata),
-                success:function(data){
-                    alert("success");
-                },
-                error:function (data) {
-                    alert(data.status);
-                }
-            });
+            var url=$("#tpUrl").val();
+            var Expression=/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;//验证url
+            var objExp=new RegExp(Expression);
+            if(title==""){
+                $("#errorMsg").show().text("请输入图文标题").css("color","red").fadeOut(2000);
+                return false;
+            }else if(autor==""){
+                $("#errorMsg").show().text("请输入作者").css("color","red").fadeOut(2000);
+                return false;
+            }else if(CHtml==""){
+                $("#errorMsg").show().text("请输入正文内容").css("color","red").fadeOut(2000);
+                return false;
+            }else if(zaiyao==""){
+                $("#errorMsg").show().text("请输入图文摘要").css("color","red").fadeOut(2000);
+                return false;
+            }else if(photoID==undefined){
+                $("#errorMsg").show().text("请选中图文封面").css("color","red").fadeOut(2000);
+                return false;
+            }else if(url==""){
+                $("#errorMsg").show().text("请输入原文链接").css("color","red").fadeOut(2000);
+                return false;
+            }else if(objExp.test(url) != true){
+                $("#errorMsg").show().text("请输入正确的链接").css("color","red").fadeOut(2000);
+                return false;
+            }else{
+                var webdata={"title":title,"wxPublicId":wxPublicId,"thumb_media_id":photoID,"author":autor,"show_cover_pic":1,"content":CHtml,"digest":zaiyao,"content_source_url":url};
+                $.ajax({
+                    url:contextPath +"material/upload/news",
+                    type: "POST",
+                    //dataType:"json",
+                    contentType:'application/json; charset=utf-8',
+                    processData:true,
+                    data: JSON.stringify(webdata),
+                    success:function(data){
+                        if (data.content.status==500){
+                            alert(data.content.messages)
+                        }else if(data.content.status==200){
+                            alert(data.content.messages);
+                        }else {
+                            alert("保存失败");
+                        }
+                    },
+                    error:function (data) {
+                        alert(data.status);
+                    }
+                });
+            }
         });
         //单个图文悬浮效果
         $(document).on("mouseenter",".messageLi",function () {
@@ -508,6 +543,7 @@
                     $("#photoAutor>span:eq(0)").text(data.content.author);
                     $("#photoAutor>span:eq(2)").text(data.content.updateTime);
                     $("#photoContent").html(data.content.content)
+                    $("#photoUrl").attr("href",data.content.contentSourceUrl);
                 }
             })
 

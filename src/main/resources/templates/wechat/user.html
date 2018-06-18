@@ -180,17 +180,16 @@
                 return datetimeType;
             }
             var draw;
+            var name="";
             var myTable=$('#gzh-ul-manage').DataTable( {
-                    bAutoWidth: false,
-
+                bAutoWidth: false,
                 "ajax": function (data, callback, settings) {
                     var pageNum=data.start/data.length+1;
                     var pageSize=data.length;
                     draw=data.draw;
-                    var name="";
-                    var param="?page="+pageNum+"&rows="+pageSize+"&draw="+draw+"&nickname="+name;
+                    var param="?page="+pageNum+"&rows="+pageSize+"&draw="+draw;
                     $.ajax({
-                        "url":contextPath +"wxUsers/page"+param+"&wxPublicId="+wxPublicId,
+                        "url":contextPath +"wxUsers/page"+param+"&wxPublicId="+wxPublicId+"&nickname="+name,
                         "type": "get",
                         dataType:"json",
                         contentType:'application/json',
@@ -215,6 +214,7 @@
                     "ordering": false,
                     "serverSide": true,
                     "language": {
+                        "url": contextPath+"ace/assets/js/zh_CN.json",
                         "paginate": {
                             "next": "下一页",
                             "previous": "上一页"
@@ -233,6 +233,13 @@
                     "fnInitComplete": function() {//初始化完毕事件
                     }
                 } );
+            //搜索
+            $(document).on("click",".seaName",function () {
+                var inpText=$("#inpText").val();
+                name=inpText;
+                myTable.ajax.reload();
+                //myTable.ajax.url(contextPath +"wxUsers/page"+param+"&wxPublicId="+wxPublicId+"&nickname="+inpText).load();
+            });
 
             function userTableSon(openid,imgHref,nickName) {
                 $('#gzh-ul-manage-son').DataTable( {
@@ -267,6 +274,7 @@
                     "ordering": false,
                     "serverSide": true,
                     "language": {
+                        "url": contextPath+"ace/assets/js/zh_CN.json",
                         "paginate": {
                             "next": "下一页",
                             "previous": "上一页"
@@ -321,16 +329,6 @@
                     }
                 } );
             }
-            //搜索
-            $(document).on("click",".seaName",function () {
-                var inpText=$("#inpText").val();
-                var draw=1;
-                myTable.ajax.url(contextPath +"wxUsers/page?page=1&rows=10&wxPublicId="+wxPublicId+"&nickname="+inpText+"&draw="+draw).load();
-                // var param={"page":1,"rows":10,"draw":draw,"wxPublicId":wxPublicId,"nickname":inpText};
-                // myTable.settings()[0].ajax.data=param;
-                // myTable.ajax.reload();
-
-            });
             $(document).on("click",".chatOne",function () {
                 $("#chating-per").show().siblings().hide();
                 var thidid=$(this).attr("data-id");

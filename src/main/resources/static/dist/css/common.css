@@ -175,6 +175,10 @@ div.dataTables_wrapper div.dataTables_paginate{
 .padding-left-10{
     padding-left: 10px;
 }
+
+.sidebar.menu-min .nav-list>li>a {
+    text-align: center;
+}
 /*z-tree公用的样式*/
 .ztree *{
     font-size: 14px;

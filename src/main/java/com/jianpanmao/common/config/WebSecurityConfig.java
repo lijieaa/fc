@@ -100,8 +100,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/js/**")
                 .antMatchers("/wx/**")
                 .antMatchers("/plugins/**")
-         .antMatchers("/css/**")
-                .antMatchers("/images/**");
+                .antMatchers("/css/**")
+                .antMatchers("/images/**")
+                .antMatchers("/img/**")
+                .antMatchers("/material/**");
+
         super.configure(web);
     }
 

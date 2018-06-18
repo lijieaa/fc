@@ -23,35 +23,26 @@
     <div class="statusbar"></div>
 
     <div class="view view-main view-init ios-edges" >
-        <div class="navbar no-hairline">
+        <div class="navbar no-hairline" style="background:#ffffff;">
             <div class="navbar-inner">
-                <div class="left" style="width:28px">
-                    <a href="#" class="link back">
-                        <i class="f7-icons size-22" style="color:#FFFFFF" >left</i>
-                    </a>
-                </div>
-                <div class="title">项目情况</div>
-                <div class="right" style="width:28px">   <i class="f7-icons size-18" >&bull;&bull;&bull;</i></div>
-                <div class="subnavbar" style="background:#ffffff;height:30px">
-                    <form class="searchbar">
-                        <div class="searchbar-inner"  style="background:#ffffff;">
-                            <div style="flex-shrink:0" >
-                                <select name="" id="" class="pkee text-base-color f30 "  style="width:100px">
-                                    <option value="">项目名称</option>
-                                    <option value="">负责人</option>
-                                    <option value="">业主名</option>
-                                    <option value="">业务联系电话</option>
-                                </select>
-                            </div>
-                            <i class=" ser-btn  text-base-color f7-icons f32"  style="width:20px">&or;</i>
-                            <div class="ser-box">
-                                <input type="search" placeholder="" class="f28">
-                                <i class="searchbar-icon"></i>
-                            </div>
-                            <span class="ser-btn text-base-color f30" style="width:50px" onclick="alr()">搜索</span>
+                <form class="searchbar">
+                    <div class="searchbar-inner"  style="background:#ffffff;">
+                        <div style="flex-shrink:0" >
+                            <select name="" id="" class="pkee text-base-color f30 "  style="width:100px">
+                                <option value="">项目名称</option>
+                                <option value="">负责人</option>
+                                <option value="">业主名</option>
+                                <option value="">业务联系电话</option>
+                            </select>
                         </div>
-                    </form>
-                </div>
+                        <i class=" ser-btn  text-base-color f7-icons f32"  style="width:20px">&or;</i>
+                        <div class="ser-box">
+                            <input type="search" placeholder="" class="f28">
+                            <i class="searchbar-icon"></i>
+                        </div>
+                        <span class="ser-btn text-base-color f30" style="width:50px" onclick="alr()">搜索</span>
+                    </div>
+                </form>
             </div>
 
         </div>
@@ -61,12 +52,12 @@
 
                 <div class="page-content infinite-scroll-content">
 
-                    <div class="list media-list ">
+                    <div class="list media-list  " style="margin:10px 0">
                         <ul id="listview">
                             <li class="plist card">
                                 <div class="item-content">
                                     <div class="item-media">
-                                        <img src="./img/proimg.jpg" class="proview" />
+                                        <img th:src="@{/img/proimg.jpg}" class="proview" />
                                     </div>
                                     <div class="item-inner ">
                                         <div class="item-title-row">
@@ -288,7 +279,7 @@
                 html += ' <li class="plist card">'+
                         '<div class="item-content">'+
                         '<div class="item-media">'+
-                        '<img src="./img/proimg.jpg" class="proview" />'+
+                        '<img src="/img/proimg.jpg" class="proview" />'+
                         '</div>'+
                         '<div class="item-inner ">'+
                         '<div class="item-title-row">'+
@@ -310,6 +301,12 @@
             lastItemIndex = $$('.list li').length;
         }, 1000);
     });
+
+
+    $$(".plist").on("click",function(){
+
+        window.location.href="/wx/common/projectinfo"
+    })
 </script>
 
 </body>

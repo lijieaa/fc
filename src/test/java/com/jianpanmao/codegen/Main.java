@@ -7,7 +7,7 @@ import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.exception.XMLParserException;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
-import java.io.File;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -124,5 +124,65 @@ public class Main {
 
 
         System.out.println(time.format(nowTime));
+    }
+
+
+    @Test
+    public void export(){
+
+        InputStream resource = this.getClass().getClassLoader().getResourceAsStream("export.properties");
+        Properties properties=new Properties();
+        try {
+            properties.load(resource);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String hostIP=properties.getProperty("host");
+        String port=properties.getProperty("port");
+        String userName=properties.getProperty("username");
+        String password=properties.getProperty("password");
+        String databaseName=properties.getProperty("db");
+        String path=properties.getProperty("path");
+
+        String command=path+"mysqldump -h" + hostIP +" -P"+port+" -u" + userName + " -p" + password + " --set-charset=UTF8 " + databaseName;
+        System.out.println(command);
+        String savePath="D:/backupDatabase";
+        String fileName="fc.sql";
+        Process process = null;
+        File saveFile = new File(savePath);
+        if (!saveFile.exists()) {// 如果目录不存在
+            saveFile.mkdirs();// 创建文件夹
+        }
+        if(!savePath.endsWith(File.separator)){
+            savePath = savePath + File.separator;
+        }
+
+        PrintWriter printWriter = null;
+        BufferedReader bufferedReader = null;
+        try {
+            printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(savePath + fileName), "utf8"));
+            process = Runtime.getRuntime().exec(command);
+            InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream(), "utf8");
+            bufferedReader = new BufferedReader(inputStreamReader);
+            String line;
+            while((line = bufferedReader.readLine())!= null){
+                System.out.println(line);
+                printWriter.println(line);
+            }
+            printWriter.flush();
+        }catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bufferedReader != null) {
+                    bufferedReader.close();
+                }
+                if (printWriter != null) {
+                    printWriter.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

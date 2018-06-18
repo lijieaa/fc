@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="with-statusbar ios device-pixel-ratio-2 device-retina device-ios device-ios-11 device-ios-11-0 device-ios-gt-10 device-ios-gt-9 device-ios-gt-8 device-ios-gt-7 device-ios-gt-6 support-position-sticky">
+<html class="">
 <head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -7,16 +7,16 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="theme-color" content="#2196f3">
     <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
-    <title>项目情况</title>
-    <link rel="stylesheet" th:href="css/framework7.min.css}">
-    <link rel="stylesheet" th:href="css/app.css}">
-    <link rel="stylesheet" th:href="css/cover.css}">
+    <title>设备列表</title>
+    <link rel="stylesheet" th:href="@{/css/framework7.min.css}">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/cover.css}">
+    <script th:src="@{/js/framework7.min.js}"></script>
     <script>
         var deviceWidth = document.documentElement.clientWidth;
         if(deviceWidth > 1080) deviceWidth = 1080;
         document.documentElement.style.fontSize = deviceWidth / 10.8 + 'px';
     </script>
-    <script th:src="@{/js/framework7.min.js}"></script>
 </head>
 <body>
 <div id="app" class="wrapper framework7-root">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="with-statusbar ios device-pixel-ratio-2 device-retina device-ios device-ios-11 device-ios-11-0 device-ios-gt-10 device-ios-gt-9 device-ios-gt-8 device-ios-gt-7 device-ios-gt-6 support-position-sticky">
+<html class="">
 <head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -23,7 +23,7 @@
     <div class="statusbar"></div>
 
     <div class="view view-main view-init ios-edges" >
-        <div class="navbar no-hairline">
+     <!--   <div class="navbar no-hairline">
             <div class="navbar-inner">
                 <div class="left" style="width:28px">
                     <a href="#" class="link back">
@@ -35,7 +35,7 @@
 
             </div>
 
-        </div>
+        </div>-->
         <div class="fab fab-right-bottom fab-morph" style="bottom:45px">
             <a href="#">
                 设备<br/>列表
@@ -258,7 +258,7 @@
                 html +=   '<li class="plist card">'+
                         '<div class="item-content">'+
                         '<div class="item-media">'+
-                        '<img src="./img/saleimg.jpg" class="saleimg" />'+
+                        '<img src="/img/saleimg.jpg" class="saleimg" />'+
                         '</div>'+
                         '<div class="item-inner ">'+
                         '<div class="item-title-row">'+
@@ -275,7 +275,7 @@
                         '</div>'+
                         '<div class="item-inner ">'+
                         ' <div class="item-title-row ">'+
-                        '<div class="item-after f28"><img src="./img/reply.png" style="width:10px;height:9px;align-self: center;" alt=""/>回复</div>'+
+                        '<div class="item-after f28"><img src="/img/reply.png" style="width:10px;height:9px;align-self: center;" alt=""/>回复</div>'+
                         '</div>'+
                         '</div>'+
                         '</div>'+
@@ -289,6 +289,9 @@
             lastItemIndex = $$('.list li').length;
         }, 1000);
     });
+    $$(".fab-morph").on("click",function(){
+        window.location.href="/wx/common/operate"
+    })
 </script>
 
 </body>

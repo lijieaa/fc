@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class=" ios device-pixel-ratio-2 device-retina device-ios device-ios-11 device-ios-11-0 device-ios-gt-10 device-ios-gt-9 device-ios-gt-8 device-ios-gt-7 device-ios-gt-6 support-position-sticky">
+<html class="ios device-pixel-ratio-3 device-retina device-android device-android-5 device-android-5-0 support-position-sticky ">
 <head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -11,6 +11,7 @@
     <link rel="stylesheet" th:href="@{/css/framework7.min.css}">
     <link rel="stylesheet" th:href="@{/css/app.css}">
     <link rel="stylesheet" th:href="@{/css/cover.css}">
+    <script th:src="@{/js/framework7.min.js}"></script>
     <script>
         var deviceWidth = document.documentElement.clientWidth;
         if(deviceWidth > 1080) deviceWidth = 1080;
@@ -23,7 +24,7 @@
     <div class="statusbar"></div>
 
     <div class="view view-main view-init ios-edges " >
-        <div class="navbar no-hairline">
+       <!-- <div class="navbar no-hairline">
             <div class="navbar-inner">
                 <div class="left" style="width:28px">
                     <a href="#" class="link back">
@@ -34,7 +35,7 @@
                 <div class="right" style="width:28px">   <i class="f7-icons size-18" >&bull;&bull;&bull;</i></div>
             </div>
 
-        </div>
+        </div>-->
         <div class="pages">
             <div class="page operate" data-page="home">
                 <div class="page-content ">
@@ -84,6 +85,21 @@
         </div>
 
     </div>
+        </div>
+</div>
+<script>
+    var app = new Framework7(
+            {
+                id: 'io.framework7.testapp',
+                root: '#app',
+                theme: "ios",
+            }
+    )
+    var $$ = Dom7;
+    $$(".toggle").on("click",function(e){
+        e.stopPropagation()
+    })
+</script>
 
 </body>
 </html>
