@@ -1,18 +1,21 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
-    <title>首页</title>
-    <style>
-        .aa{
-            background-color: #1a1a1a;
-            width: 1000px;
-            height: 1000px;
-        }
-    </style>
+    <title>数据备份</title>
 </head>
 <body layout:fragment="content">
 <div class="row">
-<div class="aa">数据备份</div>
+    <div class="page-header">
+        <h1>数据备份</h1>
+    </div>
+
+    <div class="well">
+        <!--<h4 class="green smaller lighter">更安全、更放心</h4>-->
+        <button class="btn btn-white btn-info btn-bold">
+            <i class="ace-icon fa fa-floppy-o bigger-120 blue"></i>
+            数据导出
+        </button>
+    </div>
 </div>
 <script type="text/javascript" th:inline="javascript">
 </script>
