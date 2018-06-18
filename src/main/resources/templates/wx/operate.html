@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html class="ios device-pixel-ratio-3 device-retina device-android device-android-5 device-android-5-0 support-position-sticky ">
-<head lang="en">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+<html>
+<head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <!-- Color theme for statusbar -->
     <meta name="theme-color" content="#2196f3">
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+    <!-- Your app title -->
     <title>公司简介</title>
     <link rel="stylesheet" th:href="@{/css/framework7.min.css}">
     <link rel="stylesheet" th:href="@{/css/app.css}">
@@ -17,89 +18,147 @@
         if(deviceWidth > 1080) deviceWidth = 1080;
         document.documentElement.style.fontSize = deviceWidth / 10.8 + 'px';
     </script>
-
 </head>
 <body>
-<div id="app" class="wrapper framework7-root">
+<!-- App root element -->
+<div id="app">
+    <!-- Statusbar overlay -->
     <div class="statusbar"></div>
 
-    <div class="view view-main view-init ios-edges " >
-       <!-- <div class="navbar no-hairline">
-            <div class="navbar-inner">
-                <div class="left" style="width:28px">
-                    <a href="#" class="link back">
-                        <i class="f7-icons size-22" style="color:#FFFFFF" >left</i>
-                    </a>
-                </div>
-                <div class="title">设备操作</div>
-                <div class="right" style="width:28px">   <i class="f7-icons size-18" >&bull;&bull;&bull;</i></div>
-            </div>
+    <!-- Your main view, should have "view-main" class -->
+    <div class="view view-main">
+        <!-- Initial Page, "data-name" contains page name -->
+        <div data-name="home" class="page params">
 
-        </div>-->
-        <div class="pages">
-            <div class="page operate" data-page="home">
-                <div class="page-content ">
 
-                    <div class="block-header"></div>
-                    <div class="card eqinfo f30">
-                        <div class="card-content" style="padding:3px 15px;">
-                            <table style="width:100%;">
-                                <colgroup>
-                                    <col width="50%"/>
-                                    <col width="50%"/>
-                                </colgroup>
-                                <tr class="fw"><td>设备信息</td><th></th></tr>
-                                <tr><td><span>生产编号：</span>1235184531</td><td><span>型号：</span>FGGD_1</td></tr>
-                            </table>
-                        </div>
 
+            <!-- Scrollable page content -->
+            <div class="page-content">
+
+                <div class="block-header"></div>
+                <div class="card eqinfo f30">
+                    <div class="card-content" style="padding:3px 15px;">
+                        <table style="width:100%;">
+                            <colgroup>
+                                <col width="50%"/>
+                                <col width="50%"/>
+                            </colgroup>
+                            <tr class="fw"><td>设备信息</td><th></th></tr>
+                            <tr><td><span>生产编号：</span>1235184531</td><td><span>型号：</span>FGGD_1</td></tr>
+                        </table>
                     </div>
-                    <div class="list card ">
-                         <ul>
 
-                             <li><a href="#" class="f30">
-                                 <div class="item-content">
-                                     <div class="item-inner">
-                                         <div class="item-title text-base-color">设备参数</div>
-                                         <div class="item-after">
-                                             <label class="toggle toggle-init">
-                                                 <input type="checkbox">
-                                                 <span class="toggle-icon"></span>
-                                             </label>
-                                         </div>
-                                     </div>
-                                 </div></a></li>
-                         </ul>
-                     </div>
-
-                    <div class="list links-list card">
-                        <ul>
-
-
-                            <li><a href="#" class="f30">设备参数</a></li>
-                            <li><a href="#" class="f30">用户参数</a></li>
-                            <li><a href="#" class="f30">系统时间</a></li>
-                        </ul>
                 </div>
+                <form id="my-form1" class="list card">
+                    <ul>
+
+                        <li class="f30">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title text-base-color">设备参数</div>
+                                    <div class="item-after">
+                                        <label class="toggle toggle-init">
+                                            <input type="checkbox" name="toggle" value="yes"><i class="toggle-icon"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div></li>
+                    </ul>
+                </form>
+
+                <div class="list links-list card">
+                    <ul>
+
+
+                        <li><a href="#" class="f30">设备参数</a></li>
+                        <li><a href="#" class="f30">用户参数</a></li>
+                        <li><a href="#" class="f30">系统时间</a></li>
+                    </ul>
+                </div>
+             <!--   <form class="list" id="my-form">
+                    <ul>
+                        <li>
+                            <div class="item-content item-input">
+                                <div class="item-inner">
+                                    <div class="item-title item-label">Name</div>
+                                    <div class="item-input-wrap">
+                                        <input type="text" name="name" placeholder="Your name">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content item-input">
+                                <div class="item-inner">
+                                    <div class="item-title item-label">E-mail</div>
+                                    <div class="item-input-wrap">
+                                        <input type="email" name="email" placeholder="E-mail">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content item-input">
+                                <div class="item-inner">
+                                    <div class="item-title item-label">Gender</div>
+                                    <div class="item-input-wrap">
+                                        <select name="gender">
+                                            <option value="male" selected>Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">Toggle</div>
+                                    <div class="item-after">
+                                        <label class="toggle toggle-init">
+                                            <input type="checkbox" name="toggle" value="yes"><i class="toggle-icon"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </form>
+                <div class="block block-strong row">
+                    <div class="col"><a class="button convert-form-to-data" href="#">Get Data</a></div>
+                    <div class="col"><a class="button fill-form-from-data" href="#">Fill Form</a></div>
+                </div>-->
             </div>
         </div>
-
     </div>
-        </div>
 </div>
+<!-- Path to Framework7 Library JS-->
 <script>
-    var app = new Framework7(
-            {
+    var app = new Framework7({
                 id: 'io.framework7.testapp',
                 root: '#app',
                 theme: "ios",
             }
-    )
+    );
+
     var $$ = Dom7;
-    $$(".toggle").on("click",function(e){
-        e.stopPropagation()
-    })
+
+    $$('.convert-form-to-data').on('click', function(){
+        var formData = app.form.convertToData('#my-form');
+        alert(JSON.stringify(formData));
+    });
+
+    $$('.fill-form-from-data').on('click', function(){
+        var formData = {
+            'name': 'John',
+            'email': 'john@doe.com',
+            'gender': 'female',
+            'toggle': ['yes'],
+        }
+        app.form.fillFromData('#my-form', formData);
+    });
 </script>
+<!-- Path to your app js-->
 
 </body>
 </html>
