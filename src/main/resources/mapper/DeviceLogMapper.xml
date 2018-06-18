@@ -265,10 +265,10 @@
     LEFT JOIN dingtalk_user user
     ON d.user_id = user.userid
     WHERE 1=1
-    <if test="createTimeStr !=null">
+    <if test="createTimeStr !=null and createTimeStr!=''">
       and DATE_FORMAT(d.device_log_create_time,'%Y-%m-%d') >=#{createTimeStr}
     </if>
-    <if test="endTimeStr !=null">
+    <if test="endTimeStr !=null and endTimeStr!=''">
       <![CDATA[
       and  DATE_FORMAT(d.device_log_create_time,'%Y-%m-%d') <= #{endTimeStr}
             ]]>
