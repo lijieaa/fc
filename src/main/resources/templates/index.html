@@ -17,34 +17,12 @@
 <script type="text/javascript" th:inline="javascript">
     //创建地图
     var map = new AMap.Map('container', {
-        zoom: 4
+        zoom: 5,
+        center: [116.397428, 39.90923]
     });
 
     $(function () {
         $("#container").css("height", $("body").height());
-        /*var infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30)});
-        var objList = [
-            {
-                "lngLats": [116.397428, 39.90923],
-                "device_sn": "12313422"
-            }
-        ];
-        for(var i=0; i<objList; i++){
-            var marker = new AMap.Marker({
-                position: objList[i].lngLats,
-                map: map
-            });
-            marker.content = '<ul class="contact-info-container">' +
-                                '<li>设备编号:<span>'+ objList[i].device_sn +'</span></li>' +
-                            '</ul>';
-            marker.on('click', markerClick);
-            marker.emit('click', {target: marker});
-        }
-        function markerClick(e) {
-            infoWindow.setContent(e.target.content);
-            infoWindow.open(map, e.target.getPosition());
-        }
-        map.setFitView();*/
         $.ajax({
             async : false,
             cache:false,
@@ -56,35 +34,39 @@
                     console.log(data);
                     if (data.content.length) {
                         $.each(data.content, function (i, item) {
-                            console.log(i);
-                            console.log(item.deviceLocationX, item.deviceLocationY);
                             //加载SimpleMarker
                             AMapUI.loadUI(['overlay/SimpleMarker'], function(SimpleMarker) {
-                                map.lnglatToPixel(map.getCenter());
+//                                map.lnglatToPixel(map.getCenter());
                                 var iconTheme = 'default';
                                 //内置的样式
-                                var iconStyles = SimpleMarker.getBuiltInIconStyles(iconTheme);
+//                                var iconStyles = SimpleMarker.getBuiltInIconStyles(iconTheme);
                                 new SimpleMarker({
-                                    iconTheme: iconTheme,
+//                                    iconTheme: iconTheme,
                                     //使用内置的iconStyle
-                                    iconStyle: iconStyles[i],
-
+//                                    iconStyle: iconStyles[i],
+                                    iconStyle: {
+                                        src: 'images/map-icon.png',
+                                        style: {
+                                            width: '20px',
+                                            height: '30px'
+                                        }
+                                    },
                                     //图标文字
-                                    iconLabel: {
+                                    /*iconLabel: {
                                         //A,B,C.....
                                         innerHTML: String.fromCharCode('A'.charCodeAt(0) + i),
                                         style: {
                                             //颜色, #333, red等等，这里仅作示例，取iconStyle中首尾相对的颜色
                                             color: iconStyles[data.content.length - 1 - i]
                                         }
-                                    },
+                                    },*/
                                     map: map,
                                     position: [item.deviceLocationX, item.deviceLocationY],
 
                                     //Marker的label(见http://lbs.amap.com/api/javascript-api/reference/overlay/#Marker)
                                     label: {
                                         content: item.deviceProductionNum,
-                                        offset: new AMap.Pixel(27, 25)
+                                        offset: new AMap.Pixel(24, 5)
                                     }
                                 });
 

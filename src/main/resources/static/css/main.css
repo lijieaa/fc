@@ -374,7 +374,9 @@ p.edit-info {
     color: #999;
     top: 20px;
 }
-
+.sidebar.menu-min .nav-list>li>a {
+    text-align: center;
+}
 .login-layout.login-container-box {
     background-image: url("../images/login-bg.jpg");
     background-repeat: no-repeat;
