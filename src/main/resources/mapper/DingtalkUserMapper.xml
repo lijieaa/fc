@@ -484,7 +484,9 @@
       remark = #{remark,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       orgEmail = #{orgemail,jdbcType=VARCHAR},
-      headPic = #{head_pic,jdbcType=VARCHAR},
+    <if test="headPic != null and headPic neq ''">
+      headPic = #{headPic,jdbcType=VARCHAR},
+    </if>
       jobnumber = #{jobnumber,jdbcType=VARCHAR}
     where userid = #{userid,jdbcType=INTEGER}
   </update>
