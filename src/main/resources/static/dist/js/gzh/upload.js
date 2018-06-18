@@ -110,7 +110,7 @@ function  ajaxDataPop(pageNo) {
                 var name="upload.jpg";
                 var urlLink = ''+contextPath+'material/image/detail?mediaId='+url+"&name="+name+"&wxPublicId="+wxID;
                 urlLink = encodeURI(urlLink);
-                $("#popImg").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' alt='"+error+"'></li>");
+                $("#popImg").append("<li id=''="+data.content.data.list[i].id+" ><img src='"+urlLink+"' alt='"+error+"' data-id='"+url+"'></li>");
             }
             $("#popPagingTest").paging1({
                 pageNo:pageNo,

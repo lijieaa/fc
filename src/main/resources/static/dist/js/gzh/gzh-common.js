@@ -118,7 +118,7 @@ $(function () {
     var tpUrl;
     $(document).on("click","#popImg>li>img",function () {
         thisSrc=$(this).attr("src");
-        thisphotoId=$(this).attr("title");
+        thisphotoId=$(this).attr("data-id");
         $(this).addClass("opactiy").parent().siblings().children().removeClass("opactiy");
         $(this).parent().append("<a class='bgimg'></a>").siblings().children("a").remove();
     });
