@@ -181,8 +181,7 @@
             }
             var draw;
             var myTable=$('#gzh-ul-manage').DataTable( {
-                    bAutoWidth: false,
-
+                bAutoWidth: false,
                 "ajax": function (data, callback, settings) {
                     var pageNum=data.start/data.length+1;
                     var pageSize=data.length;
@@ -215,6 +214,7 @@
                     "ordering": false,
                     "serverSide": true,
                     "language": {
+                        "url": contextPath+"ace/assets/js/zh_CN.json",
                         "paginate": {
                             "next": "下一页",
                             "previous": "上一页"
@@ -267,6 +267,7 @@
                     "ordering": false,
                     "serverSide": true,
                     "language": {
+                        "url": contextPath+"ace/assets/js/zh_CN.json",
                         "paginate": {
                             "next": "下一页",
                             "previous": "上一页"

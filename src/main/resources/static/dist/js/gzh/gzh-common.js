@@ -127,6 +127,8 @@ $(function () {
         tpTitle=$(this).attr("data-ttile");
         tpTime=$(this).attr("data-time");
         tpPhoto=$(this).attr("data-photo");
+        tpDec=$(this).attr("data-des");
+        tpUrl=$(this).attr("data-url");
         $(this).addClass("opactiy").siblings().removeClass("opactiy");
         $(this).append("<a class='bgimg'></a>").siblings().find("a").remove();
     });
@@ -207,30 +209,35 @@ $(function () {
           }
           if(thisID==2){
               var content=$("#textInput").val();
-              var webdata={"ToUserName":thisName,"MsgType":"text","Content":content};
-              $.ajax({
-                  url:contextPath +"message",
-                  type: "POST",
-                  dataType:"json",
-                  processData:true,
-                  data:{
-                      wxPublicId:wxPublicId,
-                      json:JSON.stringify(webdata)
-                  },
-                  success:function(data){
-                      if (data.content.status==500){
-                          alert(data.content.messages)
-                      }else if(data.content.status==200){
-                          alert(data.content.messages);
-                      }else {
-                          alert("发送失败");
+              if(content==""){
+                  alert("发送消息为空");
+                  return false;
+              }else{
+                  var webdata={"ToUserName":thisName,"MsgType":"text","Content":content};
+                  $.ajax({
+                      url:contextPath +"message",
+                      type: "POST",
+                      dataType:"json",
+                      processData:true,
+                      data:{
+                          wxPublicId:wxPublicId,
+                          json:JSON.stringify(webdata)
+                      },
+                      success:function(data){
+                          if (data.content.status==500){
+                              alert(data.content.messages)
+                          }else if(data.content.status==200){
+                              alert(data.content.messages);
+                          }else {
+                              alert("发送失败");
+                          }
+                      },
+                      error:function (data) {
+                          alert(data.status);
                       }
-                  },
-                  error:function (data) {
-                      alert(data.status);
-                  }
 
-              });
+                  });
+              }
           }
           //发送图片
         if(thisID==3){
