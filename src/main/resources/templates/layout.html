@@ -72,36 +72,6 @@
         var serverName=/*[[${#request.getServerName()}]]*/;
         var port=/*[[${#request.getServerPort()}]]*/;
         var absolutePath = scheme+"://"+serverName+":"+port;
-        console.log(absolutePath);
-        $.ajaxSetup({
-            timeout: 3000,
-            dataType: 'json',
-            processData: false,
-            //请求成功后触发
-            success: function (data) {
-                console.log("success");
-            },
-            //请求失败遇到异常触发
-            error: function (xhr,status, e) {
-                console.log("error");
-            },
-            //完成请求后触发。即在success或error触发后触发
-            complete: function (event,xhr,options) {
-
-                if (xhr.responseText == 'timeout') { //超时标识
-                    location.href='/login'; //跳转到登录页面
-                }
-            },
-            //发送请求前触发
-            beforeSend: function (xhr,ajax) {
-                //可以设置自定义标头
-                /*if(ajax.type.toLowerCase()!="get"||ajax.type.toLowerCase()!="delete"){
-                    xhr.setRequestHeader('Content-Type', 'application/json;charset=utf-8');
-                    ajax.data=JSON.stringify(ajax.data);
-                    ajax.dataType="json";
-                }*/
-            },
-        })
     </script>
 
     <script th:src="@{/js/globe.js}"></script>
@@ -670,6 +640,13 @@
     });
 
 
+</script>
+<script type="text/javascript">
+    $(document).ajaxComplete(function (event,xhr,options) {
+        if (xhr.responseText == 'timeout') { //超时标识
+            location.href='/login'; //跳转到登录页面
+        }
+    })
 </script>
 </body>
 </html>
