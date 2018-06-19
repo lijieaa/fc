@@ -1,11 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
+    <link rel="stylesheet" th:href="@{/dist/css/gzh-l/menu-css.css}"/>
     <style>
-        *{
-            margin: 0;
-            padding: 0;
-            list-style: none;
+        ol, ul{
+            margin: 0!important;
         }
         .gzh-manage-menu{
             margin-top: 15px;
@@ -23,154 +22,6 @@
             margin-right: 35px;
             margin-top: -10px;
         }
-        .display-inline{
-            display: inline-block;
-        }
-        .position-relac{
-            position: relative;
-        }
-        .float-left{
-            float: left;
-        }
-        .float-right{
-            float: right;
-        }
-        .page-left{
-            width: 30%;
-            height: 500px;
-            outline: 1px solid gainsboro;
-        }
-        .page-right{
-            width: 65%;
-            height: 500px;
-            outline: 1px solid gainsboro;
-            margin-left: 20px;
-            vertical-align: top;
-            background-color: #f4f5f9;
-            border: 1px solid #e7e7eb;
-        }
-        .menus{
-            position: absolute;
-            width: 100%;
-            height: 50px;
-            left: -25px;
-            bottom: 0;
-            /*padding-left: 43px;*/
-            /*background: url("../../static/dist/img/menu_foot.png") no-repeat;*/
-            box-sizing: border-box;
-            border-top: 1px solid #f4f5f9;
-        }
-        .menus>li{
-            position: relative;
-            width: 33.3%;
-            float: left;
-            height: 50px;
-            line-height: 50px;
-            text-align: center;
-            border-left: 1px solid gainsboro;
-        }
-        .menus .child-menu{
-            display: inline-block;
-        }
-        .child-menu{
-            /*display: none;*/
-            position: absolute;
-            bottom: 50px;
-            left: -18px;
-            width: 100%;
-            border: 1px solid greenyellow;
-            box-sizing: border-box;
-        }
-
-        .child-menu li{
-            border-bottom: 1px solid greenyellow;
-            height: 50px;
-        }
-        .icon14_menu_add {
-            /*background: url("../../static/dist/img/index_z354723.png") 0px 0px no-repeat;*/
-            width: 14px;
-            height: 14px;
-            vertical-align: middle;
-            display: inline-block;
-            margin-top: -2px;
-            font-size: 14px;
-        }
-        .current>span{
-            /*width: 100%;*/
-            /*display: inline-block;*/
-            color: blueviolet;
-            /*white-space: nowrap;*/
-            /*overflow: hidden;*/
-            /*text-overflow: ellipsis;*/
-        }
-        .menus span{
-            width: 100%;
-            display: inline-block;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .menu-header{
-            height: 40px;
-            border-bottom: 1px solid gray;
-            line-height: 40px;
-        }
-        .menu-input-group{
-            margin-top: 10px;
-            margin-bottom: 10px;
-            overflow: hidden;
-        }
-        .menu-input-group>div{
-            padding-left: 10px;
-        }
-        .menu-jinput>input{
-            height: 20px;
-            line-height: 25px;
-        }
-        .mgl-5{
-            margin-left: 5px;
-        }
-        .mgr-5{
-            margin-right: 5px;
-        }
-        .mgt-5{
-            margin-top: 5px;
-        }
-        .submit{width: 69px;
-            height: 31px;
-            border: none;
-            background: paleturquoise;
-            border-radius: 5px;
-            /* margin-top: 23px; */
-            /* position: relative; */
-            /* top: 10px; */
-            display: block;
-            text-align: center;
-            margin: 24px auto;
-        }
-        .sub-menu-select li{
-            display: inline-block;
-            padding: 0 15px;
-        }
-        .sub-menu-select{
-            width: 100%;
-            background: paleturquoise;
-            height: 30px;
-            line-height: 30px;
-        }
-        .sub-menu-select .active{
-            color: white;
-        }
-        .sub-menu-content{
-            background: white;
-            height: 230px;
-            overflow: hidden;
-        }
-        .sub-menu-content .ptFont{
-            display: block;
-            margin: 68px auto;
-        }
     </style>
 </head>
 <body layout:fragment="content">
@@ -184,117 +35,166 @@
             <a class="font-size-14" data-id="4">素材管理</a>
             <button class="btn btn-info search text-center pull-right" id="backUl">返回</button>
         </section>
-        <div style="margin-left: 2.5%;margin-top:3%;width: 95%;height: 600px;" id="menu">
-            <div class="page-left display-inline position-relac">
-                <ul class="menus">
-                    <li v-for="(item,i) in menu.button" :id="selectedMenuIndex" :id1="i" :class="{current:selectedMenuIndex ===i&&selectedMenuLevel()==1}" @click="selectedMenu(i,$event)">
-                        <span>{{item.name}}</span>
-                        <ul class="child-menu" v-show="selectedMenuIndex===i">
-                            <li v-for="(child,i1) in item.childMenu" :id="selectedSubMenuIndex" :id1="i" :class="{current:selectedSubMenuIndex===i1&&selectedMenuLevel()==2}" @click.stop="selectedSubMenu(i1,$event)">
-                                <span>{{child.name}}</span>
-                            </li>
-                            <li v-if="item.childMenu.length<5" @click.stop="addMenu(2)">
-                                <b class="icon14_menu_add">+</b>
-                            </li>
-                        </ul>
-                    </li>
-                    <li v-if="menu.button.length<3" @click="addMenu(1)">
-                        <b class="icon14_menu_add">+</b>
-                    </li>
-                </ul>
-            </div>
-            <!--主菜单-->
-            <div class="page-right display-inline" v-if="selectedMenuLevel()==1">
-                <div class="menu-input-group" style="border-bottom: 2px #e8e8e8 solid;">
-                    <div class="menu-header">
-                        <div class="menu-name mgl-5 float-left">{{menu.button[selectedMenuIndex].name}}</div>
-                        <div class="menu-del mgr-5 float-right" >删除菜单</div>
-                    </div>
-                    <div class="menu-input-group">
-                        <div class="menu-labe mgt-5 float-left">菜单名称</div>
-                        <div class="menu-jinput mgt-5">
-                            <input type="text" class="float-left mgl-5" name="name" placeholder="请输入菜单名称"
-                                   v-model="menu.button[selectedMenuIndex].name">
-                        </div>
-                    </div>
-                    <template v-if="menu.button[selectedMenuIndex].childMenu.length == 0">
-                        <div class="menu-input-group">
-                            <div class="menu-labe mgt-5 float-left">菜单内容</div>
-                            <div class="menu-select  mgt-5 mgl-5 float-left">
-                                <input type="radio" name="select" value="postMsg"  id="select1" v-model="menu.button[selectedMenuIndex].isSelect">
-                                <label for="select1">发送消息</label>
-                            </div>
-                            <div class="menu-select mgt-5 mgl-5 float-left">
-                                <input type="radio" name="select" value="view" id="select2" v-model="menu.button[selectedMenuIndex].isSelect">
-                                <label for="select2">跳转网页</label>
-                            </div>
-                        </div>
-                        <div class="show-content"  v-if="selectTab()==1">
-                            <ul class="sub-menu-select">
-                                <li :type="menu.button[selectedMenuIndex].type" :class="{active:currentSelect()==1}" @click="subMenu('msg')">图文消息</li>
-                                <li :type="menu.button[selectedMenuIndex].type" :class="{active:currentSelect()==2}" @click="subMenu('font')">文字</li>
-                                <li :type="menu.button[selectedMenuIndex].type" :class="{active:currentSelect()==3}" @click="subMenu('photo')">图片</li>
-                                <li :type="menu.button[selectedMenuIndex].type" :class="{active:currentSelect()==4}" @click="subMenu('voice')">语音</li>
-                            </ul>
-                            <div class="sub-menu-content" v-if="currentSelect() ==1">
-                                <button class="ptFont" @click="fromSelect">从素材库中选择</button>
-                            </div>
-                            <div class="sub-menu-content" v-if="currentSelect() ==2">
-                                文字
-                            </div>
-                            <div class="sub-menu-content" v-if="currentSelect() ==3">
-                                图片
-                            </div>
-                            <div class="sub-menu-content" v-if="currentSelect() ==4">
-                                语音
-                            </div>
-                        </div>
-                        <div class="show-content" v-if="selectTab()==2">
-                            发送消息
-                        </div>
-                    </template>
-                </div>
-            </div>
-
-            <!--子菜单-->
-            <div class="page-right display-inline" v-if="selectedMenuLevel()==2">
-                <div class="menu-input-group" style="border-bottom: 2px #e8e8e8 solid;">
-                    <div class="menu-header">
-                        <div class="menu-name mgl-5 float-left">{{menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].name}}</div>
-                        <div class="menu-del mgr-5 float-right" >删除菜单</div>
-                    </div>
-                    <div class="menu-input-group">
-                        <div class="menu-labe mgt-5 float-left">菜单名称</div>
-                        <div class="menu-jinput mgt-5">
-                            <input type="text" class="float-left mgl-5" name="name" placeholder="请输入子菜单名称"
-                                   v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].name">
-                        </div>
-                    </div>
-                    <template>
-                        <div class="menu-input-group">
-                            <div class="menu-labe mgt-5 float-left">菜单内容</div>
-                            <div class="menu-select  mgt-5 mgl-5 float-left">
-                                <input type="radio" name="select" value="postMsg"  id="select3" v-model="menu.button[selectedMenuIndex].isSelect">
-                                <label for="select3">发送消息</label>
-                            </div>
-                            <div class="menu-select mgt-5 mgl-5 float-left">
-                                <input type="radio" name="select" value="view" id="select4" v-model="menu.button[selectedMenuIndex].isSelect">
-                                <label for="select4">跳转网页</label>
-                            </div>
-                        </div>
-
-                        <div class="show-content" v-if="selectTab()==1">
-
-                        </div>
-                        <div class="show-content" v-if="selectTab()==2">
-                            发送消息
-                        </div>
-                    </template>
-                </div>
-            </div>
-
-            <button @click="submitData" class="submit">提交</button>
+    </div>
+    <!--菜单-->
+    <div id="app" style="margin-top: 3%;">
+        <div class="page-left display-inline position-relac">
+            <ul class="menus">
+                <li v-for="(item,i) in menu.button" :id="selectedMenuIndex" :id1="i"
+                    :class="{current:selectedMenuIndex ===i&&selectedMenuLevel()==1}"
+                    @click="selectedMenu(i,$event)">
+                    <span>{{item.name}}</span>
+                    <ul class="child-menu" v-show="selectedMenuIndex===i">
+                        <li v-for="(child,i1) in item.childMenu" :id="selectedSubMenuIndex" :id1="i"
+                            :class="{current:selectedSubMenuIndex===i1&&selectedMenuLevel()==2}"
+                            @click.stop="selectedSubMenu(i1,$event)">
+                            <span>{{child.name}}</span>
+                        </li>
+                        <li v-if="item.childMenu.length<5" @click.stop="addMenu(2)">
+                            <i class="icon14_menu_add"></i>
+                        </li>
+                    </ul>
+                </li>
+                <li v-if="menu.button.length<3" @click="addMenu(1)">
+                    <i class="icon14_menu_add"></i>
+                </li>
+            </ul>
         </div>
+        <!--主菜单-->
+        <div class="page-right display-inline" v-if="selectedMenuLevel()==1">
+            <div class="menu-input-group" style="border-bottom: 2px #e8e8e8 solid;">
+                <div class="menu-header">
+                    <div class="menu-name mgl-5 float-left">{{menu.button[selectedMenuIndex].name}}</div>
+                    <div class="menu-del mgr-5 float-right" @click="delMenu">删除菜单</div>
+                </div>
+                <div class="menu-input-group">
+                    <div class="menu-labe mgt-5 float-left">菜单名称</div>
+                    <div class="menu-jinput mgt-5">
+                        <input type="text" class="float-left mgl-5" name="name" placeholder="请输入菜单名称"
+                               v-model="menu.button[selectedMenuIndex].name">
+                    </div>
+                </div>
+                <template v-if="menu.button[selectedMenuIndex].childMenu.length == 0">
+                    <div class="menu-input-group">
+                        <div class="menu-labe mgt-5 float-left">菜单内容</div>
+                        <div class="menu-select  mgt-5 mgl-5 float-left">
+                            <input type="radio" name="select" value="postMsg"
+                                   id="select1" v-model="menu.button[selectedMenuIndex].isSelect">
+                            <label for="select1">发送消息</label>
+                        </div>
+                        <div class="menu-select mgt-5 mgl-5 float-left">
+                            <input type="radio" name="select" value="view" id="select2"
+                                   v-model="menu.button[selectedMenuIndex].isSelect">
+                            <label for="select2">跳转网页</label>
+                        </div>
+                    </div>
+                    <div class="show-content"  v-if="selectTab()==1">
+                        <ul class="sub-menu-select">
+                            <li :type="menu.button[selectedMenuIndex].type"
+                                :class="{active:currentSelect()==1}"
+                                @click="subMenu(selectedMenuLevel(),'msg')">图文消息</li>
+                            <li :type="menu.button[selectedMenuIndex].type"
+                                :class="{active:currentSelect()==2}"
+                                @click="subMenu(selectedMenuLevel(),'font')">文字</li>
+                            <li :type="menu.button[selectedMenuIndex].type"
+                                :class="{active:currentSelect()==3}"
+                                @click="subMenu(selectedMenuLevel(),'photo')">图片</li>
+                            <li :type="menu.button[selectedMenuIndex].type"
+                                :class="{active:currentSelect()==4}"
+                                @click="subMenu(selectedMenuLevel(),'voice')">语音</li>
+                        </ul>
+                        <div class="sub-menu-content" v-if="currentSelect() ==1">
+                            <button class="ptFont" @click="fromSelect">
+                                <input type="text" v-model="menu.button[selectedMenuIndex].msgValue">
+                            </button>
+                        </div>
+                        <div class="sub-menu-content" v-if="currentSelect() ==2">
+                            <input type="text" v-model="menu.button[selectedMenuIndex].fontValue">
+                        </div>
+                        <div class="sub-menu-content" v-if="currentSelect() ==3">
+                            <input type="text" v-model="menu.button[selectedMenuIndex].photoValue">
+                        </div>
+                        <div class="sub-menu-content" v-if="currentSelect() ==4">
+                            <input type="text" v-model="menu.button[selectedMenuIndex].voiceValue">
+                        </div>
+                    </div>
+                    <div class="show-content" v-if="selectTab()==2">
+                        <input type="text" v-model="menu.button[selectedMenuIndex].url">
+                    </div>
+                </template>
+            </div>
+        </div>
+        <!--子菜单-->
+        <div class="page-right display-inline" v-if="selectedMenuLevel()==2">
+            <div class="menu-input-group" style="border-bottom: 2px #e8e8e8 solid;">
+                <div class="menu-header">
+                    <div class="menu-name mgl-5 float-left">{{menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].name}}</div>
+                    <div class="menu-del mgr-5 float-right"  @click="delSubMenu">删除子菜单</div>
+                </div>
+                <div class="menu-input-group">
+                    <div class="menu-labe mgt-5 float-left">菜单名称</div>
+                    <div class="menu-jinput mgt-5">
+                        <input type="text" class="float-left mgl-5" name="name" placeholder="请输入子菜单名称"
+                               v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].name">
+                    </div>
+                </div>
+                <template>
+                    <div class="menu-input-group">
+                        <div class="menu-labe mgt-5 float-left">菜单内容</div>
+                        <div class="menu-select  mgt-5 mgl-5 float-left">
+                            <input type="radio" name="select" value="postMsg"
+                                   id="select3"
+                                   v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].isSelect">
+                            <label for="select3">发送消息</label>
+                        </div>
+                        <div class="menu-select mgt-5 mgl-5 float-left">
+                            <input type="radio" name="select" value="view" id="select4"
+                                   v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].isSelect">
+                            <label for="select4">跳转网页</label>
+                        </div>
+                    </div>
+
+                    <div class="show-content"  v-if="selectTab()==1">
+                        <ul class="sub-menu-select">
+                            <li :type="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].type"
+                                :class="{active:currentSubSelect()==1}"
+                                @click="subMenu(selectedMenuLevel(),'msg')">图文消息</li>
+                            <li :type="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].type"
+                                :class="{active:currentSubSelect()==2}"
+                                @click="subMenu(selectedMenuLevel(),'font')">文字</li>
+                            <li :type="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].type"
+                                :class="{active:currentSubSelect()==3}"
+                                @click="subMenu(selectedMenuLevel(),'photo')">图片</li>
+                            <li :type="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].type"
+                                :class="{active:currentSubSelect()==4}"
+                                @click="subMenu(selectedMenuLevel(),'voice')">语音</li>
+                        </ul>
+                        <div class="sub-menu-content" v-if="currentSelect() ==1">
+                            <button class="ptFont" @click="fromSelect">
+                                <input type="text" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].msgValue">
+                            </button>
+                        </div>
+                        <div class="sub-menu-content" v-if="currentSelect() ==2">
+                            <input type="text" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].fontValue">
+                        </div>
+                        <div class="sub-menu-content" v-if="currentSelect() ==3">
+                            <input type="text" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].photoValue">
+                        </div>
+                        <div class="sub-menu-content" v-if="currentSelect() ==4">
+                            <input type="text" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].voiceValue">
+                        </div>
+                    </div>
+                    <div class="show-content" v-if="selectTab()==2">
+                        <input type="text" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].url">
+                    </div>
+                </template>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+        <button @click="submitData" class="submit" style="margin-top: 15px;">提交</button>
+
+
+
     </div>
     <!--弹出层-->
     <div id="materialList" style="display: none;">
