@@ -13,7 +13,32 @@ new Vue({
     selectedMenuIndex:'',//当前选中菜单索引
     selectedSubMenuIndex:'',//当前选中子菜单索引
     menu:{
-      button:[]
+        button:[
+            {
+                "name":"菜单1",
+                "childMenu":[
+                    {
+                        "videoValue":"",
+                        "isSelect":"postMsg",
+                        "msgValue":"111",
+                        "name":"一级目录",
+                        "photoValue":"222",
+                        "type":"msg",
+                        "url":"",
+                        "voiceValue":""
+                    }
+                ],
+                "videoValue":"",
+                "isSelect":"postMsg",
+                "msgValue":"",
+                "photoValue":"",
+                "type":"photo",
+                "url":"",
+                "voiceValue":""
+            },
+            {"name":"菜单2","childMenu":[],"videoValue":"","isSelect":"postMsg","msgValue":"","photoValue":"","type":"photo","url":"","voiceValue":""},
+            {"name":"菜单3","childMenu":[],"videoValue":"","isSelect":"postMsg","msgValue":"","photoValue":"","type":"photo","url":"","voiceValue":""}
+        ]
     }
   },
   methods:{
@@ -25,7 +50,7 @@ new Vue({
             "type":"msg",
             "url":"",
             "msgValue":"",
-            "fontValue":"",
+            "videoValue":"",
             "photoValue":"",
             "voiceValue":"",
             "childMenu":[]
@@ -40,7 +65,7 @@ new Vue({
             "type":"msg",
             "url":"",
             "msgValue":"",
-            "fontValue":"",
+            "videoValue":"",
             "photoValue":"",
             "voiceValue":""
         });
@@ -88,7 +113,7 @@ new Vue({
                   break;
               case 'view':
                   this.menu.button[this.selectedMenuIndex].msgValue = "";
-                  this.menu.button[this.selectedMenuIndex].fontValue = "";
+                  this.menu.button[this.selectedMenuIndex].videoValue = "";
                   this.menu.button[this.selectedMenuIndex].photoValue = "";
                   this.menu.button[this.selectedMenuIndex].voiceValue = "";
                   return 2;
@@ -102,7 +127,7 @@ new Vue({
                   break;
               case 'view':
                   this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].msgValue = "";
-                  this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].fontValue = "";
+                  this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].videoValue = "";
                   this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].photoValue = "";
                   this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].voiceValue = "";
                   return 2;
