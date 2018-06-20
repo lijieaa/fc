@@ -30,6 +30,9 @@
         .btn, .border-none {
             border: 1px solid #6FB3E0;
         }
+        .page-content{
+            background: #f1f2f7!important;
+        }
     </style>
 </head>
 
@@ -37,103 +40,102 @@
 <div class="wrapper" id="company">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <section class="content-header change-content">
+        <div class="page-header" style="padding-bottom: 0;margin-bottom: 6px">
             <div class="row">
-                <div class="col-md-9 col-sm-9">
-                    <div class="float-left">
-                        <span class="font-size-18 border-left-blue">中间商的详情</span>
-                    </div>
+                <div class="col-md-9 col-sm-9" style="padding-left: 0;">
+                    <span class="font-size-18 border-left-blue">中间商的详情</span>
                 </div>
-                <div class="col-md-3 col-sm-3 text-align-right">
-                    <!--<button type="button" class="btn btn-block btn-info">添加设备</button>-->
-                    <button type="button" class="btn back-btn btn-info padding-right-15"
+                <div class="col-md-3 col-sm-3 text-align-right" style="padding-right: 0">
+                    <button type="button" class="btn btn-info padding-right-15"
                             data-toggle="modal" data-target="#modal-info" @click="backMediary">
+                        <i class="ace-icon fa fa-reply icon-only"></i>
                         返回
                     </button>
                 </div>
             </div>
-        </section>
-        <section class="content-list">
-            <div class="page-content">
-                <div class="row">
-                    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12  page-content">
-                        <div class="logo-detail paading-top-0  padding-10">
-                            <div class="row">
-                                <div class="col-md-6 padding-15 back-white col-sm-8 col-xs-6 ">
-                                    <table class="detail-table">
-                                        <tr class="row-ji">
-                                            <td>中间商名称</td>
-                                            <td>
-                                                <span v-text="dataList.intermediaryName"></span>
-                                            </td>
-                                        </tr>
-                                        <tr >
-                                            <td>所属地区</td>
-                                            <td>
-                                                <span v-text="dataList.area.name"></span>
-                                            </td>
-                                        </tr>
-                                        <tr class="row-ji">
-                                            <td>联系人</td>
-                                            <td>
-                                                <span v-text="dataList.intermediaryContact"></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>联系方式</td>
-                                            <td>
-                                                <span  v-text="dataList.intermediaryContactTel"></span>
-                                            </td>
-                                        </tr>
-                                        <tr class="row-ji">
-                                            <td>平台对接人</td>
-                                            <td>
-                                                <span v-text="dataList.user.name">张三</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>联系方式</td>
-                                            <td>
-                                                <span  v-text="dataList.user.mobile"></span>
-                                            </td>
-                                        </tr>
-                                    </table>
+        </div>
+        <section class="content-list" style="padding: 0">
+            <!--<div class="page-content">-->
+                <!---->
+            <!--</div>-->
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12" style="padding-left: 0">
+                    <div class="logo-detail paading-top-0  padding-10">
+                        <div class="row">
+                            <div class="col-md-6 padding-15 back-white col-sm-8 col-xs-6 ">
+                                <table class="detail-table">
+                                    <tr class="row-ji">
+                                        <td>中间商名称</td>
+                                        <td>
+                                            <span v-text="dataList.intermediaryName"></span>
+                                        </td>
+                                    </tr>
+                                    <tr >
+                                        <td>所属地区</td>
+                                        <td>
+                                            <span v-text="dataList.area.name"></span>
+                                        </td>
+                                    </tr>
+                                    <tr class="row-ji">
+                                        <td>联系人</td>
+                                        <td>
+                                            <span v-text="dataList.intermediaryContact"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>联系方式</td>
+                                        <td>
+                                            <span  v-text="dataList.intermediaryContactTel"></span>
+                                        </td>
+                                    </tr>
+                                    <tr class="row-ji">
+                                        <td>平台对接人</td>
+                                        <td>
+                                            <span v-text="dataList.user.name">张三</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>联系方式</td>
+                                        <td>
+                                            <span  v-text="dataList.user.mobile"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-6 padding-15 back-white col-sm-4 col-xs-6 ">
+                                <div class="common-title">
+                                    中间商Logo
                                 </div>
-                                <div class="col-md-6 padding-15 logo-div back-white col-sm-4 col-xs-6 ">
-                                    <div class="common-title">
-                                        中间商Logo
-                                    </div>
-                                    <div class="logo-img-contain">
-                                        <img v-bind:src="dataList.intermediaryLogoUrl" alt="">
-                                    </div>
+                                <div class="logo-img-contain">
+                                    <img v-bind:src="dataList.intermediaryLogoUrl" alt="">
                                 </div>
+                            </div>
 
-                            </div>
-                        </div>
-                        <div class="row back-white margin-top-6 product-detail">
-                            <div class="col-md-12 common-title padding-left-6 ">
-                                简要介绍
-                            </div>
-                            <div class="col-md-12 company-content padding-left-6 intermediaryIntroduction" ref="intermediaryIntroduction">
-                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 back-white col-xs-12 padding-bottom-10 company-right-content">
-                        <div class="border-left-black">
-                            <div class="row head">
-                                <div class="col-md-7 circle-msg  height-35 col-xs-7 padding-left-15">
-                                    <div class="direct-chat-text flow-msg">
-                                        跟进信息
-                                    </div>
-                                </div>
-                                <div class="col-md-5 col-xs-5 text-right padding-right-15">
-                                    <button type="button" class="btn purple-btn btn-default" @click="addGJ">新增改进</button>
+                    <div class="row back-white margin-top-6 product-detail">
+                        <div class="col-md-12 common-title padding-left-6 ">
+                            简要介绍
+                        </div>
+                        <div class="col-md-12 company-content padding-left-6 intermediaryIntroduction" ref="intermediaryIntroduction">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 back-white col-xs-12 padding-bottom-10 company-right-content">
+                    <div class="border-left-black">
+                        <div class="row head">
+                            <div class="col-md-7 circle-msg  height-35 col-xs-7 padding-left-15">
+                                <div class="direct-chat-text flow-msg">
+                                    跟进信息
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <comment-list v-for = "item in commentList" v-bind:comment="item"></comment-list>
-                                </div>
+                            <div class="col-md-5 col-xs-5 text-right padding-right-15">
+                                <button type="button" class="btn purple-btn btn-default" @click="addGJ">新增改进</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <comment-list v-for = "item in commentList" v-bind:comment="item"></comment-list>
                             </div>
                         </div>
                     </div>

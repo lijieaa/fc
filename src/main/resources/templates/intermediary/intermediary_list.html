@@ -22,7 +22,7 @@
 
                             <div class="widget-toolbar">
                                 <a href="#" data-action="collapse">
-                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                    <i class="ace-icon fa fa-chevron-down"></i>
                                 </a>
                             </div>
                         </div>
@@ -334,10 +334,10 @@
                                             + '<a class="blue" href="detail/?id='+data.intermediaryId+'"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
                                                     [/]
                                             [# sec:authorize="hasAuthority('intermediary:edit')"]
-                                            + '<a class="green" href="edit/?id='+data.intermediaryId+'"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
+                                            + '<a class="blue" href="edit/?id='+data.intermediaryId+'"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
                                                     [/]
                                             [# sec:authorize="hasAuthority('intermediary:delete')"]
-                                            + '<a class="red delete" data-id="'+data.intermediaryId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
+                                            + '<a class="blue delete" data-id="'+data.intermediaryId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
                                                     [/]
                                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
@@ -345,10 +345,10 @@
                                             + '<li><a href="detail/?id='+data.intermediaryId+'" class="tooltip-info" data-rel="tooltip" title="查看"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
                                                     [/]
                                             [# sec:authorize="hasAuthority('intermediary:edit')"]
-                                            + '<li><a href="edit/?id='+data.intermediaryId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
+                                            + '<li><a href="edit/?id='+data.intermediaryId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="blue"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
                                                     [/]
                                             [# sec:authorize="hasAuthority('intermediary:delete')"]
-                                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.intermediaryId+'"><span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
+                                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.intermediaryId+'"><span class="blue"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
                                                     [/]
                                             +'</ul></div></div>';
                                         }

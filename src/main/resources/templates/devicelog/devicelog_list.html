@@ -9,9 +9,9 @@
         .btn, .border-none {
             border: 1px solid #1595E6;
         }
-        .btn-info, .btn-info.focus, .btn-info:focus {
-            background: #1595E6!important;
-        }
+        /*.btn-info, .btn-info.focus, .btn-info:focus {*/
+            /*background: #1595E6!important;*/
+        /*}*/
     </style>
 </head>
 <div class="page-header">
@@ -22,7 +22,9 @@
             </div>
         </div>
         <div class="col-md-3 col-sm-3 text-align-right">
-            <button type="button" data-toggle="modal"id="backList" class="btn btn-info padding-right-15">返回
+            <button type="button" data-toggle="modal"id="backList" class="btn btn-info">
+                <i class="ace-icon fa fa-reply icon-only"></i>
+                返回
             </button>
         </div>
     </div>
@@ -81,7 +83,7 @@
                                     <div class="clearfix form-actions">
                                         <div class="col-md-offset-3 col-md-9">
                                             <button class="btn btn-info" type="button" id="search">
-                                                <i class="ace-icon fa fa-check bigger-110"></i>
+                                                <i class="ace-icon glyphicon glyphicon-search"></i>
                                                 搜索
                                             </button>
                                         </div>
@@ -117,10 +119,9 @@
                                 </th>
                                 <th>操作人员</th>
                                 <th>发生时间</th>
-
                                 <th>设备生产编号</th>
-
                                 <th>操作内容</th>
+                                <th></th>
                             </tr>
                             </thead>
 
@@ -206,6 +207,7 @@
                                     {"data": "operateCommand"},
                                     {"data": "deviceLogCreateTime"},
                                     {"data": "deviceLogUpdateTime"},
+                                    {"data": null},
                                 ],
                                 "columnDefs": [
                                     {
@@ -246,12 +248,12 @@
                                                 'dden-xs action-buttons">'
 
                                                 [# sec:authorize="hasAuthority('device:delete')"]
-                                            + '<a class="red delete" data-id="'+row.deviceLogId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
+                                            + '<a class="blur delete" data-id="'+row.deviceLogId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
                                                 [/]
                                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
                                                 [# sec:authorize="hasAuthority('device:delete')"]
-                                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+row.deviceLogId+'"><span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
+                                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+row.deviceLogId+'"><span class="blue"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
                                                 [/]
                                             +'</ul></div></div>';
                                         }

@@ -3,6 +3,17 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <body layout:fragment="content">
+<head>
+    <style>
+        .btn-info, .btn-info.focus, .btn-info:focus{
+            background: #1794e4!important;
+            border-color: #1794e4;
+        }
+        .btn{
+            /*border: none;*/
+        }
+    </style>
+</head>
 <div class="page-header">
     <h1>
         设备列表
@@ -22,7 +33,7 @@
 
                             <div class="widget-toolbar">
                                 <a href="#" data-action="collapse">
-                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                    <i class="ace-icon fa fa-chevron-down"></i>
                                 </a>
                             </div>
                         </div>
@@ -298,10 +309,10 @@
                                             + '<a class="blue" href="../devicelog/list/?id='+data.deviceId+'" title="日志"><i class="ace-icon fa fa-envelope bigger-130"></i></a>'
                                                 [/]
                                             [# sec:authorize="hasAuthority('device:edit')"]
-                                            + '<a class="green" href="edit/?id='+data.deviceId+'"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
+                                            + '<a class="blue" href="edit/?id='+data.deviceId+'" title="编辑"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
                                                     [/]
                                             [# sec:authorize="hasAuthority('device:delete')"]
-                                            + '<a class="red delete" data-id="'+data.deviceId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
+                                            + '<a class="blue delete" data-id="'+data.deviceId+'" title="删除"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
                                                     [/]
                                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
@@ -313,10 +324,10 @@
                                             + '<li><a href="../devicelog/list/?id='+data.deviceId+'" class="tooltip-info" data-rel="tooltip" title="日志"><span class="blue"><i class="ace-icon fa fa-envelope bigger-120"></i></span></a></li>'
                                                 [/]
                                             [# sec:authorize="hasAuthority('device:edit')"]
-                                            + '<li><a href="edit/?id='+data.deviceId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
+                                            + '<li><a href="edit/?id='+data.deviceId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="blue"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
                                                     [/]
                                             [# sec:authorize="hasAuthority('device:delete')"]
-                                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.deviceId+'"><span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
+                                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.deviceId+'"><span class="blue"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
                                                     [/]
                                             +'</ul></div></div>';
                                         }
