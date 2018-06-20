@@ -95,7 +95,7 @@
                                 @click="subMenu(selectedMenuLevel(),'msg')">图文消息</li>
                             <li :type="menu.button[selectedMenuIndex].type"
                                 :class="{active:currentSelect()==2}"
-                                @click="subMenu(selectedMenuLevel(),'font')">文字</li>
+                                @click="subMenu(selectedMenuLevel(),'font')">视频</li>
                             <li :type="menu.button[selectedMenuIndex].type"
                                 :class="{active:currentSelect()==3}"
                                 @click="subMenu(selectedMenuLevel(),'photo')">图片</li>
@@ -104,18 +104,22 @@
                                 @click="subMenu(selectedMenuLevel(),'voice')">语音</li>
                         </ul>
                         <div class="sub-menu-content" v-if="currentSelect() ==1">
-                            <button class="ptFont" @click="fromSelect">
+                            <button class="ptFont display" @click="fromSelect">
                                 <input type="text" v-model="menu.button[selectedMenuIndex].msgValue">
                             </button>
+                            <div class="check">选择图文</div>
                         </div>
                         <div class="sub-menu-content" v-if="currentSelect() ==2">
-                            <input type="text" v-model="menu.button[selectedMenuIndex].fontValue">
+                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].videoValue">
+                            <div class="check">选择视频</div>
                         </div>
                         <div class="sub-menu-content" v-if="currentSelect() ==3">
-                            <input type="text" v-model="menu.button[selectedMenuIndex].photoValue">
+                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].photoValue">
+                            <div class="check">选择图片</div>
                         </div>
                         <div class="sub-menu-content" v-if="currentSelect() ==4">
-                            <input type="text" v-model="menu.button[selectedMenuIndex].voiceValue">
+                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].voiceValue">
+                            <div class="check">选择音频</div>
                         </div>
                     </div>
                     <div class="show-content" v-if="selectTab()==2">
@@ -161,7 +165,7 @@
                                 @click="subMenu(selectedMenuLevel(),'msg')">图文消息</li>
                             <li :type="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==2}"
-                                @click="subMenu(selectedMenuLevel(),'font')">文字</li>
+                                @click="subMenu(selectedMenuLevel(),'font')">视频</li>
                             <li :type="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==3}"
                                 @click="subMenu(selectedMenuLevel(),'photo')">图片</li>
@@ -169,19 +173,23 @@
                                 :class="{active:currentSubSelect()==4}"
                                 @click="subMenu(selectedMenuLevel(),'voice')">语音</li>
                         </ul>
-                        <div class="sub-menu-content" v-if="currentSelect() ==1">
-                            <button class="ptFont" @click="fromSelect">
+                        <div class="sub-menu-content" v-if="currentSubSelect() ==1">
+                            <button class="ptFont display" @click="fromSelect">
                                 <input type="text" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].msgValue">
                             </button>
+                            <div class="check">选择图文</div>
                         </div>
-                        <div class="sub-menu-content" v-if="currentSelect() ==2">
-                            <input type="text" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].fontValue">
+                        <div class="sub-menu-content" v-if="currentSubSelect() ==2">
+                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].videoValue">
+                            <div class="check">选择视频</div>
                         </div>
-                        <div class="sub-menu-content" v-if="currentSelect() ==3">
-                            <input type="text" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].photoValue">
+                        <div class="sub-menu-content" v-if="currentSubSelect() ==3">
+                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].photoValue">
+                            <div class="check">选择图片</div>
                         </div>
-                        <div class="sub-menu-content" v-if="currentSelect() ==4">
-                            <input type="text" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].voiceValue">
+                        <div class="sub-menu-content" v-if="currentSubSelect() ==4">
+                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].voiceValue">
+                            <div class="check">选择音频</div>
                         </div>
                     </div>
                     <div class="show-content" v-if="selectTab()==2">
