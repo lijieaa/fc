@@ -38,7 +38,7 @@
     </style>
 </head>
 <body layout:fragment="content">
-<div class="wrapper" id="clubsDetail">
+<div class="wrapper" id="clubsDetail" v-cloak>
     <div class="page-header">
         <div class="row">
             <div class="col-md-9 col-sm-9">
@@ -47,7 +47,10 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 text-align-right">
-                <button type="button" data-toggle="modal" @click="backList" class="btn back-btn btn-info padding-right-15">返回
+                <button type="button" data-toggle="modal" @click="backList"
+                        class="btn btn-info padding-right-15">
+                    <i class="ace-icon fa fa-reply icon-only"></i>
+                    返回
                 </button>
             </div>
         </div>
@@ -313,18 +316,18 @@
                         "render": function (data, type, row) {
                             return '<div class="hidden-sm hidden-xs action-buttons">'
                                 [# sec:authorize="hasAuthority('project:edit')"] //projectId
-                            + '<a class="green" href="../../project/detailEditDevice/?id='+data.deviceId+'='+projectId+'" title="编辑"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
+                            + '<a class="blue" href="../../project/detailEditDevice/?id='+data.deviceId+'='+projectId+'" title="编辑"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:delete')"]
-                            + '<a class="red delete" data-id="'+data.projectId+'" title="删除" data-operateUser="'+row.operateUser.userid+'" data-transcribeUser="'+row.transcribeUser.userid+'" data-device="'+row.deviceId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
+                            + '<a class="blue delete" data-id="'+data.projectId+'" title="删除" data-operateUser="'+row.operateUser.userid+'" data-transcribeUser="'+row.transcribeUser.userid+'" data-device="'+row.deviceId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
                                 [/]
                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
                                 [# sec:authorize="hasAuthority('project:edit')"]
-                            + '<li><a href="../../project/detailEditDevice/?id='+data.deviceId+'='+projectId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
+                            + '<li><a href="../../project/detailEditDevice/?id='+data.deviceId+'='+projectId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="blue"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:delete')"]
-                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.projectId+'" data-operateUser="'+row.operateUser.userid+'" data-transcribeUser="'+row.transcribeUser.userid+'" data-device="'+row.deviceId+'"><span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
+                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.projectId+'" data-operateUser="'+row.operateUser.userid+'" data-transcribeUser="'+row.transcribeUser.userid+'" data-device="'+row.deviceId+'"><span class="blue"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
                                 [/]
                             +'</ul></div></div>';
                         }
