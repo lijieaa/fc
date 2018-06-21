@@ -409,7 +409,7 @@
                 //查询中间商详情
                 $.axspost(contextPath + "api/intermediary/"+id+"","get","",function(data){
                     _this.editList = data.content;
-                    $("#imgInter").attr("src",data.content.intermediaryLogoUrl);
+                    $("#imgInter").attr("src",imgPath+data.content.intermediaryLogoUrl);
                     $("#responseUrl").val(data.content.intermediaryLogoUrl);
                     responseUrl = data.content.intermediaryLogoUrl;
                     CKEDITOR.instances.editor1.setData(data.content.intermediaryIntroduction);
