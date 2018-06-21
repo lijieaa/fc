@@ -95,7 +95,10 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 text-align-right">
-                <button type="button" data-toggle="modal" @click="backList" class="btn back-btn btn-info padding-right-15">返回
+                <button type="button" data-toggle="modal" @click="backList"
+                        class="btn btn-info padding-right-15">
+                    <i class="ace-icon fa fa-reply icon-only"></i>
+                    返回
                 </button>
             </div>
         </div>
@@ -151,7 +154,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryLogoUrl">LOGO:</label>
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">LOGO:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
                                 <input type="hidden" name="intermediaryLogoUrl"  id="responseUrl" value="" class="col-xs-12 col-sm-6">
@@ -406,7 +409,7 @@
                 //查询中间商详情
                 $.axspost(contextPath + "api/intermediary/"+id+"","get","",function(data){
                     _this.editList = data.content;
-                    $("#imgInter").attr("src",data.content.intermediaryLogoUrl);
+                    $("#imgInter").attr("src",imgPath+data.content.intermediaryLogoUrl);
                     $("#responseUrl").val(data.content.intermediaryLogoUrl);
                     responseUrl = data.content.intermediaryLogoUrl;
                     CKEDITOR.instances.editor1.setData(data.content.intermediaryIntroduction);

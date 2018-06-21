@@ -18,7 +18,7 @@
 
                         <div class="widget-toolbar">
                             <a href="#" data-action="collapse">
-                                <i class="ace-icon fa fa-chevron-up"></i>
+                                <i class="ace-icon fa fa-chevron-down"></i>
                             </a>
                         </div>
                     </div>
@@ -264,10 +264,10 @@
                             + '<a class="blue" href="projectAssociation?id='+data.projectId+'" title="关联"><i class="ace-icon fa fa-exchange bigger-130"></i></a>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:edit')"]
-                            + '<a class="green" href="edit/?id='+data.projectId+'"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
+                            + '<a class="blue" href="edit/?id='+data.projectId+'"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:delete')"]
-                            + '<a class="red delete" data-id="'+data.projectId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
+                            + '<a class="blue delete" data-id="'+data.projectId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
                                 [/]
                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
@@ -278,10 +278,10 @@
                             + '<li><a href="projectAssociation?id='+data.projectId+'" class="tooltip-info" data-rel="tooltip" title="关联"><span class="blue"><i class="ace-icon fa fa-exchange bigger-120"></i></span></a></li>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:edit')"]
-                            + '<li><a href="edit/?id='+data.projectId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
+                            + '<li><a href="edit/?id='+data.projectId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="blue"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:delete')"]
-                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.projectId+'"><span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
+                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.projectId+'"><span class="blue"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
                                 [/]
                             +'</ul></div></div>';
                         }
