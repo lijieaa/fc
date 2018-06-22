@@ -18,26 +18,46 @@ new Vue({
                 "name":"菜单1",
                 "childMenu":[
                     {
-                        "videoValue":"",
+                        "type":"photo",
+                        "video":"",
+                        "msg":"",
+                        "photo":"/material/image/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2ENCGrWj7MLYoUT62QJ2Kn0&name=upload.jpg&wxPublicId=14",
+                        "voice":"",
                         "isSelect":"postMsg",
-                        "msgValue":"111",
                         "name":"一级目录",
-                        "photoValue":"222",
-                        "type":"msg",
-                        "url":"",
-                        "voiceValue":""
+                        "url":""
+                    },
+                    {
+                        "type":"voice",
+                        "video":"",
+                        "msg":"",
+                        "photo":"",
+                        "voice":"/material/voice/detail?wxPublicId=14&mediaId=f1QOuU_OT4Hrt8abnY9n2JtuBkM5JTjri6XfVo3ftDY&name=wx.mp3",
+                        "isSelect":"postMsg",
+                        "name":"二级目录",
+                        "url":""
+                    },
+                    {
+                        "type":"video",
+                        "video":"http://203.205.158.79/vweixinp.tc.qq.com/1007_8fd7c0df34794d22954303f614199302.f10.mp4?vkey=D0362E3B4CF64B3A2139439544F0ED9FD2690A4BABEB87C78A379EB4896330950B37654B5A435D3B23F99CD30F1AE849DE4DFDF3CE537716CCF2D759E65D7E75416D59D196D229C9B194C98BD573BC43F500EC2F37E3C81D&sha=0&save=1",
+                        "msg":"",
+                        "photo":"",
+                        "voice":"",
+                        "isSelect":"postMsg",
+                        "name":"三级目录",
+                        "url":""
                     }
                 ],
-                "videoValue":"",
+                "video":"444",
                 "isSelect":"postMsg",
-                "msgValue":"",
-                "photoValue":"",
-                "type":"photo",
+                "msg":"555",
+                "photo":"",
+                "type":"video",
                 "url":"",
-                "voiceValue":""
+                "voice":""
             },
-            {"name":"菜单2","childMenu":[],"videoValue":"","isSelect":"postMsg","msgValue":"","photoValue":"","type":"photo","url":"","voiceValue":""},
-            {"name":"菜单3","childMenu":[],"videoValue":"","isSelect":"postMsg","msgValue":"","photoValue":"","type":"photo","url":"","voiceValue":""}
+            {"name":"菜单2","childMenu":[],"video":"","isSelect":"postMsg","msg":"","photo":"/material/image/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2MaPsF21OaR7mIruFhnbID4&name=upload.jpg&wxPublicId=14","type":"photo","url":"","voice":""},
+            {"name":"菜单3","childMenu":[],"video":"","isSelect":"postMsg","msg":"","photo":"/material/image/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Oh0sj8PyIlnrmepRkD4-WM&name=upload.jpg&wxPublicId=14","type":"photo","url":"","voice":""}
         ]
     }
   },
@@ -49,10 +69,10 @@ new Vue({
             "isSelect":"postMsg",
             "type":"msg",
             "url":"",
-            "msgValue":"",
-            "videoValue":"",
-            "photoValue":"",
-            "voiceValue":"",
+            "msg":"",
+            "video":"",
+            "photo":"",
+            "voice":"",
             "childMenu":[]
         });
         this.selectedMenuIndex = this.menu.button.length-1;
@@ -64,10 +84,10 @@ new Vue({
             "isSelect":"postMsg", //选中哪一个菜单
             "type":"msg",
             "url":"",
-            "msgValue":"",
-            "videoValue":"",
-            "photoValue":"",
-            "voiceValue":""
+            "msg":"",
+            "video":"",
+            "photo":"",
+            "voice":""
         });
         this.selectedSubMenuIndex= this.menu.button[this.selectedMenuIndex].childMenu.length-1;
 
@@ -101,7 +121,55 @@ new Vue({
         return 0;
       }
     },
+    testFun(v){
+        var value = v.target.value;
+        if(this.selectedMenuLevel() == 1) {
+            if(this.currentSelect() == 1){
+                this.menu.button[this.selectedMenuIndex].msg = value;
+            }else if(this.currentSelect() == 2){
+                this.menu.button[this.selectedMenuIndex].video = value;
+            }else if(this.currentSelect() == 3){
+                this.menu.button[this.selectedMenuIndex].photo = value;
+            }else if(this.currentSelect() == 4){
+                this.menu.button[this.selectedMenuIndex].voice = value;
+            }
+        }else if(this.selectedMenuLevel() == 2){
+            if(this.currentSubSelect() == 1){
+                this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].msg = value;
+            }else if(this.currentSubSelect() == 2){
+                this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].video = value;
+            }else if(this.currentSubSelect() == 3){
+                this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].photo = value;
+            }else if(this.currentSubSelect() == 4){
+                this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].voice = value;
+            }
+        }
+
+
+    },
     submitData:function(){
+        for(var i = 0; i < this.menu.button.length; i++) {
+            let type = this.menu.button[i].type;
+            let value = this.menu.button[i][type];
+            this.menu.button[i].video = '';
+            this.menu.button[i].msg = '';
+            this.menu.button[i].photo = '';
+            this.menu.button[i].voice = '';
+            if(this.menu.button[i].childMenu.length == 0) {
+                this.menu.button[i][type] = value;
+            }
+            if(this.menu.button[i].childMenu && this.menu.button[i].childMenu.length){
+                for(var j = 0; j < this.menu.button[i].childMenu.length; j++) {
+                    let subType = this.menu.button[i].childMenu[j].type;
+                    let subValue = this.menu.button[i].childMenu[j][subType];
+                    this.menu.button[i].childMenu[j].video = '';
+                    this.menu.button[i].childMenu[j].msg = '';
+                    this.menu.button[i].childMenu[j].photo = '';
+                    this.menu.button[i].childMenu[j].voice = '';
+                    this.menu.button[i].childMenu[j][subType] = subValue;
+                }
+            }
+        }
       console.log(this.menu);
     },
     selectTab:function(){ //选中发送消息还是发送网页
@@ -112,10 +180,10 @@ new Vue({
                   return 1;
                   break;
               case 'view':
-                  this.menu.button[this.selectedMenuIndex].msgValue = "";
-                  this.menu.button[this.selectedMenuIndex].videoValue = "";
-                  this.menu.button[this.selectedMenuIndex].photoValue = "";
-                  this.menu.button[this.selectedMenuIndex].voiceValue = "";
+                  this.menu.button[this.selectedMenuIndex].msg = "";
+                  this.menu.button[this.selectedMenuIndex].video = "";
+                  this.menu.button[this.selectedMenuIndex].photo = "";
+                  this.menu.button[this.selectedMenuIndex].voice = "";
                   return 2;
                   break;
           }
@@ -126,10 +194,10 @@ new Vue({
                   return 1;
                   break;
               case 'view':
-                  this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].msgValue = "";
-                  this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].videoValue = "";
-                  this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].photoValue = "";
-                  this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].voiceValue = "";
+                  this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].msg = "";
+                  this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].video = "";
+                  this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].photo = "";
+                  this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].voice = "";
                   return 2;
                   break;
           }
@@ -142,8 +210,8 @@ new Vue({
               case 'msg' :
                   this.menu.button[this.selectedMenuIndex].type = 'msg';
                   break;
-              case 'font' :
-                  this.menu.button[this.selectedMenuIndex].type = 'font';
+              case 'video' :
+                  this.menu.button[this.selectedMenuIndex].type = 'video';
                   break;
               case 'photo' :
                   this.menu.button[this.selectedMenuIndex].type = 'photo';
@@ -157,8 +225,8 @@ new Vue({
               case 'msg' :
                   this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].type = 'msg';
                   break;
-              case 'font' :
-                  this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].type = 'font';
+              case 'video' :
+                  this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].type = 'video';
                   break;
               case 'photo' :
                   this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].type = 'photo';
@@ -175,7 +243,7 @@ new Vue({
       var menuIndex = this.menu.button[this.selectedMenuIndex].type;
       if(menuIndex == 'msg'){
         return 1
-      }else if(menuIndex == 'font'){
+      }else if(menuIndex == 'video'){
         return 2
       }
       else if(menuIndex == 'photo'){
@@ -191,7 +259,7 @@ new Vue({
         var submenuIndex = this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].type;
         if(submenuIndex == 'msg'){
             return 1
-        }else if(submenuIndex == 'font'){
+        }else if(submenuIndex == 'video'){
             return 2
         }
         else if(submenuIndex == 'photo'){

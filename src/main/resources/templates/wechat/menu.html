@@ -2,6 +2,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
     <link rel="stylesheet" th:href="@{/dist/css/gzh-l/menu-css.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/gzh-l/gzh-common.css}"/>
     <style>
         ol, ul{
             margin: 0!important;
@@ -95,7 +96,7 @@
                                 @click="subMenu(selectedMenuLevel(),'msg')">图文消息</li>
                             <li :type="menu.button[selectedMenuIndex].type"
                                 :class="{active:currentSelect()==2}"
-                                @click="subMenu(selectedMenuLevel(),'font')">视频</li>
+                                @click="subMenu(selectedMenuLevel(),'video')">视频</li>
                             <li :type="menu.button[selectedMenuIndex].type"
                                 :class="{active:currentSelect()==3}"
                                 @click="subMenu(selectedMenuLevel(),'photo')">图片</li>
@@ -104,22 +105,25 @@
                                 @click="subMenu(selectedMenuLevel(),'voice')">语音</li>
                         </ul>
                         <div class="sub-menu-content" v-if="currentSelect() ==1">
-                            <button class="ptFont display" @click="fromSelect">
-                                <input type="text" v-model="menu.button[selectedMenuIndex].msgValue">
-                            </button>
-                            <div class="check">选择图文</div>
+                            <!--<button class="ptFont " @click="fromSelect">-->
+                                <!--<input type="text" v-model="menu.button[selectedMenuIndex].msg">-->
+                            <!--</button>-->
+                            <div class="check" data-id="1">选择图文</div>
                         </div>
                         <div class="sub-menu-content" v-if="currentSelect() ==2">
-                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].videoValue">
-                            <div class="check">选择视频</div>
+                            <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].video">-->
+                            <div class="check" data-id="2">选择视频</div>
+                            <video v-bind:src="menu.button[selectedMenuIndex].video" controls="controls" class="showSc"></video>
                         </div>
                         <div class="sub-menu-content" v-if="currentSelect() ==3">
-                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].photoValue">
-                            <div class="check">选择图片</div>
+                            <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].photo">-->
+                            <div class="check" data-id="3">选择图片</div>
+                            <img v-bind:src="menu.button[selectedMenuIndex].photo" class="showSc">
                         </div>
                         <div class="sub-menu-content" v-if="currentSelect() ==4">
-                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].voiceValue">
-                            <div class="check">选择音频</div>
+                            <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].voice">-->
+                            <div class="check" data-id="4">选择音频</div>
+                            <audio v-bind:src="menu.button[selectedMenuIndex].voice" controls="controls" class="showSc"></audio>
                         </div>
                     </div>
                     <div class="show-content" v-if="selectTab()==2">
@@ -165,7 +169,7 @@
                                 @click="subMenu(selectedMenuLevel(),'msg')">图文消息</li>
                             <li :type="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==2}"
-                                @click="subMenu(selectedMenuLevel(),'font')">视频</li>
+                                @click="subMenu(selectedMenuLevel(),'video')">视频</li>
                             <li :type="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==3}"
                                 @click="subMenu(selectedMenuLevel(),'photo')">图片</li>
@@ -174,22 +178,26 @@
                                 @click="subMenu(selectedMenuLevel(),'voice')">语音</li>
                         </ul>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==1">
-                            <button class="ptFont display" @click="fromSelect">
-                                <input type="text" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].msgValue">
-                            </button>
-                            <div class="check">选择图文</div>
+                            <!--<button class="ptFont display " @click="fromSelect">-->
+                                <!--<input type="text" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].msg">-->
+                            <!--</button>-->
+                            <!--<img v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].msg" class="showSc">-->
+                            <div class="check" data-id="1">选择图文</div>
                         </div>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==2">
-                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].videoValue">
-                            <div class="check">选择视频</div>
+                            <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].video">-->
+                            <div class="check" data-id="2">选择视频</div>
+                            <video v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].video" controls="controls" class="showSc"></video>
                         </div>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==3">
-                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].photoValue">
-                            <div class="check">选择图片</div>
+                            <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].photo">-->
+                            <div class="check" data-id="3">选择图片</div>
+                            <img v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].photo" class="showSc">
                         </div>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==4">
-                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].voiceValue">
-                            <div class="check">选择音频</div>
+                            <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].voice">-->
+                            <div class="check" data-id="4">选择音频</div>
+                            <audio v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].voice" controls="controls" class="showSc"></audio>
                         </div>
                     </div>
                     <div class="show-content" v-if="selectTab()==2">
@@ -198,33 +206,174 @@
                 </template>
             </div>
         </div>
+        <input type="text" class="display" id="valueInput" v-on:change="testFun">
         <div style="clear: both;"></div>
         <button @click="submitData" class="submit" style="margin-top: 15px;">提交</button>
 
 
 
     </div>
-    <!--弹出层-->
-    <div id="materialList" style="display: none;">
-        <table id="material-table" class="table table-responsive table-bordered">
-            <thead>
-            <tr>
-                <th>素材名称</th>
-                <th width="130">操作</th>
-            </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+    <!--弹出层素材选择-->
+    <div class="modal" id="sourceRoom" tabindex="-1" role="dialog" aria-labelledby="mySource" style="position: absolute;top:12%;">
+        <div class="modal-dialog" role="document" style="width: 50%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-left" id="mySource">素材选择</h4>
+                </div>
+                <div class="modal-body" style="min-height: 400px;">
+                    <ul id="popImg" class="imgShow"></ul>
+                    <div id="popPagingText" class="pageIndex pagingTest"></div>
+                    <div id="popPagingTest" class="pageIndex pagingTest"></div>
+                    <div id="popPagingmp3" class="pageIndex pagingTest"></div>
+                    <div id="popPagingmp4" class="pageIndex pagingTest"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn-sure-source" class="btn btn-primary text-center">确定</button>
+                    <button type="button" id="btn-cancel-source" class="btn btn-primary text-center" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script th:src="@{/dist/js/gzh/vue.js}"></script>
 <!--<script th:src="@{/dist/js/gzh/layer.js}"></script>-->
 <script th:src="@{/dist/js/gzh/menu.js}"></script>
-<script th:src="@{/dist/js/gzh/gzh-common.js}"></script>
+<script th:src="@{/dist/js/gzh/webuploader.js}"></script>
+<script th:src="@{/dist/js/gzh/upload.js}"></script>
+<script th:src="@{/dist/js/gzh/hand-paging.js}"></script>
+<!--<script th:src="@{/dist/js/gzh/gzh-common.js}"></script>-->
 <script th:inline="javascript">
     /*<![CDATA[*/
     var wxPublicId = /*[[${wxPublicId}]]*/;
     /*]]>*/
+</script>
+<script>
+    $(document).on("click",".check",function () {
+        $("#sourceRoom").modal();
+        var thisCheckId=$(this).attr("data-id");
+        if(thisCheckId==1){
+            $("#popPagingText").show();
+            $("#popPagingTest").hide();
+            $("#popPagingmp3").hide();
+            $("#popPagingmp4").hide();
+            $("#btn-sure-source").attr("data-id",1);
+            photoTextPop(1);
+        }else if(thisCheckId==2){
+            $("#popPagingText").hide();
+            $("#popPagingTest").hide();
+            $("#popPagingmp3").hide();
+            $("#popPagingmp4").show();
+            $("#btn-sure-source").attr("data-id",2);
+            ajaxVidPop(1);
+        }else if(thisCheckId==3){
+            $("#popPagingText").hide();
+            $("#popPagingTest").show();
+            $("#popPagingmp3").hide();
+            $("#popPagingmp4").hide();
+            $("#btn-sure-source").attr("data-id",3);
+            ajaxDataPop(1);
+        }else if(thisCheckId==4){
+            $("#popPagingText").hide();
+            $("#popPagingTest").hide();
+            $("#popPagingmp3").show();
+            $("#popPagingmp4").hide();
+            $("#btn-sure-source").attr("data-id",4);
+            ajaxMpPop(1);
+        }
+
+
+    })
+    //图片选中
+    var thisSrc;
+    var thisphotoId;
+    var thisYsrc;
+    var thisYId;
+    var thisVsrc;
+    var thisVId;
+    //图文参数
+    var tpTitle;
+    var tpTime;
+    var tpPhoto;
+    var tpDec;
+    var tpUrl;
+    $(document).on("click","#popImg>li>img",function () {
+        thisSrc=$(this).attr("src");
+        thisphotoId=$(this).attr("data-id");
+        $(this).addClass("opactiy").parent().siblings().children().removeClass("opactiy");
+        $(this).parent().append("<a class='bgimg'></a>").siblings().children("a").remove();
+    });
+    //图文选中
+    $(document).on("click","#popImg>.messageLi",function () {
+        tpTitle=$(this).attr("data-ttile");
+        tpTime=$(this).attr("data-time");
+        tpPhoto=$(this).attr("data-photo");
+        tpDec=$(this).attr("data-des");
+        tpUrl=$(this).attr("data-url");
+        $(this).addClass("opactiy").siblings().removeClass("opactiy");
+        $(this).append("<a class='bgimg'></a>").siblings().find("a").remove();
+    });
+    //音频选中
+    $(document).on("click","#popImg li audio",function () {
+        thisYsrc=$(this).attr("data-src");
+        thisYId=$(this).attr("data-id");
+        $(this).addClass("opactiy").parent().siblings().children().removeClass("opactiy");
+        $(this).parent().append("<a class='bgimg'></a>").siblings().children("a").remove();
+    });
+    //视频选中
+    $(document).on("click","#popImg li video",function () {
+        thisVsrc=$(this).attr("src");
+        thisVId=$(this).attr("data-id");
+        $(this).addClass("opactiy").parent().siblings().children().removeClass("opactiy");
+        $(this).parent().append("<a class='bgimg'></a>").siblings().children("a").remove();
+    });
+    $(document).on("click","#btn-sure-source",function () {
+        var thisSureId=$(this).attr("data-id");
+        $('#sourceRoom').modal("hide");
+        var element = document.getElementById('valueInput');
+        var evt = document.createEvent('HTMLEvents');
+        if(thisSureId==1){
+
+        }else if(thisSureId==2){
+            element.value = thisVsrc;
+            evt.initEvent('change', false, true);
+            element.dispatchEvent(evt);
+        }else if(thisSureId==3){
+            element.value = thisSrc;
+            evt.initEvent('change', false, true);
+            element.dispatchEvent(evt);
+        }else if(thisSureId==4){
+            element.value = thisYsrc;
+            evt.initEvent('change', false, true);
+            element.dispatchEvent(evt);
+        }
+
+        // var thisID=$(this).attr("data-id");
+        // if(thisID==1){
+        //     var urlLink = contextPath+'material/image/detail?mediaId='+tpPhoto+"&name="+name+"&wxPublicId="+wxPublicId;
+        //     let html = `<li class="messageLi" style="height: 150px!important;list-style: none">
+        //                             <div style="height: 150px;overflow: hidden">
+        //                                 <p style="height: 20px;margin: 0;">${tpTime}</p>
+        //                                 <p><img src="${urlLink}" style="width: 200px;height: 100px;"> </p>
+        //                                 <p style="height: 20px;margin: 0;">${tpTitle}</p>
+        //                             </div>
+        //                         </li>`
+        //     $("#mediaDiv").append(html);
+        // }
+        // if(thisID==3){
+        //     var title1 = '<img class="content-img" src='+thisSrc+'>';
+        //     $("#mediaDiv").append(title1);
+        // }
+        // if(thisID==4){
+        //     var yy='<audio controls="controls" preload="auto"><source src='+thisYsrc+' type="audio/mpeg"></audio>';
+        //     $("#mediaDiv").append(yy);
+        // }
+        // if(thisID==5){
+        //     var video='<video class="content-img" controls="controls" src='+thisVsrc+'></video>';
+        //     $("#mediaDiv").append(video);
+        // }
+
+    });
 </script>
 
 </body>

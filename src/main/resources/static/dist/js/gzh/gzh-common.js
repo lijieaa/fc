@@ -102,7 +102,7 @@ $(function () {
         var cliText=$(this).attr("data-id");
         window.location.href="/wxPublic/material?wxPublicId="+wxPublicId+"&id="+cliText;
 
-    })
+    });
     //图片选中
     var thisSrc;
     var thisphotoId;
@@ -174,7 +174,7 @@ $(function () {
            $("#mediaDiv").append(video);
        }
 
-    })
+    });
 //发送消息
     $(document).on("click","#sender",function () {
           var thisName=$(this).attr("data-name");
