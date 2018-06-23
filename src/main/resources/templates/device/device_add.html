@@ -102,7 +102,6 @@
                     location.href=contextPath+"device/list";
                 },
                 changeNum:function (item) {
-                    console.log($("#Num").val());
                     if($("#Num").val().trim() == ""){
                         return false;
                     }
@@ -153,7 +152,7 @@
                 $("#Num").focus();
                 $('#deviceAddList').on('click', 'td input[type=checkbox]' , function(){
                     // var row = $(this).closest('tr').get(0);
-                    console.log(this.checked);
+                    // console.log(this.checked);
                     // if(this.checked) myTable.row(row).deselect();
                     // else myTable.row(row).select();
                 });

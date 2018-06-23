@@ -108,7 +108,6 @@
                             itemStyle:{
                                 normal:{
                                     color:function(params){
-                                        console.log(params);
                                         var colorList = ['#7266bb','#22b7e5','#24c94c',
                                             '#ebdf24','#f58706','#eb3925',
                                             '#ef60bf','#b161ef','#1cebf3','#5c7ce3'];
@@ -174,7 +173,6 @@
                             itemStyle : {
                                 normal : {
                                     color:function(params){
-                                        console.log(params);
                                         var colorList = ['#7266bb','#22b7e5','#24c94c',
                                             '#ebdf24','#f58706','#eb3925',
                                             '#ef60bf','#b161ef','#1cebf3','#5c7ce3'];
@@ -272,7 +270,6 @@
                             itemStyle : {
                                 normal : {
                                     color:function(params){
-                                        console.log(params);
                                         var colorList = ['#00cdff','#00afff','#0087c5',
                                             '#005ea1','#327db4','#003a70',
                                             '#005eb7','#0085ff','#68b7ff','#428acb'];
@@ -307,19 +304,15 @@
             method: "get",
             dataType : "json",
             success: function (data) {
-                var dataFourDevice = data.content.device;
-                var dataFourIntermediary = data.content.intermediary;
+                var dataFourDevice = data.content;
+                // var dataFourIntermediary = data.content.intermediary;
                 var device = [];
                 var intermediary = [];
                 var yearDevice = [];
-                var yearIntermediary = [];
                 dataFourDevice.map(function(v){
-                    device.push(v.count);
+                    device.push(v.dCount);
+                    intermediary.push(v.iCount);
                     yearDevice.push(v.year)
-                });
-                dataFourIntermediary.map(function(v){
-                    intermediary.push(v.count);
-                    yearIntermediary.push(v.year);
                 });
                 option4 = {
                     tooltip: {

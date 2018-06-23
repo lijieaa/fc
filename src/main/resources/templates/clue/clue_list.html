@@ -148,7 +148,7 @@
                                 'searching': false,
                                 "ajax": function (data, callback, settings) {
                                     var formData = $("#search-form").serialize();
-                                    console.log(formData);
+                                    // console.log(formData);
                                     var pageNum=data.start/data.length+1;
                                     var pageSize=data.length;
                                     var draw=data.draw;
@@ -179,7 +179,7 @@
                                             }
                                         },
                                         "error": function (XMLHttpRequest, textStatus, errorThrown) {
-                                            console.log(errorThrown);
+                                            // console.log(errorThrown);
                                         }
                                     });
                                 },
@@ -496,7 +496,6 @@
                                 ids.push(rows[i].projectId);
                             }
 
-                            console.log(ids);
 
                             $.ajax({
                                 url: contextPath+"api/project/batch",
@@ -510,7 +509,7 @@
                                     }
                                 },
                                 error: function (data) {
-                                    console.log(data);
+                                    // console.log(data);
                                 }
                             })
                         }
@@ -525,7 +524,7 @@
             });
             $(document).on("click","#changeProject",function(){
                 var id = $(this).attr("data-id");
-                console.log(id);
+                // console.log(id);
                 $.ajax({
                     url:contextPath+"api/project/status?projectId="+id,
                     type:"put",

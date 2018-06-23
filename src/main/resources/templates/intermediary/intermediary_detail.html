@@ -366,7 +366,7 @@
             _this.editorFun(); //初始化生成编辑器
 
             $.axspost(contextPath + "api/intermediary/"+detailID+"","get","",function(data){
-                console.log(data.content);
+                // console.log(data.content);
                 _this.dataList = data.content;
                 _this.dataList.intermediaryLogoUrl = imgPath + data.content.intermediaryLogoUrl
                 $(_this.$refs.intermediaryIntroduction).html(data.content.intermediaryIntroduction);
@@ -380,7 +380,7 @@
             },function(data){});
 
             bus.$on('change', function (id,msg) {
-                console.log(msg);
+                // console.log(msg);
                 $.axspost(contextPath+"api/topiccomments/topic/"+id+"","get","",function(data){
                     if(data.content.length == 0){
                         $(msg).html("")

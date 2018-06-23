@@ -152,7 +152,6 @@
                                 'searching': false,
                                 "ajax": function (data, callback, settings) {
                                     var formData = $("#search-form").serialize();
-                                    console.log(formData);
                                     var pageNum=data.start/data.length+1;
                                     var pageSize=data.length;
                                     var draw=data.draw;
@@ -184,7 +183,7 @@
                                             }
                                         },
                                         "error": function (XMLHttpRequest, textStatus, errorThrown) {
-                                            console.log(errorThrown);
+                                            // console.log(errorThrown);
                                         }
                                     });
                                 },
@@ -296,7 +295,6 @@
                                         "orderable": false,
                                         data: null,
                                         "render": function (data, type, row) {
-                                            console.log(data);
                                             return '<div class="hidden-sm hi' +
                                                 '' +
                                                 'dden-xs action-buttons">'
@@ -543,7 +541,6 @@
                                 ids.push(rows[i].deviceId);
                             }
 
-                            console.log(ids);
 
                             $.ajax({
                                 url: contextPath+"api/device/batch",
@@ -557,7 +554,7 @@
                                     }
                                 },
                                 error: function (data) {
-                                    console.log(data);
+                                    // console.log(data);
                                 }
                             })
                         }

@@ -295,12 +295,12 @@
                             }
                             //异步加载返回的数据
                             function ajaxDataFilter(treeId, parentNode, responseData) {
-                                console.log(responseData.content +"=======================");
+                                // console.log(responseData.content +"=======================");
                                 return responseData.content;
                             }
                             function zTreeOnclick(event, treeId, treeNode) {
                                 _this.editList.area.name = treeNode.name;
-                                console.log(treeNode.name);
+                                // console.log(treeNode.name);
                                 _this.editList.area.id = treeNode.id;
                                 $(".tree-div-contain").hide();
                                 _this.searchVal = "";

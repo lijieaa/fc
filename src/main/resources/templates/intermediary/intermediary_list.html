@@ -204,7 +204,7 @@
                                             }
                                         },
                                         "error": function (XMLHttpRequest, textStatus, errorThrown) {
-                                            console.log(errorThrown);
+                                            // console.log(errorThrown);
                                         }
                                     });
                                 },
@@ -560,7 +560,6 @@
                                 ids.push(rows[i].intermediaryId);
                             }
 
-                            console.log(ids);
 
                             $.ajax({
                                 url: contextPath+"api/intermediary/batch",
@@ -574,7 +573,7 @@
                                     }
                                 },
                                 error: function (data) {
-                                    console.log(data);
+
                                 }
                             })
                         }

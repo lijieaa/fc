@@ -83,7 +83,7 @@
         var postID = window.location.href.split("=");
         var deviceId  = postID[1];
         var projectId = postID[2];
-        console.log(postID);
+        // console.log(postID);
         new Vue({
             el:"#myMediary",
             data:{
@@ -138,7 +138,7 @@
                         $.axspost(contextPath + "api/device/"+deviceId+"","get","",function(data){
                             // _this.editList = data.content;
                             _this.selectOperate = data.content.operateUser.userid;
-                            console.log(_this.selectOperate);
+                            // console.log(_this.selectOperate);
                             _this.selectTranscribe = data.content.transcribeUser.userid;
 
                         },function(data){});
