@@ -40,6 +40,7 @@
     <!--菜单-->
     <div id="app" style="margin-top: 3%;">
         <div class="page-left display-inline position-relac">
+            <div class="left-title">菜单设置</div>
             <ul class="menus">
                 <li v-for="(item,i) in menu.button" :id="selectedMenuIndex" :id1="i"
                     :class="{current:selectedMenuIndex ===i&&selectedMenuLevel()==1}"
@@ -93,27 +94,32 @@
                         <ul class="sub-menu-select">
                             <li :type="menu.button[selectedMenuIndex].type"
                                 :class="{active:currentSelect()==1}"
-                                @click="subMenu(selectedMenuLevel(),'msg')">图文消息</li>
+                                @click="subMenu(selectedMenuLevel(),'msg')"><i class="glyphicon glyphicon-film"></i>图文消息</li>
                             <li :type="menu.button[selectedMenuIndex].type"
                                 :class="{active:currentSelect()==2}"
-                                @click="subMenu(selectedMenuLevel(),'video')">视频</li>
+                                @click="subMenu(selectedMenuLevel(),'video')"><i class="glyphicon glyphicon-hd-video"></i>视频</li>
                             <li :type="menu.button[selectedMenuIndex].type"
                                 :class="{active:currentSelect()==3}"
-                                @click="subMenu(selectedMenuLevel(),'photo')">图片</li>
+                                @click="subMenu(selectedMenuLevel(),'photo')"><i class="glyphicon glyphicon-picture"></i>图片</li>
                             <li :type="menu.button[selectedMenuIndex].type"
                                 :class="{active:currentSelect()==4}"
-                                @click="subMenu(selectedMenuLevel(),'voice')">语音</li>
+                                @click="subMenu(selectedMenuLevel(),'voice')"><i class="glyphicon glyphicon-ice-lolly"></i>语音</li>
                         </ul>
                         <div class="sub-menu-content" v-if="currentSelect() ==1">
                             <!--<button class="ptFont " @click="fromSelect">-->
                                 <!--<input type="text" v-model="menu.button[selectedMenuIndex].msg">-->
                             <!--</button>-->
                             <div class="check" data-id="1">选择图文</div>
+                            <div class="photoShow">
+                                <div class="showTime"></div>
+                                <div class="showImg"><img src="" width="250" height="155"> </div>
+                                <div class="showTitle"></div>
+                            </div>
                         </div>
                         <div class="sub-menu-content" v-if="currentSelect() ==2">
                             <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].video">-->
                             <div class="check" data-id="2">选择视频</div>
-                            <video v-bind:src="menu.button[selectedMenuIndex].video" controls="controls" class="showSc"></video>
+                            <video v-bind:src="menu.button[selectedMenuIndex].video" controls="controls" class="showSc" controlsList="nodownload"></video>
                         </div>
                         <div class="sub-menu-content" v-if="currentSelect() ==3">
                             <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].photo">-->
@@ -123,11 +129,12 @@
                         <div class="sub-menu-content" v-if="currentSelect() ==4">
                             <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].voice">-->
                             <div class="check" data-id="4">选择音频</div>
-                            <audio v-bind:src="menu.button[selectedMenuIndex].voice" controls="controls" class="showSc"></audio>
+                            <audio v-bind:src="menu.button[selectedMenuIndex].voice" controls="controls" class="showSc" controlsList="nodownload"></audio>
                         </div>
                     </div>
                     <div class="show-content" v-if="selectTab()==2">
-                        <input type="text" v-model="menu.button[selectedMenuIndex].url">
+                        <span style="margin-left: 10px;">页面地址：</span>
+                        <input type="text" v-model="menu.button[selectedMenuIndex].url" class="urlInput">
                     </div>
                 </template>
             </div>
@@ -166,28 +173,32 @@
                         <ul class="sub-menu-select">
                             <li :type="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==1}"
-                                @click="subMenu(selectedMenuLevel(),'msg')">图文消息</li>
+                                @click="subMenu(selectedMenuLevel(),'msg')"><i class="glyphicon glyphicon-film"></i>图文消息</li>
                             <li :type="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==2}"
-                                @click="subMenu(selectedMenuLevel(),'video')">视频</li>
+                                @click="subMenu(selectedMenuLevel(),'video')"><i class="glyphicon glyphicon-hd-video"></i>视频</li>
                             <li :type="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==3}"
-                                @click="subMenu(selectedMenuLevel(),'photo')">图片</li>
+                                @click="subMenu(selectedMenuLevel(),'photo')"><i class="glyphicon glyphicon-picture"></i>图片</li>
                             <li :type="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==4}"
-                                @click="subMenu(selectedMenuLevel(),'voice')">语音</li>
+                                @click="subMenu(selectedMenuLevel(),'voice')"><i class="glyphicon glyphicon-ice-lolly"></i>语音</li>
                         </ul>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==1">
-                            <!--<button class="ptFont display " @click="fromSelect">-->
-                                <!--<input type="text" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].msg">-->
-                            <!--</button>-->
-                            <!--<img v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].msg" class="showSc">-->
+                            <button class="ptFont display" @click="fromSelect">
+                                <input type="text" class="photoID" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].msg">
+                            </button>
                             <div class="check" data-id="1">选择图文</div>
+                            <div class="photoShow">
+                                <div class="showTime"></div>
+                                <div class="showImg"><img src="" width="250" height="155"> </div>
+                                <div class="showTitle"></div>
+                            </div>
                         </div>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==2">
                             <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].video">-->
                             <div class="check" data-id="2">选择视频</div>
-                            <video v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].video" controls="controls" class="showSc"></video>
+                            <video v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].video" controls="controls" class="showSc" controlsList="nodownload"></video>
                         </div>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==3">
                             <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].photo">-->
@@ -197,11 +208,12 @@
                         <div class="sub-menu-content" v-if="currentSubSelect() ==4">
                             <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].voice">-->
                             <div class="check" data-id="4">选择音频</div>
-                            <audio v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].voice" controls="controls" class="showSc"></audio>
+                            <audio v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].voice" controls="controls" class="showSc" controlsList="nodownload"></audio>
                         </div>
                     </div>
                     <div class="show-content" v-if="selectTab()==2">
-                        <input type="text" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].url">
+                        <span style="margin-left: 10px;">页面地址：</span>
+                        <input type="text" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].url" class="urlInput">
                     </div>
                 </template>
             </div>
@@ -249,6 +261,9 @@
     /*]]>*/
 </script>
 <script>
+    $(function () {
+        var id=$("#photoID").val();
+    })
     $(document).on("click",".check",function () {
         $("#sourceRoom").modal();
         var thisCheckId=$(this).attr("data-id");
@@ -297,6 +312,7 @@
     var tpPhoto;
     var tpDec;
     var tpUrl;
+    var tpID;
     $(document).on("click","#popImg>li>img",function () {
         thisSrc=$(this).attr("src");
         thisphotoId=$(this).attr("data-id");
@@ -310,6 +326,7 @@
         tpPhoto=$(this).attr("data-photo");
         tpDec=$(this).attr("data-des");
         tpUrl=$(this).attr("data-url");
+        tpID=$(this).attr("data-id");
         $(this).addClass("opactiy").siblings().removeClass("opactiy");
         $(this).append("<a class='bgimg'></a>").siblings().find("a").remove();
     });
@@ -333,7 +350,9 @@
         var element = document.getElementById('valueInput');
         var evt = document.createEvent('HTMLEvents');
         if(thisSureId==1){
-
+            element.value = tpID;
+            evt.initEvent('change', false, true);
+            element.dispatchEvent(evt);
         }else if(thisSureId==2){
             element.value = thisVsrc;
             evt.initEvent('change', false, true);

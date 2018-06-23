@@ -5,7 +5,36 @@
 //   props:['right'],
 //   template:" <input type='text'>",
 // })
-
+$(document).on("click","#backUl",function () {
+    window.location.href="/wxPublic/index?mid=11";
+})
+//各页面切换
+$(".gzh-manage-menu>a").click(function () {
+    var thisID=$(this).attr("data-id");
+    if(thisID==1){
+        window.location.href="/wxPublic/user?wxPublicId="+wxPublicId;
+    }else if(thisID==2){
+        window.location.href="/wxPublic/menu?wxPublicId="+wxPublicId;
+    }else if(thisID==3){
+        window.location.href="/wxPublic/msg?wxPublicId="+wxPublicId;
+    }else if (thisID==4){
+        window.location.href="/wxPublic/material?wxPublicId="+wxPublicId;
+    }
+});
+function pShow(thisPhtID) {
+    $.ajax({
+        url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+thisPhtID,
+        type: "get",
+        processData:true,
+        success:function (data) {
+            var id=data.content.thumbMediaId;
+            var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
+             $(".showTime").text(data.content.updateTime);
+             $(".showTitle").text(data.content.title);
+             $(".showImg img").attr("src",urlLink);
+        }
+    })
+}
 
 new Vue({
   el:"#app",
@@ -39,12 +68,22 @@ new Vue({
                     },
                     {
                         "type":"video",
-                        "video":"http://203.205.158.79/vweixinp.tc.qq.com/1007_8fd7c0df34794d22954303f614199302.f10.mp4?vkey=D0362E3B4CF64B3A2139439544F0ED9FD2690A4BABEB87C78A379EB4896330950B37654B5A435D3B23F99CD30F1AE849DE4DFDF3CE537716CCF2D759E65D7E75416D59D196D229C9B194C98BD573BC43F500EC2F37E3C81D&sha=0&save=1",
+                        "video":"http://203.205.158.74/vweixinp.tc.qq.com/1007_5a71528e79b04f4388b816e8f2d1071a.f10.mp4?vkey=402C7D2328C15197E1B7CFFA689D49D1C048E19A8D10D7D70446E8228F6C6C6EFBB9787A6DD8FC9384CAB02F58A1204D95D5918817395C5AABF704E8FDAEA8D9A1C38AF54860AB27C0013923C4262CF685DB3E3CD502B6A6&sha=0&save=1",
                         "msg":"",
                         "photo":"",
                         "voice":"",
                         "isSelect":"postMsg",
                         "name":"三级目录",
+                        "url":""
+                    },
+                    {
+                        "type":"msg",
+                        "video":"",
+                        "msg":"58",
+                        "photo":"",
+                        "voice":"",
+                        "isSelect":"postMsg",
+                        "name":"四级目录",
                         "url":""
                     }
                 ],
@@ -105,7 +144,7 @@ new Vue({
       }
     },
     selectedSubMenu:function(i,event){//选择子菜单
-      this.selectedSubMenuIndex = i;
+        this.selectedSubMenuIndex = i;
         this.selectTab();
     },
     //选中菜单级别
@@ -176,6 +215,21 @@ new Vue({
       if(this.selectedMenuLevel() == 1) {
           switch (this.menu.button[this.selectedMenuIndex].isSelect) {
               case 'postMsg':
+                  var thisPhtID = this.menu.button[this.selectedMenuIndex].msg;
+                  if(this.menu.button[this.selectedMenuIndex].type=="msg"){
+                      $.ajax({
+                          url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+thisPhtID,
+                          type: "get",
+                          processData:true,
+                          success:function (data) {
+                              var id=data.content.thumbMediaId;
+                              var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
+                              $(".showTime").text(data.content.updateTime);
+                              $(".showTitle").text(data.content.title);
+                              $(".showImg img").attr("src",urlLink);
+                          }
+                      });
+                  }
                   this.menu.button[this.selectedMenuIndex].url = "";
                   return 1;
                   break;
@@ -190,6 +244,21 @@ new Vue({
       }else{
           switch (this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].isSelect) {
               case 'postMsg':
+                  var thisPhtID = this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].msg;
+                  if(this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].type=="msg"){
+                      $.ajax({
+                          url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+thisPhtID,
+                          type: "get",
+                          processData:true,
+                          success:function (data) {
+                              var id=data.content.thumbMediaId;
+                              var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
+                              $(".showTime").text(data.content.updateTime);
+                              $(".showTitle").text(data.content.title);
+                              $(".showImg img").attr("src",urlLink);
+                          }
+                      });
+                  }
                   this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].url = "";
                   return 1;
                   break;
@@ -223,6 +292,8 @@ new Vue({
       }else{
           switch (msg){
               case 'msg' :
+                  var id=$(".photoID").val();
+                  pShow(id);
                   this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].type = 'msg';
                   break;
               case 'video' :
