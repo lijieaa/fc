@@ -413,7 +413,7 @@
                 //查找详情
                 $.axspost(contextPath + "api/project?id="+clubslID+"","get","",function(data){
                     _this.editList = data.content;
-                    $("#imgInter").attr("src",data.content.projectLogo);
+                    $("#imgInter").attr("src",imgPath+data.content.projectLogo);
                     $("#responseUrl").val(data.content.projectLogo);
                     _this.editList.userId = data.content.projectCreateUser.userid;
                     responseUrl = data.content.projectLogo;

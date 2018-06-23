@@ -186,6 +186,7 @@
                 type:"get",
                 success:function (data) {
                     _this.clueComment = data.content;
+                    _this.clueComment.projectLogo = imgPath+data.content.projectLogo;
                 }
             });
 

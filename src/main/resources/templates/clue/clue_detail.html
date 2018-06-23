@@ -187,7 +187,8 @@
                 <input type="text" class="form-control">
                 <span class="input-group-btn">
                   <span id="replay"></span>
-                  <button type="button" class="btn border-none btn-info btn-flat" @click="replayComment(model.projectCommentsId,$event)">回复</button>
+                  <button type="button" class="btn border-none btn-info btn-flat"
+                          @click="replayComment(model.projectCommentsId,$event)">回复</button>
                 </span>
             </div>
         </div>
@@ -243,6 +244,8 @@
                         data:JSON.stringify(data),
                         success:function(data){
                             comment.parent().prev().val("");
+                            comment.parents(".area-comment").hide();
+                            // console.log(comment.parents(".area-comment"));
                             clubDetail.$emit("change");
                         }
                     })
@@ -390,6 +393,8 @@
                 type:"get",
                 success:function (data) {
                     _this.clueComment = data.content;
+                    _this.clueComment.projectLogo = imgPath+data.content.projectLogo;
+
                 }
             });
 

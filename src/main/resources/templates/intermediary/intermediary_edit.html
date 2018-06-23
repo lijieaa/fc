@@ -410,8 +410,8 @@
                 $.axspost(contextPath + "api/intermediary/"+id+"","get","",function(data){
                     _this.editList = data.content;
                     $("#imgInter").attr("src",imgPath+data.content.intermediaryLogoUrl);
-                    $("#responseUrl").val(data.content.intermediaryLogoUrl);
-                    responseUrl = data.content.intermediaryLogoUrl;
+                    $("#responseUrl").val(imgPath+data.content.intermediaryLogoUrl);
+                    responseUrl = imgPath+data.content.intermediaryLogoUrl;
                     CKEDITOR.instances.editor1.setData(data.content.intermediaryIntroduction);
                     $("#intermediaryIntroduction").val(data.content.intermediaryIntroduction);
                 },function(data){});

@@ -368,6 +368,7 @@
             $.axspost(contextPath + "api/intermediary/"+detailID+"","get","",function(data){
                 console.log(data.content);
                 _this.dataList = data.content;
+                _this.dataList.intermediaryLogoUrl = imgPath + data.content.intermediaryLogoUrl
                 $(_this.$refs.intermediaryIntroduction).html(data.content.intermediaryIntroduction);
                 //
                 // $(".intermediaryIntroduction").html()

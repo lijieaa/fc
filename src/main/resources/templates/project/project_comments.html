@@ -23,7 +23,10 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 text-align-right">
-                <button type="button" data-toggle="modal" @click="backList" class="btn back-btn btn-info padding-right-15">返回
+                <button type="button" data-toggle="modal" @click="backList"
+                        class="btn btn-info padding-right-15">
+                    <i class="ace-icon fa fa-reply icon-only"></i>
+                    返回
                 </button>
             </div>
         </div>
@@ -63,13 +66,13 @@
 
                                 <div id="profile4" class="tab-pane">
                                     <div id="wbDemo">
-                                        <!--<item class="item" :model="wbComment"></item>-->
+                                        <item class="item" :model="wbComment"></item>
                                     </div>
                                 </div>
 
-                                <div id="dropdown14" class="tab-pane active">
+                                <div id="dropdown14" class="tab-pane">
                                     <div id="histroyDemo">
-                                        <!--<item class="item" :model="wbComment"></item>-->
+                                        <item class="item" :model="history"></item>
                                     </div>
                                     <!--<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>-->
                                 </div>
@@ -109,8 +112,10 @@
             <div class="right-clubs float-right padding-right-6">
                 <span class="bd-r">第 <span>{{model.count}}</span>条留言</span>
                 <span class="bd-r">{{model.projectCommentsCreateTime}}</span>
-                <span class="bd-r color-b"  @click="deleteComment(model.projectCommentsId)">删除</span>
-                <span class="color-b" @click="compomentRedirct(model.projectCommentsId,$event)">回复</span>
+                <span class="bd-r color-b" v-if="model.projectCommentsStatus == 1 && model.projectCommentsType==0"
+                      @click="deleteComment(model.projectCommentsId)">删除</span>
+                <span class="color-b" v-if="model.projectCommentsStatus == 1 && model.projectCommentsType==0"
+                      @click="compomentRedirct(model.projectCommentsId,$event)">评论</span>
             </div>
         </div>
         <div class="clubs-content-list" v-if="model.projectCommentsParent !=null">
@@ -122,13 +127,13 @@
                     <span v-if = "model.projectCommentsParent == model.projectCommentsId">{{model.projectCommentsNickname}}</span>
                 </span>
                 <span class="content-topic display-inline-block" v-html="model.projectCommentsContent"></span>
-                <span class="color-gray bd-g" v-if="model.projectCommentsParent != 0" @click="deleteComment(model.projectCommentsId)">删除</span>
+                <span class="color-gray bd-g" v-if="model.projectCommentsParent != 0 && model.projectCommentsStatus == 1 && model.projectCommentsType==0" @click="deleteComment(model.projectCommentsId)">删除</span>
                 <span class="color-gray bd-g" v-if="model.projectCommentsParent != 0">{{model.projectCommentsCreateTime}}</span>
-                <span class="color-gray" v-if="model.projectCommentsParent !=0"
-                      @click="reply(model.projectCommentsParent,model.projectCommentsId,model.projectCommentsNickname,$event)">回复</span>
+                <span class="color-gray" v-if="model.projectCommentsParent !=0 && model.projectCommentsStatus == 1 && model.projectCommentsType==0"
+                      @click="reply(model.projectCommentsParent,model.projectCommentsId,model.projectCommentsNickname,$event)">——【我要评论】</span>
             </div>
         </div>
-        <div class = "list-contain" :class="{'active':(model.projectCommentsParent == 0)}">
+        <div class = "list-contain inneractive" :class="{'active':(model.projectCommentsParent == 0)}">
             <item
                     class="item children-item"  style="background: white"
                     v-for="(model, index) in model.children"
@@ -143,7 +148,8 @@
                 <input type="text" class="form-control">
                 <span class="input-group-btn">
                   <span id="replay"></span>
-                  <button type="button" class="btn border-none btn-info btn-flat" @click="replayComment(model.projectCommentsId,$event)">回复</button>
+                  <button type="button" class="btn border-none btn-info btn-flat"
+                          @click="replayComment(model.projectCommentsId,$event)">评论</button>
                 </span>
             </div>
         </div>
@@ -171,9 +177,9 @@
             reply:function(id,parentId,name,event){
                 var _this = this;
                 var comment = $(event.currentTarget);
-                comment.parents(".active").next().show();
-                comment.parents(".active").next().find("input").focus();
-                comment.parents(".active").next().find("#reply").attr("parent-id",parentId).
+                comment.parents(".inneractive").next().show();
+                comment.parents(".inneractive").next().find("input").focus();
+                comment.parents(".inneractive").next().find("#reply").attr("parent-id",parentId).
                 attr("commentId",id).
                 html("回复："+name+"");
             },
@@ -199,6 +205,7 @@
                         data:JSON.stringify(data),
                         success:function(data){
                             comment.parent().prev().val("");
+                            comment.parents(".area-comment").hide();
                             projectDetail.$emit("change");
                         }
                     })
@@ -237,14 +244,18 @@
                 inputEle.find("#reply").attr("parent-id",id).
                 attr("commentId",id);
             }
+        },mounted:function(){
         }
     });
+
+
 
     var Vm =  new Vue({
         el:"#projectComment",
         data:{
             type:0,
             status:1,
+            innerComment:1, //当前是否是内部评论 1是内部评论,其他的则不是
             projectComment:{
                 children:[]
             },
@@ -361,17 +372,20 @@
                 var val = $("#page").val();
                 var id = $(this).attr("data-id");
                 if(id == 0){ //内部评论
-                    _this.ajaxData(val,0,1);
+                    _this.ajaxData(1,0,1);
                     _this.type = 0;
                     _this.status = 1;
+                    // _this.innerComment = 1;
                 }else if(id == 1){ //外部评论
-                    _this.ajaxData(val,1,1);
+                    _this.ajaxData(1,1,1);
                     _this.type = 1;
                     _this.status = 1;
+                    // _this.innerComment = 2;
                 }else{ //历史线索评论
-                    _this.ajaxData(val,0,0);
+                    _this.ajaxData(1,0,0);
                     _this.type = 0;
                     _this.status = 0;
+                    // _this.innerComment = 2;
                 }
 
             })
