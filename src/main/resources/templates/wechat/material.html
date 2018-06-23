@@ -512,7 +512,10 @@
                         if (data.content.status==500){
                             alert(data.content.messages)
                         }else if(data.content.status==200){
-                            alert(data.content.messages);
+                            // alert(data.content.messages);
+                            $("#new-photo-text").hide();
+                            $("#gzh-manage").show();
+                            photoText(1)
                         }else {
                             alert("保存失败");
                         }

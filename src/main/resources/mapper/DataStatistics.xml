@@ -38,7 +38,7 @@ GROUP BY a.name
 
     <!--近五年中间商设备趋势-->
     <!--中间商-->
-    <select id="intermediary" resultType="java.util.HashMap">
+    <select id="intermediary" resultType="com.jianpanmao.dataStatistics.dto.DataStatisticsDto">
 select
 DATE_FORMAT(i.intermediary_create_time,'%Y') year,
 COUNT(i.intermediary_id) count
@@ -49,7 +49,7 @@ AND  DATE_FORMAT(i.intermediary_create_time,'%Y') > DATE_FORMAT(DATE_ADD(NOW(),I
 GROUP BY year
     </select>
     <!--设备-->
-    <select id="device" resultType="java.util.HashMap">
+    <select id="device" resultType="com.jianpanmao.dataStatistics.dto.DataStatisticsDto">
 SELECT
 DATE_FORMAT(d.device_create_time,'%Y') year,
 COUNT(d.device_id) count

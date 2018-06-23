@@ -1,5 +1,6 @@
 package com.jianpanmao.dataStatistics.dao;
 
+import com.jianpanmao.dataStatistics.dto.DataStatisticsDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface DataStatisticsMapper {
     List<Map> projectArea();
 
 
-    List<Map> intermediary();
-    List<Map> device();
+    List<DataStatisticsDto> intermediary();
+    List<DataStatisticsDto> device();
 
 }
