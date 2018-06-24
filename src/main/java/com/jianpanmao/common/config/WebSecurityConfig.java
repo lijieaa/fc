@@ -49,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
                 //.anyRequest().permitAll()
 
+        http.headers().frameOptions().sameOrigin();
 
         http
                 .sessionManagement()
