@@ -22,7 +22,7 @@
 
                             <div class="widget-toolbar">
                                 <a href="#" data-action="collapse">
-                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                    <i class="ace-icon fa fa-chevron-down"></i>
                                 </a>
                             </div>
                         </div>
@@ -30,29 +30,29 @@
                         <div class="widget-body" style="display: none;">
                             <div class="widget-main">
                                 <form class="form-horizontal" id="search-form">
-<#list cols?keys as key>
-    <#if (key?index_of('primaryKey'))!=-1>
-        <#assign index=key?index_of('primaryKey')>
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="${key?substring(0,index-1)}">${key?substring(0,index-1)}:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="${key?substring(0,index-1)}" id="${key?substring(0,index-1)}" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-    <#else>
-        <div class="form-group">
-            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="${key}">${key}:</label>
-            <div class="col-xs-12 col-sm-9">
-                <div class="clearfix">
-                    <input type="text" name="${key}" id="${key}" class="col-xs-12 col-sm-6" />
-                </div>
-            </div>
-        </div>
-    </#if>
+                                <#list cols?keys as key>
+                                    <#if (key?index_of('primaryKey'))!=-1>
+                                        <#assign index=key?index_of('primaryKey')>
+                                        <div class="form-group">
+                                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="${key?substring(0,index-1)}">${key?substring(0,index-1)}:</label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input type="text" name="${key?substring(0,index-1)}" id="${key?substring(0,index-1)}" class="col-xs-12 col-sm-6" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <#else>
+                                        <div class="form-group">
+                                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="${key}">${key}:</label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input type="text" name="${key}" id="${key}" class="col-xs-12 col-sm-6" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </#if>
 
-</#list>
+                                </#list>
 
                                     <div class="clearfix form-actions">
                                         <div class="col-md-offset-3 col-md-9">

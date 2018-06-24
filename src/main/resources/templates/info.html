@@ -27,6 +27,9 @@
         #filePicker input[type=file] {
             opacity: 0 !important;
         }
+        #imgInter {
+            max-width: 110px;
+        }
     </style>
 </head>
 <body layout:fragment="content">
@@ -81,12 +84,6 @@
                         <div class="form-group col-sm-12 col-md-12">
                             <label class="col-sm-2 control-label no-padding-right align-right" for="add-department-staff-role">头像:</label>
                             <div class="col-sm-9" style="width: 140px;">
-                                <!--<img src="" id="uploader-img">
-                                <div id="uploader-demo">
-                                    &lt;!&ndash;用来存放item&ndash;&gt;
-                                    <div id="fileList" class="uploader-list"></div>
-                                    <div id="filePicker">选择图片</div>
-                                </div>-->
                                 <input type="hidden" name="intermediaryLogoUrl"  id="responseUrl" value="" class="col-xs-12 col-sm-6">
                                 <div id="fileList" class="uploader-list" name="intermediaryLogoUrl">
                                     <img src="" id="imgInter" alt="">
@@ -178,7 +175,9 @@
                 var result = data.content, departmentnameArr = [], departmentname = "无", roleArr = [], role = "无";
                 userid = result.userid;
                 imgSrc = result.headPic;
-                $("#imgInter").attr("src",imgPath+imgSrc);
+                if (imgSrc) {
+                    $("#imgInter").attr("src",imgPath+imgSrc);
+                }
                 if (result.depts.length) {
                     $.each(result.depts, function (i, item) {
                         departmentnameArr.push(item.name)
@@ -232,13 +231,10 @@
             $("#responseUrl").parents(".form-group").removeClass("has-error")
         });
         uploader.on( 'fileQueued', function( file ) {
-            var $li = $('<img src="" id="imgInter">');
-            $("#fileList").html($li);
             uploader.makeThumb(file, function (error, src) {
                 $("#imgInter").attr("src",src);
             });
         });
-
 
         var $formUserInfo = $('#user-info>form').validate({
             errorElement: 'span',
