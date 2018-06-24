@@ -19,7 +19,7 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="is_admin" jdbcType="INTEGER" property="isAdmin" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="headPic" jdbcType="VARCHAR" property="head_pic" />
+    <result column="head_pic" jdbcType="VARCHAR" property="headPic" />
     <association property="intermediary" resultMap="com.jianpanmao.intermediary.dao.IntermediaryMapper.BaseResultMap">
 
     </association>
@@ -495,9 +495,8 @@
   <update id="updateInfo" parameterType="com.jianpanmao.sys.entity.DingtalkUser">
     update dingtalk_user
     set `name` = #{name,jdbcType=VARCHAR},
-    mobile = #{mobile,jdbcType=VARCHAR},
     email = #{email,jdbcType=VARCHAR},
-    head_pic = #{headPic,jdbcType=VARCHAR},
+    head_pic = #{headPic,jdbcType=VARCHAR}
     where userid = #{userid,jdbcType=INTEGER}
   </update>
 

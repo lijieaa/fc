@@ -178,6 +178,7 @@
                 var result = data.content, departmentnameArr = [], departmentname = "无", roleArr = [], role = "无";
                 userid = result.userid;
                 imgSrc = result.headPic;
+                $("#imgInter").attr("src",imgPath+imgSrc);
                 if (result.depts.length) {
                     $.each(result.depts, function (i, item) {
                         departmentnameArr.push(item.name)
@@ -237,11 +238,7 @@
                 $("#imgInter").attr("src",src);
             });
         });
-        if (imgSrc) {
-            uploader.makeThumb(file, function (error, src) {
-                $("#imgInter").attr("src",imgPath+imgSrc);
-            });
-        }
+
 
         var $formUserInfo = $('#user-info>form').validate({
             errorElement: 'span',
