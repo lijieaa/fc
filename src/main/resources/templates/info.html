@@ -89,7 +89,7 @@
                                 </div>-->
                                 <input type="hidden" name="intermediaryLogoUrl"  id="responseUrl" value="" class="col-xs-12 col-sm-6">
                                 <div id="fileList" class="uploader-list" name="intermediaryLogoUrl">
-                                    <!--<img src="" id="imgInter" alt="">-->
+                                    <img src="" id="imgInter" alt="">
                                 </div>
                                 <div id="filePicker" class="margin-top-6">选择图片</div>
                             </div>
@@ -167,7 +167,7 @@
 <script th:src="@{/js/webuploader.js}"></script>
 <script type="text/javascript" th:inline="javascript">
     $(function () {
-        var userid = "";
+        var userid = "", imgSrc = "";
         $.ajax({
             url: contextPath+"api/dingtalkuser/",
             type: "get",
@@ -177,6 +177,7 @@
                 console.log(data);
                 var result = data.content, departmentnameArr = [], departmentname = "无", roleArr = [], role = "无";
                 userid = result.userid;
+                imgSrc = result.headPic;
                 if (result.depts.length) {
                     $.each(result.depts, function (i, item) {
                         departmentnameArr.push(item.name)
@@ -199,6 +200,7 @@
                 $("#add-department-staff-email").val(result.email || "无");
                 $("#add-department-staff-workplace").val(result.workplace || "无");
                 $("#add-department-staff-remark").val(result.remark || "无");
+
             },
             error: function (data) {
                 console.log(data);
@@ -235,6 +237,11 @@
                 $("#imgInter").attr("src",src);
             });
         });
+        if (imgSrc) {
+            uploader.makeThumb(file, function (error, src) {
+                $("#imgInter").attr("src",imgPath+imgSrc);
+            });
+        }
 
         var $formUserInfo = $('#user-info>form').validate({
             errorElement: 'span',
