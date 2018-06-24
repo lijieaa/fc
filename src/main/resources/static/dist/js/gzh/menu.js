@@ -299,6 +299,7 @@ new Vue({
     testFun(v){
         var value = v.target.value;
         if(this.selectedMenuLevel() == 1) {
+            this.picShow = true;
             if(this.currentSelect() == 1){
                 this.menu.button[this.selectedMenuIndex].msg = value;
             }else if(this.currentSelect() == 2){
@@ -309,6 +310,7 @@ new Vue({
                 this.menu.button[this.selectedMenuIndex].voice = value;
             }
         }else if(this.selectedMenuLevel() == 2){
+            this.picShow = true;
             if(this.currentSubSelect() == 1){
                 this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].msg = value;
             }else if(this.currentSubSelect() == 2){
