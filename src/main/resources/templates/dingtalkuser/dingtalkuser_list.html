@@ -1007,7 +1007,7 @@
                                 }
                             },
                             error: function () {
-                                alert('请求失败');
+//                                alert('请求失败');
                             }
                         });
                     }
@@ -1094,7 +1094,7 @@
                     }
                 },
                 error: function () {
-                    alert('请求失败');
+//                    alert('请求失败');
                 }
             });
         }
@@ -1234,7 +1234,7 @@
                                         _this.dialog( "close" );
                                     },
                                     error: function (data) {
-                                        console.log(data);
+//                                        console.log(data);
                                     }
                                 })
 
@@ -1259,7 +1259,7 @@
                                     _this.dialog( "close" );
                                 },
                                 error: function (data) {
-                                    console.log(data);
+//                                    console.log(data);
                                 }
                             });
                         }
@@ -1345,7 +1345,7 @@
                                         _this.dialog( "close" );
                                     },
                                     error: function (data) {
-                                        console.log(data);
+//                                        console.log(data);
                                     }
                                 })
 
@@ -1456,7 +1456,6 @@
                 }
             };
             function ajaxDataFilterFns(treeId, parentNode, responseData) {
-                console.log(responseData.content);
                 if (responseData.content) {
                     $.each(responseData.content, function (i, item) {
                         if (item.id == $(".department-name").attr("data-id")) {
@@ -1464,7 +1463,6 @@
                         }
                     })
                 }
-                console.log(responseData.content);
                 return responseData.content;
             }
             $.fn.zTree.init($("#add-department-staff-departmentname-select"), organizationSettings);
@@ -1650,13 +1648,13 @@
                                                 }
                                             },
                                             error: function () {
-                                                alert('请求失败');
+//                                                alert('请求失败');
                                             }
                                         });
                                         _this.dialog( "close" );
                                     },
                                     error: function (data) {
-                                        console.log(data);
+//                                        console.log(data);
                                     }
                                 })
                             }
@@ -1848,7 +1846,7 @@
                     });
                 },
                 error: function (data) {
-                    console.log(data);
+//                    console.log(data);
                 }
             });
             var dialog = $( "#edit-department-staff-container" ).removeClass('hide').dialog({
@@ -1985,13 +1983,13 @@
                                                 }
                                             },
                                             error: function () {
-                                                alert('请求失败');
+//                                                alert('请求失败');
                                             }
                                         });
                                         _this.dialog( "close" );
                                     },
                                     error: function (data) {
-                                        console.log(data);
+//                                        console.log(data);
                                     }
                                 })
                             }
@@ -2013,7 +2011,7 @@
                                     _this.dialog( "close" );
                                 },
                                 error: function (data) {
-                                    console.log(data);
+//                                    console.log(data);
                                 }
                             });
                         }
@@ -2088,7 +2086,7 @@
                                         _this.dialog( "close" );
                                     },
                                     error: function (data) {
-                                        console.log(data);
+//                                        console.log(data);
                                     }
                                 })
                             }
@@ -2209,12 +2207,12 @@
                             }
                         },
                         error: function () {
-                            alert('请求失败');
+//                            alert('请求失败');
                         }
                     });
                 },
                 error: function (data) {
-                    console.log(data);
+//                    console.log(data);
                 }
             })
         });
@@ -2308,7 +2306,7 @@
                         }
                     },
                     error: function () {
-                        alert('请求失败');
+//                        alert('请求失败');
                     }
                 });
             }
@@ -2386,7 +2384,7 @@
                                                 _this.dialog( "close" );
                                             },
                                             error: function (data) {
-                                                console.log(data);
+//                                                console.log(data);
                                             }
                                         })
 
@@ -2410,7 +2408,7 @@
                                             _this.dialog( "close" );
                                         },
                                         error: function (data) {
-                                            console.log(data);
+//                                            console.log(data);
                                         }
                                     });
                                 }
@@ -2506,12 +2504,12 @@
                             }
                         },
                         error: function () {
-                            alert('请求失败');
+//                            alert('请求失败');
                         }
                     });
                 },
                 error: function (data) {
-                    console.log(data);
+//                    console.log(data);
                 }
             })
         });
@@ -2568,7 +2566,7 @@
                                         _this.dialog( "close" );
                                     },
                                     error: function (data) {
-                                        console.log(data);
+//                                        console.log(data);
                                     }
                                 })
 
@@ -2694,7 +2692,7 @@
                                         _this.dialog( "close" );
                                     },
                                     error: function (data) {
-                                        console.log(data);
+//                                        console.log(data);
                                     }
                                 })
 
@@ -2828,7 +2826,7 @@
                     }
                 },
                 error: function (data) {
-                    console.log(data);
+//                    console.log(data);
                 }
             });
 
@@ -2870,7 +2868,7 @@
                                         _this.dialog( "close" );
                                     },
                                     error: function (data) {
-                                        console.log(data);
+//                                        console.log(data);
                                     }
                                 })
 
@@ -2897,7 +2895,7 @@
                                     _this.dialog( "close" );
                                 },
                                 error: function (data) {
-                                    console.log(data);
+//                                    console.log(data);
                                 }
                             });
                         }
@@ -3005,7 +3003,7 @@
                         }
                     },
                     error: function () {
-                        alert('请求失败');
+//                        alert('请求失败');
                     }
                 });
             }
@@ -3080,7 +3078,7 @@
                                                 _this.dialog( "close" );
                                             },
                                             error: function (data) {
-                                                console.log(data);
+//                                                console.log(data);
                                             }
                                         })
 
@@ -3104,7 +3102,7 @@
                                             _this.dialog( "close" );
                                         },
                                         error: function (data) {
-                                            console.log(data);
+//                                            console.log(data);
                                         }
                                     });
                                 }
@@ -3179,7 +3177,7 @@
                                                 _this.dialog( "close" );
                                             },
                                             error: function (data) {
-                                                console.log(data);
+//                                                console.log(data);
                                             }
                                         })
 
@@ -3203,7 +3201,7 @@
                                             _this.dialog( "close" );
                                         },
                                         error: function (data) {
-                                            console.log(data);
+//                                            console.log(data);
                                         }
                                     });
                                 }
@@ -3283,7 +3281,7 @@
                                         _this.dialog( "close" );
                                     },
                                     error: function (data) {
-                                        console.log(data);
+//                                        console.log(data);
                                     }
                                 })
 
@@ -3358,7 +3356,7 @@
                                         _this.dialog( "close" );
                                     },
                                     error: function (data) {
-                                        console.log(data);
+//                                        console.log(data);
                                     }
                                 })
 
@@ -3470,7 +3468,7 @@
                     }
                 },
                 error: function (data) {
-                    console.log(data);
+//                    console.log(data);
                 }
             });
 
@@ -3492,7 +3490,7 @@
                     }
                 },
                 error: function (data) {
-                    console.log(data);
+//                    console.log(data);
                 }
             });
             $("#add-outcontacts-tag-btn").unbind();
@@ -3543,7 +3541,7 @@
                                         _this.dialog( "close" );
                                     },
                                     error: function (data) {
-                                        console.log(data);
+//                                        console.log(data);
                                     }
                                 })
                             }
@@ -3609,7 +3607,7 @@
                 dataType : "json",
                 success: function (data) {
                     if (data.content) {
-                        console.log(data);
+//                        console.log(data);
                         var result = data.content, charge = result.charge, labsObj = result.labs;
                         $("#edit-outcontacts-username").val(result.username);
                         $("#edit-outcontacts-company").val(result.company);
@@ -3663,7 +3661,7 @@
                                 }
                             },
                             error: function (data) {
-                                console.log(data);
+//                                console.log(data);
                             }
                         });
                         //选择负责人
@@ -3690,13 +3688,13 @@
                                 }
                             },
                             error: function (data) {
-                                console.log(data);
+//                                console.log(data);
                             }
                         });
                     }
                 },
                 error: function (data) {
-                    console.log(data);
+//                    console.log(data);
                 }
             });
 
@@ -3738,7 +3736,7 @@
                                     "remark": $("#edit-outcontacts-remark").val(),
                                     "labs": arrLabs
                                 };
-                                console.log(data);
+//                                console.log(data);
 //                                return;
                                 $.ajax({
                                     url: contextPath+"api/extcon/",
@@ -3751,7 +3749,7 @@
                                         _this.dialog( "close" );
                                     },
                                     error: function (data) {
-                                        console.log(data);
+//                                        console.log(data);
                                     }
                                 })
                             }
@@ -3816,13 +3814,13 @@
                                             }
                                         },
                                         error: function () {
-                                            alert('请求失败');
+//                                            alert('请求失败');
                                         }
                                     });
                                     _this.dialog( "close" );
                                 },
                                 error: function (data) {
-                                    console.log(data);
+//                                    console.log(data);
                                 }
                             });
                         }
@@ -3913,12 +3911,12 @@
                             }
                         },
                         error: function () {
-                            alert('请求失败');
+//                            alert('请求失败');
                         }
                     });
                 },
                 error: function (data) {
-                    console.log(data);
+//                    budata);
                 }
             })
         });
