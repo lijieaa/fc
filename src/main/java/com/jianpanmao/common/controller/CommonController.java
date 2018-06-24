@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jianpanmao.Application;
 import com.jianpanmao.attach.entity.Attach;
 import com.jianpanmao.attach.service.AttachService;
+import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.common.config.MyConfig;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -114,6 +116,60 @@ public class CommonController{
 
 
         return attach;
+    }
+
+
+    @PostMapping(value = "/editoUpload")
+    @NoResultEntity
+    public void editorUpload(@RequestParam("upload") MultipartFile file,HttpServletRequest request,HttpServletResponse response) throws IOException {
+
+
+
+        Date nowTime=new Date();
+
+        SimpleDateFormat time=new SimpleDateFormat("yyyy-MM-dd");
+
+
+
+        String fileName = file.getOriginalFilename();
+
+        String path="c:\\upload\\";
+
+        File targetFile = new File(path+time.format(nowTime),fileName);
+
+
+        if(!targetFile.getParentFile().exists()){
+
+            targetFile.getParentFile().mkdirs();
+        }
+
+
+
+        String relativePath =time.format(nowTime)+File.separator+ UUID.randomUUID()+"_"+fileName;
+
+        String newPath = path+relativePath;
+
+        Attach attach=new Attach();
+        attach.setPath(relativePath);
+        attach.setFilename(fileName);
+        attach.setMime(file.getContentType());
+        attach.setSize(file.getSize());
+
+
+        int add = attachService.add(attach);
+
+        attach.setId(add);
+
+        File newFile = new File(newPath);
+        file.transferTo(newFile);
+        String CKEditorFuncNum = request.getParameter("CKEditorFuncNum");
+        response.setContentType("text/html;charset=UTF-8");
+
+        PrintWriter out = response.getWriter();
+        out.println("<script type=\"text/javascript\">");
+        out.println("window.parent.CKEDITOR.tools.callFunction("
+                + CKEditorFuncNum + ",'/uploadimg/"+attach.getPath().replace("\\","//")+"','')");
+        out.println("</script>");
     }
 
 
