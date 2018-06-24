@@ -406,7 +406,7 @@ p.edit-info {
     padding-right: 22px;
 }
 .login-layout.login-container-box .login-container .header .title-text {
-    font-size: larger;
+    font-size: xx-large;
     font-weight: 500;
     color: #1d74bb;
 }
@@ -414,5 +414,11 @@ p.edit-info {
     display: inline-block;
     padding: 2px 4px;
     background: #1d74bb;
+}
+.login-layout .widget-box .widget-main form label {
+    margin-bottom: 20px;
+}
+.login-layout .widget-box .widget-main form button {
+    height: 42px;
 }
 
