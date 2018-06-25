@@ -314,7 +314,7 @@
             editorFun:function(){
                 CKEDITOR.replace( 'editor1', {
                     customConfig: '',
-                    filebrowserImageUploadUrl:"skins",
+                    filebrowserImageUploadUrl:'/editoUpload',
                     removeDialogTabs:"image:advanced;image:Link",
                     toolbarGroups: [
                         {"name":"basicstyles","groups":["basicstyles"]},
@@ -323,7 +323,10 @@
                         // {"name":"document","groups":["mode"]},
                         {"name":"insert","groups":["insert"]},
 //                {"name":"styles","groups":["styles"]},
-                        {"name":"about","groups":["about"]}
+                        { name: 'others', groups: [ 'others' ] },
+                        { name: 'styles', groups: [ 'styles' ] },
+                        {"name":"about","groups":["about"]},
+                        { "name": 'basicstyles', "groups": [ 'Bold', 'Italic'] }
                     ],
                     removePlugins:"elementspath"
 //            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
