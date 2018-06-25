@@ -1,3 +1,4 @@
+
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
@@ -110,7 +111,7 @@
                                 <!--<input type="text" v-model="menu.button[selectedMenuIndex].msg">-->
                             <!--</button>-->
                             <div class="check" data-id="1">选择图文</div>
-                            <div class="photoShow">
+                            <div class="photoShow" v-show="picShow">
                                 <div class="showTime"></div>
                                 <div class="showImg"><img src="" width="250" height="155"> </div>
                                 <div class="showTitle"></div>
@@ -119,17 +120,17 @@
                         <div class="sub-menu-content" v-if="currentSelect() ==2">
                             <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].video">-->
                             <div class="check" data-id="2">选择视频</div>
-                            <video v-bind:src="menu.button[selectedMenuIndex].video" controls="controls" class="showSc" controlsList="nodownload"></video>
+                            <video v-bind:src="menu.button[selectedMenuIndex].video" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></video>
                         </div>
                         <div class="sub-menu-content" v-if="currentSelect() ==3">
                             <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].photo">-->
                             <div class="check" data-id="3">选择图片</div>
-                            <img v-bind:src="menu.button[selectedMenuIndex].photo" class="showSc">
+                            <img v-bind:src="menu.button[selectedMenuIndex].photo" class="showSc" v-show="picShow">
                         </div>
                         <div class="sub-menu-content" v-if="currentSelect() ==4">
                             <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].voice">-->
                             <div class="check" data-id="4">选择音频</div>
-                            <audio v-bind:src="menu.button[selectedMenuIndex].voice" controls="controls" class="showSc" controlsList="nodownload"></audio>
+                            <audio v-bind:src="menu.button[selectedMenuIndex].voice" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></audio>
                         </div>
                     </div>
                     <div class="show-content" v-if="selectTab()==2">
@@ -185,11 +186,11 @@
                                 @click="subMenu(selectedMenuLevel(),'voice')"><i class="glyphicon glyphicon-ice-lolly"></i>语音</li>
                         </ul>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==1">
-                            <button class="ptFont display" @click="fromSelect">
-                                <input type="text" class="photoID" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].msg">
-                            </button>
+                            <!--<button class="ptFont display" @click="fromSelect">-->
+                                <!--<input type="text" class="photoID" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].msg">-->
+                            <!--</button>-->
                             <div class="check" data-id="1">选择图文</div>
-                            <div class="photoShow">
+                            <div class="photoShow" v-show="picShow">
                                 <div class="showTime"></div>
                                 <div class="showImg"><img src="" width="250" height="155"> </div>
                                 <div class="showTitle"></div>
@@ -198,17 +199,17 @@
                         <div class="sub-menu-content" v-if="currentSubSelect() ==2">
                             <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].video">-->
                             <div class="check" data-id="2">选择视频</div>
-                            <video v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].video" controls="controls" class="showSc" controlsList="nodownload"></video>
+                            <video v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].video" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></video>
                         </div>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==3">
                             <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].photo">-->
                             <div class="check" data-id="3">选择图片</div>
-                            <img v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].photo" class="showSc">
+                            <img v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].photo" class="showSc" v-show="picShow">
                         </div>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==4">
                             <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].voice">-->
                             <div class="check" data-id="4">选择音频</div>
-                            <audio v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].voice" controls="controls" class="showSc" controlsList="nodownload"></audio>
+                            <audio v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].voice" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></audio>
                         </div>
                     </div>
                     <div class="show-content" v-if="selectTab()==2">

@@ -41,6 +41,7 @@ new Vue({
   data:{
     selectedMenuIndex:'',//当前选中菜单索引
     selectedSubMenuIndex:'',//当前选中子菜单索引
+    picShow: true,
     menu:{
         button:[
             {
@@ -68,7 +69,7 @@ new Vue({
                     },
                     {
                         "type":"video",
-                        "video":"http://203.205.158.74/vweixinp.tc.qq.com/1007_5a71528e79b04f4388b816e8f2d1071a.f10.mp4?vkey=402C7D2328C15197E1B7CFFA689D49D1C048E19A8D10D7D70446E8228F6C6C6EFBB9787A6DD8FC9384CAB02F58A1204D95D5918817395C5AABF704E8FDAEA8D9A1C38AF54860AB27C0013923C4262CF685DB3E3CD502B6A6&sha=0&save=1",
+                        "video":"http://203.205.158.72/vweixinp.tc.qq.com/1007_c21c4527494242f983a8c8cee9e9f750.f10.mp4?vkey=9BF2F2D51CA1E6894F0031659C21C19799833658F871ADAF8D4606DC08CBEEF01325CDDD85533E289DE8382AE8241FBF0E8FFD91D54772A4402C33401EA42250B3CFE242418B7F986A1F684DF12EC58ECAB5CE370765BDA1&sha=0&save=1",
                         "msg":"",
                         "photo":"",
                         "voice":"",
@@ -95,8 +96,49 @@ new Vue({
                 "url":"",
                 "voice":""
             },
-            {"name":"菜单2","childMenu":[],"video":"","isSelect":"postMsg","msg":"","photo":"/material/image/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2MaPsF21OaR7mIruFhnbID4&name=upload.jpg&wxPublicId=14","type":"photo","url":"","voice":""},
-            {"name":"菜单3","childMenu":[],"video":"","isSelect":"postMsg","msg":"","photo":"/material/image/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Oh0sj8PyIlnrmepRkD4-WM&name=upload.jpg&wxPublicId=14","type":"photo","url":"","voice":""}
+            {
+                "name":"菜单2",
+                "childMenu":[
+                    {
+                        "type":"photo",
+                        "video":"",
+                        "msg":"",
+                        "photo":"/material/image/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2ENCGrWj7MLYoUT62QJ2Kn0&name=upload.jpg&wxPublicId=14",
+                        "voice":"",
+                        "isSelect":"postMsg",
+                        "name":"一级目录",
+                        "url":""
+                    }
+                ],
+                "video":"",
+                "isSelect":"postMsg",
+                "msg":"","photo":"/material/image/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2MaPsF21OaR7mIruFhnbID4&name=upload.jpg&wxPublicId=14",
+                "type":"photo",
+                "url":"",
+                "voice":""
+            },
+            {
+                "name":"菜单3",
+                "childMenu":[
+                    // {
+                    //     "type":"voice",
+                    //     "video":"",
+                    //     "msg":"",
+                    //     "photo":"",
+                    //     "voice":"/material/voice/detail?wxPublicId=14&mediaId=f1QOuU_OT4Hrt8abnY9n2JtuBkM5JTjri6XfVo3ftDY&name=wx.mp3",
+                    //     "isSelect":"postMsg",
+                    //     "name":"二级目录",
+                    //     "url":""
+                    // },
+                ],
+                "video":"",
+                "isSelect":"postMsg",
+                "msg":"",
+                "photo":"/material/image/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Oh0sj8PyIlnrmepRkD4-WM&name=upload.jpg&wxPublicId=14",
+                "type":"photo",
+                "url":"",
+                "voice":""
+            }
         ]
     }
   },
@@ -114,8 +156,9 @@ new Vue({
             "voice":"",
             "childMenu":[]
         });
-        this.selectedMenuIndex = this.menu.button.length-1;
-        this.selectedSubMenuIndex=''
+        let selectedMenuIndex = this.menu.button.length-1;
+        this.selectedMenu(selectedMenuIndex);
+        this.selectedSubMenuIndex='';
       }
       if(level == 2 && this.menu.button[this.selectedMenuIndex].childMenu.length<5){
         this.menu.button[this.selectedMenuIndex].childMenu.push({
@@ -128,7 +171,10 @@ new Vue({
             "photo":"",
             "voice":""
         });
-        this.selectedSubMenuIndex= this.menu.button[this.selectedMenuIndex].childMenu.length-1;
+        let selectedSubMenuIndex= this.menu.button[this.selectedMenuIndex].childMenu.length-1;
+
+        this.selectedSubMenu(selectedSubMenuIndex);
+
 
         // this.selectedMenuIndex = '';
         // console.log(this.selectedSubMenuIndex);
@@ -142,10 +188,100 @@ new Vue({
       if(this.selectedMenuLevel() == 1){
         this.selectTab();
       }
+        var parType=this.menu.button[this.selectedMenuIndex];
+        var thisPhtID = parType.msg;
+        var videoPhtID = parType.video;
+        var photoPhtID = parType.photo;
+        var voicePhtID = parType.voice;
+        if(parType.type=="msg"){
+            if(thisPhtID!=""){
+                this.picShow = true;
+                $.ajax({
+                    url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+thisPhtID,
+                    type: "get",
+                    processData:true,
+                    success:function (data) {
+                        var id=data.content.thumbMediaId;
+                        var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
+                        $(".showTime").text(data.content.updateTime);
+                        $(".showTitle").text(data.content.title);
+                        $(".showImg img").attr("src",urlLink);
+                    }
+                });
+            }else {
+                this.picShow = false;
+            }
+        }else if(parType.type=="video"){
+            if(videoPhtID!=""){
+                this.picShow = true;
+            }else{
+                this.picShow = false;
+            }
+
+        }else if(parType.type=="photo"){
+            if(photoPhtID!=""){
+                this.picShow = true;
+            }else{
+                this.picShow = false;
+            }
+
+        }else if(parType.type=="voice"){
+            if(voicePhtID!=""){
+                this.picShow = true;
+            }else{
+                this.picShow = false;
+            }
+
+        }
     },
     selectedSubMenu:function(i,event){//选择子菜单
         this.selectedSubMenuIndex = i;
         this.selectTab();
+        var sonType=this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex];
+        var thisPhtID=sonType.msg;//图文值
+        var videoPhtID=sonType.video;//视频值
+        var photoPhtID=sonType.photo;//图片值
+        var voicePhtID=sonType.voice;//语音值
+        if(sonType.type=="msg"){
+            if(thisPhtID!=""){
+                this.picShow = true;
+                $.ajax({
+                    url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+thisPhtID,
+                    type: "get",
+                    processData:true,
+                    success:function (data) {
+                        var id=data.content.thumbMediaId;
+                        var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
+                        $(".showTime").text(data.content.updateTime);
+                        $(".showTitle").text(data.content.title);
+                        $(".showImg img").attr("src",urlLink);
+                    }
+                });
+            }else{
+                this.picShow = false;
+            }
+        }else if(sonType.type=="video"){
+            if(videoPhtID!=""){
+                this.picShow = true;
+            }else{
+                this.picShow = false;
+            }
+
+        }else if(sonType.type=="photo"){
+            if(photoPhtID!=""){
+                this.picShow = true;
+            }else{
+                this.picShow = false;
+            }
+
+        }else if(sonType.type=="voice"){
+            if(voicePhtID!=""){
+                this.picShow = true;
+            }else{
+                this.picShow = false;
+            }
+
+        }
     },
     //选中菜单级别
     selectedMenuLevel: function () {
@@ -163,6 +299,7 @@ new Vue({
     testFun(v){
         var value = v.target.value;
         if(this.selectedMenuLevel() == 1) {
+            this.picShow = true;
             if(this.currentSelect() == 1){
                 this.menu.button[this.selectedMenuIndex].msg = value;
             }else if(this.currentSelect() == 2){
@@ -173,6 +310,7 @@ new Vue({
                 this.menu.button[this.selectedMenuIndex].voice = value;
             }
         }else if(this.selectedMenuLevel() == 2){
+            this.picShow = true;
             if(this.currentSubSelect() == 1){
                 this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].msg = value;
             }else if(this.currentSubSelect() == 2){
@@ -215,21 +353,6 @@ new Vue({
       if(this.selectedMenuLevel() == 1) {
           switch (this.menu.button[this.selectedMenuIndex].isSelect) {
               case 'postMsg':
-                  var thisPhtID = this.menu.button[this.selectedMenuIndex].msg;
-                  if(this.menu.button[this.selectedMenuIndex].type=="msg"){
-                      $.ajax({
-                          url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+thisPhtID,
-                          type: "get",
-                          processData:true,
-                          success:function (data) {
-                              var id=data.content.thumbMediaId;
-                              var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
-                              $(".showTime").text(data.content.updateTime);
-                              $(".showTitle").text(data.content.title);
-                              $(".showImg img").attr("src",urlLink);
-                          }
-                      });
-                  }
                   this.menu.button[this.selectedMenuIndex].url = "";
                   return 1;
                   break;
@@ -241,24 +364,10 @@ new Vue({
                   return 2;
                   break;
           }
-      }else{
+      }
+      else{
           switch (this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].isSelect) {
               case 'postMsg':
-                  var thisPhtID = this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].msg;
-                  if(this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].type=="msg"){
-                      $.ajax({
-                          url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+thisPhtID,
-                          type: "get",
-                          processData:true,
-                          success:function (data) {
-                              var id=data.content.thumbMediaId;
-                              var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
-                              $(".showTime").text(data.content.updateTime);
-                              $(".showTitle").text(data.content.title);
-                              $(".showImg img").attr("src",urlLink);
-                          }
-                      });
-                  }
                   this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].url = "";
                   return 1;
                   break;
@@ -275,35 +384,99 @@ new Vue({
     },
     subMenu:function(level,msg){
       if(level == 1){
+          var parType=this.menu.button[this.selectedMenuIndex];
           switch (msg){
               case 'msg' :
-                  this.menu.button[this.selectedMenuIndex].type = 'msg';
+                  parType.type = 'msg';
+                  if(parType.msg!=""){
+                      this.picShow = true;
+                      $.ajax({
+                          url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+parType.msg,
+                          type: "get",
+                          processData:true,
+                          success:function (data) {
+                              var id=data.content.thumbMediaId;
+                              var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
+                              $(".showTime").text(data.content.updateTime);
+                              $(".showTitle").text(data.content.title);
+                              $(".showImg img").attr("src",urlLink);
+                          }
+                      });
+                  }else {
+                      this.picShow = false;
+                  }
                   break;
               case 'video' :
-                  this.menu.button[this.selectedMenuIndex].type = 'video';
+                  parType.type = 'video';
+                  if(parType.video!=""){
+                      this.picShow = true;
+                  }else {
+                      this.picShow = false;
+                  }
                   break;
               case 'photo' :
-                  this.menu.button[this.selectedMenuIndex].type = 'photo';
+                  parType.type = 'photo';
+                  if(parType.photo!=""){
+                      this.picShow = true;
+                  }else {
+                      this.picShow = false;
+                  }
                   break;
               case 'voice' :
-                  this.menu.button[this.selectedMenuIndex].type = 'voice';
+                  parType.type = 'voice';
+                  if(parType.voice!=""){
+                      this.picShow = true;
+                  }else {
+                      this.picShow = false;
+                  }
                   break;
           }
       }else{
+          var sonType=this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex];
           switch (msg){
               case 'msg' :
-                  var id=$(".photoID").val();
-                  pShow(id);
-                  this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].type = 'msg';
+                  sonType.type = 'msg';
+                  if(sonType.msg!=""){
+                      this.picShow = true;
+                      $.ajax({
+                          url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+sonType.msg,
+                          type: "get",
+                          processData:true,
+                          success:function (data) {
+                              var id=data.content.thumbMediaId;
+                              var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
+                              $(".showTime").text(data.content.updateTime);
+                              $(".showTitle").text(data.content.title);
+                              $(".showImg img").attr("src",urlLink);
+                          }
+                      });
+                  }else {
+                      this.picShow = false;
+                  }
                   break;
               case 'video' :
-                  this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].type = 'video';
+                  sonType.type = 'video';
+                  if(sonType.video!=""){
+                      this.picShow = true;
+                  }else {
+                      this.picShow = false;
+                  }
                   break;
               case 'photo' :
-                  this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].type = 'photo';
+                  sonType.type = 'photo';
+                  if(sonType.photo!=""){
+                      this.picShow = true;
+                  }else {
+                      this.picShow = false;
+                  }
                   break;
               case 'voice' :
-                  this.menu.button[this.selectedMenuIndex].childMenu[this.selectedSubMenuIndex].type = 'voice';
+                 sonType.type = 'voice';
+                  if(sonType.voice!=""){
+                      this.picShow = true;
+                  }else {
+                      this.picShow = false;
+                  }
                   break;
           }
       }

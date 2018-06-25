@@ -204,3 +204,6 @@
     width: 255px;
     margin: 10px;
 }
+.displayNon{
+    display: none;!important;
+}
