@@ -260,3 +260,6 @@ div.dataTables_wrapper div.dataTables_paginate{
 .icon-color-9c {
     color: #9c9c9c;
 }
+[v-cloak] {
+    display: none;
+}

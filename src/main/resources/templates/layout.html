@@ -82,7 +82,7 @@
 </head>
 
 <body class="no-skin">
-<div id="navbar" class="navbar navbar-default noticeBarRead ace-save-state">
+<div id="navbar" class="navbar navbar-default noticeBarRead ace-save-state" v-cloak>
     <div class="navbar-container ace-save-state" id="navbar-container">
         <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
             <span class="sr-only">Toggle sidebar</span>
@@ -253,11 +253,11 @@
                 <li class="green dropdown-modal">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
-                        <span class="badge badge-success">{{noticeList.length}}</span>
+                        <span class="badge badge-success" v-cloak>{{noticeList.length}}</span>
                     </a>
 
                     <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-                        <li class="dropdown-header">
+                        <li class="dropdown-header" v-cloak>
                             <i class="ace-icon fa fa-envelope-o"></i>
                             {{noticeList.length}} 条消息
                         </li>
