@@ -2,9 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<style>
+    .page-header{
+        margin: 0 0 12px;
+        border-bottom: 1px dotted #E2E2E2;
+        padding-bottom: 16px;
+        padding-top: 7px;
+    }
+    .page-header h1{
+        /* padding: 0; */
+        margin: 0 8px;
+        font-size: 18px;
+        font-weight: lighter;
+        color: #2679B5;
+
+    }
+</style>
 <body layout:fragment="content">
 <div class="row">
     <div class="col-xs-12">
+        <div class="page-header">
+            <h1>
+                公众号管理
+            </h1>
+        </div>
         <div class="row">
             <div class="col-xs-12 widget-container-col" id="widget-container-col-1">
                 <div class="widget-box collapsed" id="widget-box-1">

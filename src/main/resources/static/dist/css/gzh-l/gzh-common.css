@@ -145,3 +145,37 @@ cursor: pointer;
     padding:15px;
     cursor: pointer;
 }
+/*公用样式*/
+.gzh-manage-menu{
+    margin-top: 15px;
+    margin-left: 5px;
+    padding-bottom: 15px;
+    border-bottom: 2px #eee solid;
+}
+.gzh-manage-menu a{
+    font-size: 16px;
+    color: #414141;
+    padding: 0 15px;
+    cursor: pointer;
+}
+#backUl{
+    margin-right: 35px;
+    margin-top: -10px;
+    height: 38px;
+    line-height: 18px;
+}
+.tex-color{
+    color: #6FB3E0!important;
+}
+#backUlManage{
+    height: 38px;
+    line-height: 18px;
+}
+.chat-with{
+    font-size: 16px;
+    margin-top: -10px;
+    color: #363636;
+}
+.chat-user{
+    padding: 0 5px;
+}

@@ -23,22 +23,6 @@
             border-left: none!important;
             text-align: right;
         }
-        .gzh-manage-menu{
-            margin-top: 15px;
-            margin-left: 5px;
-        }
-        .gzh-manage-menu a{
-            color: #000000;
-            padding: 0 15px;
-            cursor: pointer;
-        }
-        .tex-color{
-            color: #6FB3E0!important;
-        }
-        #backUl{
-            margin-right: 35px;
-            margin-top: -10px;
-        }
         .dataTables_wrapper .row:first-child{
             background: none;
         }
@@ -65,7 +49,7 @@
             <a class="font-size-14" data-id="2">菜单管理</a>
             <a class="font-size-14 tex-color" data-id="3">消息管理</a>
             <a class="font-size-14" data-id="4">素材管理</a>
-            <button class="btn btn-info search text-center pull-right" id="backUl">返回</button>
+            <button class="btn btn-info search text-center pull-right" id="backUl"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
         </section>
         <div style="margin-left: 2.5%;margin-top:3%;width: 95%;height: auto;">
             <section class="float-left gzh-search" style="width: 100%;">
@@ -91,10 +75,10 @@
     </div>
     <!--公众号聊天页面-->
     <div id="chating-per" style="height: 768px;width:95%;display: none;margin-left: 2.5%;">
-        <button class="btn btn-info search text-center pull-right" id="backUlManage" style="margin-top: -20px;margin-right: 10px;">返回</button>
+        <button class="btn btn-info search text-center pull-right" id="backUlManage" style="margin-top: -3px;margin-right: 10px;"><i class="ace-icon fa fa-reply icon-only"></i>返回</button>
         <section class="gzh-chat" style="margin-top: 20px;">
-            <h5>与<span class="chat-user"></span>聊天中</h5>
-            <div class="marginLeft-1" style="width: 98%;border: 1px #4d4d4d solid;">
+            <h5 class="chat-with">与<span class="chat-user"></span>聊天中</h5>
+            <div class="marginLeft-1" style="width: 98%;border: 1px #4d4d4d solid;margin-top: 3%;">
                 <div class="chat-type">
                     <span data-id="1"><i class="glyphicon glyphicon-film"></i>图文消息</span>
                     <span data-id="2" class="txt-green"><i class="glyphicon glyphicon-pencil"></i>文字</span>
