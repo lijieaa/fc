@@ -4,7 +4,6 @@
     <link rel="stylesheet" th:href="@{/dist/css/common.css}">
     <style>
         #fileList{
-            width: 55%;
             min-height: 110px;
             outline: 1px solid #ececec;
             background: #eee;
@@ -95,7 +94,10 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 text-align-right">
-                <button type="button" data-toggle="modal" @click="backList" class="btn back-btn btn-info padding-right-15">返回
+                <button type="button" data-toggle="modal" @click="backList"
+                        class="btn btn-info padding-right-15">
+                    <i class="ace-icon fa fa-reply icon-only"></i>
+                    返回
                 </button>
             </div>
         </div>
@@ -166,7 +168,8 @@
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
                                 <input type="hidden" name="intermediaryLogoUrl"  id="responseUrl" value="" class="col-xs-12 col-sm-6">
-                                <div id="fileList" class="uploader-list" name="intermediaryLogoUrl">
+                                <div id="fileList" class="uploader-list col-xs-12 col-sm-6"
+                                     name="intermediaryLogoUrl" style="float: none">
                                     <!--<img src="" id="imgInter" alt="">-->
                                 </div>
                                 <div id="filePicker" class="margin-top-6">选择图片</div>
@@ -508,7 +511,7 @@
             $("#responseUrl").parents(".form-group").removeClass("has-error")
         });
         uploader.on( 'fileQueued', function( file ) {
-            var $li = $('<img src="" id="imgInter">');
+            var $li = $('<img src="" id="imgInter" style="width: 100%">');
             $("#fileList").html($li);
             uploader.makeThumb(file, function (error, src) {
                 $("#imgInter").attr("src",src);
