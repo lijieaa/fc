@@ -147,7 +147,7 @@
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from dingtalk_user
-    where userid = #{userid,jdbcType=INTEGER}
+    where userid = #{userid,jdbcType=INTEGER} and is_admin=0
   </delete>
   <delete id="deleteByExample" parameterType="com.jianpanmao.sys.entity.DingtalkUserExample">
     delete from dingtalk_user
@@ -517,6 +517,7 @@
     <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
               #{item}
     </foreach>
+    and is_admin =0
   </delete>
   <select id="selectByDto" parameterType="com.jianpanmao.sys.dto.DingtalkUserDto" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" /> from dingtalk_user where 1=1

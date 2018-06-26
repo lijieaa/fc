@@ -168,7 +168,7 @@ public class CommonController{
         PrintWriter out = response.getWriter();
         out.println("<script type=\"text/javascript\">");
         out.println("window.parent.CKEDITOR.tools.callFunction("
-                + CKEditorFuncNum + ",'/uploadimg/"+attach.getPath().replace("\\","//")+"','')");
+                + CKEditorFuncNum + ",'/uploadimg/"+attach.getPath().replace("\\","/")+"','')");
         out.println("</script>");
     }
 
