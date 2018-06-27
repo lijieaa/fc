@@ -106,7 +106,7 @@
     <div class="clubs-list" :data-id="model.projectCommentsId" :class="{'parent':(model.projectCommentsParent==0)}">
         <div class="clubs-header back-f8"  v-if="model.projectCommentsParent !=null && model.projectCommentsParent == 0">
             <div class="left-clubs float-left padding-left-6">
-                <img src="../../dist/img/img-head.png" class="" alt="">
+                <img :src="imgPath+model.user.headPic" class="" alt="">
                 <span>{{model.user.name}}</span>
             </div>
             <div class="right-clubs float-right padding-right-6">
@@ -166,6 +166,8 @@
         },
         data: function () {
             return {
+                imgPath:imgPath,
+                src:2222,
                 projectCommentsParent:"",
                 projectTopCommentsId:"",
                 inutContent:"",

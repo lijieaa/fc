@@ -288,9 +288,8 @@
                         </li>
 
                         <li class="dropdown-footer">
-                            <a href="inbox.html">
-                               更多消息
-                                <i class="ace-icon fa fa-arrow-right"></i>
+                            <a style="cursor: pointer" @click="signRead">
+                               全部标记为已读
                             </a>
                         </li>
                     </ul>
@@ -625,6 +624,13 @@
                         console.log(projectId);
                     }
                 })
+            },
+            signRead: function() {
+                var idArr = [];
+                this.noticeList.map(function (value) {
+                    idArr.push(value.noticeId);
+                });
+                console.log(idArr.join(","));
             }
         },
         mounted:function(){
