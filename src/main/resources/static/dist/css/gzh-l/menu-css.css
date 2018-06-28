@@ -17,29 +17,31 @@
 }
 .page-left{
     width: 28%;
-    height: 500px;
+    height: 550px;
     outline: 1px solid gainsboro;
     float: left;
     margin-left: 2%;
+    background-color: #f4f5f9
 }
 .left-title{
     width: 100%;
     height: 50px;
     text-align: center;
     line-height: 50px;
-    background: #cccccc;
+    background: #5c5c5c;
     font-size: 18px;
     color: #ffffff;
     font-weight: 500;
     letter-spacing: 2px;
 }
 .urlInput{
-    width: 60%;
+    width: 45%;
+    height: 33px;
     margin-bottom: 25px;
 }
 .page-right{
     width: 60%;
-    height: 500px;
+    height: 550px;
     outline: 1px solid gainsboro;
     margin-left: 2%;
     vertical-align: top;
@@ -110,21 +112,24 @@
 }
 
 .menu-header{
-    height: 40px;
-    border-bottom: 1px solid #cccccc;
-    line-height: 40px;
+    height: 38px;
+    border-bottom: 2px solid #cccccc;
+    line-height: 30px;
+    color: #1794e4;
 }
 .menu-input-group{
     width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     overflow: hidden;
 }
 .menu-input-group>div{
     padding-left: 10px;
+    line-height: 33px;
 }
 .menu-jinput>input{
-    height: 20px;
+    height: 33px;
+    width: 40%;
     line-height: 25px;
 }
 .mgl-5{
@@ -136,15 +141,17 @@
 .mgt-5{
     margin-top: 5px;
 }
-.submit{width: 69px;
-    height: 31px;
+.submit{
+    width: 75px;
+    height: 38px;
     border: none;
-    background: paleturquoise;
-    border-radius: 5px;
+    background: #1794e4;
+    border-radius: 3px;
     /* margin-top: 23px; */
     /* position: relative; */
     /* top: 10px; */
     display: block;
+    color: #ffffff;
     text-align: center;
     margin: 24px auto;
 }
