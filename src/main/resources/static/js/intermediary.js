@@ -102,20 +102,8 @@ new Vue({
         },
         editorFun:function(){ //文本框编辑
             this.editor = CKEDITOR.replace( 'editor1', {
-                customConfig: '',
                 filebrowserImageUploadUrl:'/editoUpload',
-                removeDialogTabs:"image:advanced;image:Link",
-                toolbarGroups: [
-                    {"name":"basicstyles","groups":["basicstyles"]},
-                    {"name":"links","groups":["links"]},
-                    {"name":"paragraph","groups":["list","blocks"]},
-                    // {"name":"document","groups":["mode"]},
-                    {"name":"insert","groups":["insert"]},
-                    {"name":"styles","groups":["styles"]},
-                    {"name":"about","groups":["about"]}
-                ],
-                removePlugins:"elementspath"
-//            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
+
             });
         }
         ,

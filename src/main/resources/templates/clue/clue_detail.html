@@ -96,7 +96,7 @@
                         </table>
                     </div>
                     <div class=" col-xs-3 col-back-page-right">
-                        <img :src="clueComment.projectLogo"  alt="">
+                        <img :src="clueComment.projectLogo"  alt="" width="100%">
                     </div>
                 </div>
             </div>
@@ -147,7 +147,8 @@
     <div class="clubs-list" :data-id="model.projectCommentsId" :class="{'parent':(model.projectCommentsParent==0)}">
         <div class="clubs-header back-f8"  v-if="model.projectCommentsParent !=null && model.projectCommentsParent == 0">
             <div class="left-clubs float-left padding-left-6">
-                <img src="../../dist/img/img-head.png" class="" alt="">
+                <img :src="imgPath+model.user.headPic" class="" alt=""
+                     width="40px" height="40px" style="border-radius: 50%">
                 <span>{{model.user.name}}</span>
             </div>
             <div class="right-clubs float-right padding-right-6">
@@ -205,6 +206,7 @@
         },
         data: function () {
             return {
+                imgPath:imgPath,
                 projectCommentsParent:"",
                 projectTopCommentsId:"",
                 inutContent:"",
@@ -313,21 +315,21 @@
             },
             editorFun:function(){
                 CKEDITOR.replace( 'editor1', {
-                    customConfig: '',
+                    // customConfig: '',
                     filebrowserImageUploadUrl:'/editoUpload',
-                    removeDialogTabs:"image:advanced;image:Link",
-                    toolbarGroups: [
-                        {"name":"basicstyles","groups":["basicstyles"]},
-                        {"name":"links","groups":["links"]},
-                        {"name":"paragraph","groups":["list","blocks"]},
-                        // {"name":"document","groups":["mode"]},
-                        {"name":"insert","groups":["insert"]},
-//                {"name":"styles","groups":["styles"]},
-                        { name: 'others', groups: [ 'others' ] },
-                        { name: 'styles', groups: [ 'styles' ] },
-                        {"name":"about","groups":["about"]},
-                        { "name": 'basicstyles', "groups": [ 'Bold', 'Italic'] }
-                    ],
+                    // removeDialogTabs:"image:advanced;image:Link",
+//                     toolbarGroups: [
+//                         {"name":"basicstyles","groups":["basicstyles"]},
+//                         {"name":"links","groups":["links"]},
+//                         {"name":"paragraph","groups":["list","blocks"]},
+//                         // {"name":"document","groups":["mode"]},
+//                         {"name":"insert","groups":["insert"]},
+// //                {"name":"styles","groups":["styles"]},
+//                         { name: 'others', groups: [ 'others' ] },
+//                         { name: 'styles', groups: [ 'styles' ] },
+//                         {"name":"about","groups":["about"]},
+//                         { "name": 'basicstyles', "groups": [ 'Bold', 'Italic'] }
+//                     ],
                     removePlugins:"elementspath"
 //            removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
                 });
