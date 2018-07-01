@@ -871,6 +871,9 @@
         });
         $(".role-menu").on("click", function () {
             roleContainer.removeClass("display-none").siblings().removeClass("display-block").addClass("display-none");
+            var defaultHtml = '<div class="alert alert-info defaultHtml" style="margin: 0;"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>请选择角色</div>';
+            roleContainer.find("h3, .role-group-person-list").addClass("display-none");
+            roleContainer.append(defaultHtml);
         });
 
         //下级部门调整顺序
@@ -2280,9 +2283,12 @@
                 });
                 $(addRoleRersonGroupHtml).insertAfter(addRoleRersonGroupBox[0])
             }
+
         }
         function roleOnClick(event, treeId, treeNode) {
             if (!treeNode.isParent) {
+                roleContainer.find("h3, .role-group-person-list").removeClass("display-none");
+                roleContainer.find(".defaultHtml").remove();
                 $("#role-person-name").text(treeNode.roleName);
                 var id = treeNode.roleId;
                 $("#edit-role-person-btn").attr("data-roleId", treeNode.roleId).attr("data-isDel", treeNode.isDel);
@@ -2457,8 +2463,8 @@
 
         }
         function removeHoverDom(treeId, treeNode) {
-            $("#diyBtn_"+treeNode.id).unbind().remove();
-            $("#diyBtn_space_" +treeNode.id).unbind().remove();
+            $("#diyBtn_"+treeNode.roleId).unbind().remove();
+            $("#diyBtn_space_" +treeNode.roleId).unbind().remove();
         }
         $.fn.zTree.init($("#role-list"), roleSettings);
 
@@ -2781,12 +2787,16 @@
         });
         $("#edit-role-person-btn").on("click", function () {
             validateResetForm($formEditRolePerson, $('#edit-role-person-container>form'));
-            var _this = $(this), roleId = _this.attr("data-roleId"), groupId = "";
-            var displayStyle = "display-none";
-            if (!$(this).attr("data-isDel").isDel) {
+            var _this = $(this), roleId = _this.attr("data-roleId"), groupId = "", displayStyle = "";
+            if ($(this).attr("data-isDel") != "0") {
+                displayStyle = "display-none";
+                $("#edit-role-person-group").attr("disabled", "disabled");
+            } else {
                 displayStyle = "display-inlin-block";
-            }
+                $("#edit-role-person-group").removeAttr("disabled");
 
+            }
+            $("#edit-role-person-rcompetence").unbind();
             $("#edit-role-person-rcompetence").on("click", function () {
                 if ($("#edit-role-person-competence-select").hasClass("display-none")) {
                     $("#edit-role-person-competence-select").removeClass("display-none")
