@@ -1,5 +1,6 @@
 package com.jianpanmao.device.dto;
 
+import com.jianpanmao.intermediary.entity.Intermediary;
 import com.jianpanmao.project.entity.Project;
 import com.jianpanmao.sys.entity.DingtalkUser;
 
@@ -114,14 +115,14 @@ public class DeviceDto {
 
     private Project project;
 
-    private Integer intermediaryId;
+    private Intermediary intermediary;
 
-    public Integer getIntermediaryId() {
-        return intermediaryId;
+    public Intermediary getIntermediary() {
+        return intermediary;
     }
 
-    public void setIntermediaryId(Integer intermediaryId) {
-        this.intermediaryId = intermediaryId;
+    public void setIntermediary(Intermediary intermediary) {
+        this.intermediary = intermediary;
     }
 
     private String deviceProductionNum;

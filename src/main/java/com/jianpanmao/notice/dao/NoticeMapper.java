@@ -14,5 +14,7 @@ public interface NoticeMapper {
     List<Notice> select(Integer userId);
     void check(Integer noticeId);
     Integer selectCount(Integer userId);
+
+    void allCheck(Integer userId);
     }
 

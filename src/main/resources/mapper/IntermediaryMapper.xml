@@ -10,6 +10,8 @@
     <result column="intermediary_create_time" jdbcType="TIMESTAMP" property="intermediaryCreateTime" />
     <result column="intermediary_update_time" jdbcType="TIMESTAMP" property="intermediaryUpdateTime" />
     <result column="is_plat" jdbcType="INTEGER" property="isPlat" />
+    <result column="e_code" jdbcType="VARCHAR" property="eCode"/>
+    <result column="business_license" jdbcType="VARCHAR" property="businessLicense"/>
     <association property="user" javaType="com.jianpanmao.sys.entity.DingtalkUser">
       <id property="userid" column="userid"></id>
       <result property="name" column="uname"></result>
@@ -154,14 +156,19 @@
     insert into intermediary (intermediary_name,
       intermediary_contact, intermediary_contact_tel,
       area_id, user_id, intermediary_logo_url,
-      intermediary_introduction)
+      intermediary_introduction,
+      e_code,
+      business_license)
     values (#{intermediaryName,jdbcType=VARCHAR},
       #{intermediaryContact,jdbcType=VARCHAR},
     #{intermediaryContactTel,jdbcType=VARCHAR},
       #{area.id,jdbcType=INTEGER},
     #{user.userid,jdbcType=INTEGER},
     #{intermediaryLogoUrl,jdbcType=VARCHAR},
-      #{intermediaryIntroduction,jdbcType=LONGVARCHAR})
+      #{intermediaryIntroduction,jdbcType=LONGVARCHAR},
+      #{eCode,jdbcType=VARCHAR},
+      #{businessLicense,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.intermediary.entity.Intermediary">
     insert into intermediary
@@ -372,7 +379,9 @@
       area_id = #{area.id,jdbcType=INTEGER},
       user_id = #{user.userid,jdbcType=INTEGER},
       intermediary_logo_url = #{intermediaryLogoUrl,jdbcType=VARCHAR},
-      intermediary_introduction = #{intermediaryIntroduction,jdbcType=LONGVARCHAR}
+      intermediary_introduction = #{intermediaryIntroduction,jdbcType=LONGVARCHAR},
+      e_code = #{eCode,jdbcType=VARCHAR},
+      business_license = #{businessLicense,jdbcType=VARCHAR}
     where intermediary_id = #{intermediaryId,jdbcType=INTEGER}
   </update>
   <select id="selectAll" parameterType="com.jianpanmao.intermediary.entity.Intermediary" resultMap="BaseResultMap">
@@ -423,6 +432,9 @@
     </if>
     <if test="intermediaryIntroduction!=null and '' neq intermediaryIntroduction">
       and intermediary_introduction=#{intermediaryIntroduction}
+    </if>
+    <if test="eCode !=null and '' neq eCode">
+      and e_code LIKE CONCAT('%',#{eCode},'%')
     </if>
     <if test="od!=null and od neq ''">
       order by ${od}

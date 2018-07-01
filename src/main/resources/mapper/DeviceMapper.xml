@@ -411,11 +411,13 @@
     </foreach>
   </delete>
   <select id="selectByDto" parameterType="com.jianpanmao.device.dto.DeviceDto" resultMap="BaseResultMap">
-    select d.*,operateUser.userid o_user_id,operateUser.name o_user_name,transcribeUser.userid t_user_id,transcribeUser.name t_user_name,intermediary.intermediary_id,intermediary.intermediary_name,project.project_id,project.project_name
-    from device d LEFT JOIN dingtalk_user operateUser
-    ON d.operate_user_id = operateUser.userid
-    LEFT JOIN dingtalk_user transcribeUser
-    ON d.transcribe_user_id = transcribeUser.userid
+    select d.*,operate_user.userid o_user_id,operate_user.name o_user_name,
+    transcribe_user.userid t_user_id,transcribe_user.name t_user_name,
+    intermediary.intermediary_id,intermediary.intermediary_name,project.project_id,project.project_name
+    from device d LEFT JOIN dingtalk_user operate_user
+    ON d.operate_user_id = operate_user.userid
+    LEFT JOIN dingtalk_user transcribe_user
+    ON d.transcribe_user_id = transcribe_user.userid
     LEFT JOIN project project
     ON d.project_id = project.project_id
     LEFT JOIN intermediary intermediary
@@ -426,12 +428,17 @@
     <if test="project !=null and project.projectName!=null">and project.project_name LIKE
       CONCAT('%',#{project.projectName},'%')
     </if>
-    <if test="operateUser!=null and operateUser.name!=null">and operateUser.name LIKE CONCAT('%',#{operateUser.name},'%')
+    <if test="operateUser!=null and operateUser.name!=null">and operate_user.name LIKE CONCAT('%',#{operateUser.name},'%')
     </if>
-    <if test="transcribeUser!=null and transcribeUser.name!=null">and transcribeUser.name LIKE
+    <if test="transcribeUser!=null and transcribeUser.name!=null">and transcribe_user.name LIKE
       CONCAT('%',#{transcribeUser.name},'%')
     </if>
-    ORDER BY d.device_create_time DESC
+    <if test="intermediary !=null and intermediary.intermediaryName !=null">
+      and intermediary.intermediary_name LIKE CONCAT('%',#{intermediary.intermediaryName},'%')
+    </if>
+    <if test="od!=null and od neq ''">
+      order by ${od}
+    </if>
   </select>
 
   <!--项目详情页 项目设备列表-->
@@ -472,6 +479,9 @@
     and d.project_id IS NULL
     <if test="num != null and num!=''">
       and d.device_production_num LIKE CONCAT('%',#{num},'%')
+    </if>
+    <if test="od!=null and od neq ''">
+      order by ${od}
     </if>
 
   </select>

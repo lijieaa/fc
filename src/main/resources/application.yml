@@ -19,7 +19,7 @@ server:
  servlet:
   contextPath: /
   session:
-   timeout: 30
+   timeout: 30000
 
 pagehelper:
   helper-dialect: mysql

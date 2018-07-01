@@ -10,6 +10,7 @@
     <association property="user" javaType="com.jianpanmao.sys.entity.DingtalkUser">
       <id property="userid" column="userid"></id>
       <result property="name" column="name"></result>
+      <result property="headPic" column="head_pic"></result>
     </association>
   </resultMap>
 
@@ -309,7 +310,7 @@
   </select>
 
   <select id="findByTopicId" resultMap="BaseResultMap">
-    select tc.*,u.userid,u.name
+    select tc.*,u.userid,u.name,u.head_pic
     from topic_comments tc
     LEFT JOIN  dingtalk_user u ON tc.user_id = u.userid WHERE tc.topic_id = #{0}
     ORDER BY topic_comments_create_time DESC
