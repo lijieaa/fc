@@ -4,6 +4,20 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
     <head>
         <link rel="stylesheet" th:href="@{/dist/css/dingtalkuser.css}" />
+        <style>
+            .nav-tabs.tab-color-blue>li.active>a, .nav-tabs.tab-color-blue>li.active>a:focus, .nav-tabs.tab-color-blue>li.active>a:hover {
+                color: #1794e4;
+                border-color: #1794e4 #1794e4 transparent;
+
+            }
+            .nav-tabs.tab-color-blue>li>a, .nav-tabs.tab-color-blue>li>a:focus {
+                background-color: #1794e4;
+            }
+            h4.smaller {
+                font-size: 17px;
+                color: #1794e4 !important;
+            }
+        </style>
     </head>
 <body layout:fragment="content">
 <div class="row">
@@ -15,13 +29,13 @@
         <ul class="nav nav-tabs" id="myTab">
             <li class="col-sm-6 active no-padding">
                 <a data-toggle="tab" href="#insidecontacts" aria-expanded="true">
-                    <i class="green ace-icon fa fa-book bigger-120"></i>
+                    <!--<i class="green ace-icon fa fa-book bigger-120"></i>-->
                     内部通讯录管理
                 </a>
             </li>
             <li class="col-sm-6 no-padding">
                 <a data-toggle="tab" href="#outcontacts" aria-expanded="false">
-                    <i class="green ace-icon glyphicon glyphicon-list-alt bigger-120"></i>
+                    <!--<i class="green ace-icon glyphicon glyphicon-list-alt bigger-120"></i>-->
                     外部联系人
                 </a>
             </li>
@@ -71,22 +85,25 @@
                                     <h3 class="header smaller lighter blue margin-top-0">
                                         <span class="department-name"></span>
                                         <!--<small class="btn-warning padding-3">全员群</small>-->
-                                        <button id="edit-department-btn" type="button" class="btn btn-white btn-sm btn-primary">设置</button>
+                                        <button id="edit-department-btn" type="button" class="btn btn-white btn-sm btn-primary" style="border-color: #1794e4; color: #1794e4 !important;">
+                                            <i class="ace-icon fa  fa-cog small bigger-120 blue"></i>
+                                            设置
+                                        </button>
                                     </h3>
                                     <!-- 下级部门 -->
                                     <div class="sub-department">
                                         <h4 class="pink">
                                             <i class="ace-icon fa fa-sitemap icon-animated-hand-pointer blue"></i>
-                                            <a href="#modal-table" role="button" class="green" data-toggle="modal"> 下级部门</a>
+                                            <a href="#modal-table" role="button" class="blue" data-toggle="modal"> 下级部门</a>
                                         </h4>
                                         <div class="hr hr-18 dotted hr-double"></div>
                                         <div class="widget-header widget-header-flat">
-                                            <h4 class="smaller">
-                                                <button id="add-sub-department-btn" class="btn btn-white btn-info btn-bold">
-                                                    <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
+                                            <h4 class="smaller btn-group">
+                                                <button id="add-sub-department-btn" class="btn btn-info">
+                                                    <i class="ace-icon glyphicon glyphicon-plus small bigger-120 white"></i>
                                                     添加子部门
                                                 </button>
-                                                <!--<button class="btn btn-white btn-info btn-bold sub-department-queue display-none">
+                                                <!--<button class="btn btn-info sub-department-queue display-none">
                                                     <i class="ace-icon fa fa-bars small bigger-120 blue"></i>
                                                     调整顺序
                                                 </button>-->
@@ -128,19 +145,19 @@
                                     <div class="department-staff">
                                         <h4 class="pink">
                                             <i class="ace-icon fa fa-users icon-animated-hand-pointer blue"></i>
-                                            <a href="#modal-table" role="button" class="green" data-toggle="modal"> 部门成员</a>
+                                            <a href="#modal-table" role="button" class="blue" data-toggle="modal"> 部门成员</a>
                                         </h4>
                                         <div class="hr hr-18 dotted hr-double"></div>
 
 
                                         <div class="widget-header widget-header-flat">
-                                            <h4 class="smaller">
-                                                <button id="add-department-staff-btn" class="btn btn-white btn-info btn-bold">
-                                                    <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
+                                            <h4 class="smaller btn-group">
+                                                <button id="add-department-staff-btn" class="btn btn-info">
+                                                    <!--<i class="ace-icon glyphicon glyphicon-plus small bigger-120 white"></i>-->
                                                     添加成员
                                                 </button>
-                                                <button id="add-department-staff-del-btn" class="btn btn-white btn-warning btn-bold">
-                                                    <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
+                                                <button id="add-department-staff-del-btn" class="btn btn-danger">
+                                                    <!--<i class="ace-icon fa fa-trash-o bigger-120 orange"></i>-->
                                                     批量删除
                                                 </button>
                                             </h4>
@@ -182,13 +199,13 @@
                                     </h3>
                                     <div class="role-group-person-list">
                                         <div class="widget-header widget-header-flat">
-                                            <h4 class="smaller">
-                                                <!--<button class="btn btn-white btn-info btn-bold">
-                                                    <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
+                                            <h4 class="smaller btn-group">
+                                                <!--<button class="btn btn-info">
+                                                    <i class="ace-icon glyphicon glyphicon-plus small bigger-120 white"></i>
                                                     添加成员
                                                 </button>-->
-                                                <button id="role-group-person-list-del" class="btn btn-white btn-warning btn-bold">
-                                                    <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
+                                                <button id="role-group-person-list-del" class="btn btn-danger">
+                                                    <!--<i class="ace-icon fa fa-trash-o bigger-120 orange"></i>-->
                                                     批量删除
                                                 </button>
                                             </h4>
@@ -270,17 +287,17 @@
                                     <div class="outcontacts-container">
                                         <h4 class="pink">
                                             <i class="ace-icon fa fa-users icon-animated-hand-pointer blue"></i>
-                                            <a href="#modal-table" role="button" class="green" data-toggle="modal">外部联系人</a>
+                                            <a href="#modal-table" role="button" class="blue" data-toggle="modal">外部联系人</a>
                                         </h4>
                                         <div class="hr hr-18 dotted hr-double"></div>
                                         <div class="widget-header widget-header-flat">
-                                            <h4 class="smaller">
-                                                <button class="btn btn-white btn-info btn-bold add-outcontacts-btn">
-                                                    <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
+                                            <h4 class="smaller btn-group">
+                                                <button class="btn btn-info add-outcontacts-btn">
+                                                    <!--<i class="ace-icon glyphicon glyphicon-plus small bigger-120 white"></i>-->
                                                     添加成员
                                                 </button>
-                                                <button class="btn btn-white btn-warning btn-bold del-outcontacts-btn">
-                                                    <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
+                                                <button class="btn btn-danger del-outcontacts-btn">
+                                                    <!--<i class="ace-icon fa fa-trash-o bigger-120 orange"></i>-->
                                                     批量删除
                                                 </button>
                                             </h4>
@@ -873,7 +890,9 @@
             roleContainer.removeClass("display-none").siblings().removeClass("display-block").addClass("display-none");
             var defaultHtml = '<div class="alert alert-info defaultHtml" style="margin: 0;"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>请选择角色</div>';
             roleContainer.find("h3, .role-group-person-list").addClass("display-none");
-            roleContainer.append(defaultHtml);
+            if (!roleContainer.find(".alert").hasClass("defaultHtml")) {
+                roleContainer.append(defaultHtml);
+            }
         });
 
         //下级部门调整顺序
@@ -1224,7 +1243,7 @@
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this), flag = validateForm.form(), editDepartmentName = $("#edit-department-name");
                             if(flag){
@@ -1343,7 +1362,7 @@
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $form.form();
@@ -1543,7 +1562,7 @@
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var treeObj = $.fn.zTree.getZTreeObj("add-department-staff-departmentname-select");
@@ -1882,7 +1901,7 @@
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var treeObj = $.fn.zTree.getZTreeObj("edit-department-staff-departmentname-select");
@@ -2099,7 +2118,7 @@
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $formChangePassword.form();
@@ -2400,7 +2419,7 @@
                         buttons: [
                             {
                                 text: "保存",
-                                "class" : "btn btn-primary btn-minier",
+                                "class" : "btn btn-info btn-minier",
                                 click: function() {
                                     var _this = $(this);
                                     var flag = $formEditRoleGroup.form();
@@ -2590,7 +2609,7 @@
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $formAddRoleGroup.form();
@@ -2709,7 +2728,7 @@
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $formAddRolePerson.form();
@@ -2894,7 +2913,7 @@
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $formEditRolePerson.form();
@@ -3121,7 +3140,7 @@
                         buttons: [
                             {
                                 text: "保存",
-                                "class" : "btn btn-primary btn-minier",
+                                "class" : "btn btn-info btn-minier",
                                 click: function() {
                                     var _this = $(this);
                                     var flag = $formEditTagGroup.form();
@@ -3225,7 +3244,7 @@
                         buttons: [
                             {
                                 text: "保存",
-                                "class" : "btn btn-primary btn-minier",
+                                "class" : "btn btn-info btn-minier",
                                 click: function() {
                                     var _this = $(this);
                                     var flag = $formEditTag.form();
@@ -3335,7 +3354,7 @@
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $formAddTagGroup.form();
@@ -3414,7 +3433,7 @@
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $formAddTag.form();
@@ -3583,7 +3602,7 @@
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $formAddOutcontacts.form(), labsList = $("#add-outcontacts-container .control-group input[type=checkbox]:checked"), arrLabs = [];
@@ -3801,7 +3820,7 @@
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $formEditOutcontacts.form(), labsList = $("#edit-outcontacts-container .control-group input[type=checkbox]:checked"), arrLabs = [];
