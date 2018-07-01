@@ -1208,10 +1208,14 @@
             $.fn.zTree.init($("#edit-organization-list-select"), organizationSettings);
             e.preventDefault();
             var dialog = $( "#edit-department-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '600',
                 height: 'auto',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑部门</h4></div>",
                 title_html: true,
                 buttons: [
@@ -1323,10 +1327,14 @@
             $("#add-upper-department-id").val($(".department-name").attr("data-id"));
             e.preventDefault();
             var dialog = $( "#add-sub-department-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '600',
                 height: 'auto',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;添加部门</h4></div>",
                 title_html: true,
                 buttons: [
@@ -1520,9 +1528,13 @@
             });
             e.preventDefault();
             var dialog = $( "#add-department-staff-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '680',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;添加成员</h4></div>",
                 title_html: true,
                 buttons: [
@@ -1855,9 +1867,13 @@
                 }
             });
             var dialog = $( "#edit-department-staff-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '680',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑成员</h4></div>",
                 title_html: true,
                 buttons: [
@@ -2068,9 +2084,13 @@
         function changePassword(id) {
             validateResetForm($formChangePassword, $('#change-password-container>form'));
             var dialog = $( "#change-password-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '680',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;修改密码</h4></div>",
                 title_html: true,
                 buttons: [
@@ -2361,10 +2381,14 @@
                         displayStyle = "display-inlin-block";
                     }
                     var dialog = $( "#edit-role-group-container" ).removeClass('hide').dialog({
+                        dragStop: function( event, ui ) {
+                            $(event.target.offsetParent).css("height", "auto");
+                        },
                         resizable: false,
                         width: '600',
                         height: 'auto',
                         modal: true,
+                        closeText: "关闭",
                         title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑角色组</h4></div>",
                         title_html: true,
                         buttons: [
@@ -2547,10 +2571,14 @@
         $(".add-role-group-btn").on("click", function () {
             validateResetForm($formAddRoleGroup, $('#add-role-group-container>form'));
             var dialog = $( "#add-role-group-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '600',
                 height: 'auto',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增角色组</h4></div>",
                 title_html: true,
                 buttons: [
@@ -2662,10 +2690,14 @@
         $(".add-role-person-btn").on("click", function () {
             validateResetForm($formAddRolePerson, $('#add-role-person-container>form'));
             var dialog = $( "#add-role-person-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '600',
                 height: 'auto',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增角色</h4></div>",
                 title_html: true,
                 buttons: [
@@ -2839,10 +2871,14 @@
             });
 
             var dialog = $( "#edit-role-person-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '600',
                 height: 'auto',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑角色</h4></div>",
                 title_html: true,
                 buttons: [
@@ -3062,10 +3098,14 @@
                 if (!treeNode.gid) {
                     $("#edit-tag-group-name").val(treeNode.name);
                     var dialog = $( "#edit-tag-group-container" ).removeClass('hide').dialog({
+                        dragStop: function( event, ui ) {
+                            $(event.target.offsetParent).css("height", "auto");
+                        },
                         resizable: false,
                         width: '600',
                         height: 'auto',
                         modal: true,
+                        closeText: "关闭",
                         title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑标签组</h4></div>",
                         title_html: true,
                         buttons: [
@@ -3162,10 +3202,14 @@
                         }
                     });
                     var dialog = $( "#edit-tag-container" ).removeClass('hide').dialog({
+                        dragStop: function( event, ui ) {
+                            $(event.target.offsetParent).css("height", "auto");
+                        },
                         resizable: false,
                         width: '600',
                         height: 'auto',
                         modal: true,
+                        closeText: "关闭",
                         title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑标签</h4></div>",
                         title_html: true,
                         buttons: [
@@ -3268,10 +3312,14 @@
         $(".add-tag-group-btn").on("click", function () {
             validateResetForm($formAddTagGroup, $('#add-tag-group-container>form'));
             var dialog = $( "#add-tag-group-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '600',
                 height: 'auto',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增标签组</h4></div>",
                 title_html: true,
                 buttons: [
@@ -3343,10 +3391,14 @@
         $(".add-tag-btn").on("click", function () {
             validateResetForm($formAddTag, $('#add-tag-container>form'));
             var dialog = $( "#add-tag-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '600',
                 height: 'auto',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增标签组</h4></div>",
                 title_html: true,
                 buttons: [
@@ -3509,9 +3561,13 @@
             });
 
             var dialog = $( "#add-outcontacts-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '680',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;添加成员</h4></div>",
                 title_html: true,
                 buttons: [
@@ -3723,9 +3779,13 @@
             });
 
             var dialog = $( "#edit-outcontacts-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '680',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;添加成员</h4></div>",
                 title_html: true,
                 buttons: [

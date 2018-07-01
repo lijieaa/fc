@@ -196,7 +196,11 @@
             e.preventDefault();
 
             var dialog = $( "#dialog-message" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 modal: true,
+                closeText: "关闭",
                 title: "选择父级菜单",
                 title_html: false,
                 buttons: [
