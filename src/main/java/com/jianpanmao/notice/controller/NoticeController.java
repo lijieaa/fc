@@ -32,4 +32,9 @@ public class NoticeController {
     public void check(Integer noticeId) {
         noticeMapper.check(noticeId);
     }
+
+    @PutMapping("allCheck")
+    public void allCheck(Integer userId){
+        noticeMapper.allCheck(userId);
+    }
 }

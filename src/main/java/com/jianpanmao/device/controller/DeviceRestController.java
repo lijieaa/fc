@@ -135,9 +135,10 @@ public class DeviceRestController {
     public Object freeDeviceList(@RequestParam(value = "pageNum", defaultValue = "1", required = true) Integer pageNum,
                                  @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
                                  @RequestParam(value = "draw", required = false) Integer draw,
-                                 @RequestParam(value = "num",required = false)String num){
+                                 @RequestParam(value = "num",required = false)String num,
+                                 @RequestParam(value = "od",required = false)String od){
         PageHelper.startPage(pageNum, pageSize);
-        List<Device> devices = deviceMapper.freeDeviceList(num);
+        List<Device> devices = deviceMapper.freeDeviceList(num,od);
         PageInfo pageInfo = new PageInfo(devices);
 
         //draw 不等于空是datatables分页
@@ -166,30 +167,16 @@ public class DeviceRestController {
         return deviceMapper.homePageDevice(user.getIntermediary().getIntermediaryId());
     }
 
+
+    /**
+     * 设备关联
+     * @param num
+     * @return
+     */
     @PreAuthorize("hasAuthority('device:view')")
     @GetMapping("deviceControl")
     public DeviceControlVo deviceControl(String num) {
-        Device device = deviceMapper.byNum(num);
-        DeviceControlVo deviceControlVo = new DeviceControlVo();
-        deviceControlVo.setRemoteBoot(device.getStartOff());
-        DeviceParam deviceParam = deviceMapper.selectDeviceParam(num);//设备参数
-        DeviceUserParam deviceUserParam = deviceMapper.selectDeviceUserParam(num);//用户参数
-        deviceControlVo.setDeviceParam(deviceParam);
-        deviceControlVo.setDeviceUserParam(deviceUserParam);
-
-
-        Timestamp timestamp = device.getSysTime();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(timestamp);
-        SystemTime systemTime = new SystemTime();
-        systemTime.setYear(calendar.get(Calendar.YEAR));
-        systemTime.setMonth(calendar.get(Calendar.MONTH) + 1);
-        systemTime.setDay(calendar.get(Calendar.DAY_OF_MONTH));
-        systemTime.setHour(calendar.get(Calendar.HOUR_OF_DAY));
-        systemTime.setMinute(calendar.get(Calendar.MINUTE));
-        systemTime.setSecond(calendar.get(Calendar.SECOND));
-        deviceControlVo.setSystem_time(systemTime);
-        return deviceControlVo;
+        return deviceService.deviceControl(num);
     }
 
 

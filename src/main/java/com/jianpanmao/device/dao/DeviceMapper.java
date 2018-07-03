@@ -18,7 +18,7 @@ public interface DeviceMapper extends BaseDao<Device, DeviceExample, DeviceDto, 
     List<Device> findByProject(Integer projectId);
     void updateDeviceUser(DeviceDto deviceDto);
 
-    List<Device> freeDeviceList(@Param("num") String num);
+    List<Device> freeDeviceList(@Param("num") String num,@Param("od")String od);
 
     void updateProjectId(DpDto dpDto);
 

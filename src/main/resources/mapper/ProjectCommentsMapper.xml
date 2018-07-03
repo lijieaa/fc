@@ -14,6 +14,7 @@
     <association property="user" javaType="com.jianpanmao.sys.entity.DingtalkUser">
       <id column="userid" property="userid"></id>
       <result column="name" property="name"></result>
+      <result property="headPic" column="head_pic"></result>
     </association>
 
   </resultMap>
@@ -348,7 +349,7 @@
   </delete>
 
   <select id="selectByDto" parameterType="com.jianpanmao.projectComments.dto.ProjectCommentsDto" resultMap="BaseResultMap">
-    SELECT pc.*,user.userid,user.name
+    SELECT pc.*,user.userid,user.name,user.head_pic
     FROM project_comments pc
     LEFT JOIN dingtalk_user user
     ON pc.user_id = user.userid
@@ -361,7 +362,7 @@
   
   <!--查询评论下所有回复-->
   <select id="projectTopComments" resultMap="BaseResultMap">
-    SELECT pc.*,user.userid,user.name
+    SELECT pc.*,user.userid,user.name,user.head_pic
      FROM project_comments pc
       LEFT JOIN dingtalk_user user
     ON pc.user_id = user.userid

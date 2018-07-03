@@ -40,6 +40,16 @@ public class DeviceLog implements Serializable {
 
     private String createTimeStr;
 
+    private String deviceOperationContent;
+
+    public String getDeviceOperationContent() {
+        return deviceOperationContent;
+    }
+
+    public void setDeviceOperationContent(String deviceOperationContent) {
+        this.deviceOperationContent = deviceOperationContent;
+    }
+
     private static final long serialVersionUID = 1L;
 
     String od;

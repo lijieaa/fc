@@ -4,6 +4,20 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
     <head>
         <link rel="stylesheet" th:href="@{/dist/css/dingtalkuser.css}" />
+        <style>
+            .nav-tabs.tab-color-blue>li.active>a, .nav-tabs.tab-color-blue>li.active>a:focus, .nav-tabs.tab-color-blue>li.active>a:hover {
+                color: #1794e4;
+                border-color: #1794e4 #1794e4 transparent;
+
+            }
+            .nav-tabs.tab-color-blue>li>a, .nav-tabs.tab-color-blue>li>a:focus {
+                background-color: #1794e4;
+            }
+            h4.smaller {
+                font-size: 17px;
+                color: #1794e4 !important;
+            }
+        </style>
     </head>
 <body layout:fragment="content">
 <div class="row">
@@ -15,13 +29,13 @@
         <ul class="nav nav-tabs" id="myTab">
             <li class="col-sm-6 active no-padding">
                 <a data-toggle="tab" href="#insidecontacts" aria-expanded="true">
-                    <i class="green ace-icon fa fa-book bigger-120"></i>
+                    <!--<i class="green ace-icon fa fa-book bigger-120"></i>-->
                     内部通讯录管理
                 </a>
             </li>
             <li class="col-sm-6 no-padding">
                 <a data-toggle="tab" href="#outcontacts" aria-expanded="false">
-                    <i class="green ace-icon glyphicon glyphicon-list-alt bigger-120"></i>
+                    <!--<i class="green ace-icon glyphicon glyphicon-list-alt bigger-120"></i>-->
                     外部联系人
                 </a>
             </li>
@@ -71,22 +85,25 @@
                                     <h3 class="header smaller lighter blue margin-top-0">
                                         <span class="department-name"></span>
                                         <!--<small class="btn-warning padding-3">全员群</small>-->
-                                        <button id="edit-department-btn" type="button" class="btn btn-white btn-sm btn-primary">设置</button>
+                                        <button id="edit-department-btn" type="button" class="btn btn-white btn-sm btn-primary" style="border-color: #1794e4; color: #1794e4 !important;">
+                                            <i class="ace-icon fa  fa-cog small bigger-120 blue"></i>
+                                            设置
+                                        </button>
                                     </h3>
                                     <!-- 下级部门 -->
                                     <div class="sub-department">
                                         <h4 class="pink">
                                             <i class="ace-icon fa fa-sitemap icon-animated-hand-pointer blue"></i>
-                                            <a href="#modal-table" role="button" class="green" data-toggle="modal"> 下级部门</a>
+                                            <a href="#modal-table" role="button" class="blue" data-toggle="modal"> 下级部门</a>
                                         </h4>
                                         <div class="hr hr-18 dotted hr-double"></div>
                                         <div class="widget-header widget-header-flat">
-                                            <h4 class="smaller">
-                                                <button id="add-sub-department-btn" class="btn btn-white btn-info btn-bold">
-                                                    <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
+                                            <h4 class="smaller btn-group">
+                                                <button id="add-sub-department-btn" class="btn btn-info">
+                                                    <i class="ace-icon glyphicon glyphicon-plus small bigger-120 white"></i>
                                                     添加子部门
                                                 </button>
-                                                <!--<button class="btn btn-white btn-info btn-bold sub-department-queue display-none">
+                                                <!--<button class="btn btn-info sub-department-queue display-none">
                                                     <i class="ace-icon fa fa-bars small bigger-120 blue"></i>
                                                     调整顺序
                                                 </button>-->
@@ -128,19 +145,19 @@
                                     <div class="department-staff">
                                         <h4 class="pink">
                                             <i class="ace-icon fa fa-users icon-animated-hand-pointer blue"></i>
-                                            <a href="#modal-table" role="button" class="green" data-toggle="modal"> 部门成员</a>
+                                            <a href="#modal-table" role="button" class="blue" data-toggle="modal"> 部门成员</a>
                                         </h4>
                                         <div class="hr hr-18 dotted hr-double"></div>
 
 
                                         <div class="widget-header widget-header-flat">
-                                            <h4 class="smaller">
-                                                <button id="add-department-staff-btn" class="btn btn-white btn-info btn-bold">
-                                                    <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
+                                            <h4 class="smaller btn-group">
+                                                <button id="add-department-staff-btn" class="btn btn-info">
+                                                    <!--<i class="ace-icon glyphicon glyphicon-plus small bigger-120 white"></i>-->
                                                     添加成员
                                                 </button>
-                                                <button id="add-department-staff-del-btn" class="btn btn-white btn-warning btn-bold">
-                                                    <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
+                                                <button id="add-department-staff-del-btn" class="btn btn-danger">
+                                                    <!--<i class="ace-icon fa fa-trash-o bigger-120 orange"></i>-->
                                                     批量删除
                                                 </button>
                                             </h4>
@@ -182,13 +199,13 @@
                                     </h3>
                                     <div class="role-group-person-list">
                                         <div class="widget-header widget-header-flat">
-                                            <h4 class="smaller">
-                                                <!--<button class="btn btn-white btn-info btn-bold">
-                                                    <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
+                                            <h4 class="smaller btn-group">
+                                                <!--<button class="btn btn-info">
+                                                    <i class="ace-icon glyphicon glyphicon-plus small bigger-120 white"></i>
                                                     添加成员
                                                 </button>-->
-                                                <button id="role-group-person-list-del" class="btn btn-white btn-warning btn-bold">
-                                                    <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
+                                                <button id="role-group-person-list-del" class="btn btn-danger">
+                                                    <!--<i class="ace-icon fa fa-trash-o bigger-120 orange"></i>-->
                                                     批量删除
                                                 </button>
                                             </h4>
@@ -270,17 +287,17 @@
                                     <div class="outcontacts-container">
                                         <h4 class="pink">
                                             <i class="ace-icon fa fa-users icon-animated-hand-pointer blue"></i>
-                                            <a href="#modal-table" role="button" class="green" data-toggle="modal">外部联系人</a>
+                                            <a href="#modal-table" role="button" class="blue" data-toggle="modal">外部联系人</a>
                                         </h4>
                                         <div class="hr hr-18 dotted hr-double"></div>
                                         <div class="widget-header widget-header-flat">
-                                            <h4 class="smaller">
-                                                <button class="btn btn-white btn-info btn-bold add-outcontacts-btn">
-                                                    <i class="ace-icon glyphicon glyphicon-plus small bigger-120 blue"></i>
+                                            <h4 class="smaller btn-group">
+                                                <button class="btn btn-info add-outcontacts-btn">
+                                                    <!--<i class="ace-icon glyphicon glyphicon-plus small bigger-120 white"></i>-->
                                                     添加成员
                                                 </button>
-                                                <button class="btn btn-white btn-warning btn-bold del-outcontacts-btn">
-                                                    <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
+                                                <button class="btn btn-danger del-outcontacts-btn">
+                                                    <!--<i class="ace-icon fa fa-trash-o bigger-120 orange"></i>-->
                                                     批量删除
                                                 </button>
                                             </h4>
@@ -432,7 +449,7 @@
         <div class="form-group col-sm-12 col-md-12">
             <label class="col-sm-2 control-label no-padding-right" for="add-department-staff-phone">手机号:</label>
             <div class="col-sm-9">
-                <input type="text" id="add-department-staff-phone" name="phone" placeholder="请输入手机号" class="form-control">
+                <input type="text" id="add-department-staff-phone" name="phone" placeholder="请输入手机号" maxlength="11" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
@@ -516,7 +533,7 @@
         <div class="form-group col-sm-12 col-md-12">
             <label class="col-sm-2 control-label no-padding-right" for="edit-department-staff-phone">手机号:</label>
             <div class="col-sm-9">
-                <input type="text" id="edit-department-staff-phone" name="phone" placeholder="请输入手机号" class="form-control" readonly>
+                <input type="text" id="edit-department-staff-phone" name="phone" placeholder="请输入手机号" maxlength="11" class="form-control" readonly>
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
@@ -744,7 +761,7 @@
         <div class="form-group col-sm-12 col-md-12">
             <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-phone">手机号:</label>
             <div class="col-sm-9">
-                <input type="text" id="add-outcontacts-phone" name="phone" placeholder="请输入手机号" class="form-control">
+                <input type="text" id="add-outcontacts-phone" name="phone" placeholder="请输入手机号" maxlength="11" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
@@ -788,8 +805,9 @@
         <div class="form-group col-sm-12 col-md-12">
             <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-tag-btn">标签:</label>
             <div class="col-sm-9">
+                <input type="hidden" name="addOutcontactsTag" class="form-control">
                 <button type="button" id="add-outcontacts-tag-btn" name="role" class="form-control btn btn-white btn-default">请选择标签</button>
-                <ul id="add-outcontacts-tag-select" ></ul>
+                <ul id="add-outcontacts-tag-select" class="display-none"></ul>
             </div>
         </div>
     </form>
@@ -809,7 +827,7 @@
         <div class="form-group col-sm-12 col-md-12">
             <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-phone">手机号:</label>
             <div class="col-sm-9">
-                <input type="text" id="edit-outcontacts-phone" name="phone" placeholder="请输入手机号" class="form-control">
+                <input type="text" id="edit-outcontacts-phone" name="phone" placeholder="请输入手机号" maxlength="11" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
@@ -853,6 +871,7 @@
         <div class="form-group col-sm-12">
             <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-tag-btn">标签:</label>
             <div class="col-sm-9">
+                <input type="hidden" name="editOutcontactsTag" class="form-control">
                 <button type="button" id="edit-outcontacts-tag-btn" name="role" class="form-control btn btn-white btn-default">请选择标签</button>
                 <ul id="edit-outcontacts-tag-select" ></ul>
             </div>
@@ -862,6 +881,13 @@
 
 <script type="text/javascript" th:inline="javascript">
     $(function () {
+        //验证手机
+        jQuery.validator.addMethod("isMobile", function(value, element) {
+            var length = value.length;
+            var mobile = /^1[0-9]{10}$/;
+            return this.optional(element) || (length == 11 && mobile.test(value));
+        }, "手机号码格式错误");
+
         //控制组织架构和角色内容展示
         var organizationContainer = $(".organization-container"), roleContainer = $(".role-container");
         $(".organization-menu").on("click", function () {
@@ -869,6 +895,11 @@
         });
         $(".role-menu").on("click", function () {
             roleContainer.removeClass("display-none").siblings().removeClass("display-block").addClass("display-none");
+            var defaultHtml = '<div class="alert alert-info defaultHtml" style="margin: 0;"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>请选择角色</div>';
+            roleContainer.find("h3, .role-group-person-list").addClass("display-none");
+            if (!roleContainer.find(".alert").hasClass("defaultHtml")) {
+                roleContainer.append(defaultHtml);
+            }
         });
 
         //下级部门调整顺序
@@ -1206,15 +1237,20 @@
             $.fn.zTree.init($("#edit-organization-list-select"), organizationSettings);
             e.preventDefault();
             var dialog = $( "#edit-department-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '600',
+                height: 'auto',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑部门</h4></div>",
                 title_html: true,
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this), flag = validateForm.form(), editDepartmentName = $("#edit-department-name");
                             if(flag){
@@ -1320,15 +1356,20 @@
             $("#add-upper-department-id").val($(".department-name").attr("data-id"));
             e.preventDefault();
             var dialog = $( "#add-sub-department-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '600',
+                height: 'auto',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;添加部门</h4></div>",
                 title_html: true,
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $form.form();
@@ -1392,7 +1433,8 @@
                             data: "mobile="+mobile
                         };
                         return r;
-                    }
+                    },
+                    isMobile: true
                 },
                 password: {
                     required: true,
@@ -1405,7 +1447,8 @@
             },
             messages: {
                 phone: {
-                    remote: "该用户已经存在"
+                    remote: "该用户已经存在",
+                    isMobile: "请填写正确的手机号码"
                 },
                 password: {
                     minlength: "密码最少长度为6位"
@@ -1516,15 +1559,19 @@
             });
             e.preventDefault();
             var dialog = $( "#add-department-staff-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '680',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;添加成员</h4></div>",
                 title_html: true,
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var treeObj = $.fn.zTree.getZTreeObj("add-department-staff-departmentname-select");
@@ -1851,15 +1898,19 @@
                 }
             });
             var dialog = $( "#edit-department-staff-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '680',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑成员</h4></div>",
                 title_html: true,
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var treeObj = $.fn.zTree.getZTreeObj("edit-department-staff-departmentname-select");
@@ -2064,15 +2115,19 @@
         function changePassword(id) {
             validateResetForm($formChangePassword, $('#change-password-container>form'));
             var dialog = $( "#change-password-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '680',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;修改密码</h4></div>",
                 title_html: true,
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $formChangePassword.form();
@@ -2256,9 +2311,12 @@
                 });
                 $(addRoleRersonGroupHtml).insertAfter(addRoleRersonGroupBox[0])
             }
+
         }
         function roleOnClick(event, treeId, treeNode) {
             if (!treeNode.isParent) {
+                roleContainer.find("h3, .role-group-person-list").removeClass("display-none");
+                roleContainer.find(".defaultHtml").remove();
                 $("#role-person-name").text(treeNode.roleName);
                 var id = treeNode.roleId;
                 $("#edit-role-person-btn").attr("data-roleId", treeNode.roleId).attr("data-isDel", treeNode.isDel);
@@ -2317,55 +2375,60 @@
             var zTree = $.fn.zTree.getZTreeObj("role-list");
             zTree.reAsyncChildNodes(null, "refresh");
         }
+        var $formEditRoleGroup = $('#edit-role-group-container>form').validate({
+            errorElement: 'span',
+            errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                roleName: {
+                    required: true
+                }
+            },
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent());
+            },
+            invalidHandler: function (form) {
+            }
+        });
         function addHoverDom(treeId, treeNode) {
             if (treeNode.isParent && !treeNode.isDel) {
                 var aObj = $("#" + treeNode.tId + "_a");
-                if ($("#diyBtn_"+treeNode.id).length>0) return;
-                var editStr = "<span id='diyBtn_space_" +treeNode.id+ "' > </span>"
-                        + "<button type='button' class='btn btn-white btn-sm btn-primary' id='diyBtn_" + treeNode.id
+                if ($("#diyBtn_"+treeNode.roleId).length>0) return;
+                var editStr = "<span id='diyBtn_space_" +treeNode.roleId+ "' > </span>"
+                        + "<button type='button' class='btn btn-white btn-sm btn-primary' id='diyBtn_" + treeNode.roleId
                         + "' onfocus='this.blur();'>编辑</button>";
                 aObj.append(editStr);
-                var btn = $("#diyBtn_"+treeNode.id), displayStyle = "display-none", roleId = treeNode.roleId;
+                var btn = $("#diyBtn_"+treeNode.roleId), displayStyle = "display-none", roleId = treeNode.roleId;
                 if (btn) btn.bind("click", function(){
+                    validateResetForm($formEditRoleGroup, $('#edit-role-group-container>form'));
                     //编辑角色组
                     $("#edit-role-group-name").val(treeNode.roleName);
                     if (!treeNode.isDel) {
                         displayStyle = "display-inlin-block";
                     }
-                    var $formEditRoleGroup = $('#edit-role-group-container>form').validate({
-                        errorElement: 'span',
-                        errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
-                        focusInvalid: false,
-                        ignore: "",
-                        rules: {
-                            roleName: {
-                                required: true
-                            }
-                        },
-                        highlight: function (e) {
-                            $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-                        },
-                        success: function (e) {
-                            $(e).closest('.form-group').removeClass('has-error');
-                            $(e).remove();
-                        },
-                        errorPlacement: function (error, element) {
-                            error.insertAfter(element.parent());
-                        },
-                        invalidHandler: function (form) {
-                        }
-                    });
-                    validateResetForm($formEditRoleGroup, $('#edit-role-group-container>form'));
                     var dialog = $( "#edit-role-group-container" ).removeClass('hide').dialog({
+                        dragStop: function( event, ui ) {
+                            $(event.target.offsetParent).css("height", "auto");
+                        },
                         resizable: false,
                         width: '600',
+                        height: 'auto',
                         modal: true,
+                        closeText: "关闭",
                         title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑角色组</h4></div>",
                         title_html: true,
                         buttons: [
                             {
                                 text: "保存",
-                                "class" : "btn btn-primary btn-minier",
+                                "class" : "btn btn-info btn-minier",
                                 click: function() {
                                     var _this = $(this);
                                     var flag = $formEditRoleGroup.form();
@@ -2428,8 +2491,8 @@
 
         }
         function removeHoverDom(treeId, treeNode) {
-            $("#diyBtn_"+treeNode.id).unbind().remove();
-            $("#diyBtn_space_" +treeNode.id).unbind().remove();
+            $("#diyBtn_"+treeNode.roleId).unbind().remove();
+            $("#diyBtn_space_" +treeNode.roleId).unbind().remove();
         }
         $.fn.zTree.init($("#role-list"), roleSettings);
 
@@ -2542,15 +2605,20 @@
         $(".add-role-group-btn").on("click", function () {
             validateResetForm($formAddRoleGroup, $('#add-role-group-container>form'));
             var dialog = $( "#add-role-group-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '600',
+                height: 'auto',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增角色组</h4></div>",
                 title_html: true,
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $formAddRoleGroup.form();
@@ -2656,15 +2724,20 @@
         $(".add-role-person-btn").on("click", function () {
             validateResetForm($formAddRolePerson, $('#add-role-person-container>form'));
             var dialog = $( "#add-role-person-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '600',
+                height: 'auto',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增角色</h4></div>",
                 title_html: true,
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $formAddRolePerson.form();
@@ -2742,12 +2815,16 @@
         });
         $("#edit-role-person-btn").on("click", function () {
             validateResetForm($formEditRolePerson, $('#edit-role-person-container>form'));
-            var _this = $(this), roleId = _this.attr("data-roleId"), groupId = "";
-            var displayStyle = "display-none";
-            if (!$(this).attr("data-isDel").isDel) {
+            var _this = $(this), roleId = _this.attr("data-roleId"), groupId = "", displayStyle = "";
+            if ($(this).attr("data-isDel") != "0") {
+                displayStyle = "display-none";
+                $("#edit-role-person-group").attr("disabled", "disabled");
+            } else {
                 displayStyle = "display-inlin-block";
-            }
+                $("#edit-role-person-group").removeAttr("disabled");
 
+            }
+            $("#edit-role-person-rcompetence").unbind();
             $("#edit-role-person-rcompetence").on("click", function () {
                 if ($("#edit-role-person-competence-select").hasClass("display-none")) {
                     $("#edit-role-person-competence-select").removeClass("display-none")
@@ -2832,15 +2909,20 @@
             });
 
             var dialog = $( "#edit-role-person-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '600',
+                height: 'auto',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑角色</h4></div>",
                 title_html: true,
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $formEditRolePerson.form();
@@ -2955,6 +3037,7 @@
         }
         function tagOnClick(event, treeId, treeNode) {
             if (treeNode.gid) {
+                $(".outcontacts-container .widget-header, .outcontacts-container .widget-body").removeClass("display-none");
                 $(".outcontacts-container").attr("data-labid", treeNode.id);
                 $.ajax({
                     async : false,
@@ -3007,6 +3090,8 @@
 //                        alert('请求失败');
                     }
                 });
+            } else {
+                $(".outcontacts-container .widget-header, .outcontacts-container .widget-body").addClass("display-none");
             }
 
         }
@@ -3014,6 +3099,29 @@
             var zTree = $.fn.zTree.getZTreeObj("tag-list");
             zTree.reAsyncChildNodes(null, "refresh");
         }
+        var $formEditTagGroup = $('#edit-tag-group-container>form').validate({
+            errorElement: 'span',
+            errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                tagName: {
+                    required: true
+                }
+            },
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent());
+            },
+            invalidHandler: function (form) {
+            }
+        });
         function tagAddHoverDom(treeId, treeNode) {
             var aObj = $("#" + treeNode.tId + "_a");
             if ($("#diyBtn_"+treeNode.id).length>0) return;
@@ -3023,43 +3131,25 @@
             aObj.append(editStr);
             var btn = $("#diyBtn_"+treeNode.id), id = treeNode.id;
             if (btn) btn.bind("click", function(){
+                validateResetForm($formEditTagGroup, $('#edit-tag-group-container>form'));
                 //编辑标签组
                 if (!treeNode.gid) {
                     $("#edit-tag-group-name").val(treeNode.name);
-                    var $formEditTagGroup = $('#edit-tag-group-container>form').validate({
-                        errorElement: 'span',
-                        errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
-                        focusInvalid: false,
-                        ignore: "",
-                        rules: {
-                            tagName: {
-                                required: true
-                            }
-                        },
-                        highlight: function (e) {
-                            $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-                        },
-                        success: function (e) {
-                            $(e).closest('.form-group').removeClass('has-error');
-                            $(e).remove();
-                        },
-                        errorPlacement: function (error, element) {
-                            error.insertAfter(element.parent());
-                        },
-                        invalidHandler: function (form) {
-                        }
-                    });
-                    validateResetForm($formEditTagGroup, $('#edit-tag-group-container>form'));
                     var dialog = $( "#edit-tag-group-container" ).removeClass('hide').dialog({
+                        dragStop: function( event, ui ) {
+                            $(event.target.offsetParent).css("height", "auto");
+                        },
                         resizable: false,
                         width: '600',
+                        height: 'auto',
                         modal: true,
+                        closeText: "关闭",
                         title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑标签组</h4></div>",
                         title_html: true,
                         buttons: [
                             {
                                 text: "保存",
-                                "class" : "btn btn-primary btn-minier",
+                                "class" : "btn btn-info btn-minier",
                                 click: function() {
                                     var _this = $(this);
                                     var flag = $formEditTagGroup.form();
@@ -3150,15 +3240,20 @@
                         }
                     });
                     var dialog = $( "#edit-tag-container" ).removeClass('hide').dialog({
+                        dragStop: function( event, ui ) {
+                            $(event.target.offsetParent).css("height", "auto");
+                        },
                         resizable: false,
                         width: '600',
+                        height: 'auto',
                         modal: true,
+                        closeText: "关闭",
                         title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑标签</h4></div>",
                         title_html: true,
                         buttons: [
                             {
                                 text: "保存",
-                                "class" : "btn btn-primary btn-minier",
+                                "class" : "btn btn-info btn-minier",
                                 click: function() {
                                     var _this = $(this);
                                     var flag = $formEditTag.form();
@@ -3255,15 +3350,20 @@
         $(".add-tag-group-btn").on("click", function () {
             validateResetForm($formAddTagGroup, $('#add-tag-group-container>form'));
             var dialog = $( "#add-tag-group-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '600',
+                height: 'auto',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增标签组</h4></div>",
                 title_html: true,
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $formAddTagGroup.form();
@@ -3329,15 +3429,20 @@
         $(".add-tag-btn").on("click", function () {
             validateResetForm($formAddTag, $('#add-tag-container>form'));
             var dialog = $( "#add-tag-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '600',
+                height: 'auto',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增标签组</h4></div>",
                 title_html: true,
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $formAddTag.form();
@@ -3387,14 +3492,9 @@
                 username: {
                     required: true
                 },
-                departmentname: {
-                    required: true
-                },
-                role: {
-                    required: true
-                },
                 phone: {
                     required: true,
+                    isMobile: true
                     /* remote: {
                      url: contextPath+"api/dingtalkuser/mobile",
                      type: "post",               //数据发送方式
@@ -3406,16 +3506,15 @@
                      })
                      }*/
                 },
-                password: {
+                addOutcontactsTag: {
                     required: true
-                },
-                confirm_password: {
-                    required: true,
-                    equalTo: "#add-department-staff-repassword"
                 }
             },
             messages: {
-                remote: "该用户已经存在"
+//                remote: "该用户已经存在"
+                phone: {
+                    isMobile: "请填写正确的手机号码"
+                }
             },
             highlight: function (e) {
                 $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
@@ -3444,22 +3543,20 @@
                         addOutcontactsTagSelectBox.html("");
                         $.each(data.content, function (i, item) {
                             var addOutcontactsTagSelectHtml = "", addOutcontactsChildrenTagSelectHtml = "", num = i;
-                            if (item.children.length) {
-                                $.each(item.children, function (i, item) {
-                                    addOutcontactsChildrenTagSelectHtml += '<div class="radio inline">' +
+                            $.each(item.children, function (i, item) {
+                                addOutcontactsChildrenTagSelectHtml += '<div class="radio inline">' +
                                         '<label>' +
                                         '<input name="form-field-checkbox'+ num +'" type="checkbox" class="ace" value="'+ item.id +'">' +
                                         '<span class="lbl">'+ item.name +'</span>' +
                                         '</label>' +
-                                    '</div>';
-                                });
-                                addOutcontactsTagSelectHtml = '<li>' +
-                                        '<div class="control-group" style="">' +
-                                        '<label class="control-label bolder blue block align-left">'+ item.name +'</label>' +
-                                            addOutcontactsChildrenTagSelectHtml+
-                                        '</div>'+
-                                        '</li>'
-                            }
+                                        '</div>';
+                            });
+                            addOutcontactsTagSelectHtml = '<li>' +
+                                    '<div class="control-group" style="">' +
+                                    '<label class="control-label bolder blue block align-left">'+ item.name +'</label>' +
+                                    addOutcontactsChildrenTagSelectHtml+
+                                    '</div>'+
+                                    '</li>'
                             addOutcontactsTagSelectBox.append(addOutcontactsTagSelectHtml);
                             $("#add-outcontacts-tag-select>li .control-group input[type=checkbox]").on("click", function () {
                                 $(this).parents("div").siblings().find("input").attr("checked", false);
@@ -3496,6 +3593,8 @@
             });
             $("#add-outcontacts-tag-btn").unbind();
             $("#add-outcontacts-tag-btn").on("click", function () {
+                $("#addOutcontactsTag-error").parents(".has-error").removeClass("has-error");
+                $("#addOutcontactsTag-error").remove();
                 if ($("#add-outcontacts-tag-select").hasClass("display-none")) {
                     $("#add-outcontacts-tag-select").removeClass("display-none")
                 } else {
@@ -3504,21 +3603,32 @@
             });
 
             var dialog = $( "#add-outcontacts-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '680',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;添加成员</h4></div>",
                 title_html: true,
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $formAddOutcontacts.form(), labsList = $("#add-outcontacts-container .control-group input[type=checkbox]:checked"), arrLabs = [];
                             labsList.each(function (i, item) {
                                 arrLabs.push({"id": $(item).val()});
                             });
+                            if (labsList.length) {
+                                $("#add-outcontacts-tag-btn").siblings("input").val("true");
+                                $("#addOutcontactsTag-error").parents(".has-error").removeClass("has-error");
+                                $("#addOutcontactsTag-error").remove();
+                            } else {
+                                $("#add-outcontacts-tag-btn").siblings("input").val("");
+                            }
                             if(flag){
                                 var data = {
                                     "username": $("#add-outcontacts-username").val(),
@@ -3569,11 +3679,9 @@
                 username: {
                     required: true
                 },
-                departmentname: {
-                    required: true
-                },
                 phone: {
                     required: true,
+                    isMobile: true
                     /* remote: {
                      url: contextPath+"api/dingtalkuser/mobile",
                      type: "post",               //数据发送方式
@@ -3584,6 +3692,15 @@
                      }
                      })
                      }*/
+                },
+                editOutcontactsTag: {
+                    required: true
+                }
+            },
+            messages: {
+//                remote: "该用户已经存在"
+                phone: {
+                    isMobile: "请填写正确的手机号码"
                 }
             },
             highlight: function (e) {
@@ -3701,6 +3818,8 @@
 
             $("#edit-outcontacts-tag-btn").unbind();
             $("#edit-outcontacts-tag-btn").on("click", function () {
+                $("#editOutcontactsTag-error").parents(".has-error").removeClass("has-error");
+                $("#editOutcontactsTag-error").remove();
                 if ($("#edit-outcontacts-tag-select").hasClass("display-none")) {
                     $("#edit-outcontacts-tag-select").removeClass("display-none")
                 } else {
@@ -3709,21 +3828,32 @@
             });
 
             var dialog = $( "#edit-outcontacts-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 resizable: false,
                 width: '680',
                 modal: true,
+                closeText: "关闭",
                 title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;添加成员</h4></div>",
                 title_html: true,
                 buttons: [
                     {
                         text: "保存",
-                        "class" : "btn btn-primary btn-minier",
+                        "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
                             var flag = $formEditOutcontacts.form(), labsList = $("#edit-outcontacts-container .control-group input[type=checkbox]:checked"), arrLabs = [];
                             labsList.each(function (i, item) {
                                 arrLabs.push({"id": $(item).val()});
                             });
+                            if (labsList.length) {
+                                $("#edit-outcontacts-tag-btn").siblings("input").val("true");
+                                $("#editOutcontactsTag-error").parents(".has-error").removeClass("has-error");
+                                $("#editOutcontactsTag-error").remove();
+                            } else {
+                                $("#edit-outcontacts-tag-btn").siblings("input").val("");
+                            }
                             if(flag){
                                 var data = {
                                     "id": id,

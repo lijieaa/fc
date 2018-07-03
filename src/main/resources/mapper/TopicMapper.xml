@@ -10,6 +10,7 @@
     <association property="user" javaType="com.jianpanmao.sys.entity.DingtalkUser">
       <id property="userid" column="userid"></id>
       <result property="name" column="name"></result>
+      <result property="headPic" column="head_pic"></result>
     </association>
     <association property="intermediary" javaType="com.jianpanmao.intermediary.entity.Intermediary">
       <id property="intermediaryId" column="intermediary_id"></id>
@@ -333,7 +334,7 @@
   </select>
 
   <select id="findByIntermediaryId" resultMap="BaseResultMap">
-    select t.*,u.userid,u.name,i.intermediary_id,i.intermediary_name
+    select t.*,u.userid,u.name,u.head_pic,i.intermediary_id,i.intermediary_name
     from topic t
     LEFT JOIN dingtalk_user u ON t.user_id = u.userid
     LEFT JOIN intermediary i ON t.intermediary_id = i.intermediary_id

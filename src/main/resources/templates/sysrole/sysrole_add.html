@@ -102,7 +102,11 @@
             e.preventDefault();
 
             var dialog = $( "#dialog-message" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
                 modal: true,
+                closeText: "关闭",
                 title: "选择权限",
                 title_html: false,
                 buttons: [

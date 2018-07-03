@@ -53,6 +53,26 @@ public class Intermediary implements Serializable {
     @NotBlank(message = "图文简介不能为空")
     private String intermediaryIntroduction;
 
+    private String eCode;//企业代码
+
+    private String businessLicense;//营业执照
+
+    public String getBusinessLicense() {
+        return businessLicense;
+    }
+
+    public void setBusinessLicense(String businessLicense) {
+        this.businessLicense = businessLicense;
+    }
+
+    public String geteCode() {
+        return eCode;
+    }
+
+    public void seteCode(String eCode) {
+        this.eCode = eCode;
+    }
+
     private static final long serialVersionUID = 1L;
 
     String od;

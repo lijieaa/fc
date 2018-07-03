@@ -8,12 +8,17 @@ import com.jianpanmao.attach.entity.Attach;
 import com.jianpanmao.attach.service.AttachService;
 import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.common.config.MyConfig;
+import com.jianpanmao.device.dto.control.DeviceControlVo;
+import com.jianpanmao.device.entity.Device;
+import com.jianpanmao.device.service.DeviceService;
+import com.jianpanmao.deviceLog.entity.DeviceLog;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -65,6 +70,8 @@ public class CommonController{
     @Autowired
     AttachService attachService;
 
+    @Autowired
+    DeviceService deviceService;
 
 
     //@Autowired
@@ -178,27 +185,31 @@ public class CommonController{
 
     @PostMapping("/api/mqtt_send")
     @ResponseBody
+    @Transactional
     public Map mqttSend(@RequestBody Map data) throws JsonProcessingException {
 
         //System.out.println(gateway);
-
-        ObjectMapper mapper=new ObjectMapper();
+      /*  ObjectMapper mapper=new ObjectMapper();
 
         String s = mapper.writeValueAsString(data);
 
-       /* for (int i = 0; i < 1000; i++) {
+       *//* for (int i = 0; i < 1000; i++) {
             gateway.sendToMqtt(s,"topic"+i);
-        }*/
+        }*//*
 
 
         gateway.sendToMqtt(s,"/Control/json");
 
 
         Map rdata=new HashMap<>();
+        if (saveDeviceLog(data)){
+            rdata.put("msg","发送成功！");
+        }else {
+            rdata.put("msg","保存日志失败！");
+        }
 
-        rdata.put("msg","发送成功！");
-
-        return rdata;
+        return rdata;*/
+        return null;
     }
 
 
@@ -213,5 +224,11 @@ public class CommonController{
         } else {
             response.sendRedirect("/login");
         }
+    }
+
+    //保存日志
+    public boolean saveDeviceLog(Map data){
+        DeviceControlVo old =  deviceService.deviceControl("a");
+return true;
     }
 }

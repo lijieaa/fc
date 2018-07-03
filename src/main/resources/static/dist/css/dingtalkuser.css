@@ -12,3 +12,6 @@
     margin: 0;
     list-style: none;
 }
+#add-outcontacts-tag-select>li div.radio, #edit-outcontacts-tag-select>li div.radio {
+    color: #393939 !important;
+}

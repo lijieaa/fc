@@ -9,10 +9,12 @@
     <association property="noticeBeUser" javaType="com.jianpanmao.sys.entity.DingtalkUser">
       <id property="userid" column="notice_be_userid"></id>
       <result property="name" column="bename"></result>
+      <result property="headPic" column="b_head_pic"></result>
     </association>
     <association property="noticeUser" javaType="com.jianpanmao.sys.entity.DingtalkUser">
       <id property="userid" column="notice_userid"></id>
       <result property="name" column="name"></result>
+      <result property="headPic" column="head_pic"></result>
     </association>
     <association property="noticeBeComments" javaType="com.jianpanmao.projectComments.entity.ProjectComments">
       <id property="projectCommentsId" column="notice_be_comments"></id>
@@ -49,7 +51,8 @@
   </insert>
 
   <select id="select" resultMap="BaseResultMap">
-    SELECT n.* ,noticeUser.name,noticeComments.project_comments_content commentsContent,noticeComments.project_comments_status,noticeComments.project_id
+    SELECT n.* ,noticeUser.name,noticeUser.head_pic,
+    noticeComments.project_comments_content commentsContent,noticeComments.project_comments_status,noticeComments.project_id
     FROM notice n LEFT JOIN dingtalk_user noticeUser
     ON n.notice_userid = noticeUser.userid
     LEFT JOIN project_comments noticeComments
@@ -63,7 +66,14 @@
      WHERE n.notice_be_userid = #{0} and n.notice_ischeck = 0
   </select>
 
+  <!--已读-->
   <update id="check">
 UPDATE notice SET notice_ischeck = 1 WHERE notice_id = #{0}
   </update>
+  <!--全部已读-->
+  <update id="allCheck">
+UPDATE notice SET notice_ischeck = 1 WHERE notice_be_userid = #{0}
+  </update>
+
+
 </mapper>

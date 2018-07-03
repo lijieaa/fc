@@ -1,4 +1,5 @@
 package com.jianpanmao.intermediary.dto;
+
 import com.jianpanmao.area.entity.Area;
 import com.jianpanmao.sys.entity.DingtalkUser;
 
@@ -7,16 +8,17 @@ import java.util.Date;
 public class IntermediaryDto {
 
 
-private String intermediaryName ;
+    private String intermediaryName;
 
-public String getIntermediaryName() {
-return intermediaryName;
-}
+    public String getIntermediaryName() {
+        return intermediaryName;
+    }
 
-public void setIntermediaryName(String intermediaryName) {
-this.intermediaryName = intermediaryName;
-}
-private Area area ;
+    public void setIntermediaryName(String intermediaryName) {
+        this.intermediaryName = intermediaryName;
+    }
+
+    private Area area;
 
     public Area getArea() {
         return area;
@@ -26,70 +28,77 @@ private Area area ;
         this.area = area;
     }
 
-    private Date intermediaryCreateTime ;
+    private Date intermediaryCreateTime;
 
-public Date getIntermediaryCreateTime() {
-return intermediaryCreateTime;
-}
+    public Date getIntermediaryCreateTime() {
+        return intermediaryCreateTime;
+    }
 
-public void setIntermediaryCreateTime(Date intermediaryCreateTime) {
-this.intermediaryCreateTime = intermediaryCreateTime;
-}
-private String od ;
+    public void setIntermediaryCreateTime(Date intermediaryCreateTime) {
+        this.intermediaryCreateTime = intermediaryCreateTime;
+    }
 
-public String getOd() {
-return od;
-}
+    private String od;
 
-public void setOd(String od) {
-this.od = od;
-}
-private String intermediaryContact ;
+    public String getOd() {
+        return od;
+    }
 
-public String getIntermediaryContact() {
-return intermediaryContact;
-}
+    public void setOd(String od) {
+        this.od = od;
+    }
 
-public void setIntermediaryContact(String intermediaryContact) {
-this.intermediaryContact = intermediaryContact;
-}
-private String intermediaryLogoUrl ;
+    private String intermediaryContact;
 
-public String getIntermediaryLogoUrl() {
-return intermediaryLogoUrl;
-}
+    public String getIntermediaryContact() {
+        return intermediaryContact;
+    }
 
-public void setIntermediaryLogoUrl(String intermediaryLogoUrl) {
-this.intermediaryLogoUrl = intermediaryLogoUrl;
-}
-private Date intermediaryUpdateTime ;
+    public void setIntermediaryContact(String intermediaryContact) {
+        this.intermediaryContact = intermediaryContact;
+    }
 
-public Date getIntermediaryUpdateTime() {
-return intermediaryUpdateTime;
-}
+    private String intermediaryLogoUrl;
 
-public void setIntermediaryUpdateTime(Date intermediaryUpdateTime) {
-this.intermediaryUpdateTime = intermediaryUpdateTime;
-}
-private String intermediaryIntroduction ;
+    public String getIntermediaryLogoUrl() {
+        return intermediaryLogoUrl;
+    }
 
-public String getIntermediaryIntroduction() {
-return intermediaryIntroduction;
-}
+    public void setIntermediaryLogoUrl(String intermediaryLogoUrl) {
+        this.intermediaryLogoUrl = intermediaryLogoUrl;
+    }
 
-public void setIntermediaryIntroduction(String intermediaryIntroduction) {
-this.intermediaryIntroduction = intermediaryIntroduction;
-}
-private String intermediaryContactTel ;
+    private Date intermediaryUpdateTime;
 
-public String getIntermediaryContactTel() {
-return intermediaryContactTel;
-}
+    public Date getIntermediaryUpdateTime() {
+        return intermediaryUpdateTime;
+    }
 
-public void setIntermediaryContactTel(String intermediaryContactTel) {
-this.intermediaryContactTel = intermediaryContactTel;
-}
-private DingtalkUser user ;
+    public void setIntermediaryUpdateTime(Date intermediaryUpdateTime) {
+        this.intermediaryUpdateTime = intermediaryUpdateTime;
+    }
+
+    private String intermediaryIntroduction;
+
+    public String getIntermediaryIntroduction() {
+        return intermediaryIntroduction;
+    }
+
+    public void setIntermediaryIntroduction(String intermediaryIntroduction) {
+        this.intermediaryIntroduction = intermediaryIntroduction;
+    }
+
+    private String intermediaryContactTel;
+
+    public String getIntermediaryContactTel() {
+        return intermediaryContactTel;
+    }
+
+    public void setIntermediaryContactTel(String intermediaryContactTel) {
+        this.intermediaryContactTel = intermediaryContactTel;
+    }
+
+    private DingtalkUser user;
 
     public DingtalkUser getUser() {
         return user;
@@ -99,22 +108,43 @@ private DingtalkUser user ;
         this.user = user;
     }
 
-    private Integer intermediaryId ;
+    private Integer intermediaryId;
 
-public Integer getIntermediaryId() {
-return intermediaryId;
-}
+    public Integer getIntermediaryId() {
+        return intermediaryId;
+    }
 
-public void setIntermediaryId(Integer intermediaryId) {
-this.intermediaryId = intermediaryId;
-}
-private Integer isPlat ;
+    public void setIntermediaryId(Integer intermediaryId) {
+        this.intermediaryId = intermediaryId;
+    }
 
-public Integer getIsPlat() {
-return isPlat;
-}
+    private Integer isPlat;
 
-public void setIsPlat(Integer isPlat) {
-this.isPlat = isPlat;
-}
+    public Integer getIsPlat() {
+        return isPlat;
+    }
+
+    public void setIsPlat(Integer isPlat) {
+        this.isPlat = isPlat;
+    }
+
+    private String eCode;//企业代码
+
+    private String businessLicense;//营业执照
+
+    public String getBusinessLicense() {
+        return businessLicense;
+    }
+
+    public void setBusinessLicense(String businessLicense) {
+        this.businessLicense = businessLicense;
+    }
+
+    public String geteCode() {
+        return eCode;
+    }
+
+    public void seteCode(String eCode) {
+        this.eCode = eCode;
+    }
 }
