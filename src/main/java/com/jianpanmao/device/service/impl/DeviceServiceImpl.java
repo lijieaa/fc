@@ -50,15 +50,18 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device, DeviceExample, De
 
 
         Timestamp timestamp = device.getSysTime();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(timestamp);
         SystemTime systemTime = new SystemTime();
-        systemTime.setYear(calendar.get(Calendar.YEAR));
-        systemTime.setMonth(calendar.get(Calendar.MONTH) + 1);
-        systemTime.setDay(calendar.get(Calendar.DAY_OF_MONTH));
-        systemTime.setHour(calendar.get(Calendar.HOUR_OF_DAY));
-        systemTime.setMinute(calendar.get(Calendar.MINUTE));
-        systemTime.setSecond(calendar.get(Calendar.SECOND));
+        if (null!=timestamp){
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(timestamp);
+            systemTime.setYear(calendar.get(Calendar.YEAR));
+            systemTime.setMonth(calendar.get(Calendar.MONTH) + 1);
+            systemTime.setDay(calendar.get(Calendar.DAY_OF_MONTH));
+            systemTime.setHour(calendar.get(Calendar.HOUR_OF_DAY));
+            systemTime.setMinute(calendar.get(Calendar.MINUTE));
+            systemTime.setSecond(calendar.get(Calendar.SECOND));
+        }
+
         deviceControlVo.setSystem_time(systemTime);
         return deviceControlVo;
     }
