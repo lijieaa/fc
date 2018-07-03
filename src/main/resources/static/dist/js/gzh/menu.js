@@ -112,7 +112,8 @@ new Vue({
                 ],
                 "video":"",
                 "isSelect":"postMsg",
-                "msg":"","photo":"/material/image/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2MaPsF21OaR7mIruFhnbID4&name=upload.jpg&wxPublicId=14",
+                "msg":"",
+                "photo":"/material/image/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2MaPsF21OaR7mIruFhnbID4&name=upload.jpg&wxPublicId=14",
                 "type":"photo",
                 "url":"",
                 "voice":""
