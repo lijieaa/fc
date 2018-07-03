@@ -173,10 +173,15 @@ public class CommonController{
         response.setContentType("text/html;charset=UTF-8");
 
         PrintWriter out = response.getWriter();
-        out.println("<script type=\"text/javascript\">");
-        out.println("window.parent.CKEDITOR.tools.callFunction("
-                + CKEditorFuncNum + ",'/uploadimg/"+attach.getPath().replace("\\","/")+"','')");
-        out.println("</script>");
+        //out.println("<script type=\"text/javascript\">");
+        //out.println("window.parent.CKEDITOR.tools.callFunction("
+            //    + CKEditorFuncNum + ",'/uploadimg/"+attach.getPath().replace("\\","/")+"','')");
+        //out.println("</script>");
+        out.println("{\n" +
+                "    \"uploaded\": 1,\n" +
+                "    \"fileName\": \""+attach.getFilename()+"\",\n" +
+                "    \"url\": \"/uploadimg/"+attach.getPath().replace("\\","/")+"\"\n" +
+                "}");
     }
 
 
