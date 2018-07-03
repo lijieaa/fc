@@ -337,24 +337,46 @@
                             color:"#000"
                         }
                     },
-                    yAxis: {
-                        type: 'value',
-                        axisTick: {
-                            show:false
+                    yAxis: [
+                        {
+                            type: 'value',
+                            name: '中间商',
+                            axisTick: {
+                                show:false
+                            },
+                            splineLine:{
+                                show:false
+                            },
+
+                            axisLine: {
+                                show:false
+                            }
                         },
-                        axisLine: {
-                            show:false
+                        {
+                            type: 'value',
+                            name: '设备数',
+                            splineLine:{
+                              show:false
+                            },
+                            axisTick: {
+                                show:false
+                            },
+                            axisLine: {
+                                show:false
+                            }
                         }
-                    },
+                    ],
                     series: [
                         {
                             name:'中间商数量',
                             type:'line',
+                            yAxisIndex:0,
                             data:intermediary
                         },
                         {
                             name:'设备数',
                             type:'line',
+                            yAxisIndex:1,
                             data:device
                         }
                     ]
