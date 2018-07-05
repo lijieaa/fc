@@ -65,7 +65,7 @@ package com.jianpanmao.wechat.doc;
  * @api {post} /message 给用户发送图文消息
  * @apiName sendImageTextMsg
  * @apiGroup wxMessage
- * @apiParam {String} json ToUserName:用户的openId,MsgType:消息类型,Title:图文标题,Description:图文描述,Url:跳转链接,PicUrl:显示的图片链接
+ * @apiParam {String} json ToUserName:用户的openId,MsgType:消息类型,Title:图文标题,Description:图文描述,PicUrl:显示的图片链接
  * @apiParam {Number} wxPublicId 公众号ID
  * @apiParamExample {json} Request-Example:
  * {

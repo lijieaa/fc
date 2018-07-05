@@ -1,5 +1,6 @@
 package com.jianpanmao.wechat.web;
 
+import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.utils.WxUtils;
 import com.jianpanmao.wechat.api.WxApiHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class WxMenuController {
 
     @PostMapping
     @ResponseBody
+    @NoResultEntity
     public String create(Integer wxPublicId, String json, HttpSession session){
 
         try {
@@ -34,6 +36,7 @@ public class WxMenuController {
 
     @DeleteMapping
     @ResponseBody
+    @NoResultEntity
     public String delete(Integer wxPublicId, HttpSession session){
 
         try {
@@ -47,6 +50,7 @@ public class WxMenuController {
 
     @GetMapping
     @ResponseBody
+    @NoResultEntity
     public String get(Integer wxPublicId, HttpSession session){
 
         try {
