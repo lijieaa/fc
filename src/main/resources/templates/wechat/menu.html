@@ -79,13 +79,13 @@
                         <ul class="sub-menu-select">
                             <li :type="menu.button[selectedMenuIndex].key"
                                 :class="{active:currentSelect()==1}"
-                                @click="subMenu(selectedMenuLevel(),'msg')"><i class="glyphicon glyphicon-film"></i>图文消息</li>
+                                @click="subMenu(selectedMenuLevel(),'news')"><i class="glyphicon glyphicon-film"></i>图文消息</li>
                             <li :type="menu.button[selectedMenuIndex].key"
                                 :class="{active:currentSelect()==2}"
                                 @click="subMenu(selectedMenuLevel(),'video')"><i class="glyphicon glyphicon-hd-video"></i>视频</li>
                             <li :type="menu.button[selectedMenuIndex].key"
                                 :class="{active:currentSelect()==3}"
-                                @click="subMenu(selectedMenuLevel(),'photo')"><i class="glyphicon glyphicon-picture"></i>图片</li>
+                                @click="subMenu(selectedMenuLevel(),'image')"><i class="glyphicon glyphicon-picture"></i>图片</li>
                             <li :type="menu.button[selectedMenuIndex].key"
                                 :class="{active:currentSelect()==4}"
                                 @click="subMenu(selectedMenuLevel(),'voice')"><i class="glyphicon glyphicon-ice-lolly"></i>语音</li>
@@ -109,7 +109,7 @@
                         <div class="sub-menu-content" v-if="currentSelect() ==3">
                             <input type="text" class="" v-model="menu.button[selectedMenuIndex].key">
                             <div class="check" data-id="3">选择图片</div>
-                            <img v-bind:src="menu.button[selectedMenuIndex].photo" class="showSc" v-show="picShow">
+                            <img v-bind:src="menu.button[selectedMenuIndex].image" class="showSc" v-show="picShow">
                         </div>
                         <div class="sub-menu-content" v-if="currentSelect() ==4">
                             <input type="text" class="" v-model="menu.button[selectedMenuIndex].key">
@@ -158,20 +158,20 @@
                         <ul class="sub-menu-select">
                             <li :type="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==1}"
-                                @click="subMenu(selectedMenuLevel(),'msg')"><i class="glyphicon glyphicon-film"></i>图文消息</li>
+                                @click="subMenu(selectedMenuLevel(),'news')"><i class="glyphicon glyphicon-film"></i>图文消息</li>
                             <li :type="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==2}"
                                 @click="subMenu(selectedMenuLevel(),'video')"><i class="glyphicon glyphicon-hd-video"></i>视频</li>
                             <li :type="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==3}"
-                                @click="subMenu(selectedMenuLevel(),'photo')"><i class="glyphicon glyphicon-picture"></i>图片</li>
+                                @click="subMenu(selectedMenuLevel(),'image')"><i class="glyphicon glyphicon-picture"></i>图片</li>
                             <li :type="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==4}"
                                 @click="subMenu(selectedMenuLevel(),'voice')"><i class="glyphicon glyphicon-ice-lolly"></i>语音</li>
                         </ul>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==1">
                             <!--<button class="ptFont display" @click="fromSelect">-->
-                            <!--<input type="text" class="photoID" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].msg">-->
+                            <!--<input type="text" class="photoID" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].news">-->
                             <!--</button>-->
                             <input type="text" class="" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].key">
                             <div class="check" data-id="1">选择图文</div>
@@ -189,7 +189,7 @@
                         <div class="sub-menu-content" v-if="currentSubSelect() ==3">
                             <input type="text" class="" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].key">
                             <div class="check" data-id="3">选择图片</div>
-                            <img v-bind:src="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].photo" class="showSc" v-show="picShow">
+                            <img v-bind:src="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].image" class="showSc" v-show="picShow">
                         </div>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==4">
                             <input type="text" class="" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].key">
