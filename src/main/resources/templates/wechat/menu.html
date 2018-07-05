@@ -32,12 +32,12 @@
                     @click="selectedMenu(i,$event)">
                     <span>{{item.name}}</span>
                     <ul class="child-menu" v-show="selectedMenuIndex===i">
-                        <li v-for="(child,i1) in item.childMenu" :id="selectedSubMenuIndex" :id1="i"
+                        <li v-for="(child,i1) in item.sub_button" :id="selectedSubMenuIndex" :id1="i"
                             :class="{current:selectedSubMenuIndex===i1&&selectedMenuLevel()==2}"
                             @click.stop="selectedSubMenu(i1,$event)">
                             <span>{{child.name}}</span>
                         </li>
-                        <li v-if="item.childMenu.length<5" @click.stop="addMenu(2)">
+                        <li v-if="item.sub_button.length<5" @click.stop="addMenu(2)">
                             <i class="icon14_menu_add"></i>
                         </li>
                     </ul>
@@ -61,39 +61,39 @@
                                v-model="menu.button[selectedMenuIndex].name">
                     </div>
                 </div>
-                <template v-if="menu.button[selectedMenuIndex].childMenu.length == 0">
+                <template v-if="menu.button[selectedMenuIndex].sub_button.length == 0">
                     <div class="menu-input-group">
                         <div class="menu-labe mgt-5 float-left">菜单内容</div>
                         <div class="menu-select  mgt-5 mgl-5 float-left">
-                            <input type="radio" name="select" value="postMsg"
-                                   id="select1" v-model="menu.button[selectedMenuIndex].isSelect">
+                            <input type="radio" name="select" value="click"
+                                   id="select1" v-model="menu.button[selectedMenuIndex].type">
                             <label for="select1">发送消息</label>
                         </div>
                         <div class="menu-select mgt-5 mgl-5 float-left">
                             <input type="radio" name="select" value="view" id="select2"
-                                   v-model="menu.button[selectedMenuIndex].isSelect">
+                                   v-model="menu.button[selectedMenuIndex].type">
                             <label for="select2">跳转网页</label>
                         </div>
                     </div>
                     <div class="show-content"  v-if="selectTab()==1">
                         <ul class="sub-menu-select">
-                            <li :type="menu.button[selectedMenuIndex].type"
+                            <li :type="menu.button[selectedMenuIndex].key"
                                 :class="{active:currentSelect()==1}"
                                 @click="subMenu(selectedMenuLevel(),'msg')"><i class="glyphicon glyphicon-film"></i>图文消息</li>
-                            <li :type="menu.button[selectedMenuIndex].type"
+                            <li :type="menu.button[selectedMenuIndex].key"
                                 :class="{active:currentSelect()==2}"
                                 @click="subMenu(selectedMenuLevel(),'video')"><i class="glyphicon glyphicon-hd-video"></i>视频</li>
-                            <li :type="menu.button[selectedMenuIndex].type"
+                            <li :type="menu.button[selectedMenuIndex].key"
                                 :class="{active:currentSelect()==3}"
                                 @click="subMenu(selectedMenuLevel(),'photo')"><i class="glyphicon glyphicon-picture"></i>图片</li>
-                            <li :type="menu.button[selectedMenuIndex].type"
+                            <li :type="menu.button[selectedMenuIndex].key"
                                 :class="{active:currentSelect()==4}"
                                 @click="subMenu(selectedMenuLevel(),'voice')"><i class="glyphicon glyphicon-ice-lolly"></i>语音</li>
                         </ul>
                         <div class="sub-menu-content" v-if="currentSelect() ==1">
-                            <!--<button class="ptFont " @click="fromSelect">-->
-                                <!--<input type="text" v-model="menu.button[selectedMenuIndex].msg">-->
-                            <!--</button>-->
+                            <button class="ptFont " @click="fromSelect">
+                                <input type="text" v-model="menu.button[selectedMenuIndex].key">
+                            </button>
                             <div class="check" data-id="1">选择图文</div>
                             <div class="photoShow" v-show="picShow">
                                 <div class="showTime"></div>
@@ -102,17 +102,17 @@
                             </div>
                         </div>
                         <div class="sub-menu-content" v-if="currentSelect() ==2">
-                            <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].video">-->
+                            <input type="text" class="" v-model="menu.button[selectedMenuIndex].key">
                             <div class="check" data-id="2">选择视频</div>
                             <video v-bind:src="menu.button[selectedMenuIndex].video" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></video>
                         </div>
                         <div class="sub-menu-content" v-if="currentSelect() ==3">
-                            <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].photo">-->
+                            <input type="text" class="" v-model="menu.button[selectedMenuIndex].key">
                             <div class="check" data-id="3">选择图片</div>
                             <img v-bind:src="menu.button[selectedMenuIndex].photo" class="showSc" v-show="picShow">
                         </div>
                         <div class="sub-menu-content" v-if="currentSelect() ==4">
-                            <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].voice">-->
+                            <input type="text" class="" v-model="menu.button[selectedMenuIndex].key">
                             <div class="check" data-id="4">选择音频</div>
                             <audio v-bind:src="menu.button[selectedMenuIndex].voice" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></audio>
                         </div>
@@ -128,51 +128,52 @@
         <div class="page-right display-inline" v-if="selectedMenuLevel()==2">
             <div class="menu-input-group" style="border-bottom: 2px #e8e8e8 solid;">
                 <div class="menu-header">
-                    <div class="menu-name mgl-5 float-left">{{menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].name}}</div>
+                    <div class="menu-name mgl-5 float-left">{{menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].name}}</div>
                     <div class="menu-del mgr-5 float-right"  @click="delSubMenu">删除子菜单</div>
                 </div>
                 <div class="menu-input-group">
                     <div class="menu-labe mgt-5 float-left">菜单名称</div>
                     <div class="menu-jinput mgt-5">
                         <input type="text" class="float-left mgl-5" name="name" placeholder="请输入子菜单名称"
-                               v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].name">
+                               v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].name">
                     </div>
                 </div>
                 <template>
                     <div class="menu-input-group">
                         <div class="menu-labe mgt-5 float-left">菜单内容</div>
                         <div class="menu-select  mgt-5 mgl-5 float-left">
-                            <input type="radio" name="select" value="postMsg"
+                            <input type="radio" name="select" value="click"
                                    id="select3"
-                                   v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].isSelect">
+                                   v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].type">
                             <label for="select3">发送消息</label>
                         </div>
                         <div class="menu-select mgt-5 mgl-5 float-left">
                             <input type="radio" name="select" value="view" id="select4"
-                                   v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].isSelect">
+                                   v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].type">
                             <label for="select4">跳转网页</label>
                         </div>
                     </div>
 
                     <div class="show-content"  v-if="selectTab()==1">
                         <ul class="sub-menu-select">
-                            <li :type="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].type"
+                            <li :type="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==1}"
                                 @click="subMenu(selectedMenuLevel(),'msg')"><i class="glyphicon glyphicon-film"></i>图文消息</li>
-                            <li :type="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].type"
+                            <li :type="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==2}"
                                 @click="subMenu(selectedMenuLevel(),'video')"><i class="glyphicon glyphicon-hd-video"></i>视频</li>
-                            <li :type="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].type"
+                            <li :type="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==3}"
                                 @click="subMenu(selectedMenuLevel(),'photo')"><i class="glyphicon glyphicon-picture"></i>图片</li>
-                            <li :type="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].type"
+                            <li :type="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==4}"
                                 @click="subMenu(selectedMenuLevel(),'voice')"><i class="glyphicon glyphicon-ice-lolly"></i>语音</li>
                         </ul>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==1">
                             <!--<button class="ptFont display" @click="fromSelect">-->
-                                <!--<input type="text" class="photoID" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].msg">-->
+                            <!--<input type="text" class="photoID" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].msg">-->
                             <!--</button>-->
+                            <input type="text" class="" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].key">
                             <div class="check" data-id="1">选择图文</div>
                             <div class="photoShow" v-show="picShow">
                                 <div class="showTime"></div>
@@ -181,24 +182,24 @@
                             </div>
                         </div>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==2">
-                            <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].video">-->
+                            <input type="text" class="" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].key">
                             <div class="check" data-id="2">选择视频</div>
-                            <video v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].video" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></video>
+                            <video v-bind:src="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].video" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></video>
                         </div>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==3">
-                            <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].photo">-->
+                            <input type="text" class="" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].key">
                             <div class="check" data-id="3">选择图片</div>
-                            <img v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].photo" class="showSc" v-show="picShow">
+                            <img v-bind:src="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].photo" class="showSc" v-show="picShow">
                         </div>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==4">
-                            <!--<input type="text" class="" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].voice">-->
+                            <input type="text" class="" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].key">
                             <div class="check" data-id="4">选择音频</div>
-                            <audio v-bind:src="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].voice" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></audio>
+                            <audio v-bind:src="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].voice" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></audio>
                         </div>
                     </div>
                     <div class="show-content" v-if="selectTab()==2">
                         <span style="margin-left: 10px;">页面地址：</span>
-                        <input type="text" v-model="menu.button[selectedMenuIndex].childMenu[selectedSubMenuIndex].url" class="urlInput">
+                        <input type="text" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].url" class="urlInput">
                     </div>
                 </template>
             </div>
