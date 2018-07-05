@@ -17,6 +17,14 @@
         document.documentElement.style.fontSize = deviceWidth / 10.8 + 'px';
     </script>
     <script th:src="@{/js/framework7.min.js}"></script>
+    <style>
+        .toolbar .toolbar-inner{
+            display:none;
+        }
+       .toolbar .active{
+           display: flex;
+       }
+    </style>
 </head>
 <body>
 <div id="app" class="wrapper framework7-root">
@@ -72,7 +80,7 @@
                         <div class="block-title  text-base-color fw">项目评论（10）</div>
                         <ul id="listview">
                             <li class="plist card">
-                                <div class="item-content">
+                                <div class="item-content comment-box">
                                     <div class="item-media">
                                         <img th:src="@{/img/saleimg.jpg}" class="saleimg" />
                                     </div>
@@ -86,15 +94,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="item-content " style="border-top:1px solid #c9c9c9">
+                                <div class="item-content repley-box" style="border-top:1px solid #c9c9c9">
                                     <div class="item-media">
                                         <div class="saleimg"></div>
                                     </div>
                                     <div class="item-inner ">
                                         <div class="item-title-row ">
-                                            <div class="item-after f28"><img th:src="@{/img/reply.png}" style="width:10px;height:9px;align-self: center;" alt=""/>回复</div>
+                                            <div class="item-after f28 repley"><img th:src="@{/img/reply.png}" style="width:10px;height:9px;align-self: center;" alt=""/>回复</div>
                                         </div>
-                                        <div class="item-text" style="border:1px solid #c9c9c9;padding:10px;">
+                                        <div id="demo" class="item-text" style="border:1px solid #c9c9c9;padding:10px;">
                                             <div class="comment"><span class="f-u">山居盘李总</span>  <span>:</span>其它用户可以通过回复图标回复这个人的评论。</div>
                                             <div class="comment"><span class="f-u">小A</span><span>&nbsp;回复&nbsp;</span><span class="t-u">山居盘李总</span>  <span>:</span>其它人也可以回复此评论，或者单独回复这个里的每
                                                 个人。</div>
@@ -123,7 +131,7 @@
                                     </div>
                                     <div class="item-inner ">
                                         <div class="item-title-row ">
-                                            <div class="item-after f28"><img th:src="@{/img/reply.png}" style="width:10px;height:9px;align-self: center;" alt=""/>回复</div>
+                                            <div class="item-after f28 repley"><img th:src="@{/img/reply.png}" style="width:10px;height:9px;align-self: center;" alt=""/>回复</div>
                                         </div>
 
                                     </div>
@@ -150,7 +158,7 @@
                                     </div>
                                     <div class="item-inner ">
                                         <div class="item-title-row ">
-                                            <div class="item-after f28"><img th:src="@{/img/reply.png}" style="width:10px;height:9px;align-self: center;" alt=""/>回复</div>
+                                            <div class="item-after f28 repley"><img th:src="@{/img/reply.png}" style="width:10px;height:9px;align-self: center;" alt=""/>回复</div>
                                         </div>
 
                                     </div>
@@ -165,27 +173,31 @@
 
         </div>
         <div class="toolbar tabbar">
-            <div class="toolbar-inner" style="padding:0 10px">
+            <div id="repley" class="toolbar-inner" style="padding:0 10px">
 
-                    <a class=" toggle-sheet comm1 text-base-color f30" href="#" >
-                        评论
-                    </a>
-                    <div class="messagebar-area  comm2 ">
-                        <textarea class="f28" style="padding:3px;    width: 100%;" ></textarea>
-                    </div>
-                    <a  class="comm3 text-base-color f30" href="#"  >评论</a>
-
-
-              <!--  <div class="pkee text-base-color f30" style="width:40px;flex-shrink:0">
-                    评论
+                <a class=" toggle-sheet comm1 text-base-color f30" href="#" >
+                    回复
+                </a>
+                <div class="messagebar-area  comm2 ">
+                    <textarea id="repley-text" class="f28" style="padding:3px;    width: 100%;" ></textarea>
                 </div>
+                <a id="confirm" class="comm3 text-base-color f30" href="#"  >确认</a>
 
-                <div class="ser-box">
-                    <input type="search" placeholder="Search">
-                    <i class="searchbar-icon"></i>
-                </div>
-                <span class="ser-btn text-base-color f30" style="width:50px" onclick="alr()">搜索</span>-->
+
             </div>
+            <div id="comment" class="toolbar-inner active" style="padding:0 10px">
+
+            <a class=" toggle-sheet comm1 text-base-color f30" href="#" >
+                评论
+            </a>
+            <div class="messagebar-area  comm2 ">
+                <textarea class="f28" style="padding:3px;    width: 100%;" ></textarea>
+            </div>
+            <a  class="comm3 text-base-color f30" href="#"  >评论</a>
+
+
+        </div>
+
         </div>
     </div>
 </div>
@@ -275,7 +287,7 @@
                         '</div>'+
                         '<div class="item-inner ">'+
                         ' <div class="item-title-row ">'+
-                        '<div class="item-after f28"><img src="/img/reply.png" style="width:10px;height:9px;align-self: center;" alt=""/>回复</div>'+
+                        '<div class="item-after f28 repley"><img src="/img/reply.png" style="width:10px;height:9px;align-self: center;" alt=""/>回复</div>'+
                         '</div>'+
                         '</div>'+
                         '</div>'+
@@ -291,6 +303,36 @@
     });
     $$(".fab-morph").on("click",function(){
         window.location.href="/wx/common/operate"
+    })
+
+    $$("#listview").on("click",".repley",function(e){
+        $$("#repley").addClass("active").siblings().removeClass("active");
+        $$("#repley textarea").focus();
+
+    })
+
+    $$("#repley textarea").on("blur",function(){
+        $$("#repley").removeClass("active").siblings().addClass("active");
+    });
+
+    $$("#confirm").on("click",function(){
+        var content =  $$("#repley-text").val()
+
+        var arr=[
+            '<div class="comment"><span class="f-u">',
+            '小A',
+            '</span><span>&nbsp;回复&nbsp;</span><span class="t-u">',
+            '山居盘李总',
+            '</span><span>:</span>',
+            content,
+            '</div>'
+
+
+
+        ]
+
+
+        $$("#demo").append(arr.join(""))
     })
 </script>
 
