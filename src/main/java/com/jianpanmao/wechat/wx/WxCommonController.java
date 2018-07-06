@@ -1,6 +1,7 @@
 package com.jianpanmao.wechat.wx;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class WxCommonController {
 
     @GetMapping("company")
-    public String login(){
+    public String company(String sourceId, Model model){
+
+        model.addAttribute("sourceId", sourceId);
         return "wx/company";
     }
 
@@ -39,7 +42,9 @@ public class WxCommonController {
     }
 
     @GetMapping("project")
-    public String project(){
+    public String project(String sourceId, Model model){
+        
+        model.addAttribute("sourceId", sourceId);
         return "wx/project";
     }
 
