@@ -158,10 +158,21 @@ ul{
    height:20px !important;
    line-height:20px;
    box-sizing: border-box;
-   border:1px solid #c1c1c0;
-   padding:2px 3px
+   border:1px solid #c1c1c0 !important;
+   padding:2px 3px !important;
  }
 
+span.pkee{
+  padding:0 !important;
+}
+
+.setInput{
+  height:20px !important;
+  line-height:20px;
+  box-sizing: border-box;
+  border:1px solid #c1c1c0 !important;;
+  padding:2px 3px !important;
+}
 .ios .searchbar .ser-box{
   flex-shrink: 1;
   width: 100%;
@@ -288,12 +299,12 @@ ul{
   width:0;
 }
 .ios .operate .toggle{
-  transform: scale(0.6) translate(20px);
+/*  transform:  translate(20px);*/
 }
 .wrapper .eqinfo{
 
 }
 
 .ios  .params  .toggle{
-  transform: scale(0.6) translate(20px);
+ /* transform:  translate(20px);*/
 }

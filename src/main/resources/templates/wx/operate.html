@@ -70,9 +70,9 @@
                     <ul>
 
 
-                        <li><a href="#" class="f30">设备参数</a></li>
-                        <li><a href="#" class="f30">用户参数</a></li>
-                        <li><a href="#" class="f30">系统时间</a></li>
+                        <li><a th:href="@{/wx/common/equiprams}" class="f30 external" >设备参数</a></li>
+                        <li><a th:href="@{/wx/common/userparams}" class="f30 external">用户参数</a></li>
+                        <li><a th:href="@{/wx/common/sysparams}" class="f30 external">系统时间</a></li>
                     </ul>
                 </div>
              <!--   <form class="list" id="my-form">
@@ -157,6 +157,8 @@
         }
         app.form.fillFromData('#my-form', formData);
     });
+
+
 </script>
 <!-- Path to your app js-->
 
