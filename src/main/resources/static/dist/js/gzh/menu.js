@@ -43,25 +43,26 @@ new Vue({
         selectedMenuIndex:'',//当前选中菜单索引
         selectedSubMenuIndex:'',//当前选中子菜单索引
         picShow: true,
+        initFlagStatus: '',
         menu:{
             // button:[
             //     {
             //         "name":"菜单1",
             //         "sub_button":[
             //             {
-            //                 "key":"/material news",
+            //                 "key":"f1QOuU_OT4Hrt8abnY9n2Oh0sj8PyIlnrmepRkD4-WM image",
             //                 "type":"click",
             //                 "name":"一级目录",
             //                 "url":""
             //             },
             //             {
-            //                 "key":"/material/voice voice",
+            //                 "key":"f1QOuU_OT4Hrt8abnY9n2OU1AxEimiViibqgnVyyPjA voice",
             //                 "type":"click",
             //                 "name":"二级目录",
             //                 "url":""
             //             },
             //             {
-            //                 "key":"http://203.205.158.72 video",
+            //                 "key":"f1QOuU_OT4Hrt8abnY9n2Bgl8PvwCft-Isk4Fo4S_EU video",
             //                 "type":"click",
             //                 "name":"三级目录",
             //                 "url":""
@@ -74,7 +75,7 @@ new Vue({
             //             }
             //         ],
             //         "type":"click",
-            //         "key":"555",
+            //         "key":"",
             //         "url":""
             //     },
             //     {
@@ -88,7 +89,7 @@ new Vue({
             //             }
             //         ],
             //         "type":"click",
-            //         "key":"/material/image/detail",
+            //         "key":"",
             //         "url":""
             //     },
             //     {
@@ -102,11 +103,12 @@ new Vue({
             //             // },
             //         ],
             //         "type":"click",
-            //         "key":"/material/detail image",
+            //         "key":"f1QOuU_OT4Hrt8abnY9n2Oh0sj8PyIlnrmepRkD4-WM image",
             //         "url":""
             //     }
             // ]
-        }
+        },
+        arr:''
     },
     created: function() {
         var _this = this;
@@ -161,45 +163,53 @@ new Vue({
             var kgIndex=parType.indexOf(" ");
             var checkType=parType.substr(kgIndex+1);//获得type
             var checkContent=parType.substr(0,kgIndex);//获得内容
+            this.initFlagStatus = checkType;
             if(checkType=="news"){
-                if(checkContent!=""){
-                    this.picShow = true;
-                    // $.ajax({
-                    //     url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+thisPhtID,
-                    //     type: "get",
-                    //     processData:true,
-                    //     success:function (data) {
-                    //         var id=data.content.thumbMediaId;
-                    //         var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
-                    //         $(".showTime").text(data.content.updateTime);
-                    //         $(".showTitle").text(data.content.title);
-                    //         $(".showImg img").attr("src",urlLink);
-                    //     }
-                    // });
-                }else {
+                if(checkContent==""){
                     this.picShow = false;
+                }else {
+                    this.picShow = true;
+                    this.arr=checkContent;
+                    $.ajax({
+                        url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+this.arr,
+                        type: "get",
+                        processData:true,
+                        success:function (data) {
+                            var id=data.content.thumbMediaId;
+                            var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
+                            $(".showTime").text(data.content.updateTime);
+                            $(".showTitle").text(data.content.title);
+                            $(".showImg img").attr("src",urlLink);
+                        }
+                    });
                 }
             }else if(checkType=="video"){
-                if(checkContent!=""){
-                    this.picShow = true;
-                }else{
+                if(checkContent==""){
                     this.picShow = false;
+                }else{
+                    this.picShow = true;
+                    var name="wx.mp4";
+                    var urlLink=contextPath+'material/video/detail?wxPublicId='+wxID+"&mediaId="+checkContent+"&name="+name;
+                    this.arr=urlLink;
                 }
-
             }else if(checkType=="image"){
-                if(checkContent!=""){
-                    this.picShow = true;
-                }else{
+                if(checkContent==""){
                     this.picShow = false;
+                }else{
+                    this.picShow = true;
+                    var name="upload.jpg";
+                    var urlLink =contextPath+'material/image/detail?mediaId='+checkContent+"&name="+name+"&wxPublicId="+wxID;
+                    this.arr=urlLink;
                 }
-
             }else if(checkType=="voice"){
-                if(checkContent!=""){
-                    this.picShow = true;
-                }else{
+                if(checkContent==""){
                     this.picShow = false;
+                }else{
+                    this.picShow = true;
+                    var name="upload.mp3";
+                    var urlLink =contextPath+'material/voice/detail?wxPublicId='+wxID+"&mediaId="+checkContent+"&name="+name;
+                    this.arr=urlLink;
                 }
-
             }
         },
         selectedSubMenu:function(i,event){//选择子菜单
@@ -211,44 +221,51 @@ new Vue({
             var checkType=sonKey.substr(kgIndex+1);//获得type
             var checkContent=sonKey.substr(0,kgIndex);//获得内容
             if(checkType=="news"){
-                if(checkContent!=""){
-                    this.picShow = true;
-                    // $.ajax({
-                    //     url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+thisPhtID,
-                    //     type: "get",
-                    //     processData:true,
-                    //     success:function (data) {
-                    //         var id=data.content.thumbMediaId;
-                    //         var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
-                    //         $(".showTime").text(data.content.updateTime);
-                    //         $(".showTitle").text(data.content.title);
-                    //         $(".showImg img").attr("src",urlLink);
-                    //     }
-                    // });
-                }else{
+                if(checkContent==""){
                     this.picShow = false;
+                }else {
+                    this.picShow = true;
+                    this.arr=checkContent;
+                    $.ajax({
+                        url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+this.arr,
+                        type: "get",
+                        processData:true,
+                        success:function (data) {
+                            var id=data.content.thumbMediaId;
+                            var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
+                            $(".showTime").text(data.content.updateTime);
+                            $(".showTitle").text(data.content.title);
+                            $(".showImg img").attr("src",urlLink);
+                        }
+                    });
                 }
             }else if(checkType=="video"){
-                if(checkContent!=""){
-                    this.picShow = true;
-                }else{
+                if(checkContent==""){
                     this.picShow = false;
+                }else {
+                    this.picShow = true;
+                    var name="wx.mp4";
+                    var urlLink=contextPath+'material/video/detail?wxPublicId='+wxID+"&mediaId="+checkContent+"&name="+name;
+                    this.arr=urlLink;
                 }
-
             }else if(checkType=="image"){
-                if(checkContent!=""){
-                    this.picShow = true;
-                }else{
+                if(checkContent==""){
                     this.picShow = false;
+                }else {
+                    this.picShow = true;
+                    var name="upload.jpg";
+                    var urlLink =contextPath+'material/image/detail?mediaId='+checkContent+"&name="+name+"&wxPublicId="+wxID;
+                    this.arr=urlLink;
                 }
-
             }else if(checkType=="voice"){
-                if(checkContent!=""){
-                    this.picShow = true;
-                }else{
+                if(checkContent==""){
                     this.picShow = false;
+                }else {
+                    this.picShow = true;
+                    var name="upload.mp3";
+                    var urlLink =contextPath+'material/voice/detail?wxPublicId='+wxID+"&mediaId="+checkContent+"&name="+name;
+                    this.arr=urlLink;
                 }
-
             }
         },
         //选中菜单级别
@@ -270,23 +287,67 @@ new Vue({
                 this.picShow = true;
                 if(this.currentSelect() == 1){
                     this.menu.button[this.selectedMenuIndex].key = value+' '+'news';
+                    this.arr=value;
+                    $.ajax({
+                        url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+this.arr,
+                        type: "get",
+                        processData:true,
+                        success:function (data) {
+                            var id=data.content.thumbMediaId;
+                            var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
+                            $(".showTime").text(data.content.updateTime);
+                            $(".showTitle").text(data.content.title);
+                            $(".showImg img").attr("src",urlLink);
+                        }
+                    });
                 }else if(this.currentSelect() == 2){
                     this.menu.button[this.selectedMenuIndex].key = value+' '+'video';
+                    var name="wx.mp4";
+                    var urlLink=contextPath+'material/video/detail?wxPublicId='+wxID+"&mediaId="+value+"&name="+name;
+                    this.arr=urlLink;
                 }else if(this.currentSelect() == 3){
                     this.menu.button[this.selectedMenuIndex].key = value+' '+'image';
+                    var name="upload.jpg";
+                    var urlLink = ''+contextPath+'material/image/detail?mediaId='+value+"&name="+name+"&wxPublicId="+wxID;
+                    this.arr=urlLink;
                 }else if(this.currentSelect() == 4){
                     this.menu.button[this.selectedMenuIndex].key = value+' '+'voice';
+                    var name="upload.mp3";
+                    var urlLink =contextPath+'material/voice/detail?wxPublicId='+wxID+"&mediaId="+value+"&name="+name;
+                    this.arr=urlLink;
                 }
             }else if(this.selectedMenuLevel() == 2){
                 this.picShow = true;
                 if(this.currentSubSelect() == 1){
                     this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = value+' '+'news';
+                    this.arr=value;
+                    $.ajax({
+                        url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+this.arr,
+                        type: "get",
+                        processData:true,
+                        success:function (data) {
+                            var id=data.content.thumbMediaId;
+                            var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
+                            $(".showTime").text(data.content.updateTime);
+                            $(".showTitle").text(data.content.title);
+                            $(".showImg img").attr("src",urlLink);
+                        }
+                    });
                 }else if(this.currentSubSelect() == 2){
                     this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = value+' '+'video';
+                    var name="wx.mp4";
+                    var urlLink=contextPath+'material/video/detail?wxPublicId='+wxID+"&mediaId="+value+"&name="+name;
+                    this.arr=urlLink;
                 }else if(this.currentSubSelect() == 3){
                     this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = value+' '+'image';
+                    var name="upload.jpg";
+                    var urlLink = ''+contextPath+'material/image/detail?mediaId='+value+"&name="+name+"&wxPublicId="+wxID;
+                    this.arr=urlLink;
                 }else if(this.currentSubSelect() == 4){
                     this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = value+' '+'voice';
+                    var name="upload.mp3";
+                    var urlLink =contextPath+'material/voice/detail?wxPublicId='+wxID+"&mediaId="+value+"&name="+name;
+                    this.arr=urlLink;
                 }
             }
 
@@ -325,13 +386,16 @@ new Vue({
                     json:JSON.stringify(this.menu)
                 },
                 success:function(data){
-                    console.log(data);
+                    if(data.errmsg=="ok"){
+                        alert("创建成功！")
+                    }
                 },
                 error:function (data) {
                     console.log(data.status);
                 }
 
             });
+            // console.log(this.menu)
         },
         selectTab:function(){ //选中发送消息还是发送网页
             if(this.selectedMenuLevel() == 1) {
@@ -365,55 +429,73 @@ new Vue({
         subMenu:function(level,news){
             if(level == 1){
                 var parType = this.menu.button[this.selectedMenuIndex].key;
-                console.log(parType);
                 var kgIndex=parType.indexOf(" ");
                 var checkType=parType.substr(kgIndex+1);//获得type
                 var checkContent=parType.substr(0,kgIndex);//获得内容
-                console.log(checkType);
                 switch (news){
                     case 'news' :
-                        this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'news';
-                        // if(checkContent!=""){
-                        //     this.picShow = true;
-                        //     // $.ajax({
-                        //     //     url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+parType.news,
-                        //     //     type: "get",
-                        //     //     processData:true,
-                        //     //     success:function (data) {
-                        //     //         var id=data.content.thumbMediaId;
-                        //     //         var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
-                        //     //         $(".showTime").text(data.content.updateTime);
-                        //     //         $(".showTitle").text(data.content.title);
-                        //     //         $(".showImg img").attr("src",urlLink);
-                        //     //     }
-                        //     // });
-                        // }else {
-                        //     this.picShow = false;
-                        // }
+                        //this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'news';
+                        if(this.initFlagStatus != 'news' && checkContent!=""){
+                            var r=confirm('操作会清空当前状态');
+                            if(r==true){
+                                checkContent='';
+                                this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'news';
+                                this.initFlagStatus='news';
+                                this.picShow = false;
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'news';
+                        }
                         break;
                     case 'video' :
-                        this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'video';
-                        // if(this.menu.button[this.selectedMenuIndex].key==""){
-                        //     this.picShow = true;
-                        // }else {
-                        //     this.picShow = false;
-                        // }
+                        //this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'video';
+                        if(this.initFlagStatus != 'video' && checkContent!=""){
+                            var r=confirm('操作会清空当前状态');
+                            if(r==true){
+                                checkContent='';
+                                this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'video';
+                                this.initFlagStatus='video';
+                                this.picShow = false;
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'video';
+                        }
                         break;
                     case 'image' :
-                        this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'image';
-                        // if(checkContent!=""){
-                        //     this.picShow = true;
-                        // }else {
-                        //     this.picShow = false;
-                        // }
+                        //this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'image';
+                        if(this.initFlagStatus != 'image' && checkContent!=""){
+                            var r=confirm('操作会清空当前状态');
+                            if(r==true){
+                                checkContent='';
+                                this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'image';
+                                this.initFlagStatus='image';
+                                this.picShow = false;
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'image';
+                        }
                         break;
                     case 'voice' :
-                        this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'voice';
-                        // if(checkContent!=""){
-                        //     this.picShow = true;
-                        // }else {
-                        //     this.picShow = false;
-                        // }
+                        //this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'voice';
+                        if(this.initFlagStatus != 'voice' && checkContent!=""){
+                            var r=confirm('操作会清空当前状态');
+                            if(r==true){
+                                checkContent='';
+                                this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'voice';
+                                this.initFlagStatus='voice';
+                                this.picShow = false;
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'voice';
+                        }
                         break;
                 }
             }else{
@@ -423,53 +505,64 @@ new Vue({
                 var checkContent=sonType.substr(0,kgIndex);//获得内容
                 switch (news){
                     case 'news' :
-                        // if(checkType=='news'){
-                        //     this.picShow = true;
-                        // }else{
-                        //     this.picShow = false;
-                        // }
-                        this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = checkContent+' '+'news';
-                        // if(sonType.news!=""){
-                        //     this.picShow = true;
-                        //     // $.ajax({
-                        //     //     url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+sonType.news,
-                        //     //     type: "get",
-                        //     //     processData:true,
-                        //     //     success:function (data) {
-                        //     //         var id=data.content.thumbMediaId;
-                        //     //         var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
-                        //     //         $(".showTime").text(data.content.updateTime);
-                        //     //         $(".showTitle").text(data.content.title);
-                        //     //         $(".showImg img").attr("src",urlLink);
-                        //     //     }
-                        //     // });
-                        // }else {
-                        //     this.picShow = false;
-                        // }
+                        if(this.initFlagStatus != 'news' && checkContent!=""){
+                            var r=confirm('操作会清空当前状态');
+                            if(r==true){
+                                checkContent='';
+                                this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = checkContent+' '+'news';
+                                this.initFlagStatus='news';
+                                this.picShow = false;
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = checkContent+' '+'news';
+                        }
                         break;
                     case 'video' :
-                        this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = checkContent+' '+'video';
-                        // if(sonType.video!=""){
-                        //     this.picShow = true;
-                        // }else {
-                        //     this.picShow = false;
-                        // }
+                        if(this.initFlagStatus != 'video' && checkContent!=""){
+                            var r=confirm('操作会清空当前状态');
+                            if(r==true){
+                                checkContent='';
+                                this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = checkContent+' '+'video';
+                                this.initFlagStatus='video';
+                                this.picShow = false;
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = checkContent+' '+'video';
+                        }
                         break;
                     case 'image' :
-                        this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = checkContent+' '+'image';
-                        // if(sonType.image!=""){
-                        //     this.picShow = true;
-                        // }else {
-                        //     this.picShow = false;
-                        // }
+                        if(this.initFlagStatus != 'image' && checkContent!=""){
+                            var r=confirm('操作会清空当前状态');
+                            if(r==true){
+                                checkContent='';
+                                this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = checkContent+' '+'image';
+                                this.initFlagStatus='image';
+                                this.picShow = false;
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = checkContent+' '+'image';
+                        }
                         break;
                     case 'voice' :
-                        this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = checkContent+' '+'voice';
-                        // if(sonType.voice!=""){
-                        //     this.picShow = true;
-                        // }else {
-                        //     this.picShow = false;
-                        // }
+                        if(this.initFlagStatus != 'voice' && checkContent!=""){
+                            var r=confirm('操作会清空当前状态');
+                            if(r==true){
+                                checkContent='';
+                                this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = checkContent+' '+'voice';
+                                this.initFlagStatus='voice';
+                                this.picShow = false;
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = checkContent+' '+'voice';
+                        }
                         break;
                 }
             }
