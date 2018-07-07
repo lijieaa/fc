@@ -76,7 +76,7 @@
                                     <label class="control-label col-xs-12 col-sm-4 no-padding-right">中间商名称:</label>
                                     <div class="col-xs-12 col-sm-8">
                                         <div class="clearfix">
-                                            <input type="text" name="" class="col-xs-12 col-sm-12" />
+                                            <input type="text" name="intermediary.intermediaryName" class="col-xs-12 col-sm-12" />
                                         </div>
                                     </div>
                                 </div>
@@ -160,7 +160,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="add-role-group-name">更换频率:</label>
                 <div class="col-sm-7">
-                    <input type="text" id="" name="ipName" class="form-control"
+                    <input type="text" id="changePl" name="changePl" class="form-control"
                            style="width: 80%;display: inline-block">&nbsp;&nbsp;分钟
                 </div>
             </div>
@@ -615,7 +615,9 @@
             var dialog = $( "#deviceIpPop" ).removeClass('hide').dialog({
                 resizable: false,
                 width: '600',
+                height: '250',
                 modal: true,
+                closeText: "关闭",
                 title: 'IP地址设置',
                 title_html: true,
                 buttons: [
@@ -651,10 +653,14 @@
                         "class" : "btn btn-minier",
                         click: function() {
                             $( this ).dialog( "close" );
+                            $('#add-role-group-name').val('').blur();
+                            $("#add-role-group-name-error").parents(".has-error").removeClass("has-error");
+                            $("#add-role-group-name-error").remove();
                         }
                     }
                 ]
             });
+
 
             var $formChangeIp = $('#deviceIpPop>form').validate({
                 errorElement: 'span',
@@ -680,7 +686,11 @@
                 invalidHandler: function (form) {
                 }
             });
-
+            $(".ui-dialog-titlebar-close").click(function(){
+                $('#add-role-group-name,#changePl').val('').blur();
+                $("#add-role-group-name-error,#changePl-error").parents(".has-error").removeClass("has-error");
+                $("#add-role-group-name-error,#changePl-error").remove();
+            });
         })
 
     //更换频率设置
@@ -690,14 +700,15 @@
                 bootbox.alert("请选择要更换的频率!");
                 return;
             }
-            jQuery.validator.addMethod("isZipCode", function(value, element) {
-                var tel =  /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
-                return this.optional(element) || (tel.test(value));
-            }, "请正确填写频率");
+            // jQuery.validator.addMethod("isZipCode", function(value, element) {
+            //     var tel =  /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+            //     return this.optional(element) || (tel.test(value));
+            // }, "请正确填写频率");
             var dialog = $( "#frequencyPop" ).removeClass('hide').dialog({
                 resizable: false,
                 width: '600',
                 modal: true,
+                closeText: "关闭",
                 title: '更换频率设置',
                 title_html: true,
                 buttons: [
@@ -730,6 +741,9 @@
                         "class" : "btn btn-minier",
                         click: function() {
                             $( this ).dialog( "close" );
+                            $('#changePl-error').val('').blur();
+                            $("#changePl-error").parents(".has-error").removeClass("has-error");
+                            $("#changePl-error").remove();
                         }
                     }
                 ]
@@ -741,9 +755,9 @@
                 focusInvalid: false,
                 ignore: "",
                 rules: {
-                    ipName: {
+                    changePl: {
                         required: true,
-                        isZipCode:true
+                        digits:true
                     }
                 },
                 highlight: function (e) {
@@ -759,7 +773,11 @@
                 invalidHandler: function (form) {
                 }
             });
-
+            $(".ui-dialog-titlebar-close").click(function(){
+                $('#add-role-group-name,#changePl').val('').blur();
+                $("#add-role-group-name-error,#changePl-error").parents(".has-error").removeClass("has-error");
+                $("#add-role-group-name-error,#changePl-error").remove();
+            });
         })
     })
 </script>

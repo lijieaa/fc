@@ -253,7 +253,7 @@
                 <li class="green dropdown-modal">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
-                        <span class="badge badge-success" v-cloak>{{noticeList.length}}</span>
+                        <span class="badge badge-success" id="noReadCount" v-cloak>{{noticeList.length}}</span>
                     </a>
 
                     <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
@@ -263,7 +263,7 @@
                         </li>
 
                         <li class="dropdown-content">
-                            <ul class="dropdown-menu dropdown-navbar">
+                            <ul class="dropdown-menu dropdown-navbar" id="mainPageMessage">
                                 <li v-for="item in noticeList" :data-id="item.noticeId"
                                     @click="changeAlreadyRead(item.noticeId,
                                     item.noticeComments.projectCommentsId,item.noticeComments.projectCommentsStatus)">
@@ -274,7 +274,6 @@
                                                 <span class="blue">{{item.noticeUser.name}}:</span>
                                                 {{item.noticeComments.projectCommentsContent}}
                                             </span>
-
                                             <span class="msg-time">
                                                 <i class="ace-icon fa fa-clock-o"></i>
                                                 <span>{{item.noticeCreateTime}}</span>
@@ -302,6 +301,7 @@
 									<small>欢迎,</small>
 									[[${session.user.username}]]
 								</span>
+                        <span id="userIdCurrent" v-show="false">[[${session.user.userid}]]</span>
 
                         <i class="ace-icon fa fa-caret-down"></i>
                     </a>
@@ -603,8 +603,8 @@
 <script th:src="@{/ace/assets/js/ace.min.js}"></script>
 <script th:src="@{/plugins/autofill/jquery.formautofill.min.js}"></script>
 <script th:src="@{/plugins/zTree_v3/js/jquery.ztree.all.js}"></script>
-<script type="text/javascript">
-    new Vue({
+<script type="text/javascript" >
+    var mainVue = new Vue({
         el:".noticeBarRead",
         data:{
             noticeList:[]
@@ -620,23 +620,31 @@
                         }else{
                             location.href = contextPath+"project/projectComments?id="+projectId
                         }
-                        console.log(status);
-                        console.log(projectId);
                     }
                 })
             },
             signRead: function() {
-                var idArr = [];
-                this.noticeList.map(function (value) {
-                    idArr.push(value.noticeId);
+                var _this = this;
+                var userId = $("#userIdCurrent").text();
+                $.ajax({
+                    url:contextPath  + "notice/allCheck?userId="+userId,
+                    type:"put",
+                    success: function(data){
+                        if(data.status == 200){
+                            _this.noticeList = [];
+                            $("#noReadCount").text(0)
+                            $("#mainPageMessage").html("");
+                        }
+
+                    }
                 });
-                console.log(idArr.join(","));
             }
         },
         mounted:function(){
             var _this = this;
+            var userId = $("#userIdCurrent").text();
             $.ajax({
-            url:contextPath+"notice/select?userId=1",
+            url:contextPath+"notice/select?userId="+userId,
             type:"get",
             success:function(data){
                 // console.log(data);
@@ -645,8 +653,6 @@
         })
         }
     });
-
-
 </script>
 <script type="text/javascript">
     $(document).ajaxComplete(function (event,xhr,options) {
