@@ -43,7 +43,7 @@ public class WxCommonController {
 
     @GetMapping("project")
     public String project(String sourceId, Model model){
-        
+
         model.addAttribute("sourceId", sourceId);
         return "wx/project";
     }
