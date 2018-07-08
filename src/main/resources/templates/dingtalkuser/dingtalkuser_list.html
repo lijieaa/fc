@@ -36,7 +36,7 @@
             <li class="col-sm-6 no-padding">
                 <a data-toggle="tab" href="#outcontacts" aria-expanded="false">
                     <!--<i class="green ace-icon glyphicon glyphicon-list-alt bigger-120"></i>-->
-                    外部联系人
+                    客户通讯录管理
                 </a>
             </li>
         </ul>
@@ -268,14 +268,14 @@
                         <div class="tabbable">
                             <ul class="nav nav-tabs padding-12 tab-color-blue background-blue"  id="myTab5">
                                 <li class="active tag-menu">
-                                    <a data-toggle="tab" href="#tag-menu" aria-expanded="true">标签</a>
+                                    <a data-toggle="tab" href="#tag-menu" aria-expanded="true">客户列表</a>
                                 </li>
                             </ul>
 
                             <div class="tab-content">
                                 <div id="tag-menu" class="align-center">
-                                    <p><button type="button" class="btn btn-white btn-default add-tag-group-btn">新增标签组</button><button type="button" class="btn btn-white btn-default add-tag-btn">新增标签</button></p>
-                                    <ul id="tag-list"  class="ztree"></ul>
+                                    <p><button type="button" class="btn btn-white btn-default add-customer-btn">新增客户</button></p>
+                                    <ul id="customer-list"  class="ztree"></ul>
                                 </div>
                             </div>
                         </div>
@@ -285,11 +285,20 @@
                             <div class="col-xs-12">
                                 <div class="widget-box widget-main">
                                     <div class="outcontacts-container">
-                                        <h4 class="pink">
-                                            <i class="ace-icon fa fa-users icon-animated-hand-pointer blue"></i>
-                                            <a href="#modal-table" role="button" class="blue" data-toggle="modal">外部联系人</a>
-                                        </h4>
-                                        <div class="hr hr-18 dotted hr-double"></div>
+                                        <h3 class="header smaller lighter blue margin-top-0">
+                                            <span class="company-name">成都飞创科技有限公司</span>
+                                            <button id="edit-customer-btn" type="button" class="btn btn-white btn-sm btn-primary" style="border-color: #1794e4; color: #1794e4 !important;">
+                                                <i class="ace-icon fa  fa-cog small bigger-120 blue"></i>
+                                                设置
+                                            </button>
+                                        </h3>
+                                        <ul style="list-style: none; margin: 0; line-height: 1.8">
+                                            <li>公司名称：<span id="customer-company-name"></span></li>
+                                            <li>联系电话：<span id="customer-company-phone"></span></li>
+                                            <li>邮箱地址：<span id="customer-company-email"></span></li>
+                                            <li>详细地址：<span id="customer-company-address"></span></li>
+                                        </ul>
+                                        <div class="hr hr-10 dotted hr-double"></div>
                                         <div class="widget-header widget-header-flat">
                                             <h4 class="smaller btn-group">
                                                 <button class="btn btn-info add-outcontacts-btn">
@@ -314,10 +323,11 @@
                                                                     <span class="lbl checkbox-all"></span>
                                                                 </label>
                                                             </th>
-                                                            <th class="center">姓名</th>
-                                                            <th class="center">电话</th>
-                                                            <th class="center">公司</th>
-                                                            <th class="center">负责人</th>
+                                                            <th class="center">联系人</th>
+                                                            <th class="center">联系电话电话</th>
+                                                            <th class="center">QQ</th>
+                                                            <th class="center">微信</th>
+                                                            <th class="center">邮箱</th>
                                                             <th class="center">操作</th>
                                                         </tr>
                                                         </thead>
@@ -672,76 +682,80 @@
     </form>
 </div>
 
-<!--  外部联系人 -->
-<!-- 新增标签组 -->
-<div id="add-tag-group-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
+<!--  客户通讯录管理 -->
+<!-- 新增客户 -->
+<div id="add-customer-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
     <form class="form-horizontal" role="form">
-        <h4>标签组信息</h4>
+        <h4>客户信息</h4>
         <div class="hr hr-12 hr-double"></div>
 
         <div class="form-group col-sm-12 col-md-12">
-            <label class="col-sm-2 control-label no-padding-right" for="add-tag-group-name">标签组名称:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="add-customer-name">客户名称:</label>
             <div class="col-sm-9">
-                <input type="text" id="add-tag-group-name" name="roleName" placeholder="请填写标签组名称" class="form-control">
+                <input type="text" id="add-customer-name" name="customerName" placeholder="请填写客户名称" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-customer-company-name">公司名称:</label>
+            <div class="col-sm-9">
+                <input type="text" id="add-customer-company-name" name="companyName" placeholder="请填写公司名称" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-customer-company-phone">公司联系电话:</label>
+            <div class="col-sm-9">
+                <input type="text" id="add-customer-company-phone" name="companyPhone" placeholder="请填写公司联系电话" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-customer-company-email">公司邮箱地址:</label>
+            <div class="col-sm-9">
+                <input type="text" id="add-customer-company-email" name="companyEmail" placeholder="请填写公司邮箱地址" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-customer-company-address">公司详细地址:</label>
+            <div class="col-sm-9">
+                <input type="text" id="add-customer-company-address" name="companyAddress" placeholder="请填写公司详细地址" class="form-control">
             </div>
         </div>
     </form>
 </div>
 
-<!-- 编辑标签组 -->
-<div id="edit-tag-group-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
+<!-- 编辑客户 -->
+<div id="edit-customer-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
     <form class="form-horizontal" role="form">
-        <h4>标签组信息</h4>
+        <h4>客户信息</h4>
         <div class="hr hr-12 hr-double"></div>
 
         <div class="form-group col-sm-12 col-md-12">
-            <label class="col-sm-2 control-label no-padding-right" for="edit-tag-group-name">标签组名称:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="edit-customer-name">客户名称:</label>
             <div class="col-sm-9">
-                <input type="text" id="edit-tag-group-name" name="tagName" placeholder="请填写标签组名称" class="form-control">
-            </div>
-        </div>
-    </form>
-</div>
-
-<!-- 新增标签 -->
-<div id="add-tag-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
-    <form class="form-horizontal" role="form">
-        <h4>标签信息</h4>
-        <div class="hr hr-12 hr-double"></div>
-
-        <div class="form-group col-sm-12 col-md-12">
-            <label class="col-sm-2 control-label no-padding-right" for="add-role-group-name">标签组:</label>
-            <div class="col-sm-9">
-                <select class="form-control" id="add-tag-group" name="groupId">
-                </select>
+                <input type="text" id="edit-customer-name" name="customerName" placeholder="请填写客户名称" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
-            <label class="col-sm-2 control-label no-padding-right" for="add-tag-name">标签名称:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="edit-customer-company-name">公司名称:</label>
             <div class="col-sm-9">
-                <input type="text" id="add-tag-name" name="roleName" placeholder="请填写标签名称" class="form-control">
-            </div>
-        </div>
-    </form>
-</div>
-
-<!-- 编辑标签 -->
-<div id="edit-tag-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
-    <form class="form-horizontal" role="form">
-        <h4>标签信息</h4>
-        <div class="hr hr-12 hr-double"></div>
-
-        <div class="form-group col-sm-12 col-md-12">
-            <label class="col-sm-2 control-label no-padding-right" for="edit-tag-group">标签组:</label>
-            <div class="col-sm-9">
-                <select class="form-control" id="edit-tag-group" name="groupId">
-                </select>
+                <input type="text" id="edit-customer-company-name" name="companyName" placeholder="请填写公司名称" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
-            <label class="col-sm-2 control-label no-padding-right" for="edit-tag-name">标签名称:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="edit-customer-company-phone">公司联系电话:</label>
             <div class="col-sm-9">
-                <input type="text" id="edit-tag-name" name="tagName" placeholder="请填写标签名称" class="form-control">
+                <input type="text" id="edit-customer-company-phone" name="companyPhone" placeholder="请填写公司联系电话" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-customer-company-email">公司邮箱地址:</label>
+            <div class="col-sm-9">
+                <input type="text" id="edit-customer-company-email" name="companyEmail" placeholder="请填写公司邮箱地址" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-customer-company-address">公司详细地址:</label>
+            <div class="col-sm-9">
+                <input type="text" id="edit-customer-company-address" name="companyAddress" placeholder="请填写公司详细地址" class="form-control">
             </div>
         </div>
     </form>
@@ -750,30 +764,30 @@
 <!-- 添加外部成员 -->
 <div id="add-outcontacts-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
     <form class="form-horizontal" role="form">
-        <h4>外部联系人详情</h4>
+        <h4>联系人详情</h4>
         <div class="hr hr-12 hr-double"></div>
         <div class="form-group col-sm-12 col-md-12">
-            <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-username">姓名:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-username">联系人:</label>
             <div class="col-sm-9">
-                <input type="text" id="add-outcontacts-username" name="username" placeholder="请输入姓名" class="form-control">
+                <input type="text" id="add-outcontacts-username" name="username" placeholder="请输入联系人" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
-            <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-phone">手机号:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-phone">联系电话:</label>
             <div class="col-sm-9">
-                <input type="text" id="add-outcontacts-phone" name="phone" placeholder="请输入手机号" maxlength="11" class="form-control">
+                <input type="text" id="add-outcontacts-phone" name="phone" placeholder="请输入联系电话" maxlength="11" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
-            <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-company">公司:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-QQ">QQ:</label>
             <div class="col-sm-9">
-                <input type="text" id="add-outcontacts-company" placeholder="请输入公司" class="form-control">
+                <input type="text" id="add-outcontacts-QQ" placeholder="请输入QQ" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
-            <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-position">职位:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-wechat">微信:</label>
             <div class="col-sm-9">
-                <input type="text" id="add-outcontacts-position" placeholder="请输入职位" class="form-control">
+                <input type="text" id="add-outcontacts-wechat" placeholder="请输入微信" class="form-control">
             </div>
         </div>
 
@@ -784,6 +798,14 @@
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-customer-rcompetence">角色:</label>
+            <div class="col-sm-9">
+                <input type="hidden" name="role" class="form-control">
+                <button type="button" id="add-customer-rcompetence" name="role" class="form-control btn btn-white btn-default">请选角色</button>
+                <ul id="add-customer-competence-select"  class="ztree display-none"></ul>
+            </div>
+        </div>
+        <!--<div class="form-group col-sm-12 col-md-12">
             <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-address">地址:</label>
             <div class="col-sm-9">
                 <input type="text" id="add-outcontacts-address" placeholder="请输入地址" class="form-control">
@@ -809,37 +831,37 @@
                 <button type="button" id="add-outcontacts-tag-btn" name="role" class="form-control btn btn-white btn-default">请选择标签</button>
                 <ul id="add-outcontacts-tag-select" class="display-none"></ul>
             </div>
-        </div>
+        </div>-->
     </form>
 </div>
 
 <!--编辑外部成员 -->
 <div id="edit-outcontacts-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
     <form class="form-horizontal" role="form">
-        <h4>外部联系人详情</h4>
+        <h4>联系人详情</h4>
         <div class="hr hr-12 hr-double"></div>
         <div class="form-group col-sm-12 col-md-12">
-            <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-username">姓名:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-username">联系人:</label>
             <div class="col-sm-9">
-                <input type="text" id="edit-outcontacts-username" name="username" placeholder="请输入姓名" class="form-control">
+                <input type="text" id="edit-outcontacts-username" name="username" placeholder="请输入联系人" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
-            <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-phone">手机号:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-phone">联系电话:</label>
             <div class="col-sm-9">
-                <input type="text" id="edit-outcontacts-phone" name="phone" placeholder="请输入手机号" maxlength="11" class="form-control">
+                <input type="text" id="edit-outcontacts-phone" name="phone" placeholder="请输入联系电话" maxlength="11" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
-            <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-company">公司:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-QQ">QQ:</label>
             <div class="col-sm-9">
-                <input type="text" id="edit-outcontacts-company" placeholder="请输入公司" class="form-control">
+                <input type="text" id="edit-outcontacts-QQ" placeholder="请输入QQ" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
-            <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-position">职位:</label>
+            <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-wechat">微信:</label>
             <div class="col-sm-9">
-                <input type="text" id="edit-outcontacts-position" placeholder="请输入职位" class="form-control">
+                <input type="text" id="edit-outcontacts-wechat" placeholder="请输入微信" class="form-control">
             </div>
         </div>
 
@@ -850,6 +872,14 @@
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-customer-rcompetence">角色:</label>
+            <div class="col-sm-9">
+                <input type="hidden" name="role" class="form-control">
+                <button type="button" id="edit-customer-rcompetence" name="role" class="form-control btn btn-white btn-default">更改角色</button>
+                <ul id="edit-customer-competence-select"  class="ztree display-none"></ul>
+            </div>
+        </div>
+        <!--<div class="form-group col-sm-12 col-md-12">
             <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-address">地址:</label>
             <div class="col-sm-9">
                 <input type="text" id="edit-outcontacts-address" placeholder="请输入地址" class="form-control">
@@ -875,7 +905,7 @@
                 <button type="button" id="edit-outcontacts-tag-btn" name="role" class="form-control btn btn-white btn-default">请选择标签</button>
                 <ul id="edit-outcontacts-tag-select" ></ul>
             </div>
-        </div>
+        </div>-->
     </form>
 </div>
 
@@ -2997,18 +3027,18 @@
 
 
         /* 外部联系人 */
-        //获取角色列表
-        var tagSettings = {
+        //获取客户列表
+        var customerSettings = {
             async: {
                 enable: true,
                 dataType: "json",
                 type: "get",
-                url: contextPath+"api/labgroup/list",
+                url: contextPath+"api/customer/all",
                 dataFilter: ajaxDataFilterFn
             },
             data:{
                 key: {
-                    name: "name"
+                    name: "cusName"
                 },
                 simpleData : {
                     enable : false
@@ -3017,35 +3047,24 @@
             callback: {
                 onAsyncSuccess: tagOnAsyncSuccessFn,
                 onClick: tagOnClick
-            },
-            view: {
-                addHoverDom: tagAddHoverDom,
-                removeHoverDom: tagRemoveHoverDom,
-                showLine: false
             }
         };
         function tagOnAsyncSuccessFn(event, treeId, treeNode, msg) {
-            if (msg.content.length) { //add-tag-group
-                //初始化选择标签组
-                var adTagGroupBox = $("#add-tag-container #add-tag-group, #edit-tag-container #edit-tag-group"), adTagGroupHtml = '';
-                adTagGroupBox.html("");
-                $.each(msg.content, function (i, item) {
-                    adTagGroupHtml += '<option value="'+ item.id +'">'+ item.name +'</option>'
-                });
-                adTagGroupBox.append(adTagGroupHtml);
-            }
-        }
-        function tagOnClick(event, treeId, treeNode) {
-            if (treeNode.gid) {
-                $(".outcontacts-container .widget-header, .outcontacts-container .widget-body").removeClass("display-none");
-                $(".outcontacts-container").attr("data-labid", treeNode.id);
+            if (msg.content.length) {
+                $(".company-name").text((msg.content[0].cusName));
+                $("#customer-company-name").text(msg.content[0].cusComName);
+                $("#customer-company-phone").text(msg.content[0].cusComTel);
+                $("#customer-company-email").text(msg.content[0].cusComEmail);
+                $("#customer-company-address").text(msg.content[0].cusComAdr)
+
+                $("#edit-customer-btn").attr("data-cusId", msg.content[0].cusId);
                 $.ajax({
                     async : false,
                     cache:false,
                     type: 'get',
                     dataType : "json",
                     contentType: "application/json",
-                    url: contextPath + "api/extcon/labid?labid="+treeNode.id,
+                    url: contextPath + "api/contacts/cid?cid="+msg.content[0].cusId,
                     success:function(data){
                         if (data.status == "200") {
                             //人员列表
@@ -3060,15 +3079,16 @@
                                             '<span class="lbl"></span>'+
                                             '</label>'+
                                             '</td>'+
-                                            '<td>'+ item.username +'</td>'+
-                                            '<td>'+ item.tel +'</td>'+
-                                            '<td>'+ item.company +'</td>'+
-                                            '<td>'+ item.changeUser.name +'</td>'+
-                                            '<td data-id="'+ item.id +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" title="编辑信息"></i></td>'+
+                                            '<td>'+ item.conName +'</td>'+
+                                            '<td>'+ item.conTel +'</td>'+
+                                            '<td>'+ item.conQq +'</td>'+
+                                            '<td>'+ item.conWechat +'</td>'+
+                                            '<td>'+ item.conEmail +'</td>'+
+                                            '<td data-id="'+ item.conId +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" title="编辑信息"></i></td>'+
                                             '</tr>';
                                 });
                             } else {
-                                outcontactsListHtml = '<tr><td colspan="6">'+
+                                outcontactsListHtml = '<tr><td colspan="7">'+
                                         '<div class="alert alert-info">'+
                                         '<button type="button" class="close" data-dismiss="alert">'+
                                         '<i class="ace-icon fa fa-times"></i>'+
@@ -3090,22 +3110,86 @@
 //                        alert('请求失败');
                     }
                 });
-            } else {
-                $(".outcontacts-container .widget-header, .outcontacts-container .widget-body").addClass("display-none");
             }
+        }
+        function tagOnClick(event, treeId, treeNode) {
+            $(".company-name").text((treeNode.cusName));
+            $("#customer-company-name").text(treeNode.cusComName);
+            $("#customer-company-phone").text(treeNode.cusComTel);
+            $("#customer-company-email").text(treeNode.cusComEmail);
+            $("#customer-company-address").text(treeNode.cusComAdr)
+
+            $(".outcontacts-container .widget-header, .outcontacts-container .widget-body").removeClass("display-none");
+            $("#edit-customer-btn").attr("data-cusId", treeNode.cusId);
+            $.ajax({
+                async : false,
+                cache:false,
+                type: 'get',
+                dataType : "json",
+                contentType: "application/json",
+                url: contextPath + "api/contacts/cid?cid="+treeNode.cusId,
+                success:function(data){
+                    if (data.status == "200") {
+                        //人员列表
+                        $("#outcontacts-list>tbody").html('');
+                        if (data.content.length) {
+                            var outcontactsListHtml = '';
+                            $.each(data.content, function (i, item) {
+                                outcontactsListHtml += '<tr class="align-center">'+
+                                        '<td>'+
+                                        '<label class="pos-rel">'+
+                                        '<input type="checkbox" class="ace" data-id="'+ item.id +'">'+
+                                        '<span class="lbl"></span>'+
+                                        '</label>'+
+                                        '</td>'+
+                                        '<td>'+ item.conName +'</td>'+
+                                        '<td>'+ item.conTel +'</td>'+
+                                        '<td>'+ item.conQq +'</td>'+
+                                        '<td>'+ item.conWechat +'</td>'+
+                                        '<td>'+ item.conEmail +'</td>'+
+                                        '<td data-id="'+ item.conId +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" title="编辑信息"></i></td>'+
+                                        '</tr>';
+                            });
+                        } else {
+                            outcontactsListHtml = '<tr><td colspan="7">'+
+                                    '<div class="alert alert-info">'+
+                                    '<button type="button" class="close" data-dismiss="alert">'+
+                                    '<i class="ace-icon fa fa-times"></i>'+
+                                    '</button>'+
+                                    '当前暂无人员请添加成员'+
+                                    '</div>'+
+                                    '</td>' +
+                                    '</tr>';
+                        }
+                        $("#outcontacts-list>tbody").append(outcontactsListHtml);
+
+                        //编辑外部联系人
+                        $(".edit-outcontacts-btn").on("click", function () {
+                            editOutcontacts($(this).parent().attr("data-id"));
+                        });
+                    }
+                },
+                error: function () {
+//                        alert('请求失败');
+                }
+            });
+
 
         }
         function tagRefreshNode() {
-            var zTree = $.fn.zTree.getZTreeObj("tag-list");
+            var zTree = $.fn.zTree.getZTreeObj("customer-list");
             zTree.reAsyncChildNodes(null, "refresh");
         }
-        var $formEditTagGroup = $('#edit-tag-group-container>form').validate({
+        $.fn.zTree.init($("#customer-list"), customerSettings);
+
+        //新增客户
+        var $formAddCustomer = $('#add-customer-container>form').validate({
             errorElement: 'span',
             errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
-                tagName: {
+                customerName: {
                     required: true
                 }
             },
@@ -3122,243 +3206,18 @@
             invalidHandler: function (form) {
             }
         });
-        function tagAddHoverDom(treeId, treeNode) {
-            var aObj = $("#" + treeNode.tId + "_a");
-            if ($("#diyBtn_"+treeNode.id).length>0) return;
-            var editStr = "<span id='diyBtn_space_" +treeNode.id+ "' > </span>"
-                    + "<button type='button' class='btn btn-white btn-sm btn-primary' id='diyBtn_" + treeNode.id
-                    + "' onfocus='this.blur();'>编辑</button>";
-            aObj.append(editStr);
-            var btn = $("#diyBtn_"+treeNode.id), id = treeNode.id;
-            if (btn) btn.bind("click", function(){
-                validateResetForm($formEditTagGroup, $('#edit-tag-group-container>form'));
-                //编辑标签组
-                if (!treeNode.gid) {
-                    $("#edit-tag-group-name").val(treeNode.name);
-                    var dialog = $( "#edit-tag-group-container" ).removeClass('hide').dialog({
-                        dragStop: function( event, ui ) {
-                            $(event.target.offsetParent).css("height", "auto");
-                        },
-                        resizable: false,
-                        width: '600',
-                        height: 'auto',
-                        modal: true,
-                        closeText: "关闭",
-                        title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑标签组</h4></div>",
-                        title_html: true,
-                        buttons: [
-                            {
-                                text: "保存",
-                                "class" : "btn btn-info btn-minier",
-                                click: function() {
-                                    var _this = $(this);
-                                    var flag = $formEditTagGroup.form();
-                                    if(flag){
-                                        var data = {
-                                            "id": id,
-                                            "name": $("#edit-tag-group-name").val()
-                                        };
-                                        $.ajax({
-                                            url: contextPath+"api/labgroup/",
-                                            type: "put",
-                                            data : JSON.stringify(data),
-                                            contentType: "application/json",
-                                            dataType : "json",
-                                            success: function (data) {
-                                                tagRefreshNode();
-                                                _this.dialog( "close" );
-                                            },
-                                            error: function (data) {
-//                                                console.log(data);
-                                            }
-                                        })
-
-                                    }
-
-
-                                }
-                            },
-                            {
-                                text: "删除",
-                                "class" : "btn btn-danger btn-minier ",
-                                click: function() {
-                                    var _this = $(this);
-                                    $.ajax({
-                                        url: contextPath+"api/labgroup/?id="+id,
-                                        type: "delete",
-                                        contentType: "application/json",
-                                        dataType : "json",
-                                        success: function (data) {
-                                            tagRefreshNode();
-                                            _this.dialog( "close" );
-                                        },
-                                        error: function (data) {
-//                                            console.log(data);
-                                        }
-                                    });
-                                }
-                            },
-                            {
-                                text: "取消",
-                                "class" : "btn btn-minier",
-                                click: function() {
-                                    $( this ).dialog( "close" );
-                                }
-                            }
-                        ]
-                    });
-                } else {
-                    //编辑标签
-                    $("#edit-tag-name").val(treeNode.name);
-                    var optionList = $("#edit-tag-group option");
-                    optionList.each(function (i, item) {
-                        if ($(item).attr("value") == treeNode.gid) {
-                            $(item).attr("selected","selected")
-                        }
-                    });
-                    var $formEditTag = $('#edit-tag-container>form').validate({
-                        errorElement: 'span',
-                        errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
-                        focusInvalid: false,
-                        ignore: "",
-                        rules: {
-                            tagName: {
-                                required: true
-                            }
-                        },
-                        highlight: function (e) {
-                            $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-                        },
-                        success: function (e) {
-                            $(e).closest('.form-group').removeClass('has-error');
-                            $(e).remove();
-                        },
-                        errorPlacement: function (error, element) {
-                            error.insertAfter(element.parent());
-                        },
-                        invalidHandler: function (form) {
-                        }
-                    });
-                    var dialog = $( "#edit-tag-container" ).removeClass('hide').dialog({
-                        dragStop: function( event, ui ) {
-                            $(event.target.offsetParent).css("height", "auto");
-                        },
-                        resizable: false,
-                        width: '600',
-                        height: 'auto',
-                        modal: true,
-                        closeText: "关闭",
-                        title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑标签</h4></div>",
-                        title_html: true,
-                        buttons: [
-                            {
-                                text: "保存",
-                                "class" : "btn btn-info btn-minier",
-                                click: function() {
-                                    var _this = $(this);
-                                    var flag = $formEditTag.form();
-                                    if(flag){
-                                        var data = {
-                                            "id": id,
-                                            "name": $("#edit-tag-group-name").val()
-                                        };
-                                        $.ajax({
-                                            url: contextPath+"api/labgroup/",
-                                            type: "put",
-                                            data : JSON.stringify(data),
-                                            contentType: "application/json",
-                                            dataType : "json",
-                                            success: function (data) {
-                                                tagRefreshNode();
-                                                _this.dialog( "close" );
-                                            },
-                                            error: function (data) {
-//                                                console.log(data);
-                                            }
-                                        })
-
-                                    }
-
-
-                                }
-                            },
-                            {
-                                text: "删除",
-                                "class" : "btn btn-danger btn-minier ",
-                                click: function() {
-                                    var _this = $(this);
-                                    $.ajax({
-                                        url: contextPath+"api/extconlab/?id="+id,
-                                        type: "delete",
-                                        contentType: "application/json",
-                                        dataType : "json",
-                                        success: function (data) {
-                                            tagRefreshNode();
-                                            _this.dialog( "close" );
-                                        },
-                                        error: function (data) {
-//                                            console.log(data);
-                                        }
-                                    });
-                                }
-                            },
-                            {
-                                text: "取消",
-                                "class" : "btn btn-minier",
-                                click: function() {
-                                    $( this ).dialog( "close" );
-                                }
-                            }
-                        ]
-                    });
-                }
-
-
-            });
-
-        }
-        function tagRemoveHoverDom(treeId, treeNode) {
-            $("#diyBtn_"+treeNode.id).unbind().remove();
-            $("#diyBtn_space_" +treeNode.id).unbind().remove();
-        }
-        $.fn.zTree.init($("#tag-list"), tagSettings);
-
-        //新增标签组
-        var $formAddTagGroup = $('#add-tag-group-container>form').validate({
-            errorElement: 'span',
-            errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
-            focusInvalid: false,
-            ignore: "",
-            rules: {
-                tagName: {
-                    required: true
-                }
-            },
-            highlight: function (e) {
-                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-            },
-            success: function (e) {
-                $(e).closest('.form-group').removeClass('has-error');
-                $(e).remove();
-            },
-            errorPlacement: function (error, element) {
-                error.insertAfter(element.parent());
-            },
-            invalidHandler: function (form) {
-            }
-        });
-        $(".add-tag-group-btn").on("click", function () {
-            validateResetForm($formAddTagGroup, $('#add-tag-group-container>form'));
-            var dialog = $( "#add-tag-group-container" ).removeClass('hide').dialog({
+        $(".add-customer-btn").on("click", function () {
+            validateResetForm($formAddCustomer, $('#add-customer-container>form'));
+            var dialog = $( "#add-customer-container" ).removeClass('hide').dialog({
                 dragStop: function( event, ui ) {
                     $(event.target.offsetParent).css("height", "auto");
                 },
                 resizable: false,
-                width: '600',
+                width: '660',
                 height: 'auto',
                 modal: true,
                 closeText: "关闭",
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增标签组</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增客户</h4></div>",
                 title_html: true,
                 buttons: [
                     {
@@ -3366,13 +3225,17 @@
                         "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
-                            var flag = $formAddTagGroup.form();
+                            var flag = $formAddCustomer.form();
                             if(flag){
                                 var data = {
-                                    "name": $("#add-tag-group-name").val()
+                                    "cusName": $("#add-customer-name").val(),
+                                    "cusComName": $("#add-customer-company-name").val(),
+                                    "cusComTel": $("#add-customer-company-phone").val(),
+                                    "cusComEmail": $("#add-customer-company-email").val(),
+                                    "cusComAdr": $("#add-customer-company-address").val()
                                 };
                                 $.ajax({
-                                    url: contextPath+"api/labgroup/",
+                                    url: contextPath+"api/customer/",
                                     type: "post",
                                     data : JSON.stringify(data),
                                     contentType: "application/json",
@@ -3402,14 +3265,14 @@
             });
         });
 
-        //新增标签
-        var $formAddTag = $('#add-tag-container>form').validate({
+        //编辑客户
+        var $formEditCustomer = $('#edit-customer-container>form').validate({
             errorElement: 'span',
             errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
             focusInvalid: false,
             ignore: "",
             rules: {
-                tagName: {
+                customerName: {
                     required: true
                 }
             },
@@ -3426,18 +3289,23 @@
             invalidHandler: function (form) {
             }
         });
-        $(".add-tag-btn").on("click", function () {
-            validateResetForm($formAddTag, $('#add-tag-container>form'));
-            var dialog = $( "#add-tag-container" ).removeClass('hide').dialog({
+        $("#edit-customer-btn").on("click", function () {
+            validateResetForm($formEditCustomer, $('#edit-customer-container>form'));
+            $("#edit-customer-name").val($(".company-name").text());
+            $("#edit-customer-company-name").val($("#customer-company-name").text());
+            $("#edit-customer-company-phone").val($("#customer-company-phone").text());
+            $("#edit-customer-company-email").val($("#customer-company-email").text());
+            $("#edit-customer-company-address").val($("#customer-company-address").text());
+            var dialog = $( "#edit-customer-container" ).removeClass('hide').dialog({
                 dragStop: function( event, ui ) {
                     $(event.target.offsetParent).css("height", "auto");
                 },
                 resizable: false,
-                width: '600',
+                width: '660',
                 height: 'auto',
                 modal: true,
                 closeText: "关闭",
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;新增标签组</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;编辑客户</h4></div>",
                 title_html: true,
                 buttons: [
                     {
@@ -3445,15 +3313,19 @@
                         "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
-                            var flag = $formAddTag.form();
+                            var flag = $formEditCustomer.form();
                             if(flag){
                                 var data = {
-                                    "gid": $("#add-tag-group").val(),
-                                    "name": $("#add-tag-name").val()
+                                    "cusId": $("#edit-customer-btn").attr("data-cusId"),
+                                    "cusName": $("#edit-customer-name").val(),
+                                    "cusComName": $("#edit-customer-company-name").val(),
+                                    "cusComTel": $("#edit-customer-company-phone").val(),
+                                    "cusComEmail": $("#edit-customer-company-email").val(),
+                                    "cusComAdr": $("#edit-customer-company-address").val()
                                 };
                                 $.ajax({
-                                    url: contextPath+"api/extconlab/",
-                                    type: "post",
+                                    url: contextPath+"api/customer/",
+                                    type: "put",
                                     data : JSON.stringify(data),
                                     contentType: "application/json",
                                     dataType : "json",
@@ -3469,6 +3341,26 @@
                             }
 
 
+                        }
+                    },
+                    {
+                        text: "删除",
+                        "class" : "btn btn-danger btn-minier ",
+                        click: function() {
+                            var _this = $(this);
+                            $.ajax({
+                                url: contextPath+"api/customer/?id="+$("#edit-customer-btn").attr("data-cusId"),
+                                type: "delete",
+                                contentType: "application/json",
+                                dataType : "json",
+                                success: function (data) {
+                                    tagRefreshNode();
+                                    _this.dialog( "close" );
+                                },
+                                error: function (data) {
+//                                    console.log(data);
+                                }
+                            });
                         }
                     },
                     {
@@ -3495,23 +3387,12 @@
                 phone: {
                     required: true,
                     isMobile: true
-                    /* remote: {
-                     url: contextPath+"api/dingtalkuser/mobile",
-                     type: "post",               //数据发送方式
-                     dataType: "json",           //接受数据格式
-                     data: JSON.stringify({                     //要传递的数据
-                     mobile: function() {
-                     return $("#add-department-staff-phone").val();
-                     }
-                     })
-                     }*/
                 },
-                addOutcontactsTag: {
+                role: {
                     required: true
                 }
             },
             messages: {
-//                remote: "该用户已经存在"
                 phone: {
                     isMobile: "请填写正确的手机号码"
                 }
@@ -3531,74 +3412,43 @@
         });
         $( ".add-outcontacts-btn" ).on('click', function(e) {
             validateResetForm($formAddOutcontacts, $('#add-outcontacts-container>form'));
-            //选择标签
-            $.ajax({
-                url: contextPath+"api/labgroup/list",
-                type: "get",
-                contentType: "application/json",
-                dataType : "json",
-                success: function (data) {
-                    if (data.content.length) {
-                        var addOutcontactsTagSelectBox = $("#add-outcontacts-tag-select");
-                        addOutcontactsTagSelectBox.html("");
-                        $.each(data.content, function (i, item) {
-                            var addOutcontactsTagSelectHtml = "", addOutcontactsChildrenTagSelectHtml = "", num = i;
-                            $.each(item.children, function (i, item) {
-                                addOutcontactsChildrenTagSelectHtml += '<div class="radio inline">' +
-                                        '<label>' +
-                                        '<input name="form-field-checkbox'+ num +'" type="checkbox" class="ace" value="'+ item.id +'">' +
-                                        '<span class="lbl">'+ item.name +'</span>' +
-                                        '</label>' +
-                                        '</div>';
-                            });
-                            addOutcontactsTagSelectHtml = '<li>' +
-                                    '<div class="control-group" style="">' +
-                                    '<label class="control-label bolder blue block align-left">'+ item.name +'</label>' +
-                                    addOutcontactsChildrenTagSelectHtml+
-                                    '</div>'+
-                                    '</li>'
-                            addOutcontactsTagSelectBox.append(addOutcontactsTagSelectHtml);
-                            $("#add-outcontacts-tag-select>li .control-group input[type=checkbox]").on("click", function () {
-                                $(this).parents("div").siblings().find("input").attr("checked", false);
-
-                            });
-                        });
+            //选择角色
+            var roleSettings = {
+                async: {
+                    enable: true,
+                    dataType: "json",
+                    type: "get",
+                    url: contextPath+"api/sysrole/list",
+                    dataFilter: ajaxDataFilterFnSettings
+                },
+                data:{
+                    key: {
+                        name: "roleName"
+                    },
+                    simpleData : {
+                        enable : false
                     }
                 },
-                error: function (data) {
-//                    console.log(data);
-                }
-            });
-
-            //选择负责人
-            $.ajax({
-                url: contextPath+"api/dingtalkuser/intermediary_id",
-                type: "get",
-                contentType: "application/json",
-                dataType : "json",
-                success: function (data) {
-                    if (data.content.length) {
-                        var outcontactsPrincipalBox = $("#outcontacts-principal");
-                        outcontactsPrincipalBox.html("");
-                        $.each(data.content, function (i, item) {
-                            var  outcontactsPrincipalHtml = "";
-                            outcontactsPrincipalHtml = '<option value="'+ item.userid +'">'+ item.name +'</option>';
-                            outcontactsPrincipalBox.append(outcontactsPrincipalHtml);
-                        });
-                    }
+                check: {
+                    enable: true,
+                    chkStyle: "checkbox"
                 },
-                error: function (data) {
-//                    console.log(data);
+                view: {
+                    showLine: false
                 }
-            });
-            $("#add-outcontacts-tag-btn").unbind();
-            $("#add-outcontacts-tag-btn").on("click", function () {
-                $("#addOutcontactsTag-error").parents(".has-error").removeClass("has-error");
-                $("#addOutcontactsTag-error").remove();
-                if ($("#add-outcontacts-tag-select").hasClass("display-none")) {
-                    $("#add-outcontacts-tag-select").removeClass("display-none")
+            };
+            function ajaxDataFilterFnSettings(treeId, parentNode, responseData) {
+                return responseData.content;
+            }
+            $.fn.zTree.init($("#add-customer-competence-select"), roleSettings);
+            $("#add-customer-rcompetence").unbind();
+            $("#add-customer-rcompetence").on("click", function () {
+                $("#role-error").parents(".has-error").removeClass("has-error");
+                $("#role-error").remove();
+                if ($("#add-customer-competence-select").hasClass("display-none")) {
+                    $("#add-customer-competence-select").removeClass("display-none")
                 } else {
-                    $("#add-outcontacts-tag-select").addClass("display-none")
+                    $("#add-customer-competence-select").addClass("display-none")
                 }
             });
 
@@ -3618,31 +3468,33 @@
                         "class" : "btn btn-info btn-minier",
                         click: function() {
                             var _this = $(this);
-                            var flag = $formAddOutcontacts.form(), labsList = $("#add-outcontacts-container .control-group input[type=checkbox]:checked"), arrLabs = [];
-                            labsList.each(function (i, item) {
-                                arrLabs.push({"id": $(item).val()});
-                            });
-                            if (labsList.length) {
-                                $("#add-outcontacts-tag-btn").siblings("input").val("true");
-                                $("#addOutcontactsTag-error").parents(".has-error").removeClass("has-error");
-                                $("#addOutcontactsTag-error").remove();
+                            var treeObj = $.fn.zTree.getZTreeObj("add-customer-competence-select");
+                            var nodes = treeObj.getCheckedNodes(true), departmentnameArr = [];
+                            console.log(nodes);
+                            if (nodes.length) {
+                                $("#add-customer-rcompetence").siblings("input").val("true");
+                                $("#departmentname-error").parents(".has-error").removeClass("has-error");
+                                $("#departmentname-error").remove();
+                                $.each(nodes, function (i, item) {
+                                    departmentnameArr.push({"id":item.id})
+                                })
                             } else {
-                                $("#add-outcontacts-tag-btn").siblings("input").val("");
+                                $("#add-customer-rcompetence").siblings("input").val("");
                             }
+
+                            var flag = $formAddOutcontacts.form();
                             if(flag){
                                 var data = {
-                                    "username": $("#add-outcontacts-username").val(),
-                                    "company": $("#add-outcontacts-company").val(),
-                                    "pos": $("#add-outcontacts-position").val(),
-                                    "email": $("#add-outcontacts-email").val(),
-                                    "tel": $("#add-outcontacts-phone").val(),
-                                    "adress": $("#add-outcontacts-address").val(),
-                                    "charge": $("#outcontacts-principal").val(),
-                                    "remark": $("#add-outcontacts-remark").val(),
-                                    "labs": arrLabs
+                                    "conName": $("#add-outcontacts-username").val(),
+                                    "conTel": $("#add-outcontacts-phone").val(),
+                                    "conQq": $("#add-outcontacts-QQ").val(),
+                                    "conWechat": $("#add-outcontacts-wechat").val(),
+                                    "conEmail": $("#add-outcontacts-email").val(),
+                                    "cusId": $("#edit-customer-btn").attr("data-cusId"),
+                                    "roleId": ""
                                 };
                                 $.ajax({
-                                    url: contextPath+"api/extcon/",
+                                    url: contextPath+"api/contacts/",
                                     type: "post",
                                     data : JSON.stringify(data),
                                     contentType: "application/json",
@@ -4019,11 +3871,12 @@
                                                 '<td>'+ item.tel +'</td>'+
                                                 '<td>'+ item.company +'</td>'+
                                                 '<td>'+ item.changeUser.name +'</td>'+
+                                                '<td>'+ 法法+'</td>'+
                                                 '<td data-id="'+ item.id +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" title="编辑信息"></i></td>'+
                                                 '</tr>';
                                     });
                                 } else {
-                                    outcontactsListHtml = '<tr><td colspan="6">'+
+                                    outcontactsListHtml = '<tr><td colspan="7">'+
                                             '<div class="alert alert-info">'+
                                             '<button type="button" class="close" data-dismiss="alert">'+
                                             '<i class="ace-icon fa fa-times"></i>'+
