@@ -332,5 +332,10 @@
   </select>
 
 
+  <select id="findByIsCon" resultMap="BaseResultMap">
+    select * from sys_role t where t.is_con=1
+  </select>
+
+
 
 </mapper>
