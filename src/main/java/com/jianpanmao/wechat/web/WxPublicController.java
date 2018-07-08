@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -81,8 +82,8 @@ public class WxPublicController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity add(@Valid @RequestBody WxPublic wxPublic, BindingResult result, HttpSession session) throws Exception {
-        wxApiHandler.getAccessToken(wxPublic.getAppId(), wxPublic.getAppSecret());
+    public ResponseEntity add(@Valid @RequestBody WxPublic wxPublic, BindingResult result, HttpSession session, HttpServletRequest request) throws Exception {
+        String accessToken = wxApiHandler.getAccessToken(wxPublic.getAppId(), wxPublic.getAppSecret());
         wxPublic.setIntermediary(WxUtils.getCompany(session));
         ResponseEntity responseEntity = new ResponseEntity();
         if (result.hasErrors()) {
@@ -93,6 +94,7 @@ public class WxPublicController {
         }
         try {
             wxPublicService.insert(wxPublic);
+            createDefaultMenu(accessToken, request, wxPublic.getSourceId());
             return responseEntity;
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,6 +102,32 @@ public class WxPublicController {
             responseEntity.setMessages(e.getMessage());
             return responseEntity;
         }
+    }
+
+    private void createDefaultMenu(String accessToken, HttpServletRequest request, String sourceId) throws Exception {
+
+        String path = request.getContextPath();
+        String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+
+        String json = "{\n" +
+                "  \"menu\": {\n" +
+                "    \"button\": [\n" +
+                "      {\n" +
+                "        \"type\": \"view\",\n" +
+                "        \"name\": \"公司简介\",\n" +
+                "        \"url\": \"" + basePath + "wx/common/company?sourceId=" + sourceId + "\",\n" +
+                "        \"sub_button\": []\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"type\": \"view\",\n" +
+                "        \"name\": \"项目管理\",\n" +
+                "        \"url\": \"" + basePath + "wx/common/project?sourceId=" + sourceId + "\",\n" +
+                "        \"sub_button\": []\n" +
+                "      }\n" +
+                "    ]\n" +
+                "  }\n" +
+                "}";
+        wxApiHandler.createMenu(accessToken, json);
     }
 
     @PutMapping

@@ -196,7 +196,7 @@
     </div>
 
 </script>
-<script type="text/javascript" th:inline="javascript">
+<script type="text/javascript"  th:inline="javascript">
     var clubslID  = [[${id}]];
     var clubDetail = new Vue();
     Vue.component('item', {
@@ -249,6 +249,7 @@
                             comment.parents(".area-comment").hide();
                             // console.log(comment.parents(".area-comment"));
                             clubDetail.$emit("change");
+                            refreshComment();
                         }
                     })
                 }
@@ -359,7 +360,8 @@
                         $("#pagingTest").paging1({
                             pageNo:pageNo,
                             totalPage:data.content.pages
-                        })
+                        });
+
                     }
                 });
             },
@@ -382,6 +384,7 @@
                             var val = $("#page").val();
                             CKEDITOR.instances.editor1.setData('');
                             _this.ajaxData(val);
+                            refreshComment();
                         }
                     })
                 }
@@ -416,6 +419,34 @@
         }
     });
     // var responseUrl;
+
+
+    function refreshComment (){
+        $.ajax ({
+            url: contextPath +"notice/select?userId="+$("#userIdCurrent").text(),
+            type:"get",
+            success:function(data){
+                if(data.status == 200) {
+                    $("#mainPageMessage").html("");
+                    data.content.notices.map(function(v){
+                        var li = "<li data-id="+v.noticeId+"><a href=\"#\" class=\"clearfix\">" +
+                            "<img th:src='' class=\"msg-photo\"/>" +
+                            "<span class=\"msg-body\">" +
+                            "<span class=\"msg-title\">\n" +
+                            "<span class=\"blue\">"+v.noticeUser.name+":</span>\n" +
+                            ""+v.noticeComments.projectCommentsContent+"\n" +
+                            "</span>" +
+                            "<span class=\"msg-time\">\n" +
+                            "<i class=\"ace-icon fa fa-clock-o\"></i>\n" +
+                            "<span>"+v.noticeCreateTime+"</span>\n" +
+                            "</span></span></a></li>"
+                        $("#mainPageMessage").append(li);
+                    })
+                    $("#noReadCount").text(data.content.count)
+                }
+            }
+        })
+    }
     jQuery(function($) {})
 </script>
 </body>

@@ -5,11 +5,11 @@
 <body layout:fragment="content">
 <div class="page-header">
     <h1>
-        中间商列表
-        <!--<small>-->
-            <!--<i class="ace-icon fa fa-angle-double-right"></i>-->
-            <!--Static &amp; Dynamic Tables-->
-        <!--</small>-->
+        Tables
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            Static &amp; Dynamic Tables
+        </small>
     </h1>
 </div>
     <div class="row">
@@ -30,72 +30,108 @@
                         <div class="widget-body" style="display: none;">
                             <div class="widget-main">
                                 <form class="form-horizontal" id="search-form">
-                                    <div class="form-group col-xs-12 col-sm-6">
-                                        <label class="control-label col-xs-12 col-sm-4 no-padding-right" for="intermediaryName">中间商名称:</label>
-                                        <div class="col-xs-12 col-sm-8">
-                                            <div class="clearfix">
-                                                <input type="text" name="intermediaryName" id="intermediaryName" class="col-xs-12 col-sm-12" />
+                                                                        <div class="form-group">
+                                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="conWechat">conWechat:</label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input type="text" name="conWechat" id="conWechat" class="col-xs-12 col-sm-6" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-
-
-        <div class="form-group col-xs-12 col-sm-6">
-            <label class="control-label col-xs-12 col-sm-4 no-padding-right" for="intermediaryContact">联系人:</label>
-            <div class="col-xs-12 col-sm-8">
-                <div class="clearfix">
-                    <input type="text" name="intermediaryContact" id="intermediaryContact" class="col-xs-12 col-sm-12" />
-                </div>
-            </div>
-        </div>
-
-
-        <div class="form-group col-xs-12 col-sm-6">
-            <label class="control-label col-xs-12 col-sm-4 no-padding-right" for="intermediaryContactTel">联系人电话:</label>
-            <div class="col-xs-12 col-sm-8">
-                <div class="clearfix">
-                    <input type="text" name="intermediaryContactTel" id="intermediaryContactTel" class="col-xs-12 col-sm-12" />
-                </div>
-            </div>
-        </div>
-
-                                    <div class="form-group col-xs-12 col-sm-6">
-                                        <label class="control-label col-xs-12 col-sm-4 no-padding-right">平台联系人:</label>
-                                        <div class="col-xs-12 col-sm-8">
-                                            <div class="clearfix">
-                                                <input type="text" name="user.name" id="" class="col-xs-12 col-sm-12" />
+                                        <div class="form-group">
+                                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="conId">conId:</label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input type="text" name="conId" id="conId" class="col-xs-12 col-sm-6" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group col-xs-12 col-sm-6">
-                                        <label class="control-label col-xs-12 col-sm-4 no-padding-right">平台联系电话:</label>
-                                        <div class="col-xs-12 col-sm-8">
-                                            <div class="clearfix">
-                                                <input type="text" name="user.mobile" id="" class="col-xs-12 col-sm-12" />
+                                        <div class="form-group">
+                                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="conQq">conQq:</label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input type="text" name="conQq" id="conQq" class="col-xs-12 col-sm-6" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group col-xs-12 col-sm-6">
-                                        <label class="control-label col-xs-12 col-sm-4 no-padding-right" for="intermediaryName">地区:</label>
-                                        <div class="col-xs-12 col-sm-8">
-                                            <div class="clearfix">
-                                                <input type="text" name="area.name" id="" class="col-xs-12 col-sm-12" />
+                                        <div class="form-group">
+                                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="cusId">cusId:</label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input type="text" name="cusId" id="cusId" class="col-xs-12 col-sm-6" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-6">
-                                        <label class="control-label col-xs-12 col-sm-4 no-padding-right" for="intermediaryName">企业代码:</label>
-                                        <div class="col-xs-12 col-sm-8">
-                                            <div class="clearfix">
-                                                <input type="text" name="eCode" class="col-xs-12 col-sm-12" />
+
+                                        <div class="form-group">
+                                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="conTel">conTel:</label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input type="text" name="conTel" id="conTel" class="col-xs-12 col-sm-6" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="clearfix form-actions clearboth">
-                                        <div class="col-md-offset-0 col-md-9">
+
+                                        <div class="form-group">
+                                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="conEmail">conEmail:</label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input type="text" name="conEmail" id="conEmail" class="col-xs-12 col-sm-6" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="roleId">roleId:</label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input type="text" name="roleId" id="roleId" class="col-xs-12 col-sm-6" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="conName">conName:</label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input type="text" name="conName" id="conName" class="col-xs-12 col-sm-6" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="conUpdateTime">conUpdateTime:</label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input type="text" name="conUpdateTime" id="conUpdateTime" class="col-xs-12 col-sm-6" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryId">intermediaryId:</label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input type="text" name="intermediaryId" id="intermediaryId" class="col-xs-12 col-sm-6" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="conCreateTime">conCreateTime:</label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input type="text" name="conCreateTime" id="conCreateTime" class="col-xs-12 col-sm-6" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    <div class="clearfix form-actions">
+                                        <div class="col-md-offset-3 col-md-9">
                                             <button class="btn btn-info" type="button" id="search">
                                                 <i class="ace-icon glyphicon glyphicon-search"></i>
                                                 搜索
@@ -115,8 +151,8 @@
                     <div class="clearfix">
                         <div class="pull-left tableTools-container-left">
                             <div class="btn-group">
-                                <a type="button" class="btn btn-info" th:href="@{/intermediary/add}" sec:authorize="hasAuthority('intermediary:add')">创建</a>
-                                <button type="button" class="btn btn-danger" id="batch-delete" sec:authorize="hasAuthority('intermediary:delete')">批量删除</button>
+                                <a type="button" class="btn btn-info" th:href="@{/contacts/add}" sec:authorize="hasAuthority('contacts:add')">创建</a>
+                                <button type="button" class="btn btn-danger" id="batch-delete" sec:authorize="hasAuthority('contacts:delete')">批量删除</button>
                             </div>
                         </div>
                         <div class="pull-right tableTools-container"></div>
@@ -135,19 +171,30 @@
                                         <span class="lbl"></span>
                                     </label>
                                 </th>
-                                <th>id</th>
-        <th>中间商名称</th>
-        <th>企业代码</th>
-        <th>地区</th>
-        <th>创建时间</th>
-        <th>联系人</th>
-        <th>联系人电话</th>
-        <!--<th>LOGO</th>-->
-        <th>最后更新时间</th>
-        <th>平台联系电话</th>
-        <th>平台联系人</th>
-        <th></th>
-        </tr>
+        <th>conWechat</th>
+
+        <th>conId</th>
+
+        <th>conQq</th>
+
+        <th>cusId</th>
+
+        <th>conTel</th>
+
+        <th>conEmail</th>
+
+        <th>roleId</th>
+
+        <th>conName</th>
+
+        <th>conUpdateTime</th>
+
+        <th>intermediaryId</th>
+
+        <th>conCreateTime</th>
+
+                                <th></th>
+                            </tr>
                             </thead>
 
                             <tbody>
@@ -177,10 +224,13 @@
                                 'searching': false,
                                 "ajax": function (data, callback, settings) {
                                     var formData = $("#search-form").serialize();
+                                    console.log(formData);
                                     var pageNum=data.start/data.length+1;
                                     var pageSize=data.length;
                                     var draw=data.draw;
+
                                     var orderByClause="";
+
                                     for(var i=0;i<data.order.length;i++){
                                         var obj=data.order[i];
                                         var col=obj.column;
@@ -192,7 +242,7 @@
 
                                     var param="?pageNum="+pageNum+"&pageSize="+pageSize+"&"+formData+"&draw="+draw+"&od="+orderByClause;
                                     $.ajax({
-                                        "url": contextPath+"api/intermediary/page"+param,
+                                        "url": contextPath+"api/contacts/page"+param,
                                         "type": "get",
                                         dataType:"json",
                                         contentType:'application/json',
@@ -206,23 +256,23 @@
                                             }
                                         },
                                         "error": function (XMLHttpRequest, textStatus, errorThrown) {
-                                            // console.log(errorThrown);
+                                            console.log(errorThrown);
                                         }
                                     });
                                 },
                                 "columns": [
                                     {"data": null},
-                                    {"data": "intermediaryId"},
-                                    {"data": "intermediaryName"},
-                                    {"data": "eCode"},
-                                    {"data": "area.name"},
-                                    {"data": "intermediaryCreateTime"},
-                                    {"data": "intermediaryContact"},
-                                    {"data": "intermediaryContactTel"},
-                                    // {"data": "intermediaryLogoUrl"},
-                                    {"data": "intermediaryUpdateTime"},
-                                    {"data": "intermediaryContactTel"},
-                                    {"data": "user.name"},
+        {"data": "conWechat"},
+                                    {"data": "conId"},
+        {"data": "conQq"},
+        {"data": "cusId"},
+        {"data": "conTel"},
+        {"data": "conEmail"},
+        {"data": "roleId"},
+        {"data": "conName"},
+        {"data": "conUpdateTime"},
+        {"data": "intermediaryId"},
+        {"data": "conCreateTime"},
                                     {"data": null}
                                 ],
                                 "columnDefs": [
@@ -328,30 +378,39 @@
 
                                     },
                                     {
+                                        "targets": 11,
+                                        "orderable": true,
+                                        "searchable": true,
+                                        "render": function (data, type, row) {
+                                            return '<td>' + data + '</td>';
+                                        }
+
+                                    },
+                                    {
                                         "targets": -1,
                                         "orderable": false,
                                         data: null,
                                         "render": function (data, type, row) {
                                             return '<div class="hidden-sm hidden-xs action-buttons">'
-                                                    [# sec:authorize="hasAuthority('intermediary:view')"]
-                                            + '<a class="blue" href="detail/?id='+data.intermediaryId+'"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
+                                                    [# sec:authorize="hasAuthority('contacts:view')"]
+                                            + '<a class="blue" href="detail/?id='+data.conId+'"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
                                                     [/]
-                                            [# sec:authorize="hasAuthority('intermediary:edit')"]
-                                            + '<a class="blue" href="edit/?id='+data.intermediaryId+'"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
+                                            [# sec:authorize="hasAuthority('contacts:edit')"]
+                                            + '<a class="green" href="edit/?id='+data.conId+'"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
                                                     [/]
-                                            [# sec:authorize="hasAuthority('intermediary:delete')"]
-                                            + '<a class="blue delete" data-id="'+data.intermediaryId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
+                                            [# sec:authorize="hasAuthority('contacts:delete')"]
+                                            + '<a class="red delete" data-id="'+data.conId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
                                                     [/]
                                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
-                                                    [# sec:authorize="hasAuthority('intermediary:view')"]
-                                            + '<li><a href="detail/?id='+data.intermediaryId+'" class="tooltip-info" data-rel="tooltip" title="查看"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
+                                                    [# sec:authorize="hasAuthority('contacts:view')"]
+                                            + '<li><a href="detail/?id='+data.conId+'" class="tooltip-info" data-rel="tooltip" title="查看"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
                                                     [/]
-                                            [# sec:authorize="hasAuthority('intermediary:edit')"]
-                                            + '<li><a href="edit/?id='+data.intermediaryId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="blue"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
+                                            [# sec:authorize="hasAuthority('contacts:edit')"]
+                                            + '<li><a href="edit/?id='+data.conId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
                                                     [/]
-                                            [# sec:authorize="hasAuthority('intermediary:delete')"]
-                                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.intermediaryId+'"><span class="blue"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
+                                            [# sec:authorize="hasAuthority('contacts:delete')"]
+                                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.conId+'"><span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
                                                     [/]
                                             +'</ul></div></div>';
                                         }
@@ -428,6 +487,9 @@
                 }
                 $('.dt-button-collection').appendTo('.tableTools-container .dt-buttons')
             });
+
+            ////
+
             setTimeout(function () {
                 $($('.tableTools-container')).find('a.dt-button').each(function () {
                     var div = $(this).find(' > div').first();
@@ -449,6 +511,7 @@
             });
 
 
+            /////////////////////////////////
             //table checkboxes
             $('th input[type=checkbox], td input[type=checkbox]').prop('checked', false);
 
@@ -494,7 +557,7 @@
                 return 'left';
             }
 
-            [# sec:authorize="hasAuthority('intermediary:delete')"]
+            [# sec:authorize="hasAuthority('contacts:delete')"]
             //单个删除
             $('#dynamic-table tbody').on( 'click', 'a.delete', function () {
                 var id = $(this).attr('data-id');
@@ -514,7 +577,7 @@
 
                        if(result){
                            $.ajax({
-                               url: contextPath+"api/intermediary/?id="+id,
+                               url: contextPath+"api/contacts/?id="+id,
                                method: "delete",
                                success: function (data) {
                                    if(data.status==200){
@@ -531,7 +594,7 @@
 
             } );
             [/]
-            [# sec:authorize="hasAuthority('intermediary:delete')"]
+            [# sec:authorize="hasAuthority('contacts:delete')"]
             $("#batch-delete").on("click", function () {
 
                 var rows = myTable.rows('.selected').data();
@@ -560,12 +623,13 @@
                             var ids=[];
 
                             for(var i=0;i<rows.length;i++){
-                                ids.push(rows[i].intermediaryId);
+                                ids.push(rows[i].conId);
                             }
 
+                            console.log(ids);
 
                             $.ajax({
-                                url: contextPath+"api/intermediary/batch",
+                                url: contextPath+"api/contacts/batch",
                                 method : "delete" ,
                                 data : JSON.stringify(ids),
                                 contentType: "application/json",
@@ -576,7 +640,7 @@
                                     }
                                 },
                                 error: function (data) {
-
+                                    console.log(data);
                                 }
                             })
                         }

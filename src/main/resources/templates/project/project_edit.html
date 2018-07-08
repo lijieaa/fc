@@ -42,13 +42,13 @@
         .tree-div-contain{
             display: none;
             position: absolute;
-            width: 96.5%;
+            width: 64%;
             z-index: 3;
             overflow: auto;
             background: white;
             top: 38px;
             left: 11px;
-            outline: 1px solid darkgreen;
+            outline: 1px solid #D5D5D5;
         }
         .search-list{
             margin: 0;
@@ -82,6 +82,9 @@
         .btn, .border-none {
             border: 1px solid #6FB3E0;
         }
+        #areaId{
+            background: #F5F5F5 url('../../images/areaArrow.png') no-repeat center right!important;
+        }
     </style>
 </head>
 <body layout:fragment="content">
@@ -90,7 +93,7 @@
         <div class="row">
             <div class="col-md-9 col-sm-9">
                 <div class="float-left">
-                    <span class="font-size-18 border-left-blue">编辑线索</span>
+                    <span class="font-size-18 border-left-blue">编辑项目</span>
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 text-align-right">
@@ -107,7 +110,7 @@
             <div class="row">
                 <form class="form-horizontal" id="validation-form">
                     <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectName">线索名称:</label>
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectName">项目名称:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
                                 <input type="text" name="projectName" id="projectName" v-model="editList.projectName" class="col-xs-12 col-sm-6" >
@@ -115,7 +118,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="">负责人:</label>
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="">跟进人:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
                                 <!--<input type="text" name="projectContactUserId" id="" v-model="editList.projectContactUserId" class="col-xs-12 col-sm-6" >-->
@@ -147,7 +150,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectOwnerContact">业主名:</label>
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectOwnerContact">客户名:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
                                 <input type="text" name="projectOwnerContact" id="projectOwnerContact" v-model="editList.projectOwnerContact" class="col-xs-12 col-sm-6" />
@@ -155,7 +158,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectOwnerContactTel">业主联系电话:</label>
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectOwnerContactTel">联系电话:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
                                 <input type="text" name="projectOwnerContactTel" id="projectOwnerContactTel" v-model="editList.projectOwnerContactTel" class="col-xs-12 col-sm-6" />
@@ -164,7 +167,40 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">LOGO:</label>
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">QQ:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text"  v-model="editList.projectOwnerContactTel" class="col-xs-12 col-sm-6" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">微信:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text"  v-model="editList.projectOwnerContactTel" class="col-xs-12 col-sm-6" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">邮箱地址:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text"  v-model="editList.projectOwnerContactTel" class="col-xs-12 col-sm-6" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">详细地址:</label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text"  v-model="editList.projectOwnerContactTel" class="col-xs-12 col-sm-6" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">项目图片:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
                                 <input type="hidden" name="intermediaryLogoUrl"  id="responseUrl" value="" class="col-xs-12 col-sm-6">
@@ -190,6 +226,17 @@
                                     <option value="0">已处理</option>
                                     <option value="1">正在处理</option>
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right"
+                               for="intermediaryIntroduction">项目简介:</label>
+                        <div class="col-xs-12 col-sm-8 introduction">
+                            <div class="clearfix">
+                                <input type="hidden" name="intermediaryIntroduction"
+                                       id="intermediaryIntroduction" class="col-xs-12 col-sm-8" />
+                                <textarea name="editor1" id="editor1" class="col-xs-12 col-sm-8"></textarea>
                             </div>
                         </div>
                     </div>
@@ -261,6 +308,11 @@
             methods:{
                 backList:function(){
                     location.href=contextPath+"project/list";
+                },
+                editorFun:function(){ //文本框编辑
+                    this.editor = CKEDITOR.replace( 'editor1', {
+                        filebrowserImageUploadUrl:'/editoUpload'
+                    });
                 },
                 zTreeInit:function(){
                     var _this = this;
@@ -385,7 +437,7 @@
             },
             mounted:function () {
                 var _this = this;
-
+                _this.editorFun(); //初始化生成编辑器
                 //验证手机
                 jQuery.validator.addMethod("isMobile", function(value, element) {
                     var length = value.length;
