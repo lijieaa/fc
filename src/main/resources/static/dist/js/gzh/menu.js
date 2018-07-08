@@ -118,6 +118,9 @@ new Vue({
             processData:true,
             success:function (data) {
                 _this.menu=JSON.parse(data).menu;
+                if(_this.menu.button && _this.menu.button.length){
+                    _this.selectedMenuIndex = 0;
+                }
             }
         })
     },
@@ -614,24 +617,37 @@ new Vue({
         },
         //删除主菜单菜单
         delMenu:function () {
-            if(this.selectedMenuIndex===0){
-                this.menu.button.splice(this.selectedMenuIndex, 1);
-                this.selectedMenuIndex = 0;
-            }
-            if(this.menu.button.length==0){
-                this.selectedMenuIndex = ''
+            var r=confirm("确定要删除主菜单么？删除会清空子菜单");
+            if(r=true){
+                if(this.selectedMenuIndex===0){
+                    this.menu.button.splice(this.selectedMenuIndex, 1);
+                    this.selectedMenuIndex = 0;
+                }else{
+                    this.menu.button.splice(this.selectedMenuIndex, 1);
+                    this.selectedMenuIndex -= 1;
+                }
+                if(this.menu.button.length==0){
+                    this.selectedMenuIndex = ''
+                }
+            }else {
+                return false;
             }
         },
         delSubMenu:function(){
-            if(this.selectedSubMenuIndex===0){
-                this.menu.button[this.selectedMenuIndex].sub_button.splice(this.selectedSubMenuIndex, 1);
-                this.selectedSubMenuIndex = 0;
-            }else{
-                this.menu.button[this.selectedMenuIndex].sub_button.splice(this.selectedSubMenuIndex, 1);
-                this.selectedSubMenuIndex -= 1;
-            }
-            if(this.menu.button[this.selectedMenuIndex].sub_button.length==0){
-                this.selectedSubMenuIndex = ''
+            var r=confirm("确定要删除此菜单？");
+            if(r=true){
+                if(this.selectedSubMenuIndex===0){
+                    this.menu.button[this.selectedMenuIndex].sub_button.splice(this.selectedSubMenuIndex, 1);
+                    this.selectedSubMenuIndex = 0;
+                }else{
+                    this.menu.button[this.selectedMenuIndex].sub_button.splice(this.selectedSubMenuIndex, 1);
+                    this.selectedSubMenuIndex -= 1;
+                }
+                if(this.menu.button[this.selectedMenuIndex].sub_button.length==0){
+                    this.selectedSubMenuIndex = ''
+                }
+            }else {
+                return false;
             }
         }
     },
