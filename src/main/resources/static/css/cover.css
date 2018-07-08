@@ -1,6 +1,6 @@
 
 .wrapper .navbar{
-  background:#3c8dbc;
+  background:#FFFFFF;
 /*  height: 0.96rem;*/
   color:#FFFFFF;
 }
@@ -127,8 +127,14 @@ ul{
   overflow: hidden;
 
 }
+.ios .searchbar-inner{
+  padding:0
+}
 
 
+.ios .links-list .plist a{
+  height:auto;
+}
 .w100{
   width:100%;
 }
@@ -155,7 +161,7 @@ ul{
    box-shadow: 0 1px 3px 0px rgba(0,0,0,.3);
  }
  .pkee{
-   height:20px !important;
+   height:22px !important;
    line-height:20px;
    box-sizing: border-box;
    border:1px solid #c1c1c0 !important;
@@ -167,7 +173,7 @@ span.pkee{
 }
 
 .setInput{
-  height:20px !important;
+  height:22px !important;
   line-height:20px;
   box-sizing: border-box;
   border:1px solid #c1c1c0 !important;;
@@ -176,12 +182,13 @@ span.pkee{
 .ios .searchbar .ser-box{
   flex-shrink: 1;
   width: 100%;
-  position: relative;;
+  position: relative;
+  margin: 0 -1px;
 }
 
  .ios .searchbar .ser-box input[type=search]{
    border-radius: 0;
-   height:20px;
+   height:22px;
    line-height:20px;
    box-sizing: border-box;
    background: none;
@@ -190,13 +197,14 @@ span.pkee{
 
 .ser-btn{
   flex-shrink: 0;
-  width:1.1rem;
-  height:20px;
+  width:40px;
+  height:22px;
   line-height:20px;
   box-sizing: border-box;
   border:1px solid #c1c1c0;
-  background: #c1c1c0;
+ /* background: #c1c1c0;*/
   text-align: center;
+  letter-spacing: 1px;
 
 }
 .infinite-scroll-preloader {
