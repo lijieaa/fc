@@ -6,10 +6,6 @@
     <result column="project_name" property="projectName" jdbcType="VARCHAR" />
     <result column="project_owner_contact" property="projectOwnerContact" jdbcType="VARCHAR" />
     <result column="project_owner_contact_tel" property="projectOwnerContactTel" jdbcType="VARCHAR" />
-    <result column="owner_qq" property="ownerQQ" jdbcType="VARCHAR" />
-    <result column="owner_weChat" property="ownerWeChat" jdbcType="VARCHAR" />
-    <result column="owner_email" property="ownerEmail" jdbcType="VARCHAR" />
-    <result column="owner_address" property="ownerAddress" jdbcType="VARCHAR" />
     <result column="project_status" property="projectStatus" jdbcType="TINYINT" />
     <result column="project_create_time" property="projectCreateTime" jdbcType="TIMESTAMP" />
     <result column="project_update_time" property="projectUpdateTime" jdbcType="TIMESTAMP" />
@@ -24,9 +20,9 @@
       <result column="contactname" property="name"></result>
     </association>
     <association property="projectCreateUser" javaType="com.jianpanmao.sys.entity.DingtalkUser">
-      <id column="createuserid" property="userid"></id>
-      <result column="createusername" property="name"></result>
-    </association>
+    <id column="createuserid" property="userid"></id>
+    <result column="createusername" property="name"></result>
+  </association>
   </resultMap>
 
 
@@ -383,7 +379,9 @@
     LEFT JOIN area area ON p.area_id = area.ID
     LEFT JOIN dingtalk_user project_contact_user ON p.project_contact_user_id = project_contact_user.userid
     LEFT JOIN dingtalk_user project_create_user ON p.project_create_user_id = project_create_user.userid
+    LEFT JOIN intermediary intermediary ON p.project_intermediary = intermediary.intermediary_id
     WHERE p.project_status = #{projectStatus}
+    and p.project_intermediary = #{intermediary.intermediaryId}
     <if test="projectName != null"> and p.project_name  LIKE CONCAT('%',#{projectName},'%')</if>
     <if test="projectContactUser !=null and projectContactUser.name!=null"> and project_contact_user.name LIKE  CONCAT('%',#{projectContactUser.name},'%')</if>
     <if test="projectOwnerContact!=null and projectOwnerContact!=null"> and p.project_owner_contact LIKE CONCAT('%',#{projectOwnerContact},'%')</if>

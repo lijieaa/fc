@@ -85,4 +85,6 @@ public class IntermediaryRestController {
     public List<Intermediary> selectIdNameList() {
         return dao.selectIdNameList();
     }
+
+
 }

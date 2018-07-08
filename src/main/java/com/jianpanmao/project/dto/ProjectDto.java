@@ -1,5 +1,7 @@
 package com.jianpanmao.project.dto;
+
 import com.jianpanmao.area.entity.Area;
+import com.jianpanmao.intermediary.entity.Intermediary;
 import com.jianpanmao.sys.entity.DingtalkUser;
 
 import java.math.BigDecimal;
@@ -8,102 +10,121 @@ import java.util.Date;
 public class ProjectDto {
 
 
-private DingtalkUser projectContactUser;
+    private DingtalkUser projectContactUser;
 
-private String projectOwnerContact ;
+    private String projectOwnerContact;
 
-public String getProjectOwnerContact() {
-return projectOwnerContact;
-}
+    public String getProjectOwnerContact() {
+        return projectOwnerContact;
+    }
 
-public void setProjectOwnerContact(String projectOwnerContact) {
-this.projectOwnerContact = projectOwnerContact;
-}
-private Byte projectTopicStatus ;
+    public void setProjectOwnerContact(String projectOwnerContact) {
+        this.projectOwnerContact = projectOwnerContact;
+    }
 
-public Byte getProjectTopicStatus() {
-return projectTopicStatus;
-}
+    private Byte projectTopicStatus;
 
-public void setProjectTopicStatus(Byte projectTopicStatus) {
-this.projectTopicStatus = projectTopicStatus;
-}
-private Date projectCreateTime ;
+    public Byte getProjectTopicStatus() {
+        return projectTopicStatus;
+    }
 
-public Date getProjectCreateTime() {
-return projectCreateTime;
-}
+    public void setProjectTopicStatus(Byte projectTopicStatus) {
+        this.projectTopicStatus = projectTopicStatus;
+    }
 
-public void setProjectCreateTime(Date projectCreateTime) {
-this.projectCreateTime = projectCreateTime;
-}
-private Byte projectStatus ;
+    private Date projectCreateTime;
 
-public Byte getProjectStatus() {
-return projectStatus;
-}
+    public Date getProjectCreateTime() {
+        return projectCreateTime;
+    }
 
-public void setProjectStatus(Byte projectStatus) {
-this.projectStatus = projectStatus;
-}
-private Area area ;
+    public void setProjectCreateTime(Date projectCreateTime) {
+        this.projectCreateTime = projectCreateTime;
+    }
 
-private String projectLogo ;
+    private Byte projectStatus;
 
-public String getProjectLogo() {
-return projectLogo;
-}
+    public Byte getProjectStatus() {
+        return projectStatus;
+    }
 
-public void setProjectLogo(String projectLogo) {
-this.projectLogo = projectLogo;
-}
+    public void setProjectStatus(Byte projectStatus) {
+        this.projectStatus = projectStatus;
+    }
+
+    private Area area;
+
+    private String projectLogo;
+
+    public String getProjectLogo() {
+        return projectLogo;
+    }
+
+    public void setProjectLogo(String projectLogo) {
+        this.projectLogo = projectLogo;
+    }
+
     private DingtalkUser projectCreateUser;
 
-private String projectOwnerContactTel ;
+    private String projectOwnerContactTel;
 
-public String getProjectOwnerContactTel() {
-return projectOwnerContactTel;
-}
+    public String getProjectOwnerContactTel() {
+        return projectOwnerContactTel;
+    }
 
-public void setProjectOwnerContactTel(String projectOwnerContactTel) {
-this.projectOwnerContactTel = projectOwnerContactTel;
-}
-private String od ;
+    public void setProjectOwnerContactTel(String projectOwnerContactTel) {
+        this.projectOwnerContactTel = projectOwnerContactTel;
+    }
 
-public String getOd() {
-return od;
-}
+    private Intermediary intermediary;
 
-public void setOd(String od) {
-this.od = od;
-}
-private String projectName ;
+    public Intermediary getIntermediary() {
+        return intermediary;
+    }
 
-public String getProjectName() {
-return projectName;
-}
+    public void setIntermediary(Intermediary intermediary) {
+        this.intermediary = intermediary;
+    }
 
-public void setProjectName(String projectName) {
-this.projectName = projectName;
-}
-private Integer projectId ;
+    private String od;
 
-public Integer getProjectId() {
-return projectId;
-}
+    public String getOd() {
+        return od;
+    }
 
-public void setProjectId(Integer projectId) {
-this.projectId = projectId;
-}
-private Date projectUpdateTime ;
+    public void setOd(String od) {
+        this.od = od;
+    }
 
-public Date getProjectUpdateTime() {
-return projectUpdateTime;
-}
+    private String projectName;
 
-public void setProjectUpdateTime(Date projectUpdateTime) {
-this.projectUpdateTime = projectUpdateTime;
-}
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    private Integer projectId;
+
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
+
+    private Date projectUpdateTime;
+
+    public Date getProjectUpdateTime() {
+        return projectUpdateTime;
+    }
+
+    public void setProjectUpdateTime(Date projectUpdateTime) {
+        this.projectUpdateTime = projectUpdateTime;
+    }
 
     public DingtalkUser getProjectContactUser() {
         return projectContactUser;

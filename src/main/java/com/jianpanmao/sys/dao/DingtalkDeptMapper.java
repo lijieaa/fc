@@ -4,6 +4,7 @@ import com.jianpanmao.common.dao.BaseDao;
 import com.jianpanmao.sys.dto.DingtalkDeptDto;
 import com.jianpanmao.sys.entity.DingtalkDept;
 import com.jianpanmao.sys.entity.DingtalkDeptExample;
+import com.jianpanmao.sys.entity.DingtalkUserDept;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -25,6 +26,8 @@ public interface DingtalkDeptMapper extends BaseDao<DingtalkDept, DingtalkDeptEx
     void sort(DingtalkDept dept);
 
     DingtalkDept selectByEqName(DingtalkDept dept);
+
+    List<DingtalkDept> findByP(Integer parentId);
 
 
 }

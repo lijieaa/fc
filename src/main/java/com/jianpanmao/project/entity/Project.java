@@ -1,6 +1,7 @@
 package com.jianpanmao.project.entity;
 
 import com.jianpanmao.area.entity.Area;
+import com.jianpanmao.intermediary.entity.Intermediary;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -55,44 +56,17 @@ public class Project implements Serializable {
     //线索跟进状态：0已处理，1正在处理
     private Byte projectTopicStatus;
 
-    private String ownerQQ;
-    private String ownerWeChat;
-    private String ownerEmail;
-    private String ownerAddress;
-
-    public String getOwnerQQ() {
-        return ownerQQ;
-    }
-
-    public void setOwnerQQ(String ownerQQ) {
-        this.ownerQQ = ownerQQ;
-    }
-
-    public String getOwnerWeChat() {
-        return ownerWeChat;
-    }
-
-    public void setOwnerWeChat(String ownerWeChat) {
-        this.ownerWeChat = ownerWeChat;
-    }
-
-    public String getOwnerEmail() {
-        return ownerEmail;
-    }
-
-    public void setOwnerEmail(String ownerEmail) {
-        this.ownerEmail = ownerEmail;
-    }
-
-    public String getOwnerAddress() {
-        return ownerAddress;
-    }
-
-    public void setOwnerAddress(String ownerAddress) {
-        this.ownerAddress = ownerAddress;
-    }
+    private Intermediary intermediary;
 
     private Integer count;
+
+    public Intermediary getIntermediary() {
+        return intermediary;
+    }
+
+    public void setIntermediary(Intermediary intermediary) {
+        this.intermediary = intermediary;
+    }
 
     public Integer getCount() {
         return count;

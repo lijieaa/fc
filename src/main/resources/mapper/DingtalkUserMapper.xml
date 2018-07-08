@@ -604,6 +604,11 @@
   </select>
 
 
-
+  <select id="selectDeptUser" parameterType="java.lang.Integer"  resultMap="BaseResultMap">
+    SELECT u.userid,u.name
+  FROM dingtalk_user u
+  LEFT JOIN dingtalk_user_dept udp ON udp.user_id = u.userid
+  WHERE udp.dept_id = #{0}
+  </select>
 
 </mapper>

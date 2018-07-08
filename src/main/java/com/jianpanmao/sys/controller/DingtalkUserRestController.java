@@ -4,8 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.common.entity.DataTablesResponseEntity;
+import com.jianpanmao.sys.dao.DingtalkDeptMapper;
 import com.jianpanmao.sys.dao.DingtalkUserMapper;
+import com.jianpanmao.sys.dto.DeptUserDto;
 import com.jianpanmao.sys.dto.DingtalkUserDto;
+import com.jianpanmao.sys.entity.DingtalkDept;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import com.jianpanmao.sys.service.DingtalkUserService;
 import com.jianpanmao.utils.UserUtils;
@@ -28,6 +31,9 @@ public class DingtalkUserRestController {
 
     @Autowired
     private DingtalkUserMapper dao;
+
+    @Autowired
+    DingtalkDeptMapper dingtalkDeptMapper;
 
     @PreAuthorize("hasAuthority('dingtalkuser:add')")
     @RequestMapping(method = RequestMethod.POST)
@@ -151,5 +157,26 @@ public class DingtalkUserRestController {
     @RequestMapping(method = RequestMethod.GET, value = "role")
     public List<DingtalkUser> findByRoleId(@RequestParam(value = "roleid",required = true)Integer roleId) {
         return dao.selectByRoleId(roleId);
+    }
+
+    /****
+     * 部门人员树
+     */
+    @PreAuthorize("hasAuthority('dingtalkuser:view')")
+    @RequestMapping(method = RequestMethod.GET, value = "deptUser")
+    public DeptUserDto deptUser(Integer id){
+        DeptUserDto dto = new DeptUserDto();
+        List<DingtalkDept> deptList  = dingtalkDeptMapper.findByP(id);
+        List<DingtalkUser> users;
+        if (id==0){
+            id = deptList.get(0).getId();
+            users =  dao.selectDeptUser(id);
+        }else {
+            users = dao.selectDeptUser(id);
+        }
+
+        dto.setDepts(deptList);
+        dto.setUsers(users);
+        return dto;
     }
 }
