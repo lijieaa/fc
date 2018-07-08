@@ -42,17 +42,19 @@
                     <div class="block-header">
                         <div class="text-align-right ptbox " >
                             <div class="display-inline-block portrait">
-                                <img th:src="@{/img/portrat.jpg}" alt="" class="w100"/>
+                                <img id="intermediaryLogoUrl" th:src="@{/img/portrat.jpg}" alt="" class="w100"/>
                             </div>
                         </div>
-                        <div  class="text-base-color f32 fw">成都环太净化科技有限公司</div>
+                        <div  id="intermediaryName" class="text-base-color f32 fw">成都环太净化科技公司</div>
                         <small class="f24">Chengdu Huantai Purification Technology Co., Ltd.</small></div>
-                   <div class="block ">
+                   <div id="intermediaryIntroduction" class="block">
                        <div class="row">
-                           <img th:src="@{/img/company.jpg}" class="col-100" alt=""/>
+                           <img  th:src="@{/img/company.jpg}" class="col-100" alt=""/>
                        </div>
                        <br/>
-                       <div class=" text-base-color break text-align-justify f30 tx2" >成都环太科技发展有限公司办公室地址位于有着3000余年的建城史，故有“锦官城”之称的成都，中国 四川 成都市 成华区（邮编：610041），公司成立以来发展迅速，业务不断发展壮大，我公司主要经营电脑,安防产品，，我公司与多家成都电脑包公司零售商和代理商建立了长期稳定的合作关系，品种齐全、价格合理，企业实力雄厚，重信用、守合同、保证产品质量，以多品种经营特色和薄利多销的原则，赢得了广大客户的信任，公司始终奉行“诚信求实、致力服务、唯求满意”的企业宗旨，全力跟随客户需求，不断进行产品创新和服务改进。 公司，联系电话为86-028-85408146，期待您的来电咨询
+                       <div class=" text-base-color break text-align-justify f30 tx2" >
+
+                           成都环太科技发展有限公司办公室地址位于有着3000余年的建城史，故有“锦官城”之称的成都，中国 四川 成都市 成华区（邮编：610041），公司成立以来发展迅速，业务不断发展壮大，我公司主要经营电脑,安防产品，，我公司与多家成都电脑包公司零售商和代理商建立了长期稳定的合作关系，品种齐全、价格合理，企业实力雄厚，重信用、守合同、保证产品质量，以多品种经营特色和薄利多销的原则，赢得了广大客户的信任，公司始终奉行“诚信求实、致力服务、唯求满意”的企业宗旨，全力跟随客户需求，不断进行产品创新和服务改进。 公司，联系电话为86-028-85408146，期待您的来电咨询
                        </div>
 
                        <div class="row no-gap">
@@ -67,17 +69,21 @@
                            </div>
                        </div>
 
-                       <div class="row">
-                           <ul class="address f30 ">
-                               <li><span class="fw">公司地址：</span>中国 四川 成都市 成华区 -</li>
-                               <li><span class="fw">固定电话：</span>86-028-85408146</li>
-                               <li><span class="fw">联系人：</span>未提供</li>
-                               <li><span class="fw">经理手机：</span>80601482</li>
-                               <li><span class="fw">邮政编码：</span>610041</li>
-                               <li><span class="fw">传真号码：</span>86-028-85408246</li>
-                           </ul>
-                       </div>
+
                    </div>
+                    <div class="block">
+                        <div class="row">
+                            <ul class="address f30 ">
+                                <li><span class="fw">公司地址：</span><span id="area">中国 四川 成都市 成华区 -</span></li>
+                                <li><span class="fw">固定电话：</span><span id="">86-028-85408146</span></li>
+                                <li><span class="fw">联系人：</span><span id="intermediaryContact">未提供</span></li>
+                                <li><span class="fw">经理手机：</span><span id="intermediaryContactTel">80601482</span></li>
+                                <li><span class="fw">邮政编码：</span><span id="">610041</span></li>
+                                <li><span class="fw">传真号码：</span><span id="">86-028-85408246</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
 
 
 
@@ -87,13 +93,65 @@
 
 </div>
     </div>
-
+<script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
 <script>
+
+/*    var sourceId = [[${sourceId}]]*/
     var app = new Framework7(
             {
                 id: 'io.framework7.testapp',
                 root: '#app',
-                theme: "ios"
+                theme: "ios",
+                on:{
+                    init:function(page){
+                        console.log(page)
+                       $.ajax({
+                           url: "/wx/common/companyInfo?sourceId=gh_f5a46974c0f6",
+                           type:"get",
+                           success:function(data){
+                               console.log(data)
+
+                               var def ={
+                               intermediaryContact:"李杰",
+                               intermediaryContactTel:"15740199520",
+                               intermediaryCreateTime:"2018-04-11 14:32:37",
+                               intermediaryId:1,
+                               intermediaryIntroduction:"",
+                               intermediaryLogoUrl:"2",
+                               intermediaryName:"",
+                               intermediaryUpdateTime:"2018-07-03 13:29:05",
+                               isPlat:1
+                           }
+
+                               for(var key in def){
+                                   if(def.hasOwnProperty(key)){
+
+                                       var dom = document.getElementById(key)
+                                       if(dom){
+                                           if(dom.tagName=='IMG'){
+
+                                               console.dir(dom)
+                                               dom.src=data.content[key]
+                                           }else{
+                                               dom.innerHTML=data.content[key]
+                                           }
+
+                                       }
+
+
+                                   }
+                               }
+
+                               $("#area").text(data.content.area.name)
+
+
+
+
+
+                           }
+                       })
+                    }
+                }
             }
     )
 </script>
