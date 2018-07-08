@@ -9,9 +9,20 @@ public class Customer implements Serializable {
     //主键
     private Integer cusId;
 
-    //联系人公司名称
-    @NotNull(message = "cusComName不能为空！")
     private String cusComName;
+
+
+    public String getCusName() {
+        return cusName;
+    }
+
+    public void setCusName(String cusName) {
+        this.cusName = cusName;
+    }
+
+    @NotNull(message = "客户名称不能为空！")
+    private String cusName;
+
 
     //联系人公司电话
     private String cusComTel;
@@ -32,8 +43,6 @@ public class Customer implements Serializable {
     private Date cusUpdateTime;
 
     private static final long serialVersionUID = 1L;
-
-    String od;
 
     public Integer getCusId() {
         return cusId;

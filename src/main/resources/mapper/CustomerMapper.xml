@@ -104,9 +104,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.jianpanmao.customer.entity.Customer">
-    insert into customer (cus_id, cus_com_name, cus_com_tel, 
+    insert into customer (cus_id, cus_name,cus_com_name, cus_com_tel,
       cus_com_email, cus_com_adr, intermediary_id)
-    values (#{cusId,jdbcType=INTEGER}, #{cusComName,jdbcType=VARCHAR}, #{cusComTel,jdbcType=VARCHAR}, 
+    values (#{cusId,jdbcType=INTEGER}, #{cusName,jdbcType=VARCHAR},#{cusComName,jdbcType=VARCHAR}, #{cusComTel,jdbcType=VARCHAR},
       #{cusComEmail,jdbcType=VARCHAR}, #{cusComAdr,jdbcType=VARCHAR}, #{intermediaryId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.customer.entity.Customer">
@@ -247,6 +247,7 @@
     update customer
     set cus_com_name = #{cusComName,jdbcType=VARCHAR},
       cus_com_tel = #{cusComTel,jdbcType=VARCHAR},
+      cus_name = #{cusName,jdbcType=VARCHAR},
       cus_com_email = #{cusComEmail,jdbcType=VARCHAR},
       cus_com_adr = #{cusComAdr,jdbcType=VARCHAR},
       intermediary_id = #{intermediaryId,jdbcType=INTEGER}
