@@ -12,6 +12,7 @@
         #companyZz{
             width: 370px;
             height: 325px;
+            overflow: hidden;
             outline: 1px solid #ececec;
             background: #eee;
         }
@@ -49,7 +50,7 @@
         .tree-div-contain{
             display: none;
             position: absolute;
-            width:48%;
+            width:64%;
             z-index: 3;
             overflow: auto;
             background: white;
@@ -88,6 +89,9 @@
         }
         .btn, .border-none {
             border: 1px solid #6FB3E0;
+        }
+        #areaId{
+            background: #F5F5F5 url('../../images/areaArrow.png') no-repeat center right!important;
         }
     </style>
 </head>
@@ -182,7 +186,7 @@
                         <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="userId">平台联系人:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
-                                <input type="text" name="" id="userId" class="col-xs-12 col-sm-8" v-model="editList.user.name"/>
+                                <input type="text" name="userName" id="userId" class="col-xs-12 col-sm-8" v-model="editList.user.name"/>
                             </div>
                         </div>
                     </div>
@@ -199,7 +203,7 @@
                         <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="userId">企业代码:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
-                                <input type="text" name="userId"  class="col-xs-12 col-sm-8" v-model="editList.user.mobile"/>
+                                <input type="text" name="eCode"  class="col-xs-12 col-sm-8" v-model="editList.eCode"/>
                             </div>
                         </div>
                     </div>
@@ -208,7 +212,7 @@
                         <label class="control-label col-xs-12 col-sm-3 no-padding-right">企业营运执照:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
-                                <input type="hidden"  id="" value="" class="col-xs-12 col-sm-8">
+                                <input type="hidden"  id="companyBussniess" name="companyBussniess" value="" class="col-xs-12 col-sm-8">
                                 <div id="companyZz" class="uploader-list col-xs-12 col-sm-8"
                                      name="intermediaryLogoUrl" style="float: none">
                                     <img src="" id="imgCompany" alt="" style="width: 100%">
@@ -292,6 +296,8 @@
                     intermediaryLogoUrl: "",
                     intermediaryName: "",
                     isPlat: 1,
+                    eCode:"",
+                    businessLicense:"",
                     updateTime: "",
                     user:{
                         id: 1,
@@ -399,6 +405,8 @@
                         intermediaryContact:_this.editList.intermediaryContact,//中间商联系人
                         intermediaryContactTel:_this.editList.intermediaryContactTel, //中间商联系方式
                         intermediaryLogoUrl:   $("#responseUrl").val(),
+                        businessLicense:   $("#companyBussniess").val(),
+                        eCode:  _this.editList.eCode,
                         intermediaryIntroduction: CKEDITOR.instances.editor1.getData(),
                         user:{
                             name:_this.editList.user.name,
@@ -434,6 +442,7 @@
                     _this.editList = data.content;
                     $("#imgInter").attr("src",imgPath+data.content.intermediaryLogoUrl);
                     $("#responseUrl").val(imgPath+data.content.intermediaryLogoUrl);
+                    $("#companyBussniess").val(imgPath+data.content.businessLicense);
                     responseUrl = imgPath+data.content.intermediaryLogoUrl;
                     CKEDITOR.instances.editor1.setData(data.content.intermediaryIntroduction);
                     $("#intermediaryIntroduction").val(data.content.intermediaryIntroduction);
@@ -475,7 +484,12 @@
                         intermediaryLogoUrl: {
                             required: true
                         },
-
+                        companyBussniess: {
+                            required: true
+                        },
+                        userName: {
+                            required: true
+                        },
                         intermediaryIntroduction: {
                             required: true
                         },
@@ -549,8 +563,8 @@
             });
         });
         $("button[type=reset]").click(function(){
-            $("#responseUrl").val("");
-            $("#imgInter").attr("src","");
+            $("#responseUrl,#companyBussniess").val("");
+            $("#imgInter,#imgCompany").attr("src","");
             CKEDITOR.instances.editor1.setData("");
         });
 
@@ -601,6 +615,9 @@
             pick: '#companyYy'
         });
         uploader1.on( 'uploadSuccess', function( file,response ) {
+            $("#companyBussniess").val(response.content.path);
+            $("#companyBussniess").parent().next().remove();
+            $("#companyBussniess").parents(".form-group").removeClass("has-error")
 
         });
         uploader1.on( 'fileQueued', function( file ) {

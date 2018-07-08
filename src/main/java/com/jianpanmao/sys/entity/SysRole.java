@@ -33,6 +33,17 @@ public class SysRole implements Serializable {
     //
     private Integer isDel;
 
+
+    public Integer getIsCon() {
+        return isCon;
+    }
+
+    public void setIsCon(Integer isCon) {
+        this.isCon = isCon;
+    }
+
+    private Integer isCon;
+
     private static final long serialVersionUID = 1L;
 
 

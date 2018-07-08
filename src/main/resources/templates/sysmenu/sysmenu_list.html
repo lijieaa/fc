@@ -87,6 +87,7 @@
                             <th>菜单名称</th>
                             <th>路径</th>
                             <th>权限标识</th>
+                            <th>菜单图标</th>
                             <th>是否显示</th>
                             <th>操作</th>
                         </tr>
@@ -99,6 +100,7 @@
                                 <td>
                                     <span th:class="${menu.menuDisplay}?'ace-icon fa fa-circle green':'ace-icon fa fa-circle red'"></span>
                                 </td>
+                                <td th:text="${menu.icon}"></td>
                                 <td>
 
                                     <a class="green" th:href="@{'edit/?id='+${menu.menuId}}"><i

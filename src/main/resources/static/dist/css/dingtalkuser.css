@@ -4,7 +4,7 @@
 #edit-upper-department-name-select[readonly] {
     background: #fff!important;
 }
-#add-role-person-competence-select, #add-outcontacts-tag-select, #edit-outcontacts-tag-select {
+#add-role-person-competence-select, #add-outcontacts-tag-select, #edit-outcontacts-tag-select, #add-customer-competence-select{
     max-height: 200px;
     overflow-y: scroll;
 }

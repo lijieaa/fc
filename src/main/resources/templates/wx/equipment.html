@@ -25,36 +25,29 @@
     <div class="view view-main view-init ios-edges" >
         <div class="navbar no-hairline">
             <div class="navbar-inner">
-                <div class="left" style="width:28px">
-                    <a href="#" class="link back">
-                        <i class="f7-icons size-22" style="color:#FFFFFF" >left</i>
-                    </a>
-                </div>
-                <div class="title">项目情况</div>
-                <div class="right" style="width:28px">   <i class="f7-icons size-18" >&bull;&bull;&bull;</i></div>
+                <form class="searchbar" style="background: #ffffff">
+                    <div class="searchbar-inner">
+                        <div style="flex-shrink:0" >
+                            <select name="" id="" class="pkee text-base-color f30 "  style="width:100px">
+                                <option value="">生产编号</option>
+                                <option value="">所属项目</option>
+                                <option value="">操作员</option>
+                                <option value="">抄表员</option>
+                            </select>
+                        </div>
+                      <!--  <i class=" ser-btn  text-base-color f7-icons f32"  style="width:20px">&or;</i>-->
+
+                        <div class="ser-box">
+                            <input type="search" placeholder="" class="f28">
+                            <i class="searchbar-icon"></i>
+                        </div>
+                        <span class="ser-btn text-base-color f30" style="" onclick="alr()">搜索</span>
+                    </div>
+                </form>
 
                 <div class="subnavbar" style="top:100%;display: block;background:#ffffff;height:30px">
-                    <div class="subnavbar-inner f32 fw text-base-color" >广西东泉湖智能生态环境建设工程</div>
                     <div class="subnavbar-inner" style="padding:0 ">
-                        <form class="searchbar" style="background: #ffffff">
-                            <div class="searchbar-inner">
-                                <div style="flex-shrink:0" >
-                                    <select name="" id="" class="pkee text-base-color f30 "  style="width:100px">
-                                        <option value="">生产编号</option>
-                                        <option value="">所属项目</option>
-                                        <option value="">操作员</option>
-                                        <option value="">抄表员</option>
-                                    </select>
-                                </div>
-                                <i class=" ser-btn  text-base-color f7-icons f32"  style="width:20px">&or;</i>
-
-                                <div class="ser-box">
-                                    <input type="search" placeholder="" class="f28">
-                                    <i class="searchbar-icon"></i>
-                                </div>
-                                <span class="ser-btn text-base-color f30" style="width:50px" onclick="alr()">搜索</span>
-                            </div>
-                        </form>
+                        <div class="subnavbar-inner f32 fw text-base-color" >广西东泉湖智能生态环境建设工程</div>
                     </div>
 
                 </div>
@@ -63,18 +56,17 @@
         </div>
         <div class="pages">
 
-            <div class="page" data-page="home" style="padding-top:35px;">
+            <div class="page" data-page="home">
 
                 <div class="page-content infinite-scroll-content">
 
-                    <div class="list media-list ">
+                    <div class="list  links-list media-list ">
                         <ul id="listview">
                             <li class="plist card">
-                                <div class="item-content">
-
+                                <a class="item-content external" href="/wx/common/equiprams">
                                     <div class="item-inner ">
                                         <div class="item-title-row">
-                                            <div class="item-title f32">生产编号：1235184531</div>
+                                            <div  class="item-title f32">生产编号：1235184531</div>
                                         </div>
 
                                         <div class="item-text ">
@@ -90,14 +82,13 @@
                                         </div>
 
                                     </div>
-                                </div>
+                                </a>
                             </li>
                             <li class="plist card">
-                                <div class="item-content">
-
+                                <a class="item-content external" href="/wx/common/equipment">
                                     <div class="item-inner ">
                                         <div class="item-title-row">
-                                            <div class="item-title f32">生产编号：1235184531</div>
+                                            <div  class="item-title f32">生产编号：1235184531</div>
                                         </div>
 
                                         <div class="item-text ">
@@ -113,14 +104,13 @@
                                         </div>
 
                                     </div>
-                                </div>
+                                </a>
                             </li>
                             <li class="plist card">
-                                <div class="item-content">
-
+                                <a class="item-content external" href="/wx/common/equipment">
                                     <div class="item-inner ">
                                         <div class="item-title-row">
-                                            <div class="item-title f32">生产编号：1235184531</div>
+                                            <div  class="item-title f32">生产编号：1235184531</div>
                                         </div>
 
                                         <div class="item-text ">
@@ -136,14 +126,13 @@
                                         </div>
 
                                     </div>
-                                </div>
+                                </a>
                             </li>
                             <li class="plist card">
-                                <div class="item-content">
-
+                                <a class="item-content external" href="/wx/common/equipment">
                                     <div class="item-inner ">
                                         <div class="item-title-row">
-                                            <div class="item-title f32">生产编号：1235184531</div>
+                                            <div  class="item-title f32">生产编号：1235184531</div>
                                         </div>
 
                                         <div class="item-text ">
@@ -159,37 +148,13 @@
                                         </div>
 
                                     </div>
-                                </div>
+                                </a>
                             </li>
                             <li class="plist card">
-                            <div class="item-content">
-
-                                <div class="item-inner ">
-                                    <div class="item-title-row">
-                                        <div class="item-title f32">生产编号：1235184531</div>
-                                    </div>
-
-                                    <div class="item-text ">
-                                        <table>
-                                            <colgroup>
-                                                <col width="50%"/>
-                                                <col width="50%"/>
-                                            </colgroup>
-                                            <tr><td><span>操作员：</span>张图强</td><td><span>型号：</span>FGGD_1</td></tr>
-                                            <tr><td><span>抄表员：</span>李四</td><td><span>状态：</span><span class="cstatus">不在线</span></td></tr>
-                                        </table>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </li>
-                            <li class="plist card">
-                                <div class="item-content">
-
+                                <a class="item-content external" href="/wx/common/equipment">
                                     <div class="item-inner ">
                                         <div class="item-title-row">
-                                            <div class="item-title f32">生产编号：1235184531</div>
+                                            <div  class="item-title f32">生产编号：1235184531</div>
                                         </div>
 
                                         <div class="item-text ">
@@ -205,9 +170,74 @@
                                         </div>
 
                                     </div>
-                                </div>
+                                </a>
                             </li>
+                            <li class="plist card">
+                                <a class="item-content external" href="/wx/common/equipment">
+                                    <div class="item-inner ">
+                                        <div class="item-title-row">
+                                            <div  class="item-title f32">生产编号：1235184531</div>
+                                        </div>
 
+                                        <div class="item-text ">
+                                            <table>
+                                                <colgroup>
+                                                    <col width="50%"/>
+                                                    <col width="50%"/>
+                                                </colgroup>
+                                                <tr><td><span>操作员：</span>张图强</td><td><span>型号：</span>FGGD_1</td></tr>
+                                                <tr><td><span>抄表员：</span>李四</td><td><span>状态：</span><span class="cstatus">不在线</span></td></tr>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="plist card">
+                                <a class="item-content external" href="/wx/common/equipment">
+                                    <div class="item-inner ">
+                                        <div class="item-title-row">
+                                            <div  class="item-title f32">生产编号：1235184531</div>
+                                        </div>
+
+                                        <div class="item-text ">
+                                            <table>
+                                                <colgroup>
+                                                    <col width="50%"/>
+                                                    <col width="50%"/>
+                                                </colgroup>
+                                                <tr><td><span>操作员：</span>张图强</td><td><span>型号：</span>FGGD_1</td></tr>
+                                                <tr><td><span>抄表员：</span>李四</td><td><span>状态：</span><span class="cstatus">不在线</span></td></tr>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="plist card">
+                                <a class="item-content external" href="/wx/common/equipment">
+                                    <div class="item-inner ">
+                                        <div class="item-title-row">
+                                            <div  class="item-title f32">生产编号：1235184531</div>
+                                        </div>
+
+                                        <div class="item-text ">
+                                            <table>
+                                                <colgroup>
+                                                    <col width="50%"/>
+                                                    <col width="50%"/>
+                                                </colgroup>
+                                                <tr><td><span>操作员：</span>张图强</td><td><span>型号：</span>FGGD_1</td></tr>
+                                                <tr><td><span>抄表员：</span>李四</td><td><span>状态：</span><span class="cstatus">不在线</span></td></tr>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <div class="preloader infinite-scroll-preloader"></div>
@@ -287,7 +317,7 @@
 
 
                 html +=    '<li class="plist card">'+
-                        '<div class="item-content">'+
+                        '<a class="item-content" href="/wx/common/equiprams">'+
                         '<div class="item-inner ">'+
                         '<div class="item-title-row">'+
                         '<div class="item-title f32">生产编号：1235184531</div>'+
@@ -301,7 +331,7 @@
                         '<tr><td><span>操作员：</span>张图强</td><td><span>型号：</span>FGGD_1</td></tr>'+
                         ' <tr><td><span>抄表员：</span>李四</td><td><span>状态：</span><span class="cstatus">不在线</span></td></tr>'+
                         '</table>'+
-                        '</div></div></div> </li>'
+                        '</div></div></a> </li>'
             }
 
             // Append new items

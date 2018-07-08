@@ -52,4 +52,17 @@ public class WxCommonController {
     public String projectinfo(){
         return "wx/projectinfo";
     }
+
+    @GetMapping("sysparams")
+    public String sysparams(){
+        return "wx/sysparams";
+    }
+    @GetMapping("userparams")
+    public String userparams(){
+        return "wx/userparams";
+    }
+    @GetMapping("loginwx")
+    public String loginwx(){
+        return "wx/loginwx";
+    }
 }

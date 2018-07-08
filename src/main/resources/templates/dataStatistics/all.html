@@ -321,9 +321,12 @@
                         trigger: 'axis'
                     },
                     legend: {
+                        icon: 'rect',
+                        itemWidth: 20,
+                        itemHeight: 2,
                         data:['中间商数量','设备数']
                     },
-                    color:['#faf6c3','#fac9c3'],
+                    color:['#10c8f0','#eb3825'],
                     xAxis:  {
                         type: 'category',
                         boundaryGap: false,
@@ -371,12 +374,34 @@
                             name:'中间商数量',
                             type:'line',
                             yAxisIndex:0,
+                            areaStyle: {
+                                normal: {
+                                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                        offset: 0.5,
+                                        color: '#10c8f0'
+                                    }, {
+                                        offset: 1,
+                                        color: '#ffe'
+                                    }])
+                                }
+                            },
                             data:intermediary
                         },
                         {
                             name:'设备数',
                             type:'line',
                             yAxisIndex:1,
+                            areaStyle: {
+                                normal: {
+                                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                        offset:  0.5,
+                                        color: '#eb3825'
+                                    }, {
+                                        offset: 1,
+                                        color: '#ffe'
+                                    }])
+                                }
+                            },
                             data:device
                         }
                     ]

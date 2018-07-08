@@ -52,7 +52,7 @@
             <div class="menu-input-group" style="border-bottom: 2px #e8e8e8 solid;">
                 <div class="menu-header">
                     <div class="menu-name mgl-5 float-left">{{menu.button[selectedMenuIndex].name}}</div>
-                    <div class="menu-del mgr-5 float-right" @click="delMenu">删除菜单</div>
+                    <div class="menu-del mgr-5 float-right" @click="delMenu" style="cursor: pointer;">删除菜单</div>
                 </div>
                 <div class="menu-input-group">
                     <div class="menu-labe mgt-5 float-left">菜单名称</div>
@@ -91,7 +91,7 @@
                                 @click="subMenu(selectedMenuLevel(),'voice')"><i class="glyphicon glyphicon-ice-lolly"></i>语音</li>
                         </ul>
                         <div class="sub-menu-content" v-if="currentSelect() ==1">
-                            <button class="ptFont " @click="fromSelect">
+                            <button class="ptFont display" @click="fromSelect">
                                 <input type="text" v-model="menu.button[selectedMenuIndex].key">
                             </button>
                             <div class="check" data-id="1">选择图文</div>
@@ -102,19 +102,19 @@
                             </div>
                         </div>
                         <div class="sub-menu-content" v-if="currentSelect() ==2">
-                            <input type="text" class="" v-model="menu.button[selectedMenuIndex].key">
+                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].key">
                             <div class="check" data-id="2">选择视频</div>
-                            <video v-bind:src="menu.button[selectedMenuIndex].video" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></video>
+                            <video v-bind:src="arr" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></video>
                         </div>
                         <div class="sub-menu-content" v-if="currentSelect() ==3">
-                            <input type="text" class="" v-model="menu.button[selectedMenuIndex].key">
+                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].key">
                             <div class="check" data-id="3">选择图片</div>
-                            <img v-bind:src="menu.button[selectedMenuIndex].image" class="showSc" v-show="picShow">
+                            <img v-bind:src="arr" class="showSc imageShow" v-show="picShow">
                         </div>
                         <div class="sub-menu-content" v-if="currentSelect() ==4">
-                            <input type="text" class="" v-model="menu.button[selectedMenuIndex].key">
+                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].key">
                             <div class="check" data-id="4">选择音频</div>
-                            <audio v-bind:src="menu.button[selectedMenuIndex].voice" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></audio>
+                            <audio v-bind:src="arr" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></audio>
                         </div>
                     </div>
                     <div class="show-content" v-if="selectTab()==2">
@@ -129,7 +129,7 @@
             <div class="menu-input-group" style="border-bottom: 2px #e8e8e8 solid;">
                 <div class="menu-header">
                     <div class="menu-name mgl-5 float-left">{{menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].name}}</div>
-                    <div class="menu-del mgr-5 float-right"  @click="delSubMenu">删除子菜单</div>
+                    <div class="menu-del mgr-5 float-right"  @click="delSubMenu" style="cursor: pointer;">删除子菜单</div>
                 </div>
                 <div class="menu-input-group">
                     <div class="menu-labe mgt-5 float-left">菜单名称</div>
@@ -173,7 +173,7 @@
                             <!--<button class="ptFont display" @click="fromSelect">-->
                             <!--<input type="text" class="photoID" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].news">-->
                             <!--</button>-->
-                            <input type="text" class="" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].key">
+                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].key">
                             <div class="check" data-id="1">选择图文</div>
                             <div class="photoShow" v-show="picShow">
                                 <div class="showTime"></div>
@@ -182,19 +182,19 @@
                             </div>
                         </div>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==2">
-                            <input type="text" class="" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].key">
+                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].key">
                             <div class="check" data-id="2">选择视频</div>
-                            <video v-bind:src="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].video" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></video>
+                            <video v-bind:src="arr" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></video>
                         </div>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==3">
-                            <input type="text" class="" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].key">
+                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].key">
                             <div class="check" data-id="3">选择图片</div>
-                            <img v-bind:src="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].image" class="showSc" v-show="picShow">
+                            <img v-bind:src="arr" class="showSc" v-show="picShow">
                         </div>
                         <div class="sub-menu-content" v-if="currentSubSelect() ==4">
-                            <input type="text" class="" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].key">
+                            <input type="text" class="display" v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].key">
                             <div class="check" data-id="4">选择音频</div>
-                            <audio v-bind:src="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].voice" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></audio>
+                            <audio v-bind:src="arr" controls="controls" class="showSc" controlsList="nodownload" v-show="picShow"></audio>
                         </div>
                     </div>
                     <div class="show-content" v-if="selectTab()==2">
@@ -336,19 +336,19 @@
         var element = document.getElementById('valueInput');
         var evt = document.createEvent('HTMLEvents');
         if(thisSureId==1){
-            element.value = tpID;
+            element.value = tpID; //图文
             evt.initEvent('change', false, true);
             element.dispatchEvent(evt);
         }else if(thisSureId==2){
-            element.value = thisVsrc;
+            element.value = thisVId;
             evt.initEvent('change', false, true);
             element.dispatchEvent(evt);
         }else if(thisSureId==3){
-            element.value = thisSrc;
+            element.value = thisphotoId;
             evt.initEvent('change', false, true);
             element.dispatchEvent(evt);
         }else if(thisSureId==4){
-            element.value = thisYsrc;
+            element.value = thisYId;
             evt.initEvent('change', false, true);
             element.dispatchEvent(evt);
         }

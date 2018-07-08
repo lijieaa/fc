@@ -33,6 +33,15 @@
         .page-content{
             background: #f1f2f7!important;
         }
+        .none-border tr td {
+            border-left: none;
+        }
+        .detail-table tr td:nth-of-type(1){
+            width: 30%;
+        }
+        .detail-table tr td:nth-of-type(2){
+            width: 70%;
+        }
     </style>
 </head>
 
@@ -61,9 +70,9 @@
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12" style="padding-left: 0;
                 padding-bottom: 10px;">
-                    <div class="logo-detail paading-top-0  padding-10">
+                    <div class="logo-detail paading-top-0 back-white padding-10">
                         <div class="row">
-                            <div class="col-md-6 padding-15 back-white col-sm-8 col-xs-6 ">
+                            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 15px 0 0 15px;">
                                 <table class="detail-table">
                                     <tr class="row-ji">
                                         <td>中间商名称</td>
@@ -101,24 +110,49 @@
                                             <span  v-text="dataList.user.mobile"></span>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
                                 </table>
                             </div>
-                            <div class="col-md-6 padding-15 back-white col-sm-4 col-xs-6 ">
-                                <div class="common-title">
-                                    中间商Logo
-                                </div>
-                                <div class="logo-img-contain">
-                                    <img v-bind:src="dataList.intermediaryLogoUrl" style="width: 100%">
-                                </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 15px 15px 0 0;">
+                                <table class="detail-table none-border">
+                                    <tr class="row-ji">
+                                        <td style="height: 115px;">中间商Logo</td>
+                                        <td>
+                                            <div style="width: 100%;height: 115px;overflow:  hidden;">
+                                                <img v-bind:src="dataList.intermediaryLogoUrl" style="width: 100%">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="row-ji">
+                                        <td style="height: 289x;">企业营业执照</td>
+                                        <td>
+                                            <div style="width: 100%;height: 289px;overflow:  hidden;">
+                                                <img v-bind:src="dataList.intermediaryLogoUrl" style="width: 100%">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!--<div class="common-title">-->
+                                    <!--中间商Logo-->
+                                <!--</div>-->
+                                <!--<div class="logo-img-contain">-->
+                                    <!--<img v-bind:src="dataList.intermediaryLogoUrl" style="width: 100%">-->
+                                <!--</div>-->
                             </div>
-
                         </div>
-                    </div>
-                    <div class="row back-white margin-top-6 product-detail">
-                        <div class="col-md-12 common-title padding-left-6 ">
-                            简要介绍
-                        </div>
-                        <div class="col-md-12 company-content padding-left-6 intermediaryIntroduction" ref="intermediaryIntroduction">
+                        <div class="row">
+                            <div class="col-md-12" style="padding: 0 15px 0px 15px;">
+                                <table class="detail-table">
+                                    <tr class="row-ji">
+                                        <td style="border-top:none;width: 12.5%;vertical-align: top;padding-top: 10px;" colspan="1">中间商简介</td>
+                                        <td style="border-top:none;height: 445px;vertical-align: top; padding-top: 10px;" colspan="3"
+                                            ref="intermediaryIntroduction">间商简介商简介</td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
