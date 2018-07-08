@@ -12,6 +12,8 @@
     <result column="cus_create_time" jdbcType="TIMESTAMP" property="cusCreateTime" />
     <result column="cus_update_time" jdbcType="TIMESTAMP" property="cusUpdateTime" />
   </resultMap>
+
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
