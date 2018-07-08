@@ -129,9 +129,9 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into sys_role (role_id, role_name, role_description, 
-      intermediary_id,group_id)
+      intermediary_id,group_id,is_con)
     values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleDescription,jdbcType=VARCHAR}, 
-       #{intermediaryId,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER})
+       #{intermediaryId,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER}, #{isCon,jdbcType=INTEGER})
   </insert>
   <insert id="insertRM">
     insert into sys_role_menu (role_id, menu_id) values (#{0},#{1})
@@ -277,6 +277,7 @@
     update sys_role
     set role_name = #{roleName,jdbcType=VARCHAR},
       role_description = #{roleDescription,jdbcType=VARCHAR},
+      is_con = #{isCon,jdbcType=VARCHAR},
       group_id = #{groupId,jdbcType=INTEGER}
     where role_id = #{roleId,jdbcType=INTEGER}
   </update>
