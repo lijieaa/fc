@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.jianpanmao.customer.entity.Customer">
     <id column="cus_id" jdbcType="INTEGER" property="cusId" />
     <result column="cus_com_name" jdbcType="VARCHAR" property="cusComName" />
+    <result column="cus_name" jdbcType="VARCHAR" property="cusName" />
     <result column="cus_com_tel" jdbcType="VARCHAR" property="cusComTel" />
     <result column="cus_com_email" jdbcType="VARCHAR" property="cusComEmail" />
     <result column="cus_com_adr" jdbcType="VARCHAR" property="cusComAdr" />
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    cus_id, cus_com_name, cus_com_tel, cus_com_email, cus_com_adr, intermediary_id, cus_create_time, 
+    cus_id, cus_com_name, cus_name,cus_com_tel, cus_com_email, cus_com_adr, intermediary_id, cus_create_time,
     cus_update_time
   </sql>
   <select id="selectByExample" parameterType="com.jianpanmao.customer.entity.CustomerExample" resultMap="BaseResultMap">
