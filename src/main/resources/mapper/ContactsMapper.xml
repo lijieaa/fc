@@ -12,7 +12,10 @@
     <result column="intermediary_id" jdbcType="INTEGER" property="intermediaryId" />
     <result column="con_create_time" jdbcType="TIMESTAMP" property="conCreateTime" />
     <result column="con_update_time" jdbcType="TIMESTAMP" property="conUpdateTime" />
-    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <collection property="roles" ofType="com.jianpanmao.sys.entity.SysRole">
+      <id property="roleId" column="role_id" />
+      <result property="roleName" column="role_name" />
+    </collection>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,7 +77,7 @@
   </sql>
   <sql id="Base_Column_List">
     con_id, con_name, con_tel, con_qq, con_wechat, con_email, cus_id, intermediary_id, 
-    con_create_time, con_update_time, role_id
+    con_create_time, con_update_time
   </sql>
   <select id="selectByExample" parameterType="com.jianpanmao.contacts.entity.ContactsExample" resultMap="BaseResultMap">
     select
@@ -91,15 +94,36 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+   <!-- select
     <include refid="Base_Column_List" />
     from contacts
-    where con_id = #{conId,jdbcType=INTEGER}
+    where con_id = #{conId,jdbcType=INTEGER}-->
+
+    SELECT
+    c.*,
+    r.role_id,
+    r.role_name
+    FROM
+    contacts c
+    INNER JOIN contact_2_role cr ON c.con_id = cr.con_id
+    INNER JOIN sys_role r ON cr.rol_id = r.role_id
+    WHERE
+    c.con_id = #{conId,jdbcType=INTEGER}
+
   </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from contacts
     where con_id = #{conId,jdbcType=INTEGER}
   </delete>
+
+  <delete id="deleteContact2SysRole" parameterType="java.lang.Integer">
+    delete from contact_2_role
+    where con_id = #{conId,jdbcType=INTEGER}
+  </delete>
+
+
   <delete id="deleteByExample" parameterType="com.jianpanmao.contacts.entity.ContactsExample">
     delete from contacts
     <if test="_parameter != null">
@@ -107,12 +131,15 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.jianpanmao.contacts.entity.Contacts">
+      <selectKey keyProperty="conId" order="AFTER" resultType="java.lang.Integer">
+          SELECT LAST_INSERT_ID()
+      </selectKey>
     insert into contacts (con_id, con_name, con_tel, 
       con_qq, con_wechat, con_email, 
-      cus_id, intermediary_id, role_id)
+      cus_id, intermediary_id)
     values (#{conId,jdbcType=INTEGER}, #{conName,jdbcType=VARCHAR}, #{conTel,jdbcType=VARCHAR}, 
       #{conQq,jdbcType=VARCHAR}, #{conWechat,jdbcType=VARCHAR}, #{conEmail,jdbcType=VARCHAR}, 
-      #{cusId,jdbcType=INTEGER}, #{intermediaryId,jdbcType=INTEGER},  #{roleId,jdbcType=INTEGER})
+      #{cusId,jdbcType=INTEGER}, #{intermediaryId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.contacts.entity.Contacts">
     insert into contacts
@@ -147,9 +174,6 @@
       <if test="conUpdateTime != null">
         con_update_time,
       </if>
-      <if test="roleId != null">
-        role_id,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="conId != null">
@@ -181,9 +205,6 @@
       </if>
       <if test="conUpdateTime != null">
         #{conUpdateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -225,9 +246,6 @@
       </if>
       <if test="record.conUpdateTime != null">
         con_update_time = #{record.conUpdateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.roleId != null">
-        role_id = #{record.roleId,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -295,8 +313,7 @@
       con_wechat = #{conWechat,jdbcType=VARCHAR},
       con_email = #{conEmail,jdbcType=VARCHAR},
       cus_id = #{cusId,jdbcType=INTEGER},
-      intermediary_id = #{intermediaryId,jdbcType=INTEGER},
-      role_id = #{roleId,jdbcType=INTEGER}
+      intermediary_id = #{intermediaryId,jdbcType=INTEGER}
     where con_id = #{conId,jdbcType=INTEGER}
   </update>
   <select id="selectAll" parameterType="com.jianpanmao.contacts.entity.Contacts" resultMap="BaseResultMap">

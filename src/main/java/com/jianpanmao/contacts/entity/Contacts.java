@@ -1,7 +1,11 @@
 package com.jianpanmao.contacts.entity;
 
+import com.jianpanmao.sys.entity.SysRole;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
@@ -38,8 +42,15 @@ public class Contacts implements Serializable {
     //最后更新时间
     private Date conUpdateTime;
 
-    //角色外键
-    private Integer roleId;
+    public List<SysRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<SysRole> roles) {
+        this.roles = roles;
+    }
+
+    private List<SysRole> roles=new ArrayList<>();
 
     private static final long serialVersionUID = 1L;
 
@@ -125,13 +136,7 @@ public class Contacts implements Serializable {
         this.conUpdateTime = conUpdateTime;
     }
 
-    public Integer getRoleId() {
-        return roleId;
-    }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
 
     @Override
     public String toString() {
@@ -149,7 +154,6 @@ public class Contacts implements Serializable {
         sb.append(", intermediaryId=").append(intermediaryId);
         sb.append(", conCreateTime=").append(conCreateTime);
         sb.append(", conUpdateTime=").append(conUpdateTime);
-        sb.append(", roleId=").append(roleId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
