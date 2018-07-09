@@ -103,8 +103,8 @@
                                             <div class="item-after f28 repley"><img th:src="@{/img/reply.png}" style="width:10px;height:9px;align-self: center;" alt=""/>回复</div>
                                         </div>
                                         <div id="demo" class="item-text" style="border:1px solid #c9c9c9;padding:10px;">
-                                            <div class="comment"><span class="f-u">山居盘李总</span>  <span>:</span>其它用户可以通过回复图标回复这个人的评论。</div>
-                                            <div class="comment"><span class="f-u">小A</span><span>&nbsp;回复&nbsp;</span><span class="t-u">山居盘李总</span>  <span>:</span>其它人也可以回复此评论，或者单独回复这个里的每
+                                            <div class="comment"><span class="f-u">山居盘李总</span>:其它用户可以通过回复图标回复这个人的评论。</div>
+                                            <div class="comment"><span class="f-u">小A</span>&nbsp;回复&nbsp山居盘李总:其它人也可以回复此评论，或者单独回复这个里的每
                                                 个人。</div>
                                         </div>
                                     </div>
@@ -201,7 +201,18 @@
         </div>
     </div>
 </div>
+<script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
 <script>
+    var $$ = Dom7;
+    // Loading flag
+    var allowInfinite = true;
+    // Last loaded index
+    var lastItemIndex = -1;
+    var maxItems = 0;
+    // Max items to load
+    // Append items per load
+    var itemsPerLoad = 8;
+    var pageNum=1;
     var app = new Framework7({
         id: 'io.framework7.testapp',
         root: '#app',
@@ -220,22 +231,80 @@
             iosOverlaysWebView: true,
         },
         overlay:false,
+        on:{
+            init:function(page){
+                initList()
+            }
+        }
 
     });
     app.infiniteScroll.create(".infinite-scroll-content")
-    var $$ = Dom7;
 
-    // Loading flag
-    var allowInfinite = true;
 
-    // Last loaded index
-    var lastItemIndex = $$('.list li').length;
 
-    // Max items to load
-    var maxItems = 200;
+    function initList(){
+        allowInfinite = false;
+        console.log(lastItemIndex,maxItems)
 
-    // Append items per load
-    var itemsPerLoad = 20;
+        $.ajax({
+            url: "/wx/common/commentsList",
+            type:"get",
+            data:{
+                sourceId:"gh_f5a46974c0f6",
+                pageNum:pageNum,
+                pageSize:itemsPerLoad,
+                projectId:1,
+            },
+            success:function(data){
+                allowInfinite = true;
+
+                console.log(data)
+                var html = '';
+                if(data.status==20120){
+                    maxItems = data.content.total
+                    data.content.list.forEach(function(item,i){
+                        console.log(item)
+                        html += '<li class="plist card" data-projectid='+item.projectId+'>'+
+                                '<div class="item-content">'+
+                                '<div class="item-media">'+
+                                '<img src="/img/proimg.jpg" class="proview" />'+
+                                '</div>'+
+                                '<div class="item-inner ">'+
+                                '<div class="item-title-row">'+
+                                '<div class="item-title f32">'+item.projectName+'</div>'+
+                                '</div>'+
+                                '<div class="item-text "><span>项目编号：</span>'+item.projectId+'</div>'+
+                                '<div class="item-text "><span>建设方业主：</span>张图强</div>'+
+                                '<div class="item-text "><span>项目负责人：</span>'+item.projectContactUser.name+'</div>'+
+                                '<div class="item-text "><span>业主联系电话：</span>028-8688 0234</div>'+
+                                '</div>'+
+                                '</div>'+
+                                '</li>';
+                    })
+                    $$('#listview').append(html);
+                    lastItemIndex = $$('.list li').length;
+                    pageNum++;
+
+                    if (lastItemIndex >= maxItems) {
+                        // Nothing more to load, detach infinite scroll events to prevent unnecessary loadings
+                        app.infiniteScroll.destroy('.infinite-scroll-content');
+                        // Remove preloader
+                        $$('.infinite-scroll-preloader').remove();
+                        return;
+                    }
+                }
+
+
+
+
+
+
+
+
+
+            }
+        })
+    }
 
     // Attach 'infinite' event handler
     $$('.infinite-scroll-content').on('infinite', function () {
@@ -308,6 +377,14 @@
     $$("#listview").on("click",".repley",function(e){
         $$("#repley").addClass("active").siblings().removeClass("active");
         $$("#repley textarea").focus();
+
+    })
+
+    $$("#listview").on("click",".f-u",function(e){
+        
+        $$("#repley").addClass("active").siblings().removeClass("active");
+        $$("#repley textarea").focus();
+        $$("#repley textarea").val("回复三局盘李总")
 
     })
 
