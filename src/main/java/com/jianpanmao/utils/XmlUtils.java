@@ -62,6 +62,8 @@ public class XmlUtils {
                 wxMessage.setUrl(data);
             }else if(name.equalsIgnoreCase("Event")) {
                 wxMessage.setEvent(data);
+            }else if(name.equalsIgnoreCase("EventKey")) {
+                wxMessage.setEventKey(data);
             }
         }
         return wxMessage;

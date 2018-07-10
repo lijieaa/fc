@@ -10,4 +10,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface WxMaterialDao extends BaseDao<WxMaterial> {
+
+    WxMaterial findByMediaId(String mediaId);
 }

@@ -31,5 +31,7 @@ public class WxMessageType {
 
     public static final String EVENT_CLICK = "click";
 
+    public static final String NEWS = "news";
+
 
 }
