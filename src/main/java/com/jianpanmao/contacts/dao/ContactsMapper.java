@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ContactsMapper extends BaseDao<Contacts, ContactsExample, ContactsDto, Integer> {
 
-    public int deleteContact2SysRole(Contacts c);
+    public int deleteContact2SysRole(Integer conId);
 
 
 }

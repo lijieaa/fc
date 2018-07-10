@@ -25,6 +25,12 @@ public class ContactsServiceImpl extends BaseServiceImpl<Contacts,ContactsExampl
     ContactsMapper contactsMapper;
 
     @Override
+    public int remove(Integer tId) {
+        contactsMapper.deleteContact2SysRole(tId);
+        return super.remove(tId);
+    }
+
+    @Override
     public int add(Contacts record) {
         DingtalkUser cuser = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         record.setIntermediaryId(cuser.getIntermediaryId());
@@ -42,7 +48,7 @@ public class ContactsServiceImpl extends BaseServiceImpl<Contacts,ContactsExampl
         DingtalkUser cuser = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         record.setIntermediaryId(cuser.getIntermediaryId());
 
-        contactsMapper.deleteContact2SysRole(record);
+        contactsMapper.deleteContact2SysRole(record.getConId());
 
         List<SysRole> newRoles = record.getRoles();
         for (SysRole role : newRoles) {
