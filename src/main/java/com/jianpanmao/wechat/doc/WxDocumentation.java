@@ -74,7 +74,7 @@ package com.jianpanmao.wechat.doc;
  * 	"Title": "图文标题",
  * 	"Description": "图文描述",
  * 	"Url": "http://www.baidu.com",
- * 	"PicUrl": "http://mmbiz.qpic.cn/mmbiz_jpg/FwRDKpzzTCMo4Aqfw3kQwq3Dn8Sq1amp3RhaHjaSZIb1qus6RibUP8gyF8DvqgL6VkEfSnMCtdB3e6c9BG6SACQ/0?wx_fmt=jpeg"
+ * 	"MediaId": "f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA"
  * }
  */
 
