@@ -481,8 +481,8 @@
         select d.* from dingtalk_user u,dingtalk_user_dept ud,dingtalk_dept d WHERE u.userid=ud.user_id AND ud.dept_id=d.id and u.userid=#{0}
     </select>
 
-    <select id="findByP" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-       SELECT dp.* FROM dingtalk_dept dp WHERE dp.parentid = #{0}
+    <select id="findByPI" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+       SELECT dp.* FROM dingtalk_dept dp WHERE dp.parentid = #{pId} and dp.intermediary_id = #{iId}
     </select>
 
 </mapper>

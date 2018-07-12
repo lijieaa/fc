@@ -8,7 +8,16 @@ import com.jianpanmao.intermediary.dao.IntermediaryMapper;
 import com.jianpanmao.intermediary.dto.IntermediaryDto;
 import com.jianpanmao.intermediary.entity.Intermediary;
 import com.jianpanmao.intermediary.service.IntermediaryService;
+import com.jianpanmao.sys.dao.DingtalkDeptMapper;
+import com.jianpanmao.sys.dao.DingtalkUserDeptMapper;
+import com.jianpanmao.sys.dao.DingtalkUserMapper;
+import com.jianpanmao.sys.dao.SysUserRoleMapper;
+import com.jianpanmao.sys.entity.DingtalkDept;
+import com.jianpanmao.sys.entity.DingtalkUser;
+import com.jianpanmao.sys.entity.DingtalkUserDept;
+import com.jianpanmao.sys.entity.SysUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -29,7 +38,9 @@ public class IntermediaryRestController {
 
     @PreAuthorize("hasAuthority('intermediary:add')")
     @RequestMapping(method = RequestMethod.POST)
+    @Transactional
     public Integer post(@Valid @RequestBody Intermediary entity) {
+        //添加中间商
         return intermediaryService.add(entity);
     }
 

@@ -61,30 +61,30 @@ public class DingtalkUserRestController {
 
 
     @PreAuthorize("hasAuthority('dingtalkuser:edit')")
-    @RequestMapping(method = RequestMethod.PUT,value = "editPwd")
-    public Integer editPwd(@RequestParam(value = "id",required = true) Integer id,
-                           @RequestParam(value = "pwd",required = true) String pwd) {
+    @RequestMapping(method = RequestMethod.PUT, value = "editPwd")
+    public Integer editPwd(@RequestParam(value = "id", required = true) Integer id,
+                           @RequestParam(value = "pwd", required = true) String pwd) {
         return dingtalkuserService.editPwd(id, pwd);
     }
 
 
     @PreAuthorize("hasAuthority('dingtalkuser:edit')")
-    @RequestMapping(method = RequestMethod.PUT,value = "info")
+    @RequestMapping(method = RequestMethod.PUT, value = "info")
     public Integer info(@RequestBody DingtalkUser entity) {
-        DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+        DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         entity.setUserid(user.getUserid());
         return dingtalkuserService.updateInfo(entity);
     }
 
     @PreAuthorize("hasAuthority('dingtalkuser:view')")
     @RequestMapping(method = RequestMethod.GET)
-    public DingtalkUser get(@RequestParam(value = "id",required = false) Integer id) {
+    public DingtalkUser get(@RequestParam(value = "id", required = false) Integer id) {
 
 
-        if(id==null){
-            DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+        if (id == null) {
+            DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             return dingtalkuserService.get(user.getUserid());
-        }else {
+        } else {
             return dingtalkuserService.get(id);
         }
 
@@ -92,15 +92,14 @@ public class DingtalkUserRestController {
     }
 
 
-
     @PreAuthorize("hasAuthority('dingtalkuser:view')")
-    @RequestMapping(method = RequestMethod.GET,value = "intermediary_id")
-    public List<DingtalkUser> getByintermediaryId(@RequestParam(value = "intermediary_id",required = false) Integer id) {
-        DingtalkUserDto dto=new DingtalkUserDto();
-        if (id==null) {
-            DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+    @RequestMapping(method = RequestMethod.GET, value = "intermediary_id")
+    public List<DingtalkUser> getByintermediaryId(@RequestParam(value = "intermediary_id", required = false) Integer id) {
+        DingtalkUserDto dto = new DingtalkUserDto();
+        if (id == null) {
+            DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             dto.setIntermediaryId(user.getIntermediaryId());
-        }else {
+        } else {
             dto.setIntermediaryId(id);
         }
 
@@ -115,9 +114,9 @@ public class DingtalkUserRestController {
     public Boolean findByMobile(HttpServletRequest request) {
         String mobile = request.getParameter("mobile");
         DingtalkUser byMobile = dingtalkuserService.findByMobile(mobile);
-        if(null==byMobile){
+        if (null == byMobile) {
             return true;
-        }else{
+        } else {
 
             return false;
         }
@@ -155,7 +154,7 @@ public class DingtalkUserRestController {
 
     @PreAuthorize("hasAuthority('dingtalkuser:view')")
     @RequestMapping(method = RequestMethod.GET, value = "role")
-    public List<DingtalkUser> findByRoleId(@RequestParam(value = "roleid",required = true)Integer roleId) {
+    public List<DingtalkUser> findByRoleId(@RequestParam(value = "roleid", required = true) Integer roleId) {
         return dao.selectByRoleId(roleId);
     }
 
@@ -164,17 +163,11 @@ public class DingtalkUserRestController {
      */
     @PreAuthorize("hasAuthority('dingtalkuser:view')")
     @RequestMapping(method = RequestMethod.GET, value = "deptUser")
-    public DeptUserDto deptUser(Integer id){
+    public DeptUserDto deptUser(Integer pId, Integer iId) {
         DeptUserDto dto = new DeptUserDto();
-        List<DingtalkDept> deptList  = dingtalkDeptMapper.findByP(id);
+        List<DingtalkDept> deptList = dingtalkDeptMapper.findByPI(pId, iId);
         List<DingtalkUser> users;
-        if (id==0){
-            id = deptList.get(0).getId();
-            users =  dao.selectDeptUser(id);
-        }else {
-            users = dao.selectDeptUser(id);
-        }
-
+        users = dao.selectDeptUser(pId);
         dto.setDepts(deptList);
         dto.setUsers(users);
         return dto;
