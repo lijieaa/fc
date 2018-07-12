@@ -182,7 +182,7 @@ $(function () {
           var name="upd.jpg";
         var urlLink = absolutePath+'/material/image/detail?mediaId='+tpPhoto+"&name="+name+"&wxPublicId="+wxPublicId;
         if(thisID==1){
-              var webdata={"ToUserName":thisName,"MsgType":"news","Title":tpTitle,"Description":tpDec,"Url":tpUrl,"PicUrl":urlLink};
+              var webdata={"ToUserName":thisName,"MsgType":"mpnews","Title":tpTitle,"Description":tpDec,"Url":tpUrl,"PicUrl":urlLink};
               $.ajax({
                   url:contextPath +"message",
                   type: "POST",
