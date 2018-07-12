@@ -121,4 +121,11 @@ public class WxMaterialController {
         WxUtils.checkParam(session, wxPublicId);
         return wxMaterialService.selectByPrimaryKey(materialId);
     }
+
+    @GetMapping("news/detailByWxMediaId")
+    @ResponseBody
+    public WxMaterial detailByWxMediaId(String materialId, Integer wxPublicId, HttpSession session) throws Exception{
+        WxUtils.checkParam(session, wxPublicId);
+        return wxMaterialService.findByMediaId(materialId);
+    }
 }
