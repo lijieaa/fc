@@ -473,7 +473,7 @@ function photoTextPop(pageNo) {
                 for(var i=0; i<list.length;i++){
                     var id=list[i].thumbMediaId;
                     var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
-                    let html = `<li class="messageLi" data-id="${list[i].id}" data-time="${list[i].updateTime}" data-ttile="${list[i].title}" data-photo="${list[i].thumbMediaId}" data-Des="${list[i].digest}" data-Url="${list[i].contentSourceUrl}" >
+                    let html = `<li class="messageLi" data-id="${list[i].id}" data-time="${list[i].updateTime}" data-ttile="${list[i].title}" data-photo="${list[i].thumbMediaId}" data-Des="${list[i].digest}" data-Url="${list[i].contentSourceUrl}" data-meaId="${list[i].mediaId}" >
                                     <div style="height: 250px;overflow: hidden">
                                         <p>${list[i].title}</p>
                                         <p><img src="${urlLink}" style="width: 200px;height: 150px;"> </p>
