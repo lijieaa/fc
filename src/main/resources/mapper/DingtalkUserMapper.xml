@@ -603,8 +603,13 @@
    SELECT b.* FROM sys_user_role a,dingtalk_user b where a.user_id=b.userid AND a.role_id=#{0}
   </select>
 
+<!--部门下人员-->
+  <resultMap id="deptResultMap" type="com.jianpanmao.sys.entity.DingtalkUser">
+  <id column="userid" jdbcType="INTEGER" property="userid" />
+  <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
 
-  <select id="selectDeptUser" parameterType="java.lang.Integer"  resultMap="BaseResultMap">
+  <select id="selectDeptUser" parameterType="java.lang.Integer"  resultMap="deptResultMap">
     SELECT u.userid,u.name
   FROM dingtalk_user u
   LEFT JOIN dingtalk_user_dept udp ON udp.user_id = u.userid
