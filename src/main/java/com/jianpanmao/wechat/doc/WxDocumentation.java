@@ -70,7 +70,7 @@ package com.jianpanmao.wechat.doc;
  * @apiParamExample {json} Request-Example:
  * {
  * 	"ToUserName": "o2IG5wpS7Ju6FPg6LW1OIuxKUgI0",
- * 	"MsgType": "news",
+ * 	"MsgType": "mpnews",
  * 	"Title": "图文标题",
  * 	"Description": "图文描述",
  * 	"Url": "http://www.baidu.com",

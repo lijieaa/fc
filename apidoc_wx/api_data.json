@@ -819,7 +819,7 @@
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n\t\"ToUserName\": \"o2IG5wpS7Ju6FPg6LW1OIuxKUgI0\",\n\t\"MsgType\": \"news\",\n\t\"Title\": \"图文标题\",\n\t\"Description\": \"图文描述\",\n\t\"Url\": \"http://www.baidu.com\",\n\t\"MediaId\": \"f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA\"\n}",
+          "content": "{\n\t\"ToUserName\": \"o2IG5wpS7Ju6FPg6LW1OIuxKUgI0\",\n\t\"MsgType\": \"mpnews\",\n\t\"Title\": \"图文标题\",\n\t\"Description\": \"图文描述\",\n\t\"Url\": \"http://www.baidu.com\",\n\t\"MediaId\": \"f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA\"\n}",
           "type": "json"
         }
       ]
