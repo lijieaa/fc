@@ -299,6 +299,7 @@
     var tpDec;
     var tpUrl;
     var tpID;
+    var tpMeaId;
     $(document).on("click","#popImg>li>img",function () {
         thisSrc=$(this).attr("src");
         thisphotoId=$(this).attr("data-id");
@@ -313,6 +314,7 @@
         tpDec=$(this).attr("data-des");
         tpUrl=$(this).attr("data-url");
         tpID=$(this).attr("data-id");
+        tpMeaId=$(this).attr("data-meaid")
         $(this).addClass("opactiy").siblings().removeClass("opactiy");
         $(this).append("<a class='bgimg'></a>").siblings().find("a").remove();
     });
@@ -336,7 +338,7 @@
         var element = document.getElementById('valueInput');
         var evt = document.createEvent('HTMLEvents');
         if(thisSureId==1){
-            element.value = tpID; //图文
+            element.value = tpMeaId; //图文
             evt.initEvent('change', false, true);
             element.dispatchEvent(evt);
         }else if(thisSureId==2){

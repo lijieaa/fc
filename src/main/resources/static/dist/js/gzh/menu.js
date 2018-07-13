@@ -21,20 +21,20 @@ $(".gzh-manage-menu>a").click(function () {
         window.location.href="/wxPublic/material?wxPublicId="+wxPublicId;
     }
 });
-function pShow(thisPhtID) {
-    $.ajax({
-        url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+thisPhtID,
-        type: "get",
-        processData:true,
-        success:function (data) {
-            var id=data.content.thumbMediaId;
-            var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
-             $(".showTime").text(data.content.updateTime);
-             $(".showTitle").text(data.content.title);
-             $(".showImg img").attr("src",urlLink);
-        }
-    })
-}
+// function pShow(thisPhtID) {
+//     $.ajax({
+//         url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+thisPhtID,
+//         type: "get",
+//         processData:true,
+//         success:function (data) {
+//             var id=data.content.thumbMediaId;
+//             var urlLink = ''+contextPath+'material/image/detail?mediaId='+id+"&name="+name+"&wxPublicId="+wxID;
+//              $(".showTime").text(data.content.updateTime);
+//              $(".showTitle").text(data.content.title);
+//              $(".showImg img").attr("src",urlLink);
+//         }
+//     })
+// }
 
 
 new Vue({
@@ -174,7 +174,7 @@ new Vue({
                     this.picShow = true;
                     this.arr=checkContent;
                     $.ajax({
-                        url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+this.arr,
+                        url: contextPath +"material/news/detailByWxMediaId?wxPublicId="+wxPublicId+"&materialId="+this.arr,
                         type: "get",
                         processData:true,
                         success:function (data) {
@@ -230,7 +230,7 @@ new Vue({
                     this.picShow = true;
                     this.arr=checkContent;
                     $.ajax({
-                        url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+this.arr,
+                        url: contextPath +"material/news/detailByWxMediaId?wxPublicId="+wxPublicId+"&materialId="+this.arr,
                         type: "get",
                         processData:true,
                         success:function (data) {
@@ -292,7 +292,7 @@ new Vue({
                     this.menu.button[this.selectedMenuIndex].key = value+' '+'news';
                     this.arr=value;
                     $.ajax({
-                        url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+this.arr,
+                        url: contextPath +"material/news/detailByWxMediaId?wxPublicId="+wxPublicId+"&materialId="+this.arr,
                         type: "get",
                         processData:true,
                         success:function (data) {
@@ -325,7 +325,7 @@ new Vue({
                     this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = value+' '+'news';
                     this.arr=value;
                     $.ajax({
-                        url: contextPath +"material/news/detail?wxPublicId="+wxPublicId+"&materialId="+this.arr,
+                        url: contextPath +"material/news/detailByWxMediaId?wxPublicId="+wxPublicId+"&materialId="+this.arr,
                         type: "get",
                         processData:true,
                         success:function (data) {
