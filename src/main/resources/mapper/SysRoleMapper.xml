@@ -86,7 +86,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    role_id, role_name, role_description,intermediary_id, role_update_time, role_create_time,group_id,is_del
+    role_id, role_name, role_description,intermediary_id, role_update_time, role_create_time,group_id,is_del,is_con
   </sql>
   <select id="selectByExample" parameterType="com.jianpanmao.sys.entity.SysRoleExample" resultMap="BaseResultMap">
     select
