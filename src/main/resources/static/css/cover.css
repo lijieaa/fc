@@ -259,7 +259,7 @@ span.pkee{
   margin:10px 0;
 }
 .ios .list .item-inner:after{
-  background: none;
+/*  background: none;*/
 }
 .comm2{
   flex-shrink: 1;
