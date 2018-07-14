@@ -10,6 +10,7 @@
     <result column="role_update_time" jdbcType="TIMESTAMP" property="roleUpdateTime" />
     <result column="role_create_time" jdbcType="TIMESTAMP" property="roleCreateTime" />
     <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="is_con" jdbcType="INTEGER" property="isCon" />
     <collection property="menus" ofType="com.jianpanmao.sys.entity.SysMenu" select="selectMenu" column="role_id"/>
   </resultMap>
 
