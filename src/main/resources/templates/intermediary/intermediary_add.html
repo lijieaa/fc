@@ -155,7 +155,7 @@
                             <div class="clearfix">
                                 <input type="text" name="intermediaryContact"
                                        id="intermediaryContact" v-model="editList.intermediaryContact"
-                                       class="col-xs-12 col-sm-8" />
+                                       class="col-xs-12 col-sm-8" :id="editList.intermediaryContact"/>
                             </div>
                         </div>
                     </div>
@@ -188,26 +188,22 @@
 
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-3 no-padding-right">平台联系人:</label>
-
-                        <!--<div class="col-xs-12 col-sm-9">-->
-                            <!--<div class="col-xs-12 col-sm-8 ztree-box">-->
-                                <!--<span class="add" id="add" @click="handleAdd">+</span>-->
-                            <!--</div>-->
-                            <!--<div class="ztreeContain" id="ztreeContain" v-show="ztreeFlag">-->
-                                <!--<ul id="treeDemoCheck" class="ztree"></ul>-->
-                            <!--</div>-->
-                            <!--<div class="clearfix">-->
-                                <!--<input type="text" name="userName" id="" class="col-xs-12 col-sm-8" v-model="editList.user.name"/>-->
-                            <!--</div>-->
-                        <!--</div>-->
                         <ztree-list :list = "zTreeList"
                                     :nodes="zNodes"
                                     :listshow="ztreeFlag"
                                     @showcontain="handleAdd"
                                     @ztreeclick="handleClick"
                                     @del="delCurrent"
-
-                        ></ztree-list>
+                        >
+                        </ztree-list>
+                        <label class="col-xs-12 col-sm-3 no-padding-right"></label>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="hidden" name="userName" id="rttt"
+                                       class="col-xs-12 col-sm-8"
+                                       v-model="ptrelation"/>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -334,13 +330,25 @@
                     },
                     callback:{
                         onCheck: this.zTreeOnCheck
+                    },
+                    view: {
+                        showLine: false
                     }
                 };
             }
         },
         mounted: function(){
             var _this = this;
-            $.fn.zTree.init($("#treeDemoCheck"), this.setting(), this.nodes);
+            this.nodes.map(function(v){
+                if(v.type == 'person'){
+                    v.icon = contextPath +'images/person.png'
+                }else {
+                    v.icon = contextPath +'images/company.png'
+                }
+                console.log(v);
+            });
+            $.fn.zTree.init($("#treeDemoCheck"), this.setting(),
+                this.nodes);
             var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
             var treeNode = treeObj.transformToArray(treeObj.getNodes());
             treeNode.map(function(v){
@@ -419,6 +427,26 @@
                     }
                 }
             },
+            computed:{
+                ptrelation: function(){
+                    if(this.zTreeList.length == 0){
+                        return null
+                    }else {
+                        return 'string'
+                    }
+                }
+            },
+            // watch:{
+            //     zTreeList: function(){
+            //         if(this.zTreeList.length == 0){
+            //             this.ptrelation = '';
+            //             // this.keyChange();
+            //         }else {
+            //             this.ptrelation = 'string';
+            //             // this.keyChange();
+            //         }
+            //     }
+            // },
             methods:{
                 handleAdd:function(){
                     this.ztreeFlag = true;
@@ -430,7 +458,7 @@
                             _this.zTreeList.splice(i,1)
                         }
                     }
-
+                    console.log(this.ptrelation)
                 },
                 handleClick: function(treeNode) {
                     var _this = this;
@@ -440,7 +468,6 @@
                         return v.type == 'person'
                     });
                 },
-
                 zTreeInit:function(){
                     var _this = this;
                     return {
@@ -474,6 +501,11 @@
                             //异步加载返回的数据
                             function ajaxDataFilter(treeId, parentNode, responseData) {
                                 // console.log(responseData.content +"=======================");
+                                responseData.content.map(function(v){
+                                    if(v.parent == false){
+                                        v.icon = contextPath +'images/commonZtree.png'
+                                    }
+                                });
                                 return responseData.content;
                             }
                             function zTreeOnclick(event, treeId, treeNode) {
@@ -567,6 +599,15 @@
                 },
                 backList:function(){
                     location.href=contextPath+"intermediary/list";
+                },
+                keyChange:function() {
+                    if(this.zTreeList.length == 0){
+                        this.ptrelation = '';
+                        $("#rttt").val('').focus()
+                    }else {
+                        this.ptrelation = 'string';
+                        $("#rttt").val('string').focus()
+                    }
                 }
             },
             mounted:function () {
@@ -584,6 +625,11 @@
                     // _this.facList = data.content;
                     data.content.forEach(function(item,i){
                         data.content[i].isParent  = true;
+                        data.content.map(function(v){
+                            if(v.parent == true){
+                                v.icon = contextPath +'images/company.png'
+                            }
+                        });
                         _this.facList = data.content;
                     });
                     _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树

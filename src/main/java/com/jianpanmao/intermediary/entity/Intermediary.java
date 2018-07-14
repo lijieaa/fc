@@ -32,8 +32,8 @@ public class Intermediary implements Serializable {
     //所属地区
     private @NotNull(message = "所属地区不能为空") Area area;
 
-    //平台对接人
-    private @NotNull(message = "平台对接人不能为空") DingtalkUser user;
+    //平台联系人
+    private @NotNull(message = "平台对接人不能为空") String fcUser;
 
     //平台LOGO
     @NotNull(message = "logo不能为空")
@@ -57,6 +57,8 @@ public class Intermediary implements Serializable {
 
     private String businessLicense;//营业执照
 
+    String od;
+
     public String getBusinessLicense() {
         return businessLicense;
     }
@@ -75,7 +77,7 @@ public class Intermediary implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    String od;
+
 
     public Integer getIntermediaryId() {
         return intermediaryId;
@@ -143,12 +145,12 @@ public class Intermediary implements Serializable {
         this.area = area;
     }
 
-    public DingtalkUser getUser() {
-        return user;
+    public String getFcUser() {
+        return fcUser;
     }
 
-    public void setUser(DingtalkUser user) {
-        this.user = user;
+    public void setFcUser(String fcUser) {
+        this.fcUser = fcUser;
     }
 
     public Integer getIsPlat() {

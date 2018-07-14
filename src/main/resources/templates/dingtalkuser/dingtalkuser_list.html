@@ -17,6 +17,17 @@
                 font-size: 17px;
                 color: #1794e4 !important;
             }
+
+            .ztree li span.button.ico_close {
+                background-position: -167px -41px!important;
+            }
+            .ztree li span.button.ico_docu {
+                background-position: -167px -41px!important;
+            }
+            .ztree li span.button.ico_open{
+                margin-right: 5px;
+                background-position: -167px -41px!important;
+            }
         </style>
     </head>
 <body layout:fragment="content">
@@ -981,7 +992,12 @@
             }
         };
         function ajaxDataFilterFn(treeId, parentNode, responseData) {
-            return responseData.content;
+            // console.log();
+            // responseData.content.map(function(v){
+            //     v.icon = contextPath +'images/commonZtree.png'
+            // });
+            // console.log(responseData.content);
+            return responseData.content
 
         }
         function organizationOnAsyncSuccessFn(event, treeId, treeNode, msg) {

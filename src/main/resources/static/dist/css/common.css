@@ -198,7 +198,7 @@ div.dataTables_wrapper div.dataTables_paginate{
 }
 .ztree li span.button.ico_open{
     margin-right: 5px;
-    background-position: -167px -41px!important;
+    /*background-position: -167px -41px!important;*/
 }
 .ztree li a{
     height: 20px!important;
@@ -208,10 +208,10 @@ div.dataTables_wrapper div.dataTables_paginate{
     background: #fff!important;
 }
 .ztree li span.button.ico_close {
-    background-position: -167px -41px!important;
+    /*background-position: -167px -41px!important;*/
 }
 .ztree li span.button.ico_docu {
-    background-position: -167px -41px!important;
+    /*background-position: -167px -41px!important;*/
 }
 .ztree li a:hover{
     text-decoration: none!important;
@@ -269,28 +269,33 @@ div.dataTables_wrapper div.dataTables_paginate{
     clear: both;
     border: 1px solid #D5D5D5;
     border-top: none;
+    height: 230px;
+    overflow: auto;
 }
 .ztree-box{
     border: 1px solid #D5D5D5;
-    height: 105px;
+    height: 95px;
     overflow: auto;
 }
 .ztree-page .add{
     width: 60px;
     height: 30px;
-    background: gray;
+    background: #eee;
     border: none;
     display: inline-block;
-    color: white;
+    color: #8b8b8b;
     text-align: center;
     line-height: 30px;
     cursor: pointer;
     margin-top: 10px;
+    font-weight: bold;
+    font-size: 16px;
 }
 .ztree-page>.ztreeName{
     position: relative;
     height: 30px;
-    background: gainsboro;
+    background: #eee;
+    color:#575353;
     display: inline-block;
     text-align: center;
     padding: 5px 20px;
