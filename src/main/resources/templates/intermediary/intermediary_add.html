@@ -171,7 +171,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryLogoUrl">LOGO:</label>
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">LOGO:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
                                 <input type="hidden" name="intermediaryLogoUrl"  id="responseUrl" value="" class="col-xs-12 col-sm-6">
@@ -188,11 +188,26 @@
 
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-3 no-padding-right">平台联系人:</label>
-                        <div class="col-xs-12 col-sm-9">
-                            <div class="clearfix">
-                                <input type="text" name="userName" id="" class="col-xs-12 col-sm-8" v-model="editList.user.name"/>
-                            </div>
-                        </div>
+
+                        <!--<div class="col-xs-12 col-sm-9">-->
+                            <!--<div class="col-xs-12 col-sm-8 ztree-box">-->
+                                <!--<span class="add" id="add" @click="handleAdd">+</span>-->
+                            <!--</div>-->
+                            <!--<div class="ztreeContain" id="ztreeContain" v-show="ztreeFlag">-->
+                                <!--<ul id="treeDemoCheck" class="ztree"></ul>-->
+                            <!--</div>-->
+                            <!--<div class="clearfix">-->
+                                <!--<input type="text" name="userName" id="" class="col-xs-12 col-sm-8" v-model="editList.user.name"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <ztree-list :list = "zTreeList"
+                                    :nodes="zNodes"
+                                    :listshow="ztreeFlag"
+                                    @showcontain="handleAdd"
+                                    @ztreeclick="handleClick"
+                                    @del="delCurrent"
+
+                        ></ztree-list>
                     </div>
 
                     <div class="form-group">
@@ -273,15 +288,112 @@
             hideMenu();
         }
     }
-    $(document).bind("click",function(e){
-        onBodyDown(e) ;
+
+
+    Vue.component('ztreeList',{
+        props:['list','nodes','listshow'],
+        template:'<div class="col-xs-12 col-sm-9">' +
+        '<div class="ztree-page ztree-box col-xs-12 col-sm-8"> ' +
+        '<span v-for="item in list" data-id="item.id"  class="ztreeName" ' +
+        '@click="delCurrent(item.id)">{{item.name}}</span> ' +
+        '<span class="add" id="add" @click="handleAdd">+</span> ' +
+        '</div>' +
+        '<div class="ztreeContain col-xs-12 col-sm-8" id="ztreeContain" v-show="listshow">' +
+        ' <ul id="treeDemoCheck" class="ztree"></ul> ' +
+        '</div></div>',
+        methods:{
+            delCurrent:function(id){
+                var _this = this;
+                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
+                var nodes = treeObj.getNodes();
+                var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                for(var i=0;i<treeNode.length;i++){
+                    var v = treeNode[i];
+                    if(v.id == id){
+                        treeObj.checkNode(v, false, true);
+                    }
+                }
+
+                _this.$emit('del',id)
+            },
+            handleAdd: function(){
+                this.$emit('showcontain')
+            },
+            zTreeOnCheck: function(){
+                this.$emit('ztreeclick')
+            },
+            setting : function(){
+                return settingCheck = {
+                    check: {
+                        enable: true
+                    },
+                    data: {
+                        simpleData: {
+                            enable: true
+                        }
+                    },
+                    callback:{
+                        onCheck: this.zTreeOnCheck
+                    }
+                };
+            }
+        },
+        mounted: function(){
+            var _this = this;
+            $.fn.zTree.init($("#treeDemoCheck"), this.setting(), this.nodes);
+            var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
+            var treeNode = treeObj.transformToArray(treeObj.getNodes());
+            treeNode.map(function(v){
+                _this.list.map(function(s){
+                    if(v.id == s.id){
+                        treeObj.checkNode(v, true, true);
+                    }
+                })
+            })
+        }
     });
 
     // var responseUrl;
     jQuery(function($) {
-        new Vue({
+        var vue1 =   new Vue({
             el:"#myMediary",
             data:{
+                ztreeFlag:false,
+                zNodes:[
+                    { id:1, pId:0, name:"公司1", open:true},
+                    { id:11, pId:1, name:"部门1", open:true},
+                    { id:111, pId:11, name:"小红",type:"person"},
+                    { id:112, pId:11, name:"小明",type:"person"},
+                    { id:12, pId:1, name:"部门2", open:true},
+                    { id:121, pId:12, name:"summer",type:"person"},
+                    { id:122, pId:12, name:"sunshine",type:"person"},
+                    { id:2, pId:0, name:"公司2", open:true},
+                    { id:21, pId:2, name:"部门3"},
+                    { id:22, pId:2, name:"Linda", open:true,type:"person"},
+                    { id:221, pId:22, name:"公司4",type:"person"},
+                    { id:222, pId:22, name:"公司5",type:"person"},
+                    { id:23, pId:2, name:"sina",type:"person"}
+                ],
+                zTreeList:[
+                    {
+                        name:'小红',
+                        id:111
+                    },
+                    {
+                        name:'小明',
+                        id:112
+                    }
+                    ,
+                    {
+                        name:'summer',
+                        id:121
+                    }
+                    ,
+                    {
+                        name:'sunshine',
+                        id:122
+                    }
+                ],
                 searchVal:"",
                 editList:{
                     area:{
@@ -308,6 +420,27 @@
                 }
             },
             methods:{
+                handleAdd:function(){
+                    this.ztreeFlag = true;
+                },
+                delCurrent: function(id){
+                    var _this = this;
+                    for(var i=0;i<_this.zTreeList.length;i++){
+                        if(_this.zTreeList[i].id == id){
+                            _this.zTreeList.splice(i,1)
+                        }
+                    }
+
+                },
+                handleClick: function(treeNode) {
+                    var _this = this;
+                    var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
+                    var checkTrue = treeObj.getCheckedNodes(true);
+                    _this.zTreeList = checkTrue.filter(function(v){
+                        return v.type == 'person'
+                    });
+                },
+
                 zTreeInit:function(){
                     var _this = this;
                     return {
@@ -539,6 +672,13 @@
                     }
 
                 });
+            }
+        });
+        $(document).bind("click",function(e){
+            onBodyDown(e) ;
+            if(!(e.target.id == 'add' || e.target.id =='ztreeContain' || e.target.className == 'ztreeName' ||
+                $(event.target).parents("#ztreeContain").length>0)){
+                vue1.$data.ztreeFlag = false
             }
         });
         $(document).on("click",".search-list >li",function(){

@@ -263,3 +263,43 @@ div.dataTables_wrapper div.dataTables_paginate{
 [v-cloak] {
     display: none;
 }
+
+/*ztree多对多*/
+.ztreeContain{
+    clear: both;
+    border: 1px solid #D5D5D5;
+    border-top: none;
+}
+.ztree-box{
+    border: 1px solid #D5D5D5;
+    height: 105px;
+    overflow: auto;
+}
+.ztree-page .add{
+    width: 60px;
+    height: 30px;
+    background: gray;
+    border: none;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.ztree-page>.ztreeName{
+    position: relative;
+    height: 30px;
+    background: gainsboro;
+    display: inline-block;
+    text-align: center;
+    padding: 5px 20px;
+    margin-right: 15px;
+    margin-top: 10px;
+}
+.ztree-page>.ztreeName:after{
+    content: 'X';
+    position: absolute;
+    right: 4px;
+    cursor: pointer;
+}
