@@ -19,6 +19,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -163,13 +164,12 @@ public class DingtalkUserRestController {
      */
     @PreAuthorize("hasAuthority('dingtalkuser:view')")
     @RequestMapping(method = RequestMethod.GET, value = "deptUser")
-    public DeptUserDto deptUser(Integer pId, Integer iId) {
-        DeptUserDto dto = new DeptUserDto();
-        List<DingtalkDept> deptList = dingtalkDeptMapper.findByPI(pId, iId);
-        List<DingtalkUser> users;
-        users = dao.selectDeptUser(pId);
-        dto.setDepts(deptList);
-        dto.setUsers(users);
-        return dto;
+    public List<DeptUserDto> deptUser(Integer iId) {
+        List<DeptUserDto> deptList = dingtalkDeptMapper.findByPI(",0,", iId);
+        List<DeptUserDto> users = dao.selectDeptUser(iId,",0,");
+        List<DeptUserDto> dtos = new ArrayList<>();
+        dtos.addAll(deptList);
+        dtos.addAll(users);
+        return dtos;
     }
 }

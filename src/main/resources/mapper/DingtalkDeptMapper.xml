@@ -120,6 +120,9 @@
         </if>
     </delete>
     <insert id="insert" parameterType="com.jianpanmao.sys.entity.DingtalkDept">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     insert into dingtalk_dept (id, `name`, parentid, createDeptGroup, deptHiding,
       deptPerimits, userPerimits, outerDept, 
       outerPermitUsers, sourceIdentifier, intermediary_id, `path`
@@ -481,8 +484,16 @@
         select d.* from dingtalk_user u,dingtalk_user_dept ud,dingtalk_dept d WHERE u.userid=ud.user_id AND ud.dept_id=d.id and u.userid=#{0}
     </select>
 
-    <select id="findByPI" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-       SELECT dp.* FROM dingtalk_dept dp WHERE dp.parentid = #{pId} and dp.intermediary_id = #{iId}
+    <select id="findByPI"  resultType="com.jianpanmao.sys.dto.DeptUserDto">
+       select
+      dp.id,
+      dp.name,
+      dp.parentid,
+      'dept' type
+      FROM
+      dingtalk_dept dp
+      WHERE dp.intermediary_id = #{iId} and dp.path LIKE concat('%',#{path},'%')
+
     </select>
 
 </mapper>

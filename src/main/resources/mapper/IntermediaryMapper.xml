@@ -4,19 +4,12 @@
   <resultMap id="BaseResultMap" type="com.jianpanmao.intermediary.entity.Intermediary">
     <id column="intermediary_id" jdbcType="INTEGER" property="intermediaryId" />
     <result column="intermediary_name" jdbcType="VARCHAR" property="intermediaryName" />
-    <result column="intermediary_contact" property="intermediaryContact" jdbcType="VARCHAR" />
-    <result column="intermediary_contact_tel" jdbcType="VARCHAR" property="intermediaryContactTel" />
     <result column="intermediary_logo_url" jdbcType="VARCHAR" property="intermediaryLogoUrl" />
     <result column="intermediary_create_time" jdbcType="TIMESTAMP" property="intermediaryCreateTime" />
     <result column="intermediary_update_time" jdbcType="TIMESTAMP" property="intermediaryUpdateTime" />
     <result column="is_plat" jdbcType="INTEGER" property="isPlat" />
     <result column="e_code" jdbcType="VARCHAR" property="eCode"/>
     <result column="business_license" jdbcType="VARCHAR" property="businessLicense"/>
-    <association property="user" javaType="com.jianpanmao.sys.entity.DingtalkUser">
-      <id property="userid" column="userid"></id>
-      <result property="name" column="uname"></result>
-      <result property="mobile" column="mobile"></result>
-    </association>
     <association property="area" javaType="com.jianpanmao.area.entity.Area">
       <id property="id" column="id"></id>
       <result property="name" column="name"></result>
@@ -133,9 +126,8 @@
 
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select i.*,u.name uname,u.mobile,u.userid,a.*
-    from intermediary i LEFT JOIN dingtalk_user u
-    ON i.user_id = u.userid
+    select i.*,a.*
+    from intermediary i
     LEFT JOIN area a
     ON i.area_id = a.id
     where i.intermediary_id = #{intermediaryId,jdbcType=INTEGER}
@@ -153,17 +145,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.jianpanmao.intermediary.entity.Intermediary">
+    <selectKey keyProperty="intermediaryId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into intermediary (intermediary_name,
-      intermediary_contact, intermediary_contact_tel,
-      area_id, user_id, intermediary_logo_url,
+      area_id, intermediary_logo_url,
       intermediary_introduction,
       e_code,
       business_license)
     values (#{intermediaryName,jdbcType=VARCHAR},
-      #{intermediaryContact,jdbcType=VARCHAR},
-    #{intermediaryContactTel,jdbcType=VARCHAR},
       #{area.id,jdbcType=INTEGER},
-    #{user.userid,jdbcType=INTEGER},
     #{intermediaryLogoUrl,jdbcType=VARCHAR},
       #{intermediaryIntroduction,jdbcType=LONGVARCHAR},
       #{eCode,jdbcType=VARCHAR},
@@ -448,4 +439,20 @@
   <select id="byIsPlat" resultMap="BaseResultMap">
     SELECT * from intermediary WHERE is_plat = 1
   </select>
+
+  <!--添加平台联系人-->
+  <insert id="addFcUser"  parameterType="java.util.List">
+    INSERT INTO
+    intermediary_user
+    (intermediary_user_iId,intermediary_user_uId,intermediary_user__status)
+    VALUES
+    <foreach collection ="list" item="iu" index= "index" separator =",">
+                      (
+                      #{iu.intermediaryUserIid},
+                      #{iu.intermediaryUserUid},
+                      #{iu.intermediaryUserStatus}
+                      )
+                  </foreach >
+
+  </insert>
 </mapper>
