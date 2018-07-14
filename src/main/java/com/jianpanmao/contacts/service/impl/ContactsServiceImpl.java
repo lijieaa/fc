@@ -25,6 +25,14 @@ public class ContactsServiceImpl extends BaseServiceImpl<Contacts,ContactsExampl
     ContactsMapper contactsMapper;
 
     @Override
+    public int removeBatch(Integer[] ids) {
+        for (Integer id : ids) {
+            contactsMapper.deleteContact2SysRole(id);
+        }
+        return super.removeBatch(ids);
+    }
+
+    @Override
     public int remove(Integer tId) {
         contactsMapper.deleteContact2SysRole(tId);
         return super.remove(tId);
