@@ -604,16 +604,24 @@
   </select>
 
 <!--部门下人员-->
-  <resultMap id="deptResultMap" type="com.jianpanmao.sys.entity.DingtalkUser">
-  <id column="userid" jdbcType="INTEGER" property="userid" />
+  <resultMap id="deptResultMap" type="com.jianpanmao.sys.dto.DeptTreeUser">
+  <id column="userid" jdbcType="INTEGER" property="userId" />
   <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="parentid" jdbcType="INTEGER" property="parentId"></result>
   </resultMap>
 
-  <select id="selectDeptUser" parameterType="java.lang.Integer"  resultMap="deptResultMap">
-    SELECT u.userid,u.name
-  FROM dingtalk_user u
-  LEFT JOIN dingtalk_user_dept udp ON udp.user_id = u.userid
-  WHERE udp.dept_id = #{0}
+  <select id="selectDeptUser"   resultType="com.jianpanmao.sys.dto.DeptUserDto">
+   select
+    u.userid id,
+    u.`name`,
+    dp.parentid,
+    'person' type
+    FROM
+    dingtalk_user u
+    LEFT JOIN  dingtalk_user_dept udp ON  u.userid = udp.user_id
+    LEFT JOIN dingtalk_dept dp ON udp.dept_id = dp.id
+    WHERE dp.intermediary_id = #{iId} and dp.path LIKE concat('%',#{path},'%')
+
   </select>
 
 </mapper>

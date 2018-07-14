@@ -1,21 +1,19 @@
 package com.jianpanmao.sys.dto;
 
 /**
- * Created by mayn on 2018/7/8.
- * 部门人员树
+ * Created by mayn on 2018/7/14.
  */
-public class DeptUserDto {
-   private Integer id;
+public class DeptTreeUser {
+    private Integer userId;
     private String name;
     private Integer parentId;
-    private String type;
 
-    public Integer getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -32,13 +30,5 @@ public class DeptUserDto {
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }

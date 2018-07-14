@@ -1,6 +1,7 @@
 package com.jianpanmao.sys.dao;
 
 import com.jianpanmao.common.dao.BaseDao;
+import com.jianpanmao.sys.dto.DeptUserDto;
 import com.jianpanmao.sys.dto.DingtalkDeptDto;
 import com.jianpanmao.sys.entity.DingtalkDept;
 import com.jianpanmao.sys.entity.DingtalkDeptExample;
@@ -28,7 +29,7 @@ public interface DingtalkDeptMapper extends BaseDao<DingtalkDept, DingtalkDeptEx
 
     DingtalkDept selectByEqName(DingtalkDept dept);
 
-    List<DingtalkDept> findByPI(@Param("pId") Integer parentId,@Param("iId") Integer intermediaryId);
+    List<DeptUserDto> findByPI(@Param("path") String path, @Param("iId") Integer intermediaryId);
 
 
 }

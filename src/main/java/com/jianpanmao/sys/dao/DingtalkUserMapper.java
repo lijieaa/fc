@@ -1,10 +1,12 @@
 package com.jianpanmao.sys.dao;
 
 import com.jianpanmao.common.dao.BaseDao;
+import com.jianpanmao.sys.dto.DeptUserDto;
 import com.jianpanmao.sys.dto.DingtalkUserDto;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import com.jianpanmao.sys.entity.DingtalkUserExample;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -26,5 +28,5 @@ public interface DingtalkUserMapper extends BaseDao<DingtalkUser, DingtalkUserEx
 
     Integer updateInfo(DingtalkUser entity);
 
-    List<DingtalkUser> selectDeptUser(Integer deptId);
+    List<DeptUserDto> selectDeptUser(@Param("iId") Integer iId, @Param("path") String path);
 }

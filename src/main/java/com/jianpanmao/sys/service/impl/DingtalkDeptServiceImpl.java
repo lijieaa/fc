@@ -38,10 +38,10 @@ public class DingtalkDeptServiceImpl extends BaseServiceImpl<DingtalkDept,Dingta
 
         if(null==record.getParentid()||record.getParentid()<=0){
             record.setParentid(0);
-            record.setPath(0+"");
+            record.setPath(","+0+",");
         }else{
             DingtalkDept pDept = this.get(record.getParentid());
-            record.setPath(pDept.getPath()+","+pDept.getId());
+            record.setPath(pDept.getPath()+","+pDept.getId()+",");
         }
         return super.add(record);
     }
@@ -61,10 +61,10 @@ public class DingtalkDeptServiceImpl extends BaseServiceImpl<DingtalkDept,Dingta
 
         if(null==record.getParentid()||record.getParentid()<=0){
             record.setParentid(0);
-            record.setPath(0+"");
+            record.setPath(","+0+",");
         }else{
             DingtalkDept pDept = this.get(record.getParentid());
-            record.setPath(pDept.getPath()+","+pDept.getId());
+            record.setPath(pDept.getPath()+","+pDept.getId()+",");
         }
 
 
