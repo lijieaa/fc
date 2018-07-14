@@ -271,6 +271,43 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/material/news/detailByWxMediaId",
+    "title": "获取单个图文素材内容",
+    "name": "detailByWxMediaId",
+    "group": "wxMessage",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "wxPublicId",
+            "description": "<p>公众号ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "materialId",
+            "description": "<p>素材Id</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "http://localhost:8080/material/news/detailByWxMediaId?wxPublicId=14&materialId=f1QOuU_OT4Hrt8abnY9n2JtuBkM5JTjri6XfVo3ftDY",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "D:/fc/src/main/java/com/jianpanmao/wechat/doc/WxDocumentation.java",
+    "groupTitle": "微信公众号"
+  },
+  {
+    "type": "get",
     "url": "/material/image/detail",
     "title": "获取单个图片素材内容",
     "name": "getMaterialImageDetail",
@@ -365,15 +402,17 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
+            "type": "String",
             "optional": false,
             "field": "wxPublicId",
             "description": "<p>公众号ID</p>"
           },
           {
             "group": "Parameter",
+            "type": "Number",
             "optional": false,
-            "field": "mediaId",
-            "description": "<p>素材mediaId</p>"
+            "field": "materialId",
+            "description": "<p>素材Id</p>"
           }
         ]
       }
@@ -381,7 +420,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Request-Example:",
-        "content": "localhost:8080/material/news/detail?mediaId=f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA&wxPublicId=14",
+        "content": "http://localhost:8080/material/news/detail?wxPublicId=14&materialId=59",
         "type": "json"
       }
     ],
@@ -418,7 +457,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Request-Example:",
-        "content": "http://localhost:8080/message/attachment/msgType=voice&localFile=sdfjwefjj-23lfjk20.mp3",
+        "content": "http://localhost:8080/message/attachment?msgType=voice&localFile=sdfjwefjj-23lfjk20.mp3",
         "type": "json"
       }
     ],
@@ -766,7 +805,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "json",
-            "description": "<p>ToUserName:用户的openId,MsgType:消息类型,Title:图文标题,Description:图文描述,Url:跳转链接,PicUrl:显示的图片链接</p>"
+            "description": "<p>ToUserName:用户的openId,MsgType:消息类型,Title:图文标题,Description:图文描述,PicUrl:显示的图片链接</p>"
           },
           {
             "group": "Parameter",
@@ -780,7 +819,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n\t\"ToUserName\": \"o2IG5wpS7Ju6FPg6LW1OIuxKUgI0\",\n\t\"MsgType\": \"news\",\n\t\"Title\": \"图文标题\",\n\t\"Description\": \"图文描述\",\n\t\"Url\": \"http://www.baidu.com\",\n\t\"PicUrl\": \"http://mmbiz.qpic.cn/mmbiz_jpg/FwRDKpzzTCMo4Aqfw3kQwq3Dn8Sq1amp3RhaHjaSZIb1qus6RibUP8gyF8DvqgL6VkEfSnMCtdB3e6c9BG6SACQ/0?wx_fmt=jpeg\"\n}",
+          "content": "{\n\t\"ToUserName\": \"o2IG5wpS7Ju6FPg6LW1OIuxKUgI0\",\n\t\"MsgType\": \"mpnews\",\n\t\"Title\": \"图文标题\",\n\t\"Description\": \"图文描述\",\n\t\"Url\": \"http://www.baidu.com\",\n\t\"MediaId\": \"f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA\"\n}",
           "type": "json"
         }
       ]

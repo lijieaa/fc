@@ -30,7 +30,7 @@
                 <div class="page-content ">
 
 
-                    <div class="list card f30">
+                    <form id="form"class="list card f30">
                         <ul>
                             <li>
                                 <div class="item-content">
@@ -247,7 +247,8 @@
                                     </div>
                                 </div></li>
                         </ul>
-                    </div>
+
+                    </form>
 
                 </div>
             </div>
@@ -255,15 +256,146 @@
         </div>
         </div>
     </div>
+<script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
 <script>
     var app = new Framework7(
             {
                 id: 'io.framework7.testapp',
                 root: '#app',
                 theme: "ios",
-            }
-    )
+            })
 
+
+    console.log($('#form').validate)
+
+/*    var $form = $('#form').validate({
+        errorElement: 'div',
+        errorClass: 'help-block',
+        focusInvalid: false,
+        ignore: "",
+        rules: {
+            project: {
+                required: true
+            },
+            time: {
+                required: true
+            },
+            power:{
+                required: true
+            },
+            clean:{
+                required: true
+            },
+            unitTime:{
+                required: true
+            },
+            jgTime:{
+                required: true
+            },
+            ysTime:{
+                required: true
+            },
+            ycTime:{
+                required: true
+            },
+            startYc:{
+                required: true
+            },
+            cleanTime:{
+                required: true
+            },
+            cleanAlarm:{
+                required: true
+            },
+            actionZq:{
+                required: true
+            },
+            powerStart:{
+                required: true
+            },
+            year:{
+                required: true
+            }
+            ,month:{
+                required: true
+            }
+            ,day:{
+                required: true
+            }
+            ,hour:{
+                required: true
+            }
+            ,minute:{
+                required: true
+            }
+            ,second:{
+                required: true
+            }
+        },
+        highlight: function (e) {
+            $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+        },
+        success: function (e) {
+            $(e).closest('.form-group').removeClass('has-error');
+            $(e).remove();
+        },
+        errorPlacement: function (error, element) {
+            error.insertAfter(element.parent());
+        },
+        submitHandler: function (form) {
+            var data ={
+                remoteBoot:_this.numDevice(_this.remoteBoot),
+                deviceParam:{
+                    // numDevice
+                    device_type:_this.deviceParam.device_type,
+                    motor:_this.numDevice(_this.deviceParam.motor),
+                    stroke_switch:_this.numDevice(_this.deviceParam.stroke_switch),
+                    motor_time:_this.deviceParam.motor_time,
+                    p_switch:_this.numDevice(_this.deviceParam.p_switch),
+                    voltage_warning:_this.deviceParam.voltage_warning,
+                    main_valve:_this.numDevice(_this.deviceParam.main_valve),
+                    unit1:_this.numDevice(_this.deviceParam.unit1),
+                    unit2:_this.numDevice(_this.deviceParam.unit2),
+                    unit3:_this.numDevice(_this.deviceParam.unit3),
+                    unit4:_this.numDevice(_this.deviceParam.unit4),
+                    unit5:_this.numDevice(_this.deviceParam.unit5),
+                    unit6:_this.numDevice(_this.deviceParam.unit6),
+                    unit7:_this.numDevice(_this.deviceParam.unit7),
+                    unit8:_this.numDevice(_this.deviceParam.unit8),
+                    unit9:_this.numDevice(_this.deviceParam.unit9),
+                    unit10:_this.numDevice(_this.deviceParam.unit10),
+                },
+                deviceUserParam:_this.deviceUserParam,
+                system_time:_this.system_time.year+"-"+_this.system_time.month+"-"+_this.system_time.day+":" +_this.system_time.hour+":"+_this.system_time.minute+":"+
+                _this.system_time.second
+            };
+
+
+
+
+            if($(".error").length == 0){
+                $.ajax({
+                    url: contextPath+"api/mqtt_send",
+                    method: "post",
+                    data : JSON.stringify(data),
+                    contentType: "application/json",
+                    dataType : "json",
+                    success: function (data) {
+                        if(data.status == 200){
+                            // location.href=contextPath+"device/list";
+                        }
+
+                    },
+                    error: function (data) {
+                        // console.log(data);
+                    }
+                });
+            }
+        },
+        invalidHandler: function (form) {
+
+        }
+    });*/
 
 </script>
 </body>

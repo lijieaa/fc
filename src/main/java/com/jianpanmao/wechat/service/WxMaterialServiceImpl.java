@@ -76,4 +76,6 @@ public class WxMaterialServiceImpl extends BaseServiceImpl<WxMaterial> implement
     public WxMaterial findByMediaId(String mediaId) {
         return wxMaterialDao.findByMediaId(mediaId);
     }
+
+
 }

@@ -70,11 +70,11 @@ package com.jianpanmao.wechat.doc;
  * @apiParamExample {json} Request-Example:
  * {
  * 	"ToUserName": "o2IG5wpS7Ju6FPg6LW1OIuxKUgI0",
- * 	"MsgType": "news",
+ * 	"MsgType": "mpnews",
  * 	"Title": "图文标题",
  * 	"Description": "图文描述",
  * 	"Url": "http://www.baidu.com",
- * 	"PicUrl": "http://mmbiz.qpic.cn/mmbiz_jpg/FwRDKpzzTCMo4Aqfw3kQwq3Dn8Sq1amp3RhaHjaSZIb1qus6RibUP8gyF8DvqgL6VkEfSnMCtdB3e6c9BG6SACQ/0?wx_fmt=jpeg"
+ * 	"MediaId": "f1QOuU_OT4Hrt8abnY9n2Eurpum2VNfDPrakA2RIrVA"
  * }
  */
 
@@ -622,10 +622,20 @@ package com.jianpanmao.wechat.doc;
  * @api {get} /material/news/detail 获取单个图文素材内容
  * @apiName getMaterialNewsDetail
  * @apiGroup wxMessage
- * @apiParam wxPublicId 公众号ID
- * @apiParam materialId 素材Id
+ * @apiParam {String} wxPublicId 公众号ID
+ * @apiParam {Number} materialId 素材Id
  * @apiExample Request-Example:
  * http://localhost:8080/material/news/detail?wxPublicId=14&materialId=59
+ */
+
+/**
+ * @api {get} /material/news/detailByWxMediaId 获取单个图文素材内容
+ * @apiName detailByWxMediaId
+ * @apiGroup wxMessage
+ * @apiParam {String} wxPublicId 公众号ID
+ * @apiParam {String} materialId 素材Id
+ * @apiExample Request-Example:
+ * http://localhost:8080/material/news/detailByWxMediaId?wxPublicId=14&materialId=f1QOuU_OT4Hrt8abnY9n2JtuBkM5JTjri6XfVo3ftDY
  */
 
 /**

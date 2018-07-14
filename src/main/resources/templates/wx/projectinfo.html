@@ -203,6 +203,22 @@
 </div>
 <script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
 <script>
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+   var projectid= GetRequest().projectid
+    console.log(GetRequest())
+</script>
+<script>
     var $$ = Dom7;
     // Loading flag
     var allowInfinite = true;
@@ -253,7 +269,7 @@
                 sourceId:"gh_f5a46974c0f6",
                 pageNum:pageNum,
                 pageSize:itemsPerLoad,
-                projectId:1,
+                projectId:projectid,
             },
             success:function(data){
                 allowInfinite = true;

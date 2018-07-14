@@ -116,6 +116,7 @@ $(function () {
     var tpPhoto;
     var tpDec;
     var tpUrl;
+    var mediaId;
     $(document).on("click","#popImg>li>img",function () {
         thisSrc=$(this).attr("src");
         thisphotoId=$(this).attr("data-id");
@@ -129,6 +130,7 @@ $(function () {
         tpPhoto=$(this).attr("data-photo");
         tpDec=$(this).attr("data-des");
         tpUrl=$(this).attr("data-url");
+        mediaId=$(this).attr("data-meaId");
         $(this).addClass("opactiy").siblings().removeClass("opactiy");
         $(this).append("<a class='bgimg'></a>").siblings().find("a").remove();
     });
@@ -179,10 +181,10 @@ $(function () {
     $(document).on("click","#sender",function () {
           var thisName=$(this).attr("data-name");
           var thisID=$(this).attr("data-id");
-          var name="upd.jpg";
-        var urlLink = absolutePath+'/material/image/detail?mediaId='+tpPhoto+"&name="+name+"&wxPublicId="+wxPublicId;
+        //   var name="upd.jpg";
+        // var urlLink = absolutePath+'/material/image/detail?mediaId='+tpPhoto+"&name="+name+"&wxPublicId="+wxPublicId;
         if(thisID==1){
-              var webdata={"ToUserName":thisName,"MsgType":"news","Title":tpTitle,"Description":tpDec,"Url":tpUrl,"PicUrl":urlLink};
+              var webdata={"ToUserName":thisName,"MsgType":"mpnews","Title":tpTitle,"Description":tpDec,"Url":tpUrl,"MediaId":mediaId};
               $.ajax({
                   url:contextPath +"message",
                   type: "POST",

@@ -80,13 +80,13 @@
 }
 
 .f30{
-  font-size:13px !important;
+  font-size:14px !important;
 }
 .f28{
-  font-size:12px !important;
+  font-size:14px !important;
 }
 .f24{
-  font-size:12px !important;
+  font-size:13px !important;
 }
 
 .fw{
@@ -146,7 +146,7 @@ ul{
 
  .plist .item-text{
   line-height:1em  !important;
-   font-size:12px !important;
+   font-size:13px !important;
 }
 
  .plist .item-text>span{
@@ -157,15 +157,21 @@ ul{
    background:none;
  }
 
- .ios .card {
+ .ios  .plist.card {
    box-shadow: 0 1px 3px 0px rgba(0,0,0,.3);
+   margin:10px 0;
+
  }
+
+.ios .searchbar{
+  background:none;
+}
  .pkee{
-   height:22px !important;
-   line-height:20px;
+   height:32px !important;
+   line-height:30px;
    box-sizing: border-box;
    border:1px solid #c1c1c0 !important;
-   padding:2px 3px !important;
+   padding:2px 6px !important;
  }
 
 span.pkee{
@@ -188,8 +194,8 @@ span.pkee{
 
  .ios .searchbar .ser-box input[type=search]{
    border-radius: 0;
-   height:22px;
-   line-height:20px;
+   height:32px;
+   line-height:30px;
    box-sizing: border-box;
    background: none;
    border:1px solid #c1c1c0;
@@ -198,8 +204,8 @@ span.pkee{
 .ser-btn{
   flex-shrink: 0;
   width:40px;
-  height:22px;
-  line-height:20px;
+  height:32px;
+  line-height:30px;
   box-sizing: border-box;
   border:1px solid #c1c1c0;
  /* background: #c1c1c0;*/
