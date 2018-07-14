@@ -633,6 +633,19 @@
                 <ul id="add-role-person-competence-select"  class="ztree display-none"></ul>
             </div>
         </div>
+        <div class="form-group col-sm-12" style="display: flex; align-items: center;">
+            <label class="col-sm-2 control-label no-padding-right" for="add-role-person-outcontacts">客户通讯录:</label>
+            <div class="col-sm-9" id="add-role-person-outcontacts">
+                <label>
+                    <input name="add-role-person-outcontacts" type="radio" value="1" class="ace">
+                    <span class="lbl">是</span>
+                </label>
+                <label>
+                    <input name="add-role-person-outcontacts" type="radio" value="0" class="ace" checked>
+                    <span class="lbl">否</span>
+                </label>
+            </div>
+        </div>
         <div class="form-group col-sm-12">
             <label class="col-sm-2 control-label no-padding-right" for="add-role-group-name">分组到:</label>
             <div class="col-sm-9">
@@ -661,6 +674,19 @@
             <div class="col-sm-9">
                 <button type="button" id="edit-role-person-rcompetence" name="role" class="form-control btn btn-white btn-default">更改权限</button>
                 <ul id="edit-role-person-competence-select"  class="ztree display-none"></ul>
+            </div>
+        </div>
+        <div class="form-group col-sm-12" style="display: flex; align-items: center;">
+            <label class="col-sm-2 control-label no-padding-right" for="edit-role-person-outcontacts">客户通讯录:</label>
+            <div class="col-sm-9" id="edit-role-person-outcontacts">
+                <label>
+                    <input name="edit-role-person-outcontacts" type="radio" value="1" class="ace">
+                    <span class="lbl">是</span>
+                </label>
+                <label>
+                    <input name="edit-role-person-outcontacts" type="radio" value="0" class="ace">
+                    <span class="lbl">否</span>
+                </label>
             </div>
         </div>
         <div class="form-group col-sm-12">
@@ -2796,11 +2822,11 @@
                                     })
                                 }
                                 var data = {
-                                            "roleName": $("#add-role-person-name").val(),
-                                            "groupId":$("#add-role-person-group").val(),
-                                            "menus": menuIdArr
-                                        }
-                                        ;
+                                    "roleName": $("#add-role-person-name").val(),
+                                    "groupId":$("#add-role-person-group").val(),
+                                    "isCon": $("#add-role-person-outcontacts input:checked").val(),
+                                    "menus": menuIdArr
+                                        };
                                 $.ajax({
                                     url: contextPath+"api/sysrole/",
                                     type: "post",
@@ -2931,7 +2957,15 @@
                                 }
                             }
                         }
-
+                        //客户通讯录
+                        var deitIsCon = data.content.isCon;
+                        if (deitIsCon == "0") {
+                            $($("#edit-role-person-outcontacts input")[1]).attr("checked",true)
+                            $($("#edit-role-person-outcontacts input")[0]).attr("checked",false)
+                        } else {
+                            $($("#edit-role-person-outcontacts input")[0]).attr("checked",true)
+                            $($("#edit-role-person-outcontacts input")[1]).attr("checked",false)
+                        }
                         //角色组
                         var treeObj = $.fn.zTree.getZTreeObj("role-list");
                         var nodes = treeObj.getNodes();
@@ -2983,6 +3017,7 @@
                                 var data = {
                                     "roleName": $("#edit-role-person-name").val(),
                                     "roleId": roleId,
+                                    "isCon": $("#edit-role-person-outcontacts input:checked").val(),
                                     "groupId": $("#edit-role-person-group").val(),
                                     "menus": menuIdArr
                                 };
