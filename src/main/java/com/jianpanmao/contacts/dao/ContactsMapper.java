@@ -11,5 +11,8 @@ public interface ContactsMapper extends BaseDao<Contacts, ContactsExample, Conta
 
     public int deleteContact2SysRole(Integer conId);
 
+    public Contacts selectByTel(String tel);
+
+
 
 }

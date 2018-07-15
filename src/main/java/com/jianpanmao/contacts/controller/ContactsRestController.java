@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -49,6 +50,19 @@ public class ContactsRestController {
     @RequestMapping(method = RequestMethod.GET)
     public Contacts get(@RequestParam("id") Integer id) {
         return contactsService.get(id);
+    }
+
+
+    @PreAuthorize("hasAuthority('contacts:view')")
+    @RequestMapping(method = RequestMethod.GET,value = "tel")
+    public Boolean get(HttpServletRequest request) {
+        String tel = request.getParameter("tel");
+        Contacts contacts = contactsService.findeByTel(tel);
+        if (null == contacts) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @PreAuthorize("hasAuthority('contacts:view')")

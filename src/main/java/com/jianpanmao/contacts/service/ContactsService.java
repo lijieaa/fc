@@ -8,5 +8,5 @@ import com.jianpanmao.contacts.dto.*;
 
 
 public interface ContactsService extends BaseService<Contacts, ContactsExample,ContactsDto,Integer>{
-
+    public Contacts findeByTel(String tel);
 }
