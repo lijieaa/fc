@@ -15,6 +15,7 @@ import com.jianpanmao.projectComments.service.ProjectCommentsService;
 import com.jianpanmao.wechat.entity.WxPublic;
 import com.jianpanmao.wechat.service.WxPublicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -127,6 +128,11 @@ public class WxCommonRestController {
         }
         recursion(list,list.get(size),++size);
 
+    }
+
+    @GetMapping("getProject")
+    public Project getProject(Integer projectId) {
+        return projectService.get(projectId);
     }
 
 
