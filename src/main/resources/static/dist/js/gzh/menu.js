@@ -8,6 +8,14 @@
 $(document).on("click","#backUl",function () {
     window.location.href="/wxPublic/index?mid=11";
 })
+function getUrlParms(name){
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if(r!=null)
+        return unescape(r[2]);
+    return null;
+}
+var wxID=getUrlParms("wxPublicId");
 //各页面切换
 $(".gzh-manage-menu>a").click(function () {
     var thisID=$(this).attr("data-id");
@@ -113,7 +121,7 @@ new Vue({
     created: function() {
         var _this = this;
         $.ajax({
-            url: contextPath +"menu?wxPublicId="+14,
+            url: contextPath +"menu?wxPublicId="+wxID,
             type: "get",
             processData:true,
             success:function (data) {

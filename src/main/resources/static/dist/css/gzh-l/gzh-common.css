@@ -88,6 +88,14 @@ display: inline-block;
 cursor: pointer;
 }
 /*公用分页样式*/
+.btnStyle{
+    width: 72px;
+    height: 35px;
+    line-height: 35px;
+    background: #1794e4;
+    color: #ffffff;
+    border: none;
+}
 .pagingTest{
     margin-left: -1px;
     margin-top: 30px;
@@ -117,7 +125,7 @@ cursor: pointer;
 }
 .pagingTest a.current{
     color: white;
-    background: deepskyblue;
+    background: #1794e4;
 }
 .pagingTest a.disable{
     /*background: #c7c7c7;*/
