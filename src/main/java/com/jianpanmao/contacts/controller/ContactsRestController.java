@@ -2,6 +2,7 @@ package com.jianpanmao.contacts.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.common.entity.DataTablesResponseEntity;
 import com.jianpanmao.contacts.dto.ContactsDto;
 import com.jianpanmao.contacts.entity.Contacts;
@@ -55,6 +56,7 @@ public class ContactsRestController {
 
     @PreAuthorize("hasAuthority('contacts:view')")
     @RequestMapping(method = RequestMethod.GET,value = "tel")
+    @NoResultEntity
     public Boolean get(HttpServletRequest request) {
         String tel = request.getParameter("tel");
         Contacts contacts = contactsService.findeByTel(tel);
