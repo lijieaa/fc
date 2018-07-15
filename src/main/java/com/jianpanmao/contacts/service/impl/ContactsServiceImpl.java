@@ -66,4 +66,14 @@ public class ContactsServiceImpl extends BaseServiceImpl<Contacts,ContactsExampl
 
         return super.update(record);
     }
+
+    @Override
+    public Contacts findeByTel(String tel) {
+        return contactsMapper.selectByTel(tel);
+    }
+
+    @Override
+    public List<Contacts> findByCusId(Integer cusId) {
+        return contactsMapper.selectByCusId(cusId);
+    }
 }

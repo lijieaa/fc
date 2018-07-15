@@ -13,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class SysRoleServiceImpl extends BaseServiceImpl<SysRole,SysRoleExample,SysRoleDto,Integer> implements SysRoleService {
 
@@ -68,5 +70,10 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole,SysRoleExample,S
     @Override
     public int deleteByGroupId(Integer gid) {
         return roleMapper.deleteByGroupId(gid);
+    }
+
+    @Override
+    public List<SysRole> findByIsCon(Integer isCon) {
+        return roleMapper.findByIsCon(isCon);
     }
 }
