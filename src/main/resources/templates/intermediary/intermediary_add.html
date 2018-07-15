@@ -288,6 +288,11 @@
 
     Vue.component('ztreeList',{
         props:['list','nodes','listshow'],
+        data() {
+            return {
+                nodesArr:this.nodes
+            }
+        },
         template:'<div class="col-xs-12 col-sm-9">' +
         '<div class="ztree-page ztree-box col-xs-12 col-sm-8"> ' +
         '<span v-for="item in list" data-id="item.id"  class="ztreeName" ' +
@@ -325,7 +330,10 @@
                     },
                     data: {
                         simpleData: {
-                            enable: true
+                            enable: true,
+                            idKey: "id",
+                            pIdKey: "parentId",
+                            rootPId: 0
                         }
                     },
                     callback:{
@@ -337,27 +345,31 @@
                 };
             }
         },
-        mounted: function(){
-            var _this = this;
-            this.nodes.map(function(v){
-                if(v.type == 'person'){
-                    v.icon = contextPath +'images/person.png'
-                }else {
-                    v.icon = contextPath +'images/company.png'
-                }
-                console.log(v);
-            });
-            $.fn.zTree.init($("#treeDemoCheck"), this.setting(),
-                this.nodes);
-            var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
-            var treeNode = treeObj.transformToArray(treeObj.getNodes());
-            treeNode.map(function(v){
-                _this.list.map(function(s){
-                    if(v.id == s.id){
-                        treeObj.checkNode(v, true, true);
+        watch:{
+            nodes: function () {
+                var _this = this;
+                _this.nodes.map(function(v){
+                    if(v.type == 'person'){
+                        v.icon = contextPath +'images/person.png'
+                    }else {
+                        v.icon = contextPath +'images/company.png'
                     }
+                });
+                $.fn.zTree.init($("#treeDemoCheck"), _this.setting(),
+                    _this.nodes);
+                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
+                var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                treeNode.map(function(v){
+                    _this.list.map(function(s){
+                        if(v.id == s.id){
+                            treeObj.checkNode(v, true, true);
+                        }
+                    })
                 })
-            })
+            }
+        },
+        mounted: function(){
+
         }
     });
 
@@ -367,41 +379,8 @@
             el:"#myMediary",
             data:{
                 ztreeFlag:false,
-                zNodes:[
-                    { id:1, pId:0, name:"公司1", open:true},
-                    { id:11, pId:1, name:"部门1", open:true},
-                    { id:111, pId:11, name:"小红",type:"person"},
-                    { id:112, pId:11, name:"小明",type:"person"},
-                    { id:12, pId:1, name:"部门2", open:true},
-                    { id:121, pId:12, name:"summer",type:"person"},
-                    { id:122, pId:12, name:"sunshine",type:"person"},
-                    { id:2, pId:0, name:"公司2", open:true},
-                    { id:21, pId:2, name:"部门3"},
-                    { id:22, pId:2, name:"Linda", open:true,type:"person"},
-                    { id:221, pId:22, name:"公司4",type:"person"},
-                    { id:222, pId:22, name:"公司5",type:"person"},
-                    { id:23, pId:2, name:"sina",type:"person"}
-                ],
-                zTreeList:[
-                    {
-                        name:'小红',
-                        id:111
-                    },
-                    {
-                        name:'小明',
-                        id:112
-                    }
-                    ,
-                    {
-                        name:'summer',
-                        id:121
-                    }
-                    ,
-                    {
-                        name:'sunshine',
-                        id:122
-                    }
-                ],
+                zNodes:[],
+                zTreeList:[],
                 searchVal:"",
                 editList:{
                     area:{
@@ -458,7 +437,6 @@
                             _this.zTreeList.splice(i,1)
                         }
                     }
-                    console.log(this.ptrelation)
                 },
                 handleClick: function(treeNode) {
                     var _this = this;
@@ -613,6 +591,12 @@
             mounted:function () {
                 var _this = this;
                 _this.editorFun(); //初始化生成编辑器
+
+                $.axspost(contextPath+'api/dingtalkuser/deptUser?iId=1','get','',function (data) {
+                    _this.zNodes = data.content;
+                },function(data){});
+
+
                 // _this.uploaderFun();  //上传图片
                 jQuery.validator.addMethod("isMobile", function(value, element) {
                     var length = value.length;
@@ -622,7 +606,6 @@
 
                 //所属区域
                 $.axspost(contextPath + "api/area/condition?level=1","get","",function(data){
-                    // _this.facList = data.content;
                     data.content.forEach(function(item,i){
                         data.content[i].isParent  = true;
                         data.content.map(function(v){
@@ -703,6 +686,7 @@
                     }
                 });
 
+
                 CKEDITOR.instances.editor1.on('change', function() {
                     var data = CKEDITOR.instances.editor1.getData();
                     $("#intermediaryIntroduction").val(data);
@@ -718,6 +702,9 @@
                     }
 
                 });
+
+
+
             }
         });
         $(document).bind("click",function(e){

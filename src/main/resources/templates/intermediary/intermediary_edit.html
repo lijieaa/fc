@@ -503,6 +503,11 @@
                             //异步加载返回的数据
                             function ajaxDataFilter(treeId, parentNode, responseData) {
                                 // console.log(responseData.content +"=======================");
+                                responseData.content.map(function(v){
+                                    if(v.parent == false){
+                                        v.icon = contextPath +'images/commonZtree.png'
+                                    }
+                                });
                                 return responseData.content;
                             }
                             function zTreeOnclick(event, treeId, treeNode) {
@@ -620,6 +625,11 @@
                     // _this.facList = data.content;
                     data.content.forEach(function(item,i){
                         data.content[i].isParent  = true;
+                        data.content.map(function(v){
+                            if(v.parent == true){
+                                v.icon = contextPath +'images/company.png'
+                            }
+                        });
                         _this.facList = data.content;
                     });
                     _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
