@@ -3535,7 +3535,6 @@
                             var treeObj = $.fn.zTree.getZTreeObj("add-customer-competence-select");
                             var nodes = treeObj.getCheckedNodes(true), departmentnameArr = [];
                             if (nodes.length) {
-                                console.log(nodes);
                                 $("#add-customer-rcompetence").siblings("input").val("true");
                                 $("#departmentname-error").parents(".has-error").removeClass("has-error");
                                 $("#departmentname-error").remove();
@@ -3722,7 +3721,6 @@
                             var _this = $(this), flag = $formEditOutcontacts.form();
                             var treeObj = $.fn.zTree.getZTreeObj("edit-customer-competence-select"), nodes = treeObj.getCheckedNodes(true), departmentnameArr = [];
                             if (nodes.length) {
-                                console.log(nodes);
                                 $("#edit-customer-rcompetence").siblings("input").val("true");
                                 $("#role-error").parents(".has-error").removeClass("has-error");
                                 $("#role-error").remove();
@@ -3743,8 +3741,6 @@
                                     "cusId": $("#edit-customer-btn").attr("data-cusId"),
                                     "roles": departmentnameArr
                                 };
-//                                console.log(data);
-//                                return;
                                 $.ajax({
                                     url: contextPath+"api/contacts/",
                                     type: "put",
