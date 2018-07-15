@@ -416,7 +416,7 @@ $("#popPagingmp4").on("click","a",function () {
 // 图文展示
 function photoText(pageNo) {
     $.ajax({
-        url:contextPath +"material/page?rows=4&wxtype=news&wxPublicId="+wxID+"&page="+pageNo,
+        url:contextPath +"material/page?rows=10&wxtype=news&wxPublicId="+wxID+"&page="+pageNo,
         type: "get",
         success:function(data){
             $("#NumMater").text(data.content.data.total);
