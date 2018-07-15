@@ -1,6 +1,7 @@
 package com.jianpanmao.sys.dao;
 
 import com.jianpanmao.common.dao.BaseDao;
+import com.jianpanmao.sys.dto.ContactsDto;
 import com.jianpanmao.sys.dto.DeptUserDto;
 import com.jianpanmao.sys.dto.DingtalkUserDto;
 import com.jianpanmao.sys.entity.DingtalkUser;
@@ -29,4 +30,6 @@ public interface DingtalkUserMapper extends BaseDao<DingtalkUser, DingtalkUserEx
     Integer updateInfo(DingtalkUser entity);
 
     List<DeptUserDto> selectDeptUser(@Param("iId") Integer iId, @Param("path") String path);
+
+    List<ContactsDto> intermediaryContactUser(Integer iId);
 }

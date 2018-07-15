@@ -17,4 +17,6 @@ public interface IntermediaryMapper extends BaseDao<Intermediary, IntermediaryEx
     Intermediary byIsPlat();
 
     void addFcUser(List iu);
+
+    void deleteContacts(Integer iId);
 }

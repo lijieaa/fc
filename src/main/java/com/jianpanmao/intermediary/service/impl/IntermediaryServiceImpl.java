@@ -10,6 +10,7 @@ import com.jianpanmao.sys.dao.DingtalkDeptMapper;
 import com.jianpanmao.sys.dao.DingtalkUserDeptMapper;
 import com.jianpanmao.sys.dao.DingtalkUserMapper;
 import com.jianpanmao.sys.dao.SysUserRoleMapper;
+import com.jianpanmao.sys.dto.ContactsDto;
 import com.jianpanmao.sys.entity.DingtalkDept;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import com.jianpanmao.sys.entity.DingtalkUserDept;
@@ -44,6 +45,29 @@ public class IntermediaryServiceImpl extends BaseServiceImpl<Intermediary, Inter
     PasswordEncoder passwordEncoder;
 
     @Override
+    public Intermediary get(Integer TId) {
+        Intermediary intermediary = super.get(TId);
+        List<ContactsDto> contactsDtoList = dingtalkUserMapper.intermediaryContactUser(TId);
+        intermediary.setContacts(contactsDtoList);
+        return intermediary;
+    }
+
+    @Override
+    @Transactional
+    public int update(Intermediary record) {
+        intermediaryMapper.deleteContacts(record.getIntermediaryId());
+        String fcUser = record.getFcUser();
+        String myUser = record.getMyUser();
+        if (null != fcUser && fcUser.length() > 0) {
+            addContacts(fcUser, record.getIntermediaryId(), 0);
+        }
+        if (null != myUser && myUser.length() > 0) {
+            addContacts(myUser, record.getIntermediaryId(), 1);
+        }
+        return super.update(record);
+    }
+
+    @Override
     @Transactional
     public int removeI(Integer TId) throws CustomException {
         Intermediary intermediary = super.get(TId);
@@ -68,24 +92,29 @@ public class IntermediaryServiceImpl extends BaseServiceImpl<Intermediary, Inter
     @Override
     @Transactional
     public int add(Intermediary record) {
-         super.add(record);
+        super.add(record);
 //添加部门和人
         addDeptAndUser(record);
         //添加平台联系人
         String fcUser = record.getFcUser();
         if (null != fcUser && fcUser.length() > 0) {
-            List<IntermediaryUser> intermediaryUsers = new ArrayList<>();
-            String[] fcUsers = record.getFcUser().split(",");
-            for (String u : fcUsers) {
-                IntermediaryUser intermediaryUser = new IntermediaryUser();
-                intermediaryUser.setIntermediaryUserIid(record.getIntermediaryId());
-                intermediaryUser.setIntermediaryUserUid(Integer.valueOf(u));
-                intermediaryUser.setIntermediaryUserStatus(0);
-                intermediaryUsers.add(intermediaryUser);
-            }
-            intermediaryMapper.addFcUser(intermediaryUsers);
+            addContacts(fcUser, record.getIntermediaryId(), 0);
         }
         return record.getIntermediaryId();
+    }
+
+    //添加联系人(status 0:平台；1：中间商)
+    private void addContacts(String str, Integer iId, Integer status) {
+        List<IntermediaryUser> intermediaryUsers = new ArrayList<>();
+        String[] fcUsers = str.split(",");
+        for (String u : fcUsers) {
+            IntermediaryUser intermediaryUser = new IntermediaryUser();
+            intermediaryUser.setIntermediaryUserIid(iId);
+            intermediaryUser.setIntermediaryUserUid(Integer.valueOf(u));
+            intermediaryUser.setIntermediaryUserStatus(status);
+            intermediaryUsers.add(intermediaryUser);
+        }
+        intermediaryMapper.addFcUser(intermediaryUsers);
     }
 
     //添加中间商时添加默认部门和人
@@ -97,15 +126,15 @@ public class IntermediaryServiceImpl extends BaseServiceImpl<Intermediary, Inter
         dingtalkDept.setOrder(0);
         dingtalkDept.setIntermediaryId(intermediary.getIntermediaryId());
         dingtalkDept.setPath(",0,");
-         dingtalkDeptMapper.insert(dingtalkDept);
+        dingtalkDeptMapper.insert(dingtalkDept);
         //添加人
         DingtalkUser user = new DingtalkUser();
         user.setIntermediaryId(intermediary.getIntermediaryId());
         user.setName(intermediary.getIntermediaryContact());
         String tel = intermediary.getIntermediaryContactTel();
         user.setMobile(tel);
-        String password =tel.substring(tel.length() - 6, tel.length());
-                String encode = passwordEncoder.encode(password);
+        String password = tel.substring(tel.length() - 6, tel.length());
+        String encode = passwordEncoder.encode(password);
         user.setPassword(encode);
         dingtalkUserMapper.insert(user);
         //将人加到部门
@@ -118,5 +147,6 @@ public class IntermediaryServiceImpl extends BaseServiceImpl<Intermediary, Inter
         sysUserRole.setUserId(user.getUserid());
         sysUserRole.setRoleId(1);
         sysUserRoleMapper.insert(sysUserRole);
+        addContacts(user.getUserid().toString(), intermediary.getIntermediaryId(), 1);
     }
 }

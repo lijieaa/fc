@@ -609,7 +609,6 @@
   <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="parentid" jdbcType="INTEGER" property="parentId"></result>
   </resultMap>
-
   <select id="selectDeptUser"   resultType="com.jianpanmao.sys.dto.DeptUserDto">
    select
     u.userid id,
@@ -621,7 +620,26 @@
     LEFT JOIN  dingtalk_user_dept udp ON  u.userid = udp.user_id
     LEFT JOIN dingtalk_dept dp ON udp.dept_id = dp.id
     WHERE dp.intermediary_id = #{iId} and dp.path LIKE concat('%',#{path},'%')
-
   </select>
 
+  <!--查询平台联系人-->
+    <resultMap id="ContactResultMap" type="com.jianpanmao.sys.dto.ContactsDto">
+      <id column="userid" jdbcType="INTEGER" property="userId" />
+      <result column="name" jdbcType="VARCHAR" property="name" />
+      <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+      <result column="email" jdbcType="VARCHAR" property="email" />
+      <result column="jobnumber" jdbcType="VARCHAR" property="jobnumber" />
+      <result column="status" jdbcType="INTEGER" property="status" />
+      <result column="parentId" jdbcType="INTEGER" property="parentId" />
+    </resultMap>
+  <select id="intermediaryContactUser" parameterType="java.lang.Integer" resultMap="ContactResultMap">
+select u.*,
+iu.intermediary_user__status status,
+dp.parentid
+from dingtalk_user u
+ LEFT JOIN intermediary_user iu ON u.userid = iu.intermediary_user_uId
+ LEFT JOIN  dingtalk_user_dept udp ON  u.userid = udp.user_id
+ LEFT JOIN dingtalk_dept dp ON udp.dept_id = dp.id
+ WHERE iu.intermediary_user_iId = #{0}
+  </select>
 </mapper>

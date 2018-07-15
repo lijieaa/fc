@@ -1,11 +1,14 @@
 package com.jianpanmao.intermediary.entity;
 
 import com.jianpanmao.area.entity.Area;
+import com.jianpanmao.sys.dto.ContactsDto;
+import com.jianpanmao.sys.dto.DeptUserDto;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import org.hibernate.validator.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -32,8 +35,19 @@ public class Intermediary implements Serializable {
     //所属地区
     private @NotNull(message = "所属地区不能为空") Area area;
 
+    //接收飞创对接人id字符串以','分割
     //平台联系人
-    private @NotNull(message = "平台对接人不能为空") String fcUser;
+    private  String fcUser;
+    //接收修改后的本中间商对接人id字符串以','分割
+    private String myUser;
+
+    public String getMyUser() {
+        return myUser;
+    }
+
+    public void setMyUser(String myUser) {
+        this.myUser = myUser;
+    }
 
     //平台LOGO
     @NotNull(message = "logo不能为空")
@@ -56,6 +70,17 @@ public class Intermediary implements Serializable {
     private String eCode;//企业代码
 
     private String businessLicense;//营业执照
+//平台联系人和中间商联系人
+    private List<ContactsDto> contacts;
+
+
+    public List<ContactsDto> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<ContactsDto> contacts) {
+        this.contacts = contacts;
+    }
 
     String od;
 
