@@ -67,6 +67,13 @@ public class SysRoleRestController {
 
 
     @PreAuthorize("hasAuthority('sysrole:view')")
+    @RequestMapping(method = RequestMethod.GET,value = "isCon")
+    public List<SysRole> findByIsCon(@RequestParam(value = "isCon",defaultValue = "1",required = true)Integer isCon) {
+        return sysroleService.findByIsCon(isCon);
+    }
+
+
+    @PreAuthorize("hasAuthority('sysrole:view')")
     @RequestMapping(method = RequestMethod.GET, value = "page")
     public Object page(@RequestParam(value = "pageNum", defaultValue = "1", required = true) Integer pageNum,
                        @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,

@@ -365,10 +365,7 @@
   <update id="updateByPrimaryKey" parameterType="com.jianpanmao.intermediary.entity.Intermediary">
     update intermediary
     set intermediary_name = #{intermediaryName,jdbcType=VARCHAR},
-      intermediary_contact = #{intermediaryContact,jdbcType=VARCHAR},
-      intermediary_contact_tel = #{intermediaryContactTel,jdbcType=VARCHAR},
       area_id = #{area.id,jdbcType=INTEGER},
-      user_id = #{user.userid,jdbcType=INTEGER},
       intermediary_logo_url = #{intermediaryLogoUrl,jdbcType=VARCHAR},
       intermediary_introduction = #{intermediaryIntroduction,jdbcType=LONGVARCHAR},
       e_code = #{eCode,jdbcType=VARCHAR},
@@ -387,12 +384,10 @@
   </delete>
 
   <select id="selectByDto" parameterType="com.jianpanmao.intermediary.dto.IntermediaryDto" resultMap="BaseResultMap">
-    select i.*,user.name uname,user.mobile,user.userid,area.*
+    select i.*,area.*
     FROM intermediary i
     LEFT JOIN area area
     ON i.area_id =area.id
-    LEFT JOIN dingtalk_user user
-    ON i.user_id = user.userid
     WHERE 1=1
     <if test="intermediaryId!=null">
       and intermediary_id=#{intermediaryId}
@@ -444,7 +439,7 @@
   <insert id="addFcUser"  parameterType="java.util.List">
     INSERT INTO
     intermediary_user
-    (intermediary_user_iId,intermediary_user_uId,intermediary_user__status)
+    (intermediary_user_iId,intermediary_user_uId,intermediary_user_status)
     VALUES
     <foreach collection ="list" item="iu" index= "index" separator =",">
                       (
@@ -455,4 +450,9 @@
                   </foreach >
 
   </insert>
+  <!--删除平台联系人-->
+  <delete id="deleteContacts" parameterType="java.lang.Integer">
+    delete from intermediary_user
+    where intermediary_user_iId =#{0}
+  </delete>
 </mapper>

@@ -2,6 +2,7 @@ package com.jianpanmao.contacts.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.common.entity.DataTablesResponseEntity;
 import com.jianpanmao.contacts.dto.ContactsDto;
 import com.jianpanmao.contacts.entity.Contacts;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -49,6 +51,20 @@ public class ContactsRestController {
     @RequestMapping(method = RequestMethod.GET)
     public Contacts get(@RequestParam("id") Integer id) {
         return contactsService.get(id);
+    }
+
+
+    @PreAuthorize("hasAuthority('contacts:view')")
+    @RequestMapping(method = RequestMethod.GET,value = "tel")
+    @NoResultEntity
+    public Boolean get(HttpServletRequest request) {
+        String tel = request.getParameter("tel");
+        Contacts contacts = contactsService.findeByTel(tel);
+        if (null == contacts) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @PreAuthorize("hasAuthority('contacts:view')")

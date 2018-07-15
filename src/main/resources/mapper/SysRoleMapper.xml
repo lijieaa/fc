@@ -10,6 +10,7 @@
     <result column="role_update_time" jdbcType="TIMESTAMP" property="roleUpdateTime" />
     <result column="role_create_time" jdbcType="TIMESTAMP" property="roleCreateTime" />
     <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="is_con" jdbcType="INTEGER" property="isCon" />
     <collection property="menus" ofType="com.jianpanmao.sys.entity.SysMenu" select="selectMenu" column="role_id"/>
   </resultMap>
 
@@ -85,7 +86,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    role_id, role_name, role_description,intermediary_id, role_update_time, role_create_time,group_id,is_del
+    role_id, role_name, role_description,intermediary_id, role_update_time, role_create_time,group_id,is_del,is_con
   </sql>
   <select id="selectByExample" parameterType="com.jianpanmao.sys.entity.SysRoleExample" resultMap="BaseResultMap">
     select
@@ -110,6 +111,7 @@
     from sys_role
     where role_id = #{roleId,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_role
     where role_id = #{roleId,jdbcType=INTEGER} and is_del=0
@@ -331,11 +333,11 @@
     select * from dingtalk_user u,sys_user_role ur,sys_role r where u.userid=ur.user_id AND r.role_id=ur.role_id and u.userid=#{0}
   </select>
 
-
-  <select id="findByIsCon" resultMap="BaseResultMap">
-    select * from sys_role t where t.is_con=1
+  <select id="findByIsCon" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_role
+    where is_con = #{0}
   </select>
-
-
 
 </mapper>

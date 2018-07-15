@@ -1,6 +1,5 @@
 package com.jianpanmao.sys.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jianpanmao.intermediary.entity.Intermediary;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -71,6 +70,16 @@ public class DingtalkUser implements Serializable,UserDetails {
 
     private Intermediary intermediary;
 
+    //记录查询出的用户是飞创还是自己中间商的标识
+    private Integer status;
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public String getHeadPic() {
             return headPic;

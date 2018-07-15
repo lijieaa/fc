@@ -255,7 +255,12 @@ span.pkee{
    color:#c1c1c0;
 }
 
-
+.ios .card{
+  margin:10px 0;
+}
+.ios .list .item-inner:after{
+/*  background: none;*/
+}
 .comm2{
   flex-shrink: 1;
   width: 100%;

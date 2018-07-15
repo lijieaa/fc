@@ -91,14 +91,23 @@ cursor: pointer;
 .pagingTest{
     margin-left: -1px;
     margin-top: 30px;
+    width: 100%;
+    text-align: center;
 }
 .pagingTest a{
     border: 1px solid #b0b0b0;
-    padding: 5px 12px;
+    /*padding: 5px 12px;*/
     margin: 0 0px;
     cursor: pointer;
     border-right: none;
     color: #6FB3E0;
+    height: 30px;
+    width: 35px;
+    line-height: 30px;
+    display: inline-block;
+}
+#prevPage,#nextPage{
+    width: 50px;
 }
 .pagingTest a:last-child{
     border-right:1px solid #b0b0b0 ;
@@ -111,7 +120,7 @@ cursor: pointer;
     background: deepskyblue;
 }
 .pagingTest a.disable{
-    background: #c7c7c7;
+    /*background: #c7c7c7;*/
     color: black;
     cursor:not-allowed;
 }
@@ -136,7 +145,9 @@ cursor: pointer;
 .chat-type{
     height: 35px;
     line-height: 35px;
-    background: #E5E5E5;
+    background: #f8f8f8;
+    border: 1px #d1d1d1 solid;
+    color: #a3a3a3;
 }
 .chat-type i{
     margin-right: 3px;
@@ -159,17 +170,24 @@ cursor: pointer;
     cursor: pointer;
 }
 #backUl{
-    margin-right: 35px;
+    margin-right: 15px;
     margin-top: -10px;
-    height: 38px;
-    line-height: 18px;
+    height: 35px;
+    line-height: 15px;
+    width: 74px;
+}
+.btn-info>.icon-only.ace-icon {
+    margin: 0 !important;
+    text-align: center;
+    padding-right: 5px;
 }
 .tex-color{
     color: #6FB3E0!important;
 }
 #backUlManage{
-    height: 38px;
-    line-height: 18px;
+    height: 35px;
+    line-height: 15px;
+    width: 74px;
 }
 .chat-with{
     font-size: 16px;

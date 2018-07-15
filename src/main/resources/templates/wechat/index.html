@@ -259,13 +259,13 @@
                         "render": function (data, type, row) {
                             return '<div class="hidden-sm hidden-xs action-buttons">'
                                 [# sec:authorize="hasAuthority('wechat:basic')"]
-                            + '<a class="green" href="edit/?id='+data.id+'"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
+                            + '<a href="user/?wxPublicId='+data.id+'" class="blue manage" data-id="'+data.id+'" title="管理"><i class="ace-icon fa fa-cogs bigger-130"></i></a>'
                                 [/]
                                 [# sec:authorize="hasAuthority('wechat:basic')"]
-                            + '<a class="red delete" data-id="'+data.id+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
+                            + '<a class="blue" href="edit/?id='+data.id+'" title="编辑"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
                                 [/]
                                 [# sec:authorize="hasAuthority('wechat:basic')"]
-                            + '<a href="user/?wxPublicId='+data.id+'" class="blue manage" data-id="'+data.id+'"><i class="ace-icon fa fa-cogs bigger-130"></i></a>'
+                            + '<a class="blue delete" data-id="'+data.id+'" title="删除"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
                                 [/]
                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
