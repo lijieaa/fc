@@ -38,9 +38,9 @@
                                         <div class="item-title text-base-color">设备信号</div>
                                         <div class="item-after">
                                             <div style="flex-shrink:0" >
-                                                <select name="" id="" class="pkee text-base-color f30 "  style="width:125px;">
-                                                    <option value="">水动自清洗过滤器</option>
-                                                </select>
+
+                                                <select name="project" class="pkee text-base-color f30 "  style="width:125px;"><option value="0">水动自清洗过滤器</option><option value="1">电动刷式过滤器</option><option value="2">电动吸式过滤器</option><option value="3">电动刷吸式过滤器</option><option value="4">自动反冲洗砂滤系统</option><option value="5">自动反冲洗叠片过滤系统</option><option value="6">水处理控制器</option></select>
+
                                             </div>
                                             <span class=" ser-btn  text-base-color f7-icons f32"  style="width:15px">&or;</span>
                                         </div>
@@ -52,7 +52,7 @@
                                         <div class="item-title text-base-color">电机</div>
                                         <div class="item-after">
                                             <label class="toggle toggle-init">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox"  class ="ignore" >
                                                 <span class="toggle-icon"></span>
                                             </label>
                                         </div>
@@ -64,7 +64,7 @@
                                         <div class="item-title text-base-color">行程开关</div>
                                         <div class="item-after">
                                             <label class="toggle toggle-init">
-                                                <input type="checkbox">
+                                                <input type="checkbox"  class ="ignore">
                                                 <span class="toggle-icon"></span>
                                             </label>
                                         </div>
@@ -77,9 +77,7 @@
                                         <div class="item-title text-base-color">电机动作时间</div>
                                         <div class="item-after">
                                             <div style="flex-shrink:0" >
-                                                <select name="" id="" class="pkee text-base-color f30 "  style="width:106px;margin-right:4px;">
-                                                    <option value="">34</option>
-                                                </select>
+                                                <input type="text" class="pkee text-base-color f30" name="time"  style="width:106px;margin-right:4px;"/>
                                             </div>
                                             <span class=" pkee text-base-color f30 text-align-center"  style="width:30px">秒</span>
                                         </div>
@@ -91,7 +89,7 @@
                                         <div class="item-title text-base-color">压差开关</div>
                                         <div class="item-after">
                                             <div style="flex-shrink:0" >
-                                                <select name="" id="" class="pkee text-base-color f30 "  style="width:125px">
+                                                <select name="" id="" class="pkee text-base-color f30 ignore"  style="width:125px">
                                                     <option value="">数字</option>
                                                 </select>
                                             </div>
@@ -105,9 +103,7 @@
                                         <div class="item-title text-base-color">电压告警值</div>
                                         <div class="item-after">
                                             <div style="flex-shrink:0" >
-                                                <select name="" id="" class="pkee text-base-color f30 "  style="width:106px;margin-right:4px;">
-                                                    <option value="">34</option>
-                                                </select>
+                                                <input type="text" class="pkee text-base-color f30 ignore"   style="width:106px;margin-right:4px;"/>
                                             </div>
                                             <span class=" pkee text-base-color f30 text-align-center"  style="width:30px">V</span>
                                         </div>
@@ -119,7 +115,7 @@
                                         <div class="item-title text-base-color">主阀</div>
                                         <div class="item-after">
                                             <label class="toggle toggle-init">
-                                                <input type="checkbox">
+                                                <input type="checkbox" class="ignore">
                                                 <span class="toggle-icon"></span>
                                             </label>
                                         </div>
@@ -132,7 +128,7 @@
                                         <div class="item-title text-base-color">单元一</div>
                                         <div class="item-after">
                                             <label class="toggle toggle-init">
-                                                <input type="checkbox">
+                                                <input type="checkbox" class="ignore">
                                                 <span class="toggle-icon"></span>
                                             </label>
                                         </div>
@@ -189,7 +185,7 @@
                             <li>
                                 <div class="item-content">
                                     <div class="item-inner">
-                                        <div class="item-title text-base-color">单元五</div>
+                                        <div class="item-title text-base-color ignore">单元五</div>
                                         <div class="item-after">
                                             <label class="toggle toggle-init">
                                                 <input type="checkbox">
@@ -249,6 +245,10 @@
                         </ul>
 
                     </form>
+                    <div class="block block-strong row">
+                        <div class="col"><a class="button convert-form-to-data" href="#">Get Data</a></div>
+                        <div class="col"><a class="button fill-form-from-data" href="#">Fill Form</a></div>
+                    </div>
 
                 </div>
             </div>
@@ -257,6 +257,7 @@
         </div>
     </div>
 <script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
+<script th:src="@{/ace/assets/js/jquery.validate.min.js}"></script>
 <script>
     var app = new Framework7(
             {
@@ -266,69 +267,34 @@
             })
 
 
-    console.log($('#form').validate)
+    var $$ = Dom7;
 
-/*    var $form = $('#form').validate({
+    $$('.convert-form-to-data').on('click', function(){
+        var formData = app.form.convertToData('#my-form');
+        alert(JSON.stringify(formData));
+    });
+
+    $$('.fill-form-from-data').on('click', function(){
+        var formData = {
+            'name': 'John',
+            'email': 'john@doe.com',
+            'gender': 'female',
+            'toggle': ['yes'],
+        }
+        app.form.fillFromData('#my-form', formData);
+    });
+
+    var $form = $('#form').validate({
+        debug:false,
         errorElement: 'div',
         errorClass: 'help-block',
         focusInvalid: false,
-        ignore: "",
+        ignore: ".ignore",
         rules: {
             project: {
                 required: true
             },
-            time: {
-                required: true
-            },
-            power:{
-                required: true
-            },
-            clean:{
-                required: true
-            },
-            unitTime:{
-                required: true
-            },
-            jgTime:{
-                required: true
-            },
-            ysTime:{
-                required: true
-            },
-            ycTime:{
-                required: true
-            },
-            startYc:{
-                required: true
-            },
-            cleanTime:{
-                required: true
-            },
-            cleanAlarm:{
-                required: true
-            },
-            actionZq:{
-                required: true
-            },
-            powerStart:{
-                required: true
-            },
-            year:{
-                required: true
-            }
-            ,month:{
-                required: true
-            }
-            ,day:{
-                required: true
-            }
-            ,hour:{
-                required: true
-            }
-            ,minute:{
-                required: true
-            }
-            ,second:{
+            time:{
                 required: true
             }
         },
@@ -340,10 +306,10 @@
             $(e).remove();
         },
         errorPlacement: function (error, element) {
-            error.insertAfter(element.parent());
+            error.insertBefore(element.parent());
         },
         submitHandler: function (form) {
-            var data ={
+           /* var data ={
                 remoteBoot:_this.numDevice(_this.remoteBoot),
                 deviceParam:{
                     // numDevice
@@ -369,10 +335,6 @@
                 system_time:_this.system_time.year+"-"+_this.system_time.month+"-"+_this.system_time.day+":" +_this.system_time.hour+":"+_this.system_time.minute+":"+
                 _this.system_time.second
             };
-
-
-
-
             if($(".error").length == 0){
                 $.ajax({
                     url: contextPath+"api/mqtt_send",
@@ -390,12 +352,19 @@
                         // console.log(data);
                     }
                 });
-            }
+            }*/
         },
         invalidHandler: function (form) {
-
         }
-    });*/
+
+    });
+
+
+    $('.fill-form-from-data').on('click',function(){
+        $('#form').submit()
+    })
+
+
 
 </script>
 </body>

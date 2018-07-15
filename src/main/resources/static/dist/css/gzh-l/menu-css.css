@@ -16,8 +16,8 @@
     float: right;
 }
 .page-left{
-    width: 27%;
-    height: 600px;
+    width: 24%;
+    height: 650px;
     outline: 1px solid gainsboro;
     float: left;
     margin-left: 1%;
@@ -40,8 +40,8 @@
     margin-bottom: 25px;
 }
 .page-right{
-    width: 65%;
-    height: 600px;
+    width: 72%;
+    height: 650px;
     outline: 1px solid gainsboro;
     margin-left: 2%;
     vertical-align: top;
@@ -143,7 +143,7 @@
 }
 .submit{
     width: 75px;
-    height: 38px;
+    height: 35px;
     border: none;
     background: #1794e4;
     border-radius: 3px;
@@ -168,13 +168,14 @@
     background: #e7e7e7;
     height: 40px;
     line-height: 40px;
+    color: #9b9b9b;
 }
 .sub-menu-select .active{
     color: #44b549;
 }
 .sub-menu-content{
     background: white;
-    height: 270px;
+    height: 395px;
     overflow: hidden;
     position: relative;
 }
@@ -194,11 +195,12 @@
     /*left: 0; */
     /*bottom: 0;*/
     right: 10px;
-    background-color: #9e9e9e;
+    background-color: #1794e4;
     text-align: center;
     line-height: 30px;
     border-radius: 3px;
     cursor: pointer;
+    color: #ffffff;
 }
 .showSc{
     width: 255px;
