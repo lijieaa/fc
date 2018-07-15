@@ -831,7 +831,7 @@
         <div class="form-group col-sm-12 col-md-12">
             <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-email">邮箱:</label>
             <div class="col-sm-9">
-                <input type="text" id="add-outcontacts-email" placeholder="请输入邮箱" class="form-control">
+                <input type="text" id="add-outcontacts-email" name="email" placeholder="请输入邮箱" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
@@ -886,7 +886,7 @@
         <div class="form-group col-sm-12 col-md-12">
             <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-phone">联系电话:</label>
             <div class="col-sm-9">
-                <input type="text" id="edit-outcontacts-phone" name="phone" placeholder="请输入联系电话" maxlength="11" class="form-control">
+                <input type="text" id="edit-outcontacts-phone" name="phone" placeholder="请输入联系电话" maxlength="11" class="form-control" readonly>
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
@@ -3126,7 +3126,7 @@
                                     outcontactsListHtml += '<tr class="align-center">'+
                                             '<td>'+
                                             '<label class="pos-rel">'+
-                                            '<input type="checkbox" class="ace" data-id="'+ item.id +'">'+
+                                            '<input type="checkbox" class="ace" data-id="'+ item.conId +'">'+
                                             '<span class="lbl"></span>'+
                                             '</label>'+
                                             '</td>'+
@@ -3189,7 +3189,7 @@
                                 outcontactsListHtml += '<tr class="align-center">'+
                                         '<td>'+
                                         '<label class="pos-rel">'+
-                                        '<input type="checkbox" class="ace" data-id="'+ item.id +'">'+
+                                        '<input type="checkbox" class="ace" data-id="'+ item.conId +'">'+
                                         '<span class="lbl"></span>'+
                                         '</label>'+
                                         '</td>'+
@@ -3437,7 +3437,19 @@
                 },
                 phone: {
                     required: true,
+                    remote: function() {
+                        var mobile = $("#add-outcontacts-phone").val();
+                        var r = {
+                            url: contextPath+"api/contacts/tel",
+                            type: "get",
+                            data: "tel="+mobile
+                        };
+                        return r;
+                    },
                     isMobile: true
+                },
+                email: {
+                    email: true
                 },
                 role: {
                     required: true
@@ -3445,6 +3457,7 @@
             },
             messages: {
                 phone: {
+                    remote: "该用户已经存在",
                     isMobile: "请填写正确的手机号码"
                 }
             },
@@ -3469,7 +3482,7 @@
                     enable: true,
                     dataType: "json",
                     type: "get",
-                    url: contextPath+"api/sysrole/list",
+                    url: contextPath+"api/sysrole/isCon?isCon=1",
                     dataFilter: ajaxDataFilterFnSettings
                 },
                 data:{
@@ -3521,13 +3534,13 @@
                             var _this = $(this);
                             var treeObj = $.fn.zTree.getZTreeObj("add-customer-competence-select");
                             var nodes = treeObj.getCheckedNodes(true), departmentnameArr = [];
-                            console.log(nodes);
                             if (nodes.length) {
+                                console.log(nodes);
                                 $("#add-customer-rcompetence").siblings("input").val("true");
                                 $("#departmentname-error").parents(".has-error").removeClass("has-error");
                                 $("#departmentname-error").remove();
                                 $.each(nodes, function (i, item) {
-                                    departmentnameArr.push({"id":item.id})
+                                    departmentnameArr.push({"roleId":item.roleId})
                                 })
                             } else {
                                 $("#add-customer-rcompetence").siblings("input").val("");
@@ -3542,7 +3555,7 @@
                                     "conWechat": $("#add-outcontacts-wechat").val(),
                                     "conEmail": $("#add-outcontacts-email").val(),
                                     "cusId": $("#edit-customer-btn").attr("data-cusId"),
-                                    "roleId": ""
+                                    "roles": departmentnameArr
                                 };
                                 $.ajax({
                                     url: contextPath+"api/contacts/",
@@ -3582,29 +3595,31 @@
                 username: {
                     required: true
                 },
-                phone: {
+                /*phone: {
                     required: true,
+                    remote: function() {
+                        var mobile = $("#edit-outcontacts-phone").val();
+                        var r = {
+                            url: contextPath+"api/contacts/tel",
+                            type: "get",
+                            data: "tel="+mobile
+                        };
+                        return r;
+                    },
                     isMobile: true
-                    /* remote: {
-                     url: contextPath+"api/dingtalkuser/mobile",
-                     type: "post",               //数据发送方式
-                     dataType: "json",           //接受数据格式
-                     data: JSON.stringify({                     //要传递的数据
-                     mobile: function() {
-                     return $("#add-department-staff-phone").val();
-                     }
-                     })
-                     }*/
+                },*/
+                email: {
+                    email: true
                 },
-                editOutcontactsTag: {
+                role: {
                     required: true
                 }
             },
             messages: {
-//                remote: "该用户已经存在"
-                phone: {
+                /*phone: {
+                    remote: "该用户已经存在",
                     isMobile: "请填写正确的手机号码"
-                }
+                }*/
             },
             highlight: function (e) {
                 $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
@@ -3622,7 +3637,7 @@
         function editOutcontacts(id) {
             validateResetForm($formEditOutcontacts, $('#edit-outcontacts-container>form'));
             $.ajax({
-                url: contextPath+"api/extcon/?id="+id,
+                url: contextPath+"api/contacts/?id="+id,
                 type: "get",
                 contentType: "application/json",
                 dataType : "json",
@@ -3630,106 +3645,65 @@
                     if (data.content) {
 //                        console.log(data);
                         var result = data.content, charge = result.charge, labsObj = result.labs;
-                        $("#edit-outcontacts-username").val(result.username);
-                        $("#edit-outcontacts-company").val(result.company);
-                        $("#edit-outcontacts-position").val(result.pos);
-                        $("#edit-outcontacts-email").val(result.email);
-                        $("#edit-outcontacts-phone").val(result.tel);
-                        $("#edit-outcontacts-address").val(result.adress);
-                        $("#edit-outcontacts-remark").val(result.mark);
+                        $("#edit-outcontacts-username").val(result.conName);
+                        $("#edit-outcontacts-phone").val(result.conTel);
+                        $("#edit-outcontacts-QQ").val(result.conQq);
+                        $("#edit-outcontacts-wechat").val(result.conWechat);
+                        $("#edit-outcontacts-email").val(result.conEmail);
 
-                        //选择标签
-                        $.ajax({
-                            url: contextPath+"api/labgroup/list",
-                            type: "get",
-                            contentType: "application/json",
-                            dataType : "json",
-                            success: function (data) {
-                                if (data.content.length) {
-                                    var editOutcontactsTagSelectBox = $("#edit-outcontacts-tag-select");
-                                    editOutcontactsTagSelectBox.html("");
-                                    $.each(data.content, function (k, ktem) {
-                                        var editOutcontactsTagSelectHtml = $('<li><div class="control-group" style=""><label class="control-label bolder blue block align-left"></label></div></li>');
-                                        editOutcontactsTagSelectHtml.find('label').text(ktem.name);
-                                        editOutcontactsTagSelectBox.append(editOutcontactsTagSelectHtml);
+                        var roleList = result.roles;
 
-
-                                        if (ktem.children.length) {
-                                            $.each(ktem.children, function (i, item) {
-                                                var editOutcontactsChildrenTagSelectHtml = $('<div class="radio inline"><label><input  type="checkbox" class="ace"><span class="lbl"></span></label></div>');
-                                                editOutcontactsChildrenTagSelectHtml.find("span.lbl").text(item.name);
-
-                                                editOutcontactsChildrenTagSelectHtml.find("input").attr("name","form-field-checkbox"+i);
-
-                                                editOutcontactsChildrenTagSelectHtml.find("input").attr("value",item.id);
-
-                                                editOutcontactsTagSelectHtml.find("div.control-group").append(editOutcontactsChildrenTagSelectHtml);
-                                                if (labsObj.length) {
-                                                    $.each(labsObj,function (j, jtem) {
-                                                        if (item.id == jtem.id) {
-                                                            editOutcontactsChildrenTagSelectHtml.find("input[type=checkbox]").attr("checked",true);
-                                                        }
-                                                    });
-                                                }
-                                            });
-
-                                        }
-                                        $("#edit-outcontacts-tag-select>li .control-group input[type=checkbox]").on("click", function () {
-                                            $(this).parents("div").siblings().find("input").attr("checked", false);
-
-                                        });
-                                    });
+                        //选择角色
+                        var roleSettings = {
+                            async: {
+                                enable: true,
+                                dataType: "json",
+                                type: "get",
+                                url: contextPath+"api/sysrole/isCon?isCon=1",
+                                dataFilter: ajaxDataFilterFnSettings
+                            },
+                            data:{
+                                key: {
+                                    name: "roleName"
+                                },
+                                simpleData : {
+                                    enable : false
                                 }
                             },
-                            error: function (data) {
-//                                console.log(data);
+                            check: {
+                                enable: true,
+                                chkStyle: "checkbox"
+                            },
+                            view: {
+                                showLine: false
                             }
-                        });
-                        //选择负责人
-                        $.ajax({
-                            url: contextPath+"api/dingtalkuser/intermediary_id",
-                            type: "get",
-                            contentType: "application/json",
-                            dataType : "json",
-                            success: function (data) {
-                                if (data.content.length) {
-                                    var editOutcontactsPrincipalBox = $("#edit-outcontacts-principal");
-                                    editOutcontactsPrincipalBox.html("");
-                                    $.each(data.content, function (i, item) {
-                                        var editOutcontactsPrincipalHtml = "";
-                                        if (item.userid == charge) {
-                                            editOutcontactsPrincipalHtml = '<option value="'+ item.userid +'" selected>'+ item.name +'</option>';
-                                            editOutcontactsPrincipalBox.append(editOutcontactsPrincipalHtml);
-                                        } else {
-                                            editOutcontactsPrincipalHtml = '<option value="'+ item.userid +'">'+ item.name +'</option>';
-                                            editOutcontactsPrincipalBox.append(editOutcontactsPrincipalHtml);
-                                        }
-
-                                    });
-                                }
-                            },
-                            error: function (data) {
-//                                console.log(data);
+                        };
+                        function ajaxDataFilterFnSettings(treeId, parentNode, responseData) {
+                            $.each(roleList, function (j, jtem) {
+                                $.each(responseData.content, function (i, item) {
+                                    if (item.roleId == jtem.roleId) {
+                                        item["checked"] = true;
+                                    }
+                                })
+                            });
+                            return responseData.content;
+                        }
+                        $.fn.zTree.init($("#edit-customer-competence-select"), roleSettings);
+                        $("#edit-customer-rcompetence").unbind();
+                        $("#edit-customer-rcompetence").on("click", function () {
+                            $("#role-error").parents(".has-error").removeClass("has-error");
+                            $("#role-error").remove();
+                            if ($("#edit-customer-competence-select").hasClass("display-none")) {
+                                $("#edit-customer-competence-select").removeClass("display-none")
+                            } else {
+                                $("#edit-customer-competence-select").addClass("display-none")
                             }
                         });
                     }
                 },
                 error: function (data) {
-//                    console.log(data);
                 }
             });
-
-            $("#edit-outcontacts-tag-btn").unbind();
-            $("#edit-outcontacts-tag-btn").on("click", function () {
-                $("#editOutcontactsTag-error").parents(".has-error").removeClass("has-error");
-                $("#editOutcontactsTag-error").remove();
-                if ($("#edit-outcontacts-tag-select").hasClass("display-none")) {
-                    $("#edit-outcontacts-tag-select").removeClass("display-none")
-                } else {
-                    $("#edit-outcontacts-tag-select").addClass("display-none")
-                }
-            });
-
             var dialog = $( "#edit-outcontacts-container" ).removeClass('hide').dialog({
                 dragStop: function( event, ui ) {
                     $(event.target.offsetParent).css("height", "auto");
@@ -3738,42 +3712,41 @@
                 width: '680',
                 modal: true,
                 closeText: "关闭",
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;添加成员</h4></div>",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-plus'></i>&nbsp;编辑成员</h4></div>",
                 title_html: true,
                 buttons: [
                     {
                         text: "保存",
                         "class" : "btn btn-info btn-minier",
                         click: function() {
-                            var _this = $(this);
-                            var flag = $formEditOutcontacts.form(), labsList = $("#edit-outcontacts-container .control-group input[type=checkbox]:checked"), arrLabs = [];
-                            labsList.each(function (i, item) {
-                                arrLabs.push({"id": $(item).val()});
-                            });
-                            if (labsList.length) {
-                                $("#edit-outcontacts-tag-btn").siblings("input").val("true");
-                                $("#editOutcontactsTag-error").parents(".has-error").removeClass("has-error");
-                                $("#editOutcontactsTag-error").remove();
+                            var _this = $(this), flag = $formEditOutcontacts.form();
+                            var treeObj = $.fn.zTree.getZTreeObj("edit-customer-competence-select"), nodes = treeObj.getCheckedNodes(true), departmentnameArr = [];
+                            if (nodes.length) {
+                                console.log(nodes);
+                                $("#edit-customer-rcompetence").siblings("input").val("true");
+                                $("#role-error").parents(".has-error").removeClass("has-error");
+                                $("#role-error").remove();
+                                $.each(nodes, function (i, item) {
+                                    departmentnameArr.push({"roleId":item.roleId})
+                                })
                             } else {
-                                $("#edit-outcontacts-tag-btn").siblings("input").val("");
+                                $("#edit-customer-rcompetence").siblings("input").val("");
                             }
                             if(flag){
                                 var data = {
-                                    "id": id,
-                                    "username": $("#edit-outcontacts-username").val(),
-                                    "company": $("#edit-outcontacts-company").val(),
-                                    "pos": $("#edit-outcontacts-position").val(),
-                                    "email": $("#edit-outcontacts-email").val(),
-                                    "tel": $("#edit-outcontacts-phone").val(),
-                                    "adress": $("#edit-outcontacts-address").val(),
-                                    "charge": $("#edit-outcontacts-principal").val(),
-                                    "remark": $("#edit-outcontacts-remark").val(),
-                                    "labs": arrLabs
+                                    "conId": id,
+                                    "conName": $("#edit-outcontacts-username").val(),
+                                    "conTel": $("#edit-outcontacts-phone").val(),
+                                    "conQq": $("#edit-outcontacts-QQ").val(),
+                                    "conWechat": $("#edit-outcontacts-wechat").val(),
+                                    "conEmail": $("#edit-outcontacts-email").val(),
+                                    "cusId": $("#edit-customer-btn").attr("data-cusId"),
+                                    "roles": departmentnameArr
                                 };
 //                                console.log(data);
 //                                return;
                                 $.ajax({
-                                    url: contextPath+"api/extcon/",
+                                    url: contextPath+"api/contacts/",
                                     type: "put",
                                     data : JSON.stringify(data),
                                     contentType: "application/json",
@@ -3806,7 +3779,7 @@
                                         type: 'get',
                                         dataType : "json",
                                         contentType: "application/json",
-                                        url: contextPath + "api/extcon/labid?labid="+$(".outcontacts-container").attr("data-labid"),
+                                        url: contextPath + "api/contacts/cid?cid="+$("#edit-customer-btn").attr("data-cusId"),
                                         success:function(data){
                                             if (data.status == "200") {
                                                 //人员列表
@@ -3817,15 +3790,16 @@
                                                         outcontactsListHtml += '<tr class="align-center">'+
                                                                 '<td>'+
                                                                 '<label class="pos-rel">'+
-                                                                '<input type="checkbox" class="ace" data-id="'+ item.id +'">'+
+                                                                '<input type="checkbox" class="ace" data-id="'+ item.conId +'">'+
                                                                 '<span class="lbl"></span>'+
                                                                 '</label>'+
                                                                 '</td>'+
-                                                                '<td>'+ item.username +'</td>'+
-                                                                '<td>'+ item.tel +'</td>'+
-                                                                '<td>'+ item.company +'</td>'+
-                                                                '<td>'+ item.changeUser.name +'</td>'+
-                                                                '<td data-id="'+ item.id +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" title="编辑信息"></i></td>'+
+                                                                '<td>'+ item.conName +'</td>'+
+                                                                '<td>'+ item.conTel +'</td>'+
+                                                                '<td>'+ item.conQq +'</td>'+
+                                                                '<td>'+ item.conWechat +'</td>'+
+                                                                '<td>'+ item.conEmail +'</td>'+
+                                                                '<td data-id="'+ item.conId +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" title="编辑信息"></i></td>'+
                                                                 '</tr>';
                                                     });
                                                 } else {
@@ -3891,7 +3865,7 @@
                 })
             }
             $.ajax({
-                url: contextPath+"api/extcon/batch",
+                url: contextPath+"api/contacts/batch",
                 type: "delete",
                 data : JSON.stringify(data),
                 contentType: "application/json",
@@ -3903,7 +3877,7 @@
                         type: 'get',
                         dataType : "json",
                         contentType: "application/json",
-                        url: contextPath + "api/extcon/labid?labid="+$(".outcontacts-container").attr("data-labid"),
+                        url: contextPath + "api/contacts/cid?cid="+$("#edit-customer-btn").attr("data-cusId"),
                         success:function(data){
                             if (data.status == "200") {
                                 //人员列表
@@ -3914,16 +3888,16 @@
                                         outcontactsListHtml += '<tr class="align-center">'+
                                                 '<td>'+
                                                 '<label class="pos-rel">'+
-                                                '<input type="checkbox" class="ace" data-id="'+ item.id +'">'+
+                                                '<input type="checkbox" class="ace" data-id="'+ item.conId +'">'+
                                                 '<span class="lbl"></span>'+
                                                 '</label>'+
                                                 '</td>'+
-                                                '<td>'+ item.username +'</td>'+
-                                                '<td>'+ item.tel +'</td>'+
-                                                '<td>'+ item.company +'</td>'+
-                                                '<td>'+ item.changeUser.name +'</td>'+
-                                                '<td>'+ 法法+'</td>'+
-                                                '<td data-id="'+ item.id +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" title="编辑信息"></i></td>'+
+                                                '<td>'+ item.conName +'</td>'+
+                                                '<td>'+ item.conTel +'</td>'+
+                                                '<td>'+ item.conQq +'</td>'+
+                                                '<td>'+ item.conWechat +'</td>'+
+                                                '<td>'+ item.conEmail +'</td>'+
+                                                '<td data-id="'+ item.conId +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" title="编辑信息"></i></td>'+
                                                 '</tr>';
                                     });
                                 } else {
@@ -3951,7 +3925,6 @@
                     });
                 },
                 error: function (data) {
-//                    budata);
                 }
             })
         });
