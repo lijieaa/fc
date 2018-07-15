@@ -469,10 +469,6 @@
                     zNodes:[],
                     zTreeList:[]
                 },
-                ztreeFlag:false,
-                zNodes:[],
-                zTreeList:[],
-                customerList:[],
                 searchVal:"",
                 editList:{
                     area:{
@@ -492,14 +488,14 @@
             },
             computed:{
                 fzr: function(){
-                    if(this.zTreeList.length == 0){
+                    if(this.mainPerson.zTreeList.length == 0){
                         return null
                     }else {
                         return 'string'
                     }
                 } ,
                 customerRelation: function(){
-                    if(this.zTreeList.length == 0){
+                    if(this.customer.zTreeList.length == 0){
                         return null
                     }else {
                         return 'string'

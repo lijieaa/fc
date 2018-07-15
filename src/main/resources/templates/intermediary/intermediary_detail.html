@@ -42,6 +42,32 @@
         .detail-table tr td:nth-of-type(2){
             width: 70%;
         }
+        .relation .font{
+            color: #2b7dbc;font-size: 14px;margin-top: 18px
+        }
+        .relation table{
+            width: 100%;
+            text-align: center;
+            border: 1px solid #d3d7df;
+            height: 50px;
+        }
+        .relation table thead{
+            background: #f4f4f4;
+        }
+        .relation table tr td{
+            height: 50px;
+            border: 1px solid #d3d7df;
+        }
+        .relation table .bj td{
+            background: #fff;
+        }
+        .relation .introduction{
+            width: 100%;
+            height: 415px;
+            margin-top: 14px;
+            border: 1px solid #d3d7df;
+            overflow: auto;
+        }
     </style>
 </head>
 
@@ -75,6 +101,14 @@
                             <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 15px 0 0 15px;">
                                 <table class="detail-table">
                                     <tr class="row-ji">
+                                        <td style="height: 115px;">中间商Logo</td>
+                                        <td>
+                                            <div style="width: 100%;height: 115px;overflow:  hidden;">
+                                                <img v-bind:src="dataList.intermediaryLogoUrl" style="width: 100%">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="row-ji">
                                         <td>中间商名称</td>
                                         <td>
                                             <span v-text="dataList.intermediaryName"></span>
@@ -86,26 +120,10 @@
                                             <span v-text="dataList.area.name"></span>
                                         </td>
                                     </tr>
-                                    <tr class="row-ji">
-                                        <td>联系人</td>
-                                        <td>
-                                            <span v-text="dataList.intermediaryContact"></span>
-                                        </td>
-                                    </tr>
+
+
                                     <tr>
-                                        <td>联系方式</td>
-                                        <td>
-                                            <span  v-text="dataList.intermediaryContactTel"></span>
-                                        </td>
-                                    </tr>
-                                    <tr class="row-ji">
-                                        <td>平台对接人</td>
-                                        <td>
-                                            <span v-text="dataList.user.name">张三</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>联系方式</td>
+                                        <td>企业代码</td>
                                         <td>
                                             <span  v-text="dataList.user.mobile"></span>
                                         </td>
@@ -119,17 +137,9 @@
                             <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 15px 15px 0 0;">
                                 <table class="detail-table none-border">
                                     <tr class="row-ji">
-                                        <td style="height: 115px;">中间商Logo</td>
-                                        <td>
-                                            <div style="width: 100%;height: 115px;overflow:  hidden;">
-                                                <img v-bind:src="dataList.intermediaryLogoUrl" style="width: 100%">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="row-ji">
                                         <td style="height: 289x;">企业营业执照</td>
                                         <td>
-                                            <div style="width: 100%;height: 289px;overflow:  hidden;">
+                                            <div style="width: 100%;height: 347px;overflow:  hidden;">
                                                 <img v-bind:src="dataList.intermediaryLogoUrl" style="width: 100%">
                                             </div>
                                         </td>
@@ -143,15 +153,79 @@
                                 <!--</div>-->
                             </div>
                         </div>
-                        <div class="row">
+
+                        <div class="row relation">
                             <div class="col-md-12" style="padding: 0 15px 0px 15px;">
-                                <table class="detail-table">
-                                    <tr class="row-ji">
-                                        <td style="border-top:none;width: 12.5%;vertical-align: top;padding-top: 10px;" colspan="1">中间商简介</td>
-                                        <td style="border-top:none;height: 445px;vertical-align: top; padding-top: 10px;" colspan="3"
-                                            ref="intermediaryIntroduction">间商简介商简介</td>
-                                    </tr>
-                                </table>
+                                <div class="font">联系人</div>
+                                <div style="background: #f4f4f4; padding: 14px 0;">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <td>姓名</td>
+                                            <td>职位</td>
+                                            <td>工号</td>
+                                            <td>手机号</td>
+                                            <td>邮箱</td>
+                                        </tr>
+                                        </thead>
+                                        <tr class="bj">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr class="bj">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row relation">
+                            <div class="col-md-12" style="padding: 0 15px 0px 15px;">
+                                <div class="font">平台对接人</div>
+                                <div style="background: #f4f4f4; padding: 14px 0;">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <td>姓名</td>
+                                            <td>职位</td>
+                                            <td>工号</td>
+                                            <td>手机号</td>
+                                            <td>邮箱</td>
+                                        </tr>
+                                        </thead>
+                                        <tr class="bj">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr class="bj">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row relation">
+                            <div class="col-md-12" style="padding: 0 15px 0px 15px;">
+                                <div class="font">中间商简介</div>
+                                <div class="introduction"  ref="intermediaryIntroduction">
+
+                                </div>
                             </div>
                         </div>
                     </div>
