@@ -7,7 +7,10 @@ import com.jianpanmao.project.dao.ProjectMapper;
 import com.jianpanmao.project.dto.ProjectDto;
 import com.jianpanmao.project.entity.Project;
 import com.jianpanmao.project.service.ProjectService;
+import com.jianpanmao.sys.entity.DingtalkUser;
+import com.jianpanmao.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -61,6 +64,8 @@ public class ProjectRestController {
                        @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
                        @RequestParam(value = "draw", required = false) Integer draw,
                        ProjectDto dto) {
+        DingtalkUser user = UserUtils.getUser();
+        dto.setIntermediary(user.getIntermediary());
 
         PageHelper.startPage(pageNum, pageSize);
 
