@@ -613,7 +613,7 @@
    select
     u.userid id,
     u.`name`,
-    dp.id,
+    dp.id parentId,
     'person' type
     FROM
     dingtalk_user u
