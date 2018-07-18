@@ -348,11 +348,7 @@
         watch:{
             nodes: function () {
                 var _this = this;
-                _this.nodes.map(function(v){
-                    if(v.children.length == 0){
-                        v.isParent = false;
-                    }
-                });
+                _this.nodes[0].open = true;
                 $.fn.zTree.init($("#treeDemoCheck"), _this.setting(),
                     _this.nodes);
                 var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
