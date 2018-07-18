@@ -43,4 +43,11 @@ public String detail(@RequestParam("id") Integer id, Model model){
 model.addAttribute("id",id);
 return "clue/clue_detail";
 }
+    /**
+     * 线索文件管理
+     */
+    @RequestMapping(method = RequestMethod.GET,value = "clueFileManage")
+    public String clueFileManage(){
+        return "clue/clue_file_manage";
+    }
 }

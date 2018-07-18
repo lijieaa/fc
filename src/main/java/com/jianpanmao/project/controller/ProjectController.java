@@ -70,4 +70,11 @@ public String projectComments(@RequestParam("id") Integer id, Model model){
         return "project/project_EditDevice";
     }
 
+    /**
+     * 项目文件管理
+     */
+    @RequestMapping(method = RequestMethod.GET,value = "projectFileManage")
+    public String projectFileManage(){
+        return "project/project_file_manage";
+    }
 }
