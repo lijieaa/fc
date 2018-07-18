@@ -186,15 +186,18 @@ public class DingtalkUserRestController {
         List<DeptUserDto> deptList = dingtalkDeptMapper.findByPI(path, iId);
         Integer topPid = Integer.valueOf(path.substring(path.lastIndexOf(",") - 1, path.lastIndexOf(",")));
         List<DeptUserDto> tops = new ArrayList<>();
-        for (DeptUserDto dept : deptList) {
-            if (dept.getParentId().intValue() == topPid) {
-                tops.add(dept);
+        if (null!=deptList&&deptList.size()>0){
+            for (DeptUserDto dept : deptList) {
+                if (dept.getParentId().intValue() == topPid) {
+                    tops.add(dept);
+                }
+            }
+            for (DeptUserDto dept:tops){
+                recursionDept(deptList, dept, 0, userMap);
             }
         }
-        for (DeptUserDto dept : tops) {
-            recursionDept(deptList, dept, 0, userMap);
-        }
-        return deptList;
+
+        return tops;
     }
 
 
@@ -211,6 +214,11 @@ public class DingtalkUserRestController {
             }
         }
         dept.setChildren(children);
+        if (null!=dept.getChildren()&&dept.getChildren().size()>0){
+            dept.setIsParent(true);
+        }else {
+            dept.setIsParent(false);
+        }
         if (size == deptList.size()) {
             return;
         }
