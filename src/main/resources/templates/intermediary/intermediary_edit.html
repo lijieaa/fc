@@ -316,7 +316,7 @@
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 for(var i=0;i<treeNode.length;i++){
                     var v = treeNode[i];
-                    if(v.id == id){
+                    if(v.id == id && v.type == 'person'){
                         treeObj.checkNode(v, false, true);
                     }
                 }
@@ -333,14 +333,6 @@
                     check: {
                         enable: true
                     },
-                    data: {
-                        simpleData: {
-                            enable: true,
-                            idKey: "id",
-                            pIdKey: "parentId",
-                            rootPId: 0
-                        }
-                    },
                     callback:{
                         onCheck: this.zTreeOnCheck
                     },
@@ -354,30 +346,27 @@
             nodes: function () {
                 var _this = this;
                 _this.nodes.map(function(v){
+                    if(v.children.length == 0){
+                        v.isParent = false;
+                    }
+                });
+                $.fn.zTree.init($("#treeDemoCheck"), _this.setting(),
+                    _this.nodes);
+                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
+                var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                treeNode.map(function(v){
                     if(v.type == 'person'){
                         v.icon = contextPath +'images/person.png'
                     }else {
                         v.icon = contextPath +'images/company.png'
                     }
+                    // _this.list.map(function(s){
+                    //     if(v.id == s.id){
+                    //         treeObj.checkNode(v, true, true);
+                    //     }
+                    // })
                 });
-
-                if(_this.dataid == 1){
-                    $.fn.zTree.init($("#treeDemoCheck"), _this.setting(),
-                        _this.nodes);
-                }else{
-                    $.fn.zTree.init($("#treeDemoCheck"), _this.setting(),
-                        _this.nodes);
-                }
-
-                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
-                var treeNode = treeObj.transformToArray(treeObj.getNodes());
-                treeNode.map(function(v){
-                    _this.list.map(function(s){
-                        if(v.id == s.id){
-                            treeObj.checkNode(v, true, true);
-                        }
-                    })
-                })
+                treeObj.refresh();
             }
         },
         mounted: function(){
@@ -409,8 +398,8 @@
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 for(var i=0;i<treeNode.length;i++){
                     var v = treeNode[i];
-                    if(v.id == id){
-                        treeObj.checkNode(v, false, true);
+                    if(v.id == id && v.type == 'person'){
+                        treeObj.checkNode(treeNode[i], false, true);
                     }
                 }
                 _this.$emit('del',id , _this.dataid)
@@ -426,14 +415,6 @@
                     check: {
                         enable: true
                     },
-                    data: {
-                        simpleData: {
-                            enable: true,
-                            idKey: "id",
-                            pIdKey: "parentId",
-                            rootPId: 0
-                        }
-                    },
                     callback:{
                         onCheck: this.zTreeOnCheck
                     },
@@ -447,27 +428,25 @@
             nodes: function () {
                 var _this = this;
 
-                _this.nodes.map(function(v){
+                $.fn.zTree.init($("#treeDemoCustom"), _this.setting(),
+                    _this.nodes);
+
+                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
+                // console.log(treeObj);
+                var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                treeNode.map(function(v){
                     if(v.type == 'person'){
                         v.icon = contextPath +'images/person.png'
                     }else {
                         v.icon = contextPath +'images/company.png'
                     }
-                });
-
-                $.fn.zTree.init($("#treeDemoCustom"), _this.setting(),
-                    _this.nodes);
-
-                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
-                console.log(treeObj);
-                var treeNode = treeObj.transformToArray(treeObj.getNodes());
-                treeNode.map(function(v){
                     _this.list.map(function(s){
                         if(v.id == s.id){
                             treeObj.checkNode(v, true, true);
                         }
                     })
-                })
+                });
+                treeObj.refresh();
             }
         },
         mounted: function(){
