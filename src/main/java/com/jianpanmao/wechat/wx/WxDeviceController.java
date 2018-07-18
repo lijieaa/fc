@@ -7,10 +7,8 @@ import com.jianpanmao.device.dto.DeviceDto;
 import com.jianpanmao.device.entity.Device;
 import com.jianpanmao.device.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,12 +17,13 @@ import java.util.List;
  * @since 2018-07-16 20:53
  */
 @RequestMapping("wd")
-@RestController
-public class WxDeviceRestController {
+@Controller
+public class WxDeviceController {
 
     @Autowired private DeviceService deviceService;
 
     @RequestMapping(method = RequestMethod.GET, value = "devices")
+    @ResponseBody
     public Object page(@RequestParam(value = "pageNum", defaultValue = "1", required = true) Integer pageNum,
                        @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
                        @RequestParam(value = "draw", required = false) Integer draw,
@@ -43,5 +42,16 @@ public class WxDeviceRestController {
             return pageInfo;
         }
 
+    }
+
+    @GetMapping("device")
+    @ResponseBody
+    public Object getDevice(Integer id) {
+        return deviceService.get(id);
+    }
+
+    @GetMapping("operate")
+    public String operate(){
+        return "wx/operate";
     }
 }
