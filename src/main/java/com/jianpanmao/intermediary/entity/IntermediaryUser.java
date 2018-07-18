@@ -2,6 +2,7 @@ package com.jianpanmao.intermediary.entity;
 
 /**
  * Created by mayn on 2018/7/14.
+ * 中间商联系人中间表实体
  */
 public class IntermediaryUser {
     private Integer intermediaryUserId;

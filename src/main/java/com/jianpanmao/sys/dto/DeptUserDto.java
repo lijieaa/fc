@@ -1,5 +1,7 @@
 package com.jianpanmao.sys.dto;
 
+import java.util.List;
+
 /**
  * Created by mayn on 2018/7/8.
  * 部门人员树
@@ -8,6 +10,7 @@ public class DeptUserDto {
    private Integer id;
     private String name;
     private Integer parentId;
+    private List<DeptUserDto> children;
     private String type;
 
     public Integer getId() {
@@ -32,6 +35,14 @@ public class DeptUserDto {
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
+    }
+
+    public List<DeptUserDto> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<DeptUserDto> children) {
+        this.children = children;
     }
 
     public String getType() {

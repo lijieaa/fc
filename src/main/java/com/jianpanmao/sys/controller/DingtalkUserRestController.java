@@ -20,7 +20,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/dingtalkuser")
@@ -164,12 +166,55 @@ public class DingtalkUserRestController {
      */
     @PreAuthorize("hasAuthority('dingtalkuser:view')")
     @RequestMapping(method = RequestMethod.GET, value = "deptUser")
-    public List<DeptUserDto> deptUser(Integer iId) {
-        List<DeptUserDto> deptList = dingtalkDeptMapper.findByPI(",0,", iId);
-        List<DeptUserDto> users = dao.selectDeptUser(iId,",0,");
-        List<DeptUserDto> dtos = new ArrayList<>();
-        dtos.addAll(deptList);
-        dtos.addAll(users);
-        return dtos;
+    public List<DeptUserDto> deptUser(Integer iId, @RequestParam(required = false) String path) {
+        if (null == path) {
+            path = ",0,";
+        }
+        //人
+        List<DeptUserDto> users = dao.selectDeptUser(iId, path);
+        Map<Integer, List<DeptUserDto>> userMap = new HashMap<>();
+        for (DeptUserDto user : users) {
+            if (userMap.containsKey(user.getParentId())) {
+                userMap.get(user.getParentId()).add(user);
+            } else {
+                List<DeptUserDto> dtos = new ArrayList<>();
+                dtos.add(user);
+                userMap.put(user.getParentId(), dtos);
+            }
+        }
+//部门
+        List<DeptUserDto> deptList = dingtalkDeptMapper.findByPI(path, iId);
+        Integer topPid = Integer.valueOf(path.substring(path.lastIndexOf(",") - 1, path.lastIndexOf(",")));
+        List<DeptUserDto> tops = new ArrayList<>();
+        for (DeptUserDto dept : deptList) {
+            if (dept.getParentId().intValue() == topPid) {
+                tops.add(dept);
+            }
+        }
+        for (DeptUserDto dept : tops) {
+            recursionDept(deptList, dept, 0, userMap);
+        }
+        return deptList;
     }
+
+
+    private void recursionDept(List<DeptUserDto> deptList, DeptUserDto dept, Integer size, Map<Integer, List<DeptUserDto>> userMap) {
+        List<DeptUserDto> children = new ArrayList<>();
+
+        //装入人员
+        if (userMap.containsKey(dept.getId())) {
+            children.addAll(userMap.get(dept.getId()));
+        }
+        for (int i = 0; i < deptList.size(); i++) {
+            if (deptList.get(i).getParentId().intValue() == dept.getId()) {
+                children.add(deptList.get(i));
+            }
+        }
+        dept.setChildren(children);
+        if (size == deptList.size()) {
+            return;
+        }
+        recursionDept(deptList, deptList.get(size), ++size, userMap);
+    }
+
 }

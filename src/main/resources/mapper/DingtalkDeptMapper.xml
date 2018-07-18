@@ -484,11 +484,12 @@
         select d.* from dingtalk_user u,dingtalk_user_dept ud,dingtalk_dept d WHERE u.userid=ud.user_id AND ud.dept_id=d.id and u.userid=#{0}
     </select>
 
+    <!--部门树数据-->
     <select id="findByPI"  resultType="com.jianpanmao.sys.dto.DeptUserDto">
        select
       dp.id,
       dp.name,
-      dp.parentid,
+      dp.parentId,
       'dept' type
       FROM
       dingtalk_dept dp
