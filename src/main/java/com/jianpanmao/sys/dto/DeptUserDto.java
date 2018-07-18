@@ -12,6 +12,15 @@ public class DeptUserDto {
     private Integer parentId;
     private List<DeptUserDto> children;
     private String type;
+    private boolean isParent;
+
+    public boolean getIsParent() {
+        return isParent;
+    }
+
+    public void setIsParent(boolean isparent) {
+        isParent = isparent;
+    }
 
     public Integer getId() {
         return id;
