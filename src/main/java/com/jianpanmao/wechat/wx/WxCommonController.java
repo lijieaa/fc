@@ -1,9 +1,18 @@
 package com.jianpanmao.wechat.wx;
 
+import com.jianpanmao.sys.entity.DingtalkUser;
+import com.jianpanmao.sys.service.DingtalkUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * 公众号页面
@@ -13,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("wx/common")
 public class WxCommonController {
+
+    @Autowired private DingtalkUserService dingtalkUserService;
 
     @GetMapping("company")
     public String company(String sourceId, Model model){
@@ -34,11 +45,6 @@ public class WxCommonController {
     @GetMapping("equiprams")
     public String equiprams(){
         return "wx/equiprams";
-    }
-
-    @GetMapping("operate")
-    public String operate(){
-        return "wx/operate";
     }
 
     @GetMapping("project")
@@ -64,5 +70,19 @@ public class WxCommonController {
     @GetMapping("loginwx")
     public String loginwx(){
         return "wx/loginwx";
+    }
+
+    @PostMapping("login")
+    public String loginAction(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) throws Exception{
+
+        DingtalkUser user = dingtalkUserService.findByMobile(username);
+        String pwd = user.getPassword();
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (encoder.matches(password, pwd)) {
+            session.setAttribute("wxuser", user);
+            return "redirect:/wd/operate";
+        } else {
+            return "redirect:/wx/common/loginwx";
+        }
     }
 }
