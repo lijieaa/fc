@@ -325,6 +325,7 @@
         watch:{
             nodes: function () {
                 var _this = this;
+                _this.nodes[0].open = true;
                 $.fn.zTree.init($("#treeDemoCheck"), _this.setting(),
                     _this.nodes);
                 var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
@@ -397,7 +398,7 @@
         watch:{
             nodes: function () {
                 var _this = this;
-
+                _this.nodes[0].open = true;
                 $.fn.zTree.init($("#treeDemoCustom"), _this.setting(),
                     _this.nodes);
 
