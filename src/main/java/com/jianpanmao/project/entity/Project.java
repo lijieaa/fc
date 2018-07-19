@@ -18,26 +18,20 @@ public class Project implements Serializable {
 
     //项目名称
     @NotBlank(message = "线索或项目名称不能为空")
-    @Size(min = 1,max = 50,message = "线索或项目名称在1-50个字符之间")
+    @Size(min = 1, max = 50, message = "线索或项目名称在1-50个字符之间")
     private String projectName;
 
     //所属区域
     private @NotNull(message = "地区不能为空") Area area;
 
-    //项目联系人
-    private @NotNull(message = "负责人不能为空") DingtalkUser projectContactUser;
+    //项目负责人id字符串
+    private @NotNull(message = "负责人不能为空") String contacts;
 
-    //线索创建人
-    private DingtalkUser projectCreateUser;
 
-    //业主联系人
-    @NotBlank(message = "业主联系人不能为空")
+    //客户 id字符串
+    @NotBlank(message = "客户")
     private String projectOwnerContact;
 
-    //业主电话
-    @NotBlank(message = "电话号码不能为空")
-    @Pattern(regexp = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$", message = "请输入正确电话号码")
-    private String projectOwnerContactTel;
 
     //状态：0线索，1项目
     @NotNull(message = "状态不能为空")
@@ -56,7 +50,37 @@ public class Project implements Serializable {
     //线索跟进状态：0已处理，1正在处理
     private Byte projectTopicStatus;
 
+    //中间商
     private Intermediary intermediary;
+
+    //项目简介
+    private String projectIntroduction;
+
+    private DingtalkUser projectCreateUser;
+
+    public DingtalkUser getProjectCreateUser() {
+        return projectCreateUser;
+    }
+
+    public void setProjectCreateUser(DingtalkUser projectCreateUser) {
+        this.projectCreateUser = projectCreateUser;
+    }
+
+    public String getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(String contacts) {
+        this.contacts = contacts;
+    }
+
+    public String getProjectIntroduction() {
+        return projectIntroduction;
+    }
+
+    public void setProjectIntroduction(String projectIntroduction) {
+        this.projectIntroduction = projectIntroduction;
+    }
 
     private Integer count;
 
@@ -104,21 +128,6 @@ public class Project implements Serializable {
         this.area = area;
     }
 
-    public DingtalkUser getProjectContactUser() {
-        return projectContactUser;
-    }
-
-    public void setProjectContactUser(DingtalkUser projectContactUser) {
-        this.projectContactUser = projectContactUser;
-    }
-
-    public DingtalkUser getProjectCreateUser() {
-        return projectCreateUser;
-    }
-
-    public void setProjectCreateUser(DingtalkUser projectCreateUser) {
-        this.projectCreateUser = projectCreateUser;
-    }
 
     public String getProjectOwnerContact() {
         return projectOwnerContact;
@@ -126,14 +135,6 @@ public class Project implements Serializable {
 
     public void setProjectOwnerContact(String projectOwnerContact) {
         this.projectOwnerContact = projectOwnerContact == null ? null : projectOwnerContact.trim();
-    }
-
-    public String getProjectOwnerContactTel() {
-        return projectOwnerContactTel;
-    }
-
-    public void setProjectOwnerContactTel(String projectOwnerContactTel) {
-        this.projectOwnerContactTel = projectOwnerContactTel == null ? null : projectOwnerContactTel.trim();
     }
 
     public Byte getProjectStatus() {

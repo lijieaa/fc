@@ -6,8 +6,6 @@ import com.jianpanmao.project.entity.*;
 import com.jianpanmao.project.dto.*;
 import com.jianpanmao.project.service.ProjectService;
 import com.jianpanmao.projectComments.dao.ProjectCommentsMapper;
-import com.jianpanmao.sys.entity.DingtalkUser;
-import com.jianpanmao.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +28,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project, ProjectExample,
 
     @Override
     public int add(Project record) {
-        DingtalkUser user = UserUtils.getUser();
-        record.setProjectCreateUser(user);
         return dao.insert(record);
     }
 }

@@ -66,15 +66,6 @@ public class ProjectDto {
 
     private DingtalkUser projectCreateUser;
 
-    private String projectOwnerContactTel;
-
-    public String getProjectOwnerContactTel() {
-        return projectOwnerContactTel;
-    }
-
-    public void setProjectOwnerContactTel(String projectOwnerContactTel) {
-        this.projectOwnerContactTel = projectOwnerContactTel;
-    }
 
     private Intermediary intermediary;
 
@@ -150,4 +141,37 @@ public class ProjectDto {
         this.projectCreateUser = projectCreateUser;
     }
 
+
+    //负责人名字用户列表筛选
+    private String contactsName;
+
+    //客户名字用户列表筛选
+    private String projectOwnerContactName;
+
+    //客户联系电话用户列表筛选
+    private String projectOwnerContactTel;
+
+    public String getContactsName() {
+        return contactsName;
+    }
+
+    public void setContactsName(String contactsName) {
+        this.contactsName = contactsName;
+    }
+
+    public String getProjectOwnerContactName() {
+        return projectOwnerContactName;
+    }
+
+    public void setProjectOwnerContactName(String projectOwnerContactName) {
+        this.projectOwnerContactName = projectOwnerContactName;
+    }
+
+    public String getProjectOwnerContactTel() {
+        return projectOwnerContactTel;
+    }
+
+    public void setProjectOwnerContactTel(String projectOwnerContactTel) {
+        this.projectOwnerContactTel = projectOwnerContactTel;
+    }
 }

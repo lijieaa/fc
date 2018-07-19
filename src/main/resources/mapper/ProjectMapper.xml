@@ -4,25 +4,21 @@
   <resultMap id="BaseResultMap" type="com.jianpanmao.project.entity.Project">
     <id column="project_id" jdbcType="INTEGER" property="projectId" />
     <result column="project_name" property="projectName" jdbcType="VARCHAR" />
-    <result column="project_owner_contact" property="projectOwnerContact" jdbcType="VARCHAR" />
-    <result column="project_owner_contact_tel" property="projectOwnerContactTel" jdbcType="VARCHAR" />
     <result column="project_status" property="projectStatus" jdbcType="TINYINT" />
     <result column="project_create_time" property="projectCreateTime" jdbcType="TIMESTAMP" />
     <result column="project_update_time" property="projectUpdateTime" jdbcType="TIMESTAMP" />
     <result column="project_logo" property="projectLogo" jdbcType="VARCHAR"/>
     <result column="project_topic_status" property="projectTopicStatus" jdbcType="TINYINT"/>
+    <result column="project_introduction" property="projectIntroduction" jdbcType="VARCHAR"/>
     <association property="area" javaType="com.jianpanmao.area.entity.Area">
       <id column="id" property="id"></id>
       <result column="aname" property="name"></result>
     </association>
-    <association property="projectContactUser" javaType="com.jianpanmao.sys.entity.DingtalkUser">
-      <id column="contactuserid" property="userid"></id>
-      <result column="contactname" property="name"></result>
+    <association property="intermediary" javaType="com.jianpanmao.intermediary.entity.Intermediary">
+      <id column="intermediary_id" property="intermediaryId"></id>
+      <result column="intermediary_name" property="intermediaryName"></result>
     </association>
-    <association property="projectCreateUser" javaType="com.jianpanmao.sys.entity.DingtalkUser">
-    <id column="createuserid" property="userid"></id>
-    <result column="createusername" property="name"></result>
-  </association>
+
   </resultMap>
 
 
@@ -112,12 +108,10 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     p.*,area.ID,area.NAME aname,
-    projectContactUser.userid contactuserid,projectContactUser.name contactname,
-    projectCreateUser.userid createuserid,projectCreateUser.name createusername
-    from project p
+    intermediary.intermediary_id,intermediary.intermediary_name
+    from project project
     LEFT JOIN area area ON p.area_id = area.ID
-    LEFT JOIN dingtalk_user projectContactUser ON p.project_contact_user_id = projectContactUser.userid
-    LEFT JOIN dingtalk_user projectCreateUser ON p.project_create_user_id = projectCreateUser.userid
+    LEFT JOIN intermediary intermediary ON project.project_intermediary = intermediary.intermediary_id
     where p.project_id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -133,32 +127,18 @@
   <insert id="insert" parameterType="com.jianpanmao.project.entity.Project">
     insert into project ( project_name,
       area_id,
-      project_contact_user_id,
-      project_create_user_id,
-      project_owner_contact,
-      project_owner_contact_tel,
-      owner_qq,
-      owner_weChat,
-      owner_email,
-      owner_address,
       project_status,
       project_topic_status,
-      project_logo
+      project_logo,
+      project_introduction
       )
     values (
       #{projectName,jdbcType=VARCHAR},
       #{area.id,jdbcType=INTEGER},
-      #{projectContactUser.userid,jdbcType=INTEGER},
-      #{projectCreateUser.userid,jdbcType=INTEGER},
-      #{projectOwnerContact,jdbcType=VARCHAR},
-      #{projectOwnerContactTel,jdbcType=VARCHAR},
-      #{ownerQQ,jdbcType=VARCHAR},
-      #{ownerWeChat,jdbcType=VARCHAR},
-      #{ownerEmail,jdbcType=VARCHAR},
-      #{ownerAddress,jdbcType=VARCHAR},
       #{projectStatus,jdbcType=TINYINT},
     #{projectTopicStatus,jdbcType=TINYINT},
-    #{projectLogo,jdbcType=VARCHAR}
+    #{projectLogo,jdbcType=VARCHAR},
+    #{projectIntroduction,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.project.entity.Project">
@@ -351,13 +331,8 @@
     update project
     set project_name = #{projectName,jdbcType=VARCHAR},
       area_id = #{area.id,jdbcType=INTEGER},
-      project_contact_user_id = #{projectContactUser.userid,jdbcType=INTEGER},
-      project_owner_contact = #{projectOwnerContact,jdbcType=VARCHAR},
-      project_owner_contact_tel = #{projectOwnerContactTel,jdbcType=VARCHAR},
-      owner_qq = #{ownerQQ,jdbcType=VARCHAR},
-      owner_weChat = #{ownerWeChat,jdbcType=VARCHAR},
-      owner_email = #{ownerEmail,jdbcType=VARCHAR},
-      owner_address = #{ownerAddress,jdbcType=VARCHAR}
+      project_logo = #{projectLogo,jdbcType=VARCHAR},
+      project_introduction = #{projectIntroduction,jdbcType=VARCHAR},
     where project_id = #{projectId,jdbcType=INTEGER}
   </update>
   <select id="selectAll" parameterType="com.jianpanmao.project.entity.Project" resultMap="BaseResultMap">
@@ -372,25 +347,25 @@
   </delete>
   <select id="selectByDto" parameterType="com.jianpanmao.project.dto.ProjectDto" resultMap="BaseResultMap">
     select
-    p.*,area.ID,area.NAME aname,
-    project_contact_user.userid contactuserid,project_contact_user.name contactname,
-    project_create_user.userid createuserid,project_create_user.name createusername
-    from project p
-    LEFT JOIN area area ON p.area_id = area.ID
-    LEFT JOIN dingtalk_user project_contact_user ON p.project_contact_user_id = project_contact_user.userid
-    LEFT JOIN dingtalk_user project_create_user ON p.project_create_user_id = project_create_user.userid
-    LEFT JOIN intermediary intermediary ON p.project_intermediary = intermediary.intermediary_id
-    WHERE p.project_status = #{projectStatus}
-    and p.project_intermediary = #{intermediary.intermediaryId}
-    <if test="projectName != null"> and p.project_name  LIKE CONCAT('%',#{projectName},'%')</if>
-    <if test="projectContactUser !=null and projectContactUser.name!=null"> and project_contact_user.name LIKE  CONCAT('%',#{projectContactUser.name},'%')</if>
-    <if test="projectOwnerContact!=null and projectOwnerContact!=null"> and p.project_owner_contact LIKE CONCAT('%',#{projectOwnerContact},'%')</if>
-    <if test="projectOwnerContactTel!=null and projectOwnerContactTel!=null"> and p.project_owner_contact_tel LIKE CONCAT('%',#{projectOwnerContactTel},'%')</if>
+    project.*,area.ID,area.NAME aname,
+    intermediary.intermediary_id,intermediary_name
+    from project project
+    LEFT JOIN area area ON project.area_id = area.ID
+    LEFT JOIN intermediary intermediary ON project.project_intermediary = intermediary.intermediary_id
+    LEFT JOIN project_user project_user ON project.project_id = project_user.project_user_pid
+    LEFT JOIN dingtalk_user dingtalk_user ON project_user.project_user_userid = dingtalk_user.userid
+    LEFT JOIN project_contacts project_contacts ON project.project_id = project_contacts.project_contacts_pid
+    LEFT JOIN contacts contacts ON project_contacts.project_contacts_cid = contacts.con_id
+    WHERE project.project_status = #{projectStatus}
+    and project.project_intermediary = #{intermediary.intermediaryId}
+    <if test="projectName != null"> and project.project_name  LIKE CONCAT('%',#{projectName},'%')</if>
+    <if test="contactsName !=null"> and dingtalk_user.name LIKE  CONCAT('%',#{contactsName},'%')</if>
+<!--    <if test="projectOwnerContactName!=null"> and contacts.con_name LIKE CONCAT('%',#{projectOwnerContactName},'%')</if>
+    <if test="projectOwnerContactTel!=null"> and contacts.con_tel LIKE CONCAT('%',#{projectOwnerContactTel},'%')</if>-->
     <if test="od!=null and od neq ''">
       order by ${od}
     </if>
   </select>
-
 
   <select id="selectIdNameList" resultMap="idNameResultMap">
     SELECT p.project_id,p.project_name  from project p WHERE p.project_status = 1
