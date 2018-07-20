@@ -634,7 +634,7 @@
     </resultMap>
   <select id="intermediaryContactUser" parameterType="java.lang.Integer" resultMap="ContactResultMap">
 select u.*,
-iu.intermediary_user__status status,
+iu.intermediary_user_status status,
 dp.parentid
 from dingtalk_user u
  LEFT JOIN intermediary_user iu ON u.userid = iu.intermediary_user_uId

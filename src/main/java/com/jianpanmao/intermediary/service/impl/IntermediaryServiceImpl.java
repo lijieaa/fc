@@ -74,6 +74,9 @@ public class IntermediaryServiceImpl extends BaseServiceImpl<Intermediary, Inter
         if (intermediary.getIsPlat().intValue() == 1) {
             throw new CustomException("该条数据不允许被删除");
         }
+        //删除中间商关联人
+        intermediaryMapper.deleteContacts(TId);
+
         return super.remove(TId);
     }
 
@@ -83,8 +86,10 @@ public class IntermediaryServiceImpl extends BaseServiceImpl<Intermediary, Inter
         for (Integer id : ids) {
             Intermediary intermediary = super.get(id);
             if (intermediary.getIsPlat().intValue() == 1) {
-                throw new CustomException("该条数据不允许被删除");
+                throw new CustomException("有不允许被删除数据");
             }
+            //删除中间商关联人
+            intermediaryMapper.deleteContacts(id);
         }
         return super.removeBatch(ids);
     }

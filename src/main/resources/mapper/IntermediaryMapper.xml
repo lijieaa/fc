@@ -395,12 +395,12 @@
     <if test="intermediaryName!=null and '' neq intermediaryName">
       and intermediary_name LIKE CONCAT('%',#{intermediaryName},'%')
     </if>
-    <if test="intermediaryContact!=null and '' neq intermediaryContact">
+<!--    <if test="intermediaryContact!=null and '' neq intermediaryContact">
       and i.intermediary_contact LIKE CONCAT('%',#{intermediaryContact},'%')
     </if>
     <if test="intermediaryContactTel!=null and '' neq intermediaryContactTel">
       and i.intermediary_contact_tel LIKE CONCAT('%',#{intermediaryContactTel},'%')
-    </if>
+    </if>-->
     <if test="area!=null and area.name !=null">
       and area.name LIKE CONCAT('%',#{area.name},'%')
     </if>
