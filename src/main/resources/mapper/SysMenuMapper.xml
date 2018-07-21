@@ -101,7 +101,7 @@
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
    delete from sys_menu
-    where menu_id =#{menuId} or path LIKE concat('%',#{menuId,jdbcType=INTEGER},'%');
+    where menu_id =#{menuId} or path LIKE concat('%',#{menuId,jdbcType=INTEGER},',','%');
   </delete>
   <delete id="deleteByExample" parameterType="com.jianpanmao.sys.entity.SysMenuExample">
     delete from sys_menu

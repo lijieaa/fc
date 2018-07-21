@@ -28,37 +28,38 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenu,SysMenuExample,S
     @Override
     public int add(SysMenu record) {
         if(null==record.getMenuParentId()||record.getMenuParentId()==0){
-            record.setPath(0+"");
+            record.setPath(0+",");
         }else {
             SysMenu pmenu = this.get(record.getMenuParentId());
-            record.setPath(pmenu.getPath()+","+pmenu.getMenuId());
+            record.setPath(pmenu.getPath()+pmenu.getMenuId()+",");
         }
         //this.update(record);
         //int i = super.add(record);
         return super.add(record);
     }
 
+    @Transactional
     @Override
     public int update(SysMenu record) {
 
         SysMenu menu=this.get(record.getMenuId());
 
-        String oldPath = menu.getPath();
+        String oldPath = menu.getPath()+menu.getMenuId()+",";
 
         if(null==record.getMenuParentId()||record.getMenuParentId()==0){
-            record.setPath(0+"");
+            record.setPath(0+",");
         }else {
             SysMenu pmenu = this.get(record.getMenuParentId());
-            record.setPath(pmenu.getPath() + "," + pmenu.getMenuId());
+            record.setPath(pmenu.getPath()  + pmenu.getMenuId()+",");
         }
         int update = super.update(record);
 
         SysMenu m=new SysMenu();
-        m.setPath(menu.getMenuId()+"");
+        m.setPath(menu.getMenuId()+",");
         List<SysMenu> sysMenus = sysMenuMapper.selectByPath(m);
 
         for (SysMenu sysMenu : sysMenus) {
-            sysMenu.setPath(sysMenu.getPath().replace(oldPath,record.getPath()));
+            sysMenu.setPath(sysMenu.getPath().replace(oldPath,record.getPath()+record.getMenuId()+","));
             sysMenuMapper.updatePath(sysMenu);
         }
         return update;
