@@ -1,11 +1,19 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
+    <link rel="stylesheet" th:href="@{/dist/css/common.css}">
     <style>
         .btn, .border-none {
             border: 1px solid #6FB3E0;
+        }
+        .file-contain{
+            background: #f1f3f7;
+        }
+        .page-file-left,.page-file-right{
+            border: 1px solid #6FB3E0;
+        }
+        .page-file-right{
+            background: #fff;
         }
     </style>
 </head>
@@ -13,12 +21,12 @@
 <div id="file">
     <div class="page-header">
         <div class="row">
-            <div class="col-md-9 col-sm-9">
+            <div class="col-md-9 col-sm-9" style="padding-left: 0">
                 <div class="float-left">
                     <span class="font-size-18 border-left-blue">项目文件管理</span>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-3 text-align-right">
+            <div class="col-md-3 col-sm-3 text-align-right" style="padding-right: 0">
                 <button type="button" data-toggle="modal"
                         class="btn btn-info padding-right-15">
                     <i class="ace-icon fa fa-reply icon-only"></i>
@@ -27,17 +35,195 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row file-contain">
         <div class="col-xs-12">
             <div class="row">
-
+                <div class="col-xs-4">
+                    <div class="page-file-left">
+                        <ul id="treeDemoCheck" class="ztree"></ul>
+                    </div>
+                </div>
+                <div class="col-xs-8">
+                    <div class="page-file-right">
+                        <div class="page-right-header" style="overflow: hidden">
+                            <div class="float-left">
+                                <span class="">当前：</span>
+                                <span v-text="titleEnd"></span>
+                            </div>
+                            <div class="float-right">
+                                <button type="button" data-toggle="modal"
+                                        class="btn btn-info padding-right-15">
+                                    <i class="ace-icon fa fa-reply icon-only"></i>
+                                    上传
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
     </div>
 </div>
+<script th:src="@{/js/webuploader.js}"></script>
 <script type="text/javascript" th:inline="javascript">
 
+    var zNodes =[
+        { id:1, pId:0, name:"父节点 1", open:true},
+        { id:11, pId:1, name:"叶子节点 1-1"},
+        { id:111, pId:11, name:"你好1"},
+        { id:1111, pId:111, name:"你好2"},
+        { id:12, pId:1, name:"叶子节点 1-2"},
+        { id:13, pId:1, name:"叶子节点 1-3"},
+        { id:2, pId:0, name:"父节点 2", open:true},
+        { id:21, pId:2, name:"叶子节点 2-1"},
+        { id:22, pId:2, name:"叶子节点 2-2"},
+        { id:23, pId:2, name:"叶子节点 2-3"},
+        { id:3, pId:0, name:"父节点 3", open:true},
+        { id:31, pId:3, name:"叶子节点 3-1"},
+        { id:32, pId:3, name:"叶子节点 3-2"},
+        { id:33, pId:3, name:"叶子节点 3-3"}
+    ];
+    // var responseUrl;
+    jQuery(function($) {
+        var setting =  {
+            view: {
+                addHoverDom: addHoverDom,
+                removeHoverDom: removeHoverDom,
+                // selectedMulti: false
+            },
+            edit: {
+                enable: true,
+                showRemoveBtn: false,
+                showRenameBtn: false
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+//        beforeClick: zTreeBeforeClick,
+                onClick: zTreeBeforeClick
+                // onRename: onRename
+            }
+        };
+        function addHoverDom(treeId, treeNode) {
+            var aObj = $("#" + treeNode.tId + "_a");
+            if ($("#diyBtn_"+treeNode.id).length>0) return;
+            var editStr = '<span id="diyBtn_'+treeNode.id+'">编辑</span>';
+            aObj.append(editStr);
+            var btn = $("#diyBtn_"+treeNode.id);
+            if (btn) btn.bind("click", function(){
+//        alert("diy Button for " + treeNode.name);
+                $( "#dialog" ).dialog( "open" );
+            });
+        }
+
+        function removeHoverDom(treeId, treeNode) {
+            $("#diyBtn_"+treeNode.id).unbind().remove();
+            $("#diyBtn_space_" +treeNode.id).unbind().remove();
+        };
+        var arr = [];
+        function dg(sNodes){
+            var sum = '';
+            var node = sNodes.getParentNode();
+            if(node !=  null){
+                dg(node);
+                sum+= node.name
+                arr.push(sum);
+                // console.log(sum)
+                return sum;
+            }
+        }
+        function zTreeBeforeClick(treeId, treeNode){
+            var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
+            var sNodes = treeObj.getSelectedNodes()[0];
+            arr = [];
+            dg(sNodes);
+            vue1.$data.title = arr;
+            console.log(arr)
+        }
+        var vue1 = new Vue({
+            el:"#file",
+            data:{
+              title:[]
+            },
+            computed:{
+                titleEnd: function(){
+                    return this.title.join("/")
+                }
+            },
+            methods:{
+                setting : function(){
+                    var _this = this;
+                    return settingCheck =  {
+                        view: {
+                            addHoverDom: _this.addHoverDom,
+                            removeHoverDom: _this.removeHoverDom,
+                            // selectedMulti: false
+                        },
+                        edit: {
+                            enable: true,
+                            showRemoveBtn: false,
+                            showRenameBtn: false
+                        },
+                        data: {
+                            simpleData: {
+                                enable: true
+                            }
+                        },
+                        callback: {
+//        beforeClick: zTreeBeforeClick,
+                            onClick: _this.zTreeBeforeClick
+                            // onRename: onRename
+                        }
+                    };
+                },
+                addHoverDom: function(treeId, treeNode){
+                    var aObj = $("#" + treeNode.tId + "_a");
+                    if ($("#diyBtn_"+treeNode.id).length>0) return;
+                    var editStr = '<span id="diyBtn_'+treeNode.id+'">编辑</span>';
+                    aObj.append(editStr);
+                    var btn = $("#diyBtn_"+treeNode.id);
+                    if (btn) btn.bind("click", function(){
+//        alert("diy Button for " + treeNode.name);
+//                         $( "#dialog" ).dialog( "open" );
+                    });
+                },
+                removeHoverDom: function(treeId, treeNode){
+                    $("#diyBtn_"+treeNode.id).unbind().remove();
+                    $("#diyBtn_space_" +treeNode.id).unbind().remove();
+                },
+                zTreeBeforeClick:function(treeId, treeNode){
+                    console.log(333);
+                    var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
+                    var sNodes = treeObj.getSelectedNodes()[0];
+//    var node = sNodes.getParentNode();
+                    arr = [];
+                    dg(sNodes);
+                },
+            },
+
+            mounted:function () {
+                var _this = this;
+                //给数状菜单添加数据
+                $.axspost(contextPath+'api/dingtalkuser/deptUser?iId=1','get','',function (data) {
+                    data.content[0].open = true
+                    $.fn.zTree.init($("#treeDemoCheck"),setting,
+                        data.content);
+                },function(data){});
+
+
+            }
+        });
+
+
+
+
+
+
+    })
 </script>
 </body>
 </html>

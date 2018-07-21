@@ -125,7 +125,7 @@
                                     <tr>
                                         <td>企业代码</td>
                                         <td>
-                                            <span  v-text="dataList.user.mobile"></span>
+                                            <span  v-text="dataList.eCode"></span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -168,19 +168,12 @@
                                             <td>邮箱</td>
                                         </tr>
                                         </thead>
-                                        <tr class="bj">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="bj">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                        <tr v-for="item in myUser" class="bj">
+                                            <td>{{item.name}}</td>
+                                            <td>{{item.position}}</td>
+                                            <td>{{item.jobnumber}}</td>
+                                            <td>{{item.mobile}}</td>
+                                            <td>{{item.email}}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -201,19 +194,12 @@
                                             <td>邮箱</td>
                                         </tr>
                                         </thead>
-                                        <tr class="bj">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="bj">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                        <tr v-for="item in fcUser" class="bj">
+                                            <td>{{item.name}}</td>
+                                            <td>{{item.position}}</td>
+                                            <td>{{item.jobnumber}}</td>
+                                            <td>{{item.mobile}}</td>
+                                            <td>{{item.email}}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -341,7 +327,7 @@
         '<button type="button" class="btn btn-info btn-flat border-none" @click="commentAdd(comment.topicId,$event)">评论</button>' +
         '</span>' +
         '</div><div class="padding-left-10 margin-top-6" ref="msg1"></div>' +
-        ' <msg1 v-for = "item in comment.commentContent" v-bind:content="item">' +
+        ' <msg1 v-for = "item in comment.commentContent" :key="item.id" v-bind:content="item">' +
         '</msg1></div></transition></div></div>',
         data(){
             return{
@@ -402,6 +388,7 @@
                 company: null,
                 createTime: "",
                 id: 1,
+                contacts:[],
                 intermediaryContact: "5555",
                 intermediaryContactTel: "",
                 intermediaryIntroduction: "5545454",
@@ -415,10 +402,25 @@
                     platformAdmin: "",
                     position: "",
                     name: "",
-                    mobile: ""
+                    // mobile: ""
                 }
             },
+            contacts:[],
             commentList:[]
+        },
+        computed:{
+            myUser:function () {
+                var _this = this;
+                return _this.contacts.filter(function(v){
+                    return v.status == 1
+                })
+            },
+            fcUser:function () {
+                var _this = this;
+                return _this.contacts.filter(function(v){
+                    return v.status == 0
+                })
+            }
         },
         methods:{
             closeDelPop:function(){
@@ -463,6 +465,7 @@
             $.axspost(contextPath + "api/intermediary/"+detailID+"","get","",function(data){
                 // console.log(data.content);
                 _this.dataList = data.content;
+                _this.contacts = data.content.contacts;
                 _this.dataList.intermediaryLogoUrl = imgPath + data.content.intermediaryLogoUrl
                 $(_this.$refs.intermediaryIntroduction).html(data.content.intermediaryIntroduction);
                 //

@@ -165,16 +165,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryContactTel">联系人电话:</label>
-                        <div class="col-xs-12 col-sm-9">
-                            <div class="clearfix">
-                                <input type="text" name="intermediaryContactTel" id="intermediaryContactTel" v-model="editList.intermediaryContactTel"
-                                       class="col-xs-12 col-sm-8" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-3 no-padding-right">LOGO:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
@@ -208,14 +198,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="userId">平台联系方式:</label>
-                        <div class="col-xs-12 col-sm-9">
-                            <div class="clearfix">
-                                <input type="text" name="userId"  class="col-xs-12 col-sm-8" v-model="editList.user.mobile"/>
-                            </div>
-                        </div>
-                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="userId">平台联系方式:</label>-->
+                        <!--<div class="col-xs-12 col-sm-9">-->
+                            <!--<div class="clearfix">-->
+                                <!--<input type="text" name="userId"  class="col-xs-12 col-sm-8" v-model="editList.user.mobile"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
 
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="userId">企业代码:</label>
@@ -294,15 +284,10 @@
 
     Vue.component('ztreeList',{
         props:['list','nodes','listshow','dataid'],
-        data() {
-            return {
-                // nodesArr:this.nodes
-            }
-        },
         template:'<div class="col-xs-12 col-sm-9">' +
         '<div class="ztree-page ztree-box col-xs-12 col-sm-8"> ' +
         '<span v-for="item in list" data-id="item.id"  class="ztreeName" ' +
-        '@click="delCurrent(item.id)">{{item.name}}</span> ' +
+        '@click="delCurrent(item.userId)">{{item.name}}</span> ' +
         '<span class="add" id="add" @click="handleAdd">+</span> ' +
         '</div>' +
         '<div class="ztreeContain col-xs-12 col-sm-8" id="ztreeContain" v-show="listshow">' +
@@ -356,13 +341,37 @@
                     }else {
                         v.icon = contextPath +'images/company.png'
                     }
-                    // _this.list.map(function(s){
-                    //     if(v.id == s.id){
-                    //         treeObj.checkNode(v, true, true);
-                    //     }
-                    // })
                 });
                 treeObj.refresh();
+                treeNode.map(function(v){
+                    _this.list.map(function(s){
+                        if(v.id == s.userId && v.type == 'person'){
+                            treeObj.checkNode(v, true, true);
+                        }
+                    })
+                })
+            },
+            list: function(){
+                var _this = this;
+                $.fn.zTree.init($("#treeDemoCheck"), _this.setting(),
+                    _this.nodes);
+                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
+                var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                treeNode.map(function(v){
+                    if(v.type == 'person'){
+                        v.icon = contextPath +'images/person.png'
+                    }else {
+                        v.icon = contextPath +'images/company.png'
+                    }
+                });
+                treeObj.refresh();
+                treeNode.map(function(v){
+                    _this.list.map(function(s){
+                        if(v.id == s.userId && v.type == 'person'){
+                            treeObj.checkNode(v, true, true);
+                        }
+                    })
+                })
             }
         },
         mounted: function(){
@@ -374,13 +383,13 @@
         props:['list','nodes','listshow','dataid'],
         data() {
             return {
-                // nodesArr:this.nodes
+                nodesArr:this.list
             }
         },
         template:'<div class="col-xs-12 col-sm-9">' +
         '<div class="ztree-page ztree-box col-xs-12 col-sm-8"> ' +
         '<span v-for="item in list" data-id="item.id"  class="ztreeName" ' +
-        '@click="delCurrent(item.id)">{{item.name}}</span> ' +
+        '@click="delCurrent(item.userId)">{{item.name}}</span> ' +
         '<span class="add" id="addCustom" @click="handleAdd">+</span> ' +
         '</div>' +
         '<div class="ztreeContain col-xs-12 col-sm-8" id="ztreeContain" v-show="listshow">' +
@@ -436,13 +445,20 @@
                     }else {
                         v.icon = contextPath +'images/company.png'
                     }
+                });
+                treeObj.refresh();
+            },
+            list: function(){
+                var _this = this;
+                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
+                var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                treeNode.map(function(v){
                     _this.list.map(function(s){
-                        if(v.id == s.id){
+                        if(v.id == s.userId && v.type == 'person'){
                             treeObj.checkNode(v, true, true);
                         }
                     })
-                });
-                treeObj.refresh();
+                })
             }
         },
         mounted: function(){
@@ -469,6 +485,7 @@
                     zTreeList:[]
                 },
                 searchVal:"",
+                contacts:[],
                 editList:{
                     area:{
                         name:"",
@@ -478,7 +495,6 @@
                     createTime: "",
                     id: 1,
                     intermediaryContact: "",
-                    intermediaryContactTel: "",
                     intermediaryIntroduction: "",
                     intermediaryLogoUrl: "",
                     intermediaryName: "",
@@ -486,11 +502,6 @@
                     eCode:"",
                     businessLicense:"",
                     updateTime: "",
-                    user:{
-                        id: 1,
-                        name: "",
-                        mobile: ""
-                    }
                 }
             },
             computed:{
@@ -521,13 +532,13 @@
                     var _this = this;
                     if(postId == 1){
                         for(var i=0;i<_this.relaion.zTreeList.length;i++){
-                            if(_this.relaion.zTreeList[i].id == id){
+                            if(_this.relaion.zTreeList[i].userId == id){
                                 _this.relaion.zTreeList.splice(i,1)
                             }
                         }
                     }else{
                         for(var i=0;i<_this.flatRelation.zTreeList.length;i++){
-                            if(_this.flatRelation.zTreeList[i].id == id){
+                            if(_this.flatRelation.zTreeList[i].userId == id){
                                 _this.flatRelation.zTreeList.splice(i,1)
                             }
                         }
@@ -590,9 +601,7 @@
                             function ajaxDataFilter(treeId, parentNode, responseData) {
                                 // console.log(responseData.content +"=======================");
                                 responseData.content.map(function(v){
-                                    if(v.parent == false){
-                                        v.icon = contextPath +'images/commonZtree.png'
-                                    }
+                                    v.icon = contextPath +'images/commonZtree.png'
                                 });
                                 return responseData.content;
                             }
@@ -651,22 +660,36 @@
                 },
                 sureSubmit:function () {
                     var _this = this;
+                    var relation = [];
+                    var ptRelation = [];
+
+                    _this.relaion.zTreeList.map(function (v) {
+                        if(v.id == undefined){
+                            relation.push(v.userId);
+                        }else{
+                            relation.push(v.id);
+                        }
+
+                    });
+                    _this.flatRelation.zTreeList.map(function (v) {
+                        if(v.id == undefined){
+                            ptRelation.push(v.userId);
+                        }else{
+                            ptRelation.push(v.id);
+                        }
+                    });
                     var data = {
                         intermediaryName:_this.editList.intermediaryName, //中间商名称
-                        intermediaryContact:_this.editList.intermediaryContact,//中间商联系人
-                        intermediaryContactTel:_this.editList.intermediaryContactTel, //中间商联系方式
+                        // intermediaryContact:_this.editList.intermediaryContact,//中间商联系人
                         intermediaryLogoUrl:   $("#responseUrl").val(),
                         businessLicense:   $("#companyBussniess").val(),
                         eCode:  _this.editList.eCode,
                         intermediaryIntroduction: CKEDITOR.instances.editor1.getData(),
-                        user:{
-                            name:_this.editList.user.name,
-                            mobile:_this.editList.user.mobile,
-                            userid:1
-                        },
                         area:{
                             id:_this.editList.area.id
                         },
+                        myUser: relation.join(","),
+                        fcUser: ptRelation.join(","),
                         intermediaryId:id
                     };
                     $.ajax({
@@ -701,9 +724,21 @@
                 //查询中间商详情
                 $.axspost(contextPath + "api/intermediary/"+id+"","get","",function(data){
                     _this.editList = data.content;
+                    _this.contacts = data.content.contacts;
+                    //中间商联系人
+                    _this.relaion.zTreeList =  _this.contacts.filter(function(v){
+                        return v.status == 1
+                    });
+
+                    //平台联系人
+                    _this.flatRelation.zTreeList =  _this.contacts.filter(function(v){
+                        return v.status == 0
+                    });
+
                     $("#imgInter").attr("src",imgPath+data.content.intermediaryLogoUrl);
                     $("#responseUrl").val(imgPath+data.content.intermediaryLogoUrl);
                     $("#companyBussniess").val(imgPath+data.content.businessLicense);
+                    $("#imgCompany").attr("src",imgPath+data.content.businessLicense);
                     responseUrl = imgPath+data.content.intermediaryLogoUrl;
                     CKEDITOR.instances.editor1.setData(data.content.intermediaryIntroduction);
                     $("#intermediaryIntroduction").val(data.content.intermediaryIntroduction);
@@ -717,15 +752,28 @@
                     return this.optional(element) || (length == 11 && mobile.test(value));
                 }, "请正确填写您的手机号码");
 
+                jQuery.validator.addMethod("isExistence", function(value, element) {
+                    var length = value.length;
+                    var flag = '';
+                    var msg;
+                    $.ajax({
+                        url:contextPath + "api/dingtalkuser/mobile?mobile="+value,
+                        type: 'get',
+                        async: false,
+                        success:function(data){
+                            msg =  data;
+                        }
+                    });
+                    return msg;
+                }, "该号码已存在");
+
                 //所属区域
                 $.axspost(contextPath + "api/area/condition?level=1","get","",function(data){
                     // _this.facList = data.content;
                     data.content.forEach(function(item,i){
                         data.content[i].isParent  = true;
                         data.content.map(function(v){
-                            if(v.parent == true){
-                                v.icon = contextPath +'images/company.png'
-                            }
+                            v.icon = contextPath +'images/commonZtree.png'
                         });
                         _this.facList = data.content;
                     });
@@ -762,10 +810,6 @@
                         },
                         intermediaryIntroduction: {
                             required: true
-                        },
-                        intermediaryContactTel: {
-                            required: true,
-                            isMobile:true
                         },
                         userId: {
                             required: true,
