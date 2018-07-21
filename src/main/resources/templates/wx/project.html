@@ -86,9 +86,10 @@
         </div>
  </div>
 <script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
-<script>
-    /*    var sourceId = [[${sourceId}]]*/
-
+<script type="text/javascript" th:inline="javascript">
+        var sourceId = [[${sourceId}]];
+        console.log(sourceId)
+/*    var sourceId="gh_f5a46974c0f6";*/
     var $$ = Dom7;
     // Loading flag
     var allowInfinite = true;
@@ -137,7 +138,7 @@
             url: "/wx/common/projectList",
             type:"get",
             data:{
-                sourceId:"gh_f5a46974c0f6",
+                sourceId:sourceId,
                 pageNum:pageNum,
                 pageSize:itemsPerLoad
             },
