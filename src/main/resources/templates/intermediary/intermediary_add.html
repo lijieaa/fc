@@ -206,14 +206,14 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">平台联系方式:</label>
-                        <div class="col-xs-12 col-sm-9">
-                            <div class="clearfix">
-                                <input type="text" name="userId"  class="col-xs-12 col-sm-8" v-model="editList.user.mobile"/>
-                            </div>
-                        </div>
-                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<label class="control-label col-xs-12 col-sm-3 no-padding-right">平台联系方式:</label>-->
+                        <!--<div class="col-xs-12 col-sm-9">-->
+                            <!--<div class="clearfix">-->
+                                <!--<input type="text" name="userId"  class="col-xs-12 col-sm-8" v-model="editList.user.mobile"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="userId">企业代码:</label>
                         <div class="col-xs-12 col-sm-9">
@@ -475,9 +475,7 @@
                             function ajaxDataFilter(treeId, parentNode, responseData) {
                                 // console.log(responseData.content +"=======================");
                                 responseData.content.map(function(v){
-                                    if(v.parent == false){
-                                        v.icon = contextPath +'images/commonZtree.png'
-                                    }
+                                    v.icon = contextPath +'images/commonZtree.png'
                                 });
                                 return responseData.content;
                             }
@@ -537,6 +535,11 @@
                 },
                 sureSubmit:function () {
                     var _this = this;
+                    var listId = [];
+                    _this.zTreeList.map(function (v) {
+                        // console.log(v.id);
+                        listId.push(v.id);
+                    });
                     var data = {
                         intermediaryName:_this.editList.intermediaryName, //中间商名称
                         intermediaryContact:_this.editList.intermediaryContact,//中间商联系人
@@ -545,15 +548,12 @@
                         businessLicense:   $("#companyBussniess").val(),
                         eCode:   _this.editList.eCode,
                         intermediaryIntroduction: CKEDITOR.instances.editor1.getData(),
-                        user:{
-                            name:_this.editList.user.name,
-                            mobile:_this.editList.user.mobile,
-                            userid:1
-                        },
                         area:{
                             id:_this.editList.area.id
-                        }
+                        },
+                        fcUser:listId.join(",")
                     };
+
                     $.ajax({
                         url: contextPath+"api/intermediary",
                         method: "post",
@@ -599,14 +599,27 @@
                     return this.optional(element) || (length == 11 && mobile.test(value));
                 }, "请正确填写您的手机号码");
 
+                jQuery.validator.addMethod("isExistence", function(value, element) {
+                    var length = value.length;
+                    var flag = '';
+                    var msg;
+                    $.ajax({
+                        url:contextPath + "api/dingtalkuser/mobile?mobile="+value,
+                        type: 'get',
+                        async: false,
+                        success:function(data){
+                            msg =  data;
+                        }
+                    });
+                    return msg;
+                }, "该号码已存在");
+
                 //所属区域
                 $.axspost(contextPath + "api/area/condition?level=1","get","",function(data){
                     data.content.forEach(function(item,i){
                         data.content[i].isParent  = true;
                         data.content.map(function(v){
-                            if(v.parent == true){
-                                v.icon = contextPath +'images/company.png'
-                            }
+                            v.icon = contextPath +'images/commonZtree.png'
                         });
                         _this.facList = data.content;
                     });
@@ -649,7 +662,8 @@
                         },
                         intermediaryContactTel: {
                             required: true,
-                            isMobile:true
+                            isMobile:true,
+                            isExistence:true
                         },
                         userId: {
                             required: true,
@@ -773,6 +787,7 @@
         });
 
         uploader.on( 'uploadSuccess', function( file,response ) {
+            console.log(response.content.path);
             $("#responseUrl").val(response.content.path);
             $("#responseUrl").parent().next().remove();
             $("#responseUrl").parents(".form-group").removeClass("has-error")

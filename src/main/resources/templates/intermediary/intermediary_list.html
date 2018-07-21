@@ -41,42 +41,42 @@
 
 
 
-        <div class="form-group col-xs-12 col-sm-6">
-            <label class="control-label col-xs-12 col-sm-4 no-padding-right" for="intermediaryContact">联系人:</label>
-            <div class="col-xs-12 col-sm-8">
-                <div class="clearfix">
-                    <input type="text" name="intermediaryContact" id="intermediaryContact" class="col-xs-12 col-sm-12" />
-                </div>
-            </div>
-        </div>
+        <!--<div class="form-group col-xs-12 col-sm-6">-->
+            <!--<label class="control-label col-xs-12 col-sm-4 no-padding-right" for="intermediaryContact">联系人:</label>-->
+            <!--<div class="col-xs-12 col-sm-8">-->
+                <!--<div class="clearfix">-->
+                    <!--<input type="text" name="intermediaryContact" id="intermediaryContact" class="col-xs-12 col-sm-12" />-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
 
-        <div class="form-group col-xs-12 col-sm-6">
-            <label class="control-label col-xs-12 col-sm-4 no-padding-right" for="intermediaryContactTel">联系人电话:</label>
-            <div class="col-xs-12 col-sm-8">
-                <div class="clearfix">
-                    <input type="text" name="intermediaryContactTel" id="intermediaryContactTel" class="col-xs-12 col-sm-12" />
-                </div>
-            </div>
-        </div>
+        <!--<div class="form-group col-xs-12 col-sm-6">-->
+            <!--<label class="control-label col-xs-12 col-sm-4 no-padding-right" for="intermediaryContactTel">联系人电话:</label>-->
+            <!--<div class="col-xs-12 col-sm-8">-->
+                <!--<div class="clearfix">-->
+                    <!--<input type="text" name="intermediaryContactTel" id="intermediaryContactTel" class="col-xs-12 col-sm-12" />-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
-                                    <div class="form-group col-xs-12 col-sm-6">
-                                        <label class="control-label col-xs-12 col-sm-4 no-padding-right">平台联系人:</label>
-                                        <div class="col-xs-12 col-sm-8">
-                                            <div class="clearfix">
-                                                <input type="text" name="user.name" id="" class="col-xs-12 col-sm-12" />
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <!--<div class="form-group col-xs-12 col-sm-6">-->
+                                        <!--<label class="control-label col-xs-12 col-sm-4 no-padding-right">平台联系人:</label>-->
+                                        <!--<div class="col-xs-12 col-sm-8">-->
+                                            <!--<div class="clearfix">-->
+                                                <!--<input type="text" name="user.name" id="" class="col-xs-12 col-sm-12" />-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
 
-                                    <div class="form-group col-xs-12 col-sm-6">
-                                        <label class="control-label col-xs-12 col-sm-4 no-padding-right">平台联系电话:</label>
-                                        <div class="col-xs-12 col-sm-8">
-                                            <div class="clearfix">
-                                                <input type="text" name="user.mobile" id="" class="col-xs-12 col-sm-12" />
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <!--<div class="form-group col-xs-12 col-sm-6">-->
+                                        <!--<label class="control-label col-xs-12 col-sm-4 no-padding-right">平台联系电话:</label>-->
+                                        <!--<div class="col-xs-12 col-sm-8">-->
+                                            <!--<div class="clearfix">-->
+                                                <!--<input type="text" name="user.mobile" id="" class="col-xs-12 col-sm-12" />-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
 
                                     <div class="form-group col-xs-12 col-sm-6">
                                         <label class="control-label col-xs-12 col-sm-4 no-padding-right" for="intermediaryName">地区:</label>
@@ -140,12 +140,12 @@
         <th>企业代码</th>
         <th>地区</th>
         <th>创建时间</th>
-        <th>联系人</th>
-        <th>联系人电话</th>
+        <!--<th>联系人</th>-->
+        <!--<th>联系人电话</th>-->
         <!--<th>LOGO</th>-->
         <th>最后更新时间</th>
-        <th>平台联系电话</th>
-        <th>平台联系人</th>
+        <!--<th>平台联系电话</th>-->
+        <!--<th>平台联系人</th>-->
         <th></th>
         </tr>
                             </thead>
@@ -217,12 +217,12 @@
                                     {"data": "eCode"},
                                     {"data": "area.name"},
                                     {"data": "intermediaryCreateTime"},
-                                    {"data": "intermediaryContact"},
-                                    {"data": "intermediaryContactTel"},
+                                    // {"data": "intermediaryContact"},
+                                    // {"data": "intermediaryContactTel"},
                                     // {"data": "intermediaryLogoUrl"},
                                     {"data": "intermediaryUpdateTime"},
-                                    {"data": "intermediaryContactTel"},
-                                    {"data": "user.name"},
+                                    // {"data": "intermediaryContactTel"},
+                                    // {"data": "user.name"},
                                     {"data": null}
                                 ],
                                 "columnDefs": [
@@ -278,7 +278,19 @@
                                         "orderable": true,
                                         "searchable": true,
                                         "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
+                                            var d = new Date(data); //根据时间戳生成的时间对象
+                                            var month = (d.getMonth() + 1) <10 ? "0"+ (d.getMonth() + 1):(d.getMonth() + 1)
+                                            var day = d.getDate()  <10 ? "0"+d.getDate():d.getDate();
+                                            var hour = d.getHours()  <10 ? "0"+d.getHours():d.getHours();
+                                            var minutes = d.getMinutes()  <10 ? "0"+d.getMinutes():d.getMinutes();
+                                            var seconds = d.getSeconds()  <10 ? "0"+d.getSeconds():d.getSeconds();
+                                            var date = (d.getFullYear()) + "-" +
+                                                month + "-" +
+                                                day + " " +
+                                                hour + ":" +
+                                                minutes + ":" +
+                                                seconds;
+                                            return '<td>' + date + '</td>';
                                         }
 
                                     },
@@ -287,46 +299,58 @@
                                         "orderable": true,
                                         "searchable": true,
                                         "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
+                                            var d = new Date(data); //根据时间戳生成的时间对象
+                                            var month = (d.getMonth() + 1) <10 ? "0"+ (d.getMonth() + 1):(d.getMonth() + 1)
+                                            var day = d.getDate()  <10 ? "0"+d.getDate():d.getDate();
+                                            var hour = d.getHours()  <10 ? "0"+d.getHours():d.getHours();
+                                            var minutes = d.getMinutes()  <10 ? "0"+d.getMinutes():d.getMinutes();
+                                            var seconds = d.getSeconds()  <10 ? "0"+d.getSeconds():d.getSeconds();
+                                            var date = (d.getFullYear()) + "-" +
+                                                month + "-" +
+                                                day + " " +
+                                                hour + ":" +
+                                                minutes + ":" +
+                                                seconds;
+                                            return '<td>' + date + '</td>';
                                         }
 
                                     },
-                                    {
-                                        "targets": 7,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
-
-                                    },
-                                    {
-                                        "targets": 8,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
-
-                                    },
-                                    {
-                                        "targets": 9,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
-
-                                    },
-                                    {
-                                        "targets": 10,
-                                        "orderable": true,
-                                        "searchable": true,
-                                        "render": function (data, type, row) {
-                                            return '<td>' + data + '</td>';
-                                        }
-
-                                    },
+                                    // {
+                                    //     "targets": 7,
+                                    //     "orderable": true,
+                                    //     "searchable": true,
+                                    //     "render": function (data, type, row) {
+                                    //         return '<td>' + data + '</td>';
+                                    //     }
+                                    //
+                                    // },
+                                    // {
+                                    //     "targets": 8,
+                                    //     "orderable": true,
+                                    //     "searchable": true,
+                                    //     "render": function (data, type, row) {
+                                    //         return '<td>' + data + '</td>';
+                                    //     }
+                                    //
+                                    // },
+                                    // {
+                                    //     "targets": 9,
+                                    //     "orderable": true,
+                                    //     "searchable": true,
+                                    //     "render": function (data, type, row) {
+                                    //         return '<td>' + data + '</td>';
+                                    //     }
+                                    //
+                                    // },
+                                    // {
+                                    //     "targets": 10,
+                                    //     "orderable": true,
+                                    //     "searchable": true,
+                                    //     "render": function (data, type, row) {
+                                    //         return '<td>' + data + '</td>';
+                                    //     }
+                                    //
+                                    // },
                                     {
                                         "targets": -1,
                                         "orderable": false,

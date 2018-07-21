@@ -311,3 +311,10 @@ div.dataTables_wrapper div.dataTables_paginate{
     right: 4px;
     cursor: pointer;
 }
+
+.page-header>.row>.col-sm-9{
+    padding-left: 0;
+}
+.page-header>.row>.col-sm-3{
+    padding-right: 0;
+}
