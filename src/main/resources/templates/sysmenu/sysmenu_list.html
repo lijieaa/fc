@@ -93,7 +93,7 @@
                         </tr>
                         </thead>
                         <th:block th:each="menu : ${menus}">
-                            <tr th:attr="data-tt-id=${menu.menuId},data-tt-parent-id=${menu.menuParentId}">
+                            <tr th:attr="data-tt-id=${menu.menuId},data-tt-parent-id=${menu.menuParentId}" >
                                 <td th:text="${menu.menuName}"></td>
                                 <td th:text="${menu.menuUrl}"></td>
                                 <td th:text="${menu.menuPrmission}"></td>
@@ -102,7 +102,6 @@
                                 </td>
                                 <td th:text="${menu.icon}"></td>
                                 <td>
-
                                     <a class="green" th:href="@{'edit/?id='+${menu.menuId}}"><i
                                             class="ace-icon fa fa-pencil bigger-130"></i></a>
                                     <a class="red delete" th:attr="data=${menu.menuId}"><i

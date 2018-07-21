@@ -18,7 +18,7 @@ public class MyWebMvcConfigurationSupport extends WebMvcConfigurationSupport {
 
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(interceptor).addPathPatterns("/wd/**");
+        //registry.addInterceptor(interceptor).addPathPatterns("/wd/**");
     }
 
     @Override

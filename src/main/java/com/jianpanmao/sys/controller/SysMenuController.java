@@ -1,5 +1,6 @@
 package com.jianpanmao.sys.controller;
 
+import com.jianpanmao.common.utils.MenuUtil;
 import com.jianpanmao.sys.entity.SysMenu;
 import com.jianpanmao.sys.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,8 @@ public class SysMenuController {
     @RequestMapping(method = RequestMethod.GET, value = "list")
     public String list(Model model) {
         List<SysMenu> menus = sysmenuService.getAll(null);
-        model.addAttribute("menus",menus);
+
+        model.addAttribute("menus",MenuUtil.buildByRecursive(menus));
         return "sysmenu/sysmenu_list";
     }
 

@@ -15,7 +15,7 @@ mybatis:
  type-aliases-package: com.jianpanmao.*
 
 server:
- port: 8080
+ port: 8081
  servlet:
   contextPath: /
   session:
