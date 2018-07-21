@@ -6,8 +6,8 @@ package com.jianpanmao.project.entity;
  */
 public class ProjectContacts {
     private Integer projectContactsId;
-    private Integer projectContactsPid;
-    private Integer projectContactsCid;
+    private Integer projectContactsPId;
+    private Integer projectContactsCId;
 
     public Integer getProjectContactsId() {
         return projectContactsId;
@@ -17,19 +17,19 @@ public class ProjectContacts {
         this.projectContactsId = projectContactsId;
     }
 
-    public Integer getProjectContactsPid() {
-        return projectContactsPid;
+    public Integer getProjectContactsPId() {
+        return projectContactsPId;
     }
 
-    public void setProjectContactsPid(Integer projectContactsPid) {
-        this.projectContactsPid = projectContactsPid;
+    public void setProjectContactsPId(Integer projectContactsPId) {
+        this.projectContactsPId = projectContactsPId;
     }
 
-    public Integer getProjectContactsCid() {
-        return projectContactsCid;
+    public Integer getProjectContactsCId() {
+        return projectContactsCId;
     }
 
-    public void setProjectContactsCid(Integer projectContactsCid) {
-        this.projectContactsCid = projectContactsCid;
+    public void setProjectContactsCId(Integer projectContactsCId) {
+        this.projectContactsCId = projectContactsCId;
     }
 }

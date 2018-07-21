@@ -64,9 +64,10 @@ public class ProjectRestController {
                        @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
                        @RequestParam(value = "draw", required = false) Integer draw,
                        ProjectDto dto) {
-        DingtalkUser user = UserUtils.getUser();
-        dto.setIntermediary(user.getIntermediary());
-
+        if (dto.getIntermediary() == null || dto.getIntermediary().getIntermediaryId() == null) {
+            DingtalkUser user = UserUtils.getUser();
+            dto.setIntermediary(user.getIntermediary());
+        }
         PageHelper.startPage(pageNum, pageSize);
 
         List<Project> list = projectService.getByDto(dto);
@@ -90,7 +91,7 @@ public class ProjectRestController {
 
     @PreAuthorize("hasAuthority('project:edit')")
     @PutMapping("status")
-    public void updateProjectStatus(Integer projectId){
+    public void updateProjectStatus(Integer projectId) {
         dao.updateProjectStatus(projectId);
     }
 }

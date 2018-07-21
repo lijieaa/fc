@@ -107,12 +107,12 @@
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
-    p.*,area.ID,area.NAME aname,
+    project.*,area.ID,area.NAME aname,
     intermediary.intermediary_id,intermediary.intermediary_name
     from project project
-    LEFT JOIN area area ON p.area_id = area.ID
+    LEFT JOIN area area ON project.area_id = area.ID
     LEFT JOIN intermediary intermediary ON project.project_intermediary = intermediary.intermediary_id
-    where p.project_id = #{id,jdbcType=INTEGER}
+    where project.project_id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from project
@@ -125,7 +125,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.jianpanmao.project.entity.Project">
+    <selectKey keyProperty="projectId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into project ( project_name,
+    project_intermediary,
       area_id,
       project_status,
       project_topic_status,
@@ -134,6 +138,7 @@
       )
     values (
       #{projectName,jdbcType=VARCHAR},
+    #{intermediary.intermediaryId,jdbcType=INTEGER},
       #{area.id,jdbcType=INTEGER},
       #{projectStatus,jdbcType=TINYINT},
     #{projectTopicStatus,jdbcType=TINYINT},
@@ -332,7 +337,7 @@
     set project_name = #{projectName,jdbcType=VARCHAR},
       area_id = #{area.id,jdbcType=INTEGER},
       project_logo = #{projectLogo,jdbcType=VARCHAR},
-      project_introduction = #{projectIntroduction,jdbcType=VARCHAR},
+      project_introduction = #{projectIntroduction,jdbcType=VARCHAR}
     where project_id = #{projectId,jdbcType=INTEGER}
   </update>
   <select id="selectAll" parameterType="com.jianpanmao.project.entity.Project" resultMap="BaseResultMap">
@@ -352,16 +357,10 @@
     from project project
     LEFT JOIN area area ON project.area_id = area.ID
     LEFT JOIN intermediary intermediary ON project.project_intermediary = intermediary.intermediary_id
-    LEFT JOIN project_user project_user ON project.project_id = project_user.project_user_pid
-    LEFT JOIN dingtalk_user dingtalk_user ON project_user.project_user_userid = dingtalk_user.userid
-    LEFT JOIN project_contacts project_contacts ON project.project_id = project_contacts.project_contacts_pid
-    LEFT JOIN contacts contacts ON project_contacts.project_contacts_cid = contacts.con_id
+
     WHERE project.project_status = #{projectStatus}
     and project.project_intermediary = #{intermediary.intermediaryId}
     <if test="projectName != null"> and project.project_name  LIKE CONCAT('%',#{projectName},'%')</if>
-    <if test="contactsName !=null"> and dingtalk_user.name LIKE  CONCAT('%',#{contactsName},'%')</if>
-<!--    <if test="projectOwnerContactName!=null"> and contacts.con_name LIKE CONCAT('%',#{projectOwnerContactName},'%')</if>
-    <if test="projectOwnerContactTel!=null"> and contacts.con_tel LIKE CONCAT('%',#{projectOwnerContactTel},'%')</if>-->
     <if test="od!=null and od neq ''">
       order by ${od}
     </if>
@@ -376,4 +375,83 @@
     set project_status = 1
     where project_id = #{0}
   </update>
+
+
+
+
+  <!--添加项目负责人-->
+  <insert id="addProjectUser"  parameterType="java.util.List">
+    INSERT INTO
+    project_user
+    (project_user_pid,project_user_userid)
+    VALUES
+    <foreach collection ="list" item="id" index= "index" separator =",">
+      (
+      #{id.projectUserPId},
+      #{id.projectUserUserId}
+      )
+    </foreach >
+
+  </insert>
+  <!--添加项目客户-->
+  <insert id="addContacts"  parameterType="java.util.List">
+    INSERT INTO
+    project_contacts
+    (project_contacts_pid,project_contacts_cid)
+    VALUES
+    <foreach collection ="list" item="id" index= "index" separator =",">
+      (
+      #{id.projectContactsPId},
+      #{id.projectContactsCId}
+      )
+    </foreach >
+  </insert>
+
+  <!--删除项目负责人-->
+  <delete id="deleteProjectUser" parameterType="java.lang.Integer">
+    delete from project_user
+    where project_user_pid =#{0}
+  </delete>
+  <!--删除项目客户-->
+  <delete id="deleteProjectContacts" parameterType="java.lang.Integer">
+    delete from project_contacts
+    where project_contacts_pid =#{0}
+  </delete>
+
+
+  <!--查询项目负责人-->
+  <resultMap id="projectChargeUserMap" type="com.jianpanmao.sys.dto.ContactsDto">
+    <id column="userid" jdbcType="INTEGER" property="userId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="jobnumber" jdbcType="VARCHAR" property="jobnumber" />
+  </resultMap>
+
+  <select id="projectChargeUser" parameterType="java.lang.Integer" resultMap="projectChargeUserMap">
+select
+u.*
+FROM
+dingtalk_user u LEFT JOIN project_user pu ON u.userid = pu.project_user_userid
+LEFT JOIN project p ON pu.project_user_pid = p.project_id
+WHERE p.project_id = #{0}
+  </select>
+
+  <!--查询项目客户-->
+  <resultMap id="projectCustomersMap" type="com.jianpanmao.project.dto.ProjectCustomer">
+    <id column="con_id" jdbcType="INTEGER" property="conId" />
+    <result column="con_name" jdbcType="VARCHAR" property="conName" />
+    <result column="con_tel" jdbcType="VARCHAR" property="conTel" />
+    <result column="con_qq" jdbcType="VARCHAR" property="conQQ" />
+    <result column="con_wechat" jdbcType="VARCHAR" property="conWechat" />
+    <result column="con_email" jdbcType="INTEGER" property="conEmail" />
+  </resultMap>
+  <select id="projectCustomers" parameterType="java.lang.Integer" resultMap="projectCustomersMap">
+select
+c.*
+FROM
+contacts c LEFT JOIN project_contacts pc ON c.con_id = pc.project_contacts_cid
+LEFT JOIN project p ON pc.project_contacts_pid = p.project_id
+WHERE p.project_id = #{0}
+  </select>
 </mapper>

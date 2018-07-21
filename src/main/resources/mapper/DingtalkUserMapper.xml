@@ -626,6 +626,7 @@
     <resultMap id="ContactResultMap" type="com.jianpanmao.sys.dto.ContactsDto">
       <id column="userid" jdbcType="INTEGER" property="userId" />
       <result column="name" jdbcType="VARCHAR" property="name" />
+      <result column="position" jdbcType="VARCHAR" property="position" />
       <result column="mobile" jdbcType="VARCHAR" property="mobile" />
       <result column="email" jdbcType="VARCHAR" property="email" />
       <result column="jobnumber" jdbcType="VARCHAR" property="jobnumber" />

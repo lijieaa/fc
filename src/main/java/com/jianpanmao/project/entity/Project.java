@@ -2,14 +2,15 @@ package com.jianpanmao.project.entity;
 
 import com.jianpanmao.area.entity.Area;
 import com.jianpanmao.intermediary.entity.Intermediary;
+import com.jianpanmao.project.dto.ProjectCustomer;
+import com.jianpanmao.sys.dto.ContactsDto;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import org.hibernate.validator.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.validation.constraints.Max;
+import java.util.List;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class Project implements Serializable {
@@ -24,13 +25,13 @@ public class Project implements Serializable {
     //所属区域
     private @NotNull(message = "地区不能为空") Area area;
 
-    //项目负责人id字符串
-    private @NotNull(message = "负责人不能为空") String contacts;
+    //项目负责人id字符串（，隔开）
+    private @NotNull(message = "负责人不能为空") String projectUser;
 
 
-    //客户 id字符串
+    //客户 id字符串（，隔开）
     @NotBlank(message = "客户")
-    private String projectOwnerContact;
+    private String projectContacts;
 
 
     //状态：0线索，1项目
@@ -58,6 +59,30 @@ public class Project implements Serializable {
 
     private DingtalkUser projectCreateUser;
 
+    private Integer count;
+
+    //项目负责人
+    private List<ContactsDto> projectChargeUser;
+
+    //项目客户
+    private List<ProjectCustomer> projectCustomers;
+
+    public List<ContactsDto> getProjectChargeUser() {
+        return projectChargeUser;
+    }
+
+    public void setProjectChargeUser(List<ContactsDto> projectChargeUser) {
+        this.projectChargeUser = projectChargeUser;
+    }
+
+    public List<ProjectCustomer> getProjectCustomers() {
+        return projectCustomers;
+    }
+
+    public void setProjectCustomers(List<ProjectCustomer> projectCustomers) {
+        this.projectCustomers = projectCustomers;
+    }
+
     public DingtalkUser getProjectCreateUser() {
         return projectCreateUser;
     }
@@ -66,12 +91,20 @@ public class Project implements Serializable {
         this.projectCreateUser = projectCreateUser;
     }
 
-    public String getContacts() {
-        return contacts;
+    public String getProjectUser() {
+        return projectUser;
     }
 
-    public void setContacts(String contacts) {
-        this.contacts = contacts;
+    public void setProjectUser(String projectUser) {
+        this.projectUser = projectUser;
+    }
+
+    public String getProjectContacts() {
+        return projectContacts;
+    }
+
+    public void setProjectContacts(String projectContacts) {
+        this.projectContacts = projectContacts;
     }
 
     public String getProjectIntroduction() {
@@ -82,7 +115,7 @@ public class Project implements Serializable {
         this.projectIntroduction = projectIntroduction;
     }
 
-    private Integer count;
+
 
     public Intermediary getIntermediary() {
         return intermediary;
@@ -126,15 +159,6 @@ public class Project implements Serializable {
 
     public void setArea(Area area) {
         this.area = area;
-    }
-
-
-    public String getProjectOwnerContact() {
-        return projectOwnerContact;
-    }
-
-    public void setProjectOwnerContact(String projectOwnerContact) {
-        this.projectOwnerContact = projectOwnerContact == null ? null : projectOwnerContact.trim();
     }
 
     public Byte getProjectStatus() {
