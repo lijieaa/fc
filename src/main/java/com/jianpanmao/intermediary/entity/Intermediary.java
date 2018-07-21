@@ -38,6 +38,8 @@ public class Intermediary implements Serializable {
     //接收飞创对接人id字符串以','分割
     //平台联系人
     private  String fcUser;
+
+
     //接收修改后的本中间商对接人id字符串以','分割
     private String myUser;
 
