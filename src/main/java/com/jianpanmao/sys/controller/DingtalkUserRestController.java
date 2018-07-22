@@ -166,7 +166,10 @@ public class DingtalkUserRestController {
      */
     @PreAuthorize("hasAuthority('dingtalkuser:view')")
     @RequestMapping(method = RequestMethod.GET, value = "deptUser")
-    public List<DeptUserDto> deptUser(Integer iId, @RequestParam(required = false) String path) {
+    public List<DeptUserDto> deptUser(@RequestParam(required = false) Integer iId, @RequestParam(required = false) String path) {
+        if (null==iId){
+            iId =  UserUtils.getUser().getIntermediaryId();
+        }
         if (null == path) {
             path = ",0,";
         }

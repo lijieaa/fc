@@ -42,4 +42,6 @@ public class CustomerServiceImpl extends BaseServiceImpl<Customer,CustomerExampl
         record.setIntermediaryId(cuser.getIntermediaryId());
         return super.update(record);
     }
+
+
 }

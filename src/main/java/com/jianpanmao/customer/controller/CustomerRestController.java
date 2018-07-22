@@ -3,25 +3,38 @@ package com.jianpanmao.customer.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jianpanmao.common.entity.DataTablesResponseEntity;
+import com.jianpanmao.contacts.dao.ContactsMapper;
+import com.jianpanmao.contacts.entity.Contacts;
+import com.jianpanmao.customer.dao.CustomerMapper;
 import com.jianpanmao.customer.dto.CustomerDto;
 import com.jianpanmao.customer.entity.Customer;
 import com.jianpanmao.customer.service.CustomerService;
 import com.jianpanmao.sys.entity.DingtalkUser;
+import com.jianpanmao.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import javax.rmi.CORBA.Util;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerRestController {
 
+    @Autowired
+    ContactsMapper contactsMapper;
 
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    CustomerMapper customerMapper;
 
     @PreAuthorize("hasAuthority('customer:add')")
     @RequestMapping(method = RequestMethod.POST)
@@ -84,5 +97,29 @@ public class CustomerRestController {
         dto.setIntermediaryId(cuser.getIntermediaryId());
         List<Customer> list = customerService.getByDto(dto);
         return list;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "customList")
+    public List<Customer> list (){
+        Integer iId = UserUtils.getUser().getIntermediaryId();
+        List<Contacts> contactses = contactsMapper.byiId(iId);
+        Map<String,List<Contacts>> map = new HashMap<>();
+
+        for (Contacts contacts:contactses){
+            if (map.containsKey(contacts.getCusId().toString())){
+                map.get(contacts.getCusId().toString()).add(contacts);
+            }else {
+                List<Contacts> contactsList = new ArrayList<>();
+                contactsList.add(contacts);
+                map.put(contacts.getCusId().toString(),contactsList);
+            }
+        }
+        List<Customer> customers = customerMapper.byIntermediary(iId);
+        for (Customer customer:customers){
+            if (map.containsKey(customer.getCusId().toString())){
+                customer.setChild(map.get(customer.getCusId().toString()));
+            }
+        }
+        return customers;
     }
 }
