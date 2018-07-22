@@ -117,7 +117,7 @@ public class CustomerRestController {
         List<Customer> customers = customerMapper.byIntermediary(iId);
         for (Customer customer:customers){
             if (map.containsKey(customer.getCusId().toString())){
-                customer.setChild(map.get(customer.getCusId().toString()));
+                customer.setChildren(map.get(customer.getCusId().toString()));
             }
         }
         return customers;

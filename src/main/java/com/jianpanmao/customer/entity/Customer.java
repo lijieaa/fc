@@ -45,14 +45,14 @@ public class Customer implements Serializable {
     //最后更新时间
     private Date cusUpdateTime;
 
-    private List<Contacts> child;
+    private List<Contacts> children;
 
-    public List<Contacts> getChild() {
-        return child;
+    public List<Contacts> getChildren() {
+        return children;
     }
 
-    public void setChild(List<Contacts> child) {
-        this.child = child;
+    public void setChildren(List<Contacts> children) {
+        this.children = children;
     }
 
     private static final long serialVersionUID = 1L;
