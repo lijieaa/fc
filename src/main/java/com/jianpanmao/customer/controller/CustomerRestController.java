@@ -6,6 +6,7 @@ import com.jianpanmao.common.entity.DataTablesResponseEntity;
 import com.jianpanmao.contacts.dao.ContactsMapper;
 import com.jianpanmao.contacts.entity.Contacts;
 import com.jianpanmao.customer.dao.CustomerMapper;
+import com.jianpanmao.customer.dto.CustomerContactDto;
 import com.jianpanmao.customer.dto.CustomerDto;
 import com.jianpanmao.customer.entity.Customer;
 import com.jianpanmao.customer.service.CustomerService;
@@ -100,24 +101,24 @@ public class CustomerRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "customList")
-    public List<Customer> list (){
+    public List<CustomerContactDto> list (){
         Integer iId = UserUtils.getUser().getIntermediaryId();
-        List<Contacts> contactses = contactsMapper.byiId(iId);
-        Map<String,List<Contacts>> map = new HashMap<>();
+        List<CustomerContactDto> contactses = contactsMapper.byiId(iId);
+        Map<String,List<CustomerContactDto>> map = new HashMap<>();
 
-        for (Contacts contacts:contactses){
+        for (CustomerContactDto contacts:contactses){
             if (map.containsKey(contacts.getCusId().toString())){
                 map.get(contacts.getCusId().toString()).add(contacts);
             }else {
-                List<Contacts> contactsList = new ArrayList<>();
+                List<CustomerContactDto> contactsList = new ArrayList<>();
                 contactsList.add(contacts);
                 map.put(contacts.getCusId().toString(),contactsList);
             }
         }
-        List<Customer> customers = customerMapper.byIntermediary(iId);
-        for (Customer customer:customers){
-            if (map.containsKey(customer.getCusId().toString())){
-                customer.setChildren(map.get(customer.getCusId().toString()));
+        List<CustomerContactDto> customers = customerMapper.byIntermediary(iId);
+        for (CustomerContactDto customer:customers){
+            if (map.containsKey(customer.getId().toString())){
+                customer.setChildren(map.get(customer.getId().toString()));
             }
         }
         return customers;
