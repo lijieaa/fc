@@ -120,7 +120,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="mainPerson">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="">负责人:</label>
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">负责人:</label>
                         <ztree-list :list = "mainPerson.zTreeList"
                                     :nodes="mainPerson.zNodes"
                                     :listshow="mainPerson.ztreeFlag"
@@ -553,9 +553,7 @@
                             function ajaxDataFilter(treeId, parentNode, responseData) {
                                 // console.log(responseData.content +"=======================");
                                 responseData.content.map(function(v){
-                                    if(v.parent == false){
-                                        v.icon = contextPath +'images/commonZtree.png'
-                                    }
+                                    v.icon = contextPath +'images/commonZtree.png'
                                 });
                                 return responseData.content;
                             }
@@ -614,9 +612,25 @@
                 },
                 sureSubmit:function () {
                     var _this = this;
+                    var relation = [];
+                    var ptRelation = [];
+                    _this.mainPerson.zTreeList.map(function (v) {
+                        if(v.id == undefined){
+                            relation.push(v.userId); //负责人
+                        }else{
+                            ptRelation.push(v.id);  //客户联系人
+                        }
+                    });
+                    _this.customer.zTreeList.map(function (v) {
+                        if(v.id == undefined){
+                            ptRelation.push(v.userId);
+                        }else{
+                            ptRelation.push(v.id);
+                        }
+                    });
+
                     var data = {
                         projectName:_this.editList.projectName, //项目名称
-                        // projectContactUserId:_this.editList.projectContactUserId,//负责人
                         projectContactUser:{
                             "userid":_this.editList.userId
                         },
@@ -627,8 +641,11 @@
                         area:{
                             id:_this.editList.area.id
                         },
-                        projectStatus:1
+                        projectStatus:1,
+                        projectUser: relation,  //负责人
+                        projectContacts: ptRelation  //客户联系人
                     };
+
                     $.ajax({
                         url: contextPath+"api/project",
                         method: "post",
@@ -652,7 +669,7 @@
             mounted:function () {
                 var _this = this;
                 //给数状菜单添加数据
-                $.axspost(contextPath+'api/dingtalkuser/deptUser?iId=1','get','',function (data) {
+                $.axspost(contextPath+'api/dingtalkuser/deptUser','get','',function (data) {
                     _this.mainPerson.zNodes = data.content;
                     _this.customer.zNodes = data.content;
                 },function(data){});
@@ -665,16 +682,14 @@
                     var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
                     return this.optional(element) || (length == 11 && mobile.test(value));
                 }, "请正确填写您的手机号码");
+
+
                 //所属区域
                 $.axspost(contextPath + "api/area/condition?level=1","get","",function(data){
                     // _this.facList = data.content;
                     data.content.forEach(function(item,i){
                         data.content[i].isParent  = true;
-                        data.content.map(function(v){
-                            if(v.parent == true){
-                                v.icon = contextPath +'images/company.png'
-                            }
-                        });
+                        data.content[i].icon = contextPath +'images/commonZtree.png';
                         _this.facList = data.content;
                     });
                     _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树

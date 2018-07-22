@@ -1,0 +1,15 @@
+.btn, .border-none {
+    border: 1px solid #6FB3E0;
+}
+.file-contain{
+    background: #f1f3f7;
+}
+.page-file-left,.page-file-right{
+    border: 1px solid #6FB3E0;
+}
+.page-file-right{
+    background: #fff;
+}
+.padding-right{
+    padding-right: 0!important;
+}
