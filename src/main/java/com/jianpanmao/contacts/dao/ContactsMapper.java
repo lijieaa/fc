@@ -17,6 +17,6 @@ public interface ContactsMapper extends BaseDao<Contacts, ContactsExample, Conta
 
     public List<Contacts> selectByCusId(Integer cusId);
 
-
+    List<Contacts> byiId(Integer cusId);
 
 }

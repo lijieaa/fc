@@ -1,7 +1,10 @@
 package com.jianpanmao.customer.entity;
 
+import com.jianpanmao.contacts.entity.Contacts;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
@@ -41,6 +44,16 @@ public class Customer implements Serializable {
 
     //最后更新时间
     private Date cusUpdateTime;
+
+    private List<Contacts> child;
+
+    public List<Contacts> getChild() {
+        return child;
+    }
+
+    public void setChild(List<Contacts> child) {
+        this.child = child;
+    }
 
     private static final long serialVersionUID = 1L;
 
