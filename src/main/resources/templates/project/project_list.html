@@ -35,36 +35,36 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label class="control-label col-xs-12 col-sm-4 no-padding-right"
-                                           for="projectContactUserId">跟进人:</label>
-                                    <div class="col-xs-12 col-sm-8">
-                                        <div class="clearfix">
-                                            <input type="text" name="projectContactUserId" id="projectContactUserId"
-                                                   class="col-xs-12 col-sm-12" />
-                                        </div>
-                                    </div>
-                                </div>
+                                <!--<div class="form-group col-xs-12 col-sm-6">-->
+                                    <!--<label class="control-label col-xs-12 col-sm-4 no-padding-right"-->
+                                           <!--for="projectContactUserId">跟进人:</label>-->
+                                    <!--<div class="col-xs-12 col-sm-8">-->
+                                        <!--<div class="clearfix">-->
+                                            <!--<input type="text" name="projectContactUserId" id="projectContactUserId"-->
+                                                   <!--class="col-xs-12 col-sm-12" />-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
 
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label class="control-label col-xs-12 col-sm-4 no-padding-right"
-                                           for="projectOwnerContact">客户名:</label>
-                                    <div class="col-xs-12 col-sm-8">
-                                        <div class="clearfix">
-                                            <input type="text" name="projectOwnerContact" id="projectOwnerContact" class="col-xs-12 col-sm-12" />
-                                        </div>
-                                    </div>
-                                </div>
+                                <!--<div class="form-group col-xs-12 col-sm-6">-->
+                                    <!--<label class="control-label col-xs-12 col-sm-4 no-padding-right"-->
+                                           <!--for="projectOwnerContact">客户名:</label>-->
+                                    <!--<div class="col-xs-12 col-sm-8">-->
+                                        <!--<div class="clearfix">-->
+                                            <!--<input type="text" name="projectOwnerContact" id="projectOwnerContact" class="col-xs-12 col-sm-12" />-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
 
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label class="control-label col-xs-12 col-sm-4 no-padding-right"
-                                           for="projectOwnerContactTel">业主联系电话:</label>
-                                    <div class="col-xs-12 col-sm-8">
-                                        <div class="clearfix">
-                                            <input type="text" name="projectOwnerContactTel" id="projectOwnerContactTel" class="col-xs-12 col-sm-12" />
-                                        </div>
-                                    </div>
-                                </div>
+                                <!--<div class="form-group col-xs-12 col-sm-6">-->
+                                    <!--<label class="control-label col-xs-12 col-sm-4 no-padding-right"-->
+                                           <!--for="projectOwnerContactTel">业主联系电话:</label>-->
+                                    <!--<div class="col-xs-12 col-sm-8">-->
+                                        <!--<div class="clearfix">-->
+                                            <!--<input type="text" name="projectOwnerContactTel" id="projectOwnerContactTel" class="col-xs-12 col-sm-12" />-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
 
 
 
@@ -114,9 +114,9 @@
                             </th>
                             <th>项目编号</th>
                             <th>项目名称</th>
-                            <th>跟进人</th>
-                            <th>客户名</th>
-                            <th>业主联系电话</th>
+                            <!--<th>跟进人</th>-->
+                            <!--<th>客户名</th>-->
+                            <!--<th>业主联系电话</th>-->
                             <th></th>
                         </tr>
                         </thead>
@@ -186,9 +186,9 @@
                     {"data": null},
                     {"data": "projectId"},
                     {"data": "projectName"},
-                    {"data": "projectContactUser.name"},
-                    {"data": "projectOwnerContact"},
-                    {"data": "projectOwnerContactTel"},
+                    // {"data": "projectContactUser.name"},
+                    // {"data": "projectOwnerContact"},
+                    // {"data": "projectOwnerContactTel"},
                     {"data": null}
                 ],
                 "columnDefs": [
@@ -221,33 +221,33 @@
                         }
 
                     },
-                    {
-                        "targets": 3,
-                        "orderable": true,
-                        "searchable": true,
-                        "render": function (data, type, row) {
-                            return '<td>' + data + '</td>';
-                        }
-
-                    },
-                    {
-                        "targets": 4,
-                        "orderable": true,
-                        "searchable": true,
-                        "render": function (data, type, row) {
-                            return '<td>' + data + '</td>';
-                        }
-
-                    },
-                    {
-                        "targets": 5,
-                        "orderable": true,
-                        "searchable": true,
-                        "render": function (data, type, row) {
-                            return '<td>' + data + '</td>';
-                        }
-
-                    },
+                    // {
+                    //     "targets": 3,
+                    //     "orderable": true,
+                    //     "searchable": true,
+                    //     "render": function (data, type, row) {
+                    //         return '<td>' + data + '</td>';
+                    //     }
+                    //
+                    // },
+                    // {
+                    //     "targets": 4,
+                    //     "orderable": true,
+                    //     "searchable": true,
+                    //     "render": function (data, type, row) {
+                    //         return '<td>' + data + '</td>';
+                    //     }
+                    //
+                    // },
+                    // {
+                    //     "targets": 5,
+                    //     "orderable": true,
+                    //     "searchable": true,
+                    //     "render": function (data, type, row) {
+                    //         return '<td>' + data + '</td>';
+                    //     }
+                    //
+                    // },
 
 
                     {
@@ -256,6 +256,9 @@
                         data: null,
                         "render": function (data, type, row) {
                             return '<div class="hidden-sm hidden-xs action-buttons">'
+                                [# sec:authorize="hasAuthority('project:view')"]
+                            + '<a class="blue" href="projectFileManage" title="文件管理"><i class="ace-icon fa fa-folder-open bigger-130"></i></a>'
+                                [/]
                                 [# sec:authorize="hasAuthority('project:view')"]
                             + '<a class="blue" href="detail/?id='+data.projectId+'" title="详情"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
                                 [/]
@@ -270,6 +273,9 @@
                                 [/]
                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
+                                [# sec:authorize="hasAuthority('project:view')"]
+                            + '<li><a href="projectFileManage" class="tooltip-info" data-rel="tooltip" title="文件管理"><span class="blue"><i class="ace-icon fa fa-folder-open bigger-120"></i></span></a></li>'
+                                [/]
                                 [# sec:authorize="hasAuthority('project:view')"]
                             + '<li><a href="detail/?id='+data.projectId+'" class="tooltip-info" data-rel="tooltip" title="详情"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
                                 [/]

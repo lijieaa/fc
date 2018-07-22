@@ -618,9 +618,7 @@
                 $.axspost(contextPath + "api/area/condition?level=1","get","",function(data){
                     data.content.forEach(function(item,i){
                         data.content[i].isParent  = true;
-                        data.content.map(function(v){
-                            v.icon = contextPath +'images/commonZtree.png'
-                        });
+                        data.content[i].icon = contextPath +'images/commonZtree.png'
                         _this.facList = data.content;
                     });
                     _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
