@@ -369,7 +369,7 @@
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 for(var i=0;i<treeNode.length;i++){
                     var v = treeNode[i];
-                    if(v.id == id && v.type == 'person'){
+                    if(v.id == id && v.type == null){
                         treeObj.checkNode(v, false, true);
                     }
                 }
@@ -405,7 +405,7 @@
                 var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 treeNode.map(function(v){
-                    if(v.type == 'person'){
+                    if(v.type != 'cus'){
                         v.icon = contextPath +'images/person.png'
                     }else {
                         v.icon = contextPath +'images/company.png'
@@ -452,7 +452,7 @@
                     projectOwnerContactTel: "",
                     intermediaryLogoUrl: "",
                     projectTopicStatus:1,
-                    userList:"",
+                    // userList:"",
                     userId:1
                 }
             },
@@ -500,7 +500,6 @@
                 handleClick: function(postId) {
                     // console.log(postId)
                     var _this = this;
-
                     if(postId == 1){
                         var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
                         var checkTrue = treeObj.getCheckedNodes(true);
@@ -511,7 +510,7 @@
                         var treeObj1 = $.fn.zTree.getZTreeObj("treeDemoCustom");
                         var checkTrue1 = treeObj1.getCheckedNodes(true);
                         _this.customer.zTreeList = checkTrue1.filter(function(v){
-                            return v.type == 'person'
+                            return v.type == null
                         });
                     }
 
@@ -614,14 +613,16 @@
                     var _this = this;
                     var relation = [];
                     var ptRelation = [];
+                    console.log(_this.mainPerson.zTreeList);
+                    console.log(_this.customer.zTreeList);
                     _this.mainPerson.zTreeList.map(function (v) {
                         if(v.id == undefined){
                             relation.push(v.userId); //负责人
                         }else{
-                            ptRelation.push(v.id);  //客户联系人
+                            ptRelation.push(v.id);
                         }
                     });
-                    _this.customer.zTreeList.map(function (v) {
+                    _this.customer.zTreeList.map(function (v) {//客户联系人
                         if(v.id == undefined){
                             ptRelation.push(v.userId);
                         }else{
@@ -642,8 +643,8 @@
                             id:_this.editList.area.id
                         },
                         projectStatus:1,
-                        projectUser: relation,  //负责人
-                        projectContacts: ptRelation  //客户联系人
+                        projectUser: relation.join(","),  //负责人
+                        projectContacts: ptRelation.join(",")  //客户联系人
                     };
 
                     $.ajax({
@@ -671,6 +672,9 @@
                 //给数状菜单添加数据
                 $.axspost(contextPath+'api/dingtalkuser/deptUser','get','',function (data) {
                     _this.mainPerson.zNodes = data.content;
+                },function(data){});
+
+                $.axspost(contextPath+'api/customer/customList','get','',function (data) {
                     _this.customer.zNodes = data.content;
                 },function(data){});
 
@@ -695,13 +699,13 @@
                     _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
                 },function (data) {});
                 //负责人
-                $.ajax({
-                    url:contextPath+"api/dingtalkuser/idNameList",
-                    type:"get",
-                    success:function(data){
-                        _this.editList.userList = data.content
-                    }
-                });
+                // $.ajax({
+                //     url:contextPath+"api/dingtalkuser/idNameList",
+                //     type:"get",
+                //     success:function(data){
+                //         _this.editList.userList = data.content
+                //     }
+                // });
                 var $form = $('#validation-form').validate({
                     errorElement: 'div',
                     errorClass: 'help-block',

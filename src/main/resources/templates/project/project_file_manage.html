@@ -3,6 +3,8 @@
 <head>
     <link rel="stylesheet" th:href="@{/dist/css/common.css}">
     <link rel="stylesheet" th:href="@{/css/file_manage.css}">
+    <link rel="stylesheet" th:href="@{/dist/css/page.css}">
+    <script type="text/javascript" th:src= "@{/dist/js/hand-paging.js}"></script>
 </head>
 <body layout:fragment="content">
 <div id="file">
@@ -27,6 +29,7 @@
             <div class="row">
                 <div class="col-xs-4 padding-right">
                     <div class="page-file-left">
+                        <div id="addFile">新增文件夹</div>
                         <ul id="treeDemoCheck" class="ztree"></ul>
                     </div>
                 </div>
@@ -43,6 +46,34 @@
                                     <i class="ace-icon fa fa-reply icon-only"></i>
                                     上传
                                 </button>
+                            </div>
+                        </div>
+                        <div class="page-right-contain">
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td>文件名</td>
+                                        <td>上传时间</td>
+                                        <td>大小</td>
+                                        <td>下载</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>e4343</span>
+                                            <span>e4343</span>
+                                        </td>
+                                        <td>
+                                            <span>343434</span>
+                                        </td>
+                                        <td>
+                                            <span>54445.kb</span>
+                                        </td>
+                                        <td>
+                                            <span>下载</span>
+                                            <span>删除</span>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -131,6 +162,8 @@
             vue1.$data.title = arr;
             console.log(arr)
         }
+
+
         var vue1 = new Vue({
             el:"#file",
             data:{

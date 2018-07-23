@@ -357,8 +357,8 @@
         },
         template:'<div class="col-xs-12 col-sm-9">' +
         '<div class="ztree-page ztree-box col-xs-12 col-sm-8"> ' +
-        '<span v-for="item in list" data-id="item.id"  class="ztreeName" ' +
-        '@click="delCurrent(item.id)">{{item.name}}</span> ' +
+        '<span v-for="item in list" data-id="item.conId"  class="ztreeName" ' +
+        '@click="delCurrent(item.conId)">{{item.conName}}</span> ' +
         '<span class="add" id="addCustom" @click="handleAdd">+</span> ' +
         '</div>' +
         '<div class="ztreeContain col-xs-12 col-sm-8" id="ztreeContain" v-show="listshow">' +
@@ -517,7 +517,7 @@
                         var treeObj1 = $.fn.zTree.getZTreeObj("treeDemoCustom");
                         var checkTrue1 = treeObj1.getCheckedNodes(true);
                         _this.customer.zTreeList = checkTrue1.filter(function(v){
-                            return v.type == 'person'
+                            return v.type == null
                         });
                     }
 
@@ -658,8 +658,11 @@
             mounted:function () {
                 var _this = this;
                 //给数状菜单添加数据
-                $.axspost(contextPath+'api/dingtalkuser/deptUser?iId=1','get','',function (data) {
+                $.axspost(contextPath+'api/dingtalkuser/deptUser','get','',function (data) {
                     _this.mainPerson.zNodes = data.content;
+                },function(data){});
+
+                $.axspost(contextPath+'api/customer/customList','get','',function (data) {
                     _this.customer.zNodes = data.content;
                 },function(data){});
 
@@ -680,20 +683,15 @@
                     });
                     _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
                 },function (data) {});
-                //负责人
-                $.ajax({
-                    url:contextPath+"api/dingtalkuser/idNameList",
-                    type:"get",
-                    success:function(data){
-                        _this.userList = data.content;
-                    }
-                });
+
                 //查找详情
                 $.axspost(contextPath + "api/project?id="+clubslID+"","get","",function(data){
                     _this.editList = data.content;
                     $("#imgInter").attr("src",imgPath+data.content.projectLogo);
                     $("#responseUrl").val(data.content.projectLogo);
-                    _this.editList.userId = data.content.projectCreateUser.userid;
+                    //中间商联系人
+                    _this.customer.zTreeList =  data.content.projectCustomers;
+                    // _this.editList.userId = data.content.projectCreateUser.userid;
                     responseUrl = data.content.projectLogo;
                 },function(data){});
                 var $form = $('#validation-form').validate({
