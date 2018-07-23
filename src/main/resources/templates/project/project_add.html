@@ -613,13 +613,11 @@
                     var _this = this;
                     var relation = [];
                     var ptRelation = [];
-                    console.log(_this.mainPerson.zTreeList);
-                    console.log(_this.customer.zTreeList);
                     _this.mainPerson.zTreeList.map(function (v) {
                         if(v.id == undefined){
                             relation.push(v.userId); //负责人
                         }else{
-                            ptRelation.push(v.id);
+                            relation.push(v.id);
                         }
                     });
                     _this.customer.zTreeList.map(function (v) {//客户联系人
@@ -632,17 +630,18 @@
 
                     var data = {
                         projectName:_this.editList.projectName, //项目名称
-                        projectContactUser:{
-                            "userid":_this.editList.userId
-                        },
-                        projectOwnerContact:_this.editList.projectOwnerContact,//业主名
-                        projectOwnerContactTel:_this.editList.projectOwnerContactTel, //业主联系方式
+                        // projectContactUser:{
+                        //     "userid":_this.editList.userId
+                        // },
+                        // projectOwnerContact:_this.editList.projectOwnerContact,//业主名
+                        // projectOwnerContactTel:_this.editList.projectOwnerContactTel, //业主联系方式
                         projectLogo:   $("#responseUrl").val(),
                         projectTopicStatus:_this.editList.projectTopicStatus,
                         area:{
                             id:_this.editList.area.id
                         },
                         projectStatus:1,
+                        projectIntroduction:CKEDITOR.instances.editor1.getData(),
                         projectUser: relation.join(","),  //负责人
                         projectContacts: ptRelation.join(",")  //客户联系人
                     };
@@ -655,7 +654,7 @@
                         dataType : "json",
                         success: function (data) {
                             if(data.status == 200){
-                                location.href=contextPath+"project/list";
+                                // location.href=contextPath+"project/list";
                             }else{
                                 bootbox.alert("添加失败");
                             }
@@ -728,9 +727,12 @@
                         projectOwnerContact:{
                             required: true
                         },
-                        projectOwnerContactTel: {
-                            required: true,
-                            isMobile:true
+                        // projectOwnerContactTel: {
+                        //     required: true,
+                        //     isMobile:true
+                        // },
+                        intermediaryIntroduction: {
+                            required: true
                         },
                         projectTopicStatus:{
                             required: true
@@ -752,6 +754,21 @@
                     },
                     invalidHandler: function (form) {
                     }
+                });
+                CKEDITOR.instances.editor1.on('change', function() {
+                    var data = CKEDITOR.instances.editor1.getData();
+                    $("#intermediaryIntroduction").val(data);
+                    if(data.length == 0){
+                        $("#intermediaryIntroduction-error").remove();
+                        var div = "<div id=\"intermediaryIntroduction-error\" class=\"help-block\">必选字段</div>" ;
+                        $("#intermediaryIntroduction").parents(".introduction").append(div);
+                        $("#intermediaryIntroduction").parents(".form-group").addClass("has-error");
+                    }else{
+
+                        $("#intermediaryIntroduction").parents(".form-group").removeClass("has-error");
+                        $("#intermediaryIntroduction-error").remove();
+                    }
+
                 });
             }
         });

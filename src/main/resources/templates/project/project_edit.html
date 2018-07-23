@@ -214,8 +214,8 @@
                             <div class="clearfix">
                                 <!--<input type="text" name="projectTopicStatus" id="projectTopicStatus" class="col-xs-12 col-sm-6" />-->
                                 <select name="projectTopicStatus" class="col-xs-12 col-sm-8" v-model="editList.projectTopicStatus">
-                                    <option value="0">已处理</option>
-                                    <option value="1">正在处理</option>
+                                    <option value= 0>已处理</option>
+                                    <option value= 1>正在处理</option>
                                 </select>
                             </div>
                         </div>
@@ -225,9 +225,11 @@
                                for="intermediaryIntroduction">项目简介:</label>
                         <div class="col-xs-12 col-sm-8 introduction">
                             <div class="clearfix">
-                                <input type="hidden" name="intermediaryIntroduction"
-                                       id="intermediaryIntroduction" class="col-xs-12 col-sm-8" />
-                                <textarea name="editor1" id="editor1" class="col-xs-12 col-sm-8"></textarea>
+                                <div class="clearfix">
+                                    <input type="hidden" name="intermediaryIntroduction"
+                                           id="intermediaryIntroduction" class="col-xs-12 col-sm-8" />
+                                    <textarea name="editor1" id="editor1" class="col-xs-12 col-sm-8"></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -334,13 +336,20 @@
                     }else {
                         v.icon = contextPath +'images/company.png'
                     }
+                });
+                treeObj.refresh();
+            },
+            list: function(){
+                var _this = this;
+                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
+                var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                treeNode.map(function(v){
                     _this.list.map(function(s){
-                        if(v.id == s.id){
+                        if(v.id == s.userId && v.type == 'person'){
                             treeObj.checkNode(v, true, true);
                         }
                     })
                 })
-                treeObj.refresh();
             }
         },
         mounted: function(){
@@ -413,19 +422,29 @@
                     }else {
                         v.icon = contextPath +'images/company.png'
                     }
+                })
+                treeObj.refresh();
+            },
+            list: function(){
+                var _this = this;
+                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
+                var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                treeNode.map(function(v){
                     _this.list.map(function(s){
-                        if(v.id == s.id){
+                        // console.log(s);
+                        // console.log(v);
+                        if(v.id == s.conId && v.type == null){
+                            console.log(v);
                             treeObj.checkNode(v, true, true);
                         }
                     })
                 })
-                treeObj.refresh();
             }
         },
         mounted: function(){
 
         }
-    });
+    })
 
 
     var clubslID  = [[${id}]];
@@ -445,6 +464,7 @@
                 },
                 searchVal:"",
                 userList:"",
+                projectIntroduction:'',
                 editList:{
                     area:{
                         name:"",
@@ -453,6 +473,7 @@
                     id: 1,
                     projectName: "", //项目名称
                     // projectContactUserId: "", //负责人
+                    projectIntroduction:"",
                     projectOwnerContact:"",
                     projectOwnerContactTel: "",
                     intermediaryLogoUrl: "",
@@ -618,21 +639,38 @@
                 },
                 sureSubmit:function () {
                     var _this = this;
+                    var relation = [];
+                    var ptRelation = [];
+                    _this.mainPerson.zTreeList.map(function (v) {
+                        if(v.id == undefined){
+                            relation.push(v.userId); //负责人
+                        }else{
+                            relation.push(v.id);
+                        }
+                    });
+                    _this.customer.zTreeList.map(function (v) {//客户联系人
+                        console.log(v);
+                        if(v.id == undefined){
+                            ptRelation.push(v.conId);
+                        }else{
+                            ptRelation.push(v.id);
+                        }
+                    });
                     var data = {
-                        projectid:clubslID,
+                        projectId:clubslID,
                         projectName:_this.editList.projectName, //项目名称
                         // projectContactUserId:_this.editList.projectContactUserId,//负责人
-                        projectContactUser:{
-                            "userid":_this.editList.userId
-                        },
-                        projectOwnerContact:_this.editList.projectOwnerContact,//业主名
-                        projectOwnerContactTel:_this.editList.projectOwnerContactTel, //业主联系方式
+                        // projectOwnerContact:_this.editList.projectOwnerContact,//业主名
+                        // projectOwnerContactTel:_this.editList.projectOwnerContactTel, //业主联系方式
                         projectLogo:   $("#responseUrl").val(),
                         projectTopicStatus:_this.editList.projectTopicStatus,
                         area:{
                             id:_this.editList.area.id
                         },
-                        projectStatus:1
+                        projectStatus:1,
+                        projectIntroduction:CKEDITOR.instances.editor1.getData(),
+                        projectUser: relation.join(","),  //负责人
+                        projectContacts: ptRelation.join(",")  //客户联系人
                     };
                     $.ajax({
                         url: contextPath+"api/project",
@@ -642,7 +680,7 @@
                         dataType : "json",
                         success: function (data) {
                             if(data.status == 200){
-                                location.href=contextPath+"clue/list";
+                                // location.href=contextPath+"project/list";
                             }else{
                                 bootbox.alert("添加失败");
                             }
@@ -655,8 +693,17 @@
                 },
 
             },
+            watch: {
+                projectIntroduction:function(){
+                    var _this = this;
+                    CKEDITOR.instances.editor1.setData(_this.projectIntroduction);
+                    $("#intermediaryIntroduction").val(_this.projectIntroduction);
+                }
+            },
             mounted:function () {
                 var _this = this;
+                _this.editorFun(); //初始化生成编辑器
+                // CKEDITOR.instances.editor1.setData('44343434');
                 //给数状菜单添加数据
                 $.axspost(contextPath+'api/dingtalkuser/deptUser','get','',function (data) {
                     _this.mainPerson.zNodes = data.content;
@@ -666,19 +713,12 @@
                     _this.customer.zNodes = data.content;
                 },function(data){});
 
-                _this.editorFun(); //初始化生成编辑器
-                //验证手机
-                jQuery.validator.addMethod("isMobile", function(value, element) {
-                    var length = value.length;
-                    var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
-                    return this.optional(element) || (length == 11 && mobile.test(value));
-                }, "请正确填写您的手机号码");
                 //所属区域
                 $.axspost(contextPath + "api/area/condition?level=1","get","",function(data){
                     // _this.facList = data.content;
                     data.content.forEach(function(item,i){
                         data.content[i].isParent  = true;
-                        data.content[i].icon = contextPath +'images/commonZtree.png'
+                        data.content[i].icon = contextPath +'images/commonZtree.png';
                         _this.facList = data.content;
                     });
                     _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
@@ -689,11 +729,27 @@
                     _this.editList = data.content;
                     $("#imgInter").attr("src",imgPath+data.content.projectLogo);
                     $("#responseUrl").val(data.content.projectLogo);
+                    _this.projectIntroduction = data.content.projectIntroduction;
+                    CKEDITOR.instances.editor1.setData(data.content.projectIntroduction);
+                    $("#intermediaryIntroduction").val(data.content.projectIntroduction);
+
                     //中间商联系人
                     _this.customer.zTreeList =  data.content.projectCustomers;
-                    // _this.editList.userId = data.content.projectCreateUser.userid;
+                    _this.mainPerson.zTreeList =  data.content.projectChargeUser; //负责人
+                    // _this.editList.userId = data.content.projectId;
                     responseUrl = data.content.projectLogo;
+
+                    console.log(CKEDITOR.instances.editor1.getData());
+
                 },function(data){});
+
+
+                //验证手机
+                jQuery.validator.addMethod("isMobile", function(value, element) {
+                    var length = value.length;
+                    var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+                    return this.optional(element) || (length == 11 && mobile.test(value));
+                }, "请正确填写您的手机号码");
                 var $form = $('#validation-form').validate({
                     errorElement: 'div',
                     errorClass: 'help-block',
@@ -716,10 +772,13 @@
                         projectOwnerContact:{
                             required: true
                         },
-                        projectOwnerContactTel: {
-                            required: true,
-                            isMobile:true
+                        intermediaryIntroduction: {
+                            required: true
                         },
+                        // projectOwnerContactTel: {
+                        //     required: true,
+                        //     isMobile:true
+                        // },
                         projectTopicStatus:{
                             required: true
                         }
@@ -740,6 +799,22 @@
                     },
                     invalidHandler: function (form) {
                     }
+                });
+
+                CKEDITOR.instances.editor1.on('change', function() {
+                    var data = CKEDITOR.instances.editor1.getData();
+                    $("#intermediaryIntroduction").val(data);
+                    if(data.length == 0){
+                        $("#intermediaryIntroduction-error").remove();
+                        var div = "<div id=\"intermediaryIntroduction-error\" class=\"help-block\">必选字段</div>" ;
+                        $("#intermediaryIntroduction").parents(".introduction").append(div);
+                        $("#intermediaryIntroduction").parents(".form-group").addClass("has-error");
+                    }else{
+
+                        $("#intermediaryIntroduction").parents(".form-group").removeClass("has-error");
+                        $("#intermediaryIntroduction-error").remove();
+                    }
+
                 });
             }
         });
