@@ -12,9 +12,10 @@ public class HttpServletUtils {
 
     public static void responseWriter(HttpServletResponse response, String str) throws Exception {
 
+
         ServletOutputStream os = response.getOutputStream();
 
-        os.write(str.getBytes("utf-8"), 0, str.length());
+        os.write(str.getBytes("utf-8"));
 
         os.flush();
 

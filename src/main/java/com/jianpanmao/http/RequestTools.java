@@ -113,7 +113,7 @@ public class RequestTools {
         }
         return "";
     }
-    public static String processPostJson(String postUrl, String json) throws ClientProtocolException, Exception {
+    public static String processPostJson(String postUrl, String json) throws  Exception {
         // HttpClient httpclient = new DefaultHttpClient();
         HttpPost post = new HttpPost(postUrl);
         post.setHeader("Content-Type", "application/json");

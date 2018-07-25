@@ -83,6 +83,7 @@ public class WxPublicController {
     @PostMapping
     @ResponseBody
     public ResponseEntity add(@Valid @RequestBody WxPublic wxPublic, BindingResult result, HttpSession session, HttpServletRequest request) throws Exception {
+
         String accessToken = wxApiHandler.getAccessToken(wxPublic.getAppId(), wxPublic.getAppSecret());
         wxPublic.setIntermediary(WxUtils.getCompany(session));
         ResponseEntity responseEntity = new ResponseEntity();

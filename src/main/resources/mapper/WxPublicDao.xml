@@ -58,6 +58,6 @@
     </select>
 
     <delete id="deleteByPrimaryKey">
-        DELETE FROM wx_public WHERE public _id = #{0}
+        DELETE FROM wx_public WHERE public_id = #{0}
     </delete>
 </mapper>
