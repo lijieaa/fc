@@ -59,4 +59,15 @@ public class WxPublic extends BaseEntity {
         this.publicEmail = publicEmail;
     }
 
+
+    @Override
+    public String toString() {
+        return "WxPublic{" +
+                "publicName='" + publicName + '\'' +
+                ", sourceId='" + sourceId + '\'' +
+                ", appId='" + appId + '\'' +
+                ", appSecret='" + appSecret + '\'' +
+                ", publicEmail='" + publicEmail + '\'' +
+                '}';
+    }
 }

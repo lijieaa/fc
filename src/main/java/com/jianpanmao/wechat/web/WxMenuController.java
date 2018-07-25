@@ -1,12 +1,14 @@
 package com.jianpanmao.wechat.web;
 
 import com.jianpanmao.common.annotation.NoResultEntity;
+import com.jianpanmao.utils.HttpServletUtils;
 import com.jianpanmao.utils.WxUtils;
 import com.jianpanmao.wechat.api.WxApiHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -51,14 +53,16 @@ public class WxMenuController {
     @GetMapping
     @ResponseBody
     @NoResultEntity
-    public String get(Integer wxPublicId, HttpSession session){
+    public void get(Integer wxPublicId, HttpSession session, HttpServletResponse response) throws Exception {
 
+        response.setContentType("application/json;charset=utf-8");
+        response.setCharacterEncoding("utf-8");
         try {
             WxUtils.checkParam(session, wxPublicId);
             String accessToken = WxUtils.getAccessToken(session, wxPublicId);
-            return wxApiHandler.getMenu(accessToken);
+            HttpServletUtils.responseWriter(response, wxApiHandler.getMenu(accessToken));
         } catch (Exception e) {
-            return e.getMessage();
+            HttpServletUtils.responseWriter(response, e.getMessage());
         }
     }
 
