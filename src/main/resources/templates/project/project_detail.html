@@ -95,16 +95,18 @@
                         <div class="row">
                             <div class=" col-xs-8">
                                 <!--<img src="clueComment.projectLogo" alt="" width="100%" height="185px" style="background: grey">-->
-                                <div style="width: 100%;height: 185px;background: gainsboro"></div>
+                                <div style="width: 100%;height: 185px;background: gainsboro">
+                                    <img v-bind:src="projectDetail.projectLogo" alt="">
+                                </div>
                             </div>
                             <div class="col-xs-4 detail-project-msg">
                                 <div class="bak-ee">项目名称</div>
-                                <div></div>
+                                <div v-text="projectDetail.projectName"></div>
                                 <div class="bak-ee">地区</div>
-                                <div></div>
+                                <div v-text="projectDetail.area.name"></div>
                                 <div class="bak-ee">
                                     <i class="icon-color-94e4 fa fa-fw  fa-commenting"></i>
-                                    <span @click="linkComments">项目评论({{clueComment.count}})</span>
+                                    <span @click="linkComments">项目评论({{projectDetail.count}})</span>
                                 </div>
                             </div>
                         </div>
@@ -122,19 +124,12 @@
                                             <td>邮箱</td>
                                         </tr>
                                         </thead>
-                                        <tr class="bj">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="bj">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                        <tr class="bj" v-for=" item in projectDetail.projectChargeUser">
+                                            <td>{{item.name}}</td>
+                                            <td>{{item.position}}</td>
+                                            <td>{{item.jobnumber}}</td>
+                                            <td>{{item.mobile}}</td>
+                                            <td>{{item.email}}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -148,25 +143,18 @@
                                         <thead>
                                         <tr>
                                             <td>姓名</td>
-                                            <td>职位</td>
-                                            <td>工号</td>
-                                            <td>手机号</td>
-                                            <td>邮箱</td>
+                                            <td>联系电话</td>
+                                            <td>QQ</td>
+                                            <td>微信</td>
+                                            <td>邮箱地址</td>
                                         </tr>
                                         </thead>
-                                        <tr class="bj">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="bj">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                        <tr class="bj" v-for=" item in projectDetail.projectCustomers">
+                                            <td>{{item.conName}}</td>
+                                            <td>{{item.conTel}}</td>
+                                            <td>{{item.conQQ}}</td>
+                                            <td>{{item.conWechat}}</td>
+                                            <td>{{item.conEmail}}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -175,8 +163,7 @@
                     </div>
                     <div class=" col-xs-12 col-sm-7">
                         <p class="bottom-font">项目简介</p>
-                        <div style="height: 620px; border: 1px solid #d3d7df;">
-
+                        <div style="height: 620px; border: 1px solid #d3d7df;" v-html="projectDetail.projectIntroduction">
                         </div>
                     </div>
                 </div>
@@ -244,6 +231,20 @@
                 projectId:"",
                 projectLogo:"",
                 count:""
+            },
+            projectDetail: {
+                area:{
+                    name:''
+                },
+                projectChargeUser:{
+
+                },
+                projectContacts:'',
+                projectCustomers: '',
+                projectIntroduction: '',
+                projectLogo: '',
+                count: '',
+                projectName: ''
             }
         },
         methods:{
@@ -270,8 +271,8 @@
                 url:contextPath+"api/project?id="+projectId,
                 type:"get",
                 success:function (data) {
-                    _this.clueComment = data.content;
-                    _this.clueComment.projectLogo = imgPath+data.content.projectLogo;
+                    _this.projectDetail = data.content;
+                    // _this.clueComment.projectLogo = imgPath+data.content.projectLogo;
                 }
             });
 

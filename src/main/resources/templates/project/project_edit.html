@@ -674,13 +674,13 @@
                     };
                     $.ajax({
                         url: contextPath+"api/project",
-                        method: "post",
+                        method: "put",
                         data : JSON.stringify(data),
                         contentType: "application/json",
                         dataType : "json",
                         success: function (data) {
                             if(data.status == 200){
-                                // location.href=contextPath+"project/list";
+                                location.href=contextPath+"project/list";
                             }else{
                                 bootbox.alert("添加失败");
                             }
@@ -694,15 +694,14 @@
 
             },
             watch: {
-                projectIntroduction:function(){
-                    var _this = this;
-                    CKEDITOR.instances.editor1.setData(_this.projectIntroduction);
-                    $("#intermediaryIntroduction").val(_this.projectIntroduction);
-                }
+                // projectIntroduction:function(){
+                //     var _this = this;
+                //     CKEDITOR.instances.editor1.setData(_this.projectIntroduction);
+                //     $("#intermediaryIntroduction").val(_this.projectIntroduction);
+                // }
             },
             mounted:function () {
                 var _this = this;
-                _this.editorFun(); //初始化生成编辑器
                 // CKEDITOR.instances.editor1.setData('44343434');
                 //给数状菜单添加数据
                 $.axspost(contextPath+'api/dingtalkuser/deptUser','get','',function (data) {
@@ -726,6 +725,7 @@
 
                 //查找详情
                 $.axspost(contextPath + "api/project?id="+clubslID+"","get","",function(data){
+                    _this.editorFun(); //初始化生成编辑器
                     _this.editList = data.content;
                     $("#imgInter").attr("src",imgPath+data.content.projectLogo);
                     $("#responseUrl").val(data.content.projectLogo);
@@ -739,7 +739,21 @@
                     // _this.editList.userId = data.content.projectId;
                     responseUrl = data.content.projectLogo;
 
-                    console.log(CKEDITOR.instances.editor1.getData());
+                    CKEDITOR.instances.editor1.on('change', function() {
+                        var data = CKEDITOR.instances.editor1.getData();
+                        $("#intermediaryIntroduction").val(data);
+                        if(data.length == 0){
+                            $("#intermediaryIntroduction-error").remove();
+                            var div = "<div id=\"intermediaryIntroduction-error\" class=\"help-block\">必选字段</div>" ;
+                            $("#intermediaryIntroduction").parents(".introduction").append(div);
+                            $("#intermediaryIntroduction").parents(".form-group").addClass("has-error");
+                        }else{
+
+                            $("#intermediaryIntroduction").parents(".form-group").removeClass("has-error");
+                            $("#intermediaryIntroduction-error").remove();
+                        }
+
+                    });
 
                 },function(data){});
 
@@ -801,21 +815,7 @@
                     }
                 });
 
-                CKEDITOR.instances.editor1.on('change', function() {
-                    var data = CKEDITOR.instances.editor1.getData();
-                    $("#intermediaryIntroduction").val(data);
-                    if(data.length == 0){
-                        $("#intermediaryIntroduction-error").remove();
-                        var div = "<div id=\"intermediaryIntroduction-error\" class=\"help-block\">必选字段</div>" ;
-                        $("#intermediaryIntroduction").parents(".introduction").append(div);
-                        $("#intermediaryIntroduction").parents(".form-group").addClass("has-error");
-                    }else{
 
-                        $("#intermediaryIntroduction").parents(".form-group").removeClass("has-error");
-                        $("#intermediaryIntroduction-error").remove();
-                    }
-
-                });
             }
         });
         $(document).bind("click",function(e){
