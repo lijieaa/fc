@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jianpanmao.area.dao.AreaMapper">
+  <resultMap id="BaseResultMap" type="com.jianpanmao.area.entity.Area">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="PARENT_ID" jdbcType="INTEGER" property="parentId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="SHORT_NAME" jdbcType="VARCHAR" property="shortName" />
+    <result column="LONGITUDE" jdbcType="DECIMAL" property="longitude" />
+    <result column="LATITUDE" jdbcType="DECIMAL" property="latitude" />
+    <result column="LEVEL" jdbcType="INTEGER" property="level" />
+    <result column="SORT" jdbcType="INTEGER" property="sort" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
+  </resultMap>
+
+
+  <!--新增项目资源分类-->
+  <insert id="insertPType" parameterType="com.jianpanmao.projectAttach.entity.PType">
+    <selectKey keyProperty="pTypeId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into p_type (p_type_name,
+    p_parentid,
+    p_path)
+    values (#{pTypePName,jdbcType=VARCHAR},
+    #{pTypeParentId,jdbcType=INTEGER},
+    #{pTypePPath,jdbcType=VARCHAR}
+    )
+  </insert>
+
+  <!--编辑项目资源分类-->
+  <update id="updatePType">
+    update p_type
+    set p_type_name = #{typeName}
+    WHERE p_type_id = #{typeId}
+  </update>
+
+  <!--删除资源分类-->
+  <delete id="deletePType" parameterType="java.lang.Integer">
+    DELETE from p_type WHERE p_type_id = #{0}
+  </delete>
+
+  <!--关联项目和项目资源表-->
+  <insert id="insertProjectPType" parameterType="com.jianpanmao.projectAttach.entity.ProjectPtype">
+    <selectKey keyProperty="projectPTypeId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into project_p_type (project_p_type_pid,
+    project_p_type_tid)
+    values (#{projectPTypePId,jdbcType=INTEGER},
+    #{projectPTypeTId,jdbcType=INTEGER}
+    )
+  </insert>
+
+  <!--删除项目和项目资源表关系-->
+  <delete id="deleteProjectPType" parameterType="java.lang.Integer">
+     DELETE from project_p_type WHERE project_p_type_id = #{0}
+  </delete>
+
+  <!--关联资源和资源分类-->
+  <insert id="insertAttachType" parameterType="com.jianpanmao.projectAttach.entity.AttachType">
+    <selectKey keyProperty="attachTypeId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into project_p_type (attach_type_aid,
+    type_tid)
+    values (#{attachTypeAId,jdbcType=INTEGER},
+    #{attachTypeTId,jdbcType=INTEGER}
+    )
+  </insert>
+  <!--删除 资源和资源分类表-->
+  <delete id="deleteAttachType" parameterType="java.lang.Integer">
+    DELETE from attach_type WHERE attach_type_id = #{0}
+  </delete>
+
+  <!--删除资源-->
+  <delete id="deleteAttach" parameterType="java.lang.Integer">
+    DELETE from attach WHERE id = #{0}
+  </delete>
+</mapper>
