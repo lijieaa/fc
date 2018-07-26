@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jianpanmao.area.dao.AreaMapper">
-  <resultMap id="BaseResultMap" type="com.jianpanmao.area.entity.Area">
-    <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="PARENT_ID" jdbcType="INTEGER" property="parentId" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="SHORT_NAME" jdbcType="VARCHAR" property="shortName" />
-    <result column="LONGITUDE" jdbcType="DECIMAL" property="longitude" />
-    <result column="LATITUDE" jdbcType="DECIMAL" property="latitude" />
-    <result column="LEVEL" jdbcType="INTEGER" property="level" />
-    <result column="SORT" jdbcType="INTEGER" property="sort" />
-    <result column="STATUS" jdbcType="INTEGER" property="status" />
+<mapper namespace="com.jianpanmao.projectAttach.dao.ProjectAttachDao">
+  <resultMap id="pType" type="com.jianpanmao.projectAttach.entity.PType">
+    <id column="p_type_id" jdbcType="INTEGER" property="pTypeId" />
+    <result column="p_type_name" jdbcType="INTEGER" property="pTypePName" />
+    <result column="p_parentid" jdbcType="VARCHAR" property="pTypeParentId" />
+    <result column="p_path" jdbcType="VARCHAR" property="pTypePPath" />
   </resultMap>
 
+  <!--查询资源分类by id-->
+  <select id="selectPType" parameterType="java.lang.Integer" resultMap="pType">
+    SELECT pt.*
+    FROM p_type pt WHERE pt.p_type_id = #{0}
+  </select>
+
+  <select id="allPtype" resultMap="pType">
+    SELECT pt.*
+    FROM  p_type pt
+  </select>
 
   <!--新增项目资源分类-->
   <insert id="insertPType" parameterType="com.jianpanmao.projectAttach.entity.PType">
