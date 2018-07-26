@@ -15,7 +15,8 @@ public interface ProjectAttachDao {
     Integer insertPType(PType pType);
     PType selectPType(Integer id);
     void updatePType(PType pType);
-    List<PType> allPtype();
+
+    List<PType> projectPtype(Integer pid);
 
     Integer insertProjectPType(ProjectPtype projectPtype);
 

@@ -1,5 +1,7 @@
 package com.jianpanmao.projectAttach.entity;
 
+import java.util.List;
+
 /**
  * Created by mayn on 2018/7/25.
  */
@@ -8,6 +10,16 @@ public class PType {
     private String pTypePName;
     private Integer pTypeParentId;
     private String pTypePPath;
+
+    private List<PType> children;
+
+    public List<PType> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<PType> children) {
+        this.children = children;
+    }
 
     public Integer getpTypeId() {
         return pTypeId;
