@@ -29,21 +29,24 @@
             <div class="row">
                 <div class="col-xs-4 padding-right">
                     <div class="page-file-left">
-                        <div id="addFile">新增文件夹</div>
-                        <ul id="treeDemoCheck" class="ztree"></ul>
+                        <div class="border-left-blue" style="margin: 10px 0 10px 10px">文件结构</div>
+                        <div style="background: #fff;height: 648px">
+                            <div id="addFile">新增文件夹</div>
+                            <ul id="treeDemoCheck" class="ztree"></ul>
+                        </div>
                     </div>
                 </div>
                 <div class="col-xs-8">
                     <div class="page-file-right">
                         <div class="page-right-header" style="overflow: hidden">
                             <div class="float-left">
-                                <span class="">当前：</span>
+                                <span class="current">当前：</span>
                                 <span v-text="titleEnd"></span>
                             </div>
                             <div class="float-right">
                                 <button type="button" data-toggle="modal"
-                                        class="btn btn-info padding-right-15">
-                                    <i class="ace-icon fa fa-reply icon-only"></i>
+                                        class="btn btn-info btn-sc" id= "filePicker">
+                                    <i class="ace-icon glyphicon glyphicon-upload"></i>
                                     上传
                                 </button>
                             </div>
@@ -51,13 +54,13 @@
                         <div class="page-right-contain">
                             <div>
                                 <table>
-                                    <tr>
+                                    <tr class="table-title">
                                         <td>文件名</td>
                                         <td>上传时间</td>
                                         <td>大小</td>
                                         <td>下载</td>
                                     </tr>
-                                    <tr>
+                                    <tr class="table-content">
                                         <td>
                                             <span>e4343</span>
                                             <span>e4343</span>
@@ -69,11 +72,160 @@
                                             <span>54445.kb</span>
                                         </td>
                                         <td>
-                                            <span>下载</span>
-                                            <span>删除</span>
+                                            <span>
+                                                <i class="ace-icon fa fa-download blue"></i>
+                                            </span>
+                                            <span class="margin-left-10">
+                                                <i class="ace-icon fa fa-trash-o blue"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="table-content">
+                                        <td>
+                                            <span>e4343</span>
+                                            <span>e4343</span>
+                                        </td>
+                                        <td>
+                                            <span>343434</span>
+                                        </td>
+                                        <td>
+                                            <span>54445.kb</span>
+                                        </td>
+                                        <td>
+                                            <span>
+                                                <i class="ace-icon fa fa-download blue"></i>
+                                            </span>
+                                            <span class="margin-left-10">
+                                                <i class="ace-icon fa fa-trash-o blue"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="table-content">
+                                        <td>
+                                            <span>e4343</span>
+                                            <span>e4343</span>
+                                        </td>
+                                        <td>
+                                            <span>343434</span>
+                                        </td>
+                                        <td>
+                                            <span>54445.kb</span>
+                                        </td>
+                                        <td>
+                                            <span>
+                                                <i class="ace-icon fa fa-download blue"></i>
+                                            </span>
+                                            <span class="margin-left-10">
+                                                <i class="ace-icon fa fa-trash-o blue"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="table-content">
+                                        <td>
+                                            <span>e4343</span>
+                                            <span>e4343</span>
+                                        </td>
+                                        <td>
+                                            <span>343434</span>
+                                        </td>
+                                        <td>
+                                            <span>54445.kb</span>
+                                        </td>
+                                        <td>
+                                            <span>
+                                                <i class="ace-icon fa fa-download blue"></i>
+                                            </span>
+                                            <span class="margin-left-10">
+                                                <i class="ace-icon fa fa-trash-o blue"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="table-content">
+                                        <td>
+                                            <span>e4343</span>
+                                            <span>e4343</span>
+                                        </td>
+                                        <td>
+                                            <span>343434</span>
+                                        </td>
+                                        <td>
+                                            <span>54445.kb</span>
+                                        </td>
+                                        <td>
+                                            <span>
+                                                <i class="ace-icon fa fa-download blue"></i>
+                                            </span>
+                                            <span class="margin-left-10">
+                                                <i class="ace-icon fa fa-trash-o blue"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="table-content">
+                                        <td>
+                                            <span>e4343</span>
+                                            <span>e4343</span>
+                                        </td>
+                                        <td>
+                                            <span>343434</span>
+                                        </td>
+                                        <td>
+                                            <span>54445.kb</span>
+                                        </td>
+                                        <td>
+                                            <span>
+                                                <i class="ace-icon fa fa-download blue"></i>
+                                            </span>
+                                            <span class="margin-left-10">
+                                                <i class="ace-icon fa fa-trash-o blue"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="table-content">
+                                        <td>
+                                            <span>e4343</span>
+                                            <span>e4343</span>
+                                        </td>
+                                        <td>
+                                            <span>343434</span>
+                                        </td>
+                                        <td>
+                                            <span>54445.kb</span>
+                                        </td>
+                                        <td>
+                                            <span>
+                                                <i class="ace-icon fa fa-download blue"></i>
+                                            </span>
+                                            <span class="margin-left-10">
+                                                <i class="ace-icon fa fa-trash-o blue"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="table-content">
+                                        <td>
+                                            <span>e4343</span>
+                                            <span>e4343</span>
+                                        </td>
+                                        <td>
+                                            <span>343434</span>
+                                        </td>
+                                        <td>
+                                            <span>54445.kb</span>
+                                        </td>
+                                        <td>
+                                            <span>
+                                                <i class="ace-icon fa fa-download blue"></i>
+                                            </span>
+                                            <span class="margin-left-10">
+                                                <i class="ace-icon fa fa-trash-o blue"></i>
+                                            </span>
                                         </td>
                                     </tr>
                                 </table>
+                            </div>
+                            <div class="margin-top-15 text-align-center">
+                                <ul id="list"></ul>
+                                <div id="pagingTest"></div>
+                                <input type="hidden" value="" id="page">
                             </div>
                         </div>
                     </div>
@@ -81,6 +233,16 @@
             </div>
 
         </div>
+    </div>
+    <div id="filePop" class="ui-dialog-content ui-widget-content display-none">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="add-role-group-name">文件名:</label>
+                <div class="col-sm-9">
+                    <input type="text" id="add-role-group-name" name="namefile" class="form-control">
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 <script th:src="@{/js/webuploader.js}"></script>
@@ -121,11 +283,92 @@
                 }
             },
             callback: {
-//        beforeClick: zTreeBeforeClick,
-                onClick: zTreeBeforeClick
+                beforeClick: zTreeBeforeClick,
+                onClick: zTreeOnClick
                 // onRename: onRename
             }
         };
+
+        function popFile(title){
+            var dialog = $( "#filePop" ).removeClass('hide').dialog({
+                resizable: false,
+                width: '600',
+                height: '200',
+                modal: true,
+                closeText: "关闭",
+                title: title,
+                title_html: true,
+                buttons: [
+                    {
+                        text: "保存",
+                        "class" : "btn btn-primary btn-minier",
+                        click: function() {
+                            var _this = $(this);
+                            var flag = $formChangeIp.form();
+                            console.log(flag);
+                            if(flag){
+                                var data = $('#filePop>form').serializeObject();
+                                $.ajax({
+                                    url: contextPath+"api/sysrolegroup",
+                                    type: "post",
+                                    data : JSON.stringify(data),
+                                    contentType: "application/json",
+                                    dataType : "json",
+                                    success: function (data) {
+                                        _this.dialog( "close" );
+                                    },
+                                    error: function (data) {
+//                                        console.log(data);
+                                    }
+                                })
+
+                            }
+
+
+                        }
+                    },
+                    {
+                        text: "取消",
+                        "class" : "btn btn-minier",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                            $('#add-role-group-name').val('').blur();
+                            $("#add-role-group-name-error").parents(".has-error").removeClass("has-error");
+                            $("#add-role-group-name-error").remove();
+                        }
+                    }
+                ]
+            });
+
+            var $formChangeIp = $('#filePop>form').validate({
+                errorElement: 'span',
+                errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
+                focusInvalid: false,
+                ignore: "",
+                rules: {
+                    namefile: {
+                        required: true
+                    }
+                },
+                highlight: function (e) {
+                    $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                },
+                success: function (e) {
+                    $(e).closest('.form-group').removeClass('has-error');
+                    $(e).remove();
+                },
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element.parent());
+                },
+                invalidHandler: function (form) {
+                }
+            });
+            $(".ui-dialog-titlebar-close").click(function(){
+                $('#add-role-group-name').val('').blur();
+                $("#add-role-group-name-error").parents(".has-error").removeClass("has-error");
+                $("#add-role-group-name-error").remove();
+            });
+        }
         function addHoverDom(treeId, treeNode) {
             var aObj = $("#" + treeNode.tId + "_a");
             if ($("#diyBtn_"+treeNode.id).length>0) return;
@@ -133,10 +376,12 @@
             aObj.append(editStr);
             var btn = $("#diyBtn_"+treeNode.id);
             if (btn) btn.bind("click", function(){
-//        alert("diy Button for " + treeNode.name);
-                $( "#dialog" ).dialog( "open" );
+                popFile('编辑文件夹');
             });
+
+
         }
+
 
         function removeHoverDom(treeId, treeNode) {
             $("#diyBtn_"+treeNode.id).unbind().remove();
@@ -155,23 +400,29 @@
             }
         }
         function zTreeBeforeClick(treeId, treeNode){
+            vue1.$data.currentFile = treeNode.name;
+        }
+        function zTreeOnClick(treeId, treeNode){
             var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
             var sNodes = treeObj.getSelectedNodes()[0];
             arr = [];
             dg(sNodes);
             vue1.$data.title = arr;
-            console.log(arr)
         }
+
 
 
         var vue1 = new Vue({
             el:"#file",
             data:{
-              title:[]
+              title:[],
+              currentFile:''
             },
             computed:{
                 titleEnd: function(){
-                    return this.title.join("/")
+                    var title = this.title.join("/");
+                    var entTile  = title == "" ? this.currentFile : title+ " / " + this.currentFile
+                    return entTile
                 }
             },
             methods:{
@@ -219,10 +470,10 @@
                     console.log(333);
                     var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
                     var sNodes = treeObj.getSelectedNodes()[0];
-//    var node = sNodes.getParentNode();
                     arr = [];
                     dg(sNodes);
                 },
+
             },
 
             mounted:function () {
@@ -234,14 +485,49 @@
                         data.content);
                 },function(data){});
 
+                $("#pagingTest").paging1({
+                    pageNo:1,
+                    totalPage:1
+                })
+
+                var uploader = WebUploader.create({
+                    // 选完文件后，是否自动上传。
+                    auto: true,
+                    // swf文件路径
+                    swf: contextPath + '/dist/js/Uploader.swf',
+                    // 文件接收服务端。
+                    server: contextPath+'upload',
+                    // 选择文件的按钮。可选。
+                    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                    pick: '#filePicker',
+                    // 只允许选择图片文件。
+                    /*accept: {
+                        title: 'Images',
+                        extensions: 'gif,jpg,jpeg,bmp,png',
+                        mimeTypes: 'image/!*'
+                    },*/
+                });
 
             }
         });
 
 
+        setTimeout(function(){
+            $(".webuploader-pick").css("display","inline-block");
+            $(".webuploader-pick").next().css({
+                position: "absolute",
+                top: "0",
+                left: "0",
+                // width: "85px",
+                // height: "40px",
+                overflow: "hidden",
+                opacity: 0
+            });
+        }, 30);
 
-
-
+        $("#addFile").click(function(){
+            popFile('新增文件夹');
+        })
 
     })
 </script>

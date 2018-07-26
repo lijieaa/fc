@@ -282,7 +282,7 @@
         template:'<div class="col-xs-12 col-sm-9">' +
         '<div class="ztree-page ztree-box col-xs-12 col-sm-8"> ' +
         '<span v-for="item in list" data-id="item.id"  class="ztreeName" ' +
-        '@click="delCurrent(item.id)">{{item.name}}</span> ' +
+        '@click="delCurrent(item.id || item.userId)">{{item.name}}</span> ' +
         '<span class="add" id="add" @click="handleAdd">+</span> ' +
         '</div>' +
         '<div class="ztreeContain col-xs-12 col-sm-8" id="ztreeContain" v-show="listshow">' +
@@ -336,13 +336,20 @@
                     }else {
                         v.icon = contextPath +'images/company.png'
                     }
+                });
+                treeObj.refresh();
+            },
+            list: function(){
+                var _this = this;
+                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
+                var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                treeNode.map(function(v){
                     _this.list.map(function(s){
-                        if(v.id == s.id){
+                        if(v.id == s.userId && v.type == 'person'){
                             treeObj.checkNode(v, true, true);
                         }
                     })
                 })
-                treeObj.refresh();
             }
         },
         mounted: function(){
@@ -352,10 +359,16 @@
 
     Vue.component('customList',{
         props:['list','nodes','listshow','dataid'],
+        data() {
+            return {
+                // nodesArr:this.nodes
+                name:''
+            }
+        },
         template:'<div class="col-xs-12 col-sm-9">' +
         '<div class="ztree-page ztree-box col-xs-12 col-sm-8"> ' +
-        '<span v-for="item in list" data-id="item.id"  class="ztreeName" ' +
-        '@click="delCurrent(item.id)">{{item.name}}</span> ' +
+        '<span v-for="item in list" data-id="item.conId"  class="ztreeName" ' +
+        '@click="delCurrent(item.id || item.conId)">{{item.conName || item.name}}</span> ' +
         '<span class="add" id="addCustom" @click="handleAdd">+</span> ' +
         '</div>' +
         '<div class="ztreeContain col-xs-12 col-sm-8" id="ztreeContain" v-show="listshow">' +
@@ -405,25 +418,34 @@
                 var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 treeNode.map(function(v){
-                    if(v.type != 'cus'){
+                    if(v.type == 'person'){
                         v.icon = contextPath +'images/person.png'
                     }else {
                         v.icon = contextPath +'images/company.png'
                     }
+                })
+                treeObj.refresh();
+            },
+            list: function(){
+                var _this = this;
+                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
+                var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                treeNode.map(function(v){
                     _this.list.map(function(s){
-                        if(v.id == s.id){
+                        // console.log(s);
+                        // console.log(v);
+                        if(v.id == s.conId && v.type == null){
+                            console.log(v);
                             treeObj.checkNode(v, true, true);
                         }
                     })
-
                 })
-                treeObj.refresh();
             }
         },
         mounted: function(){
 
         }
-    });
+    })
     // var responseUrl;
     jQuery(function($) {
        var vue1 = new Vue({
@@ -484,13 +506,14 @@
                     var _this = this;
                     if(postId == 1){
                         for(var i=0;i<_this.mainPerson.zTreeList.length;i++){
-                            if(_this.mainPerson.zTreeList[i].id == id){
+                            if(_this.mainPerson.zTreeList[i].id == id  || _this.mainPerson.zTreeList[i].userId == id){
                                 _this.mainPerson.zTreeList.splice(i,1)
                             }
                         }
                     }else{
                         for(var i=0;i<_this.customer.zTreeList.length;i++){
-                            if(_this.customer.zTreeList[i].id == id){
+                            // console.log(_this.customer.zTreeList);
+                            if(_this.customer.zTreeList[i].conId == id || _this.customer.zTreeList[i].id == id){
                                 _this.customer.zTreeList.splice(i,1)
                             }
                         }
@@ -500,6 +523,7 @@
                 handleClick: function(postId) {
                     // console.log(postId)
                     var _this = this;
+
                     if(postId == 1){
                         var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
                         var checkTrue = treeObj.getCheckedNodes(true);
@@ -515,6 +539,7 @@
                     }
 
                 },
+
                 backList:function(){
                     location.href=contextPath+"project/list";
                 },

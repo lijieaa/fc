@@ -42,6 +42,9 @@
             height: 37px;
             line-height: 37px;
             padding-left: 10px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
         .bak-ee{
             background: #eee;
@@ -54,6 +57,7 @@
             text-align: center;
             border: 1px solid #d3d7df;
             height: 50px;
+            table-layout: fixed;
         }
         .relation table thead{
             background: #f4f4f4;
@@ -61,6 +65,9 @@
         .relation table tr td{
             height: 50px;
             border: 1px solid #d3d7df;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
         .relation table .bj td{
             background: #fff;
@@ -101,7 +108,7 @@
                             </div>
                             <div class="col-xs-4 detail-project-msg">
                                 <div class="bak-ee">项目名称</div>
-                                <div v-text="projectDetail.projectName"></div>
+                                <div :title="projectDetail.projectName" v-text="projectDetail.projectName"></div>
                                 <div class="bak-ee">地区</div>
                                 <div v-text="projectDetail.area.name"></div>
                                 <div class="bak-ee">
@@ -125,11 +132,11 @@
                                         </tr>
                                         </thead>
                                         <tr class="bj" v-for=" item in projectDetail.projectChargeUser">
-                                            <td>{{item.name}}</td>
-                                            <td>{{item.position}}</td>
-                                            <td>{{item.jobnumber}}</td>
-                                            <td>{{item.mobile}}</td>
-                                            <td>{{item.email}}</td>
+                                            <td :title="item.name">{{ item.name }}</td>
+                                            <td :title="item.position">{{ item.position }}</td>
+                                            <td :title="item.jobnumber">{{ item.jobnumber }}</td>
+                                            <td :title="item.mobile">{{ item.mobile }}</td>
+                                            <td :title="item.email">{{ item.email }}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -138,8 +145,8 @@
                         <div class="row relation">
                             <div class="col-xs-12" style="padding: 0 15px 0px 15px;">
                                 <div class="font">客户联系人</div>
-                                <div style="background: #f4f4f4; padding: 14px 0;">
-                                    <table>
+                                <div style="background: #f4f4f4; padding: 14px 0;width: 100%">
+                                    <table style="width: 100%">
                                         <thead>
                                         <tr>
                                             <td>姓名</td>
@@ -150,11 +157,11 @@
                                         </tr>
                                         </thead>
                                         <tr class="bj" v-for=" item in projectDetail.projectCustomers">
-                                            <td>{{item.conName}}</td>
-                                            <td>{{item.conTel}}</td>
-                                            <td>{{item.conQQ}}</td>
-                                            <td>{{item.conWechat}}</td>
-                                            <td>{{item.conEmail}}</td>
+                                            <td :title="item.conName">{{item.conName}}</td>
+                                            <td :title="item.conTel">{{item.conTel}}</td>
+                                            <td :title="item.conQQ">{{item.conQQ}}</td>
+                                            <td :title="item.conWechat">{{item.conWechat}}</td>
+                                            <td :title="item.conEmail">{{item.conEmail}}</td>
                                         </tr>
                                     </table>
                                 </div>
