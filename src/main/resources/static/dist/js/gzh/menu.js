@@ -125,7 +125,7 @@ new Vue({
             type: "get",
             processData:true,
             success:function (data) {
-                _this.menu=JSON.parse(data).menu;
+                _this.menu=data.menu;
                 if(_this.menu.button && _this.menu.button.length){
                     _this.selectedMenuIndex = 0;
                 }
@@ -398,7 +398,7 @@ new Vue({
                 },
                 success:function(data){
                     if(data.errmsg=="ok"){
-                        alert("创建成功！")
+                        alert("保存成功！")
                     }
                 },
                 error:function (data) {
