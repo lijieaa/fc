@@ -14,9 +14,11 @@
     FROM p_type pt WHERE pt.p_type_id = #{0}
   </select>
 
-  <select id="allPtype" resultMap="pType">
+  <select id="projectPtype" resultMap="pType" parameterType="java.lang.Integer">
     SELECT pt.*
     FROM  p_type pt
+    LEFT JOIN project_p_type ppt ON ppt.project_p_type_tid = pt.p_type_id
+    WHERE ppt.project_p_type_pid = #{0}
   </select>
 
   <!--新增项目资源分类-->
@@ -36,8 +38,8 @@
   <!--编辑项目资源分类-->
   <update id="updatePType">
     update p_type
-    set p_type_name = #{typeName}
-    WHERE p_type_id = #{typeId}
+    set p_type_name = #{pTypePName,jdbcType=VARCHAR}
+    WHERE p_type_id = #{pTypeId,jdbcType=INTEGER}
   </update>
 
   <!--删除资源分类-->
@@ -67,8 +69,8 @@
     <selectKey keyProperty="attachTypeId" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into project_p_type (attach_type_aid,
-    type_tid)
+    insert into attach_type (attach_type_aid,
+    attach_type_tid)
     values (#{attachTypeAId,jdbcType=INTEGER},
     #{attachTypeTId,jdbcType=INTEGER}
     )

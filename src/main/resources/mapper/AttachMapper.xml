@@ -278,4 +278,12 @@
       order by ${od}
     </if>
   </select>
+
+  <!--查询分类资源-->
+  <select id="typeAttach" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT a.*
+    FROM attach a
+    LEFT JOIN attach_type at ON a.id = at.attach_type_aid
+    WHERE at.attach_type_tid = #{0}
+  </select>
 </mapper>

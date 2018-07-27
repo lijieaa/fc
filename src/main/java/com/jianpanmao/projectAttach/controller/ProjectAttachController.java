@@ -1,5 +1,7 @@
 package com.jianpanmao.projectAttach.controller;
 
+import com.jianpanmao.attach.dao.AttachMapper;
+import com.jianpanmao.attach.entity.Attach;
 import com.jianpanmao.projectAttach.dao.ProjectAttachDao;
 import com.jianpanmao.projectAttach.entity.AttachType;
 import com.jianpanmao.projectAttach.entity.PType;
@@ -21,20 +23,36 @@ public class ProjectAttachController {
     @Autowired
     private ProjectAttachDao dao;
 
+    @Autowired
+    private AttachMapper attachMapper;
+
     /****
      * 资源树
      */
     @GetMapping("pType")
-    public List<PType> pTypeTree(){
-        List<PType> pTypes = dao.allPtype();
+    public List<PType> pTypeTree(Integer pid){
+        List<PType> pTypes = dao.projectPtype(pid);
+        for (PType p:pTypes){
+            setChildren(p,pTypes);
+        }
         List<PType> tops = new ArrayList<>();
         for (PType p:pTypes){
             if (p.getpTypeParentId().intValue()==0){
                 tops.add(p);
             }
         }
-        pTypes.removeAll(tops);
-return null;
+        return tops;
+
+    }
+
+    void setChildren(PType pType,List<PType> list){
+        List<PType> children = new ArrayList<>();
+        for (PType p:list){
+            if (p.getpTypeParentId().intValue()==pType.getpTypeId()){
+                children.add(p);
+            }
+        }
+        pType.setChildren(children);
     }
 
     /**
@@ -51,14 +69,14 @@ return null;
         }else {
             PType parent = dao.selectPType(pType.getpTypeParentId());
             String path = parent.getpTypePPath();
-            path += path+parent.getpTypeId()+",";
+            path = path+parent.getpTypeId()+",";
             pType.setpTypePPath(path);
         }
         dao.insertPType(pType);
         //关联项目
         ProjectPtype projectPtype = new ProjectPtype();
-        projectPtype.setProjectPTypePId(pType.getpTypeId());
-        projectPtype.setProjectPTypeTId(projectId);
+        projectPtype.setProjectPTypePId(projectId);
+        projectPtype.setProjectPTypeTId(pType.getpTypeId());
         dao.insertProjectPType(projectPtype);
     }
 
@@ -66,7 +84,7 @@ return null;
      * 修改项目文件分类名
      */
     @PutMapping("pType")
-    public void updatePType(PType pType) {
+    public void updatePType(@RequestBody PType pType) {
         dao.updatePType(pType);
     }
 
@@ -79,6 +97,14 @@ return null;
         attachType.setAttachTypeTId(pTypeId);
         attachType.setAttachTypeAId(attachId);
         dao.insertAttachType(attachType);
+    }
+
+    /**
+     * 查询分类下资源
+     */
+    @GetMapping("attachType")
+    public List<Attach> attachType(Integer tid){
+        return attachMapper.typeAttach(tid);
     }
 
 }
