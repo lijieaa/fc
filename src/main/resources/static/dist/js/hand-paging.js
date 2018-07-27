@@ -73,9 +73,11 @@
             var _self = this;
             _self.$paging.on('click', 'a', function() {
                 var id = $(this).attr("id");
+                if($(this).attr("class") == 'disable'){
+                    return false
+                }
                 if(id == "prevPage"){
                     if(_self.$options.pageNo == 1){
-
                         $("#prevPage").addClass("disable");
                         _self.$options.pageNo = 1;
                     }else{
