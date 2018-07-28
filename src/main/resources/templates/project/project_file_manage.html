@@ -239,7 +239,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="add-role-group-name">文件名:</label>
                 <div class="col-sm-9">
-                    <input type="text" id="add-role-group-name" name="namefile" class="form-control">
+                    <input type="text" id="add-role-group-name" name="namefile" v-model="fileName" class="form-control">
                 </div>
             </div>
         </form>
@@ -291,7 +291,7 @@
                 else title.text($title);
             }
         }));
-        function popFile(title){
+        function popFile(title,type){
             var $formFile = $('#filePop>form').validate({
                 errorElement: 'span',
                 errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
@@ -335,12 +335,22 @@
                             var _this = $(this);
                             var flag = $formFile.form();
                             console.log(flag);
+                            console.log(type);
                             if(flag){
-                                var data = $('#filePop>form').serializeObject();
+                                // var data = $('#filePop>form').serializeObject();
+                                var postData = {};
+                                var typeMethod;
+                                if(type == 'add'){
+                                    typeMethod = 'post';
+                                    postData.name = vue1.$data.fileName;
+                                    postData.parentId = vue1.$data.parentId == '' ? 0 : vue1.$data.parentId;
+                                    postData.projectId = projectID;
+                                }
+                                console.log(postData);
                                 $.ajax({
-                                    url: contextPath+"api/sysrolegroup",
-                                    type: "post",
-                                    data : JSON.stringify(data),
+                                    url: contextPath+"api/pa/pType",
+                                    type: typeMethod,
+                                    data : JSON.stringify(postData),
                                     contentType: "application/json",
                                     dataType : "json",
                                     success: function (data) {
@@ -374,7 +384,7 @@
             aObj.append(editStr);
             var btn = $("#diyBtn_"+treeNode.id);
             if (btn) btn.bind("click", function(){
-                popFile('编辑文件夹');
+                popFile('编辑文件夹','edit');
             });
 
 
@@ -399,6 +409,7 @@
         }
         function zTreeBeforeClick(treeId, treeNode){
             vue1.$data.currentFile = treeNode.pTypePName;
+            vue1.$data.parentId = treeNode.pTypeId
         }
         function zTreeOnClick(treeId, treeNode){
             var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
@@ -414,7 +425,9 @@
             el:"#file",
             data:{
                 title:[],
-                currentFile:''
+                currentFile:'',
+                fileName: '',
+                parentId: ''
             },
             computed:{
                 titleEnd: function(){
@@ -530,7 +543,7 @@
         }, 30);
 
         $("#addFile").click(function(){
-            popFile('新增文件夹');
+            popFile('新增文件夹','add');
         })
 
     })
