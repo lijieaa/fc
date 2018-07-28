@@ -276,7 +276,7 @@
                                 // var data = $('#filePop>form').serializeObject();
                                 var parentId = vue1.$data.parentId == '' ? 0 : vue1.$data.parentId;
                                 if(type == 'add'){
-                                    var url = contextPath+"api/pa/pType?name="+vue1.$data.fileName+"&parentId="+parentId +"&projectId="+projectID
+                                    var url = contextPath+"api/pa/pType?name="+vue1.$data.fileName+"&parentId="+parentId +"&projectId="+projectID;
                                     $.ajax({
                                         url: url,
                                         method: "post",
@@ -286,8 +286,12 @@
                                             _this.dialog( "close" );
                                             var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
                                             var nodes = treeObj.getSelectedNodes();
-                                            var selNode = treeObj.getNodeByTId(nodes[0].tId);
-                                            refreTree(selNode);
+                                            if(nodes.length != 0 ){
+                                                var selNode = treeObj.getNodeByTId(nodes[0].tId);
+                                                refreTree(selNode);
+                                            }else{
+                                                refreTree('')
+                                            }
                                             // vue1.$data.currentFile = vue1.$data.fileName
                                         },
                                         error: function (data) {
@@ -471,10 +475,11 @@
                     });
                     var nodes = treeObj.getNodes();
                     treeObj.refresh();
-                    treeObj.selectNode(nodes[0]);//选中节点
-                    console.log( nodes[0].pTypePName);
-                    _this.currentFile = nodes[0].pTypePName;
-                    _this.parentId = nodes[0].pTypeId;
+                    if(nodes.length != 0){
+                        treeObj.selectNode(nodes[0]);//选中节点
+                        _this.currentFile = nodes[0].pTypePName;
+                        _this.parentId = nodes[0].pTypeId;
+                    }
                     var val = $("#page").val();
                     tableData(val)
 
