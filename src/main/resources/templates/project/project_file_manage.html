@@ -104,7 +104,7 @@
         </form>
     </div>
 
-    <div id="dialog-modal"  title="" class="ui-dialog-content ui-widget-content display-none">
+    <div id="dialog-modal"  title="删除" class="ui-dialog-content ui-widget-content display-none">
         <p>你是否要删除吗？</p>
     </div>
 </div>
@@ -411,7 +411,7 @@
             computed:{
                 titleEnd: function(){
                     var title = this.title.join("/");
-                    var entTile  = title == "" ? this.currentFile : title+ " / " + this.currentFile
+                    var entTile  = title == "" ? this.currentFile : title+ " / " + this.currentFile;
                     return entTile;
                 }
             },
