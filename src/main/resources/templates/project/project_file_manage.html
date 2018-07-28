@@ -253,11 +253,11 @@
 
     // var responseUrl;
     jQuery(function($) {
-
         var setting =  {
             view: {
                 addHoverDom: addHoverDom,
                 removeHoverDom: removeHoverDom,
+                showLine: false
                 // selectedMulti: false
             },
             edit: {
@@ -273,15 +273,32 @@
                     name: "pTypePName"
                 }
             },
-            view: {
-                showLine: false
-            },
             callback: {
                 beforeClick: zTreeBeforeClick,
                 onClick: zTreeOnClick
                 // onRename: onRename
             }
         };
+
+        function addHoverDom(treeId, treeNode) {
+            var aObj = $("#" + treeNode.tId + "_a");
+            if ($("#diyBtn_"+treeNode.id).length>0) return;
+            var editStr = '<span id="diyBtn_'+treeNode.id+'">编辑</span>';
+            aObj.append(editStr);
+            var btn = $("#diyBtn_"+treeNode.id);
+            if (btn) btn.bind("click", function(){
+                popFile('编辑文件夹','edit');
+                vue1.$data.fileName = treeNode.pTypePName;
+            });
+
+        }
+
+
+        function removeHoverDom(treeId, treeNode) {
+            $("#diyBtn_"+treeNode.id).unbind().remove();
+            $("#diyBtn_space_" +treeNode.id).unbind().remove();
+        };
+
 // dialog 设置title
         $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
             _title: function(title) {
@@ -334,32 +351,54 @@
                         click: function() {
                             var _this = $(this);
                             var flag = $formFile.form();
-                            console.log(flag);
-                            console.log(type);
                             if(flag){
                                 // var data = $('#filePop>form').serializeObject();
-                                var postData = {};
-                                var typeMethod;
+                                var parentId = vue1.$data.parentId == '' ? 0 : vue1.$data.parentId;
                                 if(type == 'add'){
-                                    typeMethod = 'post';
-                                    postData.name = vue1.$data.fileName;
-                                    postData.parentId = vue1.$data.parentId == '' ? 0 : vue1.$data.parentId;
-                                    postData.projectId = projectID;
+                                    var url = contextPath+"api/pa/pType?name="+vue1.$data.fileName+"&parentId="+parentId +"&projectId="+projectID
+                                    $.ajax({
+                                        url: url,
+                                        method: "post",
+                                        contentType: "application/json",
+                                        dataType : "json",
+                                        success: function (data) {
+                                            _this.dialog( "close" );
+                                            var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
+                                            var nodes = treeObj.getSelectedNodes();
+                                            var selNode = treeObj.getNodeByTId(nodes[0].tId);
+                                            refreTree(selNode);
+                                            vue1.$data.currentFile = vue1.$data.fileName
+                                        },
+                                        error: function (data) {
+//                                        console.log(data);
+                                        }
+                                    })
+                                }
+                                else {
+                                    var postData = {};
+                                    postData.pTypePName = vue1.$data.fileName;
+                                    postData.pTypeId = parentId;
+                                    $.ajax({
+                                        url: contextPath+"api/pa/pType",
+                                        method: "put",
+                                        data : JSON.stringify(postData),
+                                        contentType: "application/json",
+                                        dataType : "json",
+                                        success: function (data) {
+                                            _this.dialog( "close" );
+                                            var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
+                                            var nodes = treeObj.getSelectedNodes();
+                                            var selNode = treeObj.getNodeByTId(nodes[0].tId);
+                                            refreTree(selNode);
+                                            vue1.$data.currentFile = vue1.$data.fileName
+                                        },
+                                        error: function (data) {
+//                                        console.log(data);
+                                        }
+                                    })
                                 }
                                 console.log(postData);
-                                $.ajax({
-                                    url: contextPath+"api/pa/pType",
-                                    type: typeMethod,
-                                    data : JSON.stringify(postData),
-                                    contentType: "application/json",
-                                    dataType : "json",
-                                    success: function (data) {
-                                        _this.dialog( "close" );
-                                    },
-                                    error: function (data) {
-//                                        console.log(data);
-                                    }
-                                })
+
 
                             }
 
@@ -377,24 +416,7 @@
             });
 
         }
-        function addHoverDom(treeId, treeNode) {
-            var aObj = $("#" + treeNode.tId + "_a");
-            if ($("#diyBtn_"+treeNode.id).length>0) return;
-            var editStr = '<span id="diyBtn_'+treeNode.id+'">编辑</span>';
-            aObj.append(editStr);
-            var btn = $("#diyBtn_"+treeNode.id);
-            if (btn) btn.bind("click", function(){
-                popFile('编辑文件夹','edit');
-            });
 
-
-        }
-
-
-        function removeHoverDom(treeId, treeNode) {
-            $("#diyBtn_"+treeNode.id).unbind().remove();
-            $("#diyBtn_space_" +treeNode.id).unbind().remove();
-        };
         var arr = [];
         function dg(sNodes){
             var sum = '';
@@ -409,7 +431,25 @@
         }
         function zTreeBeforeClick(treeId, treeNode){
             vue1.$data.currentFile = treeNode.pTypePName;
-            vue1.$data.parentId = treeNode.pTypeId
+            vue1.$data.parentId = treeNode.pTypeId;
+            vue1.$data.currentFile = treeNode.pTypePName
+            // var postData = {
+            //     tid : vue1.$data.parentId
+            // }
+            $.ajax({
+                url: contextPath +"api/pa/attachType?tid="+vue1.$data.parentId,
+                method: "get",
+                contentType: "application/json",
+                dataType : "json",
+                success:function(data){
+
+                }
+            });
+
+            $("#pagingTest").paging1({
+                pageNo:1,
+                totalPage:1
+            });
         }
         function zTreeOnClick(treeId, treeNode){
             var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
@@ -418,7 +458,24 @@
             dg(sNodes);
             vue1.$data.title = arr;
         }
-
+//刷新数状菜单列表
+        function refreTree(selNode){
+            $.ajax({
+                url: contextPath+'api/pa/pType?pid='+projectID,
+                async:false,
+                success: function(data){
+                    var ztreeObj = $.fn.zTree.init($("#treeDemoCheck"), setting, data.content);
+                    ztreeObj.selectNode(selNode);//选中节点
+                    ztreeObj.expandAll(true);
+                    var treeNode = ztreeObj.transformToArray(ztreeObj.getNodes());
+                    treeNode.map(function(v){
+                        v.icon = contextPath +'images/commonZtree.png'
+                    });
+                    ztreeObj.refresh();
+//            ztreeObj.expandNode(selNode);
+//            obj.expandAll(true);
+                }});
+        }
 
 
         var vue1 = new Vue({
@@ -437,75 +494,36 @@
                 }
             },
             methods:{
-                setting : function(){
-                    var _this = this;
-                    return settingCheck =  {
-                        view: {
-                            addHoverDom: _this.addHoverDom,
-                            removeHoverDom: _this.removeHoverDom,
-                            // selectedMulti: false
-                        },
-                        edit: {
-                            enable: true,
-                            showRemoveBtn: false,
-                            showRenameBtn: false
-                        },
-                        data: {
-                            simpleData: {
-                                enable: true
-                            }
-                        },
-                        callback: {
-//        beforeClick: zTreeBeforeClick,
-                            onClick: _this.zTreeBeforeClick
-                            // onRename: onRename
-                        }
-                    };
-                },
-                addHoverDom: function(treeId, treeNode){
-                    var aObj = $("#" + treeNode.tId + "_a");
-                    if ($("#diyBtn_"+treeNode.id).length>0) return;
-                    var editStr = '<span id="diyBtn_'+treeNode.id+'">编辑</span>';
-                    aObj.append(editStr);
-                    var btn = $("#diyBtn_"+treeNode.id);
-                    if (btn) btn.bind("click", function(){
-//        alert("diy Button for " + treeNode.name);
-//                         $( "#dialog" ).dialog( "open" );
-                    });
-                },
-                removeHoverDom: function(treeId, treeNode){
-                    $("#diyBtn_"+treeNode.id).unbind().remove();
-                    $("#diyBtn_space_" +treeNode.id).unbind().remove();
-                },
-                zTreeBeforeClick:function(treeId, treeNode){
-                    console.log(333);
-                    var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
-                    var sNodes = treeObj.getSelectedNodes()[0];
-                    arr = [];
-                    dg(sNodes);
-                },
+
+
 
             },
 
             mounted:function () {
                 var _this = this;
                 //给数状菜单添加数据
-                $.axspost(contextPath+'api/pa/pType?pid=1','get','',function (data) {
-                    data.content[0].open = true;
-                    // data.content[0].icon = contextPath +'images/commonZtree.png'
-                    var treeObj =  $.fn.zTree.init($("#treeDemoCheck"),setting,
-                        data.content);
+                $.axspost(contextPath+'api/pa/pType?pid='+projectID,'get','',function (data) {
+                    if(data.content.length != 0){
+                        data.content[0].open = true;
+
+                    }
+
+                    var treeObj =  $.fn.zTree.init($("#treeDemoCheck"),setting, data.content);
+
                     var treeNode = treeObj.transformToArray(treeObj.getNodes());
                     treeNode.map(function(v){
                         v.icon = contextPath +'images/commonZtree.png'
                     });
+                    var nodes = treeObj.getNodes();
                     treeObj.refresh();
+                    treeObj.selectNode(nodes[0]);//选中节点
+                    console.log( nodes[0].pTypePName);
+                    _this.currentFile = nodes[0].pTypePName;
+                    _this.parentId = nodes[0].pTypeId
+
                 },function(data){});
 
-                $("#pagingTest").paging1({
-                    pageNo:1,
-                    totalPage:1
-                });
+
 
                 var uploader = WebUploader.create({
                     // 选完文件后，是否自动上传。
@@ -524,7 +542,27 @@
                         mimeTypes: 'image/!*'
                     },*/
                 });
-
+                uploader.on( 'uploadSuccess', function( file,response ) {
+                  var id = response.content.id;
+                  $.ajax({
+                      url: contextPath + "api/pa/attachType?pTypeId="+vue1.$data.parentId+"&attachId="+id,
+                      type:'get',
+                      success:function(data){
+                          if(data.status == 200){
+                              $.ajax({
+                                  url: contextPath +"api/pa/attachType?tid="+vue1.$data.parentId,
+                                  method: "get",
+                                  contentType: "application/json",
+                                  dataType : "json",
+                                  success:function(data){
+                                      
+                                  }
+                              });
+                          }
+                      }
+                  });
+                   console.log(file);
+                });
             }
         });
 
