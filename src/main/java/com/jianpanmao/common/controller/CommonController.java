@@ -96,7 +96,7 @@ public class CommonController{
 
         String fileName = file.getOriginalFilename();
 
-        String path="c:\\upload\\";
+        //String path="c:\\upload\\";
 
         File targetFile = new File(path+time.format(nowTime),fileName);
 
@@ -121,7 +121,7 @@ public class CommonController{
 
         int add = attachService.add(attach);
 
-        attach.setId(add);
+       // attach.setId(add);
 
         File newFile = new File(newPath);
         file.transferTo(newFile);

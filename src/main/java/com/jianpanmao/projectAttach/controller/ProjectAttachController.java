@@ -8,6 +8,7 @@ import com.jianpanmao.projectAttach.entity.AttachType;
 import com.jianpanmao.projectAttach.entity.PType;
 import com.jianpanmao.projectAttach.entity.ProjectPtype;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 

@@ -13,32 +13,32 @@ import org.springframework.web.bind.annotation.*;
 public class DingtalkDeptController {
 
 
-@Autowired
-DingtalkDeptService dingtalkdeptService;
+    @Autowired
+    DingtalkDeptService dingtalkdeptService;
 
-@PreAuthorize("hasAuthority('dingtalkdept:view')")
-@RequestMapping(method = RequestMethod.GET,value = "list")
-public String list(){
-return "dingtalkdept/dingtalkdept_list";
-}
+    @PreAuthorize("hasAuthority('dingtalkdept:view')")
+    @RequestMapping(method = RequestMethod.GET, value = "list")
+    public String list() {
+        return "dingtalkdept/dingtalkdept_list";
+    }
 
-@PreAuthorize("hasAuthority('dingtalkdept:add')")
-@RequestMapping(method = RequestMethod.GET,value = "add")
-public String add(){
-return "dingtalkdept/dingtalkdept_add";
-}
+    @PreAuthorize("hasAuthority('dingtalkdept:add')")
+    @RequestMapping(method = RequestMethod.GET, value = "add")
+    public String add() {
+        return "dingtalkdept/dingtalkdept_add";
+    }
 
-@PreAuthorize("hasAuthority('dingtalkdept:edit')")
-@RequestMapping(method = RequestMethod.GET,value = "edit")
-public String edit(@RequestParam("id") Integer id, Model model){
-model.addAttribute("id",id);
-return "dingtalkdept/dingtalkdept_edit";
-}
+    @PreAuthorize("hasAuthority('dingtalkdept:edit')")
+    @RequestMapping(method = RequestMethod.GET, value = "edit")
+    public String edit(@RequestParam("id") Integer id, Model model) {
+        model.addAttribute("id", id);
+        return "dingtalkdept/dingtalkdept_edit";
+    }
 
-@PreAuthorize("hasAuthority('dingtalkdept:view')")
-@RequestMapping(method = RequestMethod.GET,value = "detail")
-public String detail(@RequestParam("id") Integer id, Model model){
-model.addAttribute("id",id);
-return "dingtalkdept/dingtalkdept_detail";
-}
+    @PreAuthorize("hasAuthority('dingtalkdept:view')")
+    @RequestMapping(method = RequestMethod.GET, value = "detail")
+    public String detail(@RequestParam("id") Integer id, Model model) {
+        model.addAttribute("id", id);
+        return "dingtalkdept/dingtalkdept_detail";
+    }
 }
