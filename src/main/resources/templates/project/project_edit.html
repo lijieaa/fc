@@ -258,6 +258,8 @@
 </div>
 <script th:src="@{/js/webuploader.js}"></script>
 <script type="text/javascript" th:inline="javascript">
+    var id=[[${id}]];
+    console.log(id);
     function showMenu() {
         $(".tree-div-contain").show();
         $("body").unbind("mousedown", onBodyDown);
@@ -651,7 +653,6 @@
                         }
                     });
                     _this.customer.zTreeList.map(function (v) {//客户联系人
-                        console.log(v);
                         if(v.id == undefined){
                             ptRelation.push(v.conId);
                         }else{

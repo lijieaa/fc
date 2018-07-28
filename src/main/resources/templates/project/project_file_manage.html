@@ -248,26 +248,12 @@
 <script th:src="@{/js/webuploader.js}"></script>
 <script type="text/javascript" th:inline="javascript">
 
-    var zNodes =[
-        { id:1, pId:0, name:"父节点 1", open:true},
-        { id:11, pId:1, name:"叶子节点 1-1"},
-        { id:111, pId:11, name:"你好1"},
-        { id:1111, pId:111, name:"你好2"},
-        { id:12, pId:1, name:"叶子节点 1-2"},
-        { id:13, pId:1, name:"叶子节点 1-3"},
-        { id:2, pId:0, name:"父节点 2", open:true},
-        { id:21, pId:2, name:"叶子节点 2-1"},
-        { id:22, pId:2, name:"叶子节点 2-2"},
-        { id:23, pId:2, name:"叶子节点 2-3"},
-        { id:3, pId:0, name:"父节点 3", open:true},
-        { id:31, pId:3, name:"叶子节点 3-1"},
-        { id:32, pId:3, name:"叶子节点 3-2"},
-        { id:33, pId:3, name:"叶子节点 3-3"}
-    ];
-
+    var projectID  = [[${id}]];
+    console.log(projectID);
 
     // var responseUrl;
     jQuery(function($) {
+
         var setting =  {
             view: {
                 addHoverDom: addHoverDom,
@@ -282,7 +268,13 @@
             data: {
                 simpleData: {
                     enable: true
+                },
+                key: {
+                    name: "pTypePName"
                 }
+            },
+            view: {
+                showLine: false
             },
             callback: {
                 beforeClick: zTreeBeforeClick,
@@ -399,14 +391,14 @@
             var node = sNodes.getParentNode();
             if(node !=  null){
                 dg(node);
-                sum+= node.name
+                sum+= node.pTypePName
                 arr.push(sum);
                 // console.log(sum)
                 return sum;
             }
         }
         function zTreeBeforeClick(treeId, treeNode){
-            vue1.$data.currentFile = treeNode.name;
+            vue1.$data.currentFile = treeNode.pTypePName;
         }
         function zTreeOnClick(treeId, treeNode){
             var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
@@ -421,8 +413,8 @@
         var vue1 = new Vue({
             el:"#file",
             data:{
-              title:[],
-              currentFile:''
+                title:[],
+                currentFile:''
             },
             computed:{
                 titleEnd: function(){
@@ -485,10 +477,16 @@
             mounted:function () {
                 var _this = this;
                 //给数状菜单添加数据
-                $.axspost(contextPath+'api/dingtalkuser/deptUser?iId=1','get','',function (data) {
-                    data.content[0].open = true
-                    $.fn.zTree.init($("#treeDemoCheck"),setting,
+                $.axspost(contextPath+'api/pa/pType?pid=1','get','',function (data) {
+                    data.content[0].open = true;
+                    // data.content[0].icon = contextPath +'images/commonZtree.png'
+                    var treeObj =  $.fn.zTree.init($("#treeDemoCheck"),setting,
                         data.content);
+                    var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                    treeNode.map(function(v){
+                        v.icon = contextPath +'images/commonZtree.png'
+                    });
+                    treeObj.refresh();
                 },function(data){});
 
                 $("#pagingTest").paging1({

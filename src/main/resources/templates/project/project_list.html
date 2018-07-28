@@ -257,7 +257,7 @@
                         "render": function (data, type, row) {
                             return '<div class="hidden-sm hidden-xs action-buttons">'
                                 [# sec:authorize="hasAuthority('project:view')"]
-                            + '<a class="blue" href="projectFileManage" title="文件管理"><i class="ace-icon fa fa-folder-open bigger-130"></i></a>'
+                            + '<a class="blue" href="projectFileManage/?id='+data.projectId+'" title="文件管理"><i class="ace-icon fa fa-folder-open bigger-130"></i></a>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:view')"]
                             + '<a class="blue" href="detail/?id='+data.projectId+'" title="详情"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
@@ -274,7 +274,7 @@
                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
                                 [# sec:authorize="hasAuthority('project:view')"]
-                            + '<li><a href="projectFileManage" class="tooltip-info" data-rel="tooltip" title="文件管理"><span class="blue"><i class="ace-icon fa fa-folder-open bigger-120"></i></span></a></li>'
+                            + '<li><a href="projectFileManage/?id='+data.projectId+'" class="tooltip-info" data-rel="tooltip" title="文件管理"><span class="blue"><i class="ace-icon fa fa-folder-open bigger-120"></i></span></a></li>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:view')"]
                             + '<li><a href="detail/?id='+data.projectId+'" class="tooltip-info" data-rel="tooltip" title="详情"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'

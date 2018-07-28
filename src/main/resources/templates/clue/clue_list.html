@@ -256,7 +256,7 @@
                                             + '<a class="blue" id="changeProject"  data-id="'+data.projectId+'"  title="转为项目"><i class="ace-icon fa fa-exchange bigger-130"></i></a>'
                                                     [/]
                                                 [# sec:authorize="hasAuthority('project:view')"]
-                                            + '<a class="blue" href="detail/?id='+data.projectId+'" title="线索评论"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
+                                            + '<a class="blue" href="detail/?id='+data.projectId+'" title="线索详情"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
                                                 [/]
                                             [# sec:authorize="hasAuthority('project:edit')"]
                                             + '<a class="blue" href="edit/?id='+data.projectId+'"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
@@ -270,7 +270,7 @@
                                             + '<li><a  class="tooltip-info" data-rel="tooltip" data-id="'+data.projectId+'" id="changeProject" title="转为项目"><span class="blue"><i class="ace-icon fa fa-exchange bigger-120"></i></span></a></li>'
                                                     [/]
                                                 [# sec:authorize="hasAuthority('project:view')"]
-                                            + '<li><a href="detail/?id='+data.projectId+'" class="tooltip-info" data-rel="tooltip" title="线索评论"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
+                                            + '<li><a href="detail/?id='+data.projectId+'" class="tooltip-info" data-rel="tooltip" title="线索详情"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
                                                 [/]
                                             [# sec:authorize="hasAuthority('project:edit')"]
                                             + '<li><a href="edit/?id='+data.projectId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="blue"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
