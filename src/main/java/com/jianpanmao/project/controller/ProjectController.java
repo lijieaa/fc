@@ -74,7 +74,8 @@ public String projectComments(@RequestParam("id") Integer id, Model model){
      * 项目文件管理
      */
     @RequestMapping(method = RequestMethod.GET,value = "projectFileManage")
-    public String projectFileManage(){
+    public String projectFileManage(@RequestParam("id") Integer id, Model model){
+        model.addAttribute("id",id);
         return "project/project_file_manage";
     }
 }
