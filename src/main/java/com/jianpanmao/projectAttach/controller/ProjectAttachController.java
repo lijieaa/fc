@@ -1,8 +1,11 @@
 package com.jianpanmao.projectAttach.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.jianpanmao.attach.dao.AttachMapper;
 import com.jianpanmao.attach.entity.Attach;
 import com.jianpanmao.attach.service.AttachService;
+import com.jianpanmao.common.entity.DataTablesResponseEntity;
 import com.jianpanmao.projectAttach.dao.ProjectAttachDao;
 import com.jianpanmao.projectAttach.entity.AttachType;
 import com.jianpanmao.projectAttach.entity.PType;
@@ -120,11 +123,13 @@ public class ProjectAttachController {
 
         //删除资源
         List<Attach> attaches = attachMapper.typeAttach(id);
-        Integer aid[] =  new Integer[attaches.size()];
-        for (int i = 0; i < attaches.size(); i++) {
-            aid[i] = attaches.get(i).getId();
+        if (attaches!=null&&attaches.size()>0) {
+            Integer aid[] = new Integer[attaches.size()];
+            for (int i = 0; i < attaches.size(); i++) {
+                aid[i] = attaches.get(i).getId();
+            }
+            attachService.removeBatch(aid);
         }
-        attachService.removeBatch(aid);
     }
 
     /**
@@ -142,8 +147,19 @@ public class ProjectAttachController {
      * 查询分类下资源
      */
     @GetMapping("attachType")
-    public List<Attach> attachType(Integer tid){
-        return attachMapper.typeAttach(tid);
-    }
+    public Object attachType(@RequestParam(value = "pageNum",defaultValue = "1",required = true) Integer pageNum,
+                                   @RequestParam(value = "pageSize",defaultValue = "10",required = true) Integer pageSize,
+                                   @RequestParam(value = "draw",required = false) Integer draw,Integer tid) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Attach> attachTypes = attachMapper.typeAttach(tid);
+        PageInfo pageInfo = new PageInfo(attachTypes);
 
+//draw 不等于空是datatables分页
+        if (draw != null) {
+            DataTablesResponseEntity<List<Attach>> responseEntity = new DataTablesResponseEntity(draw, pageInfo.getTotal(), pageInfo.getTotal(), pageInfo.getList());
+            return responseEntity;
+        } else {
+            return pageInfo;
+        }
+    }
 }
