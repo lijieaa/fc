@@ -9,16 +9,24 @@
   </resultMap>
 
   <!--查询资源分类by id-->
-  <select id="selectPType" parameterType="java.lang.Integer" resultMap="pType">
+  <select id="selectPType"  parameterType="java.lang.Integer" resultMap="pType">
     SELECT pt.*
     FROM p_type pt WHERE pt.p_type_id = #{0}
   </select>
 
+  <!--查询项目下资源分类-->
   <select id="projectPtype" resultMap="pType" parameterType="java.lang.Integer">
     SELECT pt.*
     FROM  p_type pt
     LEFT JOIN project_p_type ppt ON ppt.project_p_type_tid = pt.p_type_id
     WHERE ppt.project_p_type_pid = #{0}
+  </select>
+
+  <!--查询资源分类下所有分类-->
+  <select id="underPType" resultMap="pType" parameterType="java.lang.String">
+    SELECT pt.*
+    FROM p_type pt
+    WHERE pt.p_path  LIKE CONCAT('%',#{0},'%')
   </select>
 
   <!--新增项目资源分类-->
@@ -59,9 +67,9 @@
     )
   </insert>
 
-  <!--删除项目和项目资源表关系-->
+  <!--删除项目和项目资源分类表关系-->
   <delete id="deleteProjectPType" parameterType="java.lang.Integer">
-     DELETE from project_p_type WHERE project_p_type_id = #{0}
+     DELETE from project_p_type WHERE project_p_type_tid = #{0}
   </delete>
 
   <!--关联资源和资源分类-->
@@ -77,11 +85,7 @@
   </insert>
   <!--删除 资源和资源分类表-->
   <delete id="deleteAttachType" parameterType="java.lang.Integer">
-    DELETE from attach_type WHERE attach_type_id = #{0}
+    DELETE from attach_type WHERE attach_type_aid = #{0}
   </delete>
 
-  <!--删除资源-->
-  <delete id="deleteAttach" parameterType="java.lang.Integer">
-    DELETE from attach WHERE id = #{0}
-  </delete>
 </mapper>

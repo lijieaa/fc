@@ -14,6 +14,7 @@ import com.jianpanmao.device.service.DeviceService;
 import com.jianpanmao.deviceLog.entity.DeviceLog;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -72,6 +73,10 @@ public class CommonController{
 
     @Autowired
     DeviceService deviceService;
+
+
+    @Value("${fc.uploadPath}")
+    private String path;
 
 
     //@Autowired
@@ -139,8 +144,6 @@ public class CommonController{
 
 
         String fileName = file.getOriginalFilename();
-
-        String path="c:\\upload\\";
 
         File targetFile = new File(path+time.format(nowTime),fileName);
 

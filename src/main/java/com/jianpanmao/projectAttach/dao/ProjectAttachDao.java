@@ -15,10 +15,14 @@ public interface ProjectAttachDao {
     Integer insertPType(PType pType);
     PType selectPType(Integer id);
     void updatePType(PType pType);
-
+    void deletePType(Integer id);
+    void deleteProjectPType(Integer id);
+    List<PType> underPType(String path);
     List<PType> projectPtype(Integer pid);
 
     Integer insertProjectPType(ProjectPtype projectPtype);
 
     void insertAttachType(AttachType attachType);
+
+    void deleteAttachType(Integer id);
 }

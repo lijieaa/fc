@@ -9,6 +9,8 @@ import com.jianpanmao.attach.service.AttachService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -71,4 +73,11 @@ return pageInfo;
 }
 
 }
+    /**
+     * 文件下载
+     */
+    @GetMapping("downAttach")
+    public void downFile(Integer id, HttpServletResponse response){
+        attachService.downFile(id, response);
+    }
 }

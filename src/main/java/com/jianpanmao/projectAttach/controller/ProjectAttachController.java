@@ -2,6 +2,7 @@ package com.jianpanmao.projectAttach.controller;
 
 import com.jianpanmao.attach.dao.AttachMapper;
 import com.jianpanmao.attach.entity.Attach;
+import com.jianpanmao.attach.service.AttachService;
 import com.jianpanmao.projectAttach.dao.ProjectAttachDao;
 import com.jianpanmao.projectAttach.entity.AttachType;
 import com.jianpanmao.projectAttach.entity.PType;
@@ -25,6 +26,9 @@ public class ProjectAttachController {
 
     @Autowired
     private AttachMapper attachMapper;
+
+    @Autowired
+    private AttachService attachService;
 
     /****
      * 资源树
@@ -86,6 +90,40 @@ public class ProjectAttachController {
     @PutMapping("pType")
     public void updatePType(@RequestBody PType pType) {
         dao.updatePType(pType);
+    }
+
+    /**
+     * 删除项目资源
+     * @param pTypeId
+     */
+    @DeleteMapping("pType")
+    @Transactional
+    public void deletePtype(Integer pTypeId){
+        PType p = dao.selectPType(pTypeId);
+        //删除自身
+        deleteOthers(pTypeId);
+        //删除下级所有分类
+        String path = p.getpTypePPath()+pTypeId+",";
+        List<PType> pTypes = dao.underPType(path);
+        for (PType pType:pTypes){
+            deleteOthers(pType.getpTypeId());
+        }
+    }
+
+    //删除分类和关联的数据
+    private void deleteOthers(Integer id){
+        //删除分类
+        dao.deletePType(id);
+        //删除分类和项目的关联
+        dao.deleteProjectPType(id);
+
+        //删除资源
+        List<Attach> attaches = attachMapper.typeAttach(id);
+        Integer aid[] =  new Integer[attaches.size()];
+        for (int i = 0; i < attaches.size(); i++) {
+            aid[i] = attaches.get(i).getId();
+        }
+        attachService.removeBatch(aid);
     }
 
     /**
