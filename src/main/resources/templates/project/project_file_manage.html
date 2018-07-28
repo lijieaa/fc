@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 text-align-right" style="padding-right: 0">
-                <button type="button" data-toggle="modal"
+                <button type="button" data-toggle="modal" @click="backList"
                         class="btn btn-info padding-right-15">
                     <i class="ace-icon fa fa-reply icon-only"></i>
                     返回
@@ -112,8 +112,6 @@
 <script type="text/javascript" th:inline="javascript">
 
     var projectID  = [[${id}]];
-    console.log(projectID);
-
     // var responseUrl;
     jQuery(function($) {
         var setting =  {
@@ -174,7 +172,11 @@
                                         var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
                                         var nodes = treeObj.getSelectedNodes();
                                         var selNode = treeObj.getNodeByTId(nodes[0].tId);
-                                        refreTree(selNode);
+                                        refreTree('');
+                                        // console.log();
+                                        if($("#treeDemoCheck").html() == ''){
+                                            vue1.$data.currentFile = ''
+                                        }
                                     }
                                 });
                             }
@@ -292,7 +294,6 @@
                                             }else{
                                                 refreTree('')
                                             }
-                                            // vue1.$data.currentFile = vue1.$data.fileName
                                         },
                                         error: function (data) {
 //                                        console.log(data);
@@ -318,13 +319,9 @@
                                             vue1.$data.currentFile = vue1.$data.fileName
                                         },
                                         error: function (data) {
-//                                        console.log(data);
                                         }
                                     })
                                 }
-                                console.log(postData);
-
-
                             }
 
 
@@ -382,12 +379,18 @@
                         v.icon = contextPath +'images/commonZtree.png'
                     });
                     ztreeObj.refresh();
-                    ztreeObj.selectNode(selNode);//选中节点
                     ztreeObj.expandAll(true);
-                    tableData();
-
-//            ztreeObj.expandNode(selNode);
-//            obj.expandAll(true);
+                    var nodes = ztreeObj.getNodes();
+                   if(selNode == '' && nodes.length != 0 ){
+                       ztreeObj.selectNode(nodes[0]);//选中节点
+                       vue1.$data.currentFile =  nodes[0].pTypePName;
+                       vue1.$data.parentId = nodes[0].pTypeId;
+                       vue1.$data.title = [];
+                       tableData();
+                   }else{
+                       ztreeObj.selectNode(selNode);//选中节点
+                       tableData();
+                   }
                 }});
         }
         $(document).on("click","a",function () {
@@ -409,10 +412,13 @@
                 titleEnd: function(){
                     var title = this.title.join("/");
                     var entTile  = title == "" ? this.currentFile : title+ " / " + this.currentFile
-                    return entTile
+                    return entTile;
                 }
             },
             methods:{
+                backList: function(){
+                    location.href=contextPath+"project/list";
+                },
                 downLoad:function(id){
                    $.ajax({
                        url: contextPath+"api/attach?id="+id,
@@ -484,8 +490,6 @@
                     tableData(val)
 
                 },function(data){});
-
-
 
                 var uploader = WebUploader.create({
                     // 选完文件后，是否自动上传。
