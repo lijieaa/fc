@@ -12,6 +12,7 @@ import com.jianpanmao.device.dto.control.DeviceUserParam;
 import com.jianpanmao.device.dto.control.SystemTime;
 import com.jianpanmao.device.entity.Device;
 import com.jianpanmao.device.service.DeviceService;
+import com.jianpanmao.intermediary.entity.Intermediary;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import com.jianpanmao.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +77,6 @@ public class DeviceRestController {
                        DeviceDto dto) {
 
         PageHelper.startPage(pageNum, pageSize);
-
         List<Device> list = deviceService.getByDto(dto);
         PageInfo pageInfo = new PageInfo(list);
 

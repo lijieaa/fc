@@ -423,17 +423,18 @@
     LEFT JOIN intermediary intermediary
     ON intermediary.intermediary_id = d.intermediary_id
     WHERE d.valid = 0
-    <if test="deviceProductionNum != null">and d.device_production_num LIKE CONCAT('%',#{deviceProductionNum},'%')
+    <if test="deviceProductionNum != null and deviceProductionNum neq ''">
+      and d.device_production_num LIKE CONCAT('%',#{deviceProductionNum},'%')
     </if>
-    <if test="project !=null and project.projectName!=null">and project.project_name LIKE
+    <if test="project !=null and project.projectName!=null and project.projectName neq ''">and project.project_name LIKE
       CONCAT('%',#{project.projectName},'%')
     </if>
-    <if test="operateUser!=null and operateUser.name!=null">and operate_user.name LIKE CONCAT('%',#{operateUser.name},'%')
+    <if test="operateUser!=null and operateUser.name!=null ">and operate_user.name LIKE CONCAT('%',#{operateUser.name},'%')
     </if>
-    <if test="transcribeUser!=null and transcribeUser.name!=null">and transcribe_user.name LIKE
+    <if test="transcribeUser!=null and transcribeUser.name!=null " >and transcribe_user.name LIKE
       CONCAT('%',#{transcribeUser.name},'%')
     </if>
-    <if test="intermediary !=null and intermediary.intermediaryName !=null">
+    <if test="intermediary !=null and intermediary.intermediaryName !=null and intermediary.intermediaryName neq ''">
       and intermediary.intermediary_name LIKE CONCAT('%',#{intermediary.intermediaryName},'%')
     </if>
     <if test="od!=null and od neq ''">
