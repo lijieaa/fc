@@ -4,6 +4,7 @@ import com.jianpanmao.dataStatistics.dao.DataStatisticsMapper;
 import com.jianpanmao.dataStatistics.dto.DataStatisticsDto;
 import com.jianpanmao.dataStatistics.dto.DataStatisticsVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,21 +23,25 @@ public class DataStatisticsRestController {
     @Autowired
     DataStatisticsMapper dao;
 
+    @PreAuthorize("hasAuthority('dataStatistics:view')")
     @GetMapping("/intermediaryDeviceCount")
     public List<Map> intermediaryDeviceCount() {
         return dao.intermediaryDeviceCount();
     }
 
+    @PreAuthorize("hasAuthority('dataStatistics:view')")
     @GetMapping("/intermediaryArea")
     public List<Map> intermediaryArea() {
         return dao.intermediaryArea();
     }
 
+    @PreAuthorize("hasAuthority('dataStatistics:view')")
     @GetMapping("/projectArea")
     public List<Map> projectArea() {
         return dao.projectArea();
     }
 
+    @PreAuthorize("hasAuthority('dataStatistics:view')")
     @GetMapping("/fiveYearDicount")
     public List<DataStatisticsVo> fiveYearDicount() {
         List<DataStatisticsVo> vos = new ArrayList<>();

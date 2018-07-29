@@ -37,6 +37,7 @@ public class ProjectAttachController {
     /****
      * 资源树
      */
+    @PreAuthorize("hasAuthority('projectAttachTree:view')")
     @GetMapping("pType")
     public List<PType> pTypeTree(Integer pid){
         List<PType> pTypes = dao.projectPtype(pid);
@@ -66,6 +67,7 @@ public class ProjectAttachController {
     /**
      * 新增项目文件分类
      */
+    @PreAuthorize("hasAuthority('projectAttachTree:add')")
     @PostMapping("pType")
     @Transactional
     public void addPType(String name,Integer parentId,Integer projectId){
@@ -91,6 +93,7 @@ public class ProjectAttachController {
     /**
      * 修改项目文件分类名
      */
+    @PreAuthorize("hasAuthority('projectAttachTree:edit')")
     @PutMapping("pType")
     public void updatePType(@RequestBody PType pType) {
         dao.updatePType(pType);
@@ -100,6 +103,7 @@ public class ProjectAttachController {
      * 删除项目资源
      * @param pTypeId
      */
+    @PreAuthorize("hasAuthority('projectAttachTree:delete')")
     @DeleteMapping("pType")
     @Transactional
     public void deletePtype(Integer pTypeId){
@@ -135,6 +139,7 @@ public class ProjectAttachController {
     /**
      * 上传文件
      */
+    @PreAuthorize("hasAuthority('projectAttachTree:add')")
     @PostMapping("attachType")
     public void addAttachType(Integer pTypeId,Integer attachId){
         AttachType attachType = new AttachType();
@@ -146,6 +151,7 @@ public class ProjectAttachController {
     /**
      * 查询分类下资源
      */
+    @PreAuthorize("hasAuthority('projectAttachTree:view')")
     @GetMapping("attachType")
     public Object attachType(@RequestParam(value = "pageNum",defaultValue = "1",required = true) Integer pageNum,
                                    @RequestParam(value = "pageSize",defaultValue = "10",required = true) Integer pageSize,

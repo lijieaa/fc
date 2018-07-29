@@ -76,7 +76,7 @@ public class AreaRestController {
 
     }
 
-
+    @PreAuthorize("hasAuthority('area:view')")
     @GetMapping("condition")
     @ResponseBody
     public List<Area> findByLP(@RequestParam Integer level, @RequestParam(required = false) Integer parent) {
@@ -89,6 +89,7 @@ public class AreaRestController {
         return areas;
     }
 
+    @PreAuthorize("hasAuthority('area:view')")
     @GetMapping("/")
     @ResponseBody
     public List<Area> findByShortName(String shortName){
