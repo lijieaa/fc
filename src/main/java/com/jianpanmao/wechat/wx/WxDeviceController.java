@@ -57,6 +57,7 @@ public class WxDeviceController {
     }
 
     @GetMapping("getDeviceParams")
+    @ResponseBody
     public DeviceControlVo getDeviceParams(String num) {
         return deviceService.deviceControl(num);
     }
