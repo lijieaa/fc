@@ -52,34 +52,57 @@
         </div>
         <div class="pages">
 
-            <div class="page" data-page="home">
+            <div class="page projectinfo" data-page="home">
 
                 <div class="page-content infinite-scroll-content">
 
-                    <div class="list media-list ">
-                        <ul id="">
-                            <li class="plist card">
-                                <div class="item-content">
-                                    <div class="item-media">
-                                        <img th:src="@{/img/proimg.jpg}" class="proview" />
-                                    </div>
-                                    <div class="item-inner ">
-                                        <div class="item-title-row">
-                                            <div class="item-title f32">广西东泉湖智能生态环境建设工程</div>
-                                        </div>
-                                        <div class="item-text "><span>项目编号：</span>GK6844544646</div>
-                                        <div class="item-text "><span>建设方业主：</span>张图强</div>
-                                        <div class="item-text "><span>项目负责人：</span>吴景鹏</div>
-                                        <div class="item-text "><span>业主联系电话：</span>028-8688 0234</div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                    <div class="content-block" style="position:relative;">
+                        <img th:src="@{/img/proimg.jpg}" class="response" />
+                        <div style="position:absolute;bottom:20px;left:7px;background: #3c8dbc;color:#ffffff;padding:10px">
+                            <div class="f32">广西东泉湖智能生态环境建设工程项目</div>
+                            <div class="f32">GK6844544646</div>
+                        </div>
                     </div>
-                    <div class="list media-list ">
-                        <div class="block-title  text-base-color fw">项目评论（10）</div>
+
+                    <div class="content-block">
+                        <div class="content-title"> 项目负责人</div>
+                        <table class="table">
+                            <colgroup>
+                                <col width="20%" />
+                                <col  width="30%"/>
+                                <col width="50%"  />
+                            </colgroup>
+                            <thead>
+                            <tr><th>姓名</th><th>手机号</th><th>邮箱</th></tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>张天胡丽 </td><td>15954654889</td><td>644169206@qq.com</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="content-block">
+                        <div class="content-title"> 客户联系人</div>
+                        <table class="table">
+                            <colgroup>
+                                <col width="20%" />
+                                <col  width="30%"/>
+                                <col width="50%"  />
+                            </colgroup>
+                            <thead>
+                            <tr><th>姓名</th><th>手机号</th><th>邮箱</th></tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>唐浩 </td><td>15954654889</td><td>644169206@qq.com</td></tr>
+                                <td>胡丽娜 </td><td>15954654889</td><td>644169206@qq.com</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="list media-list content-block">
+                        <div class="content-title">评论（10）</div>
                         <ul id="listview">
-                            <li class="plist card">
+                            <li class="plist ">
                                 <div class="item-content comment-box">
                                     <div class="item-media">
                                         <img th:src="@{/img/saleimg.jpg}" class="saleimg" />
@@ -110,7 +133,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="plist card">
+                            <li class="plist ">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <img th:src="@{/img/saleimg.jpg}" class="saleimg" />
@@ -137,7 +160,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="plist card">
+                            <li class="plist ">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <img th:src="@{/img/saleimg.jpg}" class="saleimg" />

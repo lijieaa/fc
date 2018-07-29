@@ -12,7 +12,9 @@
 .wrapper .navbar a{
   color:#ffffff;
 }
-
+.response{
+  min-width: 100%;
+}
 .wrapper .toolbar-inner{
   padding:0 0;
 }
@@ -140,13 +142,14 @@ ul{
 }
 
 .proview{
-  width:69px;
-  height:69px;
+  width:136px;
+  height:92px;
 }
 
  .plist .item-text{
   line-height:1em  !important;
    font-size:13px !important;
+   min-height:26px;
 }
 
  .plist .item-text>span{
@@ -159,7 +162,7 @@ ul{
 
  .ios  .plist.card {
    box-shadow: 0 1px 3px 0px rgba(0,0,0,.3);
-   margin:10px 0;
+/*   margin:10px 0;*/
 
  }
 
@@ -189,7 +192,7 @@ span.pkee{
   flex-shrink: 1;
   width: 100%;
   position: relative;
-  margin: 0 -1px;
+  margin: 0 -1px 0 10px;
 }
 
  .ios .searchbar .ser-box input[type=search]{
@@ -198,9 +201,16 @@ span.pkee{
    line-height:30px;
    box-sizing: border-box;
    background: none;
-   border:1px solid #c1c1c0;
+   border:1px solid #3c8dbc;
  }
 
+ .bdr-clr{
+   border:1px solid #3c8dbc !important;
+ }
+
+.ios .searchbar:after{
+  background:none !important;
+}
 .ser-btn{
   flex-shrink: 0;
   width:40px;
@@ -255,9 +265,15 @@ span.pkee{
    color:#c1c1c0;
 }
 
-.ios .card{
-  margin:10px 0;
+.ios .rcard{
+ /* margin:10px 0;*/
+  margin: 10px;
+  background:#f5f5f5;
 }
+.ios .list .rcard .item-content{
+  padding-left: 8px;
+}
+
 .ios .list .item-inner:after{
 /*  background: none;*/
 }
@@ -326,4 +342,41 @@ span.pkee{
 
 .ios  .params  .toggle{
  /* transform:  translate(20px);*/
+}
+
+.table{
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #a0bccd;
+  width: 100%;
+}
+.table th,.table td{
+  text-align: center;
+  border:1px solid #e2e2e2;
+  line-height:25px;
+  font-size:13px;
+}
+.table th{
+  background:#b1d3e7
+}
+.table tr td:first-child{
+  color:#005dbc
+}
+.content-title{
+  font-weight: bold;
+  position:relative;
+  border-left:3px solid #3c8dbc;
+  padding-left:6px;
+  line-height:16px;
+  margin-bottom:9px;
+}
+
+.content-block{
+  padding:0 10px;
+  margin:10px 0;
+}
+
+.projectinfo .content-block .plist{
+  border:1px solid #ededed
+
 }
