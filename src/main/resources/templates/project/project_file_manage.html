@@ -7,7 +7,7 @@
     <script type="text/javascript" th:src= "@{/dist/js/hand-paging.js}"></script>
 </head>
 <body layout:fragment="content">
-<div id="file">
+<div id="file" v-cloak>
     <div class="page-header">
         <div class="row">
             <div class="col-md-9 col-sm-9" style="padding-left: 0">
@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 text-align-right" style="padding-right: 0">
-                <button type="button" data-toggle="modal"
+                <button type="button" data-toggle="modal" @click="backList"
                         class="btn btn-info padding-right-15">
                     <i class="ace-icon fa fa-reply icon-only"></i>
                     返回
@@ -60,163 +60,22 @@
                                         <td>大小</td>
                                         <td>下载</td>
                                     </tr>
-                                    <tr class="table-content">
+                                    <tr class="table-content" v-for = "item in tableContent">
                                         <td>
-                                            <span>e4343</span>
-                                            <span>e4343</span>
+                                            <span>{{item.filename}}</span>
                                         </td>
                                         <td>
-                                            <span>343434</span>
+                                            <span>{{item.createTime}}</span>
                                         </td>
                                         <td>
-                                            <span>54445.kb</span>
-                                        </td>
-                                        <td>
-                                            <span>
-                                                <i class="ace-icon fa fa-download blue"></i>
-                                            </span>
-                                            <span class="margin-left-10">
-                                                <i class="ace-icon fa fa-trash-o blue"></i>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="table-content">
-                                        <td>
-                                            <span>e4343</span>
-                                            <span>e4343</span>
-                                        </td>
-                                        <td>
-                                            <span>343434</span>
-                                        </td>
-                                        <td>
-                                            <span>54445.kb</span>
+                                            <span>{{item.size}}kb</span>
                                         </td>
                                         <td>
                                             <span>
-                                                <i class="ace-icon fa fa-download blue"></i>
+                                                <i class="ace-icon fa fa-download blue" @click="downLoad(item.id)"></i>
                                             </span>
                                             <span class="margin-left-10">
-                                                <i class="ace-icon fa fa-trash-o blue"></i>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="table-content">
-                                        <td>
-                                            <span>e4343</span>
-                                            <span>e4343</span>
-                                        </td>
-                                        <td>
-                                            <span>343434</span>
-                                        </td>
-                                        <td>
-                                            <span>54445.kb</span>
-                                        </td>
-                                        <td>
-                                            <span>
-                                                <i class="ace-icon fa fa-download blue"></i>
-                                            </span>
-                                            <span class="margin-left-10">
-                                                <i class="ace-icon fa fa-trash-o blue"></i>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="table-content">
-                                        <td>
-                                            <span>e4343</span>
-                                            <span>e4343</span>
-                                        </td>
-                                        <td>
-                                            <span>343434</span>
-                                        </td>
-                                        <td>
-                                            <span>54445.kb</span>
-                                        </td>
-                                        <td>
-                                            <span>
-                                                <i class="ace-icon fa fa-download blue"></i>
-                                            </span>
-                                            <span class="margin-left-10">
-                                                <i class="ace-icon fa fa-trash-o blue"></i>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="table-content">
-                                        <td>
-                                            <span>e4343</span>
-                                            <span>e4343</span>
-                                        </td>
-                                        <td>
-                                            <span>343434</span>
-                                        </td>
-                                        <td>
-                                            <span>54445.kb</span>
-                                        </td>
-                                        <td>
-                                            <span>
-                                                <i class="ace-icon fa fa-download blue"></i>
-                                            </span>
-                                            <span class="margin-left-10">
-                                                <i class="ace-icon fa fa-trash-o blue"></i>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="table-content">
-                                        <td>
-                                            <span>e4343</span>
-                                            <span>e4343</span>
-                                        </td>
-                                        <td>
-                                            <span>343434</span>
-                                        </td>
-                                        <td>
-                                            <span>54445.kb</span>
-                                        </td>
-                                        <td>
-                                            <span>
-                                                <i class="ace-icon fa fa-download blue"></i>
-                                            </span>
-                                            <span class="margin-left-10">
-                                                <i class="ace-icon fa fa-trash-o blue"></i>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="table-content">
-                                        <td>
-                                            <span>e4343</span>
-                                            <span>e4343</span>
-                                        </td>
-                                        <td>
-                                            <span>343434</span>
-                                        </td>
-                                        <td>
-                                            <span>54445.kb</span>
-                                        </td>
-                                        <td>
-                                            <span>
-                                                <i class="ace-icon fa fa-download blue"></i>
-                                            </span>
-                                            <span class="margin-left-10">
-                                                <i class="ace-icon fa fa-trash-o blue"></i>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="table-content">
-                                        <td>
-                                            <span>e4343</span>
-                                            <span>e4343</span>
-                                        </td>
-                                        <td>
-                                            <span>343434</span>
-                                        </td>
-                                        <td>
-                                            <span>54445.kb</span>
-                                        </td>
-                                        <td>
-                                            <span>
-                                                <i class="ace-icon fa fa-download blue"></i>
-                                            </span>
-                                            <span class="margin-left-10">
-                                                <i class="ace-icon fa fa-trash-o blue"></i>
+                                                <i class="ace-icon fa fa-trash-o blue" @click="deleteTable(item.id)"></i>
                                             </span>
                                         </td>
                                     </tr>
@@ -244,13 +103,15 @@
             </div>
         </form>
     </div>
+
+    <div id="dialog-modal"  title="删除" class="ui-dialog-content ui-widget-content display-none">
+        <p>你是否要删除吗？</p>
+    </div>
 </div>
 <script th:src="@{/js/webuploader.js}"></script>
 <script type="text/javascript" th:inline="javascript">
 
     var projectID  = [[${id}]];
-    console.log(projectID);
-
     // var responseUrl;
     jQuery(function($) {
         var setting =  {
@@ -283,21 +144,83 @@
         function addHoverDom(treeId, treeNode) {
             var aObj = $("#" + treeNode.tId + "_a");
             if ($("#diyBtn_"+treeNode.id).length>0) return;
-            var editStr = '<span id="diyBtn_'+treeNode.id+'">编辑</span>';
+            var editStr = '<span id="diyBtn_'+treeNode.id+'" class="editFile">编辑</span>'+
+                '<span id="diyBtn_del'+treeNode.id+'" class="deleteFile">删除</span>';
             aObj.append(editStr);
             var btn = $("#diyBtn_"+treeNode.id);
+            var btnDel = $("#diyBtn_del"+treeNode.id);
             if (btn) btn.bind("click", function(){
                 popFile('编辑文件夹','edit');
                 vue1.$data.fileName = treeNode.pTypePName;
             });
+            if (btnDel) btnDel.bind("click", function(){
+                $("#dialog-modal").removeClass('hide').dialog({
+                    resizable: false,
+                    height: "auto",
+                    width: 400,
+                    modal: true,
+                    buttons: [
+                        {
+                            text: "确定",
+                            "class": "btn btn-primary btn-minier",
+                            click: function() {
+                                $( this ).dialog( "close" );
+                                $.ajax({
+                                    url: contextPath+"api/pa/pType?pTypeId="+treeNode.pTypeId,
+                                    type:'delete',
+                                    success:function(data){
+                                        var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
+                                        var nodes = treeObj.getSelectedNodes();
+                                        var selNode = treeObj.getNodeByTId(nodes[0].tId);
+                                        refreTree('');
+                                        // console.log();
+                                        if($("#treeDemoCheck").html() == ''){
+                                            vue1.$data.currentFile = ''
+                                        }
+                                    }
+                                });
+                            }
+                        },
+                        {
+                            text: "取消",
+                            "class" : "btn btn-minier",
+                            "click": function() {
+                                $( this ).dialog( "close" );
+                            }
+                        }
+                    ]
+                });
+
+            });
 
         }
 
-
         function removeHoverDom(treeId, treeNode) {
             $("#diyBtn_"+treeNode.id).unbind().remove();
+            $("#diyBtn_del"+treeNode.id).unbind().remove();
             $("#diyBtn_space_" +treeNode.id).unbind().remove();
+            $("#diyBtn_space_de" +treeNode.id).unbind().remove();
         };
+
+        function tableData(pageNum){
+            $.ajax({
+                url: contextPath +"api/pa/attachType?tid="+vue1.$data.parentId,
+                method: "GET",
+                data:{
+                    pageNum: pageNum,
+                    pageSize: 4,
+                },
+                contentType: "application/json",
+                dataType : "json",
+                success:function(data){
+                    vue1.$data.tableContent = data.content.list;
+                    $("#pagingTest").paging1({
+                        pageNo:pageNum,
+                        totalPage:data.content.pages
+                    })
+                }
+            });
+        }
 
 // dialog 设置title
         $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
@@ -355,7 +278,7 @@
                                 // var data = $('#filePop>form').serializeObject();
                                 var parentId = vue1.$data.parentId == '' ? 0 : vue1.$data.parentId;
                                 if(type == 'add'){
-                                    var url = contextPath+"api/pa/pType?name="+vue1.$data.fileName+"&parentId="+parentId +"&projectId="+projectID
+                                    var url = contextPath+"api/pa/pType?name="+vue1.$data.fileName+"&parentId="+parentId +"&projectId="+projectID;
                                     $.ajax({
                                         url: url,
                                         method: "post",
@@ -365,9 +288,12 @@
                                             _this.dialog( "close" );
                                             var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
                                             var nodes = treeObj.getSelectedNodes();
-                                            var selNode = treeObj.getNodeByTId(nodes[0].tId);
-                                            refreTree(selNode);
-                                            vue1.$data.currentFile = vue1.$data.fileName
+                                            if(nodes.length != 0 ){
+                                                var selNode = treeObj.getNodeByTId(nodes[0].tId);
+                                                refreTree(selNode);
+                                            }else{
+                                                refreTree('')
+                                            }
                                         },
                                         error: function (data) {
 //                                        console.log(data);
@@ -393,13 +319,9 @@
                                             vue1.$data.currentFile = vue1.$data.fileName
                                         },
                                         error: function (data) {
-//                                        console.log(data);
                                         }
                                     })
                                 }
-                                console.log(postData);
-
-
                             }
 
 
@@ -432,24 +354,11 @@
         function zTreeBeforeClick(treeId, treeNode){
             vue1.$data.currentFile = treeNode.pTypePName;
             vue1.$data.parentId = treeNode.pTypeId;
-            vue1.$data.currentFile = treeNode.pTypePName
-            // var postData = {
-            //     tid : vue1.$data.parentId
-            // }
-            $.ajax({
-                url: contextPath +"api/pa/attachType?tid="+vue1.$data.parentId,
-                method: "get",
-                contentType: "application/json",
-                dataType : "json",
-                success:function(data){
+            vue1.$data.currentFile = treeNode.pTypePName;
+            vue1.$data.fileName = treeNode.pTypePName;
 
-                }
-            });
-
-            $("#pagingTest").paging1({
-                pageNo:1,
-                totalPage:1
-            });
+            var val = $("#page").val();
+            tableData(val);
         }
         function zTreeOnClick(treeId, treeNode){
             var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
@@ -465,18 +374,30 @@
                 async:false,
                 success: function(data){
                     var ztreeObj = $.fn.zTree.init($("#treeDemoCheck"), setting, data.content);
-                    ztreeObj.selectNode(selNode);//选中节点
-                    ztreeObj.expandAll(true);
                     var treeNode = ztreeObj.transformToArray(ztreeObj.getNodes());
                     treeNode.map(function(v){
                         v.icon = contextPath +'images/commonZtree.png'
                     });
                     ztreeObj.refresh();
-//            ztreeObj.expandNode(selNode);
-//            obj.expandAll(true);
+                    ztreeObj.expandAll(true);
+                    var nodes = ztreeObj.getNodes();
+                   if(selNode == '' && nodes.length != 0 ){
+                       ztreeObj.selectNode(nodes[0]);//选中节点
+                       vue1.$data.currentFile =  nodes[0].pTypePName;
+                       vue1.$data.parentId = nodes[0].pTypeId;
+                       vue1.$data.title = [];
+                       tableData();
+                   }else{
+                       ztreeObj.selectNode(selNode);//选中节点
+                       tableData();
+                   }
                 }});
         }
-
+        $(document).on("click","a",function () {
+            // alert(1);
+            var val = $("#page").val();
+            tableData(val);
+        });
 
         var vue1 = new Vue({
             el:"#file",
@@ -484,19 +405,64 @@
                 title:[],
                 currentFile:'',
                 fileName: '',
-                parentId: ''
+                parentId: '',
+                tableContent:[]
             },
             computed:{
                 titleEnd: function(){
                     var title = this.title.join("/");
-                    var entTile  = title == "" ? this.currentFile : title+ " / " + this.currentFile
-                    return entTile
+                    var entTile  = title == "" ? this.currentFile : title+ " / " + this.currentFile;
+                    return entTile;
                 }
             },
             methods:{
+                backList: function(){
+                    location.href=contextPath+"project/list";
+                },
+                downLoad:function(id){
+                   $.ajax({
+                       url: contextPath+"api/attach?id="+id,
+                       success:function(data){
+                           window.location.href = imgPath + data.content.path
+                       }
+                   });
+                },
+                deleteTable: function(id){
+                    $("#dialog-modal").removeClass('hide').dialog({
+                        resizable: false,
+                        height: "auto",
+                        width: 400,
+                        modal: true,
+                        buttons: [
+                            {
+                                text: "确定",
+                                "class": "btn btn-primary btn-minier",
+                                click: function() {
+                                $( this ).dialog( "close" );
+                                $.ajax({
+                                    url: contextPath+"api/attach?id="+id,
+                                    type: 'delete',
+                                    success:function(data){
+                                        if(data.status == 200){
+                                            var val = $("#page").val();
+                                            tableData(val)
+                                        }
+                                    }
+                                })
 
+                            },
+                            },
+                            {
+                                text: "取消",
+                                "class" : "btn btn-minier",
+                                "click": function() {
+                                    $( this ).dialog( "close" );
+                                }
+                            }
+                        ]
+                    });
 
-
+                }
             },
 
             mounted:function () {
@@ -505,7 +471,6 @@
                 $.axspost(contextPath+'api/pa/pType?pid='+projectID,'get','',function (data) {
                     if(data.content.length != 0){
                         data.content[0].open = true;
-
                     }
 
                     var treeObj =  $.fn.zTree.init($("#treeDemoCheck"),setting, data.content);
@@ -516,14 +481,15 @@
                     });
                     var nodes = treeObj.getNodes();
                     treeObj.refresh();
-                    treeObj.selectNode(nodes[0]);//选中节点
-                    console.log( nodes[0].pTypePName);
-                    _this.currentFile = nodes[0].pTypePName;
-                    _this.parentId = nodes[0].pTypeId
+                    if(nodes.length != 0){
+                        treeObj.selectNode(nodes[0]);//选中节点
+                        _this.currentFile = nodes[0].pTypePName;
+                        _this.parentId = nodes[0].pTypeId;
+                    }
+                    var val = $("#page").val();
+                    tableData(val)
 
                 },function(data){});
-
-
 
                 var uploader = WebUploader.create({
                     // 选完文件后，是否自动上传。
@@ -546,18 +512,11 @@
                   var id = response.content.id;
                   $.ajax({
                       url: contextPath + "api/pa/attachType?pTypeId="+vue1.$data.parentId+"&attachId="+id,
-                      type:'get',
+                      type:'post',
                       success:function(data){
                           if(data.status == 200){
-                              $.ajax({
-                                  url: contextPath +"api/pa/attachType?tid="+vue1.$data.parentId,
-                                  method: "get",
-                                  contentType: "application/json",
-                                  dataType : "json",
-                                  success:function(data){
-                                      
-                                  }
-                              });
+                              var val = $("#page").val();
+                              tableData(val)
                           }
                       }
                   });
