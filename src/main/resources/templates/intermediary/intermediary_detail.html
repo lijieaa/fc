@@ -315,10 +315,10 @@
         '跟进状态: <span ref="status"></span></div>' +
         '<div class="comment-btn-time margin-top-6">' +
         '<div class="comment-time float-left margin-left-10">' +
-        '跟进时间: <span>{{comment.topicCreateTime}}</span></div>'
+        '跟进时间: <span>{{comment.topicCreateTime}}</span></div>'+
 
                 [# sec:authorize="hasAuthority('topiccomments:add')"]
-    +'<div class="comment-btn float-right margin-right-10" @click="commentClick(comment.topicId,$event)">' +
+    '<div class="comment-btn float-right margin-right-10" @click="commentClick(comment.topicId,$event)">' +
         '<i class="icon-color-9c fa fa-fw  fa-commenting"></i>' +
         '评论({{comment.commentsCount}})</div>'+
     [/]

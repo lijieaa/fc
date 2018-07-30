@@ -2,13 +2,11 @@ package com.jianpanmao.sys.entity;
 
 import com.jianpanmao.intermediary.entity.Intermediary;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import javax.validation.constraints.NotNull;
 
 public class DingtalkUser implements Serializable,UserDetails {
@@ -223,7 +221,17 @@ public class DingtalkUser implements Serializable,UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<SysRole> roles = this.getRoles();
+        Collection<SimpleGrantedAuthority> authorities=new HashSet<>();
+        for (SysRole role : roles) {
+            List<SysMenu> menus = role.getMenus();
+            for (SysMenu menu : menus) {
+                if(menu.getMenuPrmission()!=null&&menu.getMenuPrmission().length()>0){
+                    authorities.add(new SimpleGrantedAuthority(menu.getMenuPrmission().trim()));
+                }
+            }
+        }
+        return authorities;
     }
 
     //@JsonIgnore
