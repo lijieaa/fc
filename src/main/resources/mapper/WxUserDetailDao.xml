@@ -25,7 +25,7 @@
     </resultMap>
 
     <select id="selectAll" resultMap="wxUserDetailMap">
-        SELECT * FROM wx_user_detail WHERE intermediary_id = #{intermediary.intermediaryId}
+        SELECT * FROM wx_user_detail WHERE public_id = #{wxPublic.id}
         <if test="nickname != null and nickname !=''">
             and nickname LIKE CONCAT('%',#{nickname},'%')
         </if>

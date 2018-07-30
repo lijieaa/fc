@@ -204,8 +204,9 @@ div.dataTables_wrapper div.dataTables_paginate{
     height: 20px!important;
 }
 .ztree li a.curSelectedNode {
-    border: 1px #d1d1d1 solid!important;
+    border: none!important;
     background: #fff!important;
+    color: #1794e4;
 }
 .ztree li span.button.ico_close {
     /*background-position: -167px -41px!important;*/

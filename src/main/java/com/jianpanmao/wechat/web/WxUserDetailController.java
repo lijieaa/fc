@@ -7,6 +7,7 @@ import com.jianpanmao.project.entity.Project;
 import com.jianpanmao.unit.ResponseEntity;
 import com.jianpanmao.utils.WxUtils;
 import com.jianpanmao.wechat.entity.WxUserDetail;
+import com.jianpanmao.wechat.service.WxPublicService;
 import com.jianpanmao.wechat.service.WxUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,16 +30,19 @@ public class WxUserDetailController  {
 
     @Autowired private WxUserDetailService wxUserDetailService;
 
+    @Autowired private WxPublicService wxPublicService;
+
     @GetMapping("page")
     @ResponseBody
     public Object pageList(Integer page,
                                              Integer rows,
                                              @RequestParam(value = "draw", required = false) Integer draw,
+                                             @RequestParam("wxPublicId") Integer wxPublicId,
                                              WxUserDetail wxUserDetail,
                                              HttpSession session) throws Exception{
         WxUtils.checkParam(session, wxUserDetail.getWxPublicId());
         PageHelper.startPage(page, rows);
-        wxUserDetail.setIntermediary(WxUtils.getCompany(session));
+        wxUserDetail.setWxPublic(wxPublicService.selectByPrimaryKey(wxPublicId));
         List<WxUserDetail> list = wxUserDetailService.selectAll(wxUserDetail);
         PageInfo pageInfo = new PageInfo(list);
         if (draw != null) {
