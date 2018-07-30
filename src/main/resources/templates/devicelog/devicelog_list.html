@@ -241,12 +241,12 @@
                                                 '' +
                                                 'dden-xs action-buttons">'
 
-                                                [# sec:authorize="hasAuthority('device:delete')"]
+                                                [# sec:authorize="hasAuthority('devicelog:delete')"]
                                             + '<a class="blur delete" data-id="'+row.deviceLogId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
                                                 [/]
                                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
-                                                [# sec:authorize="hasAuthority('device:delete')"]
+                                                [# sec:authorize="hasAuthority('devicelog:delete')"]
                                             + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+row.deviceLogId+'"><span class="blue"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
                                                 [/]
                                             +'</ul></div></div>';
