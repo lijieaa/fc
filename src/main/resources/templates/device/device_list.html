@@ -336,11 +336,11 @@
                             + '<a class="blue" href="detail/?id='+data.deviceId+'#deviceProductionNum='+data.deviceProductionNum+'" title="运行数据">' +
                             '<i class="ace-icon fa fa-desktop bigger-130"></i></a>'
                                 [/]
-                                [# sec:authorize="hasAuthority('device:view')"] //日志
+                                [# sec:authorize="hasAuthority('deviceControl:view')"] //日志
                             + '<a class="blue" href="detail/?id='+data.deviceId+'#deviceProductionNum='+data.deviceProductionNum+'" title="控制">' +
                             '<i class="ace-icon fa fa-cogs bigger-130"></i></a>'
                                 [/]
-                                [# sec:authorize="hasAuthority('device:view')"] //日志
+                                [# sec:authorize="hasAuthority('devicelog:view')"] //日志
                             + '<a class="blue" href="../devicelog/list/?id='+data.deviceId+'" title="日志"><i class="ace-icon fa fa-envelope bigger-130"></i></a>'
                                 [/]
                                 [# sec:authorize="hasAuthority('device:edit')"]
@@ -355,10 +355,10 @@
 
                             + '<li><a href="detail/?id='+data.deviceId+'#deviceProductionNum='+data.deviceProductionNum+'" class="tooltip-info" data-rel="tooltip" title="运行数据"><span class="blue"><i class="ace-icon fa fa-desktop bigger-120"></i></span></a></li>'
                                 [/]
-                                [# sec:authorize="hasAuthority('device:view')"]
+                                [# sec:authorize="hasAuthority('deviceControl:view')"]
                             + '<li><a href="detail/?id='+data.deviceId+'#deviceProductionNum='+data.deviceProductionNum+'" class="tooltip-info" data-rel="tooltip" title="控制"><span class="blue"><i class="ace-icon fa fa-cogs bigger-120"></i></span></a></li>'
                                 [/]
-                                [# sec:authorize="hasAuthority('device:view')"]
+                                [# sec:authorize="hasAuthority('devicelog:view')"]
                             + '<li><a href="../devicelog/list/?id='+data.deviceId+'" class="tooltip-info" data-rel="tooltip" title="日志"><span class="blue"><i class="ace-icon fa fa-envelope bigger-120"></i></span></a></li>'
                                 [/]
                                 [# sec:authorize="hasAuthority('device:edit')"]

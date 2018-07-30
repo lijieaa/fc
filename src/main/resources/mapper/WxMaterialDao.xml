@@ -39,6 +39,7 @@
           material_thumb_url,
           material_need_open_comment,
           material_only_fans_can_comment,
+          public_id,
           material_update_time)
         VALUES (
           #{mediaId},
@@ -55,13 +56,14 @@
           #{thumbUrl},
           #{needOpenComment},
           #{onlyFansCanComment},
+          #{wxPublicId},
           #{updateTime}
         )
     </insert>
 
 
     <select id="selectAll" resultMap="materialMap">
-        SELECT * FROM wx_material WHERE 1=1
+        SELECT * FROM wx_material WHERE 1=1 AND public_id = #{wxPublicId}
         <if test="wxtype != null and wxtype != ''">
             and material_type = #{wxtype}
         </if>

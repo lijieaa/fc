@@ -1,4 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
     <link rel="stylesheet" th:href="@{/css/webuploader.css}">
@@ -226,7 +227,7 @@
                                 </div>
                             </div>
                             <div class="col-md-5 col-xs-5 text-right padding-right-15">
-                                <button type="button" class="btn purple-btn btn-default" @click="addGJ">新增改进</button>
+                                <button type="button" class="btn purple-btn btn-default" @click="addGJ" sec:authorize="hasAuthority('topic:add')">新增改进</button>
                             </div>
                         </div>
                         <div class="row">
@@ -315,10 +316,14 @@
         '跟进状态: <span ref="status"></span></div>' +
         '<div class="comment-btn-time margin-top-6">' +
         '<div class="comment-time float-left margin-left-10">' +
-        '跟进时间: <span>{{comment.topicCreateTime}}</span></div>' +
-        '<div class="comment-btn float-right margin-right-10" @click="commentClick(comment.topicId,$event)">' +
+        '跟进时间: <span>{{comment.topicCreateTime}}</span></div>'+
+
+                [# sec:authorize="hasAuthority('topiccomments:add')"]
+    '<div class="comment-btn float-right margin-right-10" @click="commentClick(comment.topicId,$event)">' +
         '<i class="icon-color-9c fa fa-fw  fa-commenting"></i>' +
-        '评论({{comment.commentsCount}})</div></div>' +
+        '评论({{comment.commentsCount}})</div>'+
+    [/]
+        '</div>' +
         '<transition name="fade">' +
         '<div class="comment-list">' +
         '<div class="input-group margin-top-6">' +
