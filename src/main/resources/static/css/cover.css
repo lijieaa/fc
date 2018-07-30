@@ -145,7 +145,10 @@ ul{
   width:136px;
   height:92px;
 }
-
+.proview1{
+  width:115px;
+  height:115px;
+}
  .plist .item-text{
   line-height:1em  !important;
    font-size:13px !important;
@@ -380,3 +383,5 @@ span.pkee{
   border:1px solid #ededed
 
 }
+
+.changer
