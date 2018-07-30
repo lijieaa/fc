@@ -97,7 +97,7 @@ public class DeviceRestController {
      * @param projectId
      * @return
      */
-    @PreAuthorize("hasAuthority('devicelog:view')")
+    @PreAuthorize("hasAuthority('device:view')")
     @GetMapping("byProjectId")
     public Object byProjectId(@RequestParam(value = "pageNum", defaultValue = "1", required = true) Integer pageNum,
                               @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
@@ -169,11 +169,11 @@ public class DeviceRestController {
 
 
     /**
-     * 设备关联
+     * 设备控制
      * @param num
      * @return
      */
-    @PreAuthorize("hasAuthority('device:view')")
+    @PreAuthorize("hasAuthority('deviceControl:view')")
     @GetMapping("deviceControl")
     public DeviceControlVo deviceControl(String num) {
         return deviceService.deviceControl(num);
