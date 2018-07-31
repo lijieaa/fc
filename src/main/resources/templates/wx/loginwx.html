@@ -12,11 +12,49 @@
     <link rel="stylesheet" th:href="@{/css/app.css}">
     <link rel="stylesheet" th:href="@{/css/cover.css}">
     <script th:src="@{/js/framework7.min.js}"></script>
+    <script th:src="@{/js/vue.js}"></script>
     <script>
         var deviceWidth = document.documentElement.clientWidth;
         if(deviceWidth > 1080) deviceWidth = 1080;
         document.documentElement.style.fontSize = deviceWidth / 10.8 + 'px';
     </script>
+    <style>
+        .loginList li{
+            line-height:50px;
+            border-top:1px solid #717171;
+            border-bottom:1px solid #717171;
+            margin-top:-1px;
+            display: flex;
+            justify-content: flex-start;
+
+        }
+
+        .loginList label{
+            display: block;
+            width:100px;
+
+            text-align: center;
+
+        }
+        .loginList input[type=text], .loginList input[type=password]{
+            display: block;
+            width:100%;
+
+            flex-shrink:1;
+            -webkit-flex-shrink: 1;
+            padding:3px 6px;
+            color:#333333;
+        }
+
+        .loginList .btn{
+            background:#439fd5;
+            border:none;
+            outline:none;
+            line-height:40px;
+            display: block;
+            color:#FFFFFF;
+        }
+    </style>
 
 </head>
 <body>
@@ -28,33 +66,19 @@
         <div class="pages">
             <div class="page" data-page="home">
                 <div class="page-content">
-                    <div class="login-screen-title">登录</div>
-                    <form>
-                        <div class="list">
-                            <ul>
-                                <li class="item-content item-input">
-                                    <div class="item-inner">
-                                        <div class="item-title item-label">Username</div>
-                                        <div class="item-input-wrap">
-                                            <input type="text" name="username" placeholder="Your username">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="item-content item-input">
-                                    <div class="item-inner">
-                                        <div class="item-title item-label">Password</div>
-                                        <div class="item-input-wrap">
-                                            <input type="password" name="password" placeholder="Your password">
-                                        </div>
-                                    </div>
+                    <form class="loginList">
+                            <ul >
+                             <li class="text-base-color">
+                                 <label>账号</label><input type="text" placeholder="请输入账号"/>
+                             </li>
+                                <li>
+                                    <label>密码</label><input type="password" placeholder="请输入密码"/>
                                 </li>
                             </ul>
-                        </div>
-                        <div class="list">
-                            <ul>
-                                <li><a class="item-link list-button" href="#">Sign In</a></li>
-                            </ul>
-                        </div>
+                      <div style="padding:0 10px;">
+                          <button class="btn">登录</button>
+                      </div>
+
                     </form>
                 </div>
             </div>
@@ -63,13 +87,8 @@
         </div>
     </div>
 <script>
-    var app = new Framework7(
-            {
-                id: 'io.framework7.testapp',
-                root: '#app',
-                theme: "ios",
-            }
-    )
+
+
 
 
 </script>
