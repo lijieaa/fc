@@ -5,6 +5,7 @@ import com.jianpanmao.utils.HttpServletUtils;
 import com.jianpanmao.utils.WxUtils;
 import com.jianpanmao.wechat.api.WxApiHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class WxMenuController {
 
     @Autowired private WxApiHandler wxApiHandler;
 
+    @PreAuthorize("hasAuthority('wxmenu:add')")
     @PostMapping
     @ResponseBody
     @NoResultEntity
@@ -36,6 +38,7 @@ public class WxMenuController {
         }
     }
 
+    @PreAuthorize("hasAuthority('wxmenu:add')")
     @DeleteMapping
     @ResponseBody
     @NoResultEntity
@@ -50,6 +53,7 @@ public class WxMenuController {
         }
     }
 
+    @PreAuthorize("hasAuthority('wxmenu:view')")
     @GetMapping
     @ResponseBody
     @NoResultEntity

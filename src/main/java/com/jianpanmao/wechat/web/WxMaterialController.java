@@ -12,6 +12,7 @@ import com.jianpanmao.wechat.dto.VideoDTO;
 import com.jianpanmao.wechat.entity.WxMaterial;
 import com.jianpanmao.wechat.service.WxMaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +33,7 @@ public class WxMaterialController {
 
     @Autowired private WxApiHandler wxApiHandler;
 
+    @PreAuthorize("hasAuthority('wxmaterial:add')")
     @PostMapping("upload")
     @ResponseBody
     public ResponseEntity add(WxMaterial wxMaterial, MultipartFile media, HttpSession session) {
@@ -48,6 +50,7 @@ public class WxMaterialController {
         return responseEntity;
     }
 
+    @PreAuthorize("hasAuthority('wxmaterial:add')")
     @PostMapping("upload/news")
     @ResponseBody
     public ResponseEntity addNews(@RequestBody WxNewsContent wxNewsContent, HttpSession session){
@@ -65,6 +68,7 @@ public class WxMaterialController {
         return responseEntity;
     }
 
+    @PreAuthorize("hasAuthority('wxmaterial:view')")
     @GetMapping("page")
     @ResponseBody
     public Object pageList(Integer page, Integer rows, WxMaterial wxMaterial, HttpSession session) {
@@ -84,6 +88,7 @@ public class WxMaterialController {
         }
     }
 
+    @PreAuthorize("hasAuthority('wxmaterial:view')")
     @GetMapping("video/detail")
     @ResponseBody
     public VideoDTO videoDetail(String mediaId, Integer wxPublicId, HttpSession session) throws Exception{
@@ -94,6 +99,7 @@ public class WxMaterialController {
         return GsonUtils.toBean(result, VideoDTO.class);
     }
 
+    @PreAuthorize("hasAuthority('wxmaterial:view')")
     @NoResultEntity
     @GetMapping("voice/detail")
     @ResponseBody
@@ -105,6 +111,7 @@ public class WxMaterialController {
         wxApiHandler.getStreamDetail(accessToken, mediaId, response);
     }
 
+    @PreAuthorize("hasAuthority('wxmaterial:view')")
     @NoResultEntity
     @GetMapping("image/detail")
     public void imageDetail(String name, Integer wxPublicId, String mediaId,HttpServletResponse response,HttpSession session) throws Exception{
@@ -115,6 +122,7 @@ public class WxMaterialController {
         wxApiHandler.getStreamDetail(accessToken, mediaId, response);
     }
 
+    @PreAuthorize("hasAuthority('wxmaterial:view')")
     @GetMapping("news/detail")
     @ResponseBody
     public WxMaterial newsDetail(Integer materialId, Integer wxPublicId, HttpSession session) throws Exception{
@@ -122,6 +130,7 @@ public class WxMaterialController {
         return wxMaterialService.selectByPrimaryKey(materialId);
     }
 
+    @PreAuthorize("hasAuthority('wxmaterial:view')")
     @GetMapping("news/detailByWxMediaId")
     @ResponseBody
     public WxMaterial detailByWxMediaId(String materialId, Integer wxPublicId, HttpSession session) throws Exception{

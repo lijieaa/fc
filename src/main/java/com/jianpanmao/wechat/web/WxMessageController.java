@@ -15,6 +15,7 @@ import com.jianpanmao.wechat.entity.WxPublic;
 import com.jianpanmao.wechat.service.WxMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +39,7 @@ public class WxMessageController{
     @Value("${fc.wx.user-msg-material.path}")
     private String filepath;
 
+    @PreAuthorize("hasAuthority('wxmsg:view')")
     @GetMapping("page")
     @ResponseBody
     public Object page(Integer page,
@@ -57,6 +59,7 @@ public class WxMessageController{
         }
     }
 
+    @PreAuthorize("hasAuthority('wxmsg:view')")
     @GetMapping("user/page")
     @ResponseBody
     public Object pageForUser(Integer page,
@@ -77,6 +80,7 @@ public class WxMessageController{
         }
     }
 
+    @PreAuthorize("hasAuthority('wxmsg:send')")
     @PostMapping
     @ResponseBody
     public ResponseEntity sendMsg(@RequestParam("wxPublicId")Integer wxPublicId,
@@ -134,6 +138,7 @@ public class WxMessageController{
         return msg;
     }
 
+    @PreAuthorize("hasAuthority('wxmsg:view')")
     @GetMapping("attachment")
     @ResponseBody
     @NoResultEntity

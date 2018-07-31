@@ -130,7 +130,7 @@ public class DeviceRestController {
     /**
      * 关联设备列表
      */
-    @PreAuthorize("hasAuthority('devicelog:view')")
+    @PreAuthorize("hasAuthority('device:view')")
     @GetMapping("freeDeviceList")
     public Object freeDeviceList(@RequestParam(value = "pageNum", defaultValue = "1", required = true) Integer pageNum,
                                  @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
