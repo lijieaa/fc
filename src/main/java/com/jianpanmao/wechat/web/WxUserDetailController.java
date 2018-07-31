@@ -10,6 +10,7 @@ import com.jianpanmao.wechat.entity.WxUserDetail;
 import com.jianpanmao.wechat.service.WxPublicService;
 import com.jianpanmao.wechat.service.WxUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ public class WxUserDetailController  {
 
     @Autowired private WxPublicService wxPublicService;
 
+    @PreAuthorize("hasAuthority('wxuser:view')")
     @GetMapping("page")
     @ResponseBody
     public Object pageList(Integer page,

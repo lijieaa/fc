@@ -10,6 +10,7 @@ import com.jianpanmao.wechat.api.WxApiHandler;
 import com.jianpanmao.wechat.entity.WxPublic;
 import com.jianpanmao.wechat.service.WxPublicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,52 +35,61 @@ public class WxPublicController {
 
     @Autowired private WxApiHandler wxApiHandler;
 
+    @PreAuthorize("hasAuthority('wxpublic:view')")
     @GetMapping("index")
     public String index(Integer menuId, Model model){
         return "wechat/index";
     }
 
+    @PreAuthorize("hasAuthority('wxpublic:add')")
     @GetMapping("add")
     public String add(Integer menuId){
         return "wechat/wxpublic_add";
     }
 
+    @PreAuthorize("hasAuthority('wxpublic:edit')")
     @GetMapping("edit")
     public String edit(Integer id, Model model){
         model.addAttribute("id", id);
         return "wechat/wxpublic_edit";
     }
 
+    @PreAuthorize("hasAuthority('wxmenu:view')")
     @GetMapping("menu")
     public String menu(Integer menuId, Integer wxPublicId,Model model){
         model.addAttribute("wxPublicId", wxPublicId);
         return "wechat/menu";
     }
 
+    @PreAuthorize("hasAuthority('wxuser:view')")
     @GetMapping("user")
     public String user(Integer menuId, Integer wxPublicId, Model model){
         model.addAttribute("wxPublicId", wxPublicId);
         return "wechat/user";
     }
 
+    @PreAuthorize("hasAuthority('wxmsg:view')")
     @GetMapping("msg")
     public String msg(Integer menuId, Integer wxPublicId, Model model){
         model.addAttribute("wxPublicId", wxPublicId);
         return "wechat/msg";
     }
 
+    @PreAuthorize("hasAuthority('wxmaterial:view')")
     @GetMapping("material")
     public String material(Integer menuId, Integer wxPublicId, Model model){
         model.addAttribute("wxPublicId", wxPublicId);
         return "wechat/material";
     }
 
+    @PreAuthorize("hasAuthority('wxpublic:view')")
     @GetMapping
     @ResponseBody
     public WxPublic get(Integer id){
         return wxPublicService.selectByPrimaryKey(id);
     }
 
+    @PreAuthorize("hasAuthority('wxpublic:add')")
     @PostMapping
     @ResponseBody
     public ResponseEntity add(@Valid @RequestBody WxPublic wxPublic, BindingResult result, HttpSession session, HttpServletRequest request) throws Exception {
@@ -131,6 +141,7 @@ public class WxPublicController {
         wxApiHandler.createMenu(accessToken, json);
     }
 
+    @PreAuthorize("hasAuthority('wxpublic:edit')")
     @PutMapping
     @ResponseBody
     public ResponseEntity update(@RequestBody WxPublic wxPublic, BindingResult result, HttpSession session) throws Exception {
@@ -154,6 +165,7 @@ public class WxPublicController {
         }
     }
 
+    @PreAuthorize("hasAuthority('wxpublic:delete')")
     @DeleteMapping
     @ResponseBody
     public ResponseEntity delete(Integer id, HttpSession session) throws Exception{
@@ -173,6 +185,7 @@ public class WxPublicController {
         return ResponseEntity.ok();
     }
 
+    @PreAuthorize("hasAuthority('wxpublic:view')")
     @GetMapping("page")
     @ResponseBody
     public Object pageList(Integer pageNum,
