@@ -1,4 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
     <link rel="stylesheet" th:href="@{/dist/css/common.css}">
@@ -29,9 +30,9 @@
             <div class="row">
                 <div class="col-xs-4 padding-right">
                     <div class="page-file-left">
-                        <div class="border-left-blue" style="margin: 10px 0 10px 10px">文件结构</div>
+                        <div class="file-jg">文件结构</div>
                         <div style="background: #fff;height: 648px">
-                            <div id="addFile">新增文件夹</div>
+                            <div id="addFile" sec:authorize="hasAuthority('projectAttachTree:add')">新增文件夹</div>
                             <ul id="treeDemoCheck" class="ztree"></ul>
                         </div>
                     </div>
@@ -45,7 +46,7 @@
                             </div>
                             <div class="float-right">
                                 <button type="button" data-toggle="modal"
-                                        class="btn btn-info btn-sc" id= "filePicker">
+                                        class="btn btn-info btn-sc" id= "filePicker" sec:authorize="hasAuthority('attach:add')">
                                     <i class="ace-icon glyphicon glyphicon-upload"></i>
                                     上传
                                 </button>
@@ -61,8 +62,8 @@
                                         <td>下载</td>
                                     </tr>
                                     <tr class="table-content" v-for = "item in tableContent">
-                                        <td>
-                                            <span>{{item.filename}}</span>
+                                        <td style="text-align: left;padding-left: 12px">
+                                            <span><i class="ace-icon glyphicon glyphicon-file fontColor"></i>{{item.filename}}</span>
                                         </td>
                                         <td>
                                             <span>{{item.createTime}}</span>
@@ -72,10 +73,10 @@
                                         </td>
                                         <td>
                                             <span>
-                                                <i class="ace-icon fa fa-download blue" @click="downLoad(item.id)"></i>
+                                                <i class="ace-icon fa fa-download blue" @click="downLoad(item.id)" sec:authorize="hasAuthority('attach:down')"></i>
                                             </span>
                                             <span class="margin-left-10">
-                                                <i class="ace-icon fa fa-trash-o blue" @click="deleteTable(item.id)"></i>
+                                                <i class="ace-icon fa fa-trash-o blue" @click="deleteTable(item.id)" sec:authorize="hasAuthority('attach:delete')"></i>
                                             </span>
                                         </td>
                                     </tr>
@@ -112,6 +113,22 @@
 <script type="text/javascript" th:inline="javascript">
 
     var projectID  = [[${id}]];
+
+    function changeTime(data){
+        var d = new Date(data); //根据时间戳生成的时间对象
+        var month = (d.getMonth() + 1) <10 ? "0"+ (d.getMonth() + 1):(d.getMonth() + 1)
+        var day = d.getDate()  <10 ? "0"+d.getDate():d.getDate();
+        var hour = d.getHours()  <10 ? "0"+d.getHours():d.getHours();
+        var minutes = d.getMinutes()  <10 ? "0"+d.getMinutes():d.getMinutes();
+        var seconds = d.getSeconds()  <10 ? "0"+d.getSeconds():d.getSeconds();
+        var date = (d.getFullYear()) + "-" +
+            month + "-" +
+            day + " " +
+            hour + ":" +
+            minutes + ":" +
+            seconds;
+        return date;
+    }
     // var responseUrl;
     jQuery(function($) {
         var setting =  {
@@ -144,8 +161,16 @@
         function addHoverDom(treeId, treeNode) {
             var aObj = $("#" + treeNode.tId + "_a");
             if ($("#diyBtn_"+treeNode.id).length>0) return;
-            var editStr = '<span id="diyBtn_'+treeNode.id+'" class="editFile">编辑</span>'+
-                '<span id="diyBtn_del'+treeNode.id+'" class="deleteFile">删除</span>';
+            var editStr = '<span id="diyBtn_'+treeNode.id+'" class="editFile file-btn">'
+                    [# sec:authorize="hasAuthority('projectAttachTree:edit')"]
+                    +
+                '<i class="ace-icon glyphicon glyphicon-pencil blue" style="margin:0 5px"></i>编辑</span>'
+                        [/]
+            [# sec:authorize="hasAuthority('projectAttachTree:delete')"]
+                    +
+                '<span id="diyBtn_del'+treeNode.id+'" class="deleteFile file-btn">' +
+                '<i class="ace-icon fa fa-trash-o blue" style="margin:0 5px"></i>删除</span>'
+                        [/];
             aObj.append(editStr);
             var btn = $("#diyBtn_"+treeNode.id);
             var btnDel = $("#diyBtn_del"+treeNode.id);
@@ -409,10 +434,13 @@
                 tableContent:[]
             },
             computed:{
-                titleEnd: function(){
+                titleEnd: function () {
                     var title = this.title.join("/");
                     var entTile  = title == "" ? this.currentFile : title+ " / " + this.currentFile;
                     return entTile;
+                },
+                changeTime: function () {
+
                 }
             },
             methods:{

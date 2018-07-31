@@ -23,50 +23,39 @@
     <div class="statusbar"></div>
 
     <div class="view view-main view-init ios-edges" >
-        <div class="navbar no-hairline" style="background:#ffffff;">
-            <div class="navbar-inner" style="">
-                <form class="searchbar">
-                    <div class="searchbar-inner"  style="background:none;">
-                        <div style="flex-shrink:0;" >
-                            <select name="" id="" class="pkee text-base-color f30 bdr-clr"  style="width:100px">
-                                <option value="">项目名称</option>
-                                <option value="">项目编号</option>
-
-                            </select>
-                        </div>
-                    <!--    <i class=" ser-btn  text-base-color f7-icons f32"  style="width:20px">&or;</i>-->
-                        <div class="ser-box">
-                            <input type="search" placeholder="" class="f28">
-                            <i class="searchbar-icon"></i>
-                        </div>
-                        <span class="ser-btn text-base-color f30 bdr-clr" style="" onclick="alr()">搜索</span>
-                    </div>
-                </form>
-            </div>
-
-        </div>
         <div class="pages">
 
-            <div class="page" data-page="home">
+            <div class="page changer" >
 
                 <div class="page-content infinite-scroll-content">
 
                     <div class="list media-list  " style="margin:10px 0">
                         <ul id="listview">
-                            <li class="plist rcard">
+                            <li class="plist">
+                            <div class="item-content">
+                                <div class="item-media">
+                                    <img th:src="@{/img/portrait.png}" class="proview1" />
+                                </div>
+                                <div class="item-inner ">
+                                    <div class="f32 item-text">姓名：张天胡丽</div>
+                                    <div class="f32 item-text">电话：15954654889</div>
+                                    <div class="f32 item-text">Q Q：17740199522</div>
+                                    <div class="f32 item-text">微信：hln2215421546212l9</div>
+                                    <div class="f32 item-text">邮箱：644169206@qq.com</div>
+                                </div>
+                            </div>
+                        </li>
+                            <li class="plist">
                                 <div class="item-content">
                                     <div class="item-media">
-                                        <img th:src="@{/img/proimg.jpg}" class="proview" />
+                                        <img th:src="@{/img/portrait.png}" class="proview1" />
                                     </div>
                                     <div class="item-inner ">
-                                        <div class="item-title-row">
-                                            <div class="item-title f32">项目名称：</div>
-                                        </div>
-                                        <div class="item-text ">广西东泉湖智能生态环境建设工程项目</div>
-                                        <div class="item-title-row">
-                                            <div class="item-title f32">项目编号：</div>
-                                        </div>
-                                        <div class="item-text ">GK6844544646</div>
+                                        <div class="f32 item-text">姓名：张天胡丽</div>
+                                        <div class="f32 item-text">电话：15954654889</div>
+                                        <div class="f32 item-text">Q Q：17740199522</div>
+                                        <div class="f32 item-text">微信：hln2215421546212l9</div>
+                                        <div class="f32 item-text">邮箱：644169206@qq.com</div>
                                     </div>
                                 </div>
                             </li>
@@ -154,17 +143,14 @@
                         html += '<li class="plist rcard" data-projectid='+item.projectId+'>'+
                                 '<div class="item-content">'+
                                 '<div class="item-media">'+
-                                '<img src="/img/proimg.jpg" class="proview" />'+
+                                '<img src="/img/portrait.png" class="proview" />'+
                                 '</div>'+
                                 '<div class="item-inner ">'+
-                                '<div class="item-title-row">'+
-                                '<div class="item-title f32">项目名称：</div>'+
-                                '</div>'+
-                                '<div class="item-text ">广西东泉湖智能生态环境建设工程项目</div>'+
-                                '<div class="item-title-row">'+
-                                '<div class="item-title f32">项目编号：</div>'+
-                                '</div>'+
-                               '<div class="item-text ">GK6844544646</div>'+
+                                '<div class="f32 item-text">姓名：张天胡丽</div>'+
+                                '<div class="f32 item-text">电话：15954654889</div>'+
+                                '<div class="f32 item-text">Q Q：17740199522</div>'+
+                                '<div class="f32 item-text">微信：hln2215421546212l9</div>'+
+                                '<div class="f32 item-text">邮箱：644169206@qq.com</div>'+
                                 '</div>'+
                                 '</div>'+
                                 '</li>';

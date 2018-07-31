@@ -71,7 +71,14 @@ public class WxCommonController {
     public String loginwx(){
         return "wx/loginwx";
     }
-
+    @GetMapping("changer")
+    public String changer(){
+        return "wx/changer";
+    }
+    @GetMapping("client")
+    public String client(){
+        return "wx/client";
+    }
     @PostMapping("login")
     public String loginAction(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) throws Exception{
 

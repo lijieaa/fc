@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
@@ -92,7 +93,7 @@
         </div>
         <div class="clearfix form-actions" style="margin-top:0;">
             <div class="col-md-offset-3 col-md-9">
-                <button type="submit" id="submit" @click="addNum" class="btn btn-info">
+                <button type="submit" id="submit" @click="addNum" class="btn btn-info" sec:authorize="hasAuthority('project:edit')">
                     <i class="ace-icon fa fa-check bigger-110"></i>确认关联
                 </button>
                 &nbsp; &nbsp; &nbsp;

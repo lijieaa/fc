@@ -3,6 +3,8 @@ package com.jianpanmao.common.config;
 
 import com.jianpanmao.sys.entity.DingtalkUser;
 import com.jianpanmao.sys.service.DingtalkUserService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,7 +19,7 @@ import java.util.Collection;
 @Component
 public class MyUserDetailService implements UserDetailsService {
 
-
+    private final Log logger = LogFactory.getLog(MyUserDetailService.class);
 
 
     @Autowired
@@ -31,7 +33,7 @@ public class MyUserDetailService implements UserDetailsService {
         if(user == null){
             throw new UsernameNotFoundException("用户名不存在！");
         }
-
+        logger.error(user.getAuthorities());
         return user;
     }
 }

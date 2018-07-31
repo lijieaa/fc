@@ -576,7 +576,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>D
                 </div>
             </div>
             <div class="clearfix form-actions overflow-hidden" style="width: 100%;">
@@ -658,16 +658,16 @@
                     unit10:"",
                 },
                 deviceUserParam:{
-                    clear_cyc:"",
-                    clear_time:"",
-                    unit_interval:"",
-                    main_valve_delay_time:"",
-                    p_delay_time:"",
-                    p_threshold:"",
-                    p_clear_time:"",
-                    p_warning:"",
-                    power_cyc:"",
-                    p_power_threshold:""
+                    clear_cyc:"", //清洗周期
+                    clear_time:"", //单元冲洗时间
+                    unit_interval:"", //单元间隔时间
+                    main_valve_delay_time:"",  //主阀延时时间
+                    p_delay_time:"",  //压差延时时间
+                    p_threshold:"", //压差清洗启动门限
+                    p_clear_time:"",  //压差清洗次数清零时间
+                    p_warning:"", //压差连续清洗告警次数
+                    power_cyc:"", //电机动作周期
+                    p_power_threshold:"" //压差电机启动门限
 
                 },
                 system_time:{
@@ -861,14 +861,15 @@
                         var data ={
                             remoteBoot:_this.numDevice(_this.remoteBoot),
                             deviceParam:{
-                                // numDevice
-                                device_type:_this.deviceParam.device_type,
-                                motor:_this.numDevice(_this.deviceParam.motor),
-                                stroke_switch:_this.numDevice(_this.deviceParam.stroke_switch),
-                                motor_time:_this.deviceParam.motor_time,
-                                p_switch:_this.numDevice(_this.deviceParam.p_switch),
-                                voltage_warning:_this.deviceParam.voltage_warning,
-                                main_valve:_this.numDevice(_this.deviceParam.main_valve),
+                                //设备参数
+                                device_production_num: _this.deviceProductionNum,
+                                device_type:_this.deviceParam.device_type, //设备型号
+                                motor:_this.numDevice(_this.deviceParam.motor), //电机
+                                stroke_switch:_this.numDevice(_this.deviceParam.stroke_switch), //行程开关
+                                motor_time:_this.deviceParam.motor_time, // 电机动作时间单次电机转动时间
+                                p_switch:_this.numDevice(_this.deviceParam.p_switch), //压差开关
+                                voltage_warning:_this.deviceParam.voltage_warning, // 电压告警值范围
+                                main_valve:_this.numDevice(_this.deviceParam.main_valve), //主阀
                                 unit1:_this.numDevice(_this.deviceParam.unit1),
                                 unit2:_this.numDevice(_this.deviceParam.unit2),
                                 unit3:_this.numDevice(_this.deviceParam.unit3),
