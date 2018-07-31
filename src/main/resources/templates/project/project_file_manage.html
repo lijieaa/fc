@@ -32,7 +32,7 @@
                     <div class="page-file-left">
                         <div class="file-jg">文件结构</div>
                         <div style="background: #fff;height: 648px">
-                            <div id="addFile">新增文件夹</div>
+                            <div id="addFile" sec:authorize="hasAuthority('projectAttachTree:add')">新增文件夹</div>
                             <ul id="treeDemoCheck" class="ztree"></ul>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                             </div>
                             <div class="float-right">
                                 <button type="button" data-toggle="modal"
-                                        class="btn btn-info btn-sc" id= "filePicker">
+                                        class="btn btn-info btn-sc" id= "filePicker" sec:authorize="hasAuthority('attach:add')">
                                     <i class="ace-icon glyphicon glyphicon-upload"></i>
                                     上传
                                 </button>
@@ -73,10 +73,10 @@
                                         </td>
                                         <td>
                                             <span>
-                                                <i class="ace-icon fa fa-download blue" @click="downLoad(item.id)"></i>
+                                                <i class="ace-icon fa fa-download blue" @click="downLoad(item.id)" sec:authorize="hasAuthority('attach:down')"></i>
                                             </span>
                                             <span class="margin-left-10">
-                                                <i class="ace-icon fa fa-trash-o blue" @click="deleteTable(item.id)"></i>
+                                                <i class="ace-icon fa fa-trash-o blue" @click="deleteTable(item.id)" sec:authorize="hasAuthority('attach:delete')"></i>
                                             </span>
                                         </td>
                                     </tr>
@@ -161,10 +161,16 @@
         function addHoverDom(treeId, treeNode) {
             var aObj = $("#" + treeNode.tId + "_a");
             if ($("#diyBtn_"+treeNode.id).length>0) return;
-            var editStr = '<span id="diyBtn_'+treeNode.id+'" class="editFile file-btn">' +
-                '<i class="ace-icon glyphicon glyphicon-pencil blue" style="margin:0 5px"></i>编辑</span>'+
+            var editStr = '<span id="diyBtn_'+treeNode.id+'" class="editFile file-btn">'
+                    [# sec:authorize="hasAuthority('projectAttachTree:edit')"]
+                    +
+                '<i class="ace-icon glyphicon glyphicon-pencil blue" style="margin:0 5px"></i>编辑</span>'
+                        [/]
+            [# sec:authorize="hasAuthority('projectAttachTree:delete')"]
+                    +
                 '<span id="diyBtn_del'+treeNode.id+'" class="deleteFile file-btn">' +
-                '<i class="ace-icon fa fa-trash-o blue" style="margin:0 5px"></i>删除</span>';
+                '<i class="ace-icon fa fa-trash-o blue" style="margin:0 5px"></i>删除</span>'
+                        [/];
             aObj.append(editStr);
             var btn = $("#diyBtn_"+treeNode.id);
             var btnDel = $("#diyBtn_del"+treeNode.id);

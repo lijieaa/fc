@@ -76,7 +76,7 @@ return pageInfo;
     /**
      * 文件下载
      */
-    @PreAuthorize("hasAuthority('attach:view')")
+    @PreAuthorize("hasAuthority('attach:down')")
     @GetMapping("downAttach")
     public void downFile(Integer id, HttpServletResponse response){
         attachService.downFile(id, response);
