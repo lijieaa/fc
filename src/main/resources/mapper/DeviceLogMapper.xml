@@ -115,7 +115,7 @@
       device_operation_content
       )
     values (#{deviceProductionNum,jdbcType=VARCHAR},
-      #{userId,jdbcType=INTEGER},
+      #{user.userid,jdbcType=INTEGER},
       #{deviceOperationContent,jdbcType=VARCHAR}
       )
   </insert>

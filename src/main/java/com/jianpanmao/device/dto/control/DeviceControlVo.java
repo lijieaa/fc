@@ -12,6 +12,7 @@ public class DeviceControlVo {
     private SystemTime system_time; //系统时间
 
 
+
     public Integer getRemoteBoot() {
         return remoteBoot;
     }
