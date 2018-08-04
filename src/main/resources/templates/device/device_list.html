@@ -101,8 +101,8 @@
                     <div class="pull-left tableTools-container-left">
                         <div class="btn-group">
                             <a type="button" class="btn btn-info" th:href="@{/device/add}" sec:authorize="hasAuthority('device:add')">创建</a>
-                            <button type="button" class="btn btn-info" id="ipChange">IP地址设置</button>
-                            <button type="button" class="btn btn-info" id="settingFrequency">更换评率设置</button>
+                            <button type="button" class="btn btn-info" id="ipChange" sec:authorize="hasAuthority('device:ipUpdate')">IP地址设置</button>
+                            <button type="button" class="btn btn-info" id="settingFrequency" sec:authorize="hasAuthority('device:charge')">更换评率设置</button>
                             <button type="button" class="btn btn-danger" id="batch-delete" sec:authorize="hasAuthority('device:delete')">批量删除</button>
                         </div>
                     </div>
