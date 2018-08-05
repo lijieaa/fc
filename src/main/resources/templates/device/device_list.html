@@ -223,16 +223,22 @@
                 "columns": [
                     {"data": null},
                     {"data": "deviceProductionNum"},
-                    {"data": "deviceType"},
+                    {"data": "deviceType", "render": function(data) {
+                        if(data == null) {
+                            return ""
+                        }else {
+                            return data
+                        }
+                    }},
                     {"data": "project.projectName","render":function(data, type, row, meta){
-                            if(row.project == ""){
+                            if(data == undefined || data == null || data == ''){
                                 return ""
                             }else{
                                 return data
                             }
                         }},
                     {"data": "operateUser.name","render":function(data, type, row, meta){
-                            if(row.operateUser == ""){
+                            if(data == undefined || data == null || data == ''){
                                 return ""
                             }else{
                                 return data
@@ -240,7 +246,7 @@
                         }},
                     {"data": "transcribeUser.name","render":function(data, type, row, meta){
                             // console.log(row);
-                            if(row.transcribeUser == ""){
+                            if(data == undefined || data == null || data == ''){
                                 return ""
                             }else{
                                 return data

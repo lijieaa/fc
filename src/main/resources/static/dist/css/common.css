@@ -201,7 +201,8 @@ div.dataTables_wrapper div.dataTables_paginate{
     /*background-position: -167px -41px!important;*/
 }
 .ztree li a{
-    height: 20px!important;
+    height: auto!important;
+    white-space:normal
 }
 .ztree li a.curSelectedNode {
     border: none!important;
@@ -318,4 +319,17 @@ div.dataTables_wrapper div.dataTables_paginate{
 }
 .page-header>.row>.col-sm-3{
     padding-right: 0;
+}
+
+.dataTable>tbody>tr.current-selected>td{
+    background-color: #dff0d8;
+}
+
+.current-selected input[type=checkbox]+.lbl::before{
+    display: inline-block;
+    content: '\f00c';
+    color: #32A3CE;
+    background-color: #F5F8FC;
+    border-color: #ADB8C0;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05),inset 0 -15px 10px -12px rgba(0,0,0,.05),inset 15px 10px -12px rgba(255,255,255,.1);
 }

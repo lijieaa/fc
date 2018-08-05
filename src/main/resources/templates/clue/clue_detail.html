@@ -114,7 +114,7 @@
                             <div class=" col-xs-8">
                                 <!--<img src="clueComment.projectLogo" alt="" width="100%" height="185px" style="background: grey">-->
                                 <div style="width: 100%;height: 185px;background: gainsboro">
-                                    <img v-bind:src="projectDetail.projectLogo" alt="">
+                                    <img v-bind:src="projectDetail.projectLogo" alt="" style="width: 100%">
                                 </div>
                             </div>
                             <div class="col-xs-4 detail-project-msg">
@@ -498,7 +498,7 @@
                 type:"get",
                 success:function (data) {
                     _this.projectDetail = data.content;
-
+                    _this.projectDetail.projectLogo = imgPath + data.content.projectLogo
                 }
             });
 

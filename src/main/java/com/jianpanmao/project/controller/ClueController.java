@@ -15,39 +15,41 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ClueController {
 
 
-@Autowired
-ProjectService projectService;
+    @Autowired
+    ProjectService projectService;
 
-@PreAuthorize("hasAuthority('project:view')")
-@RequestMapping(method = RequestMethod.GET,value = "list")
-public String list(){
-return "clue/clue_list";
-}
+    @PreAuthorize("hasAuthority('project:view')")
+    @RequestMapping(method = RequestMethod.GET, value = "list")
+    public String list() {
+        return "clue/clue_list";
+    }
 
-@PreAuthorize("hasAuthority('project:add')")
-@RequestMapping(method = RequestMethod.GET,value = "add")
-public String add(){
-return "clue/clue_add";
-}
+    @PreAuthorize("hasAuthority('project:add')")
+    @RequestMapping(method = RequestMethod.GET, value = "add")
+    public String add() {
+        return "clue/clue_add";
+    }
 
-@PreAuthorize("hasAuthority('project:edit')")
-@RequestMapping(method = RequestMethod.GET,value = "edit")
-public String edit(@RequestParam("id") Integer id, Model model){
-model.addAttribute("id",id);
-return "clue/clue_edit";
-}
+    @PreAuthorize("hasAuthority('project:edit')")
+    @RequestMapping(method = RequestMethod.GET, value = "edit")
+    public String edit(@RequestParam("id") Integer id, Model model) {
+        model.addAttribute("id", id);
+        return "clue/clue_edit";
+    }
 
-@PreAuthorize("hasAuthority('project:view')")
-@RequestMapping(method = RequestMethod.GET,value = "detail")
-public String detail(@RequestParam("id") Integer id, Model model){
-model.addAttribute("id",id);
-return "clue/clue_detail";
-}
+    @PreAuthorize("hasAuthority('project:view')")
+    @RequestMapping(method = RequestMethod.GET, value = "detail")
+    public String detail(@RequestParam("id") Integer id, Model model) {
+        model.addAttribute("id", id);
+        return "clue/clue_detail";
+    }
+
     /**
      * 线索文件管理
      */
-    @RequestMapping(method = RequestMethod.GET,value = "clueFileManage")
-    public String clueFileManage(){
+    @RequestMapping(method = RequestMethod.GET, value = "clueFileManage")
+    public String clueFileManage(@RequestParam("id") Integer id, Model model) {
+        model.addAttribute("id", id);
         return "clue/clue_file_manage";
     }
 }

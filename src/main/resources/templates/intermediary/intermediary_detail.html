@@ -290,6 +290,21 @@
 <script th:src="@{/js/webuploader.js}"></script>
 <script th:src="@{/js/vue.js}"></script>
 <script th:inline="javascript">
+    Vue.filter('time-filter',function(value){
+        var d = new Date(value); //根据时间戳生成的时间对象
+        var month = (d.getMonth() + 1) <10 ? "0"+ (d.getMonth() + 1):(d.getMonth() + 1)
+        var day = d.getDate()  <10 ? "0"+d.getDate():d.getDate();
+        var hour = d.getHours()  <10 ? "0"+d.getHours():d.getHours();
+        var minutes = d.getMinutes()  <10 ? "0"+d.getMinutes():d.getMinutes();
+        var seconds = d.getSeconds()  <10 ? "0"+d.getSeconds():d.getSeconds();
+        var date = (d.getFullYear()) + "-" +
+            month + "-" +
+            day + " " +
+            hour + ":" +
+            minutes + ":" +
+            seconds;
+        return date;
+    })
     var bus = new Vue();
     var detail = new Vue();
     var msgList = Vue.extend({
@@ -298,7 +313,7 @@
         '<div class="comment-msg margin-top-6">\n' +
         '<div class="msg-user font-weight margin-top-6">{{content.user.name}}</div>\n' +
         '<div class="msg-content margin-top-3">{{content.topicCommentsContent}}</div>' +
-        '<div class="comment-time margin-top-3">跟进时间 <span>{{content.topicCommentsCreateTime}}</span>' +
+        '<div class="comment-time margin-top-3">跟进时间 <span>{{content.topicCommentsCreateTime | time-filter}}</span>' +
         '</div>' +
         '</div></div>',
         mounted:function(){
@@ -316,7 +331,7 @@
         '跟进状态: <span ref="status"></span></div>' +
         '<div class="comment-btn-time margin-top-6">' +
         '<div class="comment-time float-left margin-left-10">' +
-        '跟进时间: <span>{{comment.topicCreateTime}}</span></div>'+
+        '跟进时间: <span>{{comment.topicCreateTime | time-filter}}</span></div>'+
 
                 [# sec:authorize="hasAuthority('topiccomments:add')"]
     '<div class="comment-btn float-right margin-right-10" @click="commentClick(comment.topicId,$event)">' +
