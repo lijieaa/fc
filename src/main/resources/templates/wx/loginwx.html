@@ -66,13 +66,13 @@
         <div class="pages">
             <div class="page" data-page="home">
                 <div class="page-content">
-                    <form class="loginList">
+                    <form id="login" class="loginList" th:action="@{/wx/common/operate}"  method="post">
                             <ul >
                              <li class="text-base-color">
-                                 <label>账号</label><input type="text" placeholder="请输入账号"/>
+                                 <label>账号</label><input type="text" placeholder="请输入账号" name="username"/>
                              </li>
                                 <li>
-                                    <label>密码</label><input type="password" placeholder="请输入密码"/>
+                                    <label>密码</label><input type="password" placeholder="请输入密码" name="password"/>
                                 </li>
                             </ul>
                       <div style="padding:0 10px;">
@@ -86,8 +86,22 @@
         </div>
         </div>
     </div>
+<script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
 <script>
 
+    $("#login").submit(function(){
+
+
+        $.ajax({
+            url:"/wx/wx/common/login",
+            type:"post",
+            data:{
+                username:"17740199520",
+                password:"123456"
+            }
+        })
+
+    })
 
 
 
