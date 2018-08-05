@@ -223,7 +223,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">企业营运执照:</label>
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">企业营业执照:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
                                 <input type="hidden" name="companyBussniess"  id="companyBussniess" value="" class="col-xs-12 col-sm-8">
@@ -238,7 +238,7 @@
 
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryIntroduction">中间简介:</label>
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryIntroduction">中间商简介:</label>
                         <div class="col-xs-12 col-sm-9 introduction">
                             <div class="clearfix">
                                 <input type="hidden" name="intermediaryIntroduction" id="intermediaryIntroduction" class="col-xs-12 col-sm-6" />
@@ -595,7 +595,7 @@
                 // _this.uploaderFun();  //上传图片
                 jQuery.validator.addMethod("isMobile", function(value, element) {
                     var length = value.length;
-                    var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+                    var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(19[0-9]{9})|(16[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
                     return this.optional(element) || (length == 11 && mobile.test(value));
                 }, "请正确填写您的手机号码");
 
