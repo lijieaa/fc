@@ -522,6 +522,10 @@
             //单个删除
             $('#dynamic-table tbody').on( 'click', 'a.delete', function () {
                 var id = $(this).attr('data-id');
+                $(this).parents('tr').addClass('current-selected');
+                var _this = $(this)
+                // $(this).parents('tr').find("input").checked();
+                // alert(1);
                 bootbox.confirm( {
                     message: "您真的要删除？",
                     buttons: {
@@ -535,7 +539,6 @@
                         }
                     },
                     callback: function (result) {
-
                        if(result){
                            $.ajax({
                                url: contextPath+"api/intermediary/?id="+id,
@@ -549,11 +552,14 @@
                                    //console.log(data);
                                }
                            })
+                       }else{
+                           _this.parents('tr').removeClass('current-selected');
+                           _this.parents('tr').addClass('current-selected');
                        }
                     }
                 });
 
-            } );
+            });
             [/]
             [# sec:authorize="hasAuthority('intermediary:delete')"]
             $("#batch-delete").on("click", function () {
@@ -578,16 +584,12 @@
                     },
                     callback: function (result) {
                         if(result){
-
                             var rows = myTable.rows('.selected').data();
-
                             var ids=[];
 
                             for(var i=0;i<rows.length;i++){
                                 ids.push(rows[i].intermediaryId);
                             }
-
-
                             $.ajax({
                                 url: contextPath+"api/intermediary/batch",
                                 method : "delete" ,

@@ -1,524 +1,576 @@
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
     <link rel="stylesheet" th:href="@{/dist/css/common.css}">
-    <style>
-        #fileList{
-            min-height: 110px;
-            outline: 1px solid #ececec;
-            background: #eee;
-        }
-        #fileList.active {
-            outline: none;
-            border:none!important;
-        }
-        #treeDemo{
-            width: 60%;
-            background: #fff;
-            /*outline: 1px solid #3c8dbc;*/
-        }
-        #editor1{
-            resize: none;
-        }
-        .intermediary-title{
-            height: 40px;
-            line-height: 40px;
-            background: rgb(228,228,228);
-            padding-left: 10px;
-        }
-        .img-div{
-            /*width: 40%;*/
-            /*height: 150px;*/
-            min-height: 150px;
-            border: 1px dotted black;
-            margin-top: 5px;
-        }
-        .img-div>img{
-            width: 110px;
-        }
-        .inter-img input[type=file]{
-            width: 100%;
-        }
-        .tree-div-contain{
-            display: none;
-            position: absolute;
-            width: 64%;
-            z-index: 3;
-            overflow: auto;
-            background: white;
-            top: 38px;
-            left: 11px;
-            outline: 1px solid #D5D5D5;
-        }
-        .search-list{
-            margin: 0;
-            list-style: none;
-            padding: 0;
-            padding-left: 10px;
-        }
-        .search-list li{
-            height: 30px;
-            line-height: 30px;
-        }
-        .webuploader-pick {
-            position: relative;
-            display: none;
-            cursor: pointer;
-            background: #00b7ee;
-            padding: 10px 15px;
-            color: #fff;
-            text-align: center;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        .search-btn-list{
-            height: 34px;
-            line-height: 7px;
-            margin-left: 10px;
-        }
-        .menu-list{
-            max-height: 300px;
-        }
-        .btn, .border-none {
-            border: 1px solid #6FB3E0;
-        }
-        #areaId{
-            background: #F5F5F5 url('../../images/areaArrow.png') no-repeat center right!important;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/file_manage.css}">
+    <link rel="stylesheet" th:href="@{/dist/css/page.css}">
+    <script type="text/javascript" th:src= "@{/dist/js/hand-paging.js}"></script>
 </head>
 <body layout:fragment="content">
-<div id="myMediary" v-cloak>
+<div id="file" v-cloak>
     <div class="page-header">
         <div class="row">
-            <div class="col-md-9 col-sm-9">
+            <div class="col-md-9 col-sm-9" style="padding-left: 0">
                 <div class="float-left">
-                    <span class="font-size-18 border-left-blue">添加线索</span>
+                    <span class="font-size-18 border-left-blue">线索文件管理</span>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-3 text-align-right">
-                <button type="button" data-toggle="modal" @click="backList" class="btn btn-info padding-right-15">
+            <div class="col-md-3 col-sm-3 text-align-right" style="padding-right: 0">
+                <button type="button" data-toggle="modal" @click="backList"
+                        class="btn btn-info padding-right-15">
                     <i class="ace-icon fa fa-reply icon-only"></i>
                     返回
                 </button>
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row file-contain">
         <div class="col-xs-12">
             <div class="row">
-                <form class="form-horizontal" id="validation-form">
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectName">线索名称:</label>
-                        <div class="col-xs-12 col-sm-9">
-                            <div class="clearfix">
-                                <input type="text" name="projectName" id="projectName" v-model="editList.projectName" class="col-xs-12 col-sm-6" >
+                <div class="col-xs-4 padding-right">
+                    <div class="page-file-left">
+                        <div class="file-jg">文件结构</div>
+                        <div style="background: #fff;height: 648px">
+                            <div id="addFile" sec:authorize="hasAuthority('projectAttachTree:add')">新增文件夹</div>
+                            <ul id="treeDemoCheck" class="ztree"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-8">
+                    <div class="page-file-right">
+                        <div class="page-right-header" style="overflow: hidden">
+                            <div class="float-left">
+                                <span class="current">当前：</span>
+                                <span v-text="titleEnd"></span>
+                            </div>
+                            <div class="float-right">
+                                <button type="button" data-toggle="modal"
+                                        class="btn btn-info btn-sc" id= "filePicker" sec:authorize="hasAuthority('attach:add')">
+                                    <i class="ace-icon glyphicon glyphicon-upload"></i>
+                                    上传
+                                </button>
+                            </div>
+                        </div>
+                        <div class="page-right-contain">
+                            <div>
+                                <table>
+                                    <tr class="table-title">
+                                        <td>文件名</td>
+                                        <td>上传时间</td>
+                                        <td>大小</td>
+                                        <td>下载</td>
+                                    </tr>
+                                    <tr class="table-content" v-for = "item in tableContent">
+                                        <td style="text-align: left;padding-left: 12px">
+                                            <span><i class="ace-icon glyphicon glyphicon-file fontColor"></i>{{item.filename}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{item.createTime}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{item.size}}kb</span>
+                                        </td>
+                                        <td>
+                                            <span>
+                                                <i class="ace-icon fa fa-download blue" @click="downLoad(item.id)" sec:authorize="hasAuthority('attach:down')"></i>
+                                            </span>
+                                            <span class="margin-left-10">
+                                                <i class="ace-icon fa fa-trash-o blue" @click="deleteTable(item.id)" sec:authorize="hasAuthority('attach:delete')"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="margin-top-15 text-align-center">
+                                <ul id="list"></ul>
+                                <div id="pagingTest"></div>
+                                <input type="hidden" value="" id="page">
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="">负责人:</label>
-                        <div class="col-xs-12 col-sm-9">
-                            <div class="clearfix">
-                                <!--<input type="text" name="projectContactUserId" id="" v-model="editList.projectContactUserId" class="col-xs-12 col-sm-6" >-->
-                                <select name="projectContactUser" class="col-xs-12 col-sm-6" v-model="editList.userId">
-                                    <option :value="item1.userid" v-for="item1 in editList.userList">{{item1.name}}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="areaId">地区:</label>
-                        <div class="col-xs-12 col-sm-9">
-                            <div class="clearfix">
-                                <!--<input type="text" name="areaId" id="areaId" class="col-xs-12 col-sm-6" />-->
-                                <input type="text" name="areaId" class="col-xs-12 col-sm-6" id="areaId" readonly="readonly" required="required" onclick="showMenu()" v-bind:data-id="editList.area.id" v-model="editList.area.name" >
-                                <div class="tree-div-contain">
-                                    <div class="margin-left-10 margin-top-6">
-                                        <input type="text" class="col-xs-8 col-sm-6 limit-style" v-model="searchVal">
-                                        <button  type="button" class="btn btn-info padding-right-15 search-btn-list" @click="searchZtree">搜索</button>
-                                    </div>
-                                    <div class="menu-list margin-left-10">
-                                        <ul id="treeDemo" class="ztree"></ul>
-                                        <ul class="search-list">
-
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectOwnerContact">业主名:</label>
-                        <div class="col-xs-12 col-sm-9">
-                            <div class="clearfix">
-                                <input type="text" name="projectOwnerContact" id="projectOwnerContact" v-model="editList.projectOwnerContact" class="col-xs-12 col-sm-6" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="projectOwnerContactTel">业主联系电话:</label>
-                        <div class="col-xs-12 col-sm-9">
-                            <div class="clearfix">
-                                <input type="text" name="projectOwnerContactTel" id="projectOwnerContactTel" v-model="editList.projectOwnerContactTel" class="col-xs-12 col-sm-6" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">LOGO:</label>
-                        <div class="col-xs-12 col-sm-9">
-                            <div class="clearfix">
-                                <input type="hidden" name="intermediaryLogoUrl"  id="responseUrl" value="" class="col-xs-12 col-sm-6">
-                                <div id="fileList" class="uploader-list col-xs-12 col-sm-6"
-                                     name="intermediaryLogoUrl"  style="float: none">
-                                    <!--<img src="" id="imgInter" alt="">-->
-                                </div>
-                                <div id="filePicker" class="margin-top-6">选择图片</div>
-                            </div>
-
-                            <!--<div class="clearfix">-->
-                            <!--<input type="text" name="intermediaryLogoUrl" id="intermediaryLogoUrl" class="col-xs-12 col-sm-6" />-->
-                            <!--</div>-->
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">线索跟进状态:</label>
-                        <div class="col-xs-12 col-sm-9">
-                            <div class="clearfix">
-                                <!--<input type="text" name="projectTopicStatus" id="projectTopicStatus" class="col-xs-12 col-sm-6" />-->
-                                <select name="projectTopicStatus" class="col-xs-12 col-sm-6" v-model="editList.projectTopicStatus">
-                                    <option value="0">已处理</option>
-                                    <option value="1">正在处理</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="space-4"></div>
-                    <div class="clearfix form-actions">
-                        <div class="col-md-offset-3 col-md-9">
-                            <button class="btn btn-info" type="submit" id="submit">
-                                <i class="ace-icon fa fa-check bigger-110"></i>
-                                提交
-                            </button>
-
-                            &nbsp; &nbsp; &nbsp;
-                            <button class="btn" type="reset">
-                                <i class="ace-icon fa fa-undo bigger-110"></i>
-                                重置
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
-            <!-- PAGE CONTENT ENDS -->
+
         </div>
-        <!-- /.col -->
+    </div>
+    <div id="filePop" class="ui-dialog-content ui-widget-content display-none">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="add-role-group-name">文件名:</label>
+                <div class="col-sm-9">
+                    <input type="text" id="add-role-group-name" name="namefile" v-model="fileName" class="form-control">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="dialog-modal"  title="删除" class="ui-dialog-content ui-widget-content display-none">
+        <p>你是否要删除吗？</p>
     </div>
 </div>
 <script th:src="@{/js/webuploader.js}"></script>
 <script type="text/javascript" th:inline="javascript">
-    function showMenu() {
-        $(".tree-div-contain").show();
-        $("body").unbind("mousedown", onBodyDown);
+
+    var projectID  = [[${id}]];
+
+    function changeTime(data){
+        var d = new Date(data); //根据时间戳生成的时间对象
+        var month = (d.getMonth() + 1) <10 ? "0"+ (d.getMonth() + 1):(d.getMonth() + 1)
+        var day = d.getDate()  <10 ? "0"+d.getDate():d.getDate();
+        var hour = d.getHours()  <10 ? "0"+d.getHours():d.getHours();
+        var minutes = d.getMinutes()  <10 ? "0"+d.getMinutes():d.getMinutes();
+        var seconds = d.getSeconds()  <10 ? "0"+d.getSeconds():d.getSeconds();
+        var date = (d.getFullYear()) + "-" +
+            month + "-" +
+            day + " " +
+            hour + ":" +
+            minutes + ":" +
+            seconds;
+        return date;
     }
-    function hideMenu() {
-        $(".tree-div-contain").hide();
-        $("body").unbind("mousedown", onBodyDown);
-    }
-    function onBodyDown(event) {
-        if (!(event.target.id == "areaId"  || event.target.className == "tree-div-contain" || $(event.target).parents(".tree-div-contain").length>0)) {
-            hideMenu();
-        }
-    }
-    $(document).bind("click",function(e){
-        onBodyDown(e) ;
-    });
     // var responseUrl;
     jQuery(function($) {
-        new Vue({
-            el:"#myMediary",
-            data:{
-                searchVal:"",
+        var setting =  {
+            view: {
+                addHoverDom: addHoverDom,
+                removeHoverDom: removeHoverDom,
+                showLine: false
+                // selectedMulti: false
+            },
+            edit: {
+                enable: true,
+                showRemoveBtn: false,
+                showRenameBtn: false
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                },
+                key: {
+                    name: "pTypePName"
+                }
+            },
+            callback: {
+                beforeClick: zTreeBeforeClick,
+                onClick: zTreeOnClick
+                // onRename: onRename
+            }
+        };
 
-                editList:{
-                    area:{
-                        name:"",
-                        id:""
+        function addHoverDom(treeId, treeNode) {
+            var aObj = $("#" + treeNode.tId + "_a");
+            if ($("#diyBtn_"+treeNode.id).length>0) return;
+            var editStr = '<span id="diyBtn_'+treeNode.id+'" class="editFile file-btn">'
+                [# sec:authorize="hasAuthority('projectAttachTree:edit')"]
+            +
+                '<i class="ace-icon glyphicon glyphicon-pencil blue" style="margin:0 5px"></i>编辑</span>'
+                    [/]
+                    [# sec:authorize="hasAuthority('projectAttachTree:delete')"]
+            +
+                '<span id="diyBtn_del'+treeNode.id+'" class="deleteFile file-btn">' +
+            '<i class="ace-icon fa fa-trash-o blue" style="margin:0 5px"></i>删除</span>'
+                [/];
+            aObj.append(editStr);
+            var btn = $("#diyBtn_"+treeNode.id);
+            var btnDel = $("#diyBtn_del"+treeNode.id);
+            if (btn) btn.bind("click", function(){
+                popFile('编辑文件夹','edit');
+                vue1.$data.fileName = treeNode.pTypePName;
+            });
+            if (btnDel) btnDel.bind("click", function(){
+                $("#dialog-modal").removeClass('hide').dialog({
+                    resizable: false,
+                    height: "auto",
+                    width: 400,
+                    modal: true,
+                    buttons: [
+                        {
+                            text: "确定",
+                            "class": "btn btn-primary btn-minier",
+                            click: function() {
+                                $( this ).dialog( "close" );
+                                $.ajax({
+                                    url: contextPath+"api/pa/pType?pTypeId="+treeNode.pTypeId,
+                                    type:'delete',
+                                    success:function(data){
+                                        var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
+                                        var nodes = treeObj.getSelectedNodes();
+                                        var selNode = treeObj.getNodeByTId(nodes[0].tId);
+                                        refreTree('');
+                                        // console.log();
+                                        if($("#treeDemoCheck").html() == ''){
+                                            vue1.$data.currentFile = ''
+                                        }
+                                    }
+                                });
+                            }
+                        },
+                        {
+                            text: "取消",
+                            "class" : "btn btn-minier",
+                            "click": function() {
+                                $( this ).dialog( "close" );
+                            }
+                        }
+                    ]
+                });
+
+            });
+
+        }
+
+        function removeHoverDom(treeId, treeNode) {
+            $("#diyBtn_"+treeNode.id).unbind().remove();
+            $("#diyBtn_del"+treeNode.id).unbind().remove();
+            $("#diyBtn_space_" +treeNode.id).unbind().remove();
+            $("#diyBtn_space_de" +treeNode.id).unbind().remove();
+        };
+
+        function tableData(pageNum){
+            $.ajax({
+                url: contextPath +"api/pa/attachType?tid="+vue1.$data.parentId,
+                method: "GET",
+                data:{
+                    pageNum: pageNum,
+                    pageSize: 4,
+                },
+                contentType: "application/json",
+                dataType : "json",
+                success:function(data){
+                    vue1.$data.tableContent = data.content.list;
+                    $("#pagingTest").paging1({
+                        pageNo:pageNum,
+                        totalPage:data.content.pages
+                    })
+                }
+            });
+        }
+
+// dialog 设置title
+        $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+            _title: function(title) {
+                var $title = this.options.title || '&nbsp;';
+                if( ("title_html" in this.options) && this.options.title_html == true )
+                    title.html($title);
+                else title.text($title);
+            }
+        }));
+        function popFile(title,type){
+            var $formFile = $('#filePop>form').validate({
+                errorElement: 'span',
+                errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
+                focusInvalid: false,
+                ignore: "",
+                rules: {
+                    namefile: {
+                        required: true
+                    }
+                },
+                highlight: function (e) {
+                    $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                },
+                success: function (e) {
+                    $(e).closest('.form-group').removeClass('has-error');
+                    $(e).remove();
+                },
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element.parent());
+                },
+                invalidHandler: function (form) {
+                }
+            });
+            validateResetForm($formFile, $("#filePop>form"));
+            var dialog = $( "#filePop" ).removeClass('hide').dialog({
+                // dragStop: function( event, ui ) {
+                //     $(event.target.offsetParent).css("height", "auto");
+                // },
+                resizable: false,
+                width: '600',
+                height: '200',
+                modal: true,
+                closeText: "关闭",
+                title: title,
+                title_html: true,
+                buttons: [
+                    {
+                        text: "保存",
+                        "class" : "btn btn-primary btn-minier",
+                        click: function() {
+                            var _this = $(this);
+                            var flag = $formFile.form();
+                            if(flag){
+                                // var data = $('#filePop>form').serializeObject();
+                                var parentId = vue1.$data.parentId == '' ? 0 : vue1.$data.parentId;
+                                if(type == 'add'){
+                                    var url = contextPath+"api/pa/pType?name="+vue1.$data.fileName+"&parentId="+parentId +"&projectId="+projectID;
+                                    $.ajax({
+                                        url: url,
+                                        method: "post",
+                                        contentType: "application/json",
+                                        dataType : "json",
+                                        success: function (data) {
+                                            _this.dialog( "close" );
+                                            var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
+                                            var nodes = treeObj.getSelectedNodes();
+                                            if(nodes.length != 0 ){
+                                                var selNode = treeObj.getNodeByTId(nodes[0].tId);
+                                                refreTree(selNode);
+                                            }else{
+                                                refreTree('')
+                                            }
+                                        },
+                                        error: function (data) {
+//                                        console.log(data);
+                                        }
+                                    })
+                                }
+                                else {
+                                    var postData = {};
+                                    postData.pTypePName = vue1.$data.fileName;
+                                    postData.pTypeId = parentId;
+                                    $.ajax({
+                                        url: contextPath+"api/pa/pType",
+                                        method: "put",
+                                        data : JSON.stringify(postData),
+                                        contentType: "application/json",
+                                        dataType : "json",
+                                        success: function (data) {
+                                            _this.dialog( "close" );
+                                            var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
+                                            var nodes = treeObj.getSelectedNodes();
+                                            var selNode = treeObj.getNodeByTId(nodes[0].tId);
+                                            refreTree(selNode);
+                                            vue1.$data.currentFile = vue1.$data.fileName
+                                        },
+                                        error: function (data) {
+                                        }
+                                    })
+                                }
+                            }
+
+
+                        }
                     },
-                    id: 1,
-                    projectName: "", //项目名称
-                    // projectContactUserId: "", //负责人
-                    projectOwnerContact:"",
-                    projectOwnerContactTel: "",
-                    intermediaryLogoUrl: "",
-                    projectTopicStatus:1,
-                    userList:"",
-                    userId:1
+                    {
+                        text: "取消",
+                        "class" : "btn btn-minier",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                ]
+            });
+
+        }
+
+        var arr = [];
+        function dg(sNodes){
+            var sum = '';
+            var node = sNodes.getParentNode();
+            if(node !=  null){
+                dg(node);
+                sum+= node.pTypePName
+                arr.push(sum);
+                // console.log(sum)
+                return sum;
+            }
+        }
+        function zTreeBeforeClick(treeId, treeNode){
+            vue1.$data.currentFile = treeNode.pTypePName;
+            vue1.$data.parentId = treeNode.pTypeId;
+            vue1.$data.currentFile = treeNode.pTypePName;
+            vue1.$data.fileName = treeNode.pTypePName;
+
+            var val = $("#page").val();
+            tableData(val);
+        }
+        function zTreeOnClick(treeId, treeNode){
+            var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
+            var sNodes = treeObj.getSelectedNodes()[0];
+            arr = [];
+            dg(sNodes);
+            vue1.$data.title = arr;
+        }
+//刷新数状菜单列表
+        function refreTree(selNode){
+            $.ajax({
+                url: contextPath+'api/pa/pType?pid='+projectID,
+                async:false,
+                success: function(data){
+                    var ztreeObj = $.fn.zTree.init($("#treeDemoCheck"), setting, data.content);
+                    var treeNode = ztreeObj.transformToArray(ztreeObj.getNodes());
+                    treeNode.map(function(v){
+                        v.icon = contextPath +'images/commonZtree.png'
+                    });
+                    ztreeObj.refresh();
+                    ztreeObj.expandAll(true);
+                    var nodes = ztreeObj.getNodes();
+                    if(selNode == '' && nodes.length != 0 ){
+                        ztreeObj.selectNode(nodes[0]);//选中节点
+                        vue1.$data.currentFile =  nodes[0].pTypePName;
+                        vue1.$data.parentId = nodes[0].pTypeId;
+                        vue1.$data.title = [];
+                        tableData();
+                    }else{
+                        ztreeObj.selectNode(selNode);//选中节点
+                        tableData();
+                    }
+                }});
+        }
+        $(document).on("click","a",function () {
+            // alert(1);
+            var val = $("#page").val();
+            tableData(val);
+        });
+
+        var vue1 = new Vue({
+            el:"#file",
+            data:{
+                title:[],
+                currentFile:'',
+                fileName: '',
+                parentId: '',
+                tableContent:[]
+            },
+            computed:{
+                titleEnd: function () {
+                    var title = this.title.join("/");
+                    var entTile  = title == "" ? this.currentFile : title+ " / " + this.currentFile;
+                    return entTile;
+                },
+                changeTime: function () {
+
                 }
             },
             methods:{
-                backList:function(){
+                backList: function(){
                     location.href=contextPath+"clue/list";
                 },
-                zTreeInit:function(){
-                    var _this = this;
-                    return {
-                        useTree : function(ele,zNodes,inputEle){
-                            var setting = {
-                                async: {
-                                    enable: true,
-                                    url: getUrl,
-                                    type: "get",
-                                    dataFilter: ajaxDataFilter
-                                },
-                                data: {
-                                    simpleData: {
-                                        enable: true
-                                    }
-                                },
-                                callback: {
-                                    onClick:zTreeOnclick,
-                                    beforeExpand: beforeExpand,
-                                    onAsyncSuccess:onAsyncSuccess
-                                },
-                                view: {
-                                    fontCss: getFontCss,
-                                    showLine: false
-                                    // showIcon:false
-                                }
-                            };
-                            function getFontCss(treeId, treeNode) {
-                                return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
-                            }
-                            //异步加载返回的数据
-                            function ajaxDataFilter(treeId, parentNode, responseData) {
-                                // console.log(responseData.content +"=======================");
-                                return responseData.content;
-                            }
-                            function zTreeOnclick(event, treeId, treeNode) {
-                                _this.editList.area.name = treeNode.name;
-                                _this.editList.area.id = treeNode.id;
-                                $(".tree-div-contain").hide();
-                                _this.searchVal = "";
-                                $("#areaId").parent().next().remove();
-                                $("#areaId").parents(".form-group").removeClass("has-error")
-                            }
-                            function getUrl(treeId, treeNode){
-                                return contextPath +"api/area/condition?level="+parseInt(treeNode.level+2)+"&parent="+treeNode.id;
-                            }
-                            function beforeExpand(treeId, treeNode) {
-                                if (!treeNode.isAjaxing) {
-                                    return true;
-                                } else {
-                                    alert("zTree 正在下载数据中，请稍后展开节点。。。");
-                                    return false;
-                                }
-                            }
-                            function onAsyncSuccess(event, treeId, treeNode, msg) {
-                                var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-                                treeObj.updateNode(treeNode);
-                            }
-                            $.fn.zTree.init(ele, setting, zNodes);
-                        }
-                    }
-                },
-                searchZtree:function(){
-                    var searchVal = this.searchVal;
-                    if(searchVal.length != 0){
-                        $.axspost(contextPath + "api/area/?shortName="+searchVal,"get","",function (data) {
-                            var getData = data.content;
-                            $(".search-list").html("");
-                            if(getData.length != 0){
-                                getData.forEach(function(item,i){
-                                    var li = "<li data-id="+getData[i].id+">"+getData[i].name+"</li>";
-                                    $(".search-list").append(li).show();
-                                    $("#treeDemo").hide();
-                                })
-                            }
-                        },function (data) {
-                        });
-                    }else{
-                        $("#treeDemo").show();
-                        $(".search-list").hide();
-                    }
-                },
-                sureSubmit:function () {
-                    var _this = this;
-                    var data = {
-                        projectName:_this.editList.projectName, //项目名称
-                        // projectContactUserId:_this.editList.projectContactUserId,//负责人
-                        projectContactUser:{
-                            "userid":_this.editList.userId
-                        },
-                        projectOwnerContact:_this.editList.projectOwnerContact,//业主名
-                        projectOwnerContactTel:_this.editList.projectOwnerContactTel, //业主联系方式
-                        projectLogo:   $("#responseUrl").val(),
-                        projectTopicStatus:_this.editList.projectTopicStatus,
-                        area:{
-                            id:_this.editList.area.id
-                        },
-                        projectStatus:0
-                    };
+                downLoad:function(id){
                     $.ajax({
-                        url: contextPath+"api/project",
-                        method: "post",
-                        data : JSON.stringify(data),
-                        contentType: "application/json",
-                        dataType : "json",
-                        success: function (data) {
-                            if(data.status == 200){
-                                location.href=contextPath+"clue/list";
-                            }else{
-                                bootbox.alert("添加失败");
-                            }
-                        },
-                        error: function (data) {
-                            // alert(2);
-                            // console.log(data);
+                        url: contextPath+"api/attach?id="+id,
+                        success:function(data){
+                            window.location.href = imgPath + data.content.path
                         }
-                    })
+                    });
+                },
+                deleteTable: function(id){
+                    $("#dialog-modal").removeClass('hide').dialog({
+                        resizable: false,
+                        height: "auto",
+                        width: 400,
+                        modal: true,
+                        buttons: [
+                            {
+                                text: "确定",
+                                "class": "btn btn-primary btn-minier",
+                                click: function() {
+                                    $( this ).dialog( "close" );
+                                    $.ajax({
+                                        url: contextPath+"api/attach?id="+id,
+                                        type: 'delete',
+                                        success:function(data){
+                                            if(data.status == 200){
+                                                var val = $("#page").val();
+                                                tableData(val)
+                                            }
+                                        }
+                                    })
+
+                                },
+                            },
+                            {
+                                text: "取消",
+                                "class" : "btn btn-minier",
+                                "click": function() {
+                                    $( this ).dialog( "close" );
+                                }
+                            }
+                        ]
+                    });
+
                 }
             },
+
             mounted:function () {
                 var _this = this;
-                // _this.uploaderFun();  //上传图片
-                jQuery.validator.addMethod("isMobile", function(value, element) {
-                    var length = value.length;
-                    var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
-                    return this.optional(element) || (length == 11 && mobile.test(value));
-                }, "请正确填写您的手机号码");
-                //所属区域
-                $.axspost(contextPath + "api/area/condition?level=1","get","",function(data){
-                    // _this.facList = data.content;
-                    data.content.forEach(function(item,i){
-                        data.content[i].isParent  = true;
-                        _this.facList = data.content;
-                    });
-                    _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
-                },function (data) {});
-                //负责人
-                $.ajax({
-                    url:contextPath+"api/dingtalkuser/idNameList",
-                    type:"get",
-                    success:function(data){
-                        _this.editList.userList = data.content
+                //给数状菜单添加数据
+                $.axspost(contextPath+'api/pa/pType?pid='+projectID,'get','',function (data) {
+                    if(data.content.length != 0){
+                        data.content[0].open = true;
                     }
-                });
-                var $form = $('#validation-form').validate({
-                    errorElement: 'div',
-                    errorClass: 'help-block',
-                    focusInvalid: false,
-                    ignore: "",
-                    rules: {
-                        projectName: {
-                            required: true
 
-                        },
-                        projectContactUserId: {
-                            required: true
-                        },
-                        areaId: {
-                            required: true
-                        },
-                        intermediaryLogoUrl: {
-                            required: true
-                        },
-                        projectOwnerContact:{
-                            required: true
-                        },
-                        projectOwnerContactTel: {
-                            required: true,
-                            isMobile:true
-                        },
-                        projectTopicStatus:{
-                            required: true
-                        }
-                    },
-                    highlight: function (e) {
-                        $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-                    },
-                    success: function (e) {
-                        $(e).closest('.form-group').removeClass('has-error');
-                        $(e).remove();
-                    },
-                    errorPlacement: function (error, element) {
-                        error.insertAfter(element.parent());
-                    },
-                    submitHandler: function (form) {
-                        // var data = $(form).serializeObject();
-                        _this.sureSubmit();
-                    },
-                    invalidHandler: function (form) {
+                    var treeObj =  $.fn.zTree.init($("#treeDemoCheck"),setting, data.content);
+
+                    var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                    treeNode.map(function(v){
+                        v.icon = contextPath +'images/commonZtree.png'
+                    });
+                    var nodes = treeObj.getNodes();
+                    treeObj.refresh();
+                    if(nodes.length != 0){
+                        treeObj.selectNode(nodes[0]);//选中节点
+                        _this.currentFile = nodes[0].pTypePName;
+                        _this.parentId = nodes[0].pTypeId;
                     }
+                    var val = $("#page").val();
+                    tableData(val)
+
+                },function(data){});
+
+                var uploader = WebUploader.create({
+                    // 选完文件后，是否自动上传。
+                    auto: true,
+                    // swf文件路径
+                    swf: contextPath + '/dist/js/Uploader.swf',
+                    // 文件接收服务端。
+                    server: contextPath+'upload',
+                    // 选择文件的按钮。可选。
+                    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                    pick: '#filePicker',
+                    // 只允许选择图片文件。
+                    /*accept: {
+                        title: 'Images',
+                        extensions: 'gif,jpg,jpeg,bmp,png',
+                        mimeTypes: 'image/!*'
+                    },*/
+                });
+                uploader.on( 'uploadSuccess', function( file,response ) {
+                    var id = response.content.id;
+                    $.ajax({
+                        url: contextPath + "api/pa/attachType?pTypeId="+vue1.$data.parentId+"&attachId="+id,
+                        type:'post',
+                        success:function(data){
+                            if(data.status == 200){
+                                var val = $("#page").val();
+                                tableData(val)
+                            }
+                        }
+                    });
+                    console.log(file);
                 });
             }
         });
-        $(document).on("click",".search-list >li",function(){
-            $(".tree-div-contain").hide();
-            $("#areaId").val($(this).text()).attr("data-id",
-                $(this).attr("data-id"));
-            $("#treeDemo").show();
-            $(".search-list").hide();
-            var text = $(this).text();
-            var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-            var nodes = treeObj.transformToArray(treeObj.getNodes());
-            $(".limit-style").val("");
-            $("#areaId").parent().next().remove();
-            $("#areaId").parents(".form-group").removeClass("has-error");
-            nodes.forEach(function(item,i){
-                if(nodes[i].name == text){
-                    treeObj.selectNode(nodes[i]);
-                }
-            });
-        });
-        $("button[type=reset]").click(function(){
-            $("#responseUrl").val("");
-            $("#imgInter").attr("src","");
-        });
+
+
         setTimeout(function(){
             $(".webuploader-pick").css("display","inline-block");
             $(".webuploader-pick").next().css({
                 position: "absolute",
-                top: "121px",
-                left: "15px",
-                width: "85px",
-                height: "40px",
+                top: "0",
+                left: "0",
+                // width: "85px",
+                // height: "40px",
                 overflow: "hidden",
                 opacity: 0
             });
         }, 30);
-        var uploader = WebUploader.create({
-            // 选完文件后，是否自动上传。
-            auto: true,
-            // swf文件路径
-            swf: contextPath + '/dist/js/Uploader.swf',
-            // 文件接收服务端。
-            server: contextPath+'upload',
-            // 选择文件的按钮。可选。
-            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-            pick: '#filePicker',
-            // 只允许选择图片文件。
-            /*accept: {
-                title: 'Images',
-                extensions: 'gif,jpg,jpeg,bmp,png',
-                mimeTypes: 'image/!*'
-            },*/
-        });
-        uploader.on( 'uploadSuccess', function( file,response ) {
-            $("#responseUrl").val(response.content.path);
-            $("#responseUrl").parent().next().remove();
-            $("#responseUrl").parents(".form-group").removeClass("has-error")
-        });
-        uploader.on( 'fileQueued', function( file ) {
-            var $li = $('<img src="" id="imgInter" style="width: 100%">');
-            $("#fileList").html($li);
-            uploader.makeThumb(file, function (error, src) {
-                $("#imgInter").attr("src",src);
-            });
-        });
+
+        $("#addFile").click(function(){
+            popFile('新增文件夹','add');
+        })
+
     })
 </script>
 </body>

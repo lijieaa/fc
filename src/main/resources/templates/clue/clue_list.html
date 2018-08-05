@@ -252,6 +252,9 @@
                                         data: null,
                                         "render": function (data, type, row) {
                                             return '<div class="hidden-sm hidden-xs action-buttons">'
+                                                [# sec:authorize="hasAuthority('projectAttachTree:view')"]
+                                            + '<a class="blue" href="clueFileManage/?id='+data.projectId+'" title="文件管理"><i class="ace-icon fa fa-folder-open bigger-130"></i></a>'
+                                                [/]
                                                     [# sec:authorize="hasAuthority('project:edit')"]
                                             + '<a class="blue" id="changeProject"  data-id="'+data.projectId+'"  title="转为项目"><i class="ace-icon fa fa-exchange bigger-130"></i></a>'
                                                     [/]
@@ -266,7 +269,10 @@
                                                     [/]
                                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
-                                                    [# sec:authorize="hasAuthority('project:edit')"]
+
+                                                [# sec:authorize="hasAuthority('projectAttachTree:view')"]
+                                            + '<li><a href="clueFileManage/?id='+data.projectId+'" class="tooltip-info" data-rel="tooltip" title="文件管理"><span class="blue"><i class="ace-icon fa fa-folder-open bigger-120"></i></span></a></li>'
+                                                [/][# sec:authorize="hasAuthority('project:edit')"]
                                             + '<li><a  class="tooltip-info" data-rel="tooltip" data-id="'+data.projectId+'" id="changeProject" title="转为项目"><span class="blue"><i class="ace-icon fa fa-exchange bigger-120"></i></span></a></li>'
                                                     [/]
                                                 [# sec:authorize="hasAuthority('project:view')"]

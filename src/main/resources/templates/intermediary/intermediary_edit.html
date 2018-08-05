@@ -217,7 +217,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">企业营运执照:</label>
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">企业营业执照:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
                                 <input type="hidden"  id="companyBussniess" name="companyBussniess" value="" class="col-xs-12 col-sm-8">
@@ -707,6 +707,31 @@
                             // console.log(data);
                         }
                     })
+                },
+                interDetail: function () {
+                    var _this = this;
+                    //查询中间商详情
+                    $.axspost(contextPath + "api/intermediary/"+id+"","get","",function(data){
+                        _this.editList = data.content;
+                        _this.contacts = data.content.contacts;
+                        //中间商联系人
+                        _this.relaion.zTreeList =  _this.contacts.filter(function(v){
+                            return v.status == 1
+                        });
+
+                        //平台联系人
+                        _this.flatRelation.zTreeList =  _this.contacts.filter(function(v){
+                            return v.status == 0
+                        });
+
+                        $("#imgInter").attr("src",imgPath+data.content.intermediaryLogoUrl);
+                        $("#responseUrl").val(data.content.intermediaryLogoUrl);
+                        $("#companyBussniess").val(data.content.businessLicense);
+                        $("#imgCompany").attr("src",imgPath+data.content.businessLicense);
+                        responseUrl = imgPath+data.content.intermediaryLogoUrl;
+                        CKEDITOR.instances.editor1.setData(data.content.intermediaryIntroduction);
+                        $("#intermediaryIntroduction").val(data.content.intermediaryIntroduction);
+                    },function(data){});
                 }
             },
             mounted:function () {
@@ -721,34 +746,22 @@
                     _this.relaion.zNodes = data.content;
                 },function(data){});
 
-                //查询中间商详情
-                $.axspost(contextPath + "api/intermediary/"+id+"","get","",function(data){
-                    _this.editList = data.content;
-                    _this.contacts = data.content.contacts;
-                    //中间商联系人
-                    _this.relaion.zTreeList =  _this.contacts.filter(function(v){
-                        return v.status == 1
-                    });
 
-                    //平台联系人
-                    _this.flatRelation.zTreeList =  _this.contacts.filter(function(v){
-                        return v.status == 0
-                    });
-
-                    $("#imgInter").attr("src",imgPath+data.content.intermediaryLogoUrl);
-                    $("#responseUrl").val(imgPath+data.content.intermediaryLogoUrl);
-                    $("#companyBussniess").val(imgPath+data.content.businessLicense);
-                    $("#imgCompany").attr("src",imgPath+data.content.businessLicense);
-                    responseUrl = imgPath+data.content.intermediaryLogoUrl;
-                    CKEDITOR.instances.editor1.setData(data.content.intermediaryIntroduction);
-                    $("#intermediaryIntroduction").val(data.content.intermediaryIntroduction);
-                },function(data){});
                 _this.editorFun(); //初始化生成编辑器
+                _this.interDetail();
 
+                $("button[type=reset]").click(function(){
+                    // var _this = this;
+                    // $("#responseUrl,#companyBussniess").val("");
+                    // $("#imgInter,#imgCompany").attr("src","");
+                    // CKEDITOR.instances.editor1.setData("");
+                    _this.interDetail();
+
+                });
                 // _this.uploaderFun();  //上传图片
                 jQuery.validator.addMethod("isMobile", function(value, element) {
                     var length = value.length;
-                    var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+                    var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(19[0-9]{9})|(16[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
                     return this.optional(element) || (length == 11 && mobile.test(value));
                 }, "请正确填写您的手机号码");
 
@@ -883,9 +896,10 @@
             }
         });
         $("button[type=reset]").click(function(){
-            $("#responseUrl,#companyBussniess").val("");
-            $("#imgInter,#imgCompany").attr("src","");
-            CKEDITOR.instances.editor1.setData("");
+            // $("#responseUrl,#companyBussniess").val("");
+            // $("#imgInter,#imgCompany").attr("src","");
+            // CKEDITOR.instances.editor1.setData("");
+
         });
 
         setTimeout(function(){
