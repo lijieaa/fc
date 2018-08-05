@@ -455,4 +455,9 @@
     delete from intermediary_user
     where intermediary_user_iId =#{0}
   </delete>
+
+  <!--查询by中间商name-->
+  <select id="existByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT i.* from intermediary i WHERE  i.intermediary_name = #{0}
+  </select>
 </mapper>

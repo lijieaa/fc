@@ -29,7 +29,7 @@ public class Intermediary implements Serializable {
 
     //中间商联系方式
     @NotBlank(message = "中间商联系方式不能为空")
-    @Pattern(regexp = "^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$", message = "请输入正确电话号码")
+    @Pattern(regexp = "^(13[0-9]{9})|(18[0-9]{9})|(19[0-9]{9})|(16[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$", message = "请输入正确电话号码")
     private String intermediaryContactTel;
 
     //所属地区
