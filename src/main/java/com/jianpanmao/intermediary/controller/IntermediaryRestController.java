@@ -97,5 +97,14 @@ public class IntermediaryRestController {
         return dao.selectIdNameList();
     }
 
-
+    @PreAuthorize("hasAuthority('intermediary:view')")
+    @GetMapping("existByName")
+    @ResponseBody
+    public boolean existByName(String name) {
+        if (null!=dao.existByName(name)){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

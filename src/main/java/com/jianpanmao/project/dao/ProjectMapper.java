@@ -30,4 +30,6 @@ public interface ProjectMapper extends BaseDao<Project, ProjectExample, ProjectD
     List<ContactsDto> projectChargeUser(Integer pId);
 
     List<ProjectCustomer> projectCustomers(Integer pId);
+
+    Project existByName(String name);
 }

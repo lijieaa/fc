@@ -454,4 +454,9 @@ contacts c LEFT JOIN project_contacts pc ON c.con_id = pc.project_contacts_cid
 LEFT JOIN project p ON pc.project_contacts_pid = p.project_id
 WHERE p.project_id = #{0}
   </select>
+
+  <!--查询by项目名称-->
+<select id="existByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+  SELECT p.* FROM project p WHERE p.project_name = #{0}
+</select>
 </mapper>

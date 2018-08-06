@@ -280,7 +280,13 @@
     app.infiniteScroll.create(".infinite-scroll-content")
 
 
-
+    function serch(){
+        maxItems = 0;
+        pageNum=1;
+        console.log($("#serch").val())
+        $('.list li').remove()
+        initList()
+    }
     function initList(){
         allowInfinite = false;
         console.log(lastItemIndex,maxItems)

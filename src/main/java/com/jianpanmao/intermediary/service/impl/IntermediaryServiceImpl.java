@@ -150,7 +150,7 @@ public class IntermediaryServiceImpl extends BaseServiceImpl<Intermediary, Inter
         //设置人为管理员
         SysUserRole sysUserRole = new SysUserRole();
         sysUserRole.setUserId(user.getUserid());
-        sysUserRole.setRoleId(1);
+        sysUserRole.setRoleId(2);
         sysUserRoleMapper.insert(sysUserRole);
         addContacts(user.getUserid().toString(), intermediary.getIntermediaryId(), 1);
     }

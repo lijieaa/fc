@@ -747,7 +747,7 @@
                         $("#intermediaryIntroduction").val(data);
                         if(data.length == 0){
                             $("#intermediaryIntroduction-error").remove();
-                            var div = "<div id=\"intermediaryIntroduction-error\" class=\"help-block\">必选字段</div>" ;
+                            var div = "<div id=\"intermediaryIntroduction-error\" class=\"help-block\">必选字段（非空格）</div>" ;
                             $("#intermediaryIntroduction").parents(".introduction").append(div);
                             $("#intermediaryIntroduction").parents(".form-group").addClass("has-error");
                         }else{

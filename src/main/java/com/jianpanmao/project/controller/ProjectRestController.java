@@ -94,4 +94,14 @@ public class ProjectRestController {
     public void updateProjectStatus(Integer projectId) {
         dao.updateProjectStatus(projectId);
     }
+
+    @PreAuthorize("hasAuthority('project:view')")
+    @GetMapping("existByName")
+    public boolean existByName(String name) {
+        if (null!=dao.existByName(name)){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }
