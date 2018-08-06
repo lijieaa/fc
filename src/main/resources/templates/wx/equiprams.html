@@ -52,7 +52,7 @@
                                         <div class="item-title text-base-color">电机</div>
                                         <div class="item-after">
                                             <label class="toggle toggle-init">
-                                                <input type="checkbox"  class ="ignore" >
+                                                <input type="checkbox" value="1"  name="motor" class ="ignore" >
                                                 <span class="toggle-icon"></span>
                                             </label>
                                         </div>
@@ -64,7 +64,7 @@
                                         <div class="item-title text-base-color">行程开关</div>
                                         <div class="item-after">
                                             <label class="toggle toggle-init">
-                                                <input type="checkbox"  class ="ignore">
+                                                <input type="checkbox"  value="1" name="stroke_switch" class ="ignore">
                                                 <span class="toggle-icon"></span>
                                             </label>
                                         </div>
@@ -77,7 +77,7 @@
                                         <div class="item-title text-base-color">电机动作时间</div>
                                         <div class="item-after">
                                             <div style="flex-shrink:0" >
-                                                <input type="text" class="pkee text-base-color f30" name="time"  style="width:106px;margin-right:4px;"/>
+                                                <input type="text" class="pkee text-base-color f30" name="motor_time"  style="width:106px;margin-right:4px;"/>
                                             </div>
                                             <span class=" pkee text-base-color f30 text-align-center"  style="width:30px">秒</span>
                                         </div>
@@ -89,8 +89,9 @@
                                         <div class="item-title text-base-color">压差开关</div>
                                         <div class="item-after">
                                             <div style="flex-shrink:0" >
-                                                <select name="" id="" class="pkee text-base-color f30 ignore"  style="width:125px">
-                                                    <option value="">数字</option>
+                                                <select name="p_switch" id="" class="pkee text-base-color f30 ignore"  style="width:125px">
+                                                    <option value="0" selected>模拟</option>
+                                                    <option value="1">数字</option>
                                                 </select>
                                             </div>
                                             <span class=" ser-btn  text-base-color f7-icons f32"  style="width:15px">&or;</span>
@@ -103,7 +104,7 @@
                                         <div class="item-title text-base-color">电压告警值</div>
                                         <div class="item-after">
                                             <div style="flex-shrink:0" >
-                                                <input type="text" class="pkee text-base-color f30 ignore"   style="width:106px;margin-right:4px;"/>
+                                                <input type="text" name="voltage_warning" class="pkee text-base-color f30 ignore"   style="width:106px;margin-right:4px;"/>
                                             </div>
                                             <span class=" pkee text-base-color f30 text-align-center"  style="width:30px">V</span>
                                         </div>
@@ -115,7 +116,7 @@
                                         <div class="item-title text-base-color">主阀</div>
                                         <div class="item-after">
                                             <label class="toggle toggle-init">
-                                                <input type="checkbox" class="ignore">
+                                                <input type="checkbox" name="main_valve" class="ignore" value='1'>
                                                 <span class="toggle-icon"></span>
                                             </label>
                                         </div>
@@ -128,7 +129,7 @@
                                         <div class="item-title text-base-color">单元一</div>
                                         <div class="item-after">
                                             <label class="toggle toggle-init">
-                                                <input type="checkbox" class="ignore">
+                                                <input type="checkbox" class="ignore" value='1' name="unit1">
                                                 <span class="toggle-icon"></span>
                                             </label>
                                         </div>
@@ -140,19 +141,7 @@
                                         <div class="item-title text-base-color">单元二</div>
                                         <div class="item-after">
                                             <label class="toggle toggle-init">
-                                                <input type="checkbox">
-                                                <span class="toggle-icon"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div></li>
-                            <li>
-                                <div class="item-content">
-                                    <div class="item-inner">
-                                        <div class="item-title text-base-color">单元二</div>
-                                        <div class="item-after">
-                                            <label class="toggle toggle-init">
-                                                <input type="checkbox">
+                                                <input type="checkbox" value="1" name="unit2">
                                                 <span class="toggle-icon"></span>
                                             </label>
                                         </div>
@@ -164,7 +153,7 @@
                                         <div class="item-title text-base-color">单元三</div>
                                         <div class="item-after">
                                             <label class="toggle toggle-init">
-                                                <input type="checkbox">
+                                                <input type="checkbox" value='1'  name="unit3">
                                                 <span class="toggle-icon"></span>
                                             </label>
                                         </div>
@@ -176,7 +165,7 @@
                                         <div class="item-title text-base-color">单元四</div>
                                         <div class="item-after">
                                             <label class="toggle toggle-init">
-                                                <input type="checkbox">
+                                                <input type="checkbox" value='1' name="unit4">
                                                 <span class="toggle-icon"></span>
                                             </label>
                                         </div>
@@ -188,7 +177,7 @@
                                         <div class="item-title text-base-color ignore">单元五</div>
                                         <div class="item-after">
                                             <label class="toggle toggle-init">
-                                                <input type="checkbox">
+                                                <input type="checkbox" value='1' name="unit5">
                                                 <span class="toggle-icon"></span>
                                             </label>
                                         </div>
@@ -200,7 +189,7 @@
                                         <div class="item-title text-base-color">单元六</div>
                                         <div class="item-after">
                                             <label class="toggle toggle-init">
-                                                <input type="checkbox">
+                                                <input type="checkbox" value='1' name="unit6">
                                                 <span class="toggle-icon"></span>
                                             </label>
                                         </div>
@@ -212,7 +201,7 @@
                                         <div class="item-title text-base-color">单元七</div>
                                         <div class="item-after">
                                             <label class="toggle toggle-init">
-                                                <input type="checkbox">
+                                                <input type="checkbox" value='1' name="unit7">
                                                 <span class="toggle-icon"></span>
                                             </label>
                                         </div>
@@ -224,7 +213,7 @@
                                         <div class="item-title text-base-color">单元八</div>
                                         <div class="item-after">
                                             <label class="toggle toggle-init">
-                                                <input type="checkbox">
+                                                <input type="checkbox" value='1' name="unit8">
                                                 <span class="toggle-icon"></span>
                                             </label>
                                         </div>
@@ -236,7 +225,19 @@
                                         <div class="item-title text-base-color">单元九</div>
                                         <div class="item-after">
                                             <label class="toggle toggle-init">
-                                                <input type="checkbox">
+                                                <input type="checkbox"  value='1' name="unit9">
+                                                <span class="toggle-icon"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div></li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">单元十</div>
+                                        <div class="item-after">
+                                            <label class="toggle toggle-init">
+                                                <input type="checkbox" value="1" name="unit10">
                                                 <span class="toggle-icon"></span>
                                             </label>
                                         </div>
@@ -259,32 +260,85 @@
 <script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
 <script th:src="@{/ace/assets/js/jquery.validate.min.js}"></script>
 <script>
+
+    function  initList(){
+        $.ajax({
+            url: "/wd/getDeviceParams",
+            type:"get",
+            data:{
+                num:6921734972392
+
+            },
+            success:function(data){
+
+                if(data.status==200){
+
+
+                    var formData = {
+                        'unit6': [1],
+                        'unit7': [1],
+                        'unit8': [1],
+                        'unit9': ['yes'],
+                        'unit10': '1',
+                    }
+
+                    var o =data.content.deviceParam
+
+
+                    for(var pro in o){
+                        if(o.hasOwnProperty(pro)){
+                            o[pro]=o[pro].toString()
+                        }
+                    }
+                    console.log(o)
+                  app.form.fillFromData('#form', o);
+
+                }
+
+
+
+
+
+
+
+
+
+            }
+        })
+    }
     var app = new Framework7(
             {
                 id: 'io.framework7.testapp',
                 root: '#app',
                 theme: "ios",
+                on:{
+                    init:function(page){
+                        initList()
+                    }
+                }
             })
 
 
     var $$ = Dom7;
 
     $$('.convert-form-to-data').on('click', function(){
-        var formData = app.form.convertToData('#my-form');
+        var formData = app.form.convertToData('#form');
         alert(JSON.stringify(formData));
     });
 
     $$('.fill-form-from-data').on('click', function(){
         var formData = {
-            'name': 'John',
-            'email': 'john@doe.com',
-            'gender': 'female',
-            'toggle': ['yes'],
+            'unit6': [1],
+            'unit7': [1],
+            'unit8': [1],
+            'unit9': ['yes'],
+            'unit10': '1',
         }
-        app.form.fillFromData('#my-form', formData);
+
+        app.form.fillFromData('#form', formData);
     });
 
-    var $form = $('#form').validate({
+/*    var $form = $('#form').validate({
         debug:false,
         errorElement: 'div',
         errorClass: 'help-block',
@@ -309,7 +363,7 @@
             error.insertBefore(element.parent());
         },
         submitHandler: function (form) {
-           /* var data ={
+           /!* var data ={
                 remoteBoot:_this.numDevice(_this.remoteBoot),
                 deviceParam:{
                     // numDevice
@@ -352,17 +406,17 @@
                         // console.log(data);
                     }
                 });
-            }*/
+            }*!/
         },
         invalidHandler: function (form) {
         }
 
-    });
+    });*/
 
 
-    $('.fill-form-from-data').on('click',function(){
+/*    $('.fill-form-from-data').on('click',function(){
         $('#form').submit()
-    })
+    })*/
 
 
 
