@@ -21,6 +21,9 @@
         <if test="publicName != null and publicName != ''">
             and public_name LIKE CONCAT('%',#{publicName}, '%')
         </if>
+        <if test="intermediary != null and intermediary.intermediaryId != null">
+            and intermediary_id = #{intermediary.intermediaryId}
+        </if>
     </select>
 
     <select id="selectByPrimaryKey" resultMap="wxPublicMap">
