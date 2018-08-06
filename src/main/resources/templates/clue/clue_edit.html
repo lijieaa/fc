@@ -680,10 +680,12 @@
                         contentType: "application/json",
                         dataType : "json",
                         success: function (data) {
-                            if(data.status == 200){
+                            if(data.content.status == 200) {
                                 location.href=contextPath+"clue/list";
-                            }else{
-                                bootbox.alert("添加失败");
+                            }else {
+                                bootbox.alert({
+                                    message: data.content.content
+                                })
                             }
                         },
                         error: function (data) {
@@ -692,7 +694,42 @@
                         }
                     })
                 },
+                clueDetail: function () {
+                    var _this = this;
+                    //查找详情
+                    $.axspost(contextPath + "api/project?id="+clubslID+"","get","",function(data){
 
+                        _this.editList = data.content;
+                        $("#imgInter").attr("src",imgPath+data.content.projectLogo);
+                        $("#responseUrl").val(data.content.projectLogo);
+                        _this.projectIntroduction = data.content.projectIntroduction;
+                        CKEDITOR.instances.editor1.setData(data.content.projectIntroduction);
+                        $("#intermediaryIntroduction").val(data.content.projectIntroduction);
+
+                        //中间商联系人
+                        _this.customer.zTreeList =  data.content.projectCustomers;
+                        _this.mainPerson.zTreeList =  data.content.projectChargeUser; //负责人
+                        // _this.editList.userId = data.content.projectId;
+                        responseUrl = data.content.projectLogo;
+
+                        CKEDITOR.instances.editor1.on('change', function() {
+                            var data = CKEDITOR.instances.editor1.getData();
+                            $("#intermediaryIntroduction").val(data);
+                            if(data.length == 0){
+                                $("#intermediaryIntroduction-error").remove();
+                                var div = "<div id=\"intermediaryIntroduction-error\" class=\"help-block\">必选字段（非空格）</div>" ;
+                                $("#intermediaryIntroduction").parents(".introduction").append(div);
+                                $("#intermediaryIntroduction").parents(".form-group").addClass("has-error");
+                            }else{
+
+                                $("#intermediaryIntroduction").parents(".form-group").removeClass("has-error");
+                                $("#intermediaryIntroduction-error").remove();
+                            }
+
+                        });
+
+                    },function(data){});
+                }
             },
             watch: {
                 // projectIntroduction:function(){
@@ -703,6 +740,7 @@
             },
             mounted:function () {
                 var _this = this;
+                _this.editorFun(); //初始化生成编辑器
                 // CKEDITOR.instances.editor1.setData('44343434');
                 //给数状菜单添加数据
                 $.axspost(contextPath+'api/dingtalkuser/deptUser','get','',function (data) {
@@ -724,39 +762,7 @@
                     _this.zTreeInit().useTree($("#treeDemo"),_this.facList,"#address");//初始化生成树
                 },function (data) {});
 
-                //查找详情
-                $.axspost(contextPath + "api/project?id="+clubslID+"","get","",function(data){
-                    _this.editorFun(); //初始化生成编辑器
-                    _this.editList = data.content;
-                    $("#imgInter").attr("src",imgPath+data.content.projectLogo);
-                    $("#responseUrl").val(data.content.projectLogo);
-                    _this.projectIntroduction = data.content.projectIntroduction;
-                    CKEDITOR.instances.editor1.setData(data.content.projectIntroduction);
-                    $("#intermediaryIntroduction").val(data.content.projectIntroduction);
-
-                    //中间商联系人
-                    _this.customer.zTreeList =  data.content.projectCustomers;
-                    _this.mainPerson.zTreeList =  data.content.projectChargeUser; //负责人
-                    // _this.editList.userId = data.content.projectId;
-                    responseUrl = data.content.projectLogo;
-
-                    CKEDITOR.instances.editor1.on('change', function() {
-                        var data = CKEDITOR.instances.editor1.getData();
-                        $("#intermediaryIntroduction").val(data);
-                        if(data.length == 0){
-                            $("#intermediaryIntroduction-error").remove();
-                            var div = "<div id=\"intermediaryIntroduction-error\" class=\"help-block\">必选字段（非空格）</div>" ;
-                            $("#intermediaryIntroduction").parents(".introduction").append(div);
-                            $("#intermediaryIntroduction").parents(".form-group").addClass("has-error");
-                        }else{
-
-                            $("#intermediaryIntroduction").parents(".form-group").removeClass("has-error");
-                            $("#intermediaryIntroduction-error").remove();
-                        }
-
-                    });
-
-                },function(data){});
+               _this.clueDetail();
 
 
                 //验证手机
@@ -816,6 +822,9 @@
                     }
                 });
 
+                $("button[type=reset]").click(function(){
+                    _this.clueDetail();
+                });
 
             }
         });
@@ -851,8 +860,8 @@
             });
         });
         $("button[type=reset]").click(function(){
-            $("#responseUrl").val("");
-            $("#imgInter").attr("src","");
+            // $("#responseUrl").val("");
+            // $("#imgInter").attr("src","");
         });
         setTimeout(function(){
             $(".webuploader-pick").css("display","inline-block");

@@ -678,10 +678,12 @@
                         contentType: "application/json",
                         dataType : "json",
                         success: function (data) {
-                            if(data.status == 200){
+                            if(data.content.status == 200) {
                                 location.href=contextPath+"project/list";
-                            }else{
-                                bootbox.alert("添加失败");
+                            }else {
+                                bootbox.alert({
+                                    message: data.content.content
+                                })
                             }
                         },
                         error: function (data) {
@@ -711,6 +713,18 @@
                     return this.optional(element) || (length == 11 && mobile.test(value));
                 }, "请正确填写您的手机号码");
 
+                jQuery.validator.addMethod("nameIsSave", function(value, element) {
+                    var msg;
+                    $.ajax({
+                        url:contextPath + "api/project/existByName?name="+value,
+                        type: 'get',
+                        async: false,
+                        success:function(data){
+                            msg =  data.content;
+                        }
+                    });
+                    return !msg;
+                }, "该名称已存在");
 
                 //所属区域
                 $.axspost(contextPath + "api/area/condition?level=1","get","",function(data){
@@ -737,8 +751,8 @@
                     ignore: "",
                     rules: {
                         projectName: {
-                            required: true
-
+                            required: true,
+                            nameIsSave: true
                         },
                         projectContactUserId: {
                             required: true

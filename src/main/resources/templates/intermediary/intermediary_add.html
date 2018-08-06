@@ -563,7 +563,7 @@
                         success: function (data) {
                             // alert(1);
                             if(data.content.status == 200) {
-                                // location.href=contextPath+"intermediary/list";
+                                location.href=contextPath+"intermediary/list";
                             }else {
                                 bootbox.alert({
                                     message: data.content.content
@@ -621,6 +621,19 @@
                     return msg;
                 }, "该号码已存在");
 
+                jQuery.validator.addMethod("nameIsSave", function(value, element) {
+                    var msg;
+                    $.ajax({
+                        url:contextPath + "api/intermediary/existByName?name="+value,
+                        type: 'get',
+                        async: false,
+                        success:function(data){
+                            msg =  data.content;
+                        }
+                    });
+                    return !msg;
+                }, "该名称已存在");
+
                 //所属区域
                 $.axspost(contextPath + "api/area/condition?level=1","get","",function(data){
                     data.content.forEach(function(item,i){
@@ -638,7 +651,8 @@
                     rules: {
                         intermediaryName: {
                             required: true,
-                            maxlength:64
+                            maxlength:64,
+                            nameIsSave: true
                         },
                         areaId: {
                             required: true
