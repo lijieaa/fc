@@ -435,6 +435,8 @@
         //单个删除
         $('#dynamic-table tbody').on( 'click', 'a.delete', function () {
             var id = $(this).attr('data-id');
+            $(this).parents('tr').addClass('current-selected');
+            var _this = $(this)
             bootbox.confirm( {
                 message: "您真的要删除?",
                 buttons: {
@@ -462,6 +464,8 @@
                                 //console.log(data);
                             }
                         })
+                    }else{
+                        _this.parents('tr').removeClass('current-selected');
                     }
                 }
             });
