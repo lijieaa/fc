@@ -49,7 +49,7 @@
                     </div>
 
                 </div>
-                <form id="my-form1" class="list card">
+                <form id="form" class="list card">
                     <ul>
 
                         <li class="f30">
@@ -58,7 +58,7 @@
                                     <div class="item-title text-base-color">设备远程启停</div>
                                     <div class="item-after">
                                         <label class="toggle toggle-init">
-                                            <input type="checkbox" name="toggle" value="yes"><i class="toggle-icon"></i>
+                                            <input type="checkbox" name="remoteBoot" value="1"><i class="toggle-icon"></i>
                                         </label>
                                     </div>
                                 </div>
@@ -75,59 +75,6 @@
                         <li><a th:href="@{/wx/common/sysparams}" class="f30 external">系统时间</a></li>
                     </ul>
                 </div>
-             <!--   <form class="list" id="my-form">
-                    <ul>
-                        <li>
-                            <div class="item-content item-input">
-                                <div class="item-inner">
-                                    <div class="item-title item-label">Name</div>
-                                    <div class="item-input-wrap">
-                                        <input type="text" name="name" placeholder="Your name">
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item-content item-input">
-                                <div class="item-inner">
-                                    <div class="item-title item-label">E-mail</div>
-                                    <div class="item-input-wrap">
-                                        <input type="email" name="email" placeholder="E-mail">
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item-content item-input">
-                                <div class="item-inner">
-                                    <div class="item-title item-label">Gender</div>
-                                    <div class="item-input-wrap">
-                                        <select name="gender">
-                                            <option value="male" selected>Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item-content">
-                                <div class="item-inner">
-                                    <div class="item-title">Toggle</div>
-                                    <div class="item-after">
-                                        <label class="toggle toggle-init">
-                                            <input type="checkbox" name="toggle" value="yes"><i class="toggle-icon"></i>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </form>
-                <div class="block block-strong row">
-                    <div class="col"><a class="button convert-form-to-data" href="#">Get Data</a></div>
-                    <div class="col"><a class="button fill-form-from-data" href="#">Fill Form</a></div>
-                </div>-->
             </div>
         </div>
     </div>
@@ -135,34 +82,56 @@
 <script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
 <!-- Path to Framework7 Library JS-->
 <script>
+    function  initList(){
+        $.ajax({
+            url: "/wd/getDeviceParams",
+            type:"get",
+            data:{
+                num:6921734972392
+
+            },
+            success:function(data){
+
+                if(data.status==200){
+
+                    var formData={}
+
+                    var o ={remoteBoot:data.content.remoteBoot.toString()}
+
+
+                 /*   for(var pro in o){
+                        if(o.hasOwnProperty(pro)){
+                            o[pro]=o[pro].toString()
+                        }
+                    }*/
+
+                    app.form.fillFromData('#form', o);
+
+                }
+
+
+
+
+
+
+
+
+
+            }
+        })
+    }
     var app = new Framework7({
                 id: 'io.framework7.testapp',
                 root: '#app',
                 theme: "ios",
                 on:{
                     init:function(page){
-
+                        initList()
                     }
                 }
             }
     );
 
-    var $$ = Dom7;
-
-    $$('.convert-form-to-data').on('click', function(){
-        var formData = app.form.convertToData('#my-form');
-        alert(JSON.stringify(formData));
-    });
-
-    $$('.fill-form-from-data').on('click', function(){
-        var formData = {
-            'name': 'John',
-            'email': 'john@doe.com',
-            'gender': 'female',
-            'toggle': ['yes'],
-        }
-        app.form.fillFromData('#my-form', formData);
-    });
 
 
 </script>
