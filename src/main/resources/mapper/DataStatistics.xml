@@ -9,6 +9,7 @@ SELECT COUNT(d.device_id) count,
  from device d
  RIGHT JOIN intermediary i
  on d.intermediary_id = i.intermediary_id
+ WHERE d.valid = 0
 GROUP BY i.intermediary_name
 ORDER BY count DESC
   </select>
