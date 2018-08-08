@@ -199,7 +199,7 @@
                                      name="intermediaryLogoUrl" style="float: none">
                                     <img src="" id="imgInter" alt="" style="width: 100%">
                                 </div>
-                                <div id="filePicker" class="margin-top-6">选择图片</div>
+                                <div id="filePicker" class="margin-top-6" style="position: relative">选择图片</div>
                             </div>
 
                             <!--<div class="clearfix">-->
@@ -680,7 +680,7 @@
                         contentType: "application/json",
                         dataType : "json",
                         success: function (data) {
-                            if(data.content.status == 200) {
+                            if(data.status == 200 && data.content == 1) {
                                 location.href=contextPath+"clue/list";
                             }else {
                                 bootbox.alert({
@@ -698,7 +698,6 @@
                     var _this = this;
                     //查找详情
                     $.axspost(contextPath + "api/project?id="+clubslID+"","get","",function(data){
-
                         _this.editList = data.content;
                         $("#imgInter").attr("src",imgPath+data.content.projectLogo);
                         $("#responseUrl").val(data.content.projectLogo);
@@ -711,22 +710,6 @@
                         _this.mainPerson.zTreeList =  data.content.projectChargeUser; //负责人
                         // _this.editList.userId = data.content.projectId;
                         responseUrl = data.content.projectLogo;
-
-                        CKEDITOR.instances.editor1.on('change', function() {
-                            var data = CKEDITOR.instances.editor1.getData();
-                            $("#intermediaryIntroduction").val(data);
-                            if(data.length == 0){
-                                $("#intermediaryIntroduction-error").remove();
-                                var div = "<div id=\"intermediaryIntroduction-error\" class=\"help-block\">必选字段（非空格）</div>" ;
-                                $("#intermediaryIntroduction").parents(".introduction").append(div);
-                                $("#intermediaryIntroduction").parents(".form-group").addClass("has-error");
-                            }else{
-
-                                $("#intermediaryIntroduction").parents(".form-group").removeClass("has-error");
-                                $("#intermediaryIntroduction-error").remove();
-                            }
-
-                        });
 
                     },function(data){});
                 }
@@ -763,14 +746,10 @@
                 },function (data) {});
 
                _this.clueDetail();
+                $("button[type=reset]").click(function(){
+                    _this.clueDetail();
+                });
 
-
-                //验证手机
-                jQuery.validator.addMethod("isMobile", function(value, element) {
-                    var length = value.length;
-                    var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
-                    return this.optional(element) || (length == 11 && mobile.test(value));
-                }, "请正确填写您的手机号码");
                 var $form = $('#validation-form').validate({
                     errorElement: 'div',
                     errorClass: 'help-block',
@@ -779,7 +758,6 @@
                     rules: {
                         projectName: {
                             required: true
-
                         },
                         projectContactUserId: {
                             required: true
@@ -822,8 +800,20 @@
                     }
                 });
 
-                $("button[type=reset]").click(function(){
-                    _this.clueDetail();
+                CKEDITOR.instances.editor1.on('change', function() {
+                    var data = CKEDITOR.instances.editor1.getData();
+                    $("#intermediaryIntroduction").val(data);
+                    if(data.length == 0){
+                        $("#intermediaryIntroduction-error").remove();
+                        var div = "<div id=\"intermediaryIntroduction-error\" class=\"help-block\">必选字段（非空格）</div>" ;
+                        $("#intermediaryIntroduction").parents(".introduction").append(div);
+                        $("#intermediaryIntroduction").parents(".form-group").addClass("has-error");
+                    }else{
+
+                        $("#intermediaryIntroduction").parents(".form-group").removeClass("has-error");
+                        $("#intermediaryIntroduction-error").remove();
+                    }
+
                 });
 
             }
@@ -835,11 +825,6 @@
                 vue1.$data.mainPerson.ztreeFlag = false
                 vue1.$data.customer.ztreeFlag = false
             }
-
-            // if()
-            // if(){
-            //
-            // }
         });
         $(document).on("click",".search-list >li",function(){
             $(".tree-div-contain").hide();
@@ -859,16 +844,13 @@
                 }
             });
         });
-        $("button[type=reset]").click(function(){
-            // $("#responseUrl").val("");
-            // $("#imgInter").attr("src","");
-        });
+
         setTimeout(function(){
             $(".webuploader-pick").css("display","inline-block");
             $(".webuploader-pick").next().css({
                 position: "absolute",
-                top: "121px",
-                left: "15px",
+                top: "0",
+                left: "0",
                 width: "85px",
                 height: "40px",
                 overflow: "hidden",
@@ -878,29 +860,34 @@
         var uploader = WebUploader.create({
             // 选完文件后，是否自动上传。
             auto: true,
-            // swf文件路径
             swf: contextPath + '/dist/js/Uploader.swf',
-            // 文件接收服务端。
             server: contextPath+'upload',
-            // 选择文件的按钮。可选。
-            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
             pick: '#filePicker',
-            // 只允许选择图片文件。
             accept: {
                 title: 'Images',
                 extensions: 'gif,jpg,jpeg,bmp,png',
                 mimeTypes: 'image/!*'
-            },
+            }
         });
         uploader.on( 'uploadSuccess', function( file,response ) {
             $("#responseUrl").val(response.content.path);
             $("#responseUrl").parent().next().remove();
-            $("#responseUrl").parents(".form-group").removeClass("has-error")
+            $("#responseUrl").parents(".form-group").removeClass("has-error");
+            // $("#file-error").remove();
+        });
+        uploader.on("error",function (type){
+            if(type == "Q_TYPE_DENIED"){
+                bootbox.alert({
+                    message: "系统提示,只能上传图片!"
+                });
+                $("#file-error").remove();
+            }
         });
         uploader.on( 'fileQueued', function( file ) {
             var $li = $('<img src="" id="imgInter">');
             $("#fileList").html($li);
             uploader.makeThumb(file, function (error, src) {
+                console.log(src);
                 $("#imgInter").attr("src",src);
             });
         });

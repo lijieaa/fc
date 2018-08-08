@@ -284,15 +284,20 @@
 
     Vue.component('ztreeList',{
         props:['list','nodes','listshow','dataid'],
+        data() {
+            return {
+                nodesArr:this.list
+            }
+        },
         template:'<div class="col-xs-12 col-sm-9">' +
         '<div class="ztree-page ztree-box col-xs-12 col-sm-8"> ' +
         '<span v-for="item in list" data-id="item.id"  class="ztreeName" ' +
         '@click="delCurrent(item.userId)">{{item.name}}</span> ' +
-        '<span class="add" id="add" @click="handleAdd">+</span> ' +
+        '<span class="add" id="addCustom" @click="handleAdd">+</span> ' +
         '</div>' +
         '<div class="ztreeContain col-xs-12 col-sm-8" id="ztreeContain" v-show="listshow">' +
         ' <ul id="treeDemoCheck" class="ztree"></ul> ' +
-        '<div v-if="nodes.length == 0">联系人为空</div></div></div>',
+        '</div></div>',
         methods:{
             delCurrent:function(id){
                 var _this = this;
@@ -302,7 +307,7 @@
                 for(var i=0;i<treeNode.length;i++){
                     var v = treeNode[i];
                     if(v.id == id && v.type == 'person'){
-                        treeObj.checkNode(v, false, true);
+                        treeObj.checkNode(treeNode[i], false, true);
                     }
                 }
                 _this.$emit('del',id , _this.dataid)
@@ -333,7 +338,9 @@
                 _this.nodes[0].open = true;
                 $.fn.zTree.init($("#treeDemoCheck"), _this.setting(),
                     _this.nodes);
+
                 var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
+                // console.log(treeObj);
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 treeNode.map(function(v){
                     if(v.type == 'person'){
@@ -343,28 +350,11 @@
                     }
                 });
                 treeObj.refresh();
-                treeNode.map(function(v){
-                    _this.list.map(function(s){
-                        if(v.id == s.userId && v.type == 'person'){
-                            treeObj.checkNode(v, true, true);
-                        }
-                    })
-                })
             },
             list: function(){
                 var _this = this;
-                $.fn.zTree.init($("#treeDemoCheck"), _this.setting(),
-                    _this.nodes);
                 var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
-                treeNode.map(function(v){
-                    if(v.type == 'person'){
-                        v.icon = contextPath +'images/person.png'
-                    }else {
-                        v.icon = contextPath +'images/company.png'
-                    }
-                });
-                treeObj.refresh();
                 treeNode.map(function(v){
                     _this.list.map(function(s){
                         if(v.id == s.userId && v.type == 'person'){
@@ -378,6 +368,8 @@
 
         }
     });
+
+
 
     Vue.component('flatList',{
         props:['list','nodes','listshow','dataid'],
@@ -548,7 +540,6 @@
                 },
                 handleClick: function(postId) {
                     var _this = this;
-
                     if(postId == 1){
                         var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
                         var checkTrue = treeObj.getCheckedNodes(true);
@@ -699,7 +690,7 @@
                         contentType: "application/json",
                         dataType : "json",
                         success: function (data) {
-                            if(data.content.status == 200) {
+                            if(data.status == 200 && data.content == 1) {
                                 location.href=contextPath+"intermediary/list";
                             }else {
                                 bootbox.alert({
@@ -756,12 +747,7 @@
                 _this.interDetail();
 
                 $("button[type=reset]").click(function(){
-                    // var _this = this;
-                    // $("#responseUrl,#companyBussniess").val("");
-                    // $("#imgInter,#imgCompany").attr("src","");
-                    // CKEDITOR.instances.editor1.setData("");
                     _this.interDetail();
-
                 });
                 // _this.uploaderFun();  //上传图片
                 jQuery.validator.addMethod("isMobile", function(value, element) {
@@ -900,24 +886,9 @@
                 vue1.$data.flatRelation.ztreeFlag = false
             }
         });
-        $("button[type=reset]").click(function(){
-            // $("#responseUrl,#companyBussniess").val("");
-            // $("#imgInter,#imgCompany").attr("src","");
-            // CKEDITOR.instances.editor1.setData("");
-
-        });
 
         setTimeout(function(){
             $(".webuploader-pick").css("display","inline-block");
-            // $(".webuploader-pick").next().css({
-            //     position: "absolute",
-            //     top: "121px",
-            //     left: "15px",
-            //     width: "85px",
-            //     height: "40px",
-            //     overflow: "hidden",
-            //     opacity: 0
-            // });
             $(".select-img").css({
                 position:"relative"
             });
@@ -934,12 +905,26 @@
             auto: true,
             swf: contextPath + '/dist/js/Uploader.swf',
             server: contextPath+'upload',
-            pick: '#filePicker'
+            pick: '#filePicker',
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/*'
+            }
         });
-        uploader.on( 'uploadSuccess', function( file,response ) {
+        uploader.on( 'uploadSuccess', function(file, response) {
             $("#responseUrl").val(response.content.path);
             $("#responseUrl").parent().next().remove();
             $("#responseUrl").parents(".form-group").removeClass("has-error")
+        });
+
+        uploader.on("error",function (type){
+            if(type == "Q_TYPE_DENIED"){
+                bootbox.alert({
+                    message: "系统提示,只能上传图片!"
+                });
+                $("#file-error").remove();
+            }
         });
         uploader.on( 'fileQueued', function( file ) {
             uploader.makeThumb(file, function (error, src) {
@@ -951,7 +936,12 @@
             auto: true,
             swf: contextPath + '/dist/js/Uploader.swf',
             server: contextPath+'upload',
-            pick: '#companyYy'
+            pick: '#companyYy',
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/*'
+            }
         });
         uploader1.on( 'uploadSuccess', function( file,response ) {
             $("#companyBussniess").val(response.content.path);
@@ -963,6 +953,14 @@
             uploader1.makeThumb(file, function (error, src) {
                 $("#imgCompany").attr("src",src);
             });
+        });
+        uploader1.on("error",function (type){
+            if(type == "Q_TYPE_DENIED"){
+                bootbox.alert({
+                    message: "系统提示,只能上传图片!"
+                });
+                $("#file-error").remove();
+            }
         });
     })
 </script>

@@ -200,7 +200,7 @@
                                      name="intermediaryLogoUrl" style="float: none">
                                     <!--<img src="" id="imgInter" alt="">-->
                                 </div>
-                                <div id="filePicker" class="margin-top-6">选择图片</div>
+                                <div id="filePicker" class="margin-top-6" style="position: relative">选择图片</div>
                             </div>
 
                             <!--<div class="clearfix">-->
@@ -679,7 +679,7 @@
                         contentType: "application/json",
                         dataType : "json",
                         success: function (data) {
-                            if(data.content.status == 200) {
+                            if(data.status == 200 && data.content == 1) {
                                 location.href=contextPath+"clue/list";
                             }else {
                                 bootbox.alert({
@@ -852,8 +852,8 @@
             $(".webuploader-pick").css("display","inline-block");
             $(".webuploader-pick").next().css({
                 position: "absolute",
-                top: "121px",
-                left: "15px",
+                top: "0",
+                left: "0",
                 width: "85px",
                 height: "40px",
                 overflow: "hidden",
