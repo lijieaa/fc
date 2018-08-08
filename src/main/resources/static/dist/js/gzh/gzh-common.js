@@ -89,7 +89,7 @@ $(function () {
             $("#numBit").hide();
             $("#numWarn").show().text("字数超过限制").css("color",'red');
         }
-        if(remain<limitNum){
+        if(remain<=limitNum){
             $("#numWarn").hide();
             $("#numBit").show();
             var result = limitNum - remain;
@@ -213,6 +213,9 @@ $(function () {
               var content=$("#textInput").val();
               if(content==""){
                   alert("发送消息为空");
+                  return false;
+              }else if(content.length>100){
+                  alert("字数超过限制");
                   return false;
               }else{
                   var webdata={"ToUserName":thisName,"MsgType":"text","Content":content};
