@@ -631,16 +631,12 @@
       <result column="email" jdbcType="VARCHAR" property="email" />
       <result column="jobnumber" jdbcType="VARCHAR" property="jobnumber" />
       <result column="status" jdbcType="INTEGER" property="status" />
-      <result column="parentId" jdbcType="INTEGER" property="parentId" />
     </resultMap>
   <select id="intermediaryContactUser" parameterType="java.lang.Integer" resultMap="ContactResultMap">
 select u.*,
-iu.intermediary_user_status status,
-dp.parentid
+iu.intermediary_user_status status
 from dingtalk_user u
  LEFT JOIN intermediary_user iu ON u.userid = iu.intermediary_user_uId
- LEFT JOIN  dingtalk_user_dept udp ON  u.userid = udp.user_id
- LEFT JOIN dingtalk_dept dp ON udp.dept_id = dp.id
  WHERE iu.intermediary_user_iId = #{0}
   </select>
 </mapper>

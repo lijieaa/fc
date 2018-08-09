@@ -1,5 +1,7 @@
 package com.jianpanmao.attach.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.validation.constraints.Max;
@@ -26,6 +28,7 @@ public class Attach implements Serializable {
 
     //
     @NotNull(message = "createTime不能为空！")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     private Date createTime;
 
     //

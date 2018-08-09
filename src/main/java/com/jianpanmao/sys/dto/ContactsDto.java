@@ -11,7 +11,6 @@ public class ContactsDto {
     private String mobile;
     private String email;
     private String status;
-    private String parentId;
 
     public Integer getUserId() {
         return userId;
@@ -69,11 +68,4 @@ public class ContactsDto {
         this.status = status;
     }
 
-    public String getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
-    }
 }
