@@ -173,7 +173,7 @@
                                      name="intermediaryLogoUrl" style="float: none">
                                     <img src="" id="imgInter" alt="" style="width: 100%">
                                 </div>
-                                <div id="filePicker" class="margin-top-6 select-img">选择图片</div>
+                                <div id="filePicker" class="margin-top-6 select-img" style="position: relative">选择图片</div>
                             </div>
 
                         </div>
@@ -336,11 +336,11 @@
             nodes: function () {
                 var _this = this;
                 _this.nodes[0].open = true;
+                // console.log(_this.nodes)
                 $.fn.zTree.init($("#treeDemoCheck"), _this.setting(),
                     _this.nodes);
 
                 var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
-                // console.log(treeObj);
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 treeNode.map(function(v){
                     if(v.type == 'person'){
@@ -365,6 +365,7 @@
             }
         },
         mounted: function(){
+
 
         }
     });
@@ -427,9 +428,7 @@
                 _this.nodes[0].open = true;
                 $.fn.zTree.init($("#treeDemoCustom"), _this.setting(),
                     _this.nodes);
-
                 var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
-                // console.log(treeObj);
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 treeNode.map(function(v){
                     if(v.type == 'person'){
@@ -454,7 +453,6 @@
             }
         },
         mounted: function(){
-
         }
     });
 
@@ -748,6 +746,8 @@
 
                 $("button[type=reset]").click(function(){
                     _this.interDetail();
+                   $("#imgCompany").attr("width", "100%")
+                   $("#imgInter").attr("width", "100%")
                 });
                 // _this.uploaderFun();  //上传图片
                 jQuery.validator.addMethod("isMobile", function(value, element) {
@@ -789,7 +789,11 @@
                     rules: {
                         intermediaryName: {
                             required: true,
-                            maxlength:64
+                            maxlength:32
+                        },
+                        eCode: {
+                            required: true,
+                            maxlength: 30
                         },
                         areaId: {
                             required: true
@@ -802,7 +806,8 @@
                             required: true
                         },
                         companyBussniess: {
-                            required: true
+                            required: true,
+                            // maxlength: 30
                         },
                         userName: {
                             required: true
@@ -909,10 +914,12 @@
             accept: {
                 title: 'Images',
                 extensions: 'gif,jpg,jpeg,bmp,png',
-                mimeTypes: 'image/*'
-            }
+                // mimeTypes: 'image/*'
+            },
+            resize: false
         });
         uploader.on( 'uploadSuccess', function(file, response) {
+            $("#file-error").remove();
             $("#responseUrl").val(response.content.path);
             $("#responseUrl").parent().next().remove();
             $("#responseUrl").parents(".form-group").removeClass("has-error")
@@ -927,6 +934,8 @@
             }
         });
         uploader.on( 'fileQueued', function( file ) {
+            var $li = $('<img src="" id="imgInter">');
+            $("#fileList").html($li);
             uploader.makeThumb(file, function (error, src) {
                 $("#imgInter").attr("src",src);
             });
@@ -950,6 +959,8 @@
 
         });
         uploader1.on( 'fileQueued', function( file ) {
+            var $li = $('<img src="" id="imgCompany">');
+            $("#companyZz").html($li);
             uploader1.makeThumb(file, function (error, src) {
                 $("#imgCompany").attr("src",src);
             });

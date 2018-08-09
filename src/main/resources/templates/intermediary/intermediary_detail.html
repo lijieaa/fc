@@ -69,6 +69,9 @@
             border: 1px solid #d3d7df;
             overflow: auto;
         }
+        .padding-top-five{
+            padding-top: 13px!important;
+        }
     </style>
 </head>
 
@@ -112,7 +115,7 @@
                                     <tr class="row-ji">
                                         <td>中间商名称</td>
                                         <td>
-                                            <span v-text="dataList.intermediaryName"></span>
+                                            <span v-text="dataList.intermediaryName" style="max-height: 53px;display:inline-block;overflow: hidden"></span>
                                         </td>
                                     </tr>
                                     <tr >
@@ -227,7 +230,7 @@
                                 </div>
                             </div>
                             <div class="col-md-5 col-xs-5 text-right padding-right-15">
-                                <button type="button" class="btn purple-btn btn-default" @click="addGJ" sec:authorize="hasAuthority('topic:add')">新增改进</button>
+                                <button type="button" class="btn btn-info" @click="addGJ" sec:authorize="hasAuthority('topic:add')">新增改进</button>
                             </div>
                         </div>
                         <div class="row">
@@ -247,7 +250,7 @@
                             <span aria-hidden="true" @click="closePop">×</span></button>
                         <h4 class="modal-title text-align">新增改进</h4>
                     </div>
-                    <div class="modal-body text-align">
+                    <div class="modal-body text-align padding-top-five">
                         <div class="row">
                             <div class="col-md-12">
                                 <form>
@@ -355,13 +358,13 @@
             }
         },
         methods:{
-            commentClick:function (msg,event) {
+            commentClick: function (msg,event) {
                 var _this = this;
                 var comment = $(event.currentTarget);
                 bus.$emit('change',msg ,_this.$refs.msg1);
                 comment.parent().next().toggle();
             },
-            commentAdd:function(msg,event){
+            commentAdd: function(msg,event){
                 var _this = this;
                 var comment = $(event.currentTarget);
                 var userId = comment.parent().parent().next().next().attr("dataId");
@@ -497,18 +500,21 @@
                 // $(".comment-content").html(data.topicContent);
             },function(data){});
 
-            bus.$on('change', function (id,msg) {
+            bus.$on('change', function (id,msg,comment) {
                 // console.log(msg);
+                // comment.commentsCount++
                 $.axspost(contextPath+"api/topiccomments/topic/"+id+"","get","",function(data){
                     if(data.content.length == 0){
                         $(msg).html("")
                     }else{
                         $(msg).html("评论消息")
                     }
+
                     _this.commentList.forEach(function(item,i){
                         if( _this.commentList[i].topicId == id){
                             Vue.set(Vm.commentList[i],'commentContent',data.content);
                         }
+                        console.log(data);
                     });
                 },function (data) {
 

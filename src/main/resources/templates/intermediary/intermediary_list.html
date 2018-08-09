@@ -358,18 +358,18 @@
                                         "render": function (data, type, row) {
                                             return '<div class="hidden-sm hidden-xs action-buttons">'
                                                     [# sec:authorize="hasAuthority('intermediary:view')"]
-                                            + '<a class="blue" href="detail/?id='+data.intermediaryId+'"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
+                                            + '<a class="blue" href="detail/?id='+data.intermediaryId+'" title="详情"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>'
                                                     [/]
                                             [# sec:authorize="hasAuthority('intermediary:edit')"]
-                                            + '<a class="blue" href="edit/?id='+data.intermediaryId+'"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
+                                            + '<a class="blue" href="edit/?id='+data.intermediaryId+'" title="编辑"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
                                                     [/]
                                             [# sec:authorize="hasAuthority('intermediary:delete')"]
-                                            + '<a class="blue delete" data-id="'+data.intermediaryId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
+                                            + '<a class="blue delete" data-id="'+data.intermediaryId+'" title="删除"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
                                                     [/]
                                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
                                                     [# sec:authorize="hasAuthority('intermediary:view')"]
-                                            + '<li><a href="detail/?id='+data.intermediaryId+'" class="tooltip-info" data-rel="tooltip" title="查看"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
+                                            + '<li><a href="detail/?id='+data.intermediaryId+'" class="tooltip-info" data-rel="tooltip" title="详情"><span class="blue"><i class="ace-icon fa fa-search-plus bigger-120"></i></span></a></li>'
                                                     [/]
                                             [# sec:authorize="hasAuthority('intermediary:edit')"]
                                             + '<li><a href="edit/?id='+data.intermediaryId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="blue"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'

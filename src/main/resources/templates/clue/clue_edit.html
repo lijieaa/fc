@@ -529,7 +529,6 @@
                 handleClick: function(postId) {
                     // console.log(postId)
                     var _this = this;
-
                     if(postId == 1){
                         var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
                         var checkTrue = treeObj.getCheckedNodes(true);
@@ -748,6 +747,7 @@
                _this.clueDetail();
                 $("button[type=reset]").click(function(){
                     _this.clueDetail();
+                    $("#imgInter").attr("width", "100%")
                 });
 
                 var $form = $('#validation-form').validate({
@@ -866,10 +866,12 @@
             accept: {
                 title: 'Images',
                 extensions: 'gif,jpg,jpeg,bmp,png',
-                mimeTypes: 'image/!*'
-            }
+                // mimeTypes: 'image/*'
+            },
+            resize: false
         });
         uploader.on( 'uploadSuccess', function( file,response ) {
+            $("#file-error").remove();
             $("#responseUrl").val(response.content.path);
             $("#responseUrl").parent().next().remove();
             $("#responseUrl").parents(".form-group").removeClass("has-error");

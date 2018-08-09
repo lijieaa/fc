@@ -562,7 +562,7 @@
                         dataType : "json",
                         success: function (data) {
                             // alert(1);
-                            if(data.content.status == 200) {
+                            if(data.status == 200 && data.content == 1) {
                                 location.href=contextPath+"intermediary/list";
                             }else {
                                 bootbox.alert({
@@ -651,7 +651,7 @@
                     rules: {
                         intermediaryName: {
                             required: true,
-                            maxlength:64,
+                            maxlength:32,
                             nameIsSave: true
                         },
                         areaId: {
@@ -671,7 +671,8 @@
                             required: true
                         },
                         eCode: {
-                            required: true
+                            required: true,
+                            maxlength: 30
                         },
                         businessLicense: {
                             required: true

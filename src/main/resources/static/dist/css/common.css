@@ -232,11 +232,11 @@ div.dataTables_wrapper div.dataTables_paginate{
 
 /*紫色按钮*/
 .purple-btn{
-    background: #5c688f;
+    background: #1794e4!important;
     color: white;
 }
 .purple-btn:hover{
-    background: #5c688f;
+    background: #1794e4!important;
     color: white;
 }
 .form-horizontal .form-group{

@@ -45,8 +45,8 @@
                                 <span v-text="titleEnd"></span>
                             </div>
                             <div class="float-right">
-                                <button type="button" data-toggle="modal"
-                                        class="btn btn-info btn-sc" id= "filePicker" sec:authorize="hasAuthority('attach:add')">
+                                <button type="button" data-toggle="modal" v-show="ztreeList.length != 0"
+                                        class="btn btn-info btn-sc" style="position: relative" id= "filePicker" sec:authorize="hasAuthority('attach:add')">
                                     <i class="ace-icon glyphicon glyphicon-upload"></i>
                                     上传
                                 </button>
@@ -97,7 +97,7 @@
     <div id="filePop" class="ui-dialog-content ui-widget-content display-none">
         <form class="form-horizontal" role="form">
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="add-role-group-name">文件名:</label>
+                <label class="col-sm-3 control-label no-padding-right" for="add-role-group-name">文件夹名:</label>
                 <div class="col-sm-9">
                     <input type="text" id="add-role-group-name" name="namefile" v-model="fileName" class="form-control">
                 </div>
@@ -233,12 +233,12 @@
                 method: "GET",
                 data:{
                     pageNum: pageNum,
-                    pageSize: 4,
+                    pageSize: 15,
                 },
                 contentType: "application/json",
                 dataType : "json",
                 success:function(data){
-                    vue1.$data.tableContent = data.content.list;
+                    vue1.$data.tableContent = data.content.list
                     $("#pagingTest").paging1({
                         pageNo:pageNum,
                         totalPage:data.content.pages
@@ -398,6 +398,7 @@
                 url: contextPath+'api/pa/pType?pid='+projectID,
                 async:false,
                 success: function(data){
+                    vue1.$data.ztreeList = data.content
                     var ztreeObj = $.fn.zTree.init($("#treeDemoCheck"), setting, data.content);
                     var treeNode = ztreeObj.transformToArray(ztreeObj.getNodes());
                     treeNode.map(function(v){
@@ -431,7 +432,8 @@
                 currentFile:'',
                 fileName: '',
                 parentId: '',
-                tableContent:[]
+                tableContent:[],
+                ztreeList: []
             },
             computed:{
                 titleEnd: function () {
@@ -443,6 +445,11 @@
 
                 }
             },
+            // watch: {
+                // tableContent: function (v) {
+                //     console.log(v);
+                // }
+            // },
             methods:{
                 backList: function(){
                     location.href=contextPath+"project/list";
@@ -451,7 +458,8 @@
                    $.ajax({
                        url: contextPath+"api/attach?id="+id,
                        success:function(data){
-                           window.location.href = imgPath + data.content.path
+                           window.open(imgPath + data.content.path)
+                           // window.location.href = imgPath + data.content.path
                        }
                    });
                 },
@@ -500,7 +508,7 @@
                     if(data.content.length != 0){
                         data.content[0].open = true;
                     }
-
+                    _this.ztreeList = data.content;
                     var treeObj =  $.fn.zTree.init($("#treeDemoCheck"),setting, data.content);
 
                     var treeNode = treeObj.transformToArray(treeObj.getNodes());
@@ -560,8 +568,8 @@
                 position: "absolute",
                 top: "0",
                 left: "0",
-                // width: "85px",
-                // height: "40px",
+                width: "70px",
+                height: "30px",
                 overflow: "hidden",
                 opacity: 0
             });
