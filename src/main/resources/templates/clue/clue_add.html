@@ -227,8 +227,8 @@
                                for="intermediaryIntroduction">线索简介:</label>
                         <div class="col-xs-12 col-sm-8 introduction">
                             <div class="clearfix">
-                                <input type="hidden" name="intermediaryIntroduction"
-                                       id="intermediaryIntroduction" class="col-xs-12 col-sm-8" />
+                                <!--<input type="hidden" name="intermediaryIntroduction"-->
+                                       <!--id="intermediaryIntroduction" class="col-xs-12 col-sm-8" />-->
                                 <textarea name="editor1" id="editor1" class="col-xs-12 col-sm-8"></textarea>
                             </div>
                         </div>
@@ -774,6 +774,9 @@
                         intermediaryIntroduction: {
                             required: true
                         },
+                        editor1: {
+                            required: true
+                        },
                         projectTopicStatus:{
                             required: true
                         }
@@ -797,17 +800,18 @@
                 });
                 CKEDITOR.instances.editor1.on('change', function() {
                     var data = CKEDITOR.instances.editor1.getData();
-                    $("#intermediaryIntroduction").val(data);
-                    if(data.length == 0){
-                        $("#intermediaryIntroduction-error").remove();
-                        var div = "<div id=\"intermediaryIntroduction-error\" class=\"help-block\">必选字段（非空格）</div>" ;
-                        $("#intermediaryIntroduction").parents(".introduction").append(div);
-                        $("#intermediaryIntroduction").parents(".form-group").addClass("has-error");
-                    }else{
-
-                        $("#intermediaryIntroduction").parents(".form-group").removeClass("has-error");
-                        $("#intermediaryIntroduction-error").remove();
-                    }
+                    $("#editor1").val(data);
+                    // $("#intermediaryIntroduction").val(data);
+                    // if(data.length == 0){
+                    //     // $("#intermediaryIntroduction-error").remove();
+                    //     var div = "<div id=\"intermediaryIntroduction-error\" class=\"help-block\">必选字段（非空格）</div>" ;
+                    //     $("#intermediaryIntroduction").parents(".introduction").append(div);
+                    //     $("#intermediaryIntroduction").parents(".form-group").addClass("has-error");
+                    // }else{
+                    //
+                    //     $("#intermediaryIntroduction").parents(".form-group").removeClass("has-error");
+                    //     $("#intermediaryIntroduction-error").remove();
+                    // }
 
                 });
             }
@@ -847,6 +851,25 @@
         $("button[type=reset]").click(function(){
             $("#responseUrl").val("");
             $("#imgInter").attr("src","");
+            uploader.reset();
+            vue1.$data.mainPerson.zTreeList = [];
+            vue1.$data.customer.zTreeList = [];
+            vue1.$data.editList = {
+                area:{
+                    name:"",
+                    id:""
+                },
+                projectName:'',
+                intermediaryContactTel:'',
+                intermediaryName:'',
+                eCode:"",
+                businessLicense:""
+            };
+            CKEDITOR.instances.editor1.setData(' ');
+            var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
+            treeObj.checkAllNodes(false);
+            var treeObj1 = $.fn.zTree.getZTreeObj("treeDemoCustom");
+            treeObj1.checkAllNodes(false);
         });
         setTimeout(function(){
             $(".webuploader-pick").css("display","inline-block");
@@ -857,7 +880,7 @@
                 width: "85px",
                 height: "40px",
                 overflow: "hidden",
-                opacity: 0
+                opacity: 0,
             });
         }, 30);
         var uploader = WebUploader.create({
@@ -871,11 +894,11 @@
             // 内部根据当前运行是创建，可能是input元素，也可能是flash.
             pick: '#filePicker',
             // 只允许选择图片文件。
-            /*accept: {
+            accept: {
                 title: 'Images',
                 extensions: 'gif,jpg,jpeg,bmp,png',
-                mimeTypes: 'image/!*'
-            },*/
+                mimeTypes: 'image/*'
+            }
         });
         uploader.on( 'uploadSuccess', function( file,response ) {
             $("#responseUrl").val(response.content.path);
@@ -883,11 +906,19 @@
             $("#responseUrl").parents(".form-group").removeClass("has-error")
         });
         uploader.on( 'fileQueued', function( file ) {
-            var $li = $('<img src="" id="imgInter" style="width: 100%">');
+            var $li = $('<img src="" id="imgInter">');
             $("#fileList").html($li);
             uploader.makeThumb(file, function (error, src) {
                 $("#imgInter").attr("src",src);
             });
+        });
+        uploader.on("error",function (type){
+            if(type == "Q_TYPE_DENIED"){
+                bootbox.alert({
+                    message: "系统提示,只能上传图片!"
+                });
+                $("#file-error").remove();
+            }
         });
     })
 </script>

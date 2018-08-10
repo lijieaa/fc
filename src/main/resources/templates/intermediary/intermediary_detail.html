@@ -270,7 +270,7 @@
                     <div class="modal-footer text-align">
                         <button type="submit" class="btn btn-info search" @click="sureAdd">确定</button>
                         <button type="button" @click="closePop" class="btn btn-info search">取消</button>
-                        <button type="button" class="btn btn-info search">重置</button>
+                        <button type="button" @click="resetContent" class="btn btn-info search">重置</button>
                     </div>
                 </div>
             </div>
@@ -453,7 +453,11 @@
                 $("#modal-default").addClass("in").css("display","block")
             },
             closePop:function(){
-                $("#modal-default").removeClass("in").css("display","none")
+                $("#modal-default").removeClass("in").css("display","none");
+                CKEDITOR.instances.editor1.setData('')
+            },
+            resetContent: function() {
+                CKEDITOR.instances.editor1.setData('')
             },
             editorFun:function(){
                 CKEDITOR.replace( 'editor1', {

@@ -240,8 +240,8 @@
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="intermediaryIntroduction">中间商简介:</label>
                         <div class="col-xs-12 col-sm-9 introduction">
-                            <div class="clearfix">
-                                <input type="hidden" name="intermediaryIntroduction" id="intermediaryIntroduction" class="col-xs-12 col-sm-6" />
+                            <div class="clearfix" id="addIntroduction">
+                                <!--<input type="hidden" name="intermediaryIntroduction" id="intermediaryIntroduction" class="col-xs-12 col-sm-6" />-->
                                 <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
                             </div>
                         </div>
@@ -534,6 +534,8 @@
                     }
                 },
                 sureSubmit:function () {
+                    // var introduction = '<span>dsfasdfasdfdsadfs</span>'
+                    // $("#addIntroduction").append(introduction)
                     var _this = this;
                     var listId = [];
                     _this.zTreeList.map(function (v) {
@@ -561,8 +563,7 @@
                         contentType: "application/json",
                         dataType : "json",
                         success: function (data) {
-                            // alert(1);
-                            if(data.status == 200 && data.content == 1) {
+                            if(data.status == 200 && typeof data.content == "number") {
                                 location.href=contextPath+"intermediary/list";
                             }else {
                                 bootbox.alert({
@@ -677,6 +678,9 @@
                         businessLicense: {
                             required: true
                         },
+                        editor1: {
+                            required: true
+                        },
                         intermediaryIntroduction: {
                             required: true
                         },
@@ -718,17 +722,17 @@
 
                 CKEDITOR.instances.editor1.on('change', function() {
                     var data = CKEDITOR.instances.editor1.getData();
-                    $("#intermediaryIntroduction").val(data);
-                    if(data.length == 0){
-                        $("#intermediaryIntroduction-error").remove();
-                        var div = "<div id=\"intermediaryIntroduction-error\" class=\"help-block\">必选字段（非空格）</div>" ;
-                        $("#intermediaryIntroduction").parents(".introduction").append(div);
-                        $("#intermediaryIntroduction").parents(".form-group").addClass("has-error");
-                    }else{
-
-                        $("#intermediaryIntroduction").parents(".form-group").removeClass("has-error");
-                        $("#intermediaryIntroduction-error").remove();
-                    }
+                    $("#editor1").val(data);
+                    // if(data.length == 0){
+                    //     $("#intermediaryIntroduction-error").remove();
+                    //     var div = "<div id=\"intermediaryIntroduction-error\" class=\"help-block\">必选字段（非空格）</div>" ;
+                    //     $("#intermediaryIntroduction").parents(".introduction").append(div);
+                    //     $("#intermediaryIntroduction").parents(".form-group").addClass("has-error");
+                    // }else{
+                    //
+                    //     $("#intermediaryIntroduction").parents(".form-group").removeClass("has-error");
+                    //     $("#intermediaryIntroduction-error").remove();
+                    // }
 
                 });
 
@@ -764,7 +768,23 @@
         $("button[type=reset]").click(function(){
             $("#responseUrl,#companyBussniess").val("");
             $("#imgInter,#imgCompany").attr("src","");
-            CKEDITOR.instances.editor1.setData("");
+            uploader.reset()
+            uploader1.reset()
+            vue1.$data.zTreeList = [];
+            vue1.$data.editList = {
+                area:{
+                    name:"",
+                    id:""
+                },
+                intermediaryContact:'',
+                intermediaryContactTel:'',
+                intermediaryName:'',
+                eCode:"",
+                businessLicense:""
+            };
+            CKEDITOR.instances.editor1.setData(' ');
+            var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
+            treeObj.checkAllNodes(false);
         });
 
         setTimeout(function(){
@@ -782,60 +802,79 @@
 
 
         var uploader = WebUploader.create({
-
-            // 选完文件后，是否自动上传。
             auto: true,
-
             // swf文件路径
             swf: contextPath + '/dist/js/Uploader.swf',
-
             // 文件接收服务端。
             server: contextPath+'upload',
-
             // 选择文件的按钮。可选。
             // 内部根据当前运行是创建，可能是input元素，也可能是flash.
             pick: '#filePicker',
-
             // 只允许选择图片文件。
-            /*accept: {
+            accept: {
                 title: 'Images',
                 extensions: 'gif,jpg,jpeg,bmp,png',
-                mimeTypes: 'image/!*'
-            },*/
-
-
+                mimeTypes: 'image/*'
+            }
         });
 
         uploader.on( 'uploadSuccess', function( file,response ) {
-            console.log(response.content.path);
+            $("#file-error").remove();
             $("#responseUrl").val(response.content.path);
             $("#responseUrl").parent().next().remove();
             $("#responseUrl").parents(".form-group").removeClass("has-error")
         });
 
         uploader.on( 'fileQueued', function( file ) {
-            var $li = $('<img src="" id="imgInter" style="width: 100%">');
+            $("#file-error").remove();
+            var $li = $('<img src="" id="imgInter">');
             $("#fileList").html($li);
+            console.log(file)
             uploader.makeThumb(file, function (error, src) {
                 $("#imgInter").attr("src",src);
             });
         });
 
+        uploader.on("error",function (type){
+            if(type == "Q_TYPE_DENIED"){
+                bootbox.alert({
+                    message: "系统提示,只能上传图片!"
+                });
+                $("#file-error").remove();
+            }
+        });
         var uploader1 = WebUploader.create({
             auto: true,
             swf: contextPath + '/dist/js/Uploader.swf',
             server: contextPath+'upload',
-            pick: '#companyYy'
+            pick: '#companyYy',
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/!*'
+            }
         });
         uploader1.on( 'uploadSuccess', function( file,response ) {
+            $("#file-error").remove();
             $("#companyBussniess").val(response.content.path);
             $("#companyBussniess").parent().next().remove();
             $("#companyBussniess").parents(".form-group").removeClass("has-error")
         });
         uploader1.on( 'fileQueued', function( file ) {
+            $("#file-error").remove();
+            var $li = $('<img src="" id="imgCompany">');
+            $("#companyZz").html($li);
             uploader1.makeThumb(file, function (error, src) {
                 $("#imgCompany").attr("src",src);
             });
+        });
+        uploader1.on("error",function (type){
+            if(type == "Q_TYPE_DENIED"){
+                bootbox.alert({
+                    message: "系统提示,只能上传图片!"
+                });
+                $("#file-error").remove();
+            }
         });
     })
 </script>

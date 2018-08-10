@@ -752,8 +752,9 @@
 
                 _this.projectDetail();
                 $("button[type=reset]").click(function(){
-                    // $("#responseUrl").val("");
-                    // $("#imgInter").attr("src","");
+                    // $("#imgCompany").attr("width", "100%")
+                    $("#imgInter").attr("width", "100%");
+                    uploader.reset();
                     _this.projectDetail();
                 });
                 //验证手机
@@ -837,11 +838,6 @@
                 vue1.$data.mainPerson.ztreeFlag = false
                 vue1.$data.customer.ztreeFlag = false
             }
-
-            // if()
-            // if(){
-            //
-            // }
         });
         $(document).on("click",".search-list >li",function(){
             $(".tree-div-contain").hide();
@@ -885,11 +881,11 @@
             // 内部根据当前运行是创建，可能是input元素，也可能是flash.
             pick: '#filePicker',
             // 只允许选择图片文件。
-            /*accept: {
+            accept: {
                 title: 'Images',
                 extensions: 'gif,jpg,jpeg,bmp,png',
-                mimeTypes: 'image/!*'
-            },*/
+                mimeTypes: 'image/*'
+            }
         });
         uploader.on( 'uploadSuccess', function( file,response ) {
             $("#responseUrl").val(response.content.path);
@@ -902,6 +898,14 @@
             uploader.makeThumb(file, function (error, src) {
                 $("#imgInter").attr("src",src);
             });
+        });
+        uploader.on("error",function (type){
+            if(type == "Q_TYPE_DENIED"){
+                bootbox.alert({
+                    message: "系统提示,只能上传图片!"
+                });
+                $("#file-error").remove();
+            }
         });
     })
 </script>
