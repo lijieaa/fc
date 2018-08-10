@@ -72,8 +72,8 @@
                 <div class="clearfix">
                     <div class="pull-left tableTools-container-left">
                         <div class="btn-group">
-                            <a type="button" class="btn btn-info" th:href="@{/wxPublic/add}" sec:authorize="hasAuthority('intermediary:add')">创建</a>
-                            <button type="button" class="btn btn-danger" id="batch-delete" sec:authorize="hasAuthority('intermediary:delete')">批量删除</button>
+                            <a type="button" class="btn btn-info" th:href="@{/wxPublic/add}" sec:authorize="hasAuthority('wxpublic:add')">创建</a>
+                            <button type="button" class="btn btn-danger" id="batch-delete" sec:authorize="hasAuthority('wxpublic:delete')">批量删除</button>
                         </div>
                     </div>
                     <div class="pull-right tableTools-container"></div>
@@ -258,24 +258,24 @@
                         data: null,
                         "render": function (data, type, row) {
                             return '<div class="hidden-sm hidden-xs action-buttons">'
-                                [# sec:authorize="hasAuthority('wechat:basic')"]
+                                [# sec:authorize="hasAuthority('wxpublic:view')"]
                             + '<a href="user/?wxPublicId='+data.id+'" class="blue manage" data-id="'+data.id+'" title="管理"><i class="ace-icon fa fa-cogs bigger-130"></i></a>'
                                 [/]
-                                [# sec:authorize="hasAuthority('wechat:basic')"]
+                                [# sec:authorize="hasAuthority('wxpublic:edit')"]
                             + '<a class="blue" href="edit/?id='+data.id+'" title="编辑"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
                                 [/]
-                                [# sec:authorize="hasAuthority('wechat:basic')"]
+                                [# sec:authorize="hasAuthority('wxpublic:delete')"]
                             + '<a class="blue delete" data-id="'+data.id+'" title="删除"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
                                 [/]
                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
-                                [# sec:authorize="hasAuthority('wechat:basic')"]
+                                [# sec:authorize="hasAuthority('wxpublic:edit')"]
                             + '<li><a href="edit/?id='+data.id+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
                                 [/]
-                                [# sec:authorize="hasAuthority('wechat:basic')"]
+                                [# sec:authorize="hasAuthority('wxpublic:delete')"]
                             + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.id+'"><span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
                                 [/]
-                                [# sec:authorize="hasAuthority('wechat:basic')"]
+                                [# sec:authorize="hasAuthority('wxpublic:view')"]
                             + '<li><a href="user/?wxPublicId='+data.id+'" class="tooltip-error manage" data-rel="tooltip" title="管理" data-id="'+data.id+'"><span class="blue"><i class="ace-icon fa fa-cogs bigger-120"></i></span></a></li>'
                                 [/]
                             +'</ul></div></div>';
