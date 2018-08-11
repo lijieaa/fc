@@ -57,6 +57,7 @@ public class Project implements Serializable {
     //项目简介
     private String projectIntroduction;
 
+    //创建人
     private DingtalkUser projectCreateUser;
 
     private Integer count;

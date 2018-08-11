@@ -26,6 +26,9 @@ public interface DeviceMapper extends BaseDao<Device, DeviceExample, DeviceDto, 
 
     Device byNum(String num);
 
+    //非 飞创登录只能查看自己中间商设备
+    List<Device> selectByDtoNotFc(DeviceDto dpDto);
+
     /* 设备控制 */
     DeviceParam selectDeviceParam(String num);
     DeviceUserParam selectDeviceUserParam(String num);
