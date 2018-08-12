@@ -65,7 +65,8 @@
             margin-top: 35px;
             height: 50px;
             line-height: 50px;
-            border: 1px #ccc solid;
+            border-left: 1px #1794e4 solid;
+            border-right: 1px #1794e4 solid;
             text-align: center;
             cursor: pointer;
             margin-bottom: -20px;
@@ -117,7 +118,7 @@
             margin-right: 15px;
         }
         #photo-tx{
-            height: 550px;
+            height: 530px;
             border: 1px #e0e0e0 solid;
             margin-top: 1%;
             width: 99%;
@@ -130,6 +131,9 @@
             border-bottom: 2px #eee solid;
             height: 32px;
             font-size: 16px;
+        }
+        textarea::-webkit-input-placeholder{
+            color:#c2c2c2;
         }
     </style>
 </head>
@@ -174,19 +178,19 @@
                     <div id="pagingTest3" class="pageIndex pagingTest" style="position: absolute;bottom: -20px;"></div>
                 </div>
                 <!--图片-->
-                <div id="photo-show" style="height: 550px;border: 1px #e0e0e0 solid;margin-top: 1%;width: 99%;margin-left: 1%;display: none;overflow: auto;">
+                <div id="photo-show" style="height: 530px;border: 1px #e0e0e0 solid;margin-top: 1%;width: 99%;margin-left: 1%;display: none;overflow: auto;">
                     <ul id="imgShow" class="imgShow"></ul>
                     <div id="pagingTest" class="pageIndex pagingTest" style="position: absolute;bottom: -20px;"></div>
                     <!--<input type="hidden" value="" id="page">-->
                 </div>
                 <!--语音-->
-                <div id="source" style="height: 550px;border: 1px #e0e0e0 solid;margin-top: 1%;width: 99%;margin-left: 1%;display: none;overflow: auto;">
+                <div id="source" style="height: 530px;border: 1px #e0e0e0 solid;margin-top: 1%;width: 99%;margin-left: 1%;display: none;overflow: auto;">
                     <ul id="mpShow" class=""></ul>
                     <div id="pagingTest1" class="pageIndex pagingTest" style="position: absolute;bottom: -20px;"></div>
                     <!--<input type="hidden" value="" id="page1">-->
                 </div>
                 <!--视频-->
-                <div id="vid" style="height: 550px;border: 1px #e0e0e0 solid;margin-top: 1%;width: 99%;margin-left: 1%;display: none;overflow: auto;">
+                <div id="vid" style="height: 530px;border: 1px #e0e0e0 solid;margin-top: 1%;width: 99%;margin-left: 1%;display: none;overflow: auto;">
                     <ul id="vidShow"></ul>
                     <div id="pagingTest2" class="pageIndex pagingTest" style="position: absolute;bottom: -20px;"></div>
                     <!--<input type="hidden" value="" id="page2">-->
@@ -210,7 +214,7 @@
                 <div style="width: 72px;height: 35px;line-height:38px;cursor:pointer;text-align:center;display: block;margin-top: 15px;float: right;background: #1794e4;color: #ffffff;height: 38px;" id="savapt">保存</div>
                 <label id="errorMsg" style="margin-top: 26px;float: right;margin-right: 20px;"></label>
             </section>
-            <section class="float-left" style="width: 25%;margin-left: 2.5%;border: 1px #E5E5E5 solid;">
+            <section class="float-left" style="width: 25%;margin-left: 2.5%;border-left: 1px #E5E5E5 solid;border-right: 1px #E5E5E5 solid;">
                 <label style="width:100%;text-align: center;background: #E5E5E5;height: 40px;line-height: 40px;color: #1794e4;" class="text-center;">多媒体选择</label>
                 <div style="width: 80%;margin-left: 10%;margin-top: 10px;" class="newPhotoText">
                     <span style="margin-top: 10px;" data-id="1" title="导入图片"><i class="glyphicon glyphicon-picture"></i>导入图片</span>
@@ -501,16 +505,25 @@
             if(title==""){
                 $("#errorMsg").show().text("请输入图文标题").css("color","red").fadeOut(2000);
                 return false;
-            }else if(autor==""){
+            } else if(title.length>64){
+                $("#errorMsg").show().text("标题不能大于64个字符").css("color","red").fadeOut(2000);
+                return false;
+            } else if(autor==""){
                 $("#errorMsg").show().text("请输入作者").css("color","red").fadeOut(2000);
                 return false;
-            }else if(CHtml==""){
+            }else if(autor.length>8){
+                $("#errorMsg").show().text("作者不能大于8个字符").css("color","red").fadeOut(2000);
+                return false;
+            } else if(CHtml==""){
                 $("#errorMsg").show().text("请输入正文内容").css("color","red").fadeOut(2000);
                 return false;
             }else if(zaiyao==""){
                 $("#errorMsg").show().text("请输入图文摘要").css("color","red").fadeOut(2000);
                 return false;
-            }else if(photoID==undefined){
+            }else if(zaiyao.length>120){
+                $("#errorMsg").show().text("摘要不能大于120个字符").css("color","red").fadeOut(2000);
+                return false;
+            } else if(photoID==undefined){
                 $("#errorMsg").show().text("请选中图文封面").css("color","red").fadeOut(2000);
                 return false;
             }else if(url==""){

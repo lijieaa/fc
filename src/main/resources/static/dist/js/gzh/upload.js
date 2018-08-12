@@ -40,9 +40,11 @@ function imgupload() {
         ajaxData(1);
     });
     uploader.onError = function( code ) {
-        alert( 'Eroor: ' + code );
+        // alert( 'Eroor: ' + code );
         if (code=="Q_TYPE_DENIED"){
             alert("请上传图片格式的文件");
+        }else if(code=="Q_EXCEED_SIZE_LIMIT"){
+            alert("图片大小超过限制");
         }
     };
 }
@@ -297,7 +299,7 @@ function videoupload() {
         delete file['name'];
         delete file['lastModifiedDate'];
         delete file['type'];
-        var description={"title":"标题","introduction":"视频"};
+        var description={"title":"视频","introduction":"video"};
         file.description=JSON.stringify(description);
     });
     uploader.on('fileQueued',function(file) {

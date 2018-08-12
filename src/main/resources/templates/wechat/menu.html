@@ -61,7 +61,7 @@
                     <div class="menu-labe mgt-5 float-left">菜单名称</div>
                     <div class="menu-jinput mgt-5">
                         <input type="text" class="float-left mgl-5" name="name" placeholder="请输入菜单名称"
-                               v-model="menu.button[selectedMenuIndex].name">
+                               v-model="menu.button[selectedMenuIndex].name" maxlength="4"><label style="color:#8d8d8d;">(字数不超过4个字符)</label>
                     </div>
                 </div>
                 <template v-if="menu.button[selectedMenuIndex].sub_button.length == 0">
@@ -138,7 +138,7 @@
                     <div class="menu-labe mgt-5 float-left">菜单名称</div>
                     <div class="menu-jinput mgt-5">
                         <input type="text" class="float-left mgl-5" name="name" placeholder="请输入子菜单名称"
-                               v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].name">
+                               v-model="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].name" maxlength="8"><label style="color:#8d8d8d;">(字数不超过8个字符)</label>
                     </div>
                 </div>
                 <template>
