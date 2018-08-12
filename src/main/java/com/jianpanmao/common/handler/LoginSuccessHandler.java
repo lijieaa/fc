@@ -2,6 +2,7 @@ package com.jianpanmao.common.handler;
 
 import com.jianpanmao.sys.entity.DingtalkUser;
 import com.jianpanmao.sys.entity.SysMenu;
+import com.jianpanmao.sys.entity.SysRole;
 import com.jianpanmao.sys.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -12,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -25,9 +27,20 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         DingtalkUser user = (DingtalkUser)authentication.getPrincipal();
 
-        List<SysMenu> menus = menuService.getAll(null);
 
-        request.getSession().setAttribute("menus",menus);
+        List<SysMenu> menusArr=new ArrayList<>();
+
+
+        List<SysRole> roles = user.getRoles();
+
+        for (SysRole role : roles) {
+            List<SysMenu> menus = role.getMenus();
+            menusArr.addAll(menus);
+        }
+
+        //List<SysMenu> menus = menuService.getAll(null);
+
+        request.getSession().setAttribute("menus",menusArr);
 
         request.getSession().setAttribute("user", user);
 

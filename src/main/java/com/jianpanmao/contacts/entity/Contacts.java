@@ -36,6 +36,17 @@ public class Contacts implements Serializable {
     //中间商外键
     private Integer intermediaryId;
 
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    private String pwd; //微信登录密码
+
     //创建时间
     private Date conCreateTime;
 
@@ -54,7 +65,6 @@ public class Contacts implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    String od;
 
     public Integer getConId() {
         return conId;

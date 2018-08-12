@@ -37,3 +37,7 @@ fc:
      path: c:\wx_users_msg_material\
 
 
+mqtt:
+  host: tcp://47.104.144.238:6677
+
+

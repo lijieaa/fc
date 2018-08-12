@@ -8,6 +8,7 @@ import com.jianpanmao.attach.entity.Attach;
 import com.jianpanmao.attach.service.AttachService;
 import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.common.config.MyConfig;
+import com.jianpanmao.common.listener.SessionListener;
 import com.jianpanmao.device.dto.control.DeviceControlVo;
 import com.jianpanmao.device.dto.control.DeviceParam;
 import com.jianpanmao.device.dto.control.DeviceUserParam;
@@ -18,6 +19,8 @@ import com.jianpanmao.deviceLog.dao.DeviceLogMapper;
 import com.jianpanmao.deviceLog.entity.DeviceLog;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import com.jianpanmao.utils.UserUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -193,24 +196,144 @@ public class CommonController {
     @Autowired
     Application.MyGateway gateway;
 
-    @PostMapping("/api/mqtt_send")
+
+    private final Log logger =  LogFactory.getLog(SessionListener.class);
+
+    /**
+     * 设备参数
+     * @param data
+     * @throws JsonProcessingException
+     * @throws IllegalAccessException
+     * @throws ParseException
+     */
+    @PostMapping("/api/DevTab/json/")
     @ResponseBody
     @Transactional
-    public void mqttSend(@RequestBody Map data) throws JsonProcessingException, IllegalAccessException, ParseException {
+    public void DevTab(@RequestBody Map data) throws JsonProcessingException, IllegalAccessException, ParseException {
 
         //System.out.println(gateway);
-/*        ObjectMapper mapper=new ObjectMapper();
+        ObjectMapper mapper=new ObjectMapper();
 
         String s = mapper.writeValueAsString(data);
 
-        for (int i = 0; i < 1000; i++) {
-            gateway.sendToMqtt(s,"topic"+i);
-        }
-        gateway.sendToMqtt(s,"/Control/json");*/
-        saveDeviceLog(data);
+        String device_production_num= (String) data.get("device_production_num");
+
+        logger.info(s);
+
+        gateway.sendToMqtt(s,"/DevTab/json/"+device_production_num);
+
+
+        //saveDeviceLog(data);
 
 
 
+    }
+
+    /**
+     * 用户参数
+     * @param data
+     * @throws JsonProcessingException
+     * @throws IllegalAccessException
+     * @throws ParseException
+     */
+    @PostMapping("/api/UserTab/json/")
+    @ResponseBody
+    @Transactional
+    public void UserTab(@RequestBody Map data) throws JsonProcessingException, IllegalAccessException, ParseException {
+
+        //System.out.println(gateway);
+        ObjectMapper mapper=new ObjectMapper();
+
+        String s = mapper.writeValueAsString(data);
+
+        String device_production_num= (String) data.get("device_production_num");
+
+        logger.info(s);
+
+        gateway.sendToMqtt(s,"/UserTab/json/"+device_production_num);
+
+
+        //saveDeviceLog(data);
+
+
+
+    }
+
+
+    /**
+     * 指令下发，0=停止清洗；1=启动清洗
+     * @param data
+     * @throws JsonProcessingException
+     * @throws IllegalAccessException
+     * @throws ParseException
+     */
+    @PostMapping("/api/Control/json/")
+    @ResponseBody
+    @Transactional
+    public void action(@RequestBody Map data) throws JsonProcessingException, IllegalAccessException, ParseException {
+
+        //System.out.println(gateway);
+        ObjectMapper mapper=new ObjectMapper();
+
+        String s = mapper.writeValueAsString(data);
+
+        String device_production_num= (String) data.get("device_production_num");
+
+        logger.info(s);
+
+        gateway.sendToMqtt(s,"/Control/json/"+device_production_num);
+
+
+        //saveDeviceLog(data);
+
+
+
+    }
+
+
+    /**
+     * 更改IP
+     * @param data
+     * @throws JsonProcessingException
+     * @throws IllegalAccessException
+     * @throws ParseException
+     */
+    @PostMapping("/api/SvrAddr/json/")
+    @ResponseBody
+    @Transactional
+    public void SvrAddr(@RequestBody Map data) throws JsonProcessingException, IllegalAccessException, ParseException {
+
+        //System.out.println(gateway);
+        ObjectMapper mapper=new ObjectMapper();
+        String s = mapper.writeValueAsString(data);
+        logger.info(s);
+        //String device_production_num= (String) data.get("device_production_num");
+        gateway.sendToMqtt(s,"/SvrAddr/json/");
+
+        //saveDeviceLog(data);
+    }
+
+
+
+    /**
+     * 更改数据上传周期
+     * @param data
+     * @throws JsonProcessingException
+     * @throws IllegalAccessException
+     * @throws ParseException
+     */
+    @PostMapping("/api/ReportPeriod/json/")
+    @ResponseBody
+    @Transactional
+    public void ReportPeriod(@RequestBody Map data) throws JsonProcessingException, IllegalAccessException, ParseException {
+
+        //System.out.println(gateway);
+        ObjectMapper mapper=new ObjectMapper();
+        String s = mapper.writeValueAsString(data);
+        logger.info(s);
+        gateway.sendToMqtt(s,"/ReportPeriod/json/");
+
+        //saveDeviceLog(data);
     }
 
 

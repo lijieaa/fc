@@ -1,19 +1,30 @@
 package com.jianpanmao;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import com.jianpanmao.common.filter.ModifyParametersFilter;
+import com.jianpanmao.common.jackson.JsonObjectMapper;
 import com.jianpanmao.common.mybatis.interceptor.AddGlobeInterceptor;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.apache.ibatis.session.Configuration;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.annotation.ServiceActivator;
@@ -27,6 +38,7 @@ import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,6 +48,17 @@ import java.util.Date;
 @EnableTransactionManagement
 @IntegrationComponentScan
 public class Application extends SpringBootServletInitializer{
+
+
+    public String getHost() {
+        return host;
+    }
+    @Value("${mqtt.host}")
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    private String host;
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
@@ -86,7 +109,7 @@ public class Application extends SpringBootServletInitializer{
     @Bean
     public MqttPahoClientFactory mqttClientFactory() {
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
-        factory.setServerURIs("tcp://47.104.144.238:6677");
+        factory.setServerURIs(host);
         //factory.setUserName("username");
         //factory.setPassword("password");
         return factory;
@@ -112,6 +135,8 @@ public class Application extends SpringBootServletInitializer{
 
         void sendToMqtt(String data,@Header(MqttHeaders.TOPIC) String topic);
 
+        void sendToMqtt(String data);
+
     }
 
     @Bean
@@ -122,5 +147,4 @@ public class Application extends SpringBootServletInitializer{
         message.setCacheSeconds(0);
         return message;
     }
-
 }
