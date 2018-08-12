@@ -11,4 +11,7 @@ public interface ContactsService extends BaseService<Contacts, ContactsExample,C
     public Contacts findeByTel(String tel);
 
     public List<Contacts> findByCusId(Integer cusId);
+
+
+    public int updatePwd(Integer id,String pwd);
 }

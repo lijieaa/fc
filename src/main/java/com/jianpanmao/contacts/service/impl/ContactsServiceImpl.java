@@ -82,4 +82,9 @@ public class ContactsServiceImpl extends BaseServiceImpl<Contacts,ContactsExampl
     public List<Contacts> findByCusId(Integer cusId) {
         return contactsMapper.selectByCusId(cusId);
     }
+
+    @Override
+    public int updatePwd(Integer id, String pwd) {
+        return contactsMapper.updatePwd(id,pwd);
+    }
 }

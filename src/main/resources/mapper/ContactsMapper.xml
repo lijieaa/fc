@@ -383,4 +383,14 @@
     FROM contacts c LEFT JOIN customer cu ON c.cus_id = cu.cus_id
     WHERE cu.intermediary_id = #{0}
   </select>
+
+
+  <update id="updatePwd">
+    update contacts
+    set pwd = #{1}
+    where con_id = #{0}
+  </update>
+
+
+
 </mapper>
