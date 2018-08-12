@@ -234,6 +234,31 @@
         $('.list li').remove()
         initList()
     }
+/*    wx/common/common?projectId=9*/
+    $.ajax({
+        url: "/wx/common/getProject",
+        type:"get",
+        data:{
+            sourceId:"gh_f5a46974c0f6",
+            pageNum:pageNum,
+            pageSize:itemsPerLoad,
+            projectId:9,
+        },
+        success:function(data){
+
+
+            console.log(data)
+
+
+
+
+
+
+
+
+
+        }
+    })
     function initList(){
         allowInfinite = false;
         console.log(lastItemIndex,maxItems)
