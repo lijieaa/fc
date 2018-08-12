@@ -1,5 +1,7 @@
 package com.jianpanmao.wechat.wx;
 
+import com.jianpanmao.contacts.entity.Contacts;
+import com.jianpanmao.contacts.service.ContactsService;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import com.jianpanmao.sys.service.DingtalkUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("wx/common")
 public class WxCommonController {
 
-    @Autowired private DingtalkUserService dingtalkUserService;
+    @Autowired private ContactsService contactsService;
 
     @GetMapping("company")
     public String company(String sourceId, Model model){
@@ -82,11 +84,11 @@ public class WxCommonController {
     @PostMapping("login")
     public String loginAction(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) throws Exception{
 
-        DingtalkUser user = dingtalkUserService.findByMobile(username);
-        String pwd = user.getPassword();
+        Contacts contacts = contactsService.findeByTel(username);
+        String pwd = contacts.getPwd();
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         if (encoder.matches(password, pwd)) {
-            session.setAttribute("wxuser", user);
+            session.setAttribute("wxuser", contacts);
             return "redirect:/wd/operate";
         } else {
             return "redirect:/wx/common/loginwx";
