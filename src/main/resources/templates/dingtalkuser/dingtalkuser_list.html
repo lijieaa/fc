@@ -3531,7 +3531,7 @@
                 },
                 confirm_password: {
                     required: true,
-                    equalTo: "#add-customer-repassword"
+                    equalTo: "#add-customer-password"
                 }
             },
             messages: {
@@ -4064,8 +4064,8 @@
 
                             if(flag){
                                 $.ajax({
-                                    url: contextPath+"api/dingtalkuser/editPwd?id="+ id +"&pwd="+$("#outcontacts-change-password-password").val(),
-                                    type: "put",
+                                    url: contextPath+"api/contacts/pwd?cid="+ id +"&pwd="+$("#outcontacts-change-password-password").val(),
+                                    type: "post",
                                     contentType: "application/json",
                                     dataType : "json",
                                     success: function (data) {
