@@ -12,6 +12,7 @@ import com.jianpanmao.device.dto.control.DeviceUserParam;
 import com.jianpanmao.device.dto.control.SystemTime;
 import com.jianpanmao.device.entity.Device;
 import com.jianpanmao.device.service.DeviceService;
+import com.jianpanmao.intermediary.dao.IntermediaryMapper;
 import com.jianpanmao.intermediary.entity.Intermediary;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import com.jianpanmao.utils.UserUtils;
@@ -23,6 +24,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import javax.validation.Valid;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +39,10 @@ public class DeviceRestController {
 
     @Autowired
     DeviceMapper deviceMapper;
+
+    @Autowired
+    IntermediaryMapper intermediaryMapper;
+
 
     @PreAuthorize("hasAuthority('device:add')")
     @RequestMapping(method = RequestMethod.POST)
@@ -75,9 +81,21 @@ public class DeviceRestController {
                        @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
                        @RequestParam(value = "draw", required = false) Integer draw,
                        DeviceDto dto) {
+        DingtalkUser user = UserUtils.getUser();
+        Integer id = user.getIntermediaryId();
+        Intermediary intermediary = intermediaryMapper.selectByPrimaryKey(id);
+        List<Device> list = new ArrayList<>();
+        if (intermediary.getIsPlat().intValue()==1){
+            //飞创可以查看所有设备
+             list = deviceService.getByDto(dto);
+        }else {
+            //只能查看自己中间商设备
+            dto.setIntermediary(user.getIntermediary());
+            list = deviceMapper.selectByDtoNotFc(dto);
+        }
 
         PageHelper.startPage(pageNum, pageSize);
-        List<Device> list = deviceService.getByDto(dto);
+
         PageInfo pageInfo = new PageInfo(list);
 
 //draw 不等于空是datatables分页

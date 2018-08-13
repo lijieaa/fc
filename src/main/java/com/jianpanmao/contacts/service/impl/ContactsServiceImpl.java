@@ -10,6 +10,7 @@ import com.jianpanmao.sys.entity.DingtalkUser;
 import com.jianpanmao.sys.entity.SysRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,10 +39,15 @@ public class ContactsServiceImpl extends BaseServiceImpl<Contacts,ContactsExampl
         return super.remove(tId);
     }
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+
     @Override
     public int add(Contacts record) {
         DingtalkUser cuser = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         record.setIntermediaryId(cuser.getIntermediaryId());
+        record.setPwd(passwordEncoder.encode(record.getPwd().trim()));
         int add = super.add(record);
         List<SysRole> roles = record.getRoles();
         for (SysRole role : roles) {
@@ -75,5 +81,10 @@ public class ContactsServiceImpl extends BaseServiceImpl<Contacts,ContactsExampl
     @Override
     public List<Contacts> findByCusId(Integer cusId) {
         return contactsMapper.selectByCusId(cusId);
+    }
+
+    @Override
+    public int updatePwd(Integer id, String pwd) {
+        return contactsMapper.updatePwd(id,pwd);
     }
 }

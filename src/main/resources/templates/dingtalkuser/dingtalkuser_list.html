@@ -842,6 +842,18 @@
                 <ul id="add-customer-competence-select"  class="ztree display-none"></ul>
             </div>
         </div>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-customer-password">密码:</label>
+            <div class="col-sm-9">
+                <input type="password" id="add-customer-password" name="password" placeholder="请输入密码" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="add-customer-repassword">确认密码:</label>
+            <div class="col-sm-9">
+                <input type="password" id="add-customer-repassword" name="confirm_password" placeholder="请输确认密码" class="form-control">
+            </div>
+        </div>
         <!--<div class="form-group col-sm-12 col-md-12">
             <label class="col-sm-2 control-label no-padding-right" for="add-outcontacts-address">地址:</label>
             <div class="col-sm-9">
@@ -943,6 +955,25 @@
                 <ul id="edit-outcontacts-tag-select" ></ul>
             </div>
         </div>-->
+    </form>
+</div>
+<!-- 改变密码 -->
+<div id="outcontacts-change-password-container" class="ui-dialog-content ui-widget-content display-none" style="width: auto; min-height: 30px; max-height: none; height: auto;">
+    <form class="form-horizontal" role="form">
+        <h4>用户密码</h4>
+        <div class="hr hr-12 hr-double"></div>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="outcontacts-change-password-password">密码:</label>
+            <div class="col-sm-9">
+                <input type="password" id="outcontacts-change-password-password" name="password" placeholder="请输入密码" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-12">
+            <label class="col-sm-2 control-label no-padding-right" for="outcontacts-change-password-repassword">确认密码:</label>
+            <div class="col-sm-9">
+                <input type="password" id="outcontacts-change-password-repassword" name="confirm_password" placeholder="请输确认密码" class="form-control">
+            </div>
+        </div>
     </form>
 </div>
 
@@ -3159,6 +3190,8 @@
                                             '<td data-id="'+ item.conId +'">' +
                                         [# sec:authorize="hasAuthority('contacts:edit')"]
                                         '<i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" title="编辑信息"></i>' +
+                                        '&nbsp;&nbsp;'+
+                                        '<i class="ace-icon fa fa-key bigger-110 icon-only outcontacts-change-password-btn" title="修改密码"></i>' +
                                         [/]
                                         '</td>'+
                                             '</tr>';
@@ -3179,6 +3212,11 @@
                             //编辑外部联系人
                             $(".edit-outcontacts-btn").on("click", function () {
                                 editOutcontacts($(this).parent().attr("data-id"));
+                            });
+
+                            //修改用户密码
+                            $(".outcontacts-change-password-btn").on("click", function () {
+                                changePasswordOutcontacts($(this).parent().attr("data-id"))
                             });
                         }
                     },
@@ -3223,7 +3261,7 @@
                                         '<td>'+ item.conQq +'</td>'+
                                         '<td>'+ item.conWechat +'</td>'+
                                         '<td>'+ item.conEmail +'</td>'+
-                                        '<td data-id="'+ item.conId +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" title="编辑信息"></i></td>'+
+                                        '<td data-id="'+ item.conId +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" title="编辑信息"></i>&nbsp;&nbsp;<i class="ace-icon fa fa-key bigger-110 icon-only outcontacts-change-password-btn" title="修改密码"></i></td>'+
                                         '</tr>';
                             });
                         } else {
@@ -3242,6 +3280,10 @@
                         //编辑外部联系人
                         $(".edit-outcontacts-btn").on("click", function () {
                             editOutcontacts($(this).parent().attr("data-id"));
+                        });
+                        //修改用户密码
+                        $(".outcontacts-change-password-btn").on("click", function () {
+                            changePasswordOutcontacts($(this).parent().attr("data-id"))
                         });
                     }
                 },
@@ -3482,12 +3524,23 @@
                 },
                 role: {
                     required: true
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                },
+                confirm_password: {
+                    required: true,
+                    equalTo: "#add-customer-password"
                 }
             },
             messages: {
                 phone: {
                     remote: "该用户已经存在",
                     isMobile: "请填写正确的手机号码"
+                },
+                password: {
+                    minlength: "密码最少长度为6位"
                 }
             },
             highlight: function (e) {
@@ -3583,7 +3636,8 @@
                                     "conWechat": $("#add-outcontacts-wechat").val(),
                                     "conEmail": $("#add-outcontacts-email").val(),
                                     "cusId": $("#edit-customer-btn").attr("data-cusId"),
-                                    "roles": departmentnameArr
+                                    "roles": departmentnameArr,
+                                    "pwd":$("#add-customer-password").val()
                                 };
                                 $.ajax({
                                     url: contextPath+"api/contacts/",
@@ -3953,6 +4007,87 @@
                 }
             })
         });
+
+        //修改外部联系人密码
+        var $formChangePasswordOutcontacts = $('#outcontacts-change-password-container>form').validate({
+            errorElement: 'span',
+            errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                password: {
+                    required: true,
+                    minlength: 6
+                },
+                confirm_password: {
+                    required: true,
+                    equalTo: "#outcontacts-change-password-password"
+                }
+            },
+            messages: {
+                password: {
+                    minlength: "密码最少长度为6位"
+                }
+            },
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent());
+            },
+            invalidHandler: function (form) {
+            }
+        });
+        function changePasswordOutcontacts(id) {
+            validateResetForm($formChangePasswordOutcontacts, $('#outcontacts-change-password-container>form'));
+            var dialog = $( "#outcontacts-change-password-container" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
+                resizable: false,
+                width: '680',
+                modal: true,
+                closeText: "关闭",
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-pencil-square-o'></i>&nbsp;修改密码</h4></div>",
+                title_html: true,
+                buttons: [
+                    {
+                        text: "保存",
+                        "class" : "btn btn-info btn-minier",
+                        click: function() {
+                            var _this = $(this);
+                            var flag = $formChangePasswordOutcontacts.form();
+
+                            if(flag){
+                                $.ajax({
+                                    url: contextPath+"api/contacts/pwd?cid="+ id +"&pwd="+$("#outcontacts-change-password-password").val(),
+                                    type: "post",
+                                    contentType: "application/json",
+                                    dataType : "json",
+                                    success: function (data) {
+                                        _this.dialog( "close" );
+                                    },
+                                    error: function (data) {
+//                                        console.log(data);
+                                    }
+                                })
+                            }
+                        }
+                    },
+                    {
+                        text: "取消",
+                        "class" : "btn btn-minier",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                ]
+            });
+        }
     });
 </script>
 </body>

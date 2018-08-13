@@ -75,6 +75,14 @@ public class ContactsRestController {
         return  contactsService.getByDto(dto);
     }
 
+
+    @PreAuthorize("hasAuthority('contacts:editPwd')")
+    @RequestMapping(method = RequestMethod.POST,value = "pwd")
+    public int updatePwd(@RequestParam("cid") Integer cid,@RequestParam("pwd") String pwd) {
+
+        return  contactsService.updatePwd(cid,pwd);
+    }
+
     @PreAuthorize("hasAuthority('contacts:view')")
     @RequestMapping(method = RequestMethod.GET, value = "page")
     public Object page(@RequestParam(value = "pageNum", defaultValue = "1", required = true) Integer pageNum,

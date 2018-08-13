@@ -18,6 +18,10 @@
       <id column="intermediary_id" property="intermediaryId"></id>
       <result column="intermediary_name" property="intermediaryName"></result>
     </association>
+    <association property="projectCreateUser" javaType="com.jianpanmao.sys.entity.DingtalkUser">
+      <id column="userid" property="userid"></id>
+      <result column="name" property="name"></result>
+    </association>
 
   </resultMap>
 
@@ -108,10 +112,12 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     project.*,area.ID,area.NAME aname,
-    intermediary.intermediary_id,intermediary.intermediary_name
+    intermediary.intermediary_id,intermediary.intermediary_name,
+    user.userid,user.name
     from project project
     LEFT JOIN area area ON project.area_id = area.ID
     LEFT JOIN intermediary intermediary ON project.project_intermediary = intermediary.intermediary_id
+    LEFT JOIN dingtalk_user user ON project.project_create_user = user.userid
     where project.project_id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -134,7 +140,8 @@
       project_status,
       project_topic_status,
       project_logo,
-      project_introduction
+      project_introduction,
+    project_create_user
       )
     values (
       #{projectName,jdbcType=VARCHAR},
@@ -143,7 +150,8 @@
       #{projectStatus,jdbcType=TINYINT},
     #{projectTopicStatus,jdbcType=TINYINT},
     #{projectLogo,jdbcType=VARCHAR},
-    #{projectIntroduction,jdbcType=VARCHAR}
+    #{projectIntroduction,jdbcType=VARCHAR},
+    #{projectCreateUser.userid,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.project.entity.Project">

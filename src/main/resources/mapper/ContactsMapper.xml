@@ -147,10 +147,10 @@
       </selectKey>
     insert into contacts (con_id, con_name, con_tel, 
       con_qq, con_wechat, con_email, 
-      cus_id, intermediary_id)
+      cus_id, intermediary_id,pwd)
     values (#{conId,jdbcType=INTEGER}, #{conName,jdbcType=VARCHAR}, #{conTel,jdbcType=VARCHAR}, 
       #{conQq,jdbcType=VARCHAR}, #{conWechat,jdbcType=VARCHAR}, #{conEmail,jdbcType=VARCHAR}, 
-      #{cusId,jdbcType=INTEGER}, #{intermediaryId,jdbcType=INTEGER})
+      #{cusId,jdbcType=INTEGER}, #{intermediaryId,jdbcType=INTEGER}, #{pwd,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.contacts.entity.Contacts">
     insert into contacts
@@ -383,4 +383,14 @@
     FROM contacts c LEFT JOIN customer cu ON c.cus_id = cu.cus_id
     WHERE cu.intermediary_id = #{0}
   </select>
+
+
+  <update id="updatePwd">
+    update contacts
+    set pwd = #{1}
+    where con_id = #{0}
+  </update>
+
+
+
 </mapper>

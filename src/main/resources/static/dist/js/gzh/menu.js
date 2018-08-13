@@ -626,11 +626,13 @@ new Vue({
         //删除主菜单菜单
         delMenu:function () {
             var r=confirm("确定要删除主菜单么？删除会清空子菜单");
-            if(r=true){
+            if(r==true){
+
                 if(this.selectedMenuIndex===0){
                     this.menu.button.splice(this.selectedMenuIndex, 1);
                     this.selectedMenuIndex = 0;
-                }else{
+                }
+                else{
                     this.menu.button.splice(this.selectedMenuIndex, 1);
                     this.selectedMenuIndex -= 1;
                 }
@@ -643,7 +645,7 @@ new Vue({
         },
         delSubMenu:function(){
             var r=confirm("确定要删除此菜单？");
-            if(r=true){
+            if(r==true){
                 if(this.selectedSubMenuIndex===0){
                     this.menu.button[this.selectedMenuIndex].sub_button.splice(this.selectedSubMenuIndex, 1);
                     this.selectedSubMenuIndex = 0;
