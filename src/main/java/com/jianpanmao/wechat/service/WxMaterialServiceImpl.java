@@ -69,6 +69,7 @@ public class WxMaterialServiceImpl extends BaseServiceImpl<WxMaterial> implement
         wxMaterial.setShowCoverPic(wxNewsContent.getShow_cover_pic());
         wxMaterial.setContent(wxNewsContent.getContent());
         wxMaterial.setContentSourceUrl(wxNewsContent.getContent_source_url());
+        wxMaterial.setWxPublicId(wxNewsContent.getWxPublicId());
         super.insert(wxMaterial);
     }
 

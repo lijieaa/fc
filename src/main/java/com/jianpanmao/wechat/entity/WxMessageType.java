@@ -33,5 +33,7 @@ public class WxMessageType {
 
     public static final String NEWS = "news";
 
+    public static final String MPNEWS = "mpnews";
+
 
 }

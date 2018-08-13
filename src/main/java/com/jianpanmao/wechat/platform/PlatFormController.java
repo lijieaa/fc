@@ -1,6 +1,7 @@
 package com.jianpanmao.wechat.platform;
 
 import com.jianpanmao.common.annotation.NoResultEntity;
+import com.jianpanmao.utils.GsonUtils;
 import com.jianpanmao.utils.XmlUtils;
 import com.jianpanmao.wechat.api.WxApiHandler;
 import com.jianpanmao.wechat.api.msg.*;
@@ -101,11 +102,14 @@ public class PlatFormController {
                     } else if (requestMsgType.equalsIgnoreCase(WxMessageType.VOICE)) {
                         VoiceMsgContent voiceMsgContent = new VoiceMsgContent(wxMaterial.getMediaId());
                         msg = new VoiceMsg(voiceMsgContent);
+                    } else if (requestMsgType.equalsIgnoreCase(WxMessageType.MPNEWS)) {
+                        ImageText2MsgContent imageText2MsgContent = new ImageText2MsgContent(mediaId);
+                        msg = new ImageText2Msg(imageText2MsgContent);
+
                     }
                     msg.setMsgtype(wxMaterial.getWxtype());
                     msg.setTouser(fromUser);
                     wxApiHandler.sendMsg2user(accessToken, msg);
-
                 }
             }else{
                 // 将微信消息时间转换成标准时间
