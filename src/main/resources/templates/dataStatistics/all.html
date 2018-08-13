@@ -79,7 +79,15 @@
                         type: 'category',
                         data: name,
                         axisLabel:{
-                            rotate:20
+                            rotate:20,
+                            formatter: function(val) {
+                                if (val.length > 3) {
+                                    return val.substring(0, 3) + '...';
+                                } else {
+                                    return val;
+                                }
+                            }
+
                         },
                         axisLine:{
                             show:false
@@ -258,6 +266,7 @@
                         axisTick:{
                             show:false
                         },
+
                         axisLabel:{
                             color:"#000",
                             // interval:0

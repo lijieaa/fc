@@ -347,7 +347,7 @@
         '<div class="input-group margin-top-6">' +
         '<input type="text" class="form-control" ref="commentMsg"  v-model="commentMsg">' +
         '<span class="input-group-btn">' +
-        '<button type="button" class="btn btn-info btn-flat border-none" @click="commentAdd(comment.topicId,$event)">评论</button>' +
+        '<button type="button" class="btn btn-info btn-flat border-none" @click="commentAdd(comment.topicId,$event,comment)">评论</button>' +
         '</span>' +
         '</div><div class="padding-left-10 margin-top-6" ref="msg1"></div>' +
         ' <msg1 v-for = "item in comment.commentContent" :key="item.id" v-bind:content="item">' +
@@ -357,14 +357,14 @@
                 commentMsg:""
             }
         },
-        methods:{
+        methods: {
             commentClick: function (msg,event) {
                 var _this = this;
                 var comment = $(event.currentTarget);
                 bus.$emit('change',msg ,_this.$refs.msg1);
                 comment.parent().next().toggle();
             },
-            commentAdd: function(msg,event){
+            commentAdd: function(msg,event,item){
                 var _this = this;
                 var comment = $(event.currentTarget);
                 var userId = comment.parent().parent().next().next().attr("dataId");
@@ -376,6 +376,7 @@
                     if( data.status == 200){
                         bus.$emit('change',msg,_this.$refs.msg1);
                         _this.commentMsg = "";
+                        item.commentsCount++;
                     }else{
                         $("#errMsg").addClass("in").css("display","block")
                     }
@@ -467,6 +468,12 @@
             backMediary:function(){
                 location.href=contextPath+"intermediary/list";
             },
+            responeseComment: function() {
+                var _this = this;
+                $.axspost(contextPath + "api/topic/intermediaryId/"+detailID+"","get","",function(data){
+                    _this.commentList = data.content;
+                },function(data){});
+            },
             sureAdd:function () {  //    新增跟进
                 // var intermediaryId  = location.search.substring(1).split("&")[1];
                 var postData = {
@@ -501,7 +508,6 @@
 
             $.axspost(contextPath + "api/topic/intermediaryId/"+detailID+"","get","",function(data){
                 _this.commentList = data.content;
-                // $(".comment-content").html(data.topicContent);
             },function(data){});
 
             bus.$on('change', function (id,msg,comment) {
@@ -518,11 +524,11 @@
                         if( _this.commentList[i].topicId == id){
                             Vue.set(Vm.commentList[i],'commentContent',data.content);
                         }
-                        console.log(data);
                     });
                 },function (data) {
-
                 });
+
+
             });
 
 
