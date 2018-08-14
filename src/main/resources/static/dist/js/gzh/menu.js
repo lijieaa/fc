@@ -138,7 +138,7 @@ new Vue({
                 this.menu.button.push({
                     "name":"菜单名称",
                     "type":"click",
-                    "key":"news",
+                    "key":"mpnews",
                     "url":"",
                     "sub_button":[]
                 });
@@ -150,7 +150,7 @@ new Vue({
                 this.menu.button[this.selectedMenuIndex].sub_button.push({
                     "name":"子菜单名称",
                     "type":"click",
-                    "key":"news",
+                    "key":"mpnews",
                     "url":""
                 });
                 let selectedSubMenuIndex= this.menu.button[this.selectedMenuIndex].sub_button.length-1;
@@ -175,7 +175,7 @@ new Vue({
             var checkType=parType.substr(kgIndex+1);//获得type
             var checkContent=parType.substr(0,kgIndex);//获得内容
             this.initFlagStatus = checkType;
-            if(checkType=="news"){
+            if(checkType=="mpnews"){
                 if(checkContent==""){
                     this.picShow = false;
                 }else {
@@ -231,7 +231,7 @@ new Vue({
             var kgIndex=sonKey.indexOf(" ");
             var checkType=sonKey.substr(kgIndex+1);//获得type
             var checkContent=sonKey.substr(0,kgIndex);//获得内容
-            if(checkType=="news"){
+            if(checkType=="mpnews"){
                 if(checkContent==""){
                     this.picShow = false;
                 }else {
@@ -297,7 +297,7 @@ new Vue({
             if(this.selectedMenuLevel() == 1) {
                 this.picShow = true;
                 if(this.currentSelect() == 1){
-                    this.menu.button[this.selectedMenuIndex].key = value+' '+'news';
+                    this.menu.button[this.selectedMenuIndex].key = value+' '+'mpnews';
                     this.arr=value;
                     $.ajax({
                         url: contextPath +"material/news/detailByWxMediaId?wxPublicId="+wxPublicId+"&materialId="+this.arr,
@@ -330,7 +330,7 @@ new Vue({
             }else if(this.selectedMenuLevel() == 2){
                 this.picShow = true;
                 if(this.currentSubSelect() == 1){
-                    this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = value+' '+'news';
+                    this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = value+' '+'mpnews';
                     this.arr=value;
                     $.ajax({
                         url: contextPath +"material/news/detailByWxMediaId?wxPublicId="+wxPublicId+"&materialId="+this.arr,
@@ -444,20 +444,20 @@ new Vue({
                 var checkType=parType.substr(kgIndex+1);//获得type
                 var checkContent=parType.substr(0,kgIndex);//获得内容
                 switch (news){
-                    case 'news' :
+                    case 'mpnews' :
                         //this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'news';
-                        if(this.initFlagStatus != 'news' && checkContent!=""){
+                        if(this.initFlagStatus != 'mpnews' && checkContent!=""){
                             var r=confirm('操作会清空当前状态');
                             if(r==true){
                                 checkContent='';
-                                this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'news';
-                                this.initFlagStatus='news';
+                                this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'mpnews';
+                                this.initFlagStatus='mpnews';
                                 this.picShow = false;
                             }else{
                                 return false;
                             }
                         }else{
-                            this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'news';
+                            this.menu.button[this.selectedMenuIndex].key = checkContent+' '+'mpnews';
                         }
                         break;
                     case 'video' :
@@ -515,19 +515,19 @@ new Vue({
                 var checkType=sonType.substr(kgIndex+1);//获得type
                 var checkContent=sonType.substr(0,kgIndex);//获得内容
                 switch (news){
-                    case 'news' :
-                        if(this.initFlagStatus != 'news' && checkContent!=""){
+                    case 'mpnews' :
+                        if(this.initFlagStatus != 'mpnews' && checkContent!=""){
                             var r=confirm('操作会清空当前状态');
                             if(r==true){
                                 checkContent='';
-                                this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = checkContent+' '+'news';
-                                this.initFlagStatus='news';
+                                this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = checkContent+' '+'mpnews';
+                                this.initFlagStatus='mpnews';
                                 this.picShow = false;
                             }else{
                                 return false;
                             }
                         }else{
-                            this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = checkContent+' '+'news';
+                            this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = checkContent+' '+'mpnews';
                         }
                         break;
                     case 'video' :
@@ -584,7 +584,7 @@ new Vue({
             var menuIndex = this.menu.button[this.selectedMenuIndex].key;
             var kgIndex=menuIndex.indexOf(" ");
             var checkType=menuIndex.substr(kgIndex+1);
-            if(checkType == 'news'){
+            if(checkType == 'mpnews'){
                 return 1
             }else if(checkType == 'video'){
                 return 2
@@ -602,7 +602,7 @@ new Vue({
             var submenuIndex = this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key;
             var kgIndex=submenuIndex.indexOf(" ");
             var checkType=submenuIndex.substr(kgIndex+1);
-            if(checkType == 'news'){
+            if(checkType == 'mpnews'){
                 return 1
             }else if(checkType == 'video'){
                 return 2
