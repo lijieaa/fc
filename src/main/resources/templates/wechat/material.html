@@ -526,10 +526,12 @@
             } else if(photoID==undefined){
                 $("#errorMsg").show().text("请选择图文封面").css("color","red").fadeOut(2000);
                 return false;
-            }else if(url==""){
-                $("#errorMsg").show().text("请输入原文链接").css("color","red").fadeOut(2000);
-                return false;
-            }else if(objExp.test(url) != true){
+            }
+            // else if(url==""){
+            //     $("#errorMsg").show().text("请输入原文链接").css("color","red").fadeOut(2000);
+            //     return false;
+            // }
+            else if(objExp.test(url) != true && url!=""){
                 $("#errorMsg").show().text("请输入正确的链接").css("color","red").fadeOut(2000);
                 return false;
             }else{
