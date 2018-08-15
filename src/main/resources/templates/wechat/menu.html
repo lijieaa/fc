@@ -300,6 +300,7 @@
     var tpUrl;
     var tpID;
     var tpMeaId;
+    var vid
     $(document).on("click","#popImg>li>img",function () {
         thisSrc=$(this).attr("src");
         thisphotoId=$(this).attr("data-id");
@@ -329,6 +330,7 @@
     $(document).on("click","#popImg li video",function () {
         thisVsrc=$(this).attr("src");
         thisVId=$(this).attr("data-id");
+        vid=thisVsrc+' '+thisVId;
         $(this).addClass("opactiy").parent().siblings().children().removeClass("opactiy");
         $(this).parent().append("<a class='bgimg'></a>").siblings().children("a").remove();
     });
@@ -342,7 +344,7 @@
             evt.initEvent('change', false, true);
             element.dispatchEvent(evt);
         }else if(thisSureId==2){
-            element.value = thisVsrc;
+            element.value =thisVsrc+'&nbsp'+thisVId;
             evt.initEvent('change', false, true);
             element.dispatchEvent(evt);
         }else if(thisSureId==3){

@@ -198,9 +198,12 @@ new Vue({
                 if(checkContent==""){
                     this.picShow = false;
                 }else{
+                    var check=checkContent.indexOf("&nbsp");
+                    var id=checkContent.substring(check+5);
+                    var src=checkContent.substring(0,check);
                     this.picShow = true;
                     var name="wx.mp4";
-                    var urlLink=contextPath+'material/video/detail?wxPublicId='+wxID+"&mediaId="+checkContent+"&name="+name;
+                    var urlLink=contextPath+'material/video/detail?wxPublicId='+wxID+"&mediaId="+src+"&name="+name;
                     this.arr=urlLink;
                 }
             }else if(checkType=="image"){
@@ -254,9 +257,12 @@ new Vue({
                 if(checkContent==""){
                     this.picShow = false;
                 }else {
+                    var check=checkContent.indexOf("&nbsp");
+                    var id=checkContent.substring(check+5);
+                    var src=checkContent.substring(0,check)
                     this.picShow = true;
                     var name="wx.mp4";
-                    var urlLink=contextPath+'material/video/detail?wxPublicId='+wxID+"&mediaId="+checkContent+"&name="+name;
+                    var urlLink=contextPath+'material/video/detail?wxPublicId='+wxID+"&mediaId="+src+"&name="+name;
                     this.arr=urlLink;
                 }
             }else if(checkType=="image"){
@@ -312,9 +318,12 @@ new Vue({
                         }
                     });
                 }else if(this.currentSelect() == 2){
-                    this.menu.button[this.selectedMenuIndex].key = value+' '+'video';
+                    var check=value.indexOf("&nbsp");
+                    var id=value.substring(check+5);
+                    var src=value.substring(0,check)
+                    this.menu.button[this.selectedMenuIndex].key = id+' '+'video';
                     var name="wx.mp4";
-                    var urlLink=contextPath+'material/video/detail?wxPublicId='+wxID+"&mediaId="+value+"&name="+name;
+                    var urlLink=contextPath+'material/video/detail?wxPublicId='+wxID+"&mediaId="+src+"&name="+name;
                     this.arr=urlLink;
                 }else if(this.currentSelect() == 3){
                     this.menu.button[this.selectedMenuIndex].key = value+' '+'image';
@@ -345,9 +354,12 @@ new Vue({
                         }
                     });
                 }else if(this.currentSubSelect() == 2){
-                    this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = value+' '+'video';
+                    var check=value.indexOf("&nbsp");
+                    var id=value.substring(check+5);
+                    var src=value.substring(0,check)
+                    this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = id+' '+'video';
                     var name="wx.mp4";
-                    var urlLink=contextPath+'material/video/detail?wxPublicId='+wxID+"&mediaId="+value+"&name="+name;
+                    var urlLink=contextPath+'material/video/detail?wxPublicId='+wxID+"&mediaId="+src+"&name="+name;
                     this.arr=urlLink;
                 }else if(this.currentSubSelect() == 3){
                     this.menu.button[this.selectedMenuIndex].sub_button[this.selectedSubMenuIndex].key = value+' '+'image';
