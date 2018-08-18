@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ProjectServiceImpl extends BaseServiceImpl<Project, ProjectExample, ProjectDto, Integer> implements ProjectService {
@@ -90,7 +92,13 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project, ProjectExample,
     void addProjectUser(String ids, Project project) {
         List<ProjectUser> projectUsers = new ArrayList<>();
         String idStr[] = ids.split(",");
+        Set<String> set = new HashSet<>();
+
         for (String uId : idStr) {
+           set.add(uId);
+        }
+
+        for (String uId:set){
             ProjectUser projectUser = new ProjectUser();
             projectUser.setProjectUserPId(project.getProjectId());
             projectUser.setProjectUserUserId(Integer.valueOf(uId));

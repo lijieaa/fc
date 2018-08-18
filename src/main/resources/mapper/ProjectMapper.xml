@@ -464,7 +464,7 @@ WHERE p.project_id = #{0}
   </select>
 
   <!--查询by项目名称-->
-<select id="existByName" resultMap="BaseResultMap" parameterType="java.lang.String">
-  SELECT p.* FROM project p WHERE p.project_name = #{0}
+<select id="existByName" resultMap="BaseResultMap">
+  SELECT p.* FROM project p WHERE p.project_name = #{name} and p.project_intermediary = #{IntermediaryId}
 </select>
 </mapper>

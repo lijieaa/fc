@@ -118,7 +118,7 @@
             margin-right: 15px;
         }
         #photo-tx{
-            height: 530px;
+            height: 550px;
             border: 1px #e0e0e0 solid;
             margin-top: 1%;
             width: 99%;
@@ -178,19 +178,19 @@
                     <div id="pagingTest3" class="pageIndex pagingTest" style="position: absolute;bottom: -20px;"></div>
                 </div>
                 <!--图片-->
-                <div id="photo-show" style="height: 530px;border: 1px #e0e0e0 solid;margin-top: 1%;width: 99%;margin-left: 1%;display: none;overflow: auto;">
+                <div id="photo-show" style="height: 550px;border: 1px #e0e0e0 solid;margin-top: 1%;width: 99%;margin-left: 1%;display: none;overflow: auto;">
                     <ul id="imgShow" class="imgShow"></ul>
                     <div id="pagingTest" class="pageIndex pagingTest" style="position: absolute;bottom: -20px;"></div>
                     <!--<input type="hidden" value="" id="page">-->
                 </div>
                 <!--语音-->
-                <div id="source" style="height: 530px;border: 1px #e0e0e0 solid;margin-top: 1%;width: 99%;margin-left: 1%;display: none;overflow: auto;">
+                <div id="source" style="height: 550px;border: 1px #e0e0e0 solid;margin-top: 1%;width: 99%;margin-left: 1%;display: none;overflow: auto;">
                     <ul id="mpShow" class=""></ul>
                     <div id="pagingTest1" class="pageIndex pagingTest" style="position: absolute;bottom: -20px;"></div>
                     <!--<input type="hidden" value="" id="page1">-->
                 </div>
                 <!--视频-->
-                <div id="vid" style="height: 530px;border: 1px #e0e0e0 solid;margin-top: 1%;width: 99%;margin-left: 1%;display: none;overflow: auto;">
+                <div id="vid" style="height: 550px;border: 1px #e0e0e0 solid;margin-top: 1%;width: 99%;margin-left: 1%;display: none;overflow: auto;">
                     <ul id="vidShow"></ul>
                     <div id="pagingTest2" class="pageIndex pagingTest" style="position: absolute;bottom: -20px;"></div>
                     <!--<input type="hidden" value="" id="page2">-->
@@ -518,18 +518,20 @@
                 $("#errorMsg").show().text("请输入正文内容").css("color","red").fadeOut(2000);
                 return false;
             }else if(zaiyao==""){
-                $("#errorMsg").show().text("请输入图文摘要").css("color","red").fadeOut(2000);
+                $("#errorMsg").show().text("请输入文章摘要").css("color","red").fadeOut(2000);
                 return false;
             }else if(zaiyao.length>120){
                 $("#errorMsg").show().text("摘要不能大于120个字符").css("color","red").fadeOut(2000);
                 return false;
             } else if(photoID==undefined){
-                $("#errorMsg").show().text("请选中图文封面").css("color","red").fadeOut(2000);
+                $("#errorMsg").show().text("请选择图文封面").css("color","red").fadeOut(2000);
                 return false;
-            }else if(url==""){
-                $("#errorMsg").show().text("请输入原文链接").css("color","red").fadeOut(2000);
-                return false;
-            }else if(objExp.test(url) != true){
+            }
+            // else if(url==""){
+            //     $("#errorMsg").show().text("请输入原文链接").css("color","red").fadeOut(2000);
+            //     return false;
+            // }
+            else if(objExp.test(url) != true && url!=""){
                 $("#errorMsg").show().text("请输入正确的链接").css("color","red").fadeOut(2000);
                 return false;
             }else{

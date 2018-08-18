@@ -21,7 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class IntermediaryServiceImpl extends BaseServiceImpl<Intermediary, IntermediaryExample, IntermediaryDto, Integer> implements IntermediaryService {
@@ -112,10 +114,15 @@ public class IntermediaryServiceImpl extends BaseServiceImpl<Intermediary, Inter
     private void addContacts(String str, Integer iId, Integer status) {
         List<IntermediaryUser> intermediaryUsers = new ArrayList<>();
         String[] fcUsers = str.split(",");
+        Set<String> set  = new HashSet<>();
+
         for (String u : fcUsers) {
+          set.add(u);
+        }
+        for (String setU:set){
             IntermediaryUser intermediaryUser = new IntermediaryUser();
             intermediaryUser.setIntermediaryUserIid(iId);
-            intermediaryUser.setIntermediaryUserUid(Integer.valueOf(u));
+            intermediaryUser.setIntermediaryUserUid(Integer.valueOf(setU));
             intermediaryUser.setIntermediaryUserStatus(status);
             intermediaryUsers.add(intermediaryUser);
         }
