@@ -98,7 +98,8 @@ public class ProjectRestController {
     @PreAuthorize("hasAuthority('project:view')")
     @GetMapping("existByName")
     public boolean existByName(String name) {
-        if (null!=dao.existByName(name)){
+
+        if (null!=dao.existByName(name,UserUtils.getUser().getIntermediaryId())){
             return true;
         }else {
             return false;

@@ -31,5 +31,5 @@ public interface ProjectMapper extends BaseDao<Project, ProjectExample, ProjectD
 
     List<ProjectCustomer> projectCustomers(Integer pId);
 
-    Project existByName(String name);
+    Project existByName(@Param("name") String name,@Param("IntermediaryId") Integer IntermediaryId);
 }
