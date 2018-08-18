@@ -103,7 +103,7 @@
                             <div class=" col-xs-8">
                                 <!--<img src="clueComment.projectLogo" alt="" width="100%" height="185px" style="background: grey">-->
                                 <div style="width: 100%;height: 185px;background: gainsboro">
-                                    <img v-bind:src="projectDetail.projectLogo" alt="" style="width: 100%">
+                                    <img v-bind:src="projectDetail.projectLogo" alt="" style="width: 100%;height: 100%;">
                                 </div>
                             </div>
                             <div class="col-xs-4 detail-project-msg">
@@ -414,7 +414,10 @@
                             + '<a class="blue" href="../../project/detailEditDevice/?id='+data.deviceId+'='+projectId+'" title="编辑"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:delete')"]
-                            + '<a class="blue delete" data-id="'+data.projectId+'" title="删除" data-operateUser="'+row.operateUser.userid+'" data-transcribeUser="'+row.transcribeUser.userid+'" data-device="'+row.deviceId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
+                            var userID = row.operateUser == null ? '' : row.operateUser.userid;
+                            var transID = row.transcribeUser == null ? '' : row.transcribeUser.userid
+                            + '<a class="blue delete" data-id="'+data.projectId+'" title="删除" data-operateUser="'+userID+'" ' +
+                            'data-transcribeUser="'+transID+'" data-device="'+row.deviceId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
                                 [/]
                             + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
                             + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
@@ -422,7 +425,9 @@
                             + '<li><a href="../../project/detailEditDevice/?id='+data.deviceId+'='+projectId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="blue"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
                                 [/]
                                 [# sec:authorize="hasAuthority('project:delete')"]
-                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.projectId+'" data-operateUser="'+row.operateUser.userid+'" data-transcribeUser="'+row.transcribeUser.userid+'" data-device="'+row.deviceId+'"><span class="blue"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
+                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.projectId+'" ' +
+                            'data-operateUser="'+userID+'" data-transcribeUser="'+transID+'" ' +
+                            'data-device="'+row.deviceId+'"><span class="blue"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
                                 [/]
                             +'</ul></div></div>';
                         }

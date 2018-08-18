@@ -689,7 +689,7 @@
                         dataType : "json",
                         success: function (data) {
                             if(data.status == 200 && data.content == 1) {
-                                // location.href=contextPath+"intermediary/list";
+                                location.href=contextPath+"intermediary/list";
                             }else {
                                 bootbox.alert({
                                     message: data.content.content

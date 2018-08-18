@@ -86,3 +86,7 @@
 .text-align-center{
     text-align: center;
 }
+.content-topic img{
+    width: 128px!important;
+    height: auto!important;
+}

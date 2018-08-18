@@ -114,7 +114,7 @@
                             <div class=" col-xs-8">
                                 <!--<img src="clueComment.projectLogo" alt="" width="100%" height="185px" style="background: grey">-->
                                 <div style="width: 100%;height: 185px;background: gainsboro">
-                                    <img v-bind:src="projectDetail.projectLogo" alt="" style="width: 100%">
+                                    <img v-bind:src="projectDetail.projectLogo" alt="" style="width: 100%;height: 100%">
                                 </div>
                             </div>
                             <div class="col-xs-4 detail-project-msg">
@@ -234,8 +234,8 @@
                 <span>{{model.user.name}}</span>
             </div>
             <div class="right-clubs float-right padding-right-6">
-                <span class="bd-r">第 <span>{{model.count}}</span>条留言</span>
-                <span class="bd-r">{{model.projectCommentsCreateTime}}</span>
+                <span class="bd-r">有 <span>{{model.count}}</span>条留言</span>
+                <span class="bd-r">{{model.projectCommentsCreateTime | time-filter}}</span>
                 <span class="bd-r color-b"  @click="deleteComment(model.projectCommentsId)">删除</span>
                 <span class="color-b" @click="compomentRedirct(model.projectCommentsId,$event)">回复</span>
             </div>
@@ -250,7 +250,7 @@
                 </span>
                 <span class="content-topic display-inline-block" v-html="model.projectCommentsContent"></span>
                 <span class="color-gray bd-g" v-if="model.projectCommentsParent != 0" @click="deleteComment(model.projectCommentsId)">删除</span>
-                <span class="color-gray bd-g" v-if="model.projectCommentsParent != 0">{{model.projectCommentsCreateTime}}</span>
+                <span class="color-gray bd-g" v-if="model.projectCommentsParent != 0">{{model.projectCommentsCreateTime | time-filter}}</span>
                 <span class="color-gray" v-if="model.projectCommentsParent !=0"
                       @click="reply(model.projectCommentsParent,model.projectCommentsId,model.projectCommentsNickname,$event)">回复</span>
             </div>
@@ -280,6 +280,21 @@
 </script>
 <script type="text/javascript"  th:inline="javascript">
     var clubslID  = [[${id}]];
+    Vue.filter('time-filter',function(value){
+        var d = new Date(value); //根据时间戳生成的时间对象
+        var month = (d.getMonth() + 1) <10 ? "0"+ (d.getMonth() + 1):(d.getMonth() + 1)
+        var day = d.getDate()  <10 ? "0"+d.getDate():d.getDate();
+        var hour = d.getHours()  <10 ? "0"+d.getHours():d.getHours();
+        var minutes = d.getMinutes()  <10 ? "0"+d.getMinutes():d.getMinutes();
+        var seconds = d.getSeconds()  <10 ? "0"+d.getSeconds():d.getSeconds();
+        var date = (d.getFullYear()) + "-" +
+            month + "-" +
+            day + " " +
+            hour + ":" +
+            minutes + ":" +
+            seconds;
+        return date;
+    })
     var clubDetail = new Vue();
     Vue.component('item', {
         template: '#item-template',
