@@ -15,6 +15,12 @@
         var deviceWidth = document.documentElement.clientWidth;
         if(deviceWidth > 1080) deviceWidth = 1080;
         document.documentElement.style.fontSize = deviceWidth / 10.8 + 'px';
+        var contextPath = /*[[@{/}]]*/;
+        var ip = /*[[${#request.getLocalAddr()}]]*/;
+        var port = /*[[${#request.getLocalPort()}]]*/;
+        var scheme=/*[[${#request.getScheme()}]]*/;
+        var serverName=/*[[${#request.getServerName()}]]*/;
+        var port=/*[[${#request.getServerPort()}]]*/;
         var absolutePath = scheme+"://"+serverName+":"+port;
         var imgPath=absolutePath+"/uploadimg/"
     </script>
