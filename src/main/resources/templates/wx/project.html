@@ -11,10 +11,12 @@
     <link rel="stylesheet" th:href="@{/css/framework7.min.css}">
     <link rel="stylesheet" th:href="@{/css/app.css}">
     <link rel="stylesheet" th:href="@{/css/cover.css}">
-    <script>
+    <script th:inline="javascript">
         var deviceWidth = document.documentElement.clientWidth;
         if(deviceWidth > 1080) deviceWidth = 1080;
         document.documentElement.style.fontSize = deviceWidth / 10.8 + 'px';
+        var absolutePath = scheme+"://"+serverName+":"+port;
+        var imgPath=absolutePath+"/uploadimg/"
     </script>
     <script th:src="@{/js/framework7.min.js}"></script>
 </head>
