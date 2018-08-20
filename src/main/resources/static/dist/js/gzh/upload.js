@@ -35,8 +35,10 @@ function imgupload() {
         // console.log(file);
     });
     uploader.on('fileQueued',function(file) {
+        $(".loadShow").text("图片上传中...");
     });
     uploader.on( 'uploadSuccess', function( file ) {
+        $(".loadShow").text("上传成功").delay(500).fadeOut();
         ajaxData(1);
     });
     uploader.onError = function( code ) {
@@ -52,7 +54,7 @@ imgupload();
 // 图片展示
 var totalPage;
     function  ajaxData(pageNo) {
-        var webdata={"wxtype":'image',"wxPublicId":wxID,"rows":10,"page":pageNo};
+        var webdata={"wxtype":'image',"wxPublicId":wxID,"rows":15,"page":pageNo};
         $.ajax({
             url:contextPath +"material/page",
             type: "get",
@@ -168,9 +170,11 @@ function yyupload() {
         // console.log(file);
     });
     uploader.on('fileQueued',function(file) {
+        $(".loadShow").text("语音上传中...");
         // console.log(file);
     });
     uploader.on( 'uploadSuccess', function( file ) {
+        $(".loadShow").text("上传成功").delay(500).fadeOut();
         ajaxMp(1);
     });
     uploader.onError = function( code ) {
@@ -185,7 +189,7 @@ function yyupload() {
 yyupload();
 //语音展示
 function  ajaxMp(pageNo) {
-    var webdata={"wxtype":'voice',"wxPublicId":wxID,"total":0,"records":0,"rows":10,"page":pageNo};
+    var webdata={"wxtype":'voice',"wxPublicId":wxID,"total":0,"records":0,"rows":15,"page":pageNo};
     $.ajax({
         url:contextPath +"material/page",
         type: "get",
@@ -303,9 +307,11 @@ function videoupload() {
         file.description=JSON.stringify(description);
     });
     uploader.on('fileQueued',function(file) {
-        console.log(file);
+        // console.log(file);
+        $(".loadShow").text("视频上传中...");
     });
     uploader.on( 'uploadSuccess', function( file ) {
+        $(".loadShow").text("上传成功").delay(500).fadeOut();
         ajaxVid(1);
     });
     uploader.onError = function( code ) {
@@ -315,7 +321,7 @@ function videoupload() {
 videoupload();
 //视频展示
 function  ajaxVid(pageNo) {
-    var webdata={"wxtype":"video","wxPublicId":wxID,"rows":10,"page":pageNo};
+    var webdata={"wxtype":"video","wxPublicId":wxID,"rows":15,"page":pageNo};
     $.ajax({
         url:contextPath +"material/page",
         type: "get",
@@ -431,7 +437,7 @@ function photoText(pageNo) {
                     let html = `<li class="messageLi" data-id="${list[i].id}">
                                     <div style="height: 250px;overflow: hidden">
                                         <p>${list[i].title}</p>
-                                        <p><img src="${urlLink}" style="width: 200px;height: 150px;"> </p>
+                                        <p><img src="${urlLink}" style="width: 200px;height: 160px;"> </p>
                                         <p>${list[i].digest}</p>
                                         <p>${list[i].updateTime}</p>
                                     </div>
@@ -466,7 +472,7 @@ $("#pagingTest3").on("click","a",function () {
 // 图文弹窗展示
 function photoTextPop(pageNo) {
     $.ajax({
-        url:contextPath +"material/page?rows=4&wxtype=news&wxPublicId="+wxID+"&page="+pageNo,
+        url:contextPath +"material/page?rows=10&wxtype=news&wxPublicId="+wxID+"&page="+pageNo,
         type: "get",
         success:function(data){
             var list = data.content.data.list;

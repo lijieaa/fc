@@ -25,11 +25,11 @@
     margin: 0 0;
 }
 .imgShow li{
-    width: 160px;
-    height: 160px;
+    width: 185px;
+    height: 185px;
     display: inline-block;
     list-style: none;
-    margin: 5px;
+    margin: 7px;
     position: relative;
 }
 .imgShow li img{
@@ -60,11 +60,11 @@
     margin: 0;
 }
 #mpShow li{
-width: 200px;
-height: 100px;
+width: 220px;
+height: 150px;
 display: inline-block;
 border: 1px #727272 solid;
-margin: 5px;
+margin: 7px;
 }
 #mpShow li audio{
 width: 100%;
@@ -74,7 +74,7 @@ display: inline-block;
 cursor: pointer;
 }
 #vidShow li{
-width: 180px;
+width: 200px;
 height: 180px;
 display: inline-block;
 border: 1px #727272 solid;
