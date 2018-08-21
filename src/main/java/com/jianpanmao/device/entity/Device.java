@@ -1,5 +1,6 @@
 package com.jianpanmao.device.entity;
 
+import com.jianpanmao.contacts.entity.Contacts;
 import com.jianpanmao.intermediary.entity.Intermediary;
 import com.jianpanmao.project.entity.Project;
 import com.jianpanmao.sys.entity.DingtalkUser;
@@ -8,6 +9,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -15,11 +17,15 @@ public class Device implements Serializable {
     //
     private Integer deviceId;
 
+    private String operateUserStr;
+
+    private String transcribeUserStr;
+
     //操作员ID
-    private DingtalkUser operateUser;
+    private List<Contacts> operateUser;
 
     //抄表员ID
-    private DingtalkUser transcribeUser;
+    private List<Contacts> transcribeUser;
 
     //项目ID
     private Project project;
@@ -77,6 +83,23 @@ public class Device implements Serializable {
     private Timestamp sysTime;
 
     private Integer startOff;
+
+
+    public String getOperateUserStr() {
+        return operateUserStr;
+    }
+
+    public void setOperateUserStr(String operateUserStr) {
+        this.operateUserStr = operateUserStr;
+    }
+
+    public String getTranscribeUserStr() {
+        return transcribeUserStr;
+    }
+
+    public void setTranscribeUserStr(String transcribeUserStr) {
+        this.transcribeUserStr = transcribeUserStr;
+    }
 
     public Integer getStartOff() {
         return startOff;
@@ -146,19 +169,19 @@ public class Device implements Serializable {
         this.deviceLocationY = deviceLocationY == null ? null : deviceLocationY.trim();
     }
 
-    public DingtalkUser getOperateUser() {
+    public List<Contacts> getOperateUser() {
         return operateUser;
     }
 
-    public void setOperateUser(DingtalkUser operateUser) {
+    public void setOperateUser(List<Contacts> operateUser) {
         this.operateUser = operateUser;
     }
 
-    public DingtalkUser getTranscribeUser() {
+    public List<Contacts> getTranscribeUser() {
         return transcribeUser;
     }
 
-    public void setTranscribeUser(DingtalkUser transcribeUser) {
+    public void setTranscribeUser(List<Contacts> transcribeUser) {
         this.transcribeUser = transcribeUser;
     }
 

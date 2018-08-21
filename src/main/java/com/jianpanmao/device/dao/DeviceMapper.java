@@ -6,6 +6,7 @@ import com.jianpanmao.device.dto.DpDto;
 import com.jianpanmao.device.dto.control.DeviceParam;
 import com.jianpanmao.device.dto.control.DeviceUserParam;
 import com.jianpanmao.device.entity.Device;
+import com.jianpanmao.device.entity.DeviceContacts;
 import com.jianpanmao.device.entity.DeviceExample;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -32,4 +33,6 @@ public interface DeviceMapper extends BaseDao<Device, DeviceExample, DeviceDto, 
     /* 设备控制 */
     DeviceParam selectDeviceParam(String num);
     DeviceUserParam selectDeviceUserParam(String num);
+    void deleteByDId(Integer did);
+    void addContacts(List<DeviceContacts> list);
 }

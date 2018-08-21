@@ -23,4 +23,6 @@ public interface ContactsMapper extends BaseDao<Contacts, ContactsExample, Conta
 
     public int updatePwd(Integer id,String pwd);
 
+    List<Contacts> contacts(Integer iId);
+
 }

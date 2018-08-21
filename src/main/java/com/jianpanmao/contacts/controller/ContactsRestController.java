@@ -4,9 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.common.entity.DataTablesResponseEntity;
+import com.jianpanmao.contacts.dao.ContactsMapper;
 import com.jianpanmao.contacts.dto.ContactsDto;
 import com.jianpanmao.contacts.entity.Contacts;
 import com.jianpanmao.contacts.service.ContactsService;
+import com.jianpanmao.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +24,8 @@ public class ContactsRestController {
 
     @Autowired
     ContactsService contactsService;
+    @Autowired
+    ContactsMapper dao;
 
     @PreAuthorize("hasAuthority('contacts:add')")
     @RequestMapping(method = RequestMethod.POST)
@@ -104,5 +108,10 @@ public class ContactsRestController {
         }
 
     }
+    @PreAuthorize("hasAuthority('contacts:view')")
+    @GetMapping("contacts")
+   public List<Contacts> contacts(){
+        return dao.contacts(UserUtils.getUser().getIntermediaryId());
+   }
 
 }
