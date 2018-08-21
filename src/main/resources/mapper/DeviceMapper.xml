@@ -113,11 +113,9 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-   select d.*,u1.userid o_user_id,u1.name o_user_name,u2.userid t_user_id,u2.name t_user_name,p.project_id,p.project_name,intermediary.intermediary_id,intermediary.intermediary_name
-        from device d LEFT JOIN dingtalk_user u1
-        ON d.operate_user_id = u1.userid
-        LEFT JOIN dingtalk_user u2
-        ON d.transcribe_user_id = u2.userid
+   select d.*,p.project_id,p.project_name,
+   intermediary.intermediary_id,intermediary.intermediary_name
+        from device d
         LEFT JOIN project p
         ON d.project_id = p.project_id
         LEFT JOIN intermediary intermediary
@@ -576,15 +574,17 @@ DELETE FROM device_contacts WHERE device_contacts_did=#{0}
   <insert id="addContacts"  parameterType="java.util.List">
     INSERT INTO
     device_contacts
-    (device_contacts_id,device_contacts_did,device_contacts_cid)
+    (device_contacts_id,device_contacts_did,device_contacts_cid,device_contacts_status)
     VALUES
     <foreach collection ="list" item="iu" index= "index" separator =",">
       (
       #{iu.deviceContactsId},
       #{iu.deviceContactsDId},
-      #{iu.deviceContactsCId}
+      #{iu.deviceContactsCId},
+      #{iu.deviceContactsStatus}
       )
     </foreach >
 
   </insert>
+
 </mapper>

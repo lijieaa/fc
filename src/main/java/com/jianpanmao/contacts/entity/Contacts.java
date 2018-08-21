@@ -53,6 +53,16 @@ public class Contacts implements Serializable {
     //最后更新时间
     private Date conUpdateTime;
 
+    private Integer contactsStatus;
+
+    public Integer getContactsStatus() {
+        return contactsStatus;
+    }
+
+    public void setContactsStatus(Integer contactsStatus) {
+        this.contactsStatus = contactsStatus;
+    }
+
     public List<SysRole> getRoles() {
         return roles;
     }

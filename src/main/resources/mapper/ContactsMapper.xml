@@ -401,4 +401,26 @@ WHERE (sr.role_id = 3 or sr.role_id = 4)
 and c.intermediary_id = #{0}
   </select>
 
+
+  <!--查询设备操作员，抄表员-->
+  <resultMap id="DeviceResultMap" type="com.jianpanmao.contacts.entity.Contacts">
+  <id column="con_id" jdbcType="INTEGER" property="conId" />
+  <result column="con_name" jdbcType="VARCHAR" property="conName" />
+  <result column="con_tel" jdbcType="VARCHAR" property="conTel" />
+  <result column="con_qq" jdbcType="VARCHAR" property="conQq" />
+  <result column="con_wechat" jdbcType="VARCHAR" property="conWechat" />
+  <result column="con_email" jdbcType="VARCHAR" property="conEmail" />
+  <result column="cus_id" jdbcType="INTEGER" property="cusId" />
+  <result column="intermediary_id" jdbcType="INTEGER" property="intermediaryId" />
+  <result column="con_create_time" jdbcType="TIMESTAMP" property="conCreateTime" />
+  <result column="con_update_time" jdbcType="TIMESTAMP" property="conUpdateTime" />
+    <result column="device_contacts_status" jdbcType="INTEGER" property="contactsStatus"/>
+  </resultMap>
+  <select id="deviceContacts" resultMap="DeviceResultMap">
+select
+c.*,dc.device_contacts_status
+from contacts c LEFT JOIN device_contacts dc ON c.con_id = dc.device_contacts_cid
+LEFT JOIN device d ON dc.device_contacts_did = d.device_id
+WHERE d.device_id = #{0}
+  </select>
 </mapper>

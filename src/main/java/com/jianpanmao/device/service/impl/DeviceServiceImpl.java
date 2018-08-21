@@ -1,6 +1,8 @@
 package com.jianpanmao.device.service.impl;
 
 import com.jianpanmao.common.service.impl.BaseServiceImpl;
+import com.jianpanmao.contacts.dao.ContactsMapper;
+import com.jianpanmao.contacts.entity.Contacts;
 import com.jianpanmao.device.dao.DeviceMapper;
 import com.jianpanmao.device.dto.control.DeviceControlVo;
 import com.jianpanmao.device.dto.control.DeviceParam;
@@ -28,6 +30,16 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device, DeviceExample, De
 
     @Autowired
     DeviceMapper deviceMapper;
+    @Autowired
+    ContactsMapper contactsMapper;
+
+    @Override
+    public Device get(Integer TId) {
+        Device device = super.get(TId);
+        List<Contacts> contactses = contactsMapper.deviceContacts(TId);
+        device.setContactses(contactses);
+        return device;
+    }
 
     @Override
     @Transactional
@@ -37,23 +49,24 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device, DeviceExample, De
         //操作员
         String operateIds = record.getOperateUserStr();
         if (operateIds!=null&&operateIds.length()>0){
-            addContacts(operateIds,record.getDeviceId());
+            addContacts(operateIds,record.getDeviceId(),1);
         }
         //抄表员
         String transcribeIds = record.getTranscribeUserStr();
         if (transcribeIds!=null&&transcribeIds.length()>0){
-            addContacts(transcribeIds,record.getDeviceId());
+            addContacts(transcribeIds,record.getDeviceId(),0);
         }
         return super.update(record);
     }
 
-    void addContacts(String ids,Integer deviceId){
+    void addContacts(String ids,Integer deviceId,Integer status){
         String[] arrayIds = ids.split(",");
         List<DeviceContacts> deviceContactsList = new ArrayList<>();
         for (String id:arrayIds){
             DeviceContacts deviceContacts = new DeviceContacts();
             deviceContacts.setDeviceContactsDId(deviceId);
             deviceContacts.setDeviceContactsCId(Integer.valueOf(id));
+            deviceContacts.setDeviceContactsStatus(status);
             deviceContactsList.add(deviceContacts);
         }
         deviceMapper.addContacts(deviceContactsList);
