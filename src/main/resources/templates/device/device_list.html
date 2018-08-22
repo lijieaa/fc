@@ -125,8 +125,8 @@
                             <th>生产编号</th>
                             <th>设备型号</th>
                             <th>所属项目</th>
-                            <th>操作员</th>
-                            <th>抄表员</th>
+                            <!--<th>操作员</th>-->
+                            <!--<th>抄表员</th>-->
                             <th>设备状态</th>
                             <th>指定中间商</th>
                             <th></th>
@@ -237,21 +237,21 @@
                                 return data
                             }
                         }},
-                    {"data": "operateUser.name","render":function(data, type, row, meta){
-                            if(data == undefined || data == null || data == ''){
-                                return ""
-                            }else{
-                                return data
-                            }
-                        }},
-                    {"data": "transcribeUser.name","render":function(data, type, row, meta){
-                            // console.log(row);
-                            if(data == undefined || data == null || data == ''){
-                                return ""
-                            }else{
-                                return data
-                            }
-                        }},
+                    // {"data": "operateUser.name","render":function(data, type, row, meta){
+                    //         if(data == undefined || data == null || data == ''){
+                    //             return ""
+                    //         }else{
+                    //             return data
+                    //         }
+                    //     }},
+                    // {"data": "transcribeUser.name","render":function(data, type, row, meta){
+                    //         // console.log(row);
+                    //         if(data == undefined || data == null || data == ''){
+                    //             return ""
+                    //         }else{
+                    //             return data
+                    //         }
+                    //     }},
                     {"data": "deviceStatus","render": function(data, type, row, meta){
                             var status;
                             if(data == 0){
@@ -330,14 +330,7 @@
                         }
 
                     },
-                    {
-                        "targets": 6,
-                        "orderable": true,
-                        "searchable": true,
-                        "render": function (data, type, row) {
-                            return '<td>' + data + '</td>';
-                        }
-                    },
+
                     {
                         "targets": -1,
                         "orderable": false,
