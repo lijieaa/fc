@@ -456,14 +456,6 @@
     and project.project_id = #{0}
   </select>
 
-  <!--项目详情页 项目设备编辑-->
-  <update id="updateDeviceUser" parameterType="com.jianpanmao.device.dto.DeviceDto">
-    update device
-    set operate_user_id = #{operateUser.userid,jdbcType=INTEGER},
-        transcribe_user_id = #{transcribeUser.userid,jdbcType=INTEGER},
-        project_id = #{project.projectId,jdbcType=INTEGER}
-        where device_id = #{deviceId,jdbcType=INTEGER}
-  </update>
 
   <!--设备关联 设备列表-->
   <select id="freeDeviceList" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -475,6 +467,7 @@
     LEFT JOIN intermediary intermediary
     ON intermediary.intermediary_id = d.intermediary_id
     WHERE d.valid = 0
+    and d.intermediary_id = #{iId}
     and d.project_id IS NULL
     <if test="num != null and num!=''">
       and d.device_production_num LIKE CONCAT('%',#{num},'%')

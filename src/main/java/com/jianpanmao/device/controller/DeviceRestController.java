@@ -135,14 +135,15 @@ public class DeviceRestController {
     }
 
     /**
-     * 项目详情 项目设备编辑/删除关系
-     * @param deviceDto
+     * 项目详情 项目设备编辑
+     * @param device
      */
     @PreAuthorize("hasAuthority('device:edit')")
     @PutMapping("updateProjectId")
     @Transactional
-    public void updateDeviceUser(@RequestBody DeviceDto deviceDto) {
-        deviceMapper.updateDeviceUser(deviceDto);
+    public void updateDeviceUser(@RequestBody Device device) {
+        Device d = deviceMapper.selectByPrimaryKey(device.getDeviceId());
+        deviceService.update(d);
     }
 
     /**
@@ -156,7 +157,7 @@ public class DeviceRestController {
                                  @RequestParam(value = "num",required = false)String num,
                                  @RequestParam(value = "od",required = false)String od){
         PageHelper.startPage(pageNum, pageSize);
-        List<Device> devices = deviceMapper.freeDeviceList(num,od);
+        List<Device> devices = deviceMapper.freeDeviceList(num,od,UserUtils.getUser().getIntermediaryId());
         PageInfo pageInfo = new PageInfo(devices);
 
         //draw 不等于空是datatables分页

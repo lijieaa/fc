@@ -391,14 +391,23 @@
     where con_id = #{0}
   </update>
 
-  <!--查询设备可选择抄表员，操作员-->
-  <select id="contacts" resultMap="BaseResultMap">
-select c.con_id,c.con_name,sr.role_id,sr.role_name
+  <!--操作员-->
+  <select id="operateContacts" resultMap="BaseResultMap">
+select c.con_id,c.con_name
 FROM contacts c
 LEFT JOIN contact_2_role cr ON c.con_id = cr.con_id
 LEFT JOIN sys_role sr ON cr.rol_id = sr.role_id
-WHERE (sr.role_id = 3 or sr.role_id = 4)
+WHERE sr.role_id = 3
 and c.intermediary_id = #{0}
+  </select>
+  <!--抄表员-->
+  <select id="transcribeContacts" resultMap="BaseResultMap">
+    select c.con_id,c.con_name
+    FROM contacts c
+    LEFT JOIN contact_2_role cr ON c.con_id = cr.con_id
+    LEFT JOIN sys_role sr ON cr.rol_id = sr.role_id
+    WHERE sr.role_id = 4
+    and c.intermediary_id = #{0}
   </select>
 
 
