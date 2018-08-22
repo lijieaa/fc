@@ -56,19 +56,19 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!--<div class="form-group col-xs-12 col-sm-6">-->
+                                    <!--<label class="control-label col-xs-12 col-sm-4 no-padding-right" for="operateUserId">操作员:</label>-->
+                                    <!--<div class="col-xs-12 col-sm-8">-->
+                                        <!--<div class="clearfix">-->
+                                            <!--<input type="text" name="operateUserId" id="operateUserId" class="col-xs-12 col-sm-12" />-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
                                 <div class="form-group col-xs-12 col-sm-6">
-                                    <label class="control-label col-xs-12 col-sm-4 no-padding-right" for="operateUserId">操作员:</label>
+                                    <label class="control-label col-xs-12 col-sm-4 no-padding-right" for="transcribeUserId">设备状态:</label>
                                     <div class="col-xs-12 col-sm-8">
                                         <div class="clearfix">
-                                            <input type="text" name="operateUserId" id="operateUserId" class="col-xs-12 col-sm-12" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label class="control-label col-xs-12 col-sm-4 no-padding-right" for="transcribeUserId">抄表员:</label>
-                                    <div class="col-xs-12 col-sm-8">
-                                        <div class="clearfix">
-                                            <input type="text" name="transcribeUserId" id="transcribeUserId" class="col-xs-12 col-sm-12" />
+                                            <input type="text" name="deviceStatus" id="deviceStatus" class="col-xs-12 col-sm-12" />
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@
                         <div class="btn-group">
                             <a type="button" class="btn btn-info" th:href="@{/device/add}" sec:authorize="hasAuthority('device:add')">创建</a>
                             <button type="button" class="btn btn-info" id="ipChange" sec:authorize="hasAuthority('device:ipUpdate')">IP地址设置</button>
-                            <button type="button" class="btn btn-info" id="settingFrequency" sec:authorize="hasAuthority('device:charge')">更换评率设置</button>
+                            <button type="button" class="btn btn-info" id="settingFrequency" sec:authorize="hasAuthority('device:charge')">更换频率设置</button>
                             <button type="button" class="btn btn-danger" id="batch-delete" sec:authorize="hasAuthority('device:delete')">批量删除</button>
                         </div>
                     </div>
@@ -271,7 +271,16 @@
                         'orderable': false,
                         "data": null,
                         "render": function (data, type, row) {
-                            return '<label class="pos-rel"><input type="checkbox" class="ace" /><span class="lbl"></span> </label>';
+                            if(row.deviceStatus == 1) { //不在线
+                                return '<span style="display: inline-block;\n' +
+                                    '    width: 15px;\n' +
+                                    '    height: 15px;\n' +
+                                    '    border: 1px solid #C8C8C8;\n' +
+                                    '    vertical-align: bottom;"></span>'
+                            }else {
+                                return '<label class="pos-rel"><input type="checkbox" class="ace" /><span class="lbl"></span> </label>';
+                            }
+
                         },
                         "className": "center"
 
@@ -334,46 +343,52 @@
                         "orderable": false,
                         data: null,
                         "render": function (data, type, row) {
-                            return '<div class="hidden-sm hi' +
-                                '' +
-                                'dden-xs action-buttons">'
-                                    [# sec:authorize="hasAuthority('device:view')"] //控制
-                            // data.deviceId  deviceProductionNum
-                            + '<a class="blue" href="detail/?id='+data.deviceId+'#deviceProductionNum='+data.deviceProductionNum+'" title="运行数据">' +
-                            '<i class="ace-icon fa fa-desktop bigger-130"></i></a>'
-                                [/]
-                                [# sec:authorize="hasAuthority('deviceControl:view')"] //日志
-                            + '<a class="blue" href="detail/?id='+data.deviceId+'#deviceProductionNum='+data.deviceProductionNum+'" title="控制">' +
-                            '<i class="ace-icon fa fa-cogs bigger-130"></i></a>'
-                                [/]
-                                [# sec:authorize="hasAuthority('devicelog:view')"] //日志
-                            + '<a class="blue" href="../devicelog/list/?id='+data.deviceId+'" title="日志"><i class="ace-icon fa fa-envelope bigger-130"></i></a>'
-                                [/]
-                                [# sec:authorize="hasAuthority('device:edit')"]
-                            + '<a class="blue" href="edit/?id='+data.deviceId+'" title="编辑"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
-                                [/]
-                                [# sec:authorize="hasAuthority('device:delete')"]
-                            + '<a class="blue delete" data-id="'+data.deviceId+'" title="删除"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
-                                [/]
-                            + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
-                            + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
-                                [# sec:authorize="hasAuthority('device:view')"]
+                            if(row.deviceStatus == 1) { //不在线
+                                return null
+                            }
+                            else {
+                                return '<div class="hidden-sm hi' +
+                                    '' +
+                                    'dden-xs action-buttons">'
+                                        [# sec:authorize="hasAuthority('device:view')"] //控制
+                                // data.deviceId  deviceProductionNum
+                                + '<a class="blue" href="detail/?id='+data.deviceId+'#deviceProductionNum='+data.deviceProductionNum+'" title="运行数据">' +
+                                '<i class="ace-icon fa fa-desktop bigger-130"></i></a>'
+                                    [/]
+                                    [# sec:authorize="hasAuthority('deviceControl:view')"] //日志
+                                + '<a class="blue" href="detail/?id='+data.deviceId+'#deviceProductionNum='+data.deviceProductionNum+'" title="控制">' +
+                                '<i class="ace-icon fa fa-cogs bigger-130"></i></a>'
+                                    [/]
+                                    [# sec:authorize="hasAuthority('devicelog:view')"] //日志
+                                + '<a class="blue" href="../devicelog/list/?id='+data.deviceId+'" title="日志"><i class="ace-icon fa fa-envelope bigger-130"></i></a>'
+                                    [/]
+                                    [# sec:authorize="hasAuthority('device:edit')"]
+                                + '<a class="blue" href="edit/?id='+data.deviceId+'" title="编辑"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
+                                    [/]
+                                    [# sec:authorize="hasAuthority('device:delete')"]
+                                + '<a class="blue delete" data-id="'+data.deviceId+'" title="删除"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
+                                    [/]
+                                + '</div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button>'
+                                + '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">'
+                                    [# sec:authorize="hasAuthority('device:view')"]
 
-                            + '<li><a href="detail/?id='+data.deviceId+'#deviceProductionNum='+data.deviceProductionNum+'" class="tooltip-info" data-rel="tooltip" title="运行数据"><span class="blue"><i class="ace-icon fa fa-desktop bigger-120"></i></span></a></li>'
-                                [/]
-                                [# sec:authorize="hasAuthority('deviceControl:view')"]
-                            + '<li><a href="detail/?id='+data.deviceId+'#deviceProductionNum='+data.deviceProductionNum+'" class="tooltip-info" data-rel="tooltip" title="控制"><span class="blue"><i class="ace-icon fa fa-cogs bigger-120"></i></span></a></li>'
-                                [/]
-                                [# sec:authorize="hasAuthority('devicelog:view')"]
-                            + '<li><a href="../devicelog/list/?id='+data.deviceId+'" class="tooltip-info" data-rel="tooltip" title="日志"><span class="blue"><i class="ace-icon fa fa-envelope bigger-120"></i></span></a></li>'
-                                [/]
-                                [# sec:authorize="hasAuthority('device:edit')"]
-                            + '<li><a href="edit/?id='+data.deviceId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="blue"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
-                                [/]
-                                [# sec:authorize="hasAuthority('device:delete')"]
-                            + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.deviceId+'"><span class="blue"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
-                                [/]
-                            +'</ul></div></div>';
+                                + '<li><a href="detail/?id='+data.deviceId+'#deviceProductionNum='+data.deviceProductionNum+'" class="tooltip-info" data-rel="tooltip" title="运行数据"><span class="blue"><i class="ace-icon fa fa-desktop bigger-120"></i></span></a></li>'
+                                    [/]
+                                    [# sec:authorize="hasAuthority('deviceControl:view')"]
+                                + '<li><a href="detail/?id='+data.deviceId+'#deviceProductionNum='+data.deviceProductionNum+'" class="tooltip-info" data-rel="tooltip" title="控制"><span class="blue"><i class="ace-icon fa fa-cogs bigger-120"></i></span></a></li>'
+                                    [/]
+                                    [# sec:authorize="hasAuthority('devicelog:view')"]
+                                + '<li><a href="../devicelog/list/?id='+data.deviceId+'" class="tooltip-info" data-rel="tooltip" title="日志"><span class="blue"><i class="ace-icon fa fa-envelope bigger-120"></i></span></a></li>'
+                                    [/]
+                                    [# sec:authorize="hasAuthority('device:edit')"]
+                                + '<li><a href="edit/?id='+data.deviceId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="blue"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
+                                    [/]
+                                    [# sec:authorize="hasAuthority('device:delete')"]
+                                + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.deviceId+'"><span class="blue"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
+                                    [/]
+                                +'</ul></div></div>';
+                            }
+
                         }
 
                     }
@@ -479,7 +494,9 @@
 
             $('#dynamic-table').find('tbody > tr').each(function () {
                 var row = this;
-                if (th_checked) myTable.row(row).select();
+                if (th_checked) {
+                    myTable.row(row).select()
+                }
                 else  myTable.row(row).deselect();
             });
         });
@@ -607,6 +624,15 @@
             });
         })
             [/]
+
+        $('#dynamic-table tbody').on('click', 'tr', function() {
+            console.log($(this).find("td:nth-of-type(7)").text())
+            if($(this).find("td:nth-of-type(7)").text() == "不在线"){
+                $(this).removeClass("selected")
+            }else {
+                $(this).addClass("selected")
+            }
+        } );
 
         $("#search").on("click",function(e){
             myTable.draw();

@@ -420,7 +420,7 @@
                 var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 treeNode.map(function(v){
-                    if(v.type == 'person'){
+                    if(v.type == null){
                         v.icon = contextPath +'images/person.png'
                     }else {
                         v.icon = contextPath +'images/company.png'
