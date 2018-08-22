@@ -64,6 +64,7 @@ public abstract class BaseServiceImpl<T, E, D,PK extends Serializable> implement
 
     @Override
     public T get(PK TId) {
+
         return dao.selectByPrimaryKey(TId);
     }
 

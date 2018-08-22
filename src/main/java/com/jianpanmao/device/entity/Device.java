@@ -16,16 +16,13 @@ import javax.validation.constraints.Size;
 public class Device implements Serializable {
     //
     private Integer deviceId;
-
+//操作员
     private String operateUserStr;
-
+//抄表员
     private String transcribeUserStr;
 
     //操作员ID
-    private List<Contacts> operateUser;
-
-    //抄表员ID
-    private List<Contacts> transcribeUser;
+    private List<Contacts> contactses;
 
     //项目ID
     private Project project;
@@ -169,20 +166,12 @@ public class Device implements Serializable {
         this.deviceLocationY = deviceLocationY == null ? null : deviceLocationY.trim();
     }
 
-    public List<Contacts> getOperateUser() {
-        return operateUser;
+    public List<Contacts> getContactses() {
+        return contactses;
     }
 
-    public void setOperateUser(List<Contacts> operateUser) {
-        this.operateUser = operateUser;
-    }
-
-    public List<Contacts> getTranscribeUser() {
-        return transcribeUser;
-    }
-
-    public void setTranscribeUser(List<Contacts> transcribeUser) {
-        this.transcribeUser = transcribeUser;
+    public void setContactses(List<Contacts> contactses) {
+        this.contactses = contactses;
     }
 
     public Project getProject() {

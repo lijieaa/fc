@@ -8,6 +8,7 @@ public class DeviceContacts {
     private Integer deviceContactsId;
     private Integer deviceContactsDId;
     private Integer deviceContactsCId;
+    private Integer deviceContactsStatus;
 
     public Integer getDeviceContactsId() {
         return deviceContactsId;
@@ -31,5 +32,13 @@ public class DeviceContacts {
 
     public void setDeviceContactsCId(Integer deviceContactsCId) {
         this.deviceContactsCId = deviceContactsCId;
+    }
+
+    public Integer getDeviceContactsStatus() {
+        return deviceContactsStatus;
+    }
+
+    public void setDeviceContactsStatus(Integer deviceContactsStatus) {
+        this.deviceContactsStatus = deviceContactsStatus;
     }
 }
