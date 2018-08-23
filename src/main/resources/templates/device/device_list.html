@@ -618,14 +618,14 @@
         })
             [/]
 
+        var deviceNum;
         $('#dynamic-table tbody').on('click', 'tr', function() {
-            console.log($(this).find("td:nth-of-type(2)").text())
-            // console.log($(this).find("td:nth-of-type(5)").text())
-            // if($(this).find("td:nth-of-type(5)").text() == "不在线"){
-            //     $(this).removeClass("selected")
-            // }else {
-            //     $(this).addClass("selected")
-            // }
+            var idArr = [];
+            $("#dynamic-table tr.selected").each(function () {
+                idArr.push($(this).find("td:nth-of-type(2)").text())
+                deviceNum = idArr
+            });
+
         } );
 
         $("#search").on("click",function(e){
@@ -638,6 +638,7 @@
                 bootbox.alert("请选择要改变的IP!");
                 return;
             }
+
             jQuery.validator.addMethod("isZipCode", function(value, element) {
                 var tel =  /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
                 return this.optional(element) || (tel.test(value));
@@ -658,15 +659,24 @@
                             var _this = $(this);
                             var flag = $formChangeIp.form();
                             if(flag){
-                                var data = $('#deviceIpPop>form').serializeObject();
+                                var data = {
+                                    "device_production_num": deviceNum,
+                                    ip: $("#add-role-group-name").val()
+                                };
+                                console.log(deviceNum);
                                 $.ajax({
-                                    url: contextPath + "api/SvrAddr/json",
+                                    url: contextPath + "api/SvrAddr/json/",
                                     type: "post",
                                     data : JSON.stringify(data),
                                     contentType: "application/json",
                                     dataType : "json",
                                     success: function (data) {
-                                        _this.dialog( "close" );
+                                        if(data.status==200){
+                                            myTable.draw();
+                                            _this.dialog( "close" );
+                                            $("#add-role-group-name").val("")
+                                        }
+
                                     },
                                     error: function (data) {
 //                                        console.log(data);
@@ -749,15 +759,23 @@
                             var _this = $(this);
                             var flag = $formChangeIp.form();
                             if(flag){
-                                var data = $('#frequencyPop>form').serializeObject();
+                                var data = {
+                                    "device_production_num": deviceNum,
+                                    ip: $("#changePl").val()
+                                };
                                 $.ajax({
-                                    url: contextPath+"api/sysrolegroup",
+                                    url: contextPath+"api/ReportPeriod/json/",
                                     type: "post",
                                     data : JSON.stringify(data),
                                     contentType: "application/json",
                                     dataType : "json",
                                     success: function (data) {
-                                        _this.dialog( "close" );
+                                        if(data.status==200){
+                                            myTable.draw();
+                                            _this.dialog( "close" );
+                                            $("#changePl").val("")
+                                        }
+                                        // _this.dialog( "close" );
                                     },
                                     error: function (data) {
 //                                        console.log(data);
