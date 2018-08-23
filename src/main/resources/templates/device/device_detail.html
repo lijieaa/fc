@@ -918,41 +918,23 @@
                         error.insertAfter(element.parent());
                     },
                     submitHandler: function (form) {
-                        var data ={
-                            remoteBoot:_this.numDevice(_this.remoteBoot),
-                            deviceParam:{
-                                //设备参数
-                                device_production_num: _this.deviceProductionNum,
-                                device_type:_this.deviceParam.device_type, //设备型号
-                                motor:_this.numDevice(_this.deviceParam.motor), //电机
-                                stroke_switch:_this.numDevice(_this.deviceParam.stroke_switch), //行程开关
-                                motor_time:_this.deviceParam.motor_time, // 电机动作时间单次电机转动时间
-                                p_switch:_this.numDevice(_this.deviceParam.p_switch), //压差开关
-                                voltage_warning:_this.deviceParam.voltage_warning, // 电压告警值范围
-                                main_valve:_this.numDevice(_this.deviceParam.main_valve), //主阀
-                                unit1:_this.numDevice(_this.deviceParam.unit1),
-                                unit2:_this.numDevice(_this.deviceParam.unit2),
-                                unit3:_this.numDevice(_this.deviceParam.unit3),
-                                unit4:_this.numDevice(_this.deviceParam.unit4),
-                                unit5:_this.numDevice(_this.deviceParam.unit5),
-                                unit6:_this.numDevice(_this.deviceParam.unit6),
-                                unit7:_this.numDevice(_this.deviceParam.unit7),
-                                unit8:_this.numDevice(_this.deviceParam.unit8),
-                                unit9:_this.numDevice(_this.deviceParam.unit9),
-                                unit10:_this.numDevice(_this.deviceParam.unit10),
-                            },
-                            deviceUserParam:_this.deviceUserParam,
-                            system_time:_this.system_time.year+"-"+_this.system_time.month+"-"+_this.system_time.day +" " +_this.system_time.hour+":"+_this.system_time.minute+":"+
-                            _this.system_time.second
+                        var data = {
+                            "device_production_num":  _this.deviceProductionNum,
+                            "clear_cyc": _this.deviceUserParam.clear_cyc,
+                            "clear_time": _this.deviceUserParam.clear_time,
+                            "unit_interval": _this.deviceUserParam.unit_interval,
+                            "main_valve_delay_time": _this.deviceUserParam.main_valve_delay_time,
+                            "p_delay_time": _this.deviceUserParam.p_delay_time,
+                            "p_threshold": _this.deviceUserParam.p_threshold,
+                            "p_clear_time": _this.deviceUserParam.p_clear_time,
+                            "p_warning": _this.deviceUserParam.p_warning,
+                            "power_cyc": _this.deviceUserParam.power_cyc,
+                            "p_power_threshold": _this.deviceUserParam.p_power_threshold
                         };
-
-
-
-
                         if($(".error").length == 0){
                             $.ajax({
-                                url: contextPath+"api/mqtt_send",
-                                method: "post",
+                                url: contextPath+"api/UserTab/json",
+                                type: "POST",
                                 data : JSON.stringify(data),
                                 contentType: "application/json",
                                 dataType : "json",
@@ -973,135 +955,7 @@
                     }
                 });
 
-                var $form = $('#form').validate({
-                    errorElement: 'div',
-                    errorClass: 'help-block',
-                    focusInvalid: false,
-                    ignore: "",
-                    rules: {
-                        project: {
-                            required: true
-                        },
-                        time: {
-                            required: true
-                        },
-                        power:{
-                            required: true
-                        },
-                        clean:{
-                            required: true
-                        },
-                        unitTime:{
-                            required: true
-                        },
-                        jgTime:{
-                            required: true
-                        },
-                        ysTime:{
-                            required: true
-                        },
-                        ycTime:{
-                            required: true
-                        },
-                        startYc:{
-                            required: true
-                        },
-                        cleanTime:{
-                            required: true
-                        },
-                        cleanAlarm:{
-                            required: true
-                        },
-                        actionZq:{
-                            required: true
-                        },
-                        powerStart:{
-                            required: true
-                        },
-                        year:{
-                            required: true
-                        }
-                        ,month:{
-                            required: true
-                        }
-                        ,day:{
-                            required: true
-                        }
-                        ,hour:{
-                            required: true
-                        }
-                        ,minute:{
-                            required: true
-                        }
-                        ,second:{
-                            required: true
-                        }
-                    },
-                    highlight: function (e) {
-                        $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-                    },
-                    success: function (e) {
-                        $(e).closest('.form-group').removeClass('has-error');
-                        $(e).remove();
-                    },
-                    errorPlacement: function (error, element) {
-                        error.insertAfter(element.parent());
-                    },
-                    submitHandler: function (form) {
-                        var data ={
-                            remoteBoot:_this.numDevice(_this.remoteBoot),
-                            deviceParam:{
-                                //设备参数
-                                device_production_num: _this.deviceProductionNum,
-                                device_type:_this.deviceParam.device_type, //设备型号
-                                motor:_this.numDevice(_this.deviceParam.motor), //电机
-                                stroke_switch:_this.numDevice(_this.deviceParam.stroke_switch), //行程开关
-                                motor_time:_this.deviceParam.motor_time, // 电机动作时间单次电机转动时间
-                                p_switch:_this.numDevice(_this.deviceParam.p_switch), //压差开关
-                                voltage_warning:_this.deviceParam.voltage_warning, // 电压告警值范围
-                                main_valve:_this.numDevice(_this.deviceParam.main_valve), //主阀
-                                unit1:_this.numDevice(_this.deviceParam.unit1),
-                                unit2:_this.numDevice(_this.deviceParam.unit2),
-                                unit3:_this.numDevice(_this.deviceParam.unit3),
-                                unit4:_this.numDevice(_this.deviceParam.unit4),
-                                unit5:_this.numDevice(_this.deviceParam.unit5),
-                                unit6:_this.numDevice(_this.deviceParam.unit6),
-                                unit7:_this.numDevice(_this.deviceParam.unit7),
-                                unit8:_this.numDevice(_this.deviceParam.unit8),
-                                unit9:_this.numDevice(_this.deviceParam.unit9),
-                                unit10:_this.numDevice(_this.deviceParam.unit10),
-                            },
-                            deviceUserParam:_this.deviceUserParam,
-                            system_time:_this.system_time.year+"-"+_this.system_time.month+"-"+_this.system_time.day +" " +_this.system_time.hour+":"+_this.system_time.minute+":"+
-                            _this.system_time.second
-                    };
 
-
-
-
-                        if($(".error").length == 0){
-                            $.ajax({
-                                url: contextPath+"api/mqtt_send",
-                                method: "post",
-                                data : JSON.stringify(data),
-                                contentType: "application/json",
-                                dataType : "json",
-                                success: function (data) {
-                                    if(data.status == 200){
-                                        // location.href=contextPath+"device/list";
-                                    }
-
-                                },
-                                error: function (data) {
-                                    // console.log(data);
-                                }
-                            });
-                        }
-                    },
-                    invalidHandler: function (form) {
-
-                    }
-                });
 
 
             }
