@@ -353,7 +353,7 @@
                                 '<col width="50%"/>'+
                                 '</colgroup>'+
                                 '<tr><td><span>操作员：</span>'+(item.operateUser&&item.operateUser.name)+'</td><td><span>型号：</span>'+item.deviceType+'</td></tr>'+
-                                ' <tr><td><span>抄表员：</span>'+(item.transcribeUser&&item.transcribeUser.name)+'</td><td><span>状态：</span><span class="cstatus">'+item.deviceStatus+'</span></td></tr>'+
+                                ' <tr><td><span>抄表员：</span>'+(item.transcribeUser&&item.transcribeUser.name)+'</td><td><span>状态：</span><span class="cstatus">'+(item.deviceStatus?'在线':'不在线')+'</span></td></tr>'+
                                 '</table>'+
                                 '</div></div></a> </li>'
                     })

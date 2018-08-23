@@ -75,9 +75,9 @@
                             <thead>
                             <tr><th>姓名</th><th>手机号</th><th>邮箱</th></tr>
                             </thead>
-                            <tbody>
+                            <tbody id="charge">
                             <tr>
-                                <td>张天胡丽 </td><td>15954654889</td><td>644169206@qq.com</td></tr>
+                               <!-- <td>张天胡丽 </td><td>15954654889</td><td>644169206@qq.com</td></tr>-->
                             </tbody>
                         </table>
                     </div>
@@ -92,10 +92,10 @@
                             <thead>
                             <tr><th>姓名</th><th>手机号</th><th>邮箱</th></tr>
                             </thead>
-                            <tbody>
-                            <tr>
+                            <tbody id="clienter">
+                            <!--<tr>
                                 <td>唐浩 </td><td>15954654889</td><td>644169206@qq.com</td></tr>
-                                <td>胡丽娜 </td><td>15954654889</td><td>644169206@qq.com</td></tr>
+                               <tr> <td>胡丽娜 </td><td>15954654889</td><td>644169206@qq.com</td></tr>-->
                             </tbody>
                         </table>
                     </div>
@@ -242,12 +242,34 @@
             sourceId:"gh_f5a46974c0f6",
             pageNum:pageNum,
             pageSize:itemsPerLoad,
-            projectId:9,
+            projectId:55,
         },
         success:function(data){
 
 
             console.log(data)
+
+            if(data.status=='200'){
+                if(data.content.projectChargeUser.length>0){
+                    var str =  data.content.projectChargeUser.reduce(function(total,next){
+                        return total+'<tr><td>'+next.name+'</td>'+'<td>'+next.mobile+'</td>'+'<td>'+next.email+'</td></tr>'
+                    },"")
+
+                    $("#charge").html(str)
+
+                }
+
+                if(data.content.projectCustomers.length>0){
+                  var str =  data.content.projectCustomers.reduce(function(total,next){
+                        return total+'<tr><td>'+next.conName+'</td>'+'<td>'+next.conTel+'</td>'+'<td>'+next.conQQ+'</td></tr>'
+                    },"")
+
+                    $("#clienter").html(str)
+
+                }
+
+            }
+
 
 
 
