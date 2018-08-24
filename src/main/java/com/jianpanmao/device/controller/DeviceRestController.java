@@ -143,6 +143,8 @@ public class DeviceRestController {
     @Transactional
     public void updateDeviceUser(@RequestBody Device device) {
         Device d = deviceMapper.selectByPrimaryKey(device.getDeviceId());
+        d.setOperateUserStr(device.getOperateUserStr());
+        d.setTranscribeUserStr(device.getTranscribeUserStr());
         deviceService.update(d);
     }
 
