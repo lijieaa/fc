@@ -189,7 +189,7 @@
                                             <span class="lbl"></span>
                                         </label>
                                     </th>
-                                    <th>生成编号</th>
+                                    <th>生产编号</th>
                                     <th>型号</th>
                                     <th>所属项目</th>
                                     <!--<th>负责人</th>-->
@@ -413,7 +413,7 @@
                                 [# sec:authorize="hasAuthority('project:edit')"] //projectId
                             + '<a class="blue" href="../../project/detailEditDevice/?id='+data.deviceId+'='+projectId+'" title="编辑"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
                                 [/]
-                                [# sec:authorize="hasAuthority('project:delete')"]
+                                [# sec:authorize="hasAuthority('project:edit')"]
                             var userID = row.operateUser == null ? '' : row.operateUser.userid;
                             var transID = row.transcribeUser == null ? '' : row.transcribeUser.userid
                             + '<a class="blue delete" data-id="'+data.projectId+'" title="删除" data-operateUser="'+userID+'" ' +
@@ -424,7 +424,7 @@
                                 [# sec:authorize="hasAuthority('project:edit')"]
                             + '<li><a href="../../project/detailEditDevice/?id='+data.deviceId+'='+projectId+'" class="tooltip-success" data-rel="tooltip" title="编辑"><span class="blue"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>'
                                 [/]
-                                [# sec:authorize="hasAuthority('project:delete')"]
+                                [# sec:authorize="hasAuthority('project:edit')"]
                             + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.projectId+'" ' +
                             'data-operateUser="'+userID+'" data-transcribeUser="'+transID+'" ' +
                             'data-device="'+row.deviceId+'"><span class="blue"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
