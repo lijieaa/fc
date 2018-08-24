@@ -137,33 +137,35 @@
                 <div class="widget-box ui-sortable-handle widget-box" id="widget-box-1">
                     <div class="widget-body">
                         <div class="">
-                            <div class="">
-                                <h5 style="padding-left: 12px">控制操作</h5>
-                                <div class="border-contain device-contain" style="background: none">
-                                    <div class="form-group overflow-hidden">
-                                        <label class="control-label col-xs-3 col-sm-3 no-padding-right">
-                                            设备远程启停</label>
-                                        <div class="col-xs-4 col-sm-4">
-                                            <input  checked="" type="checkbox" v-model="remoteBoot"
-                                                   class="ace ace-switch ace-switch-5">
-                                            <span class="lbl middle"></span>
-                                        </div>
-                                        <div class="col-xs-5 col-sm-5">
-                                            通过此功能可以控制设备的启动和关闭
+                            <form action="" id="deviceRemote">
+                                <div class="">
+                                    <h5 style="padding-left: 12px">控制操作</h5>
+                                    <div class="border-contain device-contain" style="background: none">
+                                        <div class="form-group overflow-hidden">
+                                            <label class="control-label col-xs-3 col-sm-3 no-padding-right">
+                                                设备远程启停</label>
+                                            <div class="col-xs-4 col-sm-4">
+                                                <input  checked="" type="checkbox" v-model="remoteBoot"
+                                                        class="ace ace-switch ace-switch-5">
+                                                <span class="lbl middle"></span>
+                                            </div>
+                                            <div class="col-xs-5 col-sm-5">
+                                                通过此功能可以控制设备的启动和关闭
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="clearfix form-actions overflow-hidden" style="width: 100%;background: none;border: none;margin: 0">
-                                <div class="col-md-9">
-                                    <button type="submit" class="btn btn-info">
-                                        <i class="ace-icon glyphicon glyphicon-ok"></i>确定
-                                    </button>
-                                    <button type="reset" class="btn">
-                                        <i class="ace-icon glyphicon glyphicon-repeat"></i>重置
-                                    </button>
+                                <div class="clearfix form-actions overflow-hidden" style="width: 100%;background: none;border: none;margin: 0">
+                                    <div class="col-md-9">
+                                        <button type="submit" class="btn btn-info">
+                                            <i class="ace-icon glyphicon glyphicon-ok"></i>确定
+                                        </button>
+                                        <button type="reset" class="btn">
+                                            <i class="ace-icon glyphicon glyphicon-repeat"></i>重置
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                             <div class="border-contain" style="border-top: none;background: none;border-bottom: none">
                                 <form action="" id="deviceParams">
                                     <h5 class="border-h5" style="padding-left: 12px">设备参数</h5>
@@ -750,9 +752,9 @@
                 },
                 numDevice:function(num){
                     if(num == false) {
-                        return 1;
-                    }else{
                         return 0;
+                    }else{
+                        return 1;
                     }
                 }
             },
@@ -808,15 +810,23 @@
                         _this.deviceUserParam.power_cyc = data.content.deviceUserParam.power_cyc;
                         _this.deviceUserParam.p_power_threshold = data.content.deviceUserParam.p_power_threshold;
 
-                        _this.system_time.year = data.content.system_time.year;
-                        _this.system_time.month = data.content.system_time.month;
-                        _this.system_time.day = data.content.system_time.day;
-                        _this.system_time.hour = data.content.system_time.hour;
-                        _this.system_time.minute = data.content.system_time.minute;
-                        _this.system_time.second = data.content.system_time.second;
+                        // _this.system_time.year = data.content.system_time.year;
+                        // _this.system_time.month = data.content.system_time.month;
+                        // _this.system_time.day = data.content.system_time.day;
+                        // _this.system_time.hour = data.content.system_time.hour;
+                        // _this.system_time.minute = data.content.system_time.minute;
+                        // _this.system_time.second = data.content.system_time.second;
+
+
+
 
                     }
                 });
+
+                setInterval(function () {
+                    // alert(1);
+                    location.reload();
+                },1000*60*5);
 
                 //查询详情
                 $.ajax({
@@ -862,7 +872,47 @@
                         error.insertAfter(element.parent());
                     },
                     submitHandler: function (form) {
-                        alert(1);
+                        var data ={
+                            device_production_num: _this.deviceProductionNum,
+                            device_type: _this.deviceParam.device_type, //设备型号
+                            motor: _this.numDevice(_this.deviceParam.motor), //电机
+                            stroke_switch: _this.numDevice(_this.deviceParam.stroke_switch), //行程开关
+                            motor_time:_this.deviceParam.motor_time, // 电机动作时间单次电机转动时间
+                            p_switch:_this.numDevice(_this.deviceParam.p_switch), //压差开关
+                            voltage_warning:_this.deviceParam.voltage_warning, // 电压告警值范围
+                            main_valve:_this.numDevice(_this.deviceParam.main_valve), //主阀
+                            unit1:_this.numDevice(_this.deviceParam.unit1),
+                            unit2:_this.numDevice(_this.deviceParam.unit2),
+                            unit3:_this.numDevice(_this.deviceParam.unit3),
+                            unit4:_this.numDevice(_this.deviceParam.unit4),
+                            unit5:_this.numDevice(_this.deviceParam.unit5),
+                            unit6:_this.numDevice(_this.deviceParam.unit6),
+                            unit7:_this.numDevice(_this.deviceParam.unit7),
+                            unit8:_this.numDevice(_this.deviceParam.unit8),
+                            unit9:_this.numDevice(_this.deviceParam.unit9),
+                            unit10:_this.numDevice(_this.deviceParam.unit10),
+
+                        };
+                        if($(".error").length == 0){
+                            $.ajax({
+                                url: contextPath+"api/DevTab/json/",
+                                method: "post",
+                                data : JSON.stringify(data),
+                                contentType: "application/json",
+                                dataType : "json",
+                                success: function (data) {
+                                    if(data.status == 200){
+                                        // location.href=contextPath+"device/list";
+                                        location.reload()
+                                        // window.location.href=contextPath+"device/detail?id="+id+"#deviceProductionNum="+_this.deviceProductionNum+"";
+                                    }
+
+                                },
+                                error: function (data) {
+                                    // console.log(data);
+                                }
+                            });
+                        }
                     },
                     invalidHandler: function (form) {
 
@@ -918,47 +968,31 @@
                         error.insertAfter(element.parent());
                     },
                     submitHandler: function (form) {
-                        var data ={
-                            remoteBoot:_this.numDevice(_this.remoteBoot),
-                            deviceParam:{
-                                //设备参数
-                                device_production_num: _this.deviceProductionNum,
-                                device_type:_this.deviceParam.device_type, //设备型号
-                                motor:_this.numDevice(_this.deviceParam.motor), //电机
-                                stroke_switch:_this.numDevice(_this.deviceParam.stroke_switch), //行程开关
-                                motor_time:_this.deviceParam.motor_time, // 电机动作时间单次电机转动时间
-                                p_switch:_this.numDevice(_this.deviceParam.p_switch), //压差开关
-                                voltage_warning:_this.deviceParam.voltage_warning, // 电压告警值范围
-                                main_valve:_this.numDevice(_this.deviceParam.main_valve), //主阀
-                                unit1:_this.numDevice(_this.deviceParam.unit1),
-                                unit2:_this.numDevice(_this.deviceParam.unit2),
-                                unit3:_this.numDevice(_this.deviceParam.unit3),
-                                unit4:_this.numDevice(_this.deviceParam.unit4),
-                                unit5:_this.numDevice(_this.deviceParam.unit5),
-                                unit6:_this.numDevice(_this.deviceParam.unit6),
-                                unit7:_this.numDevice(_this.deviceParam.unit7),
-                                unit8:_this.numDevice(_this.deviceParam.unit8),
-                                unit9:_this.numDevice(_this.deviceParam.unit9),
-                                unit10:_this.numDevice(_this.deviceParam.unit10),
-                            },
-                            deviceUserParam:_this.deviceUserParam,
-                            system_time:_this.system_time.year+"-"+_this.system_time.month+"-"+_this.system_time.day +" " +_this.system_time.hour+":"+_this.system_time.minute+":"+
-                            _this.system_time.second
+                        var data = {
+                            "device_production_num":  _this.deviceProductionNum,
+                            "clear_cyc": _this.deviceUserParam.clear_cyc,
+                            "clear_time": _this.deviceUserParam.clear_time,
+                            "unit_interval": _this.deviceUserParam.unit_interval,
+                            "main_valve_delay_time": _this.deviceUserParam.main_valve_delay_time,
+                            "p_delay_time": _this.deviceUserParam.p_delay_time,
+                            "p_threshold": _this.deviceUserParam.p_threshold,
+                            "p_clear_time": _this.deviceUserParam.p_clear_time,
+                            "p_warning": _this.deviceUserParam.p_warning,
+                            "power_cyc": _this.deviceUserParam.power_cyc,
+                            "p_power_threshold": _this.deviceUserParam.p_power_threshold
                         };
-
-
-
-
                         if($(".error").length == 0){
                             $.ajax({
-                                url: contextPath+"api/mqtt_send",
-                                method: "post",
+                                url: contextPath+"api/UserTab/json/",
+                                type: "POST",
                                 data : JSON.stringify(data),
                                 contentType: "application/json",
                                 dataType : "json",
                                 success: function (data) {
                                     if(data.status == 200){
-                                        // location.href=contextPath+"device/list";
+                                        // http://localhost:8080/device/detail/?id=3#deviceProductionNum=000123
+                                        location.reload()
+                                        // window.location.href=contextPath+"device/detail?id="+id+"#deviceProductionNum="+_this.deviceProductionNum+"";
                                     }
 
                                 },
@@ -973,70 +1007,13 @@
                     }
                 });
 
-                var $form = $('#form').validate({
+
+                //设备远程启停
+                var formDevice = $("#deviceRemote").validate({
                     errorElement: 'div',
                     errorClass: 'help-block',
                     focusInvalid: false,
                     ignore: "",
-                    rules: {
-                        project: {
-                            required: true
-                        },
-                        time: {
-                            required: true
-                        },
-                        power:{
-                            required: true
-                        },
-                        clean:{
-                            required: true
-                        },
-                        unitTime:{
-                            required: true
-                        },
-                        jgTime:{
-                            required: true
-                        },
-                        ysTime:{
-                            required: true
-                        },
-                        ycTime:{
-                            required: true
-                        },
-                        startYc:{
-                            required: true
-                        },
-                        cleanTime:{
-                            required: true
-                        },
-                        cleanAlarm:{
-                            required: true
-                        },
-                        actionZq:{
-                            required: true
-                        },
-                        powerStart:{
-                            required: true
-                        },
-                        year:{
-                            required: true
-                        }
-                        ,month:{
-                            required: true
-                        }
-                        ,day:{
-                            required: true
-                        }
-                        ,hour:{
-                            required: true
-                        }
-                        ,minute:{
-                            required: true
-                        }
-                        ,second:{
-                            required: true
-                        }
-                    },
                     highlight: function (e) {
                         $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
                     },
@@ -1049,39 +1026,12 @@
                     },
                     submitHandler: function (form) {
                         var data ={
-                            remoteBoot:_this.numDevice(_this.remoteBoot),
-                            deviceParam:{
-                                //设备参数
-                                device_production_num: _this.deviceProductionNum,
-                                device_type:_this.deviceParam.device_type, //设备型号
-                                motor:_this.numDevice(_this.deviceParam.motor), //电机
-                                stroke_switch:_this.numDevice(_this.deviceParam.stroke_switch), //行程开关
-                                motor_time:_this.deviceParam.motor_time, // 电机动作时间单次电机转动时间
-                                p_switch:_this.numDevice(_this.deviceParam.p_switch), //压差开关
-                                voltage_warning:_this.deviceParam.voltage_warning, // 电压告警值范围
-                                main_valve:_this.numDevice(_this.deviceParam.main_valve), //主阀
-                                unit1:_this.numDevice(_this.deviceParam.unit1),
-                                unit2:_this.numDevice(_this.deviceParam.unit2),
-                                unit3:_this.numDevice(_this.deviceParam.unit3),
-                                unit4:_this.numDevice(_this.deviceParam.unit4),
-                                unit5:_this.numDevice(_this.deviceParam.unit5),
-                                unit6:_this.numDevice(_this.deviceParam.unit6),
-                                unit7:_this.numDevice(_this.deviceParam.unit7),
-                                unit8:_this.numDevice(_this.deviceParam.unit8),
-                                unit9:_this.numDevice(_this.deviceParam.unit9),
-                                unit10:_this.numDevice(_this.deviceParam.unit10),
-                            },
-                            deviceUserParam:_this.deviceUserParam,
-                            system_time:_this.system_time.year+"-"+_this.system_time.month+"-"+_this.system_time.day +" " +_this.system_time.hour+":"+_this.system_time.minute+":"+
-                            _this.system_time.second
-                    };
-
-
-
-
+                            device_production_num: _this.deviceProductionNum,
+                            action: _this.numDevice(_this.remoteBoot) //远程启停
+                        };
                         if($(".error").length == 0){
                             $.ajax({
-                                url: contextPath+"api/mqtt_send",
+                                url: contextPath+"api/Control/json/",
                                 method: "post",
                                 data : JSON.stringify(data),
                                 contentType: "application/json",
@@ -1089,6 +1039,9 @@
                                 success: function (data) {
                                     if(data.status == 200){
                                         // location.href=contextPath+"device/list";
+                                        location.reload()
+                                        // console.log(contextPath+"device/detail?id="+id+"#deviceProductionNum="+_this.deviceProductionNum+"")
+                                        // location.href = contextPath+"device/detail?id="+id+"#deviceProductionNum="+_this.deviceProductionNum+"";
                                     }
 
                                 },
@@ -1102,7 +1055,6 @@
 
                     }
                 });
-
 
             }
         });

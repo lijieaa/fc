@@ -192,8 +192,8 @@
                                     <th>生产编号</th>
                                     <th>型号</th>
                                     <th>所属项目</th>
-                                    <th>负责人</th>
-                                    <th>抄表人</th>
+                                    <!--<th>负责人</th>-->
+                                    <!--<th>抄表人</th>-->
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -343,8 +343,8 @@
                     {"data": "deviceProductionNum"},
                     {"data": "deviceType"},
                     {"data": "project.projectName"},
-                    {"data": "operateUser.name"},
-                    {"data": "transcribeUser.name"},
+                    // {"data": "operateUser.name"},
+                    // {"data": "transcribeUser.name"},
                     {"data": null}
                 ],
                 "columnDefs": [
@@ -386,24 +386,24 @@
                         }
 
                     },
-                    {
-                        "targets": 4,
-                        "orderable": true,
-                        "searchable": true,
-                        "render": function (data, type, row) {
-                            return '<td>' + data + '</td>';
-                        }
-
-                    },
-                    {
-                        "targets": 5,
-                        "orderable": true,
-                        "searchable": true,
-                        "render": function (data, type, row) {
-                            return '<td>' + data + '</td>';
-                        }
-
-                    },
+                    // {
+                    //     "targets": 4,
+                    //     "orderable": true,
+                    //     "searchable": true,
+                    //     "render": function (data, type, row) {
+                    //         return '<td>' + data + '</td>';
+                    //     }
+                    //
+                    // },
+                    // {
+                    //     "targets": 5,
+                    //     "orderable": true,
+                    //     "searchable": true,
+                    //     "render": function (data, type, row) {
+                    //         return '<td>' + data + '</td>';
+                    //     }
+                    //
+                    // },
                     {
                         "targets": -1,
                         "orderable": false,
@@ -553,8 +553,6 @@
             e.stopPropagation();
             e.preventDefault();
         });
-
-
 
 
         $('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});

@@ -125,8 +125,8 @@
                             <th>生产编号</th>
                             <th>设备型号</th>
                             <th>所属项目</th>
-                            <th>操作员</th>
-                            <th>抄表员</th>
+                            <!--<th>操作员</th>-->
+                            <!--<th>抄表员</th>-->
                             <th>设备状态</th>
                             <th>指定中间商</th>
                             <th></th>
@@ -237,21 +237,21 @@
                                 return data
                             }
                         }},
-                    {"data": "operateUser.name","render":function(data, type, row, meta){
-                            if(data == undefined || data == null || data == ''){
-                                return ""
-                            }else{
-                                return data
-                            }
-                        }},
-                    {"data": "transcribeUser.name","render":function(data, type, row, meta){
-                            // console.log(row);
-                            if(data == undefined || data == null || data == ''){
-                                return ""
-                            }else{
-                                return data
-                            }
-                        }},
+                    // {"data": "operateUser.name","render":function(data, type, row, meta){
+                    //         if(data == undefined || data == null || data == ''){
+                    //             return ""
+                    //         }else{
+                    //             return data
+                    //         }
+                    //     }},
+                    // {"data": "transcribeUser.name","render":function(data, type, row, meta){
+                    //         // console.log(row);
+                    //         if(data == undefined || data == null || data == ''){
+                    //             return ""
+                    //         }else{
+                    //             return data
+                    //         }
+                    //     }},
                     {"data": "deviceStatus","render": function(data, type, row, meta){
                             var status;
                             if(data == 0){
@@ -330,23 +330,16 @@
                         }
 
                     },
-                    {
-                        "targets": 6,
-                        "orderable": true,
-                        "searchable": true,
-                        "render": function (data, type, row) {
-                            return '<td>' + data + '</td>';
-                        }
-                    },
+
                     {
                         "targets": -1,
                         "orderable": false,
                         data: null,
                         "render": function (data, type, row) {
-                            if(row.deviceStatus == 1) { //不在线
-                                return null
-                            }
-                            else {
+                            // if(row.deviceStatus == 0) { //不在线
+                            //     return null
+                            // }
+                            // else {
                                 return '<div class="hidden-sm hi' +
                                     '' +
                                     'dden-xs action-buttons">'
@@ -387,7 +380,7 @@
                                 + '<li><a class="tooltip-error delete" data-rel="tooltip" title="删除" data-id="'+data.deviceId+'"><span class="blue"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>'
                                     [/]
                                 +'</ul></div></div>';
-                            }
+                            // }
 
                         }
 
@@ -625,13 +618,14 @@
         })
             [/]
 
+        var deviceNum;
         $('#dynamic-table tbody').on('click', 'tr', function() {
-            console.log($(this).find("td:nth-of-type(7)").text())
-            if($(this).find("td:nth-of-type(7)").text() == "不在线"){
-                $(this).removeClass("selected")
-            }else {
-                $(this).addClass("selected")
-            }
+            var idArr = [];
+            $("#dynamic-table tr.selected").each(function () {
+                idArr.push($(this).find("td:nth-of-type(2)").text())
+                deviceNum = idArr
+            });
+
         } );
 
         $("#search").on("click",function(e){
@@ -644,6 +638,7 @@
                 bootbox.alert("请选择要改变的IP!");
                 return;
             }
+
             jQuery.validator.addMethod("isZipCode", function(value, element) {
                 var tel =  /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
                 return this.optional(element) || (tel.test(value));
@@ -664,15 +659,24 @@
                             var _this = $(this);
                             var flag = $formChangeIp.form();
                             if(flag){
-                                var data = $('#deviceIpPop>form').serializeObject();
+                                var data = {
+                                    "device_production_num": deviceNum,
+                                    ip: $("#add-role-group-name").val()
+                                };
+                                console.log(deviceNum);
                                 $.ajax({
-                                    url: contextPath+"api/sysrolegroup",
+                                    url: contextPath + "api/SvrAddr/json/",
                                     type: "post",
                                     data : JSON.stringify(data),
                                     contentType: "application/json",
                                     dataType : "json",
                                     success: function (data) {
-                                        _this.dialog( "close" );
+                                        if(data.status==200){
+                                            myTable.draw();
+                                            _this.dialog( "close" );
+                                            $("#add-role-group-name").val("")
+                                        }
+
                                     },
                                     error: function (data) {
 //                                        console.log(data);
@@ -688,7 +692,7 @@
                         text: "取消",
                         "class" : "btn btn-minier",
                         click: function() {
-                            $( this ).dialog( "close" );
+                            $(this).dialog( "close" );
                             $('#add-role-group-name').val('').blur();
                             $("#add-role-group-name-error").parents(".has-error").removeClass("has-error");
                             $("#add-role-group-name-error").remove();
@@ -743,6 +747,7 @@
             var dialog = $( "#frequencyPop" ).removeClass('hide').dialog({
                 resizable: false,
                 width: '600',
+                height: '200',
                 modal: true,
                 closeText: "关闭",
                 title: '更换频率设置',
@@ -753,39 +758,50 @@
                         "class" : "btn btn-primary btn-minier",
                         click: function() {
                             var _this = $(this);
-                            var flag = $formChangeIp.form();
+                            var flag = $formPl.form();
                             if(flag){
-                                var data = $('#frequencyPop>form').serializeObject();
+                                var data = {
+                                    "device_production_num": deviceNum,
+                                    ip: $("#changePl").val()
+                                };
                                 $.ajax({
-                                    url: contextPath+"api/sysrolegroup",
+                                    url: contextPath+"api/ReportPeriod/json/",
                                     type: "post",
                                     data : JSON.stringify(data),
                                     contentType: "application/json",
                                     dataType : "json",
                                     success: function (data) {
-                                        _this.dialog( "close" );
+                                        if(data.status==200){
+                                            myTable.draw();
+                                            _this.dialog( "close" );
+                                            $("#changePl").val("")
+                                        }
+                                        // _this.dialog( "close" );
                                     },
                                     error: function (data) {
 //                                        console.log(data);
                                     }
                                 })
+
                             }
+
+
                         }
                     },
                     {
                         text: "取消",
                         "class" : "btn btn-minier",
                         click: function() {
-                            $( this ).dialog( "close" );
-                            $('#changePl-error').val('').blur();
-                            $("#changePl-error").parents(".has-error").removeClass("has-error");
-                            $("#changePl-error").remove();
+                            $(this).dialog( "close" );
+                            $('#changePl').val('').blur();
+                            $('#changePl-error').parents(".has-error").removeClass("has-error");
+                            $('#changePl-error').remove();
                         }
                     }
                 ]
-            });
+            });;
 
-            var $formChangeIp = $('#frequencyPop>form').validate({
+            var $formPl = $('#frequencyPop>form').validate({
                 errorElement: 'span',
                 errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
                 focusInvalid: false,

@@ -143,7 +143,7 @@
         template:'<div class="col-xs-12 col-sm-9">' +
         '<div class="ztree-page ztree-box col-xs-12 col-sm-12"> ' +
         '<span v-for="item in list" data-id="item.id"  class="ztreeName" ' +
-        '@click="delCurrent(item.id || item.userId)">{{item.name}}</span> ' +
+        '@click="delCurrent(item.conId || item.conId)">{{item.conName}}</span> ' +
         '<span class="add" id="add" @click="handleAdd">+</span> ' +
         '</div>' +
         '<div class="ztreeContain col-xs-12 col-sm-8" id="ztreeContain" v-show="listshow">' +
@@ -157,7 +157,7 @@
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 for(var i=0;i<treeNode.length;i++){
                     var v = treeNode[i];
-                    if(v.id == id && v.type == 'person'){
+                    if(v.conId == id){
                         treeObj.checkNode(v, false, true);
                     }
                 }
@@ -179,6 +179,11 @@
                     },
                     view: {
                         showLine: false
+                    },
+                    data: {
+                        key: {
+                            name: "conName"
+                        }
                     }
                 };
             }
@@ -192,11 +197,7 @@
                 var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 treeNode.map(function(v){
-                    if(v.type == 'person'){
-                        v.icon = contextPath +'images/person.png'
-                    }else {
-                        v.icon = contextPath +'images/company.png'
-                    }
+                    v.icon = contextPath +'images/person.png'
                 });
                 treeObj.refresh();
             },
@@ -206,7 +207,9 @@
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 treeNode.map(function(v){
                     _this.list.map(function(s){
-                        if(v.id == s.userId && v.type == 'person'){
+                        console.log(s);
+                        console.log(v);
+                        if(v.conId == s.conId){
                             treeObj.checkNode(v, true, true);
                         }
                     })
@@ -214,7 +217,7 @@
             }
         },
         mounted: function(){
-
+            console.log(this.list)
         }
     });
 
@@ -229,7 +232,7 @@
         template:'<div class="col-xs-12 col-sm-9">' +
         '<div class="ztree-page ztree-box col-xs-12 col-sm-12"> ' +
         '<span v-for="item in list" data-id="item.conId"  class="ztreeName" ' +
-        '@click="delCurrent(item.id || item.conId)">{{item.conName || item.name}}</span> ' +
+        '@click="delCurrent(item.conId || item.conId)">{{item.conName || item.name}}</span> ' +
         '<span class="add" id="addCustom" @click="handleAdd">+</span> ' +
         '</div>' +
         '<div class="ztreeContain col-xs-12 col-sm-8" id="ztreeContain" v-show="listshow">' +
@@ -243,7 +246,7 @@
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 for(var i=0;i<treeNode.length;i++){
                     var v = treeNode[i];
-                    if(v.id == id && v.type == null){
+                    if(v.conId == id){
                         treeObj.checkNode(v, false, true);
                     }
                 }
@@ -265,6 +268,11 @@
                     },
                     view: {
                         showLine: false
+                    },
+                    data: {
+                        key: {
+                            name: "conName"
+                        }
                     }
                 };
             }
@@ -279,11 +287,7 @@
                 var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 treeNode.map(function(v){
-                    if(v.type == null){
-                        v.icon = contextPath +'images/person.png'
-                    }else {
-                        v.icon = contextPath +'images/company.png'
-                    }
+                    v.icon = contextPath +'images/person.png'
                 })
                 treeObj.refresh();
             },
@@ -293,10 +297,7 @@
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 treeNode.map(function(v){
                     _this.list.map(function(s){
-                        // console.log(s);
-                        // console.log(v);
-                        if(v.id == s.conId && v.type == null){
-                            console.log(v);
+                        if(v.conId == s.conId){
                             treeObj.checkNode(v, true, true);
                         }
                     })
@@ -332,6 +333,8 @@
                     zNodes:[],
                     zTreeList:[]
                 },
+                // fzr: '',
+                // customerRelation: ''
             },
             methods:{
                 resetData:function(){
@@ -354,14 +357,14 @@
                     var _this = this;
                     if(postId == 1){
                         for(var i=0;i<_this.mainPerson.zTreeList.length;i++){
-                            if(_this.mainPerson.zTreeList[i].id == id  || _this.mainPerson.zTreeList[i].userId == id){
+                            if(_this.mainPerson.zTreeList[i].conId == id){
                                 _this.mainPerson.zTreeList.splice(i,1)
                             }
                         }
                     }else{
                         for(var i=0;i<_this.customer.zTreeList.length;i++){
                             // console.log(_this.customer.zTreeList);
-                            if(_this.customer.zTreeList[i].conId == id || _this.customer.zTreeList[i].id == id){
+                            if(_this.customer.zTreeList[i].conId == id){
                                 _this.customer.zTreeList.splice(i,1)
                             }
                         }
@@ -371,13 +374,14 @@
                 handleClick: function(postId) {
                     // console.log(postId)
                     var _this = this;
-
                     if(postId == 1){
                         var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
                         var checkTrue = treeObj.getCheckedNodes(true);
-                        _this.mainPerson.zTreeList = checkTrue.filter(function(v){
-                            return v.type == 'person'
-                        });
+                        console.log(checkTrue);
+                        _this.mainPerson.zTreeList = checkTrue
+                        //     checkTrue.filter(function(v){
+                        //     return v.type == 'person'
+                        // });
                     }else{
                         var treeObj1 = $.fn.zTree.getZTreeObj("treeDemoCustom");
                         var checkTrue1 = treeObj1.getCheckedNodes(true);
@@ -412,9 +416,14 @@
                     method: "get",
                     success: function (data) {
                         _this.selectProject = data.content.project.projectId;
-                        _this.selectOperate = data.content.operateUser.userid;
-                        _this.selectTranscribe = data.content.transcribeUser.userid;
                         _this.selectIntermediary = data.content.intermediary.intermediaryId;
+                        _this.mainPerson.zTreeList =  data.content.contactses.filter(function (v) {
+                            return v.contactsStatus === 1
+                        });
+
+                        _this.customer.zTreeList =  data.content.contactses.filter(function (v) {
+                            return v.contactsStatus === 0
+                        });
                     },
                     error: function (data) {
                         // console.log("查询数据出错！");
@@ -422,11 +431,11 @@
                 });
 
                 //给数状菜单添加数据
-                $.axspost(contextPath+'api/dingtalkuser/deptUser','get','',function (data) {
+                $.axspost(contextPath+'api/contacts/operateContacts','get','',function (data) {
                     _this.mainPerson.zNodes = data.content;
                 },function(data){});
 
-                $.axspost(contextPath+'api/customer/customList','get','',function (data) {
+                $.axspost(contextPath+'api/contacts/transcribeContacts','get','',function (data) {
                     _this.customer.zNodes = data.content;
                 },function(data){});
                 //    项目下拉
@@ -448,14 +457,14 @@
                     }
                 });
 
-                //操作员，抄表员
-                $.ajax({
-                    url:contextPath+"api/dingtalkuser/idNameList",
-                    type:"get",
-                    success:function(data){
-                        _this.userList = data.content
-                    }
-                });
+                // //操作员，抄表员
+                // $.ajax({
+                //     url:contextPath+"api/dingtalkuser/idNameList",
+                //     type:"get",
+                //     success:function(data){
+                //         _this.userList = data.content
+                //     }
+                // });
 
                 var $form = $('#form').validate({
                     errorElement: 'div',
@@ -487,14 +496,19 @@
                         error.insertAfter(element.parent());
                     },
                     submitHandler: function (form) {
+                        var opration = [];
+                        var transcribe = [];
+                        _this.mainPerson.zTreeList.map(function (v) {
+                            opration.push(v.conId)
+                        });
+                        _this.customer.zTreeList.map(function (v) {//客户联系人
+                            transcribe.push(v.conId);
+                        });
+
                         var data = {
                             deviceId:id,
-                            operateUser:{
-                                userid:_this.selectOperate
-                            },
-                            transcribeUser:{
-                                userid:_this.selectTranscribe
-                            },
+                            operateUserStr: opration.join(","),
+                            transcribeUserStr: transcribe.join(","),
                             project:{
                                 projectId:_this.selectProject
                             },
