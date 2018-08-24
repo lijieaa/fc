@@ -592,15 +592,11 @@
                 callback: function (result) {
                     if(result){
                         var postData = {
-                            project:{
-                                projectId:""
-                            },
-                            operateUser:{
-                                userid:operateUserId
-                            },
-                            transcribeUser:{
-                                userid:transcribeUserId
-                            },
+                            // project:{
+                            //     projectId:""
+                            // },
+                            operateUserStr: operateUserId,
+                            transcribeUserStr:transcribeUserId,
                             deviceId:deviceId
                         };
                         $.ajax({
