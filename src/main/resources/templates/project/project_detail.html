@@ -413,9 +413,10 @@
                                 [# sec:authorize="hasAuthority('project:edit')"] //projectId
                             + '<a class="blue" href="../../project/detailEditDevice/?id='+data.deviceId+'='+projectId+'" title="编辑"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'
                                 [/]
-                                [# sec:authorize="hasAuthority('project:edit')"]
+
                             var userID = row.operateUser == null ? '' : row.operateUser.userid;
                             var transID = row.transcribeUser == null ? '' : row.transcribeUser.userid
+                                    [# sec:authorize="hasAuthority('project:edit')"]
                             + '<a class="blue delete" data-id="'+data.projectId+'" title="删除" data-operateUser="'+userID+'" ' +
                             'data-transcribeUser="'+transID+'" data-device="'+row.deviceId+'"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>'
                                 [/]
