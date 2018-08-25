@@ -745,9 +745,9 @@
                 },
                 IsFlag:function(stattus){
                     if(stattus == 0) {
-                        return true;
-                    }else{
                         return false;
+                    }else{
+                        return true;
                     }
                 },
                 numDevice:function(num){
@@ -903,7 +903,7 @@
                                 success: function (data) {
                                     if(data.status == 200){
                                         // location.href=contextPath+"device/list";
-                                        location.reload()
+                                        // location.reload()
                                         // window.location.href=contextPath+"device/detail?id="+id+"#deviceProductionNum="+_this.deviceProductionNum+"";
                                     }
 
