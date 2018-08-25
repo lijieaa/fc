@@ -81,10 +81,12 @@ public class DeviceRestController {
                        @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
                        @RequestParam(value = "draw", required = false) Integer draw,
                        DeviceDto dto) {
+
         DingtalkUser user = UserUtils.getUser();
         Integer id = user.getIntermediaryId();
         Intermediary intermediary = intermediaryMapper.selectByPrimaryKey(id);
         List<Device> list = new ArrayList<>();
+        PageHelper.startPage(pageNum, pageSize);
         if (intermediary.getIsPlat().intValue()==1){
             //飞创可以查看所有设备
              list = deviceService.getByDto(dto);
@@ -94,7 +96,7 @@ public class DeviceRestController {
             list = deviceMapper.selectByDtoNotFc(dto);
         }
 
-        PageHelper.startPage(pageNum, pageSize);
+
 
         PageInfo pageInfo = new PageInfo(list);
 
@@ -143,6 +145,8 @@ public class DeviceRestController {
     @Transactional
     public void updateDeviceUser(@RequestBody Device device) {
         Device d = deviceMapper.selectByPrimaryKey(device.getDeviceId());
+        d.setOperateUserStr(device.getOperateUserStr());
+        d.setTranscribeUserStr(device.getTranscribeUserStr());
         deviceService.update(d);
     }
 

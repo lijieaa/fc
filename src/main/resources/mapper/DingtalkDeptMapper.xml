@@ -449,7 +449,7 @@
 
     <select id="selectByParentId" parameterType="com.jianpanmao.sys.entity.DingtalkDept" resultMap="BaseResultMap">
         <!--SELECT * FROM dingtalk_dept m where m.path LIKE concat('%',#{path},'%')-->
-        SELECT COALESCE(SUM(b.user_id),0) as memberCount,a.* FROM dingtalk_dept a LEFT JOIN dingtalk_user_dept b on
+        SELECT COALESCE(COUNT(b.user_id),0) as memberCount,a.* FROM dingtalk_dept a LEFT JOIN dingtalk_user_dept b on
         a.id=b.dept_id where a.parentid=#{parentid} AND a.intermediary_id=#{intermediaryId} GROUP BY a.id ORDER BY a.`order` ASC
     </select>
 
