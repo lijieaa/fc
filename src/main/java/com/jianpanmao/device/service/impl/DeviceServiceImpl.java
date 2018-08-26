@@ -34,6 +34,33 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device, DeviceExample, De
     ContactsMapper contactsMapper;
 
     @Override
+    public List<Device> getByDto(DeviceDto dto) {
+        List<Device> devices =super.getByDto(dto);
+        for (Device device:devices){
+            String  stringOP =new String("");
+            String stringTR =new String("");
+            List<Contacts> contactses = contactsMapper.deviceContacts(device.getDeviceId());
+            for (Contacts contacts:contactses){
+                if (contacts.getContactsStatus().intValue()==0){
+                    stringTR += contacts.getConName()+",";
+                }else if (contacts.getContactsStatus().intValue()==1){
+                    stringOP +=contacts.getConName()+",";
+                }
+            }
+            if (stringOP.length()>0){
+                stringOP = stringOP.substring(0,stringOP.length()-1);
+            }
+            if (stringTR.length()>0){
+                stringTR = stringTR.substring(0,stringTR.length()-1);
+            }
+            device.setTranscribeUserStr(stringTR);
+            device.setOperateUserStr(stringOP);
+        }
+
+        return devices;
+    }
+
+    @Override
     public Device get(Integer TId) {
         Device device = super.get(TId);
         List<Contacts> contactses = contactsMapper.deviceContacts(TId);
