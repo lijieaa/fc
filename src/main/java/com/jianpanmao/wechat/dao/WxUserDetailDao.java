@@ -20,4 +20,19 @@ public interface WxUserDetailDao extends BaseDao<WxUserDetail> {
      */
     void deleteByOpenIdAndSourceId(@Param("openId") String openId,
                                    @Param("sourceId") String sourceId) throws Exception;
+
+    /**
+     * 删除公众号相关用户
+     * @param publicId
+     * @return
+     */
+    public int deleteByPublicId(Integer publicId);
+
+
+    /**
+     * 删除中间表wx_user_openid的数据，这个中间表具体是做什么的还不清楚
+     * @param publicId
+     * @return
+     */
+    public int deleteWxUserOpenid(Integer publicId);
 }

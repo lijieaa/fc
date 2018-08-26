@@ -1,10 +1,12 @@
 package com.jianpanmao.wechat.service;
 
 import com.jianpanmao.exception.AccessTokenException;
+import com.jianpanmao.utils.WxUtils;
 import com.jianpanmao.wechat.api.WxApiHandler;
 import com.jianpanmao.wechat.api.response.OpenIdResponse;
 import com.jianpanmao.wechat.base.BaseDao;
 import com.jianpanmao.wechat.base.BaseServiceImpl;
+import com.jianpanmao.wechat.dao.WxMaterialDao;
 import com.jianpanmao.wechat.dao.WxPublicDao;
 import com.jianpanmao.wechat.dao.WxUserDetailDao;
 import com.jianpanmao.wechat.dao.WxUserOpenIdDao;
@@ -33,6 +35,8 @@ public class WxPublicServiceImpl extends BaseServiceImpl<WxPublic> implements Wx
     @Autowired private WxUserOpenIdDao wxUserOpenIdDao;
 
     @Autowired private WxUserDetailDao wxUserDetailDao;
+
+    @Autowired private WxMaterialDao wxMaterialDao;
 
     @Override
     public BaseDao<WxPublic> getDao() {
@@ -65,6 +69,22 @@ public class WxPublicServiceImpl extends BaseServiceImpl<WxPublic> implements Wx
         }
 
         return insert;
+    }
+
+    @Override
+    public void deleteByPrimaryKey(Integer id) throws Exception {
+
+        //删除有关素材
+        wxMaterialDao.deleteByPublicId(id);
+
+        //删除用户
+        wxUserDetailDao.deleteByPublicId(id);
+
+        // 删除中间表wx_user_openid的数据，这个中间表具体是做什么的还不清楚
+        wxUserDetailDao.deleteWxUserOpenid(id);
+
+
+        super.deleteByPrimaryKey(id);
     }
 
     @Override

@@ -16,4 +16,6 @@ public interface WxMaterialService extends BaseService<WxMaterial> {
     void insertWxNews(WxNewsContent wxNewsContent, String accessToken) throws Exception;
 
     WxMaterial findByMediaId(String mediaId);
+
+    int deleteByPublicId(Integer publicId);
 }

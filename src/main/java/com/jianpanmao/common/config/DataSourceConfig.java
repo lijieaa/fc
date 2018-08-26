@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author zdc
@@ -44,6 +46,9 @@ public class DataSourceConfig {
     @Bean
     public DruidDataSource dataSource() throws SQLException {
         DruidDataSource druidDataSource = new DruidDataSource();
+        Collection sqls=new ArrayList();
+        sqls.add("set names utf8mb4;");
+        druidDataSource.setConnectionInitSqls(sqls);
         druidDataSource.setUsername(username);
         druidDataSource.setPassword(password);
         druidDataSource.setUrl(url);
