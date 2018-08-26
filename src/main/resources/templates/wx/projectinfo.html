@@ -260,7 +260,7 @@
 
 
             if(data.status=='200'){
-
+                $("projectImg").attr("src","180");
                 $("#projectName").html(data.content.projectName)
                 if(data.content.projectChargeUser.length>0){
                     var str =  data.content.projectChargeUser.reduce(function(total,next){
