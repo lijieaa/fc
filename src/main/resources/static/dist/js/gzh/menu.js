@@ -79,11 +79,9 @@ new Vue({
             type: "get",
             processData:true,
             success:function (data) {
-                // console.log(_this.menu)
-                _this.menu=data.menu;
-                if(_this.menu.button && _this.menu.button.length){
-                    _this.selectedMenuIndex = 0;
-                }
+                // if(_this.menu.button && _this.menu.button.length){
+                //     _this.selectedMenuIndex = 0;
+                // }
             }
         })
     },
