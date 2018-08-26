@@ -1,15 +1,18 @@
 package com.jianpanmao.contacts.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jianpanmao.sys.entity.SysMenu;
 import com.jianpanmao.sys.entity.SysRole;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
-public class Contacts implements Serializable {
+public class Contacts implements Serializable,UserDetails {
     //
     private Integer conId;
 
@@ -36,7 +39,7 @@ public class Contacts implements Serializable {
     //中间商外键
     private Integer intermediaryId;
 
-
+    @JsonIgnore
     public String getPwd() {
         return pwd;
     }
@@ -177,5 +180,51 @@ public class Contacts implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SysRole> roles = this.getRoles();
+        Collection<SimpleGrantedAuthority> authorities=new HashSet<>();
+        for (SysRole role : roles) {
+            List<SysMenu> menus = role.getMenus();
+            for (SysMenu menu : menus) {
+                if(menu.getMenuPrmission()!=null&&menu.getMenuPrmission().length()>0){
+                    authorities.add(new SimpleGrantedAuthority(menu.getMenuPrmission().trim()));
+                }
+            }
+        }
+        return authorities;
+    }
+
+    @JsonIgnore
+    @Override
+    public String getPassword() {
+        return pwd;
+    }
+
+    @Override
+    public String getUsername() {
+        return getConName();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

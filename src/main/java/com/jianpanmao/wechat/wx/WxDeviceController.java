@@ -51,6 +51,11 @@ public class WxDeviceController {
         return deviceService.get(id);
     }
 
+    @GetMapping("equipment")
+    public String equipment(){
+        return "wx/equipment";
+    }
+
     @GetMapping("operate")
     public String operate(){
         return "wx/operate";

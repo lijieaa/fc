@@ -1,10 +1,17 @@
 package com.jianpanmao.wechat.wx;
 
+import com.jianpanmao.common.config.WxUserDetailService;
 import com.jianpanmao.contacts.entity.Contacts;
 import com.jianpanmao.contacts.service.ContactsService;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import com.jianpanmao.sys.service.DingtalkUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -39,10 +46,7 @@ public class WxCommonController {
         return "wx/index";
     }
 
-    @GetMapping("equipment")
-    public String equipment(){
-        return "wx/equipment";
-    }
+
 
     @GetMapping("equiprams")
     public String equiprams(){
@@ -81,16 +85,28 @@ public class WxCommonController {
     public String client(){
         return "wx/client";
     }
+
+
+
+
+
+    @Autowired
+    @Qualifier("wxAuthenticationManager")
+    private AuthenticationManager wxAuthenticationManager;
+
     @PostMapping("login")
     public String loginAction(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) throws Exception{
 
-        Contacts contacts = contactsService.findeByTel(username);
-        String pwd = contacts.getPwd();
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        if (encoder.matches(password, pwd)) {
-            session.setAttribute("wxuser", contacts);
-            return "redirect:/wd/operate";
-        } else {
+        UsernamePasswordAuthenticationToken authRequest=new UsernamePasswordAuthenticationToken(username,password);
+
+        try {
+            Authentication authentication = wxAuthenticationManager.authenticate(authRequest); //调用loadUserByUsername
+            System.out.println(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext()); // 这个非常重要，否则验证后将无法登陆
+            return "redirect:/wd/equipment";
+        } catch (AuthenticationException ex) {
+           ex.printStackTrace();
             return "redirect:/wx/common/loginwx";
         }
     }
