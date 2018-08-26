@@ -11,7 +11,7 @@
     <link rel="stylesheet" th:href="@{/css/framework7.min.css}">
     <link rel="stylesheet" th:href="@{/css/app.css}">
     <link rel="stylesheet" th:href="@{/css/cover.css}">
-    <script>
+    <script th:inline="javascript">
         var deviceWidth = document.documentElement.clientWidth;
         if(deviceWidth > 1080) deviceWidth = 1080;
         document.documentElement.style.fontSize = deviceWidth / 10.8 + 'px';
@@ -60,7 +60,7 @@
         </div>
         <div class="pages">
 
-            <div class="page projectinfo" data-page="home">
+            <div class="page projectinfo" data-page="home" style="padding-bottom: 55px;">
 
                 <div class="page-content infinite-scroll-content">
 
@@ -108,7 +108,7 @@
                         </table>
                     </div>
                     <div class="list media-list content-block">
-                        <div class="content-title">评论（10）</div>
+                        <div class="content-title f32 bold">评论(<span id="countTotal">0</span>)</div>
                         <ul id="listview">
                           <!--  <li class="plist ">
                                 <div class="item-content comment-box">
@@ -196,7 +196,9 @@
    var projectid= GetRequest().projectid
     console.log(GetRequest())
 </script>
-<script>
+<script type="text/javascript" th:inline="javascript">
+    var sourceId = [[${sourceId}]];
+    sourceId =sourceId||'gh_f5a46974c0f6';
     var $$ = Dom7;
     // Loading flag
     var allowInfinite = true;
@@ -227,6 +229,54 @@
         overlay:false,
         on:{
             init:function(page){
+                $.ajax({
+                    url: "/wx/common/getProject",
+                    type:"get",
+                    data:{
+                        sourceId:sourceId,
+                        pageNum:pageNum,
+                        pageSize:itemsPerLoad,
+                        projectId:projectid,
+                    },
+                    success:function(data){
+                        console.log(data)
+                        if(data.status=='200'){
+
+                            if(!!data.content.projectLogo){
+                                $("#projectImg").attr("src",imgPath+data.content.projectLogo);
+                            }
+
+                            $("#projectName").html(data.content.projectName)
+                            if(data.content.projectChargeUser.length>0){
+                                var str =  data.content.projectChargeUser.reduce(function(total,next){
+                                    return total+'<tr><td>'+next.name+'</td>'+'<td>'+next.mobile+'</td>'+'<td>'+next.email+'</td></tr>'
+                                },"")
+
+                                $("#charge").html(str)
+
+                            }
+
+                            if(data.content.projectCustomers.length>0){
+                                var str =  data.content.projectCustomers.reduce(function(total,next){
+                                    return total+'<tr><td>'+next.conName+'</td>'+'<td>'+next.conTel+'</td>'+'<td>'+next.conQQ+'</td></tr>'
+                                },"")
+
+                                $("#clienter").html(str)
+
+                            }
+
+                        }
+
+
+
+
+
+
+
+
+
+                    }
+                })
                 initList()
             }
         }
@@ -243,56 +293,7 @@
         initList()
     }
 /*    wx/common/common?projectId=9*/
-    $.ajax({
-        url: "/wx/common/getProject",
-        type:"get",
-        data:{
-            sourceId:"gh_f5a46974c0f6",
-            pageNum:pageNum,
-            pageSize:itemsPerLoad,
-            projectId:55,
-        },
-        success:function(data){
 
-
-            console.log(data)
-
-
-
-            if(data.status=='200'){
-                $("projectImg").attr("src","180");
-                $("#projectName").html(data.content.projectName)
-                if(data.content.projectChargeUser.length>0){
-                    var str =  data.content.projectChargeUser.reduce(function(total,next){
-                        return total+'<tr><td>'+next.name+'</td>'+'<td>'+next.mobile+'</td>'+'<td>'+next.email+'</td></tr>'
-                    },"")
-
-                    $("#charge").html(str)
-
-                }
-
-                if(data.content.projectCustomers.length>0){
-                  var str =  data.content.projectCustomers.reduce(function(total,next){
-                        return total+'<tr><td>'+next.conName+'</td>'+'<td>'+next.conTel+'</td>'+'<td>'+next.conQQ+'</td></tr>'
-                    },"")
-
-                    $("#clienter").html(str)
-
-                }
-
-            }
-
-
-
-
-
-
-
-
-
-
-        }
-    })
     function initList(){
         allowInfinite = false;
         console.log(lastItemIndex,maxItems)
@@ -301,10 +302,10 @@
             url: "/wx/common/commentsList",
             type:"get",
             data:{
-                sourceId:"gh_f5a46974c0f6",
+                sourceId:sourceId,
                 pageNum:pageNum,
                 pageSize:itemsPerLoad,
-                projectId:1,
+                projectId:projectid,
             },
             success:function(data){
                 allowInfinite = true;
@@ -312,7 +313,9 @@
                 console.log(data)
                 var html = '';
                 if(data.status==200){
+
                     maxItems = data.content.total
+                    $$("#countTotal").html(maxItems)
                     data.content.list.forEach(function(item,i){
                         console.log(item)
 

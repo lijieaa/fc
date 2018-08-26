@@ -45,7 +45,7 @@
                             <input type="search" placeholder=""  name="projectName" id="serch" class="f28">
                             <i class="searchbar-icon"></i>
                         </div>
-                        <span class="ser-btn text-base-color f30 bdr-clr" style="" onclick="serch()">搜索</span>
+                        <span id="ser-btn" class="ser-btn text-base-color f30 bdr-clr" style="" >搜索</span>
                     </div>
                 </form>
             </div>
@@ -93,9 +93,8 @@
  </div>
 <script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
 <script type="text/javascript" th:inline="javascript">
-        var sourceId = [[${sourceId}]];
-        console.log(sourceId)
-    var sourceId="gh_f5a46974c0f6";
+    var sourceId = [[${sourceId}]];
+    sourceId =sourceId||'gh_f5a46974c0f6';
     var $$ = Dom7;
     // Loading flag
     var allowInfinite = true;
@@ -116,13 +115,6 @@
                 lastItem: 20,
             }
         },
-        statusbar: {
-            enabled:false,
-            overlay:false,
-            iosBackgroundColor:"#018c53",
-            materialBackgroundColor:"#018c53",
-            iosOverlaysWebView: true,
-        },
         overlay:false,
         on:{
             init:function(page){
@@ -135,19 +127,15 @@
 
 
     app.infiniteScroll.create(".infinite-scroll-content")
-
-
     function serch(){
          maxItems = 0;
          pageNum=1;
-        console.log($("#serch").val())
         $('.list li').remove()
         initList()
     }
 
     function initList(){
         allowInfinite = false;
-        console.log(lastItemIndex,maxItems)
         var  projectName= $("#serch").val()
 
         $.ajax({
@@ -168,10 +156,15 @@
                     maxItems = data.content.total
                     data.content.list.forEach(function(item,i){
                         console.log(item)
+                        var imgSrc= contextPath+"img/proimg.jpg"
+                        if(!!imgPath+item.projectLogo){
+                            imgSrc= imgPath+item.projectLogo
+                        }
+
                         html += '<li class="plist rcard" data-projectid='+item.projectId+'>'+
                                 '<div class="item-content">'+
                                 '<div class="item-media">'+
-                                '<img src="'+imgPath+item.projectLogo+'" class="proview" />'+
+                                '<img src="'+imgSrc+'" class="proview" />'+
                                 '</div>'+
                                 '<div class="item-inner ">'+
                                 '<div class="item-title-row">'+
@@ -224,8 +217,16 @@
     });
 
 
+
+$$("#ser-btn").on("click",function(){
+    maxItems = 0;
+    pageNum=1;
+    console.log($("#serch").val())
+    $('.list li').remove()
+    initList()
+})
+
     $$("#listview").on("click",'.rcard',function(e){
-        console.dir(e)
         var projectid =$(e.target).closest(".rcard").data("projectid");
         window.location.href="/wx/common/projectinfo?projectid="+projectid;
     })

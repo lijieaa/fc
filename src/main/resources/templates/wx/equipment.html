@@ -11,12 +11,21 @@
     <link rel="stylesheet" th:href="@{/css/framework7.min.css}">
     <link rel="stylesheet" th:href="@{/css/app.css}">
     <link rel="stylesheet" th:href="@{/css/cover.css}">
-    <script th:src="@{/js/framework7.min.js}"></script>
-    <script>
+    <script th:inline="javascript">
         var deviceWidth = document.documentElement.clientWidth;
         if(deviceWidth > 1080) deviceWidth = 1080;
         document.documentElement.style.fontSize = deviceWidth / 10.8 + 'px';
+        var contextPath = /*[[@{/}]]*/;
+        var ip = /*[[${#request.getLocalAddr()}]]*/;
+        var port = /*[[${#request.getLocalPort()}]]*/;
+        var scheme=/*[[${#request.getScheme()}]]*/;
+        var serverName=/*[[${#request.getServerName()}]]*/;
+        var port=/*[[${#request.getServerPort()}]]*/;
+        var absolutePath = scheme+"://"+serverName+":"+port;
+        var imgPath=absolutePath+"/uploadimg/"
     </script>
+    <script th:src="@{/js/framework7.min.js}"></script>
+    <script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
 </head>
 <body>
 <div id="app" class="wrapper framework7-root">
@@ -41,7 +50,7 @@
                             <input type="search" placeholder="" id="serch" class="f28">
                             <i class="searchbar-icon"></i>
                         </div>
-                        <span class="ser-btn text-base-color f30" style="" onclick="serch()">搜索</span>
+                        <span  id="ser-btn" class="ser-btn text-base-color f30" >搜索</span>
                     </div>
                 </form>
 
@@ -252,11 +261,10 @@
         </div>
     </div>
 </div>
-<script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
+
 <script type="text/javascript"  th:inline="javascript">
     var sourceId = [[${sourceId}]];
-    console.log(sourceId)
-    var sourceId="gh_f5a46974c0f6";
+    sourceId =sourceId||'gh_f5a46974c0f6';
     var $$ = Dom7;
     // Loading flag
     var allowInfinite = true;
@@ -276,13 +284,6 @@
                 allowInfinite: true,
                 lastItem: 20,
             }
-        },
-        statusbar: {
-            enabled:false,
-            overlay:false,
-            iosBackgroundColor:"#018c53",
-            materialBackgroundColor:"#018c53",
-            iosOverlaysWebView: true,
         },
         overlay:false,
         on:{
@@ -311,7 +312,6 @@
     function serch(){
         maxItems = 0;
         pageNum=1;
-        console.log($("#serch").val())
         $('.list li').remove()
         initList()
     }
@@ -340,8 +340,15 @@
                     maxItems = data.content.total
                     data.content.list.forEach(function(item,i){
                         console.log(item)
+
+                        var status ="未知"
+                        switch(item.deviceStatus){
+                            case  0: status="离线";break;
+                            case 1: status="在线";break;
+                            default: status="未知";
+                        }
                         html +=    '<li class="plist card">'+
-                                '<a class="item-content external"   href="/wd/operate">'+
+                                '<a class="item-content external"   href="/wd/operate?equipnum='+item.deviceProductionNum+'">'+
                                 '<div class="item-inner ">'+
                                 '<div class="item-title-row">'+
                                 '<div class="item-title f32">生产编号：'+item.deviceProductionNum+'</div>'+
@@ -352,8 +359,8 @@
                                 '<col width="50%"/>'+
                                 '<col width="50%"/>'+
                                 '</colgroup>'+
-                                '<tr><td><span>操作员：</span>'+(item.operateUser&&item.operateUser.name)+'</td><td><span>型号：</span>'+item.deviceType+'</td></tr>'+
-                                ' <tr><td><span>抄表员：</span>'+(item.transcribeUser&&item.transcribeUser.name)+'</td><td><span>状态：</span><span class="cstatus">'+(item.deviceStatus?'在线':'不在线')+'</span></td></tr>'+
+                                '<tr><td><span>操作员：</span>'+(item.operateUserStr)+'</td><td><span>型号：</span>'+item.deviceType+'</td></tr>'+
+                                ' <tr><td><span>抄表员：</span>'+(item.transcribeUserStr)+'</td><td><span>状态：</span><span class="cstatus">'+status+'</span></td></tr>'+
                                 '</table>'+
                                 '</div></div></a> </li>'
                     })
@@ -381,6 +388,14 @@
             }
         })
     }
+
+    $$("#ser-btn").on("click",function(){
+        maxItems = 0;
+        pageNum=1;
+        console.log($("#serch").val())
+        $('.list li').remove()
+        initList()
+    })
     $$('.infinite-scroll-content').on('infinite', function () {
         // Exit, if loading in progress
         if (!allowInfinite) return;

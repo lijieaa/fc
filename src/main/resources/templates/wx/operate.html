@@ -13,10 +13,18 @@
     <link rel="stylesheet" th:href="@{/css/app.css}">
     <link rel="stylesheet" th:href="@{/css/cover.css}">
     <script th:src="@{/js/framework7.min.js}"></script>
-    <script>
+    <script th:inline="javascript">
         var deviceWidth = document.documentElement.clientWidth;
         if(deviceWidth > 1080) deviceWidth = 1080;
         document.documentElement.style.fontSize = deviceWidth / 10.8 + 'px';
+        var contextPath = /*[[@{/}]]*/;
+        var ip = /*[[${#request.getLocalAddr()}]]*/;
+        var port = /*[[${#request.getLocalPort()}]]*/;
+        var scheme=/*[[${#request.getScheme()}]]*/;
+        var serverName=/*[[${#request.getServerName()}]]*/;
+        var port=/*[[${#request.getServerPort()}]]*/;
+        var absolutePath = scheme+"://"+serverName+":"+port;
+        var imgPath=absolutePath+"/uploadimg/"
     </script>
 </head>
 <body>
@@ -58,7 +66,7 @@
                                     <div class="item-title text-base-color">设备远程启停</div>
                                     <div class="item-after">
                                         <label class="toggle toggle-init">
-                                            <input type="checkbox" name="remoteBoot" value="1"><i class="toggle-icon"></i>
+                                            <input id="remoteBoot" type="checkbox" name="remoteBoot" value="1"><i class="toggle-icon"></i>
                                         </label>
                                     </div>
                                 </div>
@@ -70,9 +78,9 @@
                     <ul>
 
 
-                        <li><a th:href="@{/wx/common/equiprams}" class="f30 external" >设备参数</a></li>
-                        <li><a th:href="@{/wx/common/userparams}" class="f30 external">用户参数</a></li>
-                        <li><a th:href="@{/wx/common/sysparams}" class="f30 external">系统时间</a></li>
+                       <!-- <li><a th:href="@{/wx/common/equiprams}" class="f30 external" >设备参数</a></li>-->
+                        <li><a id="userparams" th:href="@{/wx/common/userparams}" class="f30 external">用户参数</a></li>
+                       <!-- <li><a th:href="@{/wx/common/sysparams}" class="f30 external">系统时间</a></li>-->
                     </ul>
                 </div>
             </div>
@@ -80,15 +88,35 @@
     </div>
 </div>
 <script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
-<!-- Path to Framework7 Library JS-->
 <script>
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+    var equipnum= GetRequest().equipnum
+    console.log(GetRequest())
+</script>
+<!-- Path to Framework7 Library JS-->
+<script type="text/javascript" th:inline="javascript">
+    var sourceId = [[${sourceId}]];
+    sourceId =sourceId||'gh_f5a46974c0f6';
+
+   var usr =  $("#userparams").attr("href")
+    $("#userparams").attr("href",usr+"?equipnum="+equipnum)
     function  initList(){
         $.ajax({
             url: "/wd/getDeviceParams",
             type:"get",
             data:{
-                num:6921734972392
-
+                num:equipnum
             },
             success:function(data){
 
@@ -127,6 +155,22 @@
                 on:{
                     init:function(page){
                         initList()
+
+                        $("#remoteBoot").on("click",function(e){
+
+
+                            var status =Number(this.checked)
+                            $.ajax({
+                                url: contextPath+"api/Control/json/",
+                                type: "POST",
+                                data : JSON.stringify({
+                                    device_production_num:equipnum,
+                                    action:status
+                                }),
+                                contentType: "application/json",
+                                dataType : "json",
+                            })
+                        })
                     }
                 }
             }

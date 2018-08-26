@@ -14,6 +14,7 @@
 }
 .response{
   min-width: 100%;
+  min-height:50px;
 }
 .wrapper .toolbar-inner{
   padding:0 0;
@@ -73,6 +74,9 @@
   font-size: 12px;
 }
 
+.bold{
+  font-weight: bold;
+}
 .f36{
   font-size:16px !important;
 }
@@ -384,4 +388,3 @@ span.pkee{
 
 }
 
-.changer
