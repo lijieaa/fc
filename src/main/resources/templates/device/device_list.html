@@ -692,7 +692,7 @@
                         text: "取消",
                         "class" : "btn btn-minier",
                         click: function() {
-                            $( this ).dialog( "close" );
+                            $(this).dialog( "close" );
                             $('#add-role-group-name').val('').blur();
                             $("#add-role-group-name-error").parents(".has-error").removeClass("has-error");
                             $("#add-role-group-name-error").remove();
@@ -747,6 +747,7 @@
             var dialog = $( "#frequencyPop" ).removeClass('hide').dialog({
                 resizable: false,
                 width: '600',
+                height: '200',
                 modal: true,
                 closeText: "关闭",
                 title: '更换频率设置',
@@ -757,7 +758,7 @@
                         "class" : "btn btn-primary btn-minier",
                         click: function() {
                             var _this = $(this);
-                            var flag = $formChangeIp.form();
+                            var flag = $formPl.form();
                             if(flag){
                                 var data = {
                                     "device_production_num": deviceNum,
@@ -781,23 +782,26 @@
 //                                        console.log(data);
                                     }
                                 })
+
                             }
+
+
                         }
                     },
                     {
                         text: "取消",
                         "class" : "btn btn-minier",
                         click: function() {
-                            $( this ).dialog( "close" );
-                            $('#changePl-error').val('').blur();
-                            $("#changePl-error").parents(".has-error").removeClass("has-error");
-                            $("#changePl-error").remove();
+                            $(this).dialog( "close" );
+                            $('#changePl').val('').blur();
+                            $('#changePl-error').parents(".has-error").removeClass("has-error");
+                            $('#changePl-error').remove();
                         }
                     }
                 ]
-            });
+            });;
 
-            var $formChangeIp = $('#frequencyPop>form').validate({
+            var $formPl = $('#frequencyPop>form').validate({
                 errorElement: 'span',
                 errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
                 focusInvalid: false,
