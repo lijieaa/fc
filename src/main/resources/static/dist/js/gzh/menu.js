@@ -79,8 +79,14 @@ new Vue({
             type: "get",
             processData:true,
             success:function (data) {
+                // console.log(_this.menu)
+                _this.menu=data.menu;
                 // if(_this.menu.button && _this.menu.button.length){
+                //     alert(2)
                 //     _this.selectedMenuIndex = 0;
+                // }else {
+                //     alert(1)
+                //     _this.selectedMenuIndex = -1;
                 // }
             }
         })
