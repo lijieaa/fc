@@ -8,6 +8,7 @@
     <result column="con_qq" jdbcType="VARCHAR" property="conQq" />
     <result column="con_wechat" jdbcType="VARCHAR" property="conWechat" />
     <result column="con_email" jdbcType="VARCHAR" property="conEmail" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
     <result column="cus_id" jdbcType="INTEGER" property="cusId" />
     <result column="intermediary_id" jdbcType="INTEGER" property="intermediaryId" />
     <result column="con_create_time" jdbcType="TIMESTAMP" property="conCreateTime" />
@@ -77,7 +78,7 @@
   </sql>
   <sql id="Base_Column_List">
     con_id, con_name, con_tel, con_qq, con_wechat, con_email, cus_id, intermediary_id, 
-    con_create_time, con_update_time
+    con_create_time, con_update_time,pwd
   </sql>
   <select id="selectByExample" parameterType="com.jianpanmao.contacts.entity.ContactsExample" resultMap="BaseResultMap">
     select

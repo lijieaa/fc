@@ -44,7 +44,7 @@
                     内部通讯录管理
                 </a>
             </li>
-            <li class="col-sm-6 no-padding">
+            <li class="col-sm-6 no-padding" sec:authorize="hasAuthority('customer:view')">
                 <a data-toggle="tab" href="#outcontacts" aria-expanded="false">
                     <!--<i class="green ace-icon glyphicon glyphicon-list-alt bigger-120"></i>-->
                     客户通讯录管理
@@ -314,7 +314,7 @@
                                             <h4 class="smaller btn-group">
                                                 <button class="btn btn-info add-outcontacts-btn" sec:authorize="hasAuthority('contacts:add')">
                                                     <!--<i class="ace-icon glyphicon glyphicon-plus small bigger-120 white"></i>-->
-                                                    添加成员
+                                                    <添加成员></添加成员>
                                                 </button>
                                                 <button class="btn btn-danger del-outcontacts-btn" sec:authorize="hasAuthority('contacts:delete')">
                                                     <!--<i class="ace-icon fa fa-trash-o bigger-120 orange"></i>-->
@@ -1199,19 +1199,26 @@
                                     checkedDisabled = "disabled";
                                 }
                                 departmentStaffUserListHtml += '<tr>'+
-                                        '<td>'+
-                                        '<label class="pos-rel">'+
-                                        '<input type="checkbox" '+ checkedDisabled +' data-id="'+ item.userid +'" data-del="'+ item.isAdmin +'" class="ace">'+
-                                        '<span class="lbl"></span>'+
-                                        '</label>'+
-                                        '</td>'+
-                                        '<td>'+ item.name +'</td>'+
-                                        '<td>'+ item.position +'</td>'+
-                                        '<td>'+ item.jobnumber +'</td>'+
-                                        '<td>'+ item.mobile +'</td>'+
-                                        '<td>'+ item.email +'</td>'+
-                                        '<td data-id="'+ item.userid +'" data-isAdmin="'+ item.isAdmin +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-btn" title="编辑信息"></i>&nbsp;&nbsp;<i class="ace-icon fa fa-key bigger-110 icon-only change-password-btn" title="修改密码"></i></td>'+
-                                        '</tr>';
+                                    '<td>'+
+                                    '<label class="pos-rel">'+
+                                    '<input type="checkbox" '+ checkedDisabled +' data-id="'+ item.userid +'" data-del="'+ item.isAdmin +'" class="ace">'+
+                                    '<span class="lbl"></span>'+
+                                    '</label>'+
+                                    '</td>'+
+                                    '<td>'+ item.name +'</td>'+
+                                    '<td>'+ item.position +'</td>'+
+                                    '<td>'+ item.jobnumber +'</td>'+
+                                    '<td>'+ item.mobile +'</td>'+
+                                    '<td>'+ item.email +'</td>'+
+                                    '<td data-id="'+ item.userid +'" data-isAdmin="'+ item.isAdmin +'">'
+                                        [# sec:authorize="hasAuthority('dingtalkuser:edit')"]
+                                + '<i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-btn" title="编辑信息"></i>' +
+                                '&nbsp;&nbsp;'
+                                +'<i class="ace-icon fa fa-key bigger-110 icon-only change-password-btn" title="修改密码"></i>' +
+                                [/]
+
+                                    '</td>'+
+                                    '</tr>';
                             });
                         } else {
                             departmentStaffUserListHtml = '<tr><td colspan="7">'+

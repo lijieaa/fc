@@ -85,6 +85,7 @@ public class ContactsServiceImpl extends BaseServiceImpl<Contacts,ContactsExampl
 
     @Override
     public int updatePwd(Integer id, String pwd) {
-        return contactsMapper.updatePwd(id,pwd);
+        String encode = passwordEncoder.encode(pwd.trim());
+        return contactsMapper.updatePwd(id,encode);
     }
 }
