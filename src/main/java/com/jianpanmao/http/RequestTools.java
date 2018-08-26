@@ -119,6 +119,7 @@ public class RequestTools {
         post.setHeader("Content-Type", "application/json");
         String str = null;
         StringEntity s = new StringEntity(json, "utf-8");
+        System.out.println(s);
         s.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
         RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(25000).setConnectTimeout(3000).build();

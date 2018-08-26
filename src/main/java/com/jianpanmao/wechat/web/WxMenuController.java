@@ -32,6 +32,7 @@ public class WxMenuController {
         try {
             WxUtils.checkParam(session, wxPublicId);
             String accessToken = WxUtils.getAccessToken(session, wxPublicId);
+            wxApiHandler.deleteMenu(accessToken);
             return wxApiHandler.createMenu(accessToken, json);
         } catch (Exception e) {
             return e.getMessage();

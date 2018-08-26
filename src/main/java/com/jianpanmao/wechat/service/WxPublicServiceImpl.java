@@ -84,6 +84,9 @@ public class WxPublicServiceImpl extends BaseServiceImpl<WxPublic> implements Wx
         wxUserDetailDao.deleteWxUserOpenid(id);
 
 
+
+
+
         super.deleteByPrimaryKey(id);
     }
 

@@ -1,0 +1,13 @@
+{
+  "button":[
+    {
+      "type":"view",
+      "name":"公司简介",
+      "url":"http://meplink.com/wx/common/company?sourceId=${sourceId}"
+    },
+    {
+      "type":"view",
+      "name":"查看项目",
+      "url":"http://meplink.com/wx/common/project?sourceId=${sourceId}"
+    }]
+}

@@ -9,6 +9,7 @@ import com.jianpanmao.utils.WxUtils;
 import com.jianpanmao.wechat.api.WxApiHandler;
 import com.jianpanmao.wechat.entity.WxPublic;
 import com.jianpanmao.wechat.service.WxPublicService;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,28 +121,20 @@ public class WxPublicController {
 
     private void createDefaultMenu(String accessToken, HttpServletRequest request, String sourceId) throws Exception {
 
-        String path = request.getContextPath();
-        String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+        InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream("wx-menu");
 
-        String json = "{\n" +
-                "  \"menu\": {\n" +
-                "    \"button\": [\n" +
-                "      {\n" +
-                "        \"type\": \"view\",\n" +
-                "        \"name\": \"公司简介\",\n" +
-                "        \"url\": \"" + basePath + "wx/common/company?sourceId=" + sourceId + "\",\n" +
-                "        \"sub_button\": []\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"type\": \"view\",\n" +
-                "        \"name\": \"项目管理\",\n" +
-                "        \"url\": \"" + basePath + "wx/common/project?sourceId=" + sourceId + "\",\n" +
-                "        \"sub_button\": []\n" +
-                "      }\n" +
-                "    ]\n" +
-                "  }\n" +
-                "}";
-        wxApiHandler.createMenu(accessToken, json);
+        StringWriter writer=new StringWriter();
+
+        IOUtils.copy(resourceAsStream,writer,StandardCharsets.UTF_8);
+
+       String menus=writer.toString().replaceAll("\\$\\{sourceId\\}",sourceId);
+
+        //System.out.println(menus);
+
+       // String path = request.getContextPath();
+       // String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+       // String basePath = "http://meplink.com";
+        String menu = wxApiHandler.createMenu(accessToken, menus);
     }
 
     @PreAuthorize("hasAuthority('wxpublic:edit')")
@@ -169,6 +165,16 @@ public class WxPublicController {
     @DeleteMapping
     @ResponseBody
     public ResponseEntity delete(Integer id, HttpSession session) throws Exception{
+
+        try {
+            WxUtils.checkParam(session, id);
+            String accessToken = WxUtils.getAccessToken(session, id);
+            wxApiHandler.deleteMenu(accessToken);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         ResponseEntity responseEntity = new ResponseEntity();
         Intermediary intermediary = WxUtils.getCompany(session);
         List<WxPublic> wxPublics = wxPublicService.findByCompanyId(intermediary.getIntermediaryId());
@@ -181,6 +187,8 @@ public class WxPublicController {
             responseEntity.setStatus("500");
             return responseEntity;
         }
+
+
         wxPublicService.deleteByPrimaryKey(id);
         return ResponseEntity.ok();
     }
