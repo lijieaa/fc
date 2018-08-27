@@ -102,7 +102,7 @@ public class WxCommonController {
 
             model.addAttribute("sourceId", sourceId);
             //model.addAttribute("user", userMap);
-            session.setAttribute("wuser",map);
+            session.setAttribute("wuser",userMap);
 
         } catch (IOException e) {
             e.printStackTrace();
