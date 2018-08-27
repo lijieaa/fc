@@ -66,7 +66,7 @@ public class WxCommonController {
     ObjectMapper mapper;
 
     @GetMapping("project")
-    public String project(String sourceId, Model model,String code){
+    public String project(String sourceId, Model model,String code,HttpSession session){
         try {
             //获取token
             System.out.println("code:"+code);
@@ -101,8 +101,8 @@ public class WxCommonController {
             httpClient2.close();
 
             model.addAttribute("sourceId", sourceId);
-            model.addAttribute("user", userMap);
-
+            //model.addAttribute("user", userMap);
+            session.setAttribute("wuser",map);
 
         } catch (IOException e) {
             e.printStackTrace();
