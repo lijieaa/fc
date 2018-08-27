@@ -133,8 +133,10 @@ public class RequestTools {
             InputStream instreams = entity.getContent();
             str = convertStreamToString(instreams);
             post.abort();
+            instreams.close();
         }
-        // System.out.println(str);
+        response.close();
+      // System.out.println(str);
         return str;
     }
 
