@@ -3,6 +3,7 @@ package com.jianpanmao.common.config;
 import com.jianpanmao.common.filter.AdminUsernamePasswordAuthenticationFilter;
 import com.jianpanmao.common.filter.WxUsernamePasswordAuthenticationFilter;
 import com.jianpanmao.common.handler.LoginSuccessHandler;
+import com.jianpanmao.utils.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +30,10 @@ import java.util.List;
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class MultiHttpSecurityConfig {
 
-
+    @Bean
+    public SpringUtils springUtils() {
+        return new SpringUtils();
+    }
 
 
     @Bean

@@ -76,4 +76,9 @@
     <select id="findByMediaId" resultMap="materialMap">
         SELECT * FROM wx_material WHERE material_media_id = #{0}
     </select>
+
+
+    <delete id="deleteByPublicId">
+        DELETE FROM wx_material WHERE public_id = #{0}
+    </delete>
 </mapper>

@@ -75,4 +75,16 @@
         WHERE openid = #{openId}
         AND public_id = (SELECT public_id FROM wx_public WHERE source_id = #{sourceId})
     </delete>
+
+
+    <delete id="deleteByPublicId">
+        DELETE FROM wx_user_detail WHERE public_id = #{0}
+    </delete>
+
+
+    <delete id="deleteWxUserOpenid">
+        DELETE FROM wx_user_openid WHERE public_id = #{0}
+    </delete>
+
+
 </mapper>

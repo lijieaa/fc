@@ -13,4 +13,6 @@ public interface WxMaterialDao extends BaseDao<WxMaterial> {
 
     WxMaterial findByMediaId(String mediaId);
 
+    int deleteByPublicId(Integer publicId);
+
 }

@@ -53,68 +53,22 @@ new Vue({
         picShow: true,
         initFlagStatus: '',
         menu:{
-            // button:[
-            //     {
-            //         "name":"菜单1",
-            //         "sub_button":[
-            //             {
-            //                 "key":"f1QOuU_OT4Hrt8abnY9n2Oh0sj8PyIlnrmepRkD4-WM image",
-            //                 "type":"click",
-            //                 "name":"一级目录",
-            //                 "url":""
-            //             },
-            //             {
-            //                 "key":"f1QOuU_OT4Hrt8abnY9n2OU1AxEimiViibqgnVyyPjA voice",
-            //                 "type":"click",
-            //                 "name":"二级目录",
-            //                 "url":""
-            //             },
-            //             {
-            //                 "key":"f1QOuU_OT4Hrt8abnY9n2Bgl8PvwCft-Isk4Fo4S_EU video",
-            //                 "type":"click",
-            //                 "name":"三级目录",
-            //                 "url":""
-            //             },
-            //             {
-            //                 "key":"58 news",
-            //                 "type":"click",
-            //                 "name":"四级目录",
-            //                 "url":""
-            //             }
-            //         ],
-            //         "type":"click",
-            //         "key":"",
-            //         "url":""
-            //     },
-            //     {
-            //         "name":"菜单2",
-            //         "sub_button":[
-            //             {
-            //                 "type":"view",
-            //                 "name":"一级目录",
-            //                 "url":"http://www.baidu.com",
-            //                 "key":""
-            //             }
-            //         ],
-            //         "type":"click",
-            //         "key":"",
-            //         "url":""
-            //     },
-            //     {
-            //         "name":"菜单3",
-            //         "sub_button":[
-            //             // {
-            //             //     "key":"/material/voice/detail?wxPublicId=14&mediaId=f1QOuU_OT4Hrt8abnY9n2JtuBkM5JTjri6XfVo3ftDY&name=wx.mp3",
-            //             //     "type":"click",
-            //             //     "name":"二级目录",
-            //             //     "url":""
-            //             // },
-            //         ],
-            //         "type":"click",
-            //         "key":"f1QOuU_OT4Hrt8abnY9n2Oh0sj8PyIlnrmepRkD4-WM image",
-            //         "url":""
-            //     }
-            // ]
+            button:[
+                // {
+                //     "name":"定义菜单",
+                //     "sub_button":[
+                //         {
+                //             "key":"f1QOuU_OT4Hrt8abnY9n2Oh0sj8PyIlnrmepRkD4-WM image",
+                //             "type":"click",
+                //             "name":"一级目录",
+                //             "url":""
+                //         }
+                //     ],
+                //     "type":"click",
+                //     "key":"",
+                //     "url":""
+                // }
+            ]
         },
         arr:''
     },
@@ -126,6 +80,11 @@ new Vue({
             processData:true,
             success:function (data) {
                 _this.menu=data.menu;
+                if(data.errcode=='46003'){
+                    _this.menu={
+                        button:[]
+                    };
+                }
                 if(_this.menu.button && _this.menu.button.length){
                     _this.selectedMenuIndex = 0;
                 }

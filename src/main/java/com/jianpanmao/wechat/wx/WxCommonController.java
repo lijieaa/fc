@@ -1,10 +1,17 @@
 package com.jianpanmao.wechat.wx;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jianpanmao.common.config.WxUserDetailService;
 import com.jianpanmao.contacts.entity.Contacts;
 import com.jianpanmao.contacts.service.ContactsService;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import com.jianpanmao.sys.service.DingtalkUserService;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * 公众号页面
@@ -53,10 +62,53 @@ public class WxCommonController {
         return "wx/equiprams";
     }
 
-    @GetMapping("project")
-    public String project(String sourceId, Model model){
+    @Autowired
+    ObjectMapper mapper;
 
-        model.addAttribute("sourceId", sourceId);
+    @GetMapping("project")
+    public String project(String sourceId, Model model,String code){
+        try {
+            //获取token
+            System.out.println("code:"+code);
+            String apiUrl="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+            String tokenUrl = apiUrl.replace("APPID", "wx8be44989f5440994").replace("SECRET", "978bc882348ededa7027fb98e5f816ca").replace("CODE", code);
+            System.out.println("tokenURL:"+tokenUrl);
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet(tokenUrl);
+            HttpResponse httpResponse = null;
+            httpResponse = httpClient.execute(httpGet);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            String tokens = EntityUtils.toString(httpEntity, "utf-8");
+            System.out.println("tokesString:"+tokens);
+            Map map = mapper.readValue(tokens, Map.class);
+            System.out.println("tokesJson:"+tokens);
+            ((CloseableHttpResponse) httpResponse).close();
+            httpClient.close();
+
+            //拉取用户信息
+            String userinfo="https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
+            String userinfoUrl = userinfo.replace("ACCESS_TOKEN", (CharSequence) map.get("access_token")).replace("OPENID", (CharSequence) map.get("access_token"));
+            DefaultHttpClient httpClient2 = new DefaultHttpClient();
+            HttpGet httpGet2 = new HttpGet(userinfoUrl);
+            HttpResponse httpResponse2 = null;
+            httpResponse2 = httpClient2.execute(httpGet2);
+            HttpEntity httpEntity2 = httpResponse2.getEntity();
+            String user = EntityUtils.toString(httpEntity2, "utf-8");
+            System.out.println("userString:"+user);
+            Map userMap = mapper.readValue(user, Map.class);
+            System.out.println("userJson:"+userMap);
+            ((CloseableHttpResponse) httpResponse2).close();
+            httpClient2.close();
+
+            model.addAttribute("sourceId", sourceId);
+            model.addAttribute("user", userMap);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         return "wx/project";
     }
 

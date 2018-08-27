@@ -78,5 +78,10 @@ public class WxMaterialServiceImpl extends BaseServiceImpl<WxMaterial> implement
         return wxMaterialDao.findByMediaId(mediaId);
     }
 
+    @Override
+    public int deleteByPublicId(Integer publicId) {
+        return wxMaterialDao.deleteByPublicId(publicId);
+    }
+
 
 }
