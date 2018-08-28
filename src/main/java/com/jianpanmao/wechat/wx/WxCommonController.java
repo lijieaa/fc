@@ -67,7 +67,7 @@ public class WxCommonController {
 
     @GetMapping("project")
     public String project(String sourceId, Model model,String code,HttpSession session){
-      /*  try {
+       try {
             //获取token
             System.out.println("code:"+code);
             String apiUrl="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
@@ -107,7 +107,6 @@ public class WxCommonController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-*/
 
         return "wx/project";
     }

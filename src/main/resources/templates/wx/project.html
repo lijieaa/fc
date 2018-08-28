@@ -93,13 +93,14 @@
  </div>
 <script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
 <script type="text/javascript" th:inline="javascript">
-               var nickname=[[${session.wuser['nickname']}]];
+    var sourceId=[[${sourceId}]]
+    var nickname=[[${session.wuser['nickname']}]];
         alert(sourceId)
         alert(nickname)
         //alert(user.openid,user.nickname,user.sex,user.province,user.city,user.country,user.headimgurl,user.privilege,user.unionid);
 
         console.log(sourceId)
-    var sourceId="gh_f5a46974c0f6";
+    sourceId=sourceId||"gh_f5a46974c0f6";
     var $$ = Dom7;
     // Loading flag
     var allowInfinite = true;
