@@ -7,6 +7,15 @@ import com.jianpanmao.device.dto.DeviceDto;
 import com.jianpanmao.device.dto.control.DeviceControlVo;
 import com.jianpanmao.device.entity.Device;
 import com.jianpanmao.device.service.DeviceService;
+import com.jianpanmao.notice.dao.NoticeMapper;
+import com.jianpanmao.notice.entity.Notice;
+import com.jianpanmao.project.dao.ProjectMapper;
+import com.jianpanmao.project.entity.Project;
+import com.jianpanmao.projectComments.dao.ProjectCommentsMapper;
+import com.jianpanmao.projectComments.entity.ProjectComments;
+import com.jianpanmao.projectComments.service.ProjectCommentsService;
+import com.jianpanmao.sys.entity.DingtalkUser;
+import com.jianpanmao.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +31,14 @@ import java.util.List;
 public class WxDeviceController {
 
     @Autowired private DeviceService deviceService;
+
+    @Autowired
+    private ProjectCommentsMapper projectCommentsMapper;
+    @Autowired
+    private ProjectMapper projectMapper;
+
+    @Autowired
+    NoticeMapper noticeMapper;
 
     @RequestMapping(method = RequestMethod.GET, value = "devices")
     @ResponseBody
@@ -65,5 +82,27 @@ public class WxDeviceController {
     @ResponseBody
     public DeviceControlVo getDeviceParams(String num) {
         return deviceService.deviceControl(num);
+    }
+
+
+    /**
+     * 外部评论
+     */
+    @PostMapping("projectComments")
+    @ResponseBody
+    public Integer projectComments(String wxId,String wxName,Integer projectId,Integer parent,String content,Integer topCommentsId){
+        ProjectComments projectComments = new ProjectComments();
+        Project project = projectMapper.selectByPrimaryKey(projectId);
+        projectComments.setProjectId(projectId);
+        projectComments.setProjectCommentsParent(parent);
+        projectComments.setProjectCommentsContent(content);
+        projectComments.setProjectTopCommentsId(topCommentsId);
+        projectComments.setWxId(wxId);
+        projectComments.setWxName(wxName);
+        projectComments.setProjectCommentsStatus(project.getProjectStatus());
+        projectComments.setProjectCommentsType(new Byte("1"));
+        Integer commentsId = projectCommentsMapper.insert(projectComments);
+
+    return commentsId;
     }
 }

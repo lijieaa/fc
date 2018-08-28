@@ -46,6 +46,26 @@ public class ProjectComments implements Serializable {
 
     private List<ProjectComments> children;
 
+    //微信openId
+    private String wxId;
+    //微信名称
+    private String wxName;
+
+    public String getWxId() {
+        return wxId;
+    }
+
+    public void setWxId(String wxId) {
+        this.wxId = wxId;
+    }
+
+    public String getWxName() {
+        return wxName;
+    }
+
+    public void setWxName(String wxName) {
+        this.wxName = wxName;
+    }
 
     public String getParentName() {
         return parentName;
