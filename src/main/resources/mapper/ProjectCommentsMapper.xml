@@ -11,6 +11,8 @@
     <result column="project_comments_update_time" jdbcType="TIMESTAMP" property="projectCommentsUpdateTime" />
     <result column="project_comments_content" jdbcType="VARCHAR" property="projectCommentsContent"/>
     <result column="project_top_comments_id" jdbcType="INTEGER" property="projectTopCommentsId"/>
+    <result column="project_wx_id" jdbcType="VARCHAR" property="wxId"/>
+    <result column="project_wx_name" jdbcType="VARCHAR" property="wxName"/>
     <association property="user" javaType="com.jianpanmao.sys.entity.DingtalkUser">
       <id column="userid" property="userid"></id>
       <result column="name" property="name"></result>
@@ -141,7 +143,9 @@
     project_comments_status,
     project_id,
     project_comments_content,
-    project_top_comments_id
+    project_top_comments_id,
+    project_wx_id,
+    project_wx_name
       )
     values (
       #{projectCommentsParent,jdbcType=INTEGER},
@@ -150,7 +154,9 @@
       #{projectCommentsStatus,jdbcType=TINYINT},
       #{projectId,jdbcType=INTEGER},
       #{projectCommentsContent,jdbcType=LONGVARCHAR},
-      #{projectTopCommentsId,jdbcType=INTEGER}
+      #{projectTopCommentsId,jdbcType=INTEGER},
+      #{wxId,jdbcType=VARCHAR},
+      #{wxName,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.projectComments.entity.ProjectComments">
