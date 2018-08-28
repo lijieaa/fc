@@ -71,6 +71,17 @@
             background: #F5F5F5;
             padding: 5px 0;
         }
+        .lock{
+            background: #1794e4;
+            color: white;
+            padding: 5px 18px;
+            border-radius: 5px;
+            margin-top: -32px;
+            cursor: pointer;
+        }
+        .disabled{
+            background: lightslategray;
+        }
         /*.btn-info, .btn-info.focus, .btn-info:focus{*/
             /*background: #1595E6!important;*/
         /*}*/
@@ -92,6 +103,8 @@
         </div>
     </div>
     <h5>设备信息</h5>
+    <div class="float-right lock" v-show="lock">锁定</div>
+    <div class="float-right lock disabled" v-show="!lock">解除锁定</div>
     <div class="row" style="border-top: 1px solid #ccc;
     padding-top: 10px;
     border-bottom: 1px solid #ccc;">
@@ -490,7 +503,7 @@
                                                         <input type="text"  v-model="deviceUserParam.power_cyc" style="width: 50px"
                                                                name="actionZq" v-on:change="changeNum(0,99,$event)"
                                                                onkeyup="this.value=this.value.replace(/\D/g,'')"
-                                                               onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;秒&nbsp;&nbsp;&nbsp;&nbsp;
+                                                               onafterpaste="this.value=this.value.replace(/\D/g,'')">&nbsp;分&nbsp;&nbsp;&nbsp;&nbsp;
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-5 col-sm-5">
@@ -640,6 +653,7 @@
         new Vue({
             el:"#deviceControl",
             data:{
+                lock: true,
                 remoteBoot:"",
                 deviceProductionNum:"",
                 projectName:"",
@@ -771,7 +785,18 @@
                   }
               }
             },
+            // watch: {
+            //     lock: function () {
+            //         console.log(this.lock);
+            //         if(this.lock){
+            //             setInterval(function () {
+            //                 location.reload();
+            //             },3000);
+            //         }
+            //     }
+            // },
             mounted:function () {
+                var t
                 var _this = this;
                 //    查询控制
                 $.ajax({
@@ -822,11 +847,10 @@
 
                     }
                 });
-
-                setInterval(function () {
-                    // alert(1);
+                t = setInterval(function () {
                     location.reload();
-                },1000*60*5);
+                },1000 * 60);
+
 
                 //查询详情
                 $.ajax({
@@ -835,8 +859,8 @@
                     success:function(data){
                         _this.deviceProductionNum = data.content.deviceProductionNum;
                         _this.projectName = data.content.project.projectName;
-                        _this.operateUserName = data.content.operateUser.name;
-                        _this.transcribeUserName = data.content.transcribeUser.name;
+                        _this.operateUserName = data.content.operateUserStr == '' ? '' : data.content.operateUserStr.name;
+                        _this.transcribeUserName = data.content.transcribeUserStr == '' ? '' : data.content.transcribeUserStr.name;
                         _this.deviceType = data.content.deviceType;
                         _this.intermediaryName = data.content.intermediary.intermediaryName;
                         _this.deviceStatus = data.content.deviceStatus == 0 ? "在线" :"不在线";
@@ -1056,6 +1080,16 @@
                     }
                 });
 
+                $(".lock").click(function () {
+                   _this.lock = !_this.lock;
+                   if(_this.lock == false){
+                       clearInterval(t)
+                   }else {
+                       t = setInterval(function () {
+                           location.reload();
+                       },1000 * 60);
+                   }
+                })
             }
         });
     })

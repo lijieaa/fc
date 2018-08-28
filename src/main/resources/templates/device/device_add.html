@@ -12,33 +12,33 @@
 </head>
 <body layout:fragment="content">
 
-<div class="row" id="deviceAdd" v-cloak>
-    <div class="page-header">
-        <div class="row">
-            <div class="col-md-9 col-sm-9">
-                <div class="float-left">
-                    <span class="font-size-18 border-left-blue">添加设备</span>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-3 text-align-right">
-                <button type="button"  data-toggle="modal" @click="backList" class="btn btn-info ">
-                    <i class="ace-icon fa fa-reply icon-only"></i>
-                    返回
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12">
-        <div class="row">
-            <!--<form class="" id="">-->
-                <div class="form-group" style="overflow: hidden">
-                    <label class="control-label col-xs-12 col-sm-1 no-padding-right" for="Num">扫描编号:</label>
-                    <div class="col-xs-12 col-sm-11">
-                        <div class="clearfix">
-                            <input type="text" id="Num"  class="col-xs-12 col-sm-6"  v-on:change="changeNum($event)">
-                        </div>
+<div class="row">
+    <div class="col-xs-12" id="deviceAdd" v-cloak>
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-9 col-sm-9">
+                    <div class="float-left">
+                        <span class="font-size-18 border-left-blue">添加设备</span>
                     </div>
                 </div>
+                <div class="col-md-3 col-sm-3 text-align-right">
+                    <button type="button"  data-toggle="modal" @click="backList" class="btn btn-info ">
+                        <i class="ace-icon fa fa-reply icon-only"></i>
+                        返回
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!--<form class="" id="">-->
+            <div class="form-group" style="overflow: hidden">
+                <label class="control-label col-xs-12 col-sm-1 no-padding-right" for="Num">扫描编号:</label>
+                <div class="col-xs-12 col-sm-11">
+                    <div class="clearfix">
+                        <input type="text" id="Num"  class="col-xs-12 col-sm-6"  v-on:change="changeNum($event)">
+                    </div>
+                </div>
+            </div>
             <!--</form>-->
             <div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2" style="padding: 0">
                 <div class="widget-box widget-color-blue" id="widget-box-2">
@@ -82,8 +82,8 @@
                 </div>
             </div>
         </div>
-        <!-- PAGE CONTENT ENDS -->
     </div>
+
     <!-- /.col -->
 </div>
 <script type="text/javascript" th:inline="javascript">
