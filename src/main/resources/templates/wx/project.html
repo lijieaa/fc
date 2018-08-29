@@ -93,13 +93,10 @@
  </div>
 <script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
 <script type="text/javascript" th:inline="javascript">
-               var nickname=[[${session.wuser['nickname']}]];
-        alert(sourceId)
-        alert(nickname)
-        //alert(user.openid,user.nickname,user.sex,user.province,user.city,user.country,user.headimgurl,user.privilege,user.unionid);
 
-        console.log(sourceId)
-    var sourceId="gh_f5a46974c0f6";
+        //alert(user.openid,user.nickname,user.sex,user.province,user.city,user.country,user.headimgurl,user.privilege,user.unionid);
+   var sourceId = [[${sourceId}]];
+    sourceId =sourceId||'gh_f5a46974c0f6';
     var $$ = Dom7;
     // Loading flag
     var allowInfinite = true;
@@ -120,13 +117,6 @@
                 lastItem: 20,
             }
         },
-        statusbar: {
-            enabled:false,
-            overlay:false,
-            iosBackgroundColor:"#018c53",
-            materialBackgroundColor:"#018c53",
-            iosOverlaysWebView: true,
-        },
         overlay:false,
         on:{
             init:function(page){
@@ -134,21 +124,17 @@
             }
         }
 
-
     });
-
 
     app.infiniteScroll.create(".infinite-scroll-content")
 
-
-    function serch(){
-         maxItems = 0;
-         pageNum=1;
-        console.log($("#serch").val())
-        $('.list li').remove()
-        initList()
-    }
-
+$$("#ser-btn").on("click",function(){
+    maxItems = 0;
+    pageNum=1;
+    console.log($("#serch").val())
+    $('.list li').remove()
+    initList()
+})
     function initList(){
         allowInfinite = false;
         console.log(lastItemIndex,maxItems)
@@ -215,7 +201,6 @@
         })
     }
 
-    // Attach 'infinite' event handler
     $$('.infinite-scroll-content').on('infinite', function () {
         // Exit, if loading in progress
         if (!allowInfinite) return;
@@ -227,11 +212,9 @@
         initList()
     });
 
-
     $$("#listview").on("click",'.rcard',function(e){
-        console.dir(e)
         var projectid =$(e.target).closest(".rcard").data("projectid");
-        window.location.href="/wx/common/projectinfo?projectid="+projectid;
+         window.location.href="/wx/common/projectinfo?projectid="+projectid;
     })
 </script>
 

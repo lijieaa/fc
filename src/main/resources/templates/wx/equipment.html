@@ -37,7 +37,7 @@
                 <form class="searchbar">
                     <div class="searchbar-inner"  style="background:none;">
                         <div style="flex-shrink:0" >
-                            <select name="" id="" class="pkee text-base-color f30 "  style="width:100px">
+                            <select name="" id="" class="pkee text-base-color f30 bdr-clr"  style="width:100px">
                                 <option value="">生产编号</option>
                                <!-- <option value="">所属项目</option>
                                 <option value="">操作员</option>
@@ -50,7 +50,7 @@
                             <input type="search" placeholder="" id="serch" class="f28">
                             <i class="searchbar-icon"></i>
                         </div>
-                        <span  id="ser-btn" class="ser-btn text-base-color f30" >搜索</span>
+                        <span  id="ser-btn" class="ser-btn text-base-color f30 bdr-clr" >搜索</span>
                     </div>
                 </form>
 
@@ -333,7 +333,6 @@
             },
             success:function(data){
                 allowInfinite = true;
-
                 console.log(data)
                 var html = '';
                 if(data.status==200){
@@ -343,8 +342,8 @@
 
                         var status ="未知"
                         switch(item.deviceStatus){
-                            case  0: status="离线";break;
-                            case 1: status="在线";break;
+                            case  0: status="在线";break;
+                            case 1: status="离线";break;
                             default: status="未知";
                         }
                         html +=    '<li class="plist card">'+

@@ -169,9 +169,9 @@
                 评论
             </a>
             <div class="messagebar-area  comm2 ">
-                <textarea class="f28" style="padding:3px;    width: 100%;" ></textarea>
+                <textarea id="comment-text" class="f28" style="padding:3px;    width: 100%;" ></textarea>
             </div>
-            <a  class="comm3 text-base-color f30" href="#"  >评论</a>
+            <a id="coment" class="comm3 text-base-color f30" href="#"  >评论</a>
 
 
         </div>
@@ -339,7 +339,7 @@
                                 '</div>'+
                                 '<div class="item-inner ">'+
                                 '<div class="item-title-row">'+
-                                '<div class="item-title f32">'+item.user.name+'：</div>'+
+                                '<div class="item-title f32">'+item.wxName+'：</div>'+
                         '<div class="item-after f32">'+item.projectCommentsCreateTime+'</div>'+
                        '</div>'+
                         '<div class="item-text" style="text-indent: 2em">'+ item.projectCommentsContent+
@@ -416,24 +416,32 @@
         $$("#repley").removeClass("active").siblings().addClass("active");
     });
 
+    $("#coment").on("click",function(){
+        var content =  $$("#comment-text").val()
+
+        var  chart ={
+            wxId:"2123123sdad",
+            wxName:"公子",
+            projectId:"55",
+            parent:"1",
+            content : content,
+            topCommentsId:"0"
+
+        }
+
+        $.ajax({
+            url: contextPath+"wd/projectComments111/",
+            type: "POST",
+            data : JSON.stringify(chart),
+            contentType: "application/json",
+            dataType : "json",
+
+        })
+    })
     $$("#confirm").on("click",function(){
         var content =  $$("#repley-text").val()
 
-        var arr=[
-            '<div class="comment"><span class="f-u">',
-            '小A',
-            '</span><span>&nbsp;回复&nbsp;</span><span class="t-u1">',
-            '山居盘李总',
-            '</span><span>:</span>',
-            content,
-            '</div>'
-
-
-
-        ]
-
-
-        $$("#demo").append(arr.join(""))
+        alert(content)
     })
 </script>
 
