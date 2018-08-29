@@ -4,6 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jianpanmao.common.config.WxUserDetailService;
 import com.jianpanmao.contacts.entity.Contacts;
 import com.jianpanmao.contacts.service.ContactsService;
+import com.jianpanmao.project.dao.ProjectMapper;
+import com.jianpanmao.project.entity.Project;
+import com.jianpanmao.projectComments.dao.ProjectCommentsMapper;
+import com.jianpanmao.projectComments.entity.ProjectComments;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import com.jianpanmao.sys.service.DingtalkUserService;
 import org.apache.http.HttpEntity;
@@ -23,10 +27,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -43,6 +44,10 @@ public class WxCommonController {
 
     @Autowired private ContactsService contactsService;
 
+    @Autowired
+    private ProjectCommentsMapper projectCommentsMapper;
+    @Autowired
+    private ProjectMapper projectMapper;
     @GetMapping("company")
     public String company(String sourceId, Model model){
 
@@ -160,5 +165,27 @@ public class WxCommonController {
            ex.printStackTrace();
             return "redirect:/wx/common/loginwx";
         }
+    }
+
+
+    /**
+     * 外部评论
+     */
+    @PostMapping("projectComments")
+    @ResponseBody
+    public Integer projectComments(String wxId,String wxName,Integer projectId,Integer parent,String content,Integer topCommentsId){
+        ProjectComments projectComments = new ProjectComments();
+        Project project = projectMapper.selectByPrimaryKey(projectId);
+        projectComments.setProjectId(projectId);
+        projectComments.setProjectCommentsParent(parent);
+        projectComments.setProjectCommentsContent(content);
+        projectComments.setProjectTopCommentsId(topCommentsId);
+        projectComments.setWxId(wxId);
+        projectComments.setWxName(wxName);
+        projectComments.setProjectCommentsStatus(project.getProjectStatus());
+        projectComments.setProjectCommentsType(new Byte("1"));
+        Integer commentsId = projectCommentsMapper.insert(projectComments);
+
+        return commentsId;
     }
 }
