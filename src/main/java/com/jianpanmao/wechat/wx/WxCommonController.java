@@ -6,6 +6,8 @@ import com.jianpanmao.contacts.entity.Contacts;
 import com.jianpanmao.contacts.service.ContactsService;
 import com.jianpanmao.sys.entity.DingtalkUser;
 import com.jianpanmao.sys.service.DingtalkUserService;
+import com.jianpanmao.wechat.entity.WxPublic;
+import com.jianpanmao.wechat.service.WxPublicService;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -65,13 +67,18 @@ public class WxCommonController {
     @Autowired
     ObjectMapper mapper;
 
+
+    @Autowired
+    WxPublicService publicService;
+
     @GetMapping("project")
     public String project(String sourceId, Model model,String code,HttpSession session){
-       try {
+        WxPublic wxPublic = publicService.findBySourceId(sourceId);
+        try {
             //获取token
             System.out.println("code:"+code);
             String apiUrl="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
-            String tokenUrl = apiUrl.replace("APPID", "wx8be44989f5440994").replace("SECRET", "978bc882348ededa7027fb98e5f816ca").replace("CODE", code);
+            String tokenUrl = apiUrl.replace("APPID", wxPublic.getAppId()).replace("SECRET", wxPublic.getAppSecret()).replace("CODE", code);
             System.out.println("tokenURL:"+tokenUrl);
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpGet httpGet = new HttpGet(tokenUrl);
