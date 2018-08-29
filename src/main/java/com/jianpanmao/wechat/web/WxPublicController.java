@@ -109,7 +109,7 @@ public class WxPublicController {
         }
         try {
             wxPublicService.insert(wxPublic);
-            createDefaultMenu(accessToken, request, wxPublic.getSourceId());
+            createDefaultMenu(accessToken, request, wxPublic);
             return responseEntity;
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,7 +119,7 @@ public class WxPublicController {
         }
     }
 
-    private void createDefaultMenu(String accessToken, HttpServletRequest request, String sourceId) throws Exception {
+    private void createDefaultMenu(String accessToken, HttpServletRequest request, WxPublic wxPublic) throws Exception {
 
         InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream("wx-menu");
 
@@ -127,9 +127,9 @@ public class WxPublicController {
 
         IOUtils.copy(resourceAsStream,writer,StandardCharsets.UTF_8);
 
-       String menus=writer.toString().replaceAll("\\$\\{sourceId\\}",sourceId);
+       String menus=writer.toString().replaceAll("\\$\\{sourceId\\}",wxPublic.getSourceId()).replaceAll("\\$\\{appid\\}",wxPublic.getAppId());
 
-        //System.out.println(menus);
+        System.out.println(menus);
 
        // String path = request.getContextPath();
        // String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
