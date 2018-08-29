@@ -180,7 +180,7 @@ public class WxCommonController {
      */
     @PostMapping("projectComments")
     @ResponseBody
-    public Integer projectComments(String wxId,String wxName,Integer projectId,Integer parent,String content,Integer topCommentsId){
+    public Integer projectComments(String wxId,Integer projectId,Integer parent,String content,Integer topCommentsId){
         ProjectComments projectComments = new ProjectComments();
         Project project = projectMapper.selectByPrimaryKey(projectId);
         projectComments.setProjectId(projectId);
@@ -188,7 +188,6 @@ public class WxCommonController {
         projectComments.setProjectCommentsContent(content);
         projectComments.setProjectTopCommentsId(topCommentsId);
         projectComments.setWxId(wxId);
-        projectComments.setWxName(wxName);
         projectComments.setProjectCommentsStatus(project.getProjectStatus());
         projectComments.setProjectCommentsType(new Byte("1"));
         Integer commentsId = projectCommentsMapper.insert(projectComments);
