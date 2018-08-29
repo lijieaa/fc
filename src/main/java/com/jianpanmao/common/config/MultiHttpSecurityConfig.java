@@ -177,7 +177,8 @@ public class MultiHttpSecurityConfig {
                     .antMatchers("/css/**")
                     .antMatchers("/images/**")
                     .antMatchers("/img/**")
-                    .antMatchers("/material/**");
+                    .antMatchers("/material/**")
+                    .antMatchers("/*.txt");
             super.configure(web);
 
         }
