@@ -24,6 +24,15 @@
         <result property="intermediary.intermediaryId" column="intermediary_id"></result>
     </resultMap>
 
+    <select id="selectByOpenId" resultMap="wxUserDetailMap">
+        SELECT
+	*
+FROM
+	wx_user_detail wud
+WHERE
+	wud.openid = #{0}
+    </select>
+
     <select id="selectAll" resultMap="wxUserDetailMap">
         SELECT * FROM wx_user_detail WHERE public_id = #{wxPublic.id}
         <if test="nickname != null and nickname !=''">

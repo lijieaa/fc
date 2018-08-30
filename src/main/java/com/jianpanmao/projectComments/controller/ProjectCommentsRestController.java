@@ -91,7 +91,7 @@ public class ProjectCommentsRestController {
 
     }
 
-    private void recursion(List<ProjectComments> list, ProjectComments projectComments, Integer size) {
+    public void recursion(List<ProjectComments> list, ProjectComments projectComments, Integer size) {
         List<ProjectComments> children = new ArrayList<>();
         projectComments.setChildren(children);
         for (int i = 0; i < list.size(); i++) {

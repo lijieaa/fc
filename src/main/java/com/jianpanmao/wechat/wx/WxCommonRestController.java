@@ -119,7 +119,7 @@ public class WxCommonRestController {
         projectComments.setChildren(children);
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getProjectCommentsParent().intValue() == projectComments.getProjectCommentsId()) {
-                list.get(i).setParentName(projectComments.getUser().getName());
+                /*list.get(i).setParentName(projectComments.getUser().getName());*/
                 children.add(list.get(i));
             }
         }

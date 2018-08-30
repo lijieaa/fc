@@ -110,37 +110,6 @@
                     <div class="list media-list content-block">
                         <div class="content-title f32 bold">评论(<span id="countTotal">0</span>)</div>
                         <ul id="listview">
-                          <!--  <li class="plist ">
-                                <div class="item-content comment-box">
-                                    <div class="item-media">
-                                        <img th:src="@{/img/saleimg.jpg}" class="saleimg" />
-                                    </div>
-                                    <div class="item-inner ">
-                                        <div class="item-title-row">
-                                            <div class="item-title f32">销售员老李：</div>
-                                            <div class="item-after f32">2018.04.25</div>
-                                        </div>
-                                        <div class="item-text" style="text-indent: 2em">
-                                            接到局方通知，下个月局方营销部要采购一批净化设备器材，采购书已发出，真正询价。
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-content repley-box" style="border-top:1px solid #c9c9c9">
-                                    <div class="item-media">
-                                        <div class="saleimg"></div>
-                                    </div>
-                                    <div class="item-inner ">
-                                        <div class="item-title-row ">
-                                            <div class="item-after f28 repley"><img th:src="@{/img/reply.png}" style="width:10px;height:9px;align-self: center;" alt=""/>回复</div>
-                                        </div>
-                                        <div id="demo" class="item-text" style="border:1px solid #c9c9c9;padding:10px;">
-                                            <div class="comment"><span class="f-u">山居盘李总</span>:其它用户可以通过回复图标回复这个人的评论。</div>
-                                            <div class="comment"><span class="f-u">小A</span>&nbsp;回复&nbsp山居盘李总:其它人也可以回复此评论，或者单独回复这个里的每
-                                                个人。</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>-->
 
                         </ul>
                     </div>
@@ -335,11 +304,11 @@
                         html += '<li class="plist ">'+
                                 '<div class="item-content comment-box">'+
                                 '<div class="item-media">'+
-                                '<img src="/img/saleimg.jpg" class="saleimg" />'+
+                                '<img src="'+item.wxUserDetail.headimgurl+'" class="saleimg" />'+
                                 '</div>'+
                                 '<div class="item-inner ">'+
                                 '<div class="item-title-row">'+
-                                '<div class="item-title f32">'+item.wxName+'：</div>'+
+                                '<div class="item-title f32">'+item.wxUserDetail.nickname+'：</div>'+
                         '<div class="item-after f32">'+item.projectCommentsCreateTime+'</div>'+
                        '</div>'+
                         '<div class="item-text" style="text-indent: 2em">'+ item.projectCommentsContent+
@@ -352,7 +321,7 @@
                                 '</div>'+
                                 '<div class="item-inner ">'+
                                 '<div class="item-title-row ">'+
-                                '<div class="item-after f28 repley"><img src="/img/reply.png" style="width:10px;height:9px;align-self: center;" alt=""/>回复</div>'+
+                                '<div class="item-after f28 repley" data-wxId="'+item.wxUserDetail.openid+'" ><img src="/img/reply.png" style="width:10px;height:9px;align-self: center;" alt=""/>回复</div>'+
                                 '</div>'+ inner.join("")+
                         '</div>'+
                         '</div>'+
@@ -399,6 +368,8 @@
     })
 
     $$("#listview").on("click",".repley",function(e){
+
+        console.log(this)
         $$("#repley").addClass("active").siblings().removeClass("active");
         $$("#repley textarea").focus();
 
@@ -408,7 +379,7 @@
 
         $$("#repley").addClass("active").siblings().removeClass("active");
         $$("#repley textarea").focus();
-        $$("#repley textarea").val("回复三局盘李总")
+
 
     })
 
@@ -420,7 +391,7 @@
         var content =  $$("#comment-text").val()
 
         var  chart ={
-            wxId:"2123123sdad",
+            wxId:"o2IG5wtA0EhlkfTx3ya7-IrYVwVc",
             wxName:"公子",
             projectId:"55",
             parent:"0",

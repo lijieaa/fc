@@ -11,12 +11,15 @@
     <result column="project_comments_update_time" jdbcType="TIMESTAMP" property="projectCommentsUpdateTime" />
     <result column="project_comments_content" jdbcType="VARCHAR" property="projectCommentsContent"/>
     <result column="project_top_comments_id" jdbcType="INTEGER" property="projectTopCommentsId"/>
-    <result column="project_wx_id" jdbcType="VARCHAR" property="wxId"/>
-    <result column="project_wx_name" jdbcType="VARCHAR" property="wxName"/>
     <association property="user" javaType="com.jianpanmao.sys.entity.DingtalkUser">
       <id column="userid" property="userid"></id>
       <result column="name" property="name"></result>
       <result property="headPic" column="head_pic"></result>
+    </association>
+    <association property="wxUserDetail" javaType="com.jianpanmao.wechat.entity.WxUserDetail">
+      <result column="openid" property="openid"></result>
+      <result property="nickname" column="nickname"></result>
+      <result property="headimgurl" column="headimgurl"></result>
     </association>
 
   </resultMap>
@@ -355,10 +358,11 @@
   </delete>
 
   <select id="selectByDto" parameterType="com.jianpanmao.projectComments.dto.ProjectCommentsDto" resultMap="BaseResultMap">
-    SELECT pc.*,user.userid,user.name,user.head_pic
+    SELECT pc.*,user.userid,user.name,user.head_pic,wud.openid,wud.nickname,wud.headimgurl
     FROM project_comments pc
     LEFT JOIN dingtalk_user user
     ON pc.user_id = user.userid
+    LEFT JOIN wx_user_detail wud ON pc.project_wx_id = wud.openid
   WHERE pc.project_top_comments_id = 0
   and pc.project_comments_type = #{projectCommentsType}
   and pc.project_comments_status = #{projectCommentsStatus}
@@ -368,10 +372,11 @@
   
   <!--查询评论下所有回复-->
   <select id="projectTopComments" resultMap="BaseResultMap">
-    SELECT pc.*,user.userid,user.name,user.head_pic
+    SELECT pc.*,user.userid,user.name,user.head_pic,wud.openid,wud.nickname,wud.headimgurl
      FROM project_comments pc
       LEFT JOIN dingtalk_user user
     ON pc.user_id = user.userid
+     LEFT JOIN wx_user_detail wud ON pc.project_wx_id = wud.openid
     WHERE pc.project_top_comments_id = #{0}
     ORDER BY pc.project_comments_create_time DESC
   </select>
