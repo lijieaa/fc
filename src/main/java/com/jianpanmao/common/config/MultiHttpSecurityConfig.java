@@ -21,6 +21,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,14 @@ public class MultiHttpSecurityConfig {
     @Bean
     public  PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
+        StrictHttpFirewall firewall = new StrictHttpFirewall();
+        firewall.setAllowUrlEncodedSlash(true);
+        firewall.setAllowSemicolon(true);
+        return firewall;
     }
 
 
@@ -129,6 +139,10 @@ public class MultiHttpSecurityConfig {
         LoginSuccessHandler loginSuccessHandler;
 
 
+        @Autowired
+        HttpFirewall httpFirewall;
+
+
         @Override
         protected AuthenticationManager authenticationManager() throws Exception {
             return adminAuthenticationManager;
@@ -168,7 +182,9 @@ public class MultiHttpSecurityConfig {
 
         @Override
         public void configure(WebSecurity web) throws Exception {
-            web.ignoring()
+            web
+                    .httpFirewall(httpFirewall)
+                    .ignoring()
                     .antMatchers("/ace/**")
                     .antMatchers("/js/**")
                     .antMatchers("/wx/**")

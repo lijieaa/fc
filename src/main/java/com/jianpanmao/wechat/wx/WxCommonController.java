@@ -79,15 +79,20 @@ public class WxCommonController {
     @GetMapping("project")
     public String project(String sourceId, Model model,String code,HttpSession session){
         WxPublic wxPublic = publicService.findBySourceId(sourceId);
+        HttpResponse httpResponse = null;
+        DefaultHttpClient httpClient=null;
+
+        HttpResponse httpResponse2 = null;
+        DefaultHttpClient httpClient2=null;
         try {
             //获取token
             System.out.println("code:"+code);
             String apiUrl="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
             String tokenUrl = apiUrl.replace("APPID", wxPublic.getAppId()).replace("SECRET", wxPublic.getAppSecret()).replace("CODE", code);
             System.out.println("tokenURL:"+tokenUrl);
-            DefaultHttpClient httpClient = new DefaultHttpClient();
+            httpClient = new DefaultHttpClient();
             HttpGet httpGet = new HttpGet(tokenUrl);
-            HttpResponse httpResponse = null;
+
             httpResponse = httpClient.execute(httpGet);
             HttpEntity httpEntity = httpResponse.getEntity();
             String tokens = EntityUtils.toString(httpEntity, "utf-8");
@@ -100,9 +105,9 @@ public class WxCommonController {
             //拉取用户信息
             String userinfo="https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
             String userinfoUrl = userinfo.replace("ACCESS_TOKEN", (CharSequence) map.get("access_token")).replace("OPENID", (CharSequence) map.get("access_token"));
-            DefaultHttpClient httpClient2 = new DefaultHttpClient();
+            httpClient2 = new DefaultHttpClient();
             HttpGet httpGet2 = new HttpGet(userinfoUrl);
-            HttpResponse httpResponse2 = null;
+
             httpResponse2 = httpClient2.execute(httpGet2);
             HttpEntity httpEntity2 = httpResponse2.getEntity();
             String user = EntityUtils.toString(httpEntity2, "utf-8");
@@ -117,7 +122,27 @@ public class WxCommonController {
             session.setAttribute("wuser",userMap);
 
         } catch (IOException e) {
+
+
+            try {
+                ((CloseableHttpResponse) httpResponse).close();
+                 httpClient.close();
+                ((CloseableHttpResponse) httpResponse2).close();
+                httpClient2.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
             e.printStackTrace();
+        }finally {
+            try {
+                ((CloseableHttpResponse) httpResponse).close();
+                httpClient.close();
+                ((CloseableHttpResponse) httpResponse2).close();
+                httpClient2.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
 
         return "wx/project";
