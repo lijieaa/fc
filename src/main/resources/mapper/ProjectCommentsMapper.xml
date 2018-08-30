@@ -147,8 +147,7 @@
     project_id,
     project_comments_content,
     project_top_comments_id,
-    project_wx_id,
-    project_wx_name
+    project_wx_id
       )
     values (
       #{projectCommentsParent,jdbcType=INTEGER},
@@ -158,8 +157,7 @@
       #{projectId,jdbcType=INTEGER},
       #{projectCommentsContent,jdbcType=LONGVARCHAR},
       #{projectTopCommentsId,jdbcType=INTEGER},
-      #{wxId,jdbcType=VARCHAR},
-      #{wxName,jdbcType=VARCHAR}
+      #{wxId,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.projectComments.entity.ProjectComments">
