@@ -35,4 +35,9 @@ public interface WxUserDetailDao extends BaseDao<WxUserDetail> {
      * @return
      */
     public int deleteWxUserOpenid(Integer publicId);
+
+    /**
+     * 通过openid查询信息
+     */
+    WxUserDetail selectByOpenId(String openId);
 }

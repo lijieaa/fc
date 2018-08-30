@@ -1,6 +1,7 @@
 package com.jianpanmao.projectComments.entity;
 
 import com.jianpanmao.sys.entity.DingtalkUser;
+import com.jianpanmao.wechat.entity.WxUserDetail;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -46,10 +47,10 @@ public class ProjectComments implements Serializable {
 
     private List<ProjectComments> children;
 
-    //微信openId
     private String wxId;
-    //微信名称
-    private String wxName;
+
+    //微信
+    private WxUserDetail wxUserDetail;
 
     public String getWxId() {
         return wxId;
@@ -59,12 +60,12 @@ public class ProjectComments implements Serializable {
         this.wxId = wxId;
     }
 
-    public String getWxName() {
-        return wxName;
+    public WxUserDetail getWxUserDetail() {
+        return wxUserDetail;
     }
 
-    public void setWxName(String wxName) {
-        this.wxName = wxName;
+    public void setWxUserDetail(WxUserDetail wxUserDetail) {
+        this.wxUserDetail = wxUserDetail;
     }
 
     public String getParentName() {
