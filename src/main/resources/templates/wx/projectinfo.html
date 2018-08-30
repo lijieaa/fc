@@ -423,17 +423,17 @@
             wxId:"2123123sdad",
             wxName:"公子",
             projectId:"55",
-            parent:"1",
+            parent:"0",
             content : content,
             topCommentsId:"0"
 
         }
 
         $.ajax({
-            url: contextPath+"wd/projectComments111/",
+            url: contextPath+"wx/common/projectComments/",
             type: "POST",
-            data : JSON.stringify(chart),
-            contentType: "application/json",
+            data : chart,
+         /*   contentType: "application/json",*/
             dataType : "json",
 
         })
