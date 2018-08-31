@@ -166,6 +166,8 @@
     console.log(GetRequest())
 </script>
 <script type="text/javascript" th:inline="javascript">
+
+
     var sourceId = [[${sourceId}]];
     sourceId =sourceId||'gh_f5a46974c0f6';
     var $$ = Dom7;
@@ -261,7 +263,34 @@
         $('.list li').remove()
         initList()
     }
-/*    wx/common/common?projectId=9*/
+
+
+    function  childList(oc,name) {
+        var arr=[]
+
+        for (var i = 0, l = oc.length; i < l; i++) {
+            var item=oc[i]
+            var o ={
+                     parentname:name,
+                     projectCommentsId:item.projectCommentsId,
+                     nickname : item.wxUserDetail.nickname,
+                     projectTopCommentsId:item.projectTopCommentsId,
+                     projectCommentsContent:item.projectCommentsContent
+            }
+            item.parentName=name;
+            var str= '<div class="comment"><span class="f-u"  data-parent="'+item.projectCommentsId+'"   data-topId="'+item.projectTopCommentsId+'">'+item.wxUserDetail.nickname+'</span>&nbsp;回复&nbsp</span><span>'+item.parentName+':</span>'+item.projectCommentsContent+'</div>'
+            arr.push(str)
+            if (oc[i].children.length > 0) {
+
+                arr.push.apply(arr,childList(oc[i].children,item.wxUserDetail.nickname))
+
+            }
+
+        }
+        return arr
+    }
+
+
 
     function initList(){
         allowInfinite = false;
@@ -286,17 +315,19 @@
                     maxItems = data.content.total
                     $$("#countTotal").html(maxItems)
                     data.content.list.forEach(function(item,i){
-                        console.log(item)
 
                         var inner =[]
 
 
                         if(item.children.length>0){
+                            console.log(childList(item.children,item.wxUserDetail.nickname))
                             inner.push('<div id="" class="item-text" style="border:1px solid #c9c9c9;padding:10px;">')
-                            item.children.forEach(function(item,i){
-                                var str= '<div class="comment"><span class="f-u">'+item.user.name+'</span>&nbsp;回复&nbsp</span><span>'+item.parentName+':</span>'+item.projectCommentsContent+'</div>'
+                           /* item.children.forEach(function(item,i){
+                                var str= '<div class="comment"><span class="f-u"  data-parent="'+item.projectCommentsId+'"   data-topId="'+item.projectTopCommentsId+'">'+item.wxUserDetail.nickname+'</span>&nbsp;回复&nbsp</span><span>'+item.parentName+':</span>'+item.projectCommentsContent+'</div>'
                                 inner.push(str)
-                            })
+                            })*/
+
+                            inner.push.apply(inner,childList(item.children,item.wxUserDetail.nickname))
                             inner.push('</div>')
 
                         }
@@ -321,14 +352,14 @@
                                 '</div>'+
                                 '<div class="item-inner ">'+
                                 '<div class="item-title-row ">'+
-                                '<div class="item-after f28 repley" data-wxId="'+item.wxUserDetail.openid+'" ><img src="/img/reply.png" style="width:10px;height:9px;align-self: center;" alt=""/>回复</div>'+
+                                '<div class="item-after f28 repley"  data-parent="'+item.projectCommentsId+'"   data-topId="'+item.projectTopCommentsId+'" ><img src="/img/reply.png" style="width:10px;height:9px;align-self: center;" alt=""/>回复</div>'+
                                 '</div>'+ inner.join("")+
                         '</div>'+
                         '</div>'+
                         '</li>'
                     })
                     $$('#listview').append(html);
-                    console.log(html)
+
                     lastItemIndex = $$('.list li').length;
                     pageNum++;
 
@@ -353,6 +384,8 @@
         })
     }
 
+
+
     // Attach 'infinite' event handler
     $$('.infinite-scroll-content').on('infinite', function () {
         // Exit, if loading in progress
@@ -367,16 +400,25 @@
         window.location.href="/wd/equipment"
     })
 
+
+    var parentid ="0";
+    var topid="0"
     $$("#listview").on("click",".repley",function(e){
 
-        console.log(this)
+
+        openid=$(this).data().parent;
+        topid=$(this).data().parent;
+
+        console.log(openid,topid)
         $$("#repley").addClass("active").siblings().removeClass("active");
         $$("#repley textarea").focus();
 
     })
 
     $$("#listview").on("click",".f-u",function(e){
-
+        openid=$(this).data().parent;
+        topid=$(this).data().topid;
+        console.log(openid,topid)
         $$("#repley").addClass("active").siblings().removeClass("active");
         $$("#repley textarea").focus();
 
@@ -389,31 +431,41 @@
 
     $("#coment").on("click",function(){
         var content =  $$("#comment-text").val()
-
-        var  chart ={
+        postCom({
             wxId:"o2IG5wtA0EhlkfTx3ya7-IrYVwVc",
             wxName:"公子",
-            projectId:"55",
-            parent:"0",
+            projectId:projectid,
+            parent:0,
             content : content,
-            topCommentsId:"0"
-
-        }
-
-        $.ajax({
-            url: contextPath+"wx/common/projectComments/",
-            type: "POST",
-            data : chart,
-         /*   contentType: "application/json",*/
-            dataType : "json",
-
+            topCommentsId:0
         })
+
     })
     $$("#confirm").on("click",function(){
         var content =  $$("#repley-text").val()
 
-        alert(content)
+        postCom({
+            wxId:"o2IG5wtA0EhlkfTx3ya7-IrYVwVc",
+            wxName:"公子",
+            projectId:projectid,
+            parent:openid,
+            content : content,
+            topCommentsId:topid
+        })
     })
+    function postCom(data){
+        $.ajax({
+            url: contextPath+"wx/common/projectComments/",
+            type: "POST",
+            data : data,
+            /*   contentType: "application/json",*/
+            dataType : "json",
+            success:function(){
+                window.location.reload()
+            }
+
+        })
+    }
 </script>
 
 </body>
