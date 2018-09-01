@@ -96,7 +96,11 @@ public class ProjectCommentsRestController {
         projectComments.setChildren(children);
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getProjectCommentsParent().intValue() == projectComments.getProjectCommentsId()) {
-                list.get(i).setParentName(projectComments.getUser().getName());
+                if (projectComments.getProjectCommentsType().byteValue()==0){
+                    list.get(i).setParentName(projectComments.getUser().getName());
+                }else {
+                    list.get(i).setParentName(projectComments.getWxUserDetail().getNickname());
+                }
                 children.add(list.get(i));
             }
         }
