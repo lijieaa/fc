@@ -172,7 +172,8 @@
     sourceId =sourceId||'gh_f5a46974c0f6';
     var $$ = Dom7;
 
-    var wxId=[[${wuser.openid}]];
+    var wxId=[[${session.wuser.openid}]];
+    //alert(wxId)
    /* var wxId="o2IG5wkZPLeHQOEteF0mQBLmOn2E"*/
     // Loading flag
     var allowInfinite = true;
@@ -310,7 +311,7 @@
             },
             success:function(data){
                 allowInfinite = true;
-
+                //alert(JSON.stringify(data))
                 console.log(data)
                 var html = '';
                 if(data.status==200){
