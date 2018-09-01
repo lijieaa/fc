@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html class="">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#2196f3">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+    <title>成都公司环太净化科技有限公司</title>
+    <link rel="stylesheet" th:href="@{/css/framework7.min.css}">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/cover.css}">
+    <script th:src="@{/js/framework7.min.js}"></script>
+    <script>
+        var deviceWidth = document.documentElement.clientWidth;
+        if(deviceWidth > 1080) deviceWidth = 1080;
+        document.documentElement.style.fontSize = deviceWidth / 10.8 + 'px';
+    </script>
+</head>
+<body>
+<div id="app" class="wrapper framework7-root">
+    <div class="statusbar"></div>
+
+    <div class="view view-main view-init ios-edges" >
+ <!--           <div class="navbar no-hairline">
+                <div class="navbar-inner">
+                    <div class="left" style="width:28px">
+                        <a href="#" class="link back">
+                            <i class="f7-icons size-22" style="color:#FFFFFF" >left</i>
+                        </a>
+                    </div>
+                    <div class="title">成都公司环太净化科技有限公司</div>
+                    <div class="right" style="width:28px">   <i class="f7-icons size-18" >&bull;&bull;&bull;</i></div>
+                </div>
+
+            </div>-->
+            <div class="page no-navbar no-toolbar" data-page="home">
+
+                <div class="page-content ">
+                    <div class="block-header text-align-center"><div class="display-inline-block companyTime">8:35</div></div>
+                   <div class="block row">
+                       <img th:src="@{/img/company.jpg}" class="col-100" alt=""/>
+                   </div>
+                </div>
+            </div>
+      <!--  <div class="toolbar tabbar">
+            <div class="toolbar-inner">
+                &lt;!&ndash; Links have "tab-link" class instead of just "link" to switch tabs &ndash;&gt;
+                <a href="#tab-1" class="tab-link  shareBtn"><img th:src="@{/img/share.png}" alt="" style="width:0.61rem"/></a>
+                <a  th:href="@{/wx/common/company}" class="tab-link">公司简介</a>
+                <a href="#tab-3" class="tab-link">项目情况</a>
+            </div>
+        </div>-->
+
+
+</div>
+</div>
+<script>
+    var app = new Framework7(
+            {
+                id: 'io.framework7.testapp',
+                root: '#app',
+                theme: "ios",
+            }
+    )
+
+</script>
+</body>
+</html>

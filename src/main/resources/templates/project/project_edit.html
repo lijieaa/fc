@@ -384,7 +384,7 @@
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 for(var i=0;i<treeNode.length;i++){
                     var v = treeNode[i];
-                    if(v.id == id && v.type == null){
+                    if(v.id == id && v.type != 'cus'){
                         treeObj.checkNode(v, false, true);
                     }
                 }
@@ -420,7 +420,7 @@
                 var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 treeNode.map(function(v){
-                    if(v.type == null){
+                    if(v.type != 'cus'){
                         v.icon = contextPath +'images/person.png'
                     }else {
                         v.icon = contextPath +'images/company.png'
@@ -436,7 +436,7 @@
                     _this.list.map(function(s){
                         // console.log(s);
                         // console.log(v);
-                        if(v.id == s.conId && v.type == null){
+                        if(v.id == s.conId && v.type == ""){
                             console.log(v);
                             treeObj.checkNode(v, true, true);
                         }
@@ -445,6 +445,8 @@
             }
         },
         mounted: function(){
+
+
 
         }
     })
@@ -542,7 +544,7 @@
                         var treeObj1 = $.fn.zTree.getZTreeObj("treeDemoCustom");
                         var checkTrue1 = treeObj1.getCheckedNodes(true);
                         _this.customer.zTreeList = checkTrue1.filter(function(v){
-                            return v.type == null
+                            return v.type == ""
                         });
                     }
 

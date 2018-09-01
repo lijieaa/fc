@@ -1,0 +1,61 @@
+.btn, .border-none {
+    border: 1px solid #6FB3E0;
+}
+.file-contain{
+    background: #eff3fa;
+    padding-bottom: 15px;
+}
+.page-file-left,.page-file-right{
+    border: 1px solid #c4d1de;
+}
+.page-file-right{
+    background: #fff;
+    height: 705px;
+}
+.btn-sc{
+    margin-right: 17px;
+    margin-top: 12px;
+}
+.padding-right{
+    padding-right: 0!important;
+}
+.page-right-contain table{
+    width: 100%;
+    text-align: center;
+}
+.page-right-header .current{
+    display: inline-block;
+    margin: 18px 0 0 18px;
+}
+#addFile{
+    height: 35px;
+    border: 1px solid #1794e4;
+    color: #1794e4;
+    display: inline-block;
+    width: 91px;
+    text-align: center;
+    line-height: 35px;
+    margin: 10px;
+    cursor: pointer;
+}
+.page-right-contain{
+    margin-top: 11px;
+}
+
+.page-right-contain .table-title{
+    height: 25px;
+    border-bottom: 1px dashed #e5e5e5;
+}
+.page-right-contain .table-content{
+    height: 25px;
+    font-size: 14px;
+}
+.text-align-center{
+    text-align: center;
+}
+.webuploader-pick {
+    background: #1794e4!important;
+}
+.ui-dialog-titlebar{
+    padding: 5px!important;
+}

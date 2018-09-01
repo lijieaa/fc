@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jianpanmao.common.annotation.NoResultEntity;
 import com.jianpanmao.common.entity.DataTablesResponseEntity;
+import com.jianpanmao.device.entity.Device;
 import com.jianpanmao.sys.dto.DingtalkDeptDto;
 import com.jianpanmao.sys.entity.DingtalkDept;
 import com.jianpanmao.sys.entity.DingtalkUser;
@@ -95,12 +96,20 @@ public class DingtalkDeptRestController {
 
     @PreAuthorize("hasAuthority('dingtalkdept:view')")
     @RequestMapping(method = RequestMethod.GET, value = "pid")
-    public Map findByParentId(@RequestParam("pid") Integer pid) {
+    public Map findByParentId(@RequestParam("pid") Integer pid,@RequestParam(value = "pageNum", defaultValue = "1", required = true) Integer pageNum,
+                              @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
+                              @RequestParam(value = "draw") Integer draw) {
         Map map=new HashMap<>();
         List<DingtalkDept> dingtalkDepts = dingtalkdeptService.selectByParentId(pid);
         map.put("depts",dingtalkDepts);
+        PageHelper.startPage(pageNum, pageSize);
         List<DingtalkUser> users=dingtalkUserService.selectByDeptId(pid);
-        map.put("users",users);
+        PageInfo pageInfo = new PageInfo(users);
+        //draw 不等于空是datatables分页
+        if (draw != null) {
+            DataTablesResponseEntity<Device> responseEntity = new DataTablesResponseEntity(draw, pageInfo.getTotal(), pageInfo.getTotal(), pageInfo.getList());
+            map.put("users",responseEntity);
+        }
         return map;
     }
 

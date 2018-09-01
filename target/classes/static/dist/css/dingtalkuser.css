@@ -1,0 +1,17 @@
+#sub-department {
+    max-width: 100%;
+}
+#edit-upper-department-name-select[readonly] {
+    background: #fff!important;
+}
+#add-role-person-competence-select, #add-outcontacts-tag-select, #edit-outcontacts-tag-select, #add-customer-competence-select{
+    max-height: 200px;
+    overflow-y: scroll;
+}
+#add-outcontacts-tag-select, #edit-outcontacts-tag-select {
+    margin: 0;
+    list-style: none;
+}
+#add-outcontacts-tag-select>li div.radio, #edit-outcontacts-tag-select>li div.radio {
+    color: #393939 !important;
+}

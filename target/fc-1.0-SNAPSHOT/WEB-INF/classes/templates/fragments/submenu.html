@@ -1,0 +1,87 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<ul class="submenu" th:fragment="submenu(p)">
+    <li class="" th:each="m : ${session.menus}" th:if=" ${m.menuParentId eq p.menuId and m.menuDisplay eq 1}" th:class="${#request.getParameter('mid')} eq ${m.menuId}?'active':''">
+        <a th:href="@{${#strings.isEmpty(m.menuUrl)?'#':m.menuUrl+'?mid='+m.menuId}}"
+           th:class="${#strings.isEmpty(m.menuUrl)}?'dropdown-toggle':''">
+            <i class="menu-icon fa fa-caret-right"></i>
+            [[${m.menuName}]]
+            <b class="${#strings.isEmpty(m.menuUrl)?'arrow fa fa-angle-down':'arrow'"></b>
+        </a>
+        <b class="arrow"></b>
+        <ul class="submenu" th:include="~{fragments/submenu ::submenu(${m})}"></ul>
+    </li>
+</ul>
+
+<tr th:fragment="tr" th:if="!${#lists.isEmpty(menu.children)}" th:each="menu : ${menu.children}"
+         th:attr="data-tt-id=${menu.menuId},data-tt-parent-id=${menu.menuParentId}">
+    <td th:text="${menu.menuName}"></td>
+    <td th:text="${menu.menuUrl}"></td>
+    <td th:text="${menu.menuPrmission}"></td>
+    <td>
+        <span th:class="${menu.menuDisplay}?'ace-icon fa fa-circle green':'ace-icon fa fa-circle red'"></span>
+    </td>
+    <td>
+        <a class="green" th:href="@{'edit/?id='+${menu.menuId}}"><i class="ace-icon fa fa-pencil bigger-130"></i></a>
+        <a class="red delete" th:attr="data=${menu.menuId}"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+    </td>
+
+</tr>
+
+
+
+<tr th:fragment="m" th:if="!${#lists.isEmpty(menu.children)}" th:each="menu : ${menu.children}"
+    th:attr="data-tt-id=${menu.menuId},data-tt-parent-id=${menu.menuParentId}">
+    <td th:text="${menu.menuName}"></td>
+    <td th:text="${menu.menuUrl}"></td>
+    <td th:text="${menu.menuPrmission}"></td>
+    <td>
+        <span th:class="${menu.menuDisplay}?'ace-icon fa fa-circle green':'ace-icon fa fa-circle red'"></span>
+    </td>
+    <td>
+        <a class="green" th:href="@{'edit/?id='+${menu.menuId}}"><i class="ace-icon fa fa-pencil bigger-130"></i></a>
+        <a class="red delete" th:attr="data=${menu.menuId}"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+    </td>
+
+</tr>
+
+
+
+
+
+<th:block th:fragment="row(pid)">
+    <th:block th:each="menu : ${menus}">
+        <tr th:if="${menu.menuParentId} eq ${pid}" th:attr="data-tt-id=${menu.menuId},data-tt-parent-id=${menu.menuParentId}">
+            <td th:text="${menu.menuName}"></td>
+            <td th:text="${menu.menuUrl}"></td>
+            <td th:text="${menu.menuPrmission}"></td>
+            <td>
+                <span th:class="${menu.menuDisplay}?'ace-icon fa fa-circle green':'ace-icon fa fa-circle red'"></span>
+            </td>
+            <td th:text="${menu.icon}"></td>
+            <td>
+                <a class="green" th:href="@{'edit/?id='+${menu.menuId}}"><i
+                        class="ace-icon fa fa-pencil bigger-130"></i></a>
+                <a class="red delete" th:attr="data=${menu.menuId}"><i
+                        class="ace-icon fa fa-trash-o bigger-130"></i></a>
+            </td>
+        </tr>
+        <tr th:include="~{fragments/submenu ::row(${menu.menuId})}"></tr>
+    </th:block>
+</th:block>
+
+
+<th:block th:fragment="breadcrumb_li(menuId)">
+    <th:block th:each="menu : ${session.menus}" >
+        <li th:if="${menuId eq param.id}">
+            <a href="#">${menu.menuName}</a>
+        </li>
+    </th:block>
+</th:block>
+
+
+</body>
+
+</html>

@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jianpanmao.project.dao.ProjectMapper">
+  <resultMap id="BaseResultMap" type="com.jianpanmao.project.entity.Project">
+    <id column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="project_status" property="projectStatus" jdbcType="TINYINT" />
+    <result column="project_create_time" property="projectCreateTime" jdbcType="TIMESTAMP" />
+    <result column="project_update_time" property="projectUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="project_logo" property="projectLogo" jdbcType="VARCHAR"/>
+    <result column="project_topic_status" property="projectTopicStatus" jdbcType="TINYINT"/>
+    <result column="project_introduction" property="projectIntroduction" jdbcType="VARCHAR"/>
+    <association property="area" javaType="com.jianpanmao.area.entity.Area">
+      <id column="id" property="id"></id>
+      <result column="aname" property="name"></result>
+    </association>
+    <association property="intermediary" javaType="com.jianpanmao.intermediary.entity.Intermediary">
+      <id column="intermediary_id" property="intermediaryId"></id>
+      <result column="intermediary_name" property="intermediaryName"></result>
+    </association>
+    <association property="projectCreateUser" javaType="com.jianpanmao.sys.entity.DingtalkUser">
+      <id column="userid" property="userid"></id>
+      <result column="name" property="name"></result>
+    </association>
+
+  </resultMap>
+
+
+  <resultMap id="idNameResultMap" type="com.jianpanmao.project.entity.Project">
+    <id column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    project_id, project_name, area_id, project_contact_user_id, project_create_user_id, 
+    project_owner_contact, project_owner_contact_tel, project_status, project_create_time, 
+    project_update_time, project_logo, project_topic_status
+  </sql>
+  <select id="selectByExample" parameterType="com.jianpanmao.project.entity.ProjectExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from project
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    project.*,area.ID,area.NAME aname,
+    intermediary.intermediary_id,intermediary.intermediary_name,
+    user.userid,user.name
+    from project project
+    LEFT JOIN area area ON project.area_id = area.ID
+    LEFT JOIN intermediary intermediary ON project.project_intermediary = intermediary.intermediary_id
+    LEFT JOIN dingtalk_user user ON project.project_create_user = user.userid
+    where project.project_id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from project
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jianpanmao.project.entity.ProjectExample">
+    delete from project
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jianpanmao.project.entity.Project">
+    <selectKey keyProperty="projectId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into project ( project_name,
+    project_intermediary,
+      area_id,
+      project_status,
+      project_topic_status,
+      project_logo,
+      project_introduction,
+    project_create_user
+      )
+    values (
+      #{projectName,jdbcType=VARCHAR},
+    #{intermediary.intermediaryId,jdbcType=INTEGER},
+      #{area.id,jdbcType=INTEGER},
+      #{projectStatus,jdbcType=TINYINT},
+    #{projectTopicStatus,jdbcType=TINYINT},
+    #{projectLogo,jdbcType=VARCHAR},
+    #{projectIntroduction,jdbcType=VARCHAR},
+    #{projectCreateUser.userid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jianpanmao.project.entity.Project">
+    insert into project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="projectName != null">
+        project_name,
+      </if>
+      <if test="areaId != null">
+        area_id,
+      </if>
+      <if test="projectContactUserId != null">
+        project_contact_user_id,
+      </if>
+      <if test="projectCreateUserId != null">
+        project_create_user_id,
+      </if>
+      <if test="projectOwnerContact != null">
+        project_owner_contact,
+      </if>
+      <if test="projectOwnerContactTel != null">
+        project_owner_contact_tel,
+      </if>
+      <if test="projectStatus != null">
+        project_status,
+      </if>
+      <if test="projectCreateTime != null">
+        project_create_time,
+      </if>
+      <if test="projectUpdateTime != null">
+        project_update_time,
+      </if>
+      <if test="projectLogo != null">
+        project_logo,
+      </if>
+      <if test="projectTopicStatus != null">
+        project_topic_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null">
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="projectContactUserId != null">
+        #{projectContactUserId,jdbcType=INTEGER},
+      </if>
+      <if test="projectCreateUserId != null">
+        #{projectCreateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="projectOwnerContact != null">
+        #{projectOwnerContact,jdbcType=VARCHAR},
+      </if>
+      <if test="projectOwnerContactTel != null">
+        #{projectOwnerContactTel,jdbcType=VARCHAR},
+      </if>
+      <if test="projectStatus != null">
+        #{projectStatus,jdbcType=TINYINT},
+      </if>
+      <if test="projectCreateTime != null">
+        #{projectCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectUpdateTime != null">
+        #{projectUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectLogo != null">
+        #{projectLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="projectTopicStatus != null">
+        #{projectTopicStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jianpanmao.project.entity.ProjectExample" resultType="java.lang.Long">
+    select count(*) from project
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update project
+    <set>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectName != null">
+        project_name = #{record.projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaId != null">
+        area_id = #{record.areaId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectContactUserId != null">
+        project_contact_user_id = #{record.projectContactUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectCreateUserId != null">
+        project_create_user_id = #{record.projectCreateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectOwnerContact != null">
+        project_owner_contact = #{record.projectOwnerContact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectOwnerContactTel != null">
+        project_owner_contact_tel = #{record.projectOwnerContactTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectStatus != null">
+        project_status = #{record.projectStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.projectCreateTime != null">
+        project_create_time = #{record.projectCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.projectUpdateTime != null">
+        project_update_time = #{record.projectUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.projectLogo != null">
+        project_logo = #{record.projectLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectTopicStatus != null">
+        project_topic_status = #{record.projectTopicStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update project
+    set project_id = #{record.projectId,jdbcType=INTEGER},
+      project_name = #{record.projectName,jdbcType=VARCHAR},
+      area_id = #{record.areaId,jdbcType=INTEGER},
+      project_contact_user_id = #{record.projectContactUserId,jdbcType=INTEGER},
+      project_create_user_id = #{record.projectCreateUserId,jdbcType=INTEGER},
+      project_owner_contact = #{record.projectOwnerContact,jdbcType=VARCHAR},
+      project_owner_contact_tel = #{record.projectOwnerContactTel,jdbcType=VARCHAR},
+      project_status = #{record.projectStatus,jdbcType=TINYINT},
+      project_create_time = #{record.projectCreateTime,jdbcType=TIMESTAMP},
+      project_update_time = #{record.projectUpdateTime,jdbcType=TIMESTAMP},
+      project_logo = #{record.projectLogo,jdbcType=VARCHAR},
+      project_topic_status = #{record.projectTopicStatus,jdbcType=TINYINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jianpanmao.project.entity.Project">
+    update project
+    <set>
+      <if test="projectName != null">
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null">
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="projectContactUserId != null">
+        project_contact_user_id = #{projectContactUserId,jdbcType=INTEGER},
+      </if>
+      <if test="projectCreateUserId != null">
+        project_create_user_id = #{projectCreateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="projectOwnerContact != null">
+        project_owner_contact = #{projectOwnerContact,jdbcType=VARCHAR},
+      </if>
+      <if test="projectOwnerContactTel != null">
+        project_owner_contact_tel = #{projectOwnerContactTel,jdbcType=VARCHAR},
+      </if>
+      <if test="projectStatus != null">
+        project_status = #{projectStatus,jdbcType=TINYINT},
+      </if>
+      <if test="projectCreateTime != null">
+        project_create_time = #{projectCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectUpdateTime != null">
+        project_update_time = #{projectUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectLogo != null">
+        project_logo = #{projectLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="projectTopicStatus != null">
+        project_topic_status = #{projectTopicStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jianpanmao.project.entity.Project">
+    update project
+    set project_name = #{projectName,jdbcType=VARCHAR},
+      area_id = #{area.id,jdbcType=INTEGER},
+      project_logo = #{projectLogo,jdbcType=VARCHAR},
+      project_introduction = #{projectIntroduction,jdbcType=VARCHAR}
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" parameterType="com.jianpanmao.project.entity.Project" resultMap="BaseResultMap">
+    select * from project
+  </select>
+  <delete id="deleteBatch" parameterType="java.util.ArrayList">
+    delete from project
+    where project_id in
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+              #{item}
+    </foreach>
+  </delete>
+  <select id="selectByDto" parameterType="com.jianpanmao.project.dto.ProjectDto" resultMap="BaseResultMap">
+    select
+    project.*,area.ID,area.NAME aname,
+    intermediary.intermediary_id,intermediary_name
+    from project project
+    LEFT JOIN area area ON project.area_id = area.ID
+    LEFT JOIN intermediary intermediary ON project.project_intermediary = intermediary.intermediary_id
+
+    WHERE project.project_status = #{projectStatus}
+    and project.project_intermediary = #{intermediary.intermediaryId}
+    <if test="projectName != null"> and project.project_name  LIKE CONCAT('%',#{projectName},'%')</if>
+    <if test="od!=null and od neq ''">
+      order by ${od}
+    </if>
+  </select>
+
+  <select id="selectIdNameList" resultMap="idNameResultMap">
+    SELECT p.project_id,p.project_name  from project p WHERE p.project_status = 1
+  </select>
+  <!--线索改为项目-->
+  <update id="updateProjectStatus" parameterType="java.lang.Integer">
+    update project
+    set project_status = 1
+    where project_id = #{0}
+  </update>
+
+
+
+
+  <!--添加项目负责人-->
+  <insert id="addProjectUser"  parameterType="java.util.List">
+    INSERT INTO
+    project_user
+    (project_user_pid,project_user_userid)
+    VALUES
+    <foreach collection ="list" item="id" index= "index" separator =",">
+      (
+      #{id.projectUserPId},
+      #{id.projectUserUserId}
+      )
+    </foreach >
+
+  </insert>
+  <!--添加项目客户-->
+  <insert id="addContacts"  parameterType="java.util.List">
+    INSERT INTO
+    project_contacts
+    (project_contacts_pid,project_contacts_cid)
+    VALUES
+    <foreach collection ="list" item="id" index= "index" separator =",">
+      (
+      #{id.projectContactsPId},
+      #{id.projectContactsCId}
+      )
+    </foreach >
+  </insert>
+
+  <!--删除项目负责人-->
+  <delete id="deleteProjectUser" parameterType="java.lang.Integer">
+    delete from project_user
+    where project_user_pid =#{0}
+  </delete>
+  <!--删除项目客户-->
+  <delete id="deleteProjectContacts" parameterType="java.lang.Integer">
+    delete from project_contacts
+    where project_contacts_pid =#{0}
+  </delete>
+
+
+  <!--查询项目负责人-->
+  <resultMap id="projectChargeUserMap" type="com.jianpanmao.sys.dto.ContactsDto">
+    <id column="userid" jdbcType="INTEGER" property="userId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="jobnumber" jdbcType="VARCHAR" property="jobnumber" />
+  </resultMap>
+
+  <select id="projectChargeUser" parameterType="java.lang.Integer" resultMap="projectChargeUserMap">
+select
+u.*
+FROM
+dingtalk_user u LEFT JOIN project_user pu ON u.userid = pu.project_user_userid
+LEFT JOIN project p ON pu.project_user_pid = p.project_id
+WHERE p.project_id = #{0}
+  </select>
+
+  <!--查询项目客户-->
+  <resultMap id="projectCustomersMap" type="com.jianpanmao.project.dto.ProjectCustomer">
+    <id column="con_id" jdbcType="INTEGER" property="conId" />
+    <result column="con_name" jdbcType="VARCHAR" property="conName" />
+    <result column="con_tel" jdbcType="VARCHAR" property="conTel" />
+    <result column="con_qq" jdbcType="VARCHAR" property="conQQ" />
+    <result column="con_wechat" jdbcType="VARCHAR" property="conWechat" />
+    <result column="con_email" jdbcType="INTEGER" property="conEmail" />
+  </resultMap>
+  <select id="projectCustomers" parameterType="java.lang.Integer" resultMap="projectCustomersMap">
+select
+c.*
+FROM
+contacts c LEFT JOIN project_contacts pc ON c.con_id = pc.project_contacts_cid
+LEFT JOIN project p ON pc.project_contacts_pid = p.project_id
+WHERE p.project_id = #{0}
+  </select>
+
+  <!--查询by项目名称-->
+<select id="existByName" resultMap="BaseResultMap">
+  SELECT p.* FROM project p WHERE p.project_name = #{name} and p.project_intermediary = #{IntermediaryId}
+</select>
+</mapper>
