@@ -171,6 +171,9 @@
     var sourceId = [[${sourceId}]];
     sourceId =sourceId||'gh_f5a46974c0f6';
     var $$ = Dom7;
+
+    var wxId=[[${wuser.openid}]];
+   /* var wxId="o2IG5wkZPLeHQOEteF0mQBLmOn2E"*/
     // Loading flag
     var allowInfinite = true;
     // Last loaded index
@@ -432,7 +435,7 @@
     $("#coment").on("click",function(){
         var content =  $$("#comment-text").val()
         postCom({
-            wxId:"o2IG5wtA0EhlkfTx3ya7-IrYVwVc",
+            wxId:wxId,
             wxName:"公子",
             projectId:projectid,
             parent:0,
@@ -445,7 +448,7 @@
         var content =  $$("#repley-text").val()
 
         postCom({
-            wxId:"o2IG5wtA0EhlkfTx3ya7-IrYVwVc",
+            wxId:wxId,
             wxName:"公子",
             projectId:projectid,
             parent:openid,
