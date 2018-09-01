@@ -1,0 +1,43 @@
+spring:
+ thymeleaf:
+  cache: false
+  mode: LEGACYHTML5
+ jackson:
+  time: GMT+8
+  date-format: yyyy-MM-dd HH:mm:ss
+ servlet:
+   multipart:
+     max-file-size: 10MB
+
+mybatis:
+ config-location: classpath:mybatis-config.xml
+ mapper-locations: classpath:/mapper/**/*.xml
+ type-aliases-package: com.jianpanmao.*
+
+server:
+ port: 8081
+ servlet:
+  contextPath: /
+  session:
+   timeout: 30000
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+
+
+fc:
+ imgContext: img
+ uploadPath: c:\upload\
+ wx:
+   user-msg-material:
+     path: c:\wx_users_msg_material\
+
+
+mqtt:
+  host: tcp://47.104.144.238:6677
+
+

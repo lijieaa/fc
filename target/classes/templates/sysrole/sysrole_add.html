@@ -1,0 +1,201 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<body layout:fragment="content">
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <form class="form-horizontal" id="validation-form" method="post">
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="roleName">角色名称:</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                            <input type="text" name="roleName" id="roleName" class="col-xs-12 col-sm-6" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="roleDescription">角色描述:</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                            <input type="text" name="roleDescription" id="roleDescription" class="col-xs-12 col-sm-6" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+							<span class="input-group-btn" id="selet-parent">
+                                <a class="btn btn-sm btn-default"  id="select-parent">
+                                    <i class="ace-icon fa fa-calendar bigger-110"></i>
+                                    选择权限
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-4"></div>
+                <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-info" type="submit" id="submit">
+                            <i class="ace-icon fa fa-check bigger-110"></i>
+                            提交
+                        </button>
+
+                        &nbsp; &nbsp; &nbsp;
+                        <button class="btn" type="reset">
+                            <i class="ace-icon fa fa-undo bigger-110"></i>
+                            重置
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <!-- PAGE CONTENT ENDS -->
+            <!-- PAGE CONTENT ENDS -->
+            <div id="dialog-message" class="hide">
+                <ul id="treeDemo" class="ztree" style="margin-top:0; width:160px;"></ul>
+            </div>
+        <!-- PAGE CONTENT ENDS -->
+    </div>
+    <!-- /.col -->
+</div>
+<script type="text/javascript" th:inline="javascript">
+
+    var setting = {
+        async: {
+            enable: true,
+            dataType: "json",
+            type: "get",
+            url: contextPath+"api/sysmenu/list",
+            dataFilter: ajaxDataFilter
+        },
+        data:{
+            key: {
+                name: "menuName"
+            },
+            simpleData : {
+                enable : true,
+                idKey: "menuId",
+                pIdKey: "menuParentId",
+                rootPId: 0
+            }
+        },
+        check: {
+            enable: true,
+            chkStyle: "checkbox",  //单选框
+            radioType: "all"   //对所有节点设置单选
+        },
+        callback: {
+        }
+    };
+
+    //异步加载返回的数据
+    function ajaxDataFilter(treeId, parentNode, responseData) {
+        return responseData.content;
+    }
+
+    jQuery(function($) {
+
+        $( "#select-parent" ).on('click', function(e) {
+            e.preventDefault();
+
+            var dialog = $( "#dialog-message" ).removeClass('hide').dialog({
+                dragStop: function( event, ui ) {
+                    $(event.target.offsetParent).css("height", "auto");
+                },
+                modal: true,
+                closeText: "关闭",
+                title: "选择权限",
+                title_html: false,
+                buttons: [
+                    {
+                        text: "取消",
+                        "class" : "btn btn-minier",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    },
+                    {
+                        text: "确定",
+                        "class" : "btn btn-primary btn-minier",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                ]
+            });
+
+        });
+
+        var parentTree = $.fn.zTree.init($("#treeDemo"), setting);
+
+
+        var $form = $('#validation-form').validate({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+
+                roleName: {
+                    required: true
+                },
+
+                roleDescription: {
+                    required: true
+                },
+
+            },
+
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error');
+                $(e).remove();
+            },
+
+            errorPlacement: function (error, element) {
+                 error.insertAfter(element.parent());
+            },
+
+            submitHandler: function (form) {
+
+
+                var nodes = parentTree.getCheckedNodes(true);
+
+                var data = $(form).serializeObject();
+
+                data.menus=[];
+
+                for(var i=0;i<nodes.length;i++){
+                    data.menus.push({menuId:nodes[i].menuId});
+                }
+
+                $.ajax({
+                    url: contextPath+"api/sysrole/",
+                    method: "post",
+                    data : JSON.stringify(data),
+                    contentType: "application/json",
+                    dataType : "json",
+                    success: function (data) {
+                       location.href=contextPath+"sysrole/list";
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                })
+
+
+            },
+            invalidHandler: function (form) {
+
+            }
+        });
+    })
+</script>
+</body>
+</html>

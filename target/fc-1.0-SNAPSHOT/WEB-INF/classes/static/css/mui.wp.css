@@ -1,0 +1,227 @@
+li { list-style: none;}
+ul,li { padding: 0; margin: 0;}
+.mui-media-object { line-height: 64px; max-width: 64px; height: 64px;border-radius: 5px; 
+-moz-border-radius: 5px;  
+-webkit-border-radius: 5px;  }
+.wps-list-view { float: left; margin: 0 10px;}
+.wps-list-view a { text-align: center;}
+table { width: 100%;}
+table,td,tr  { border: 0;}
+.wps-table-center tr td{ text-align: center;}
+.wps-table-view .wps-text { width: 35%;}
+
+
+
+/*table css */
+
+
+
+.datalist{  
+    border:1px solid #82c6e4;  
+    font-family:Arial;  
+    border-collapse:collapse;
+    background-color:#eaf5ff;
+    font-size:14px;
+}  
+.datalist caption{  
+    padding-bottom:5px;  
+    font:bold 1.4em;  
+    text-align:left;  
+}  
+.mui-bar-tab~.mui-content{ padding-bottom: 10px !important }
+.datalist th{  
+    border:1px solid #82c6e4; 
+    background-color:#82c6e4; 
+    color:#FFFFFF;              
+    font-weight:bold;  
+    padding-top:4px; padding-bottom:4px;  
+    padding-left:12px; padding-right:12px;  
+    text-align:center;  
+}  
+.datalist td{  
+    border:1px solid #82c6e4;   
+    text-align:left;  
+    padding-top:4px; padding-bottom:4px;  
+    padding-left:10px; padding-right:10px;  
+}  
+.datalist tr.altrow{  
+    background-color:#c7e5ff;   
+} 
+body { background-color: #fff ;}
+.mui-card-wps { overflow: hidden;}
+.wps-hui { color: #ccc !important }
+.wps-shux li { margin-bottom: 10px }
+
+.mui-card-content-inner h4 { margin: 0 }
+.mui-card-content-inner p.wps-p { line-height: 34px; margin-bottom: 10px; border-bottom: 1px dashed  #ccc }
+.wps-top { 
+    background: #3fc3f3;
+    -webkit-box-shadow: 0 3px 3px #ccc;
+    -moz-box-shadow: 0 3px 3px #ccc;
+    box-shadow: 0 3px 3px #ccc;
+}
+.wps-top h5 { line-height: 45px; margin: 0; color: #fff; text-align: center; font-size: 18px;}
+.wps-shux { overflow: hidden; }
+.wps-shux li{ display: inline-block; float: left; text-align: center; }
+.wps-shux p { margin-bottom: 5px; }
+
+/**zidingyi**/
+.mui-grid-view.mui-grid-9 {
+    margin: 0px;
+    padding: 0;
+    border-top: 0 solid #eee;
+    border-left: 0 solid #eee;
+    background-color: #fff; 
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-object {
+    width: 70px;
+    max-width: 70px;
+    height: 50px;
+}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+    border-right: 0 solid #eee; 
+    border-bottom: 0 solid #eee; 
+}
+/**自定义九宫格**/
+.boxshadow {
+  -webkit-box-shadow: 0px 1px 3px #f5f5f5; 
+  -moz-box-shadow: 0px 1px 3px #f5f5f5;  
+  box-shadow: 0px 1px 3px #f5f5f5;  
+}
+.wps-box{ display: inline-block; float: left;}
+
+.mui-media-body{
+    font-size: 15px;
+    line-height: 15px;
+    display: block;
+    width: 100%;
+    height: 15px;
+    margin-top: 8px;
+    text-overflow: ellipsis;
+    color: #333;
+}
+.mb50px { margin-bottom: 50px;}
+.mui-card-wps {  border-top: 1px solid #ACACB4;border-bottom: 1px solid #ACACB4;}
+.centerbox { height: 10px; position: relative; padding: 0; margin: 0;}
+
+.wpsbox {position: absolute; top: -1px; border-left: 1px solid #ACACB4; border-right: 1px solid #ACACB4; background: #fff; height: 12px; width: 15px; display: inline-block;}
+
+.ml { left: 30%;}
+.mr { right: 30%;}
+
+.mui-card-content-inner h4, .mui-card-content-inner p {font-weight: normal; text-align: center;}
+
+.right { float: right; display: inline-block;}
+
+
+.mui-media-object-wp {
+	margin-top: 5px;
+    line-height: 50px;
+    max-width: 50px;
+    height: 50px;
+}
+.user { display: inline-block;}
+.body {  line-height: 14px;display: inline-block; text-align: left;}
+.fz12 {font-size: 12px !important;}
+.fz10 {font-size: 10px !important;}
+.fz13 {font-size: 13px !important;}
+.fz14 {font-size: 14px !important;}
+.fz16 {font-size: 16px !important;}
+.fz18 {font-size: 18px !important;}
+.fw {font-weight: 900;}
+.clear{ clear:both}
+.btn-kai {
+	width: 80%;
+    color: #fff;
+    white-space: nowrap;
+    color: #333;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+.name { padding-left: 5px;}
+.wp-views a { font-family: "微软雅黑";text-align: center;display: block;}
+.wp-views { text-align: center;}
+.time span { padding-left: 5px; text-align: center; width: 24px;}
+.tx-center { text-align: center;}
+.white-space {white-space: nowrap;}
+.wp-text-allow { padding: 10px 10px 10px 10px; background:#82C6E4;}
+.wp-text-allow,.wp-text-allow a { line-height: 24px; }
+.wp-views a.label-success { background: #d6e9c6; border: 1px solid #d6e9c6 }
+
+/**color**/
+.blue { color: #2187E7 !important;}
+.blue-1 {color:#99CCFF !important;}
+.white { color: #fff !important;}
+.yellow {color: #f0ad4e !important;}
+.royal { color: #8a6de9 !important;}
+.success { color: #4cd964 !important;}
+.primary { color: #007aff !important;}
+
+.wps-radio input  {
+	float: none !important;
+    width: auto !important;
+}
+.wps-radio { line-height: 40px;}
+.wps-radio-col { color: #797979;}
+.wps-no-border { border: none !important;}
+
+.none-img { display: none; position: absolute; bottom: -3px; left: 50%; margin-left: -9px}
+.wps-action img.none-img { display: block;  }
+.wps-action div.mui-media-body { overflow: hidden; color: #82c6e4 !important; font-weight: bold;  }
+
+
+.name {    width: 50px;text-overflow: ellipsis;
+    overflow: hidden;}
+
+/*.mui-bar-nav~.mui-content {
+    padding-top: 23px !important;
+}*/
+
+
+.mui-bar-tab .mui-tab-item-wps {
+    display: table-cell;
+    overflow: hidden;
+    width: 1%;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #929292;
+}
+.mui-bar-tab .mui-tab-item-wps.mui-active {
+    color: #FF8247;
+}
+.mui-bar-tab .mui-tab-item-wps .mui-icon {
+    top: 3px;
+    width: 24px;
+    height: 24px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.mui-bar-tab .mui-tab-item-wps .mui-icon~.mui-tab-label {
+    font-size: 11px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wps-m { background: #fff; margin-top: 15px; border-top:1px solid #dbdbdb; border-bottom:1px solid #dbdbdb; padding:10px; }
+
+
+.mui-switch {
+    width: 74px;
+    height: 26px;
+}
+.mui-switch .mui-switch-handle {
+    top: -3px;
+    left: 1px;
+    width: 28px;
+    height: 26px;
+    
+}
+.wps-p { border-bottom: 1px solid #dbdbdb; padding: 10px 0 }
+.mui-badge.mui-badge-inverted { padding: 0 }

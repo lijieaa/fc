@@ -1,0 +1,177 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<body layout:fragment="content">
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <form class="form-horizontal" id="form" method="post">
+
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="operateCommand">operateCommand:</label>
+            <div class="col-xs-12 col-sm-9">
+                <div class="clearfix">
+                    <input type="text" name="operateCommand" id="operateCommand" class="col-xs-12 col-sm-6" />
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="deviceLogCreateTime">deviceLogCreateTime:</label>
+            <div class="col-xs-12 col-sm-9">
+                <div class="clearfix">
+                    <input type="text" name="deviceLogCreateTime" id="deviceLogCreateTime" class="col-xs-12 col-sm-6" />
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="deviceLogUpdateTime">deviceLogUpdateTime:</label>
+            <div class="col-xs-12 col-sm-9">
+                <div class="clearfix">
+                    <input type="text" name="deviceLogUpdateTime" id="deviceLogUpdateTime" class="col-xs-12 col-sm-6" />
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="operateCommandDesc">operateCommandDesc:</label>
+            <div class="col-xs-12 col-sm-9">
+                <div class="clearfix">
+                    <input type="text" name="operateCommandDesc" id="operateCommandDesc" class="col-xs-12 col-sm-6" />
+                </div>
+            </div>
+        </div>
+
+
+    <input type="hidden" name="deviceLogId"  id="deviceLogId">
+
+
+
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="userId">userId:</label>
+            <div class="col-xs-12 col-sm-9">
+                <div class="clearfix">
+                    <input type="text" name="userId" id="userId" class="col-xs-12 col-sm-6" />
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="deviceProductionNum">deviceProductionNum:</label>
+            <div class="col-xs-12 col-sm-9">
+                <div class="clearfix">
+                    <input type="text" name="deviceProductionNum" id="deviceProductionNum" class="col-xs-12 col-sm-6" />
+                </div>
+            </div>
+        </div>
+
+                <div class="space-4"></div>
+                <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-info" type="submit" id="submit">
+                            <i class="ace-icon fa fa-check bigger-110"></i>
+                            提交
+                        </button>
+
+                        &nbsp; &nbsp; &nbsp;
+                        <button class="btn" type="reset">
+                            <i class="ace-icon fa fa-undo bigger-110"></i>
+                            重置
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- PAGE CONTENT ENDS -->
+    </div>
+    <!-- /.col -->
+</div>
+<script type="text/javascript" th:inline="javascript">
+
+    jQuery(function($) {
+        var id=[[${id}]];
+        $.ajax({
+            url: contextPath+"api/devicelog?id="+id,
+            method: "get",
+            success: function (data) {
+                $('#form').autofill(data.content);
+            },
+            error: function (data) {
+                console.log("查询数据出错！");
+            }
+        })
+
+
+
+
+        var $form = $('#form').validate({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                operateCommand: {
+                    required: true
+                },
+                deviceLogCreateTime: {
+                    required: true
+                },
+                deviceLogUpdateTime: {
+                    required: true
+                },
+                operateCommandDesc: {
+                    required: true
+                },
+                userId: {
+                    required: true
+                },
+                deviceProductionNum: {
+                    required: true
+                },
+            },
+            
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error');
+                $(e).remove();
+            },
+
+            errorPlacement: function (error, element) {
+                 error.insertAfter(element.parent());
+            },
+
+            submitHandler: function (form) {
+
+                var data = $(form).serializeObject();
+
+                $.ajax({
+                    url: contextPath+"api/devicelog/",
+                    method: "put",
+                    data : JSON.stringify(data),
+                    contentType: "application/json",
+                    dataType : "json",
+                    success: function (data) {
+                        location.href=contextPath+"devicelog/list";
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                })
+
+
+            },
+            invalidHandler: function (form) {
+
+            }
+        });
+    })
+</script>
+</body>
+</html>

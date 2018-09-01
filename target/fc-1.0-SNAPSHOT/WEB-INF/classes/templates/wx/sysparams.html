@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html class=" ios device-pixel-ratio-2 device-retina device-ios device-ios-11 device-ios-11-0 device-ios-gt-10 device-ios-gt-9 device-ios-gt-8 device-ios-gt-7 device-ios-gt-6 support-position-sticky">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#2196f3">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+    <title>系统时间</title>
+    <link rel="stylesheet" th:href="@{/css/framework7.min.css}">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/cover.css}">
+    <script th:src="@{/js/framework7.min.js}"></script>
+    <script>
+        var deviceWidth = document.documentElement.clientWidth;
+        if(deviceWidth > 1080) deviceWidth = 1080;
+        document.documentElement.style.fontSize = deviceWidth / 10.8 + 'px';
+    </script>
+
+</head>
+<body>
+<div id="app" class="wrapper framework7-root">
+    <div class="statusbar"></div>
+
+    <div class="view view-main view-init ios-edges " >
+
+        <div class="pages">
+            <div class="page params" data-page="home">
+                <div class="page-content ">
+
+                    <form id="form"class="list card f30">
+                        <ul>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">年</div>
+                                        <div class="item-after">
+                                            <div style="flex-shrink:0" >
+                                                <input type="text" class="pkee text-base-color f30" name="year" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"  style="width:106px;margin-right:4px;"/>
+
+                                            </div>
+                                            <span class="pkee text-base-color f30 text-align-center"  style="width:30px">年</span>
+                                        </div>
+                                    </div>
+                                </div></li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">月</div>
+                                        <div class="item-after">
+                                            <div style="flex-shrink:0" >
+                                                <input type="text" class="pkee text-base-color f30" name="month" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"  style="width:106px;margin-right:4px;"/>
+
+                                            </div>
+                                            <span class="pkee text-base-color f30 text-align-center"  style="width:30px">月</span>
+                                        </div>
+                                    </div>
+                                </div></li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">日</div>
+                                        <div class="item-after">
+                                            <div style="flex-shrink:0" >
+                                                <input type="text" class="pkee text-base-color f30" name="day" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"  style="width:106px;margin-right:4px;"/>
+
+                                            </div>
+                                            <span class="pkee text-base-color f30 text-align-center"  style="width:30px">日</span>
+                                        </div>
+                                    </div>
+                                </div></li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">时</div>
+                                        <div class="item-after">
+                                            <div style="flex-shrink:0" >
+                                                <input type="text" class="pkee text-base-color f30" name="hour" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"  style="width:106px;margin-right:4px;"/>
+
+                                            </div>
+                                            <span class="pkee text-base-color f30 text-align-center"  style="width:30px">时</span>
+                                        </div>
+                                    </div>
+                                </div></li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">分</div>
+                                        <div class="item-after">
+                                            <div style="flex-shrink:0" >
+                                                <input type="text" class="pkee text-base-color f30" name="minute" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"  style="width:106px;margin-right:4px;"/>
+
+                                            </div>
+                                            <span class="pkee text-base-color f30 text-align-center"  style="width:30px">分</span>
+                                        </div>
+                                    </div>
+                                </div></li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title text-base-color">秒</div>
+                                        <div class="item-after">
+                                            <div style="flex-shrink:0" >
+                                                <input type="text" class="pkee text-base-color f30" name="second" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"  style="width:106px;margin-right:4px;"/>
+
+                                            </div>
+                                            <span class="pkee text-base-color f30 text-align-center"  style="width:30px"> 秒</span>
+                                        </div>
+                                    </div>
+                                </div></li>
+
+                        </ul>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
+<script th:src="@{/ace/assets/js/jquery.validate.min.js}"></script>
+<script>
+    function  initList(){
+        $.ajax({
+            url: "/wd/getDeviceParams",
+            type:"get",
+            data:{
+                num:6921734972392
+
+            },
+            success:function(data){
+
+                if(data.status==200){
+
+                    var formData={}
+
+                    var o =data.content.system_time
+
+
+                    for(var pro in o){
+                        if(o.hasOwnProperty(pro)){
+                            o[pro]=o[pro].toString()
+                        }
+                    }
+                    console.log(o)
+                    app.form.fillFromData('#form', o);
+
+                }
+
+
+
+
+
+
+
+
+
+            }
+        })
+    }
+    var app = new Framework7(
+            {
+                id: 'io.framework7.testapp',
+                root: '#app',
+                theme: "ios",
+                on:{
+                    init:function(page){
+                        initList()
+                    }
+                }
+            }
+    )
+
+
+</script>
+</body>
+</html>

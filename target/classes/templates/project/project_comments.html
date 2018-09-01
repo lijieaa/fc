@@ -1,0 +1,418 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <!--<meta charset="UTF-8">-->
+    <link rel="stylesheet" th:href="@{/dist/css/common.css}">
+    <link rel="stylesheet" th:href="@{/dist/css/club/detail.css}">
+    <link rel="stylesheet" th:href="@{/dist/css/page.css}">
+    <script type="text/javascript" th:src= "@{/dist/js/hand-paging.js}"></script>
+    <title>项目评论</title>
+    <style>
+        .btn, .border-none {
+            border: 1px solid #6FB3E0;
+        }
+    </style>
+</head>
+<body layout:fragment="content">
+<div class="wrapper" id="projectComment" v-cloak>
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-9 col-sm-9">
+                <div class="float-left">
+                    <span class="font-size-18 border-left-blue">项目评论</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 text-align-right">
+                <button type="button" data-toggle="modal" @click="backList"
+                        class="btn btn-info padding-right-15">
+                    <i class="ace-icon fa fa-reply icon-only"></i>
+                    返回
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <section class="overflow-hidden">
+            <div class="page-content padding-bottom-10">
+                <div class="row">
+                    <div class="col-sm-12" style="padding: 0;width:100%">
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                                <li class="active" id="activeLi" data-id="0">
+                                    <a data-toggle="tab" href="#home4" aria-expanded="false">
+                                        项目内部评论
+                                    </a>
+                                </li>
+
+                                <li class="" data-id="1">
+                                    <a data-toggle="tab" href="#profile4" aria-expanded="false">
+                                        项目外部评论
+                                    </a>
+                                </li>
+
+                                <li class="" data-id="2">
+                                    <a data-toggle="tab" href="#dropdown14" aria-expanded="true">
+                                        历史线索评论
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id="home4" class="tab-pane active">
+                                    <div id="demo">
+                                        <item class="item" :model="projectComment"></item>
+                                    </div>
+                                </div>
+
+                                <div id="profile4" class="tab-pane">
+                                    <div id="wbDemo">
+                                        <item class="item" :model="wbComment"></item>
+                                    </div>
+                                </div>
+
+                                <div id="dropdown14" class="tab-pane">
+                                    <div id="histroyDemo">
+                                        <item class="item" :model="history"></item>
+                                    </div>
+                                    <!--<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-15 text-align-center">
+                <ul id="list"></ul>
+                <div id="pagingTest"></div>
+                <input type="hidden" value="" id="page">
+            </div>
+            <div class="clubs-editor margin-top-15">
+                <p class="padding-top-10 margin-left-10">发表线索评论</p>
+                <input type="hidden" id="getComment">
+                <textarea name="editor1"  id="editor1" rows="10" cols="80"></textarea>
+            </div>
+            <div class="clearfix form-actions">
+                <div class="col-md-offset-3 col-md-9">
+                    <button type="submit" @click="submitComment" class="btn btn-info">
+                        <i class="ace-icon fa fa-check bigger-110"></i>发表
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</div>
+<script type="text/x-template" id="item-template">
+    <div class="clubs-list" :data-id="model.projectCommentsId" :class="{'parent':(model.projectCommentsParent==0)}">
+        <div class="clubs-header back-f8"  v-if="model.projectCommentsParent !=null && model.projectCommentsParent == 0">
+            <div class="left-clubs float-left padding-left-6">
+                <img :src="imgPath+model.user.headPic" class="" alt="">
+                <span>{{model.user.name}}</span>
+            </div>
+            <div class="right-clubs float-right padding-right-6">
+                <span class="bd-r">第 <span>{{model.count}}</span>条留言</span>
+                <span class="bd-r">{{model.projectCommentsCreateTime}}</span>
+                <span class="bd-r color-b" v-if="model.projectCommentsStatus == 1 && model.projectCommentsType==0"
+                      @click="deleteComment(model.projectCommentsId)">删除</span>
+                <span class="color-b" v-if="model.projectCommentsStatus == 1 && model.projectCommentsType==0"
+                      @click="compomentRedirct(model.projectCommentsId,$event)">评论</span>
+            </div>
+        </div>
+        <div class="clubs-content-list" v-if="model.projectCommentsParent !=null">
+            <div class="detail-list margin-left-10">
+                <span class="font-weight padding-left-6"
+                      v-if="model.projectCommentsParent !=0" >
+                    <span style="color: #1794e4">{{model.user.name}}</span> 回复:
+                    <span style="color: #1794e4">{{model.parentName}}</span>
+                    <span v-if = "model.projectCommentsParent == model.projectCommentsId">{{model.projectCommentsNickname}}</span>
+                </span>
+                <span class="content-topic display-inline-block" v-html="model.projectCommentsContent"></span>
+                <span class="color-gray bd-g" v-if="model.projectCommentsParent != 0 && model.projectCommentsStatus == 1 && model.projectCommentsType==0" @click="deleteComment(model.projectCommentsId)">删除</span>
+                <span class="color-gray bd-g" v-if="model.projectCommentsParent != 0">{{model.projectCommentsCreateTime}}</span>
+                <span class="color-gray" v-if="model.projectCommentsParent !=0 && model.projectCommentsStatus == 1 && model.projectCommentsType==0"
+                      @click="reply(model.projectCommentsParent,model.projectCommentsId,model.projectCommentsNickname,$event)">——【我要评论】</span>
+            </div>
+        </div>
+        <div class = "list-contain inneractive" :class="{'active':(model.projectCommentsParent == 0)}">
+            <item
+                    class="item children-item"  style="background: white"
+                    v-for="(model, index) in model.children"
+                    :key="index"
+                    :model="model">
+            </item>
+        </div>
+
+        <div v-if="model.projectCommentsParent == 0" class="area-comment" style="display: none">
+            <div id="reply" class="margin-left-10" style="display: none"></div>
+            <div class="input-group padding-bottom-10 margin-left-10 margin-right-10">
+                <input type="text" class="form-control">
+                <span class="input-group-btn">
+                  <span id="replay"></span>
+                  <button type="button" class="btn border-none btn-info btn-flat"
+                          @click="replayComment(model.projectCommentsId,$event)">评论</button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+</script>
+<script type="text/javascript" th:inline="javascript">
+    var projectId  = [[${id}]];
+    var projectDetail = new Vue();
+    Vue.component('item', {
+        template: '#item-template',
+        props: {
+            model: Object
+        },
+        data: function () {
+            return {
+                imgPath:imgPath,
+                src:2222,
+                projectCommentsParent:"",
+                projectTopCommentsId:"",
+                inutContent:"",
+                open: false
+            }
+        },
+        methods: {
+            //点击回复输入框获取焦点
+            reply:function(id,parentId,name,event){
+                var _this = this;
+                var comment = $(event.currentTarget);
+                comment.parents(".inneractive").next().show();
+                comment.parents(".inneractive").next().find("input").focus();
+                comment.parents(".inneractive").next().find("#reply").attr("parent-id",parentId).
+                attr("commentId",id).
+                html("回复："+name+"");
+            },
+            replayComment:function(id,event){
+                var _this =  this;
+                var comment = $(event.currentTarget);
+                var findEle = $(event.currentTarget).parents(".area-comment").find("#reply");
+                var projectCommentsParent = findEle.attr("parent-id") == undefined ? id : findEle.attr("parent-id");
+                // var projectTopCommentsId = findEle.attr("commentid") == undefined ? id : findEle.attr("commentid");
+                var projectTopCommentsId = comment.parents(".clubs-list").attr("data-id");
+
+                var data = {
+                    "projectCommentsParent":projectCommentsParent,
+                    "projectId":projectId,
+                    "projectCommentsContent": comment.parent().prev().val(),
+                    "projectTopCommentsId":projectTopCommentsId
+                };
+                if(comment.parent().prev().val() != ""){
+                    $.ajax({
+                        url:contextPath+"api/projectcomments",
+                        type:"post",
+                        contentType: "application/json",
+                        data:JSON.stringify(data),
+                        success:function(data){
+                            comment.parent().prev().val("");
+                            comment.parents(".area-comment").hide();
+                            projectDetail.$emit("change");
+                            refreshComment();
+                        }
+                    })
+                }
+
+            },
+            deleteComment:function (id) {
+                bootbox.confirm({
+                    message: "您真的要删除?",
+                    confirm: {
+                        label: '确定',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: '取消',
+                        className: 'btn-danger'
+                    },
+                    callback:function (result) {
+                        if(result){
+                            $.ajax({
+                                url:contextPath+"api/projectcomments?id="+id,
+                                type:"delete",
+                                success:function(data){
+                                    projectDetail.$emit("change");
+                                }
+                            })
+                        }
+                    }
+                })
+            },
+            compomentRedirct:function(id,event){
+                var comment = $(event.currentTarget);
+                var inputEle  = comment.parents(".clubs-header").parent();
+                inputEle.find("input").focus();
+                inputEle.find(".area-comment").show();
+                inputEle.find("#reply").attr("parent-id",id).
+                attr("commentId",id);
+            }
+        },mounted:function(){
+        }
+    });
+
+
+
+    var Vm =  new Vue({
+        el:"#projectComment",
+        data:{
+            type:0,
+            status:1,
+            innerComment:1, //当前是否是内部评论 1是内部评论,其他的则不是
+            projectComment:{
+                children:[]
+            },
+            wbComment:{
+                children:[]
+            },
+            history:{
+                children:[]
+            }
+        },
+        methods:{
+            backList:function(){
+                location.href=contextPath+"project/detail?id="+projectId;
+            },
+            editorFun:function(){
+                CKEDITOR.replace( 'editor1', {
+                    filebrowserImageUploadUrl:"'/editoUpload'",
+                });
+            },
+            ajaxData:function(pageNo,type,status){
+                //type 0是内部评论 1是外部评论
+                //status 0 是线索 1是项目
+                var _this = this;
+                var data = {
+                    page:pageNo,
+                    rows:10,
+                    projectCommentsType:0,
+                    projectCommentsStatus:0,
+                    projectId:projectId
+                };
+                $.ajax({
+                    url:contextPath+"api/projectcomments/page?pageNum="+pageNo+"&pageSize=2&" +
+                    "projectCommentsType="+type+"&projectCommentsStatus="+status+"&projectId="+projectId,
+                    type:"get",
+                    contentType: "application/json",
+                    dataType : "json",
+                    success:function(data){
+                        var dataList = data.content.list;
+                        _this.projectComment.children = dataList;
+                        _this.wbComment.children = dataList;
+                        _this.history.children = dataList;
+                        $("#pagingTest").paging1({
+                            pageNo:pageNo,
+                            totalPage:data.content.pages
+                        })
+                    }
+                });
+            },
+            submitComment:function(){
+                var _this = this;
+                var commentId  =  $("#getComment").val() == "" ? 0 :parseInt( $("#getComment").val());
+                var data = {
+                    "projectCommentsParent":commentId,
+                    "projectId":projectId,
+                    "projectCommentsContent":CKEDITOR.instances.editor1.getData(),
+                    "projectTopCommentsId":commentId
+                };
+                if(CKEDITOR.instances.editor1.getData() != ""){
+                    $.ajax({
+                        url:contextPath+"api/projectcomments",
+                        type:"post",
+                        contentType: "application/json",
+                        data:JSON.stringify(data),
+                        success:function () {
+                            var val = $("#page").val();
+                            CKEDITOR.instances.editor1.setData('');
+                            _this.ajaxData(val,_this.type,_this.status);
+                            refreshComment();
+                        }
+                    })
+                }
+
+            }
+        },
+        mounted:function () {
+            var _this = this;
+            _this.editorFun(); //初始化生成编辑器
+            // var clubslID  = location.search.substring(1).split("&")[1];
+            //查询详情
+            $.ajax({
+                url:contextPath+"api/project?id="+projectId,
+                type:"get",
+                success:function (data) {
+                    _this.clueComment = data.content;
+                }
+            });
+
+            projectDetail.$on('change', function () {
+                var val = $("#page").val();
+                _this.ajaxData(val,_this.type,_this.status);
+            });
+            //    查询评论
+            _this.ajaxData(1,0,1);
+
+            $(document).on("click","a",function () {
+                // alert(1);
+                var val = $("#page").val();
+                _this.ajaxData(val,_this.type,_this.status);
+            });
+
+            $("#myTab4>li").click(function(){
+                var val = $("#page").val();
+                var id = $(this).attr("data-id");
+                if(id == 0){ //内部评论
+                    _this.ajaxData(1,0,1);
+                    _this.type = 0;
+                    _this.status = 1;
+                    // _this.innerComment = 1;
+                }else if(id == 1){ //外部评论
+                    _this.ajaxData(1,1,1);
+                    _this.type = 1;
+                    _this.status = 1;
+                    // _this.innerComment = 2;
+                }else{ //历史线索评论
+                    _this.ajaxData(1,0,0);
+                    _this.type = 0;
+                    _this.status = 0;
+                    // _this.innerComment = 2;
+                }
+
+            })
+
+        }
+    })
+
+    function refreshComment (){
+        $.ajax ({
+            url: contextPath +"notice/select?userId="+$("#userIdCurrent").text(),
+            type:"get",
+            success:function(data){
+                if(data.status == 200) {
+                    $("#mainPageMessage").html("");
+                    data.content.notices.map(function(v){
+                        var li = "<li data-id="+v.noticeId+"><a href=\"#\" class=\"clearfix\">" +
+                            "<img th:src='' class=\"msg-photo\"/>" +
+                            "<span class=\"msg-body\">" +
+                            "<span class=\"msg-title\">\n" +
+                            "<span class=\"blue\">"+v.noticeUser.name+":</span>\n" +
+                            ""+v.noticeComments.projectCommentsContent+"\n" +
+                            "</span>" +
+                            "<span class=\"msg-time\">\n" +
+                            "<i class=\"ace-icon fa fa-clock-o\"></i>\n" +
+                            "<span>"+v.noticeCreateTime+"</span>\n" +
+                            "</span></span></a></li>"
+                        $("#mainPageMessage").append(li);
+                    })
+                    $("#noReadCount").text(data.content.count)
+                }
+            }
+        })
+    }
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jianpanmao.contacts.dao.ContactsMapper">
+  <resultMap id="BaseResultMap" type="com.jianpanmao.contacts.entity.Contacts">
+    <id column="con_id" jdbcType="INTEGER" property="conId" />
+    <result column="con_name" jdbcType="VARCHAR" property="conName" />
+    <result column="con_tel" jdbcType="VARCHAR" property="conTel" />
+    <result column="con_qq" jdbcType="VARCHAR" property="conQq" />
+    <result column="con_wechat" jdbcType="VARCHAR" property="conWechat" />
+    <result column="con_email" jdbcType="VARCHAR" property="conEmail" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="cus_id" jdbcType="INTEGER" property="cusId" />
+    <result column="intermediary_id" jdbcType="INTEGER" property="intermediaryId" />
+    <result column="con_create_time" jdbcType="TIMESTAMP" property="conCreateTime" />
+    <result column="con_update_time" jdbcType="TIMESTAMP" property="conUpdateTime" />
+    <collection property="roles" ofType="com.jianpanmao.sys.entity.SysRole">
+      <id property="roleId" column="role_id" />
+      <result property="roleName" column="role_name" />
+    </collection>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    con_id, con_name, con_tel, con_qq, con_wechat, con_email, cus_id, intermediary_id, 
+    con_create_time, con_update_time,pwd
+  </sql>
+  <select id="selectByExample" parameterType="com.jianpanmao.contacts.entity.ContactsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from contacts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+   <!-- select
+    <include refid="Base_Column_List" />
+    from contacts
+    where con_id = #{conId,jdbcType=INTEGER}-->
+
+    SELECT
+    c.*,
+    r.role_id,
+    r.role_name
+    FROM
+    contacts c
+    INNER JOIN contact_2_role cr ON c.con_id = cr.con_id
+    INNER JOIN sys_role r ON cr.rol_id = r.role_id
+    WHERE
+    c.con_id = #{conId,jdbcType=INTEGER}
+
+  </select>
+
+
+
+    <select id="selectByTel" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from contacts t where  t.con_tel=#{0}
+    </select>
+
+
+    <select id="selectByCusId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from contacts t where  t.cus_id=#{0}
+    </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from contacts
+    where con_id = #{conId,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="deleteContact2SysRole" parameterType="java.lang.Integer">
+    delete from contact_2_role
+    where con_id = #{conId,jdbcType=INTEGER}
+  </delete>
+
+
+  <delete id="deleteByExample" parameterType="com.jianpanmao.contacts.entity.ContactsExample">
+    delete from contacts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jianpanmao.contacts.entity.Contacts">
+      <selectKey keyProperty="conId" order="AFTER" resultType="java.lang.Integer">
+          SELECT LAST_INSERT_ID()
+      </selectKey>
+    insert into contacts (con_id, con_name, con_tel, 
+      con_qq, con_wechat, con_email, 
+      cus_id, intermediary_id,pwd)
+    values (#{conId,jdbcType=INTEGER}, #{conName,jdbcType=VARCHAR}, #{conTel,jdbcType=VARCHAR}, 
+      #{conQq,jdbcType=VARCHAR}, #{conWechat,jdbcType=VARCHAR}, #{conEmail,jdbcType=VARCHAR}, 
+      #{cusId,jdbcType=INTEGER}, #{intermediaryId,jdbcType=INTEGER}, #{pwd,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jianpanmao.contacts.entity.Contacts">
+    insert into contacts
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="conId != null">
+        con_id,
+      </if>
+      <if test="conName != null">
+        con_name,
+      </if>
+      <if test="conTel != null">
+        con_tel,
+      </if>
+      <if test="conQq != null">
+        con_qq,
+      </if>
+      <if test="conWechat != null">
+        con_wechat,
+      </if>
+      <if test="conEmail != null">
+        con_email,
+      </if>
+      <if test="cusId != null">
+        cus_id,
+      </if>
+      <if test="intermediaryId != null">
+        intermediary_id,
+      </if>
+      <if test="conCreateTime != null">
+        con_create_time,
+      </if>
+      <if test="conUpdateTime != null">
+        con_update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="conId != null">
+        #{conId,jdbcType=INTEGER},
+      </if>
+      <if test="conName != null">
+        #{conName,jdbcType=VARCHAR},
+      </if>
+      <if test="conTel != null">
+        #{conTel,jdbcType=VARCHAR},
+      </if>
+      <if test="conQq != null">
+        #{conQq,jdbcType=VARCHAR},
+      </if>
+      <if test="conWechat != null">
+        #{conWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="conEmail != null">
+        #{conEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="cusId != null">
+        #{cusId,jdbcType=INTEGER},
+      </if>
+      <if test="intermediaryId != null">
+        #{intermediaryId,jdbcType=INTEGER},
+      </if>
+      <if test="conCreateTime != null">
+        #{conCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="conUpdateTime != null">
+        #{conUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jianpanmao.contacts.entity.ContactsExample" resultType="java.lang.Long">
+    select count(*) from contacts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update contacts
+    <set>
+      <if test="record.conId != null">
+        con_id = #{record.conId,jdbcType=INTEGER},
+      </if>
+      <if test="record.conName != null">
+        con_name = #{record.conName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conTel != null">
+        con_tel = #{record.conTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conQq != null">
+        con_qq = #{record.conQq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conWechat != null">
+        con_wechat = #{record.conWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conEmail != null">
+        con_email = #{record.conEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cusId != null">
+        cus_id = #{record.cusId,jdbcType=INTEGER},
+      </if>
+      <if test="record.intermediaryId != null">
+        intermediary_id = #{record.intermediaryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.conCreateTime != null">
+        con_create_time = #{record.conCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.conUpdateTime != null">
+        con_update_time = #{record.conUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update contacts
+    set con_id = #{record.conId,jdbcType=INTEGER},
+      con_name = #{record.conName,jdbcType=VARCHAR},
+      con_tel = #{record.conTel,jdbcType=VARCHAR},
+      con_qq = #{record.conQq,jdbcType=VARCHAR},
+      con_wechat = #{record.conWechat,jdbcType=VARCHAR},
+      con_email = #{record.conEmail,jdbcType=VARCHAR},
+      cus_id = #{record.cusId,jdbcType=INTEGER},
+      intermediary_id = #{record.intermediaryId,jdbcType=INTEGER},
+      con_create_time = #{record.conCreateTime,jdbcType=TIMESTAMP},
+      con_update_time = #{record.conUpdateTime,jdbcType=TIMESTAMP},
+      role_id = #{record.roleId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jianpanmao.contacts.entity.Contacts">
+    update contacts
+    <set>
+      <if test="conName != null">
+        con_name = #{conName,jdbcType=VARCHAR},
+      </if>
+      <if test="conTel != null">
+        con_tel = #{conTel,jdbcType=VARCHAR},
+      </if>
+      <if test="conQq != null">
+        con_qq = #{conQq,jdbcType=VARCHAR},
+      </if>
+      <if test="conWechat != null">
+        con_wechat = #{conWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="conEmail != null">
+        con_email = #{conEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="cusId != null">
+        cus_id = #{cusId,jdbcType=INTEGER},
+      </if>
+      <if test="intermediaryId != null">
+        intermediary_id = #{intermediaryId,jdbcType=INTEGER},
+      </if>
+      <if test="conCreateTime != null">
+        con_create_time = #{conCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="conUpdateTime != null">
+        con_update_time = #{conUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where con_id = #{conId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jianpanmao.contacts.entity.Contacts">
+    update contacts
+    set con_name = #{conName,jdbcType=VARCHAR},
+      con_tel = #{conTel,jdbcType=VARCHAR},
+      con_qq = #{conQq,jdbcType=VARCHAR},
+      con_wechat = #{conWechat,jdbcType=VARCHAR},
+      con_email = #{conEmail,jdbcType=VARCHAR},
+      cus_id = #{cusId,jdbcType=INTEGER},
+      intermediary_id = #{intermediaryId,jdbcType=INTEGER}
+    where con_id = #{conId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" parameterType="com.jianpanmao.contacts.entity.Contacts" resultMap="BaseResultMap">
+    select * from contacts
+  </select>
+  <delete id="deleteBatch" parameterType="java.util.ArrayList">
+    delete from contacts
+    where con_id in
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+              #{item}
+    </foreach>
+  </delete>
+  <select id="selectByDto" parameterType="com.jianpanmao.contacts.dto.ContactsDto" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from contacts where 1=1
+    <if test="conId!=null">
+      and con_id=#{conId}
+    </if>
+    <if test="conName!=null and '' neq conName">
+      and con_name=#{conName}
+    </if>
+    <if test="conTel!=null and '' neq conTel">
+      and con_tel=#{conTel}
+    </if>
+    <if test="conQq!=null and '' neq conQq">
+      and con_qq=#{conQq}
+    </if>
+    <if test="conWechat!=null and '' neq conWechat">
+      and con_wechat=#{conWechat}
+    </if>
+    <if test="conEmail!=null and '' neq conEmail">
+      and con_email=#{conEmail}
+    </if>
+    <if test="cusId!=null">
+      and cus_id=#{cusId}
+    </if>
+    <if test="intermediaryId!=null">
+      and intermediary_id=#{intermediaryId}
+    </if>
+    <if test="conCreateTime!=null">
+      and con_create_time=#{conCreateTime}
+    </if>
+    <if test="conUpdateTime!=null">
+      and con_update_time=#{conUpdateTime}
+    </if>
+    <if test="roleId!=null">
+      and role_id=#{roleId}
+    </if>
+    <if test="od!=null and od neq ''">
+      order by ${od}
+    </if>
+  </select>
+
+  <!--查询客户下人员-->
+  <select id="byiId" resultType="com.jianpanmao.customer.dto.CustomerContactDto" parameterType="java.lang.Integer">
+    SELECT c.con_id id,c.con_name name,c.cus_id cusId
+    FROM contacts c LEFT JOIN customer cu ON c.cus_id = cu.cus_id
+    WHERE cu.intermediary_id = #{0}
+  </select>
+
+
+  <update id="updatePwd">
+    update contacts
+    set pwd = #{1}
+    where con_id = #{0}
+  </update>
+
+  <!--操作员-->
+  <select id="operateContacts" resultMap="BaseResultMap">
+select c.con_id,c.con_name
+FROM contacts c
+LEFT JOIN contact_2_role cr ON c.con_id = cr.con_id
+LEFT JOIN sys_role sr ON cr.rol_id = sr.role_id
+WHERE sr.role_id = 3
+and c.intermediary_id = #{0}
+  </select>
+  <!--抄表员-->
+  <select id="transcribeContacts" resultMap="BaseResultMap">
+    select c.con_id,c.con_name
+    FROM contacts c
+    LEFT JOIN contact_2_role cr ON c.con_id = cr.con_id
+    LEFT JOIN sys_role sr ON cr.rol_id = sr.role_id
+    WHERE sr.role_id = 4
+    and c.intermediary_id = #{0}
+  </select>
+
+
+  <!--查询设备操作员，抄表员-->
+  <resultMap id="DeviceResultMap" type="com.jianpanmao.contacts.entity.Contacts">
+  <id column="con_id" jdbcType="INTEGER" property="conId" />
+  <result column="con_name" jdbcType="VARCHAR" property="conName" />
+  <result column="con_tel" jdbcType="VARCHAR" property="conTel" />
+  <result column="con_qq" jdbcType="VARCHAR" property="conQq" />
+  <result column="con_wechat" jdbcType="VARCHAR" property="conWechat" />
+  <result column="con_email" jdbcType="VARCHAR" property="conEmail" />
+  <result column="cus_id" jdbcType="INTEGER" property="cusId" />
+  <result column="intermediary_id" jdbcType="INTEGER" property="intermediaryId" />
+  <result column="con_create_time" jdbcType="TIMESTAMP" property="conCreateTime" />
+  <result column="con_update_time" jdbcType="TIMESTAMP" property="conUpdateTime" />
+    <result column="device_contacts_status" jdbcType="INTEGER" property="contactsStatus"/>
+  </resultMap>
+  <select id="deviceContacts" resultMap="DeviceResultMap">
+select
+c.*,dc.device_contacts_status
+from contacts c LEFT JOIN device_contacts dc ON c.con_id = dc.device_contacts_cid
+LEFT JOIN device d ON dc.device_contacts_did = d.device_id
+WHERE d.device_id = #{0}
+  </select>
+</mapper>

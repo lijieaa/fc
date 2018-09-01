@@ -1,0 +1,556 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <style>
+        .btn, .border-none {
+            border: 1px solid #6FB3E0;
+        }
+    </style>
+</head>
+<body layout:fragment="content">
+<div class="row">
+    <div class="col-xs-12" id="editDevice" v-cloak>
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-9 col-sm-9">
+                    <div class="float-left">
+                        <span class="font-size-18 border-left-blue">编辑设备</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 text-align-right">
+                    <button type="button" data-toggle="modal" @click="backList" class="btn btn-info">
+                        <i class="ace-icon fa fa-reply icon-only"></i>
+                        返回
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <form class="form-horizontal" id="form" method="post">
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right">所属项目:</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                            <!--<input type="text" name="deviceType" id="deviceType" class="col-xs-12 col-sm-6" />-->
+                            <select class="form-control" name="projectName" v-model="selectProject">
+                                <option :value="item1.projectId" v-for="item1 in projectName">{{item1.projectName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right">操作员:</label>
+                    <!--<div class="col-xs-12 col-sm-9">-->
+                        <!--<div class="clearfix">-->
+                            <!--&lt;!&ndash;<input type="text" name="manufacturerId" id="manufacturerId" class="col-xs-12 col-sm-6" />&ndash;&gt;-->
+                            <!--<select class="form-control" name="operateUserName" v-model="selectOperate">-->
+                                <!--<option :value="item1.userid" v-for="item1 in userList">{{item1.name}}</option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <ztree-list :list = "mainPerson.zTreeList"
+                                :nodes="mainPerson.zNodes"
+                                :listshow="mainPerson.ztreeFlag"
+                                :dataid="1"
+                                @showcontain="handleAdd(1)"
+                                @ztreeclick="handleClick(1)"
+                                @del="delCurrent"> </ztree-list>
+                    <label class="col-xs-12 col-sm-3 no-padding-right"></label>
+                    <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                            <input type="hidden" name="operateUserName"
+                                   class="col-xs-12 col-sm-8"
+                                   v-model="fzr"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right">抄表员:</label>
+                    <custom-list :list = "customer.zTreeList"
+                                 :nodes="customer.zNodes"
+                                 :listshow="customer.ztreeFlag"
+                                 :dataid = "2"
+                                 @showcontain="handleAdd(2)"
+                                 @ztreeclick="handleClick(2)"
+                                 @del="delCurrent"
+                    >
+                    </custom-list>
+                    <label class="col-xs-12 col-sm-3 no-padding-right"></label>
+                    <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                            <input type="hidden" name="transcribeUserName"
+                                   class="col-xs-12 col-sm-8"
+                                   v-model="customerRelation"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right">指定中间商:</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                            <!--<input type="text" name="deviceStatus" id="deviceStatus" class="col-xs-12 col-sm-6" />-->
+                            <select class="form-control" name="intermediaryName"  v-model="selectIntermediary">
+                                <option :value="item.intermediaryId" v-for="item in intermediaryName">{{item.intermediaryName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="deviceId"  id="deviceId">
+                <div class="space-4"></div>
+                <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-info" type="submit" id="submit">
+                            <i class="ace-icon fa fa-check bigger-110"></i>
+                            提交
+                        </button>
+
+                        &nbsp; &nbsp; &nbsp;
+                        <button class="btn" @click="resetData">
+                            <i class="ace-icon fa fa-undo bigger-110"></i>
+                            重置
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <!-- PAGE CONTENT ENDS -->
+    </div>
+    <!-- /.col -->
+</div>
+<script type="text/javascript" th:inline="javascript">
+    function showMenu() {
+        $(".tree-div-contain").show();
+        $("body").unbind("mousedown", onBodyDown);
+    }
+    function hideMenu() {
+        $(".tree-div-contain").hide();
+        $("body").unbind("mousedown", onBodyDown);
+    }
+    function onBodyDown(event) {
+        if (!(event.target.id == "areaId"  || event.target.className == "tree-div-contain" || $(event.target).parents(".tree-div-contain").length>0)) {
+            hideMenu();
+        }
+    }
+    Vue.component('ztreeList',{
+        props:['list','nodes','listshow','dataid'],
+        data() {
+            return {
+                // nodesArr:this.nodes
+            }
+        },
+        template:'<div class="col-xs-12 col-sm-9">' +
+        '<div class="ztree-page ztree-box col-xs-12 col-sm-12"> ' +
+        '<span v-for="item in list" data-id="item.id"  class="ztreeName" ' +
+        '@click="delCurrent(item.conId || item.conId)">{{item.conName}}</span> ' +
+        '<span class="add" id="add" @click="handleAdd">+</span> ' +
+        '</div>' +
+        '<div class="ztreeContain col-xs-12 col-sm-8" id="ztreeContain" v-show="listshow">' +
+        ' <ul id="treeDemoCheck" class="ztree"></ul> ' +
+        '</div></div>',
+        methods:{
+            delCurrent:function(id){
+                var _this = this;
+                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
+                var nodes = treeObj.getNodes();
+                var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                for(var i=0;i<treeNode.length;i++){
+                    var v = treeNode[i];
+                    if(v.conId == id){
+                        treeObj.checkNode(v, false, true);
+                    }
+                }
+                _this.$emit('del',id , _this.dataid)
+            },
+            handleAdd: function(){
+                this.$emit('showcontain')
+            },
+            zTreeOnCheck: function(){
+                this.$emit('ztreeclick')
+            },
+            setting : function(){
+                return settingCheck = {
+                    check: {
+                        enable: true
+                    },
+                    callback:{
+                        onCheck: this.zTreeOnCheck
+                    },
+                    view: {
+                        showLine: false
+                    },
+                    data: {
+                        key: {
+                            name: "conName"
+                        }
+                    }
+                };
+            }
+        },
+        watch:{
+            nodes: function () {
+                var _this = this;
+                _this.nodes[0].open = true;
+                $.fn.zTree.init($("#treeDemoCheck"), _this.setting(),
+                    _this.nodes);
+                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
+                var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                treeNode.map(function(v){
+                    v.icon = contextPath +'images/person.png'
+                });
+                treeObj.refresh();
+            },
+            list: function(){
+                var _this = this;
+                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
+                var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                treeNode.map(function(v){
+                    _this.list.map(function(s){
+                        console.log(s);
+                        console.log(v);
+                        if(v.conId == s.conId){
+                            treeObj.checkNode(v, true, true);
+                        }
+                    })
+                })
+            }
+        },
+        mounted: function(){
+            console.log(this.list)
+        }
+    });
+
+    Vue.component('customList',{
+        props:['list','nodes','listshow','dataid'],
+        data() {
+            return {
+                // nodesArr:this.nodes
+                name:''
+            }
+        },
+        template:'<div class="col-xs-12 col-sm-9">' +
+        '<div class="ztree-page ztree-box col-xs-12 col-sm-12"> ' +
+        '<span v-for="item in list" data-id="item.conId"  class="ztreeName" ' +
+        '@click="delCurrent(item.conId || item.conId)">{{item.conName || item.name}}</span> ' +
+        '<span class="add" id="addCustom" @click="handleAdd">+</span> ' +
+        '</div>' +
+        '<div class="ztreeContain col-xs-12 col-sm-8" id="ztreeContain" v-show="listshow">' +
+        ' <ul id="treeDemoCustom" class="ztree"></ul> ' +
+        '</div></div>',
+        methods:{
+            delCurrent:function(id){
+                var _this = this;
+                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
+                var nodes = treeObj.getNodes();
+                var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                for(var i=0;i<treeNode.length;i++){
+                    var v = treeNode[i];
+                    if(v.conId == id){
+                        treeObj.checkNode(v, false, true);
+                    }
+                }
+                _this.$emit('del',id , _this.dataid)
+            },
+            handleAdd: function(){
+                this.$emit('showcontain')
+            },
+            zTreeOnCheck: function(){
+                this.$emit('ztreeclick')
+            },
+            setting : function(){
+                return settingCheck = {
+                    check: {
+                        enable: true
+                    },
+                    callback:{
+                        onCheck: this.zTreeOnCheck
+                    },
+                    view: {
+                        showLine: false
+                    },
+                    data: {
+                        key: {
+                            name: "conName"
+                        }
+                    }
+                };
+            }
+        },
+        watch:{
+            nodes: function () {
+                var _this = this;
+                _this.nodes[0].open = true;
+                $.fn.zTree.init($("#treeDemoCustom"), _this.setting(),
+                    _this.nodes);
+
+                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
+                var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                treeNode.map(function(v){
+                    v.icon = contextPath +'images/person.png'
+                })
+                treeObj.refresh();
+            },
+            list: function(){
+                var _this = this;
+                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
+                var treeNode = treeObj.transformToArray(treeObj.getNodes());
+                treeNode.map(function(v){
+                    _this.list.map(function(s){
+                        if(v.conId == s.conId){
+                            treeObj.checkNode(v, true, true);
+                        }
+                    })
+                })
+            }
+        },
+        mounted: function(){
+
+        }
+    })
+    var id=[[${id}]];
+
+    jQuery(function($) {
+
+        var vue1 = new Vue({
+            el:"#editDevice",
+            data:{
+                projectName:"",
+                // operateUserName:"",
+                userList:"",
+                intermediaryName:"",
+                selectProject:"",
+                selectOperate:"",
+                selectTranscribe:"",
+                selectIntermediary:"",
+                mainPerson:{
+                    ztreeFlag:false,
+                    zNodes:[],
+                    zTreeList:[]
+                },
+                customer:{
+                    ztreeFlag:false,
+                    zNodes:[],
+                    zTreeList:[]
+                },
+                // fzr: '',
+                // customerRelation: ''
+            },
+            methods:{
+                resetData:function(){
+                    this.selectProject = "";
+                    this.selectOperate = "";
+                    this.selectTranscribe = "";
+                    this.selectIntermediary = "";
+                },
+                backList:function(){
+                    location.href=contextPath+"device/list";
+                },
+                handleAdd:function(postId){
+                    if(postId == 1) {
+                        this.mainPerson.ztreeFlag = true;
+                    }else{
+                        this.customer.ztreeFlag = true;
+                    }
+                },
+                delCurrent: function(id,postId){
+                    var _this = this;
+                    if(postId == 1){
+                        for(var i=0;i<_this.mainPerson.zTreeList.length;i++){
+                            if(_this.mainPerson.zTreeList[i].conId == id){
+                                _this.mainPerson.zTreeList.splice(i,1)
+                            }
+                        }
+                    }else{
+                        for(var i=0;i<_this.customer.zTreeList.length;i++){
+                            // console.log(_this.customer.zTreeList);
+                            if(_this.customer.zTreeList[i].conId == id){
+                                _this.customer.zTreeList.splice(i,1)
+                            }
+                        }
+                    }
+
+                },
+                handleClick: function(postId) {
+                    // console.log(postId)
+                    var _this = this;
+                    if(postId == 1){
+                        var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
+                        var checkTrue = treeObj.getCheckedNodes(true);
+                        console.log(checkTrue);
+                        _this.mainPerson.zTreeList = checkTrue
+                        //     checkTrue.filter(function(v){
+                        //     return v.type == 'person'
+                        // });
+                    }else{
+                        var treeObj1 = $.fn.zTree.getZTreeObj("treeDemoCustom");
+                        var checkTrue1 = treeObj1.getCheckedNodes(true);
+                        _this.customer.zTreeList = checkTrue1.filter(function(v){
+                            return v.type == null
+                        });
+                    }
+
+                },
+            },
+            computed:{
+                fzr: function(){
+                    if(this.mainPerson.zTreeList.length == 0){
+                        return null
+                    }else {
+                        return 'string'
+                    }
+                } ,
+                customerRelation: function(){
+                    if(this.customer.zTreeList.length == 0){
+                        return null
+                    }else {
+                        return 'string'
+                    }
+                }
+            },
+            mounted:function(){
+                var _this = this;
+                //页面初始化查询数据
+                $.ajax({
+                    url: contextPath+"api/device/"+id+"",
+                    method: "get",
+                    success: function (data) {
+                        _this.selectProject = data.content.project.projectId;
+                        _this.selectIntermediary = data.content.intermediary.intermediaryId;
+                        _this.mainPerson.zTreeList =  data.content.contactses.filter(function (v) {
+                            return v.contactsStatus === 1
+                        });
+
+                        _this.customer.zTreeList =  data.content.contactses.filter(function (v) {
+                            return v.contactsStatus === 0
+                        });
+                    },
+                    error: function (data) {
+                        // console.log("查询数据出错！");
+                    }
+                });
+
+                //给数状菜单添加数据
+                $.axspost(contextPath+'api/contacts/operateContacts','get','',function (data) {
+                    _this.mainPerson.zNodes = data.content;
+                },function(data){});
+
+                $.axspost(contextPath+'api/contacts/transcribeContacts','get','',function (data) {
+                    _this.customer.zNodes = data.content;
+                },function(data){});
+                //    项目下拉
+                $.ajax({
+                    url:contextPath+"api/project/idNameList",
+                    type:"get",
+                    success:function (data) {
+                        _this.projectName = data.content;
+                        _this.operateUserName = data.content;
+                        _this.transcribeUserName = data.content;
+                    }
+                });
+                // 中间商下拉
+                $.ajax({
+                    url: contextPath+"api/intermediary/idNameList",
+                    type:"get",
+                    success:function (data) {
+                        _this.intermediaryName = data.content;
+                    }
+                });
+
+                // //操作员，抄表员
+                // $.ajax({
+                //     url:contextPath+"api/dingtalkuser/idNameList",
+                //     type:"get",
+                //     success:function(data){
+                //         _this.userList = data.content
+                //     }
+                // });
+
+                var $form = $('#form').validate({
+                    errorElement: 'div',
+                    errorClass: 'help-block',
+                    focusInvalid: false,
+                    ignore: "",
+                    rules: {
+                        projectName: {
+                            required: true
+                        },
+                        operateUserName: {
+                            required: true
+                        },
+                        transcribeUserName: {
+                            required: true
+                        },
+                        intermediaryName: {
+                            required: true
+                        }
+                    },
+                    highlight: function (e) {
+                        $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                    },
+                    success: function (e) {
+                        $(e).closest('.form-group').removeClass('has-error');
+                        $(e).remove();
+                    },
+                    errorPlacement: function (error, element) {
+                        error.insertAfter(element.parent());
+                    },
+                    submitHandler: function (form) {
+                        var opration = [];
+                        var transcribe = [];
+                        _this.mainPerson.zTreeList.map(function (v) {
+                            opration.push(v.conId)
+                        });
+                        _this.customer.zTreeList.map(function (v) {//客户联系人
+                            transcribe.push(v.conId);
+                        });
+
+                        var data = {
+                            deviceId:id,
+                            operateUserStr: opration.join(","),
+                            transcribeUserStr: transcribe.join(","),
+                            project:{
+                                projectId:_this.selectProject
+                            },
+                            intermediary:{
+                                intermediaryId:_this.selectIntermediary
+                            }
+                        };
+                        $.ajax({
+                            url: contextPath+"api/device",
+                            method: "put",
+                            data : JSON.stringify(data),
+                            contentType: "application/json",
+                            dataType : "json",
+                            success: function (data) {
+                                if(data.status == 200){
+                                    location.href=contextPath+"device/list";
+                                }
+
+                            },
+                            error: function (data) {
+                                // console.log(data);
+                            }
+                        })
+
+
+                    },
+                    invalidHandler: function (form) {
+
+                    }
+                });
+            }
+        });
+
+        $(document).bind("click",function(e){
+            onBodyDown(e) ;
+            if(!(e.target.id == 'add' || e.target.id == 'addCustom' || e.target.id =='ztreeContain' || e.target.className == 'ztreeName' ||
+                $(event.target).parents("#ztreeContain").length>0)){
+                vue1.$data.mainPerson.ztreeFlag = false
+                vue1.$data.customer.ztreeFlag = false
+            }
+        });
+    })
+</script>
+</body>
+</html>

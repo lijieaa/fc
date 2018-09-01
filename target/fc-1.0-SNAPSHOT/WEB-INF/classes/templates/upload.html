@@ -1,0 +1,48 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<header>
+    <link rel="stylesheet" th:href="@{/css/webuploader.css}"/>
+</header>
+<body layout:fragment="content">
+
+<div class="row">
+    <!--dom结构部分-->
+    <div id="uploader-demo">
+        <!--用来存放item-->
+        <div id="fileList" class="uploader-list"></div>
+        <div id="filePicker">选择图片</div>
+    </div>
+</div>
+<script th:src="@{/js/webuploader.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+    var uploader = WebUploader.create({
+
+        // 选完文件后，是否自动上传。
+        auto: true,
+
+        // swf文件路径
+        swf: contextPath + '/dist/js/Uploader.swf',
+
+        // 文件接收服务端。
+        server: contextPath+'upload',
+
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#filePicker',
+
+        // 只允许选择图片文件。
+        /*accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/!*'
+        },*/
+
+
+    });
+
+    uploader.on( 'uploadSuccess', function( file,response ) {
+        console.log(file,response);
+    });
+</script>
+</body>
+</html>

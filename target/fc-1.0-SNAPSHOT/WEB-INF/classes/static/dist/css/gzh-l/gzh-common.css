@@ -1,0 +1,217 @@
+.opactiy{
+    opacity: 0.5;
+}
+.bgimg{
+    position: absolute;
+    top:40%;
+    left: 40%;
+    width: 50px;
+    height: 50px;
+    background: url("../../img/gg.png") no-repeat center center;
+}
+.bgshadow{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: #ffffff!important;
+    line-height: 230px;
+    text-underline: none!important;
+    background: rgba(0, 0, 0, 0.5);
+}
+.imgShow{
+    margin: 0 0;
+}
+.imgShow li{
+    width: 185px;
+    height: 185px;
+    display: inline-block;
+    list-style: none;
+    margin: 7px;
+    position: relative;
+}
+.imgShow li img{
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    border: 1px #727272 solid;
+    cursor: pointer;
+}
+.imgShow li audio{
+    width: 100%;
+    height: 90%;
+    margin:0 15px;
+    display: inline-block;
+    border: 1px #727272 solid;
+    cursor: pointer;
+    background: #9cccd6;
+}
+.imgShow li video{
+    width: 100%;
+    height: 100%;
+    margin:0 15px;
+    display: inline-block;
+    border: 1px #727272 solid;
+    cursor: pointer;
+}
+#mpShow,#vidShow{
+    margin: 0;
+}
+#mpShow li{
+width: 220px;
+height: 150px;
+display: inline-block;
+border: 1px #727272 solid;
+margin: 7px;
+}
+#mpShow li audio{
+width: 100%;
+height: 100%;
+background: #9cccd6;
+display: inline-block;
+cursor: pointer;
+}
+#vidShow li{
+width: 200px;
+height: 180px;
+display: inline-block;
+border: 1px #727272 solid;
+margin-left: 15px;
+margin-top: 15px;
+}
+#vidShow li video{
+width: 100%;
+height: 100%;
+display: inline-block;
+cursor: pointer;
+}
+/*公用分页样式*/
+.btnStyle{
+    width: 72px;
+    height: 35px;
+    line-height: 35px;
+    background: #1794e4;
+    color: #ffffff;
+    border: none;
+}
+.pagingTest{
+    margin-left: -1px;
+    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+}
+.pagingTest a{
+    border: 1px solid #b0b0b0;
+    /*padding: 5px 12px;*/
+    margin: 0 0px;
+    cursor: pointer;
+    /*border-right: none;*/
+    color: #6FB3E0;
+    height: 30px;
+    width: 35px;
+    line-height: 30px;
+    display: inline-block;
+    border-left: none;
+}
+.pagingTest a:nth-of-type(1){
+    border-left:1px solid #b0b0b0;
+}
+.pagingTest a:nth-last-child(2){
+    border-left:1px solid #b0b0b0;
+}
+.pagingTest a:nth-of-type(3){
+    border-left:1px solid #b0b0b0;
+}
+#prevPage,#nextPage{
+    width: 50px;
+}
+.pagingTest a:last-child{
+    border-right:1px solid #b0b0b0 ;
+}
+.pagingTest a:hover{
+    text-decoration: none;
+}
+.pagingTest a.current{
+    color: white;
+    background: #1794e4;
+}
+.pagingTest a.disable{
+    /*background: #c7c7c7;*/
+    color: black;
+    cursor:not-allowed;
+}
+
+.messageUl{
+    margin-left: 0px;
+    position: relative;
+}
+.messageUl .messageLi{
+    list-style: none;
+    border: 1px solid #a8a8a8;
+    width: 230px;
+    float: left;
+    margin: 10px;
+    position: relative;
+    cursor: pointer;
+}
+.messageUl .messageLi div p{
+    margin-left: 15px;
+}
+
+.chat-type{
+    height: 35px;
+    line-height: 35px;
+    background: #f8f8f8;
+    border: 1px #d1d1d1 solid;
+    color: #a3a3a3;
+}
+.chat-type i{
+    margin-right: 3px;
+}
+.chat-type span{
+    padding:15px;
+    cursor: pointer;
+}
+/*公用样式*/
+.gzh-manage-menu{
+    margin-top: 15px;
+    margin-left: 5px;
+    padding-bottom: 15px;
+    border-bottom: 2px #eee solid;
+}
+.gzh-manage-menu a{
+    font-size: 16px;
+    color: #414141;
+    padding: 0 15px;
+    cursor: pointer;
+}
+#backUl{
+    margin-right: 15px;
+    margin-top: -10px;
+    height: 35px;
+    line-height: 15px;
+    width: 74px;
+}
+.btn-info>.icon-only.ace-icon {
+    margin: 0 !important;
+    text-align: center;
+    padding-right: 5px;
+}
+.tex-color{
+    color: #6FB3E0!important;
+}
+#backUlManage{
+    height: 35px;
+    line-height: 15px;
+    width: 74px;
+}
+.chat-with{
+    font-size: 16px;
+    margin-top: -10px;
+    color: #363636;
+}
+.chat-user{
+    padding: 0 5px;
+}
