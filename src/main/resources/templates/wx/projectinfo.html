@@ -172,8 +172,8 @@
     sourceId =sourceId||'gh_f5a46974c0f6';
     var $$ = Dom7;
 
-    var wxId=[[${wuser.openid}]];
-   /* var wxId="o2IG5wkZPLeHQOEteF0mQBLmOn2E"*/
+
+    var wxId="o2IG5wkZPLeHQOEteF0mQBLmOn2E"
     // Loading flag
     var allowInfinite = true;
     // Last loaded index
@@ -433,7 +433,13 @@
     });
 
     $("#coment").on("click",function(){
-        var content =  $$("#comment-text").val()
+        var content =  $$("#comment-text").val().trim()
+
+        if(!content.length){
+            return ;
+        }
+
+
         postCom({
             wxId:wxId,
             wxName:"公子",
@@ -445,7 +451,14 @@
 
     })
     $$("#confirm").on("click",function(){
-        var content =  $$("#repley-text").val()
+        var content =  $$("#repley-text").val().trim()
+        console.log(content.length)
+
+        if(!content.length){
+            return ;
+        }
+
+
 
         postCom({
             wxId:wxId,
