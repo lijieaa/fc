@@ -6,7 +6,442 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36c70497-635e-41c9-aa49-763125d5616c" name="Default" comment="" />
+    <list default="true" id="36c70497-635e-41c9-aa49-763125d5616c" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/Application$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/Application$MyGateway.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/Application.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/area/controller/AreaController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/area/controller/AreaRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/area/dao/AreaMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/area/dto/AreaDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/area/entity/Area.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/area/entity/AreaExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/area/entity/AreaExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/area/entity/AreaExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/area/entity/AreaExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/area/service/AreaService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/area/service/impl/AreaServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/attach/controller/AttachController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/attach/controller/AttachRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/attach/dao/AttachMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/attach/dto/AttachDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/attach/entity/Attach.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/attach/entity/AttachExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/attach/entity/AttachExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/attach/entity/AttachExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/attach/entity/AttachExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/attach/service/AttachService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/attach/service/impl/AttachServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/codegen/controller/CodeGenController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/codegen/dao/CodeGenMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/codegen/entity/Table.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/codegen/introspected/MyIntrospectedTableMyBatis3Impl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/codegen/plugin/BaseMapperGeneratorPlugin$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/codegen/plugin/BaseMapperGeneratorPlugin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/advisor/GlobalExceptionHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/advisor/ResponseAdvisor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/annotation/NoResultEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/annotation/OrderParser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/config/DataSourceConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/config/DruidConfiguration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/config/JacksonConfig$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/config/JacksonConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/config/MultiHttpSecurityConfig$WebSecurityConfigurationAdapter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/config/MultiHttpSecurityConfig$WxWebSecurityConfigurerAdapter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/config/MultiHttpSecurityConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/config/MyConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/config/MyUserDetailService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/config/WebMvcConfiguration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/config/WxUserDetailService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/controller/CommonController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/converter/CustomDateConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/dao/BaseDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/entity/BaseEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/entity/DataTablesRequestEntity$Column.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/entity/DataTablesRequestEntity$Order.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/entity/DataTablesRequestEntity$Search.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/entity/DataTablesRequestEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/entity/DataTablesResponseEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/entity/ResultEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/filter/AdminUsernamePasswordAuthenticationFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/filter/ModifyParametersFilter$ModifyParametersWrapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/filter/ModifyParametersFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/filter/WxUsernamePasswordAuthenticationFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/handler/LoginSuccessHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/interceptor/SessionTimeoutInterceptor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/interceptor/WxPublicPersissionInterceptor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/jackson/JsonObjectMapper$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/jackson/JsonObjectMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/listener/SessionListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/mybatis/interceptor/AddGlobeInterceptor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/resolver/OrderParserResolver.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/service/BaseService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/service/impl/BaseServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/utils/MenuUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/common/utils/StringUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/controller/Contact2RoleController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/controller/Contact2RoleRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/controller/ContactsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/controller/ContactsRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/dao/Contact2RoleMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/dao/ContactsMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/dto/Contact2RoleDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/dto/ContactsDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/entity/Contact2Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/entity/Contact2RoleExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/entity/Contact2RoleExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/entity/Contact2RoleExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/entity/Contact2RoleExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/entity/Contacts.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/entity/ContactsExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/entity/ContactsExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/entity/ContactsExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/entity/ContactsExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/service/Contact2RoleService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/service/ContactsService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/service/impl/Contact2RoleServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/contacts/service/impl/ContactsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/customer/controller/CustomerController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/customer/controller/CustomerRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/customer/dao/CustomerMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/customer/dto/CustomerContactDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/customer/dto/CustomerDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/customer/entity/Customer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/customer/entity/CustomerExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/customer/entity/CustomerExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/customer/entity/CustomerExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/customer/entity/CustomerExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/customer/service/CustomerService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/customer/service/impl/CustomerServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/dataStatistics/controller/DataStatisticsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/dataStatistics/controller/DataStatisticsRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/dataStatistics/dao/DataStatisticsMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/dataStatistics/dto/DataStatisticsDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/dataStatistics/dto/DataStatisticsVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/device/controller/DeviceController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/device/controller/DeviceRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/device/dao/DeviceMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/device/dto/DeviceDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/device/dto/DpDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/device/dto/control/DeviceControlVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/device/dto/control/DeviceParam.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/device/dto/control/DeviceUserParam.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/device/dto/control/SystemTime.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/device/entity/Device.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/device/entity/DeviceContacts.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/device/entity/DeviceExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/device/entity/DeviceExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/device/entity/DeviceExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/device/entity/DeviceExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/device/service/DeviceService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/device/service/impl/DeviceServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/deviceLog/controller/DeviceLogController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/deviceLog/controller/DeviceLogRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/deviceLog/dao/DeviceLogMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/deviceLog/dto/DeviceLogDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/deviceLog/entity/DeviceLog.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/deviceLog/entity/DeviceLogExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/deviceLog/entity/DeviceLogExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/deviceLog/entity/DeviceLogExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/deviceLog/entity/DeviceLogExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/deviceLog/service/DeviceLogService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/deviceLog/service/impl/DeviceLogServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/exception/AccessTokenException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/exception/CustomException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/http/HttpClientPool.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/http/RequestTools.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/intermediary/controller/IntermediaryController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/intermediary/controller/IntermediaryRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/intermediary/dao/IntermediaryMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/intermediary/dto/IntermediaryDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/intermediary/entity/Intermediary.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/intermediary/entity/IntermediaryExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/intermediary/entity/IntermediaryExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/intermediary/entity/IntermediaryExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/intermediary/entity/IntermediaryExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/intermediary/entity/IntermediaryUser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/intermediary/service/IntermediaryService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/intermediary/service/impl/IntermediaryServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/news/controller/NewsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/news/controller/NewsRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/news/dao/NewsMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/news/dto/NewsDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/news/entity/News.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/news/entity/NewsExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/news/entity/NewsExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/news/entity/NewsExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/news/entity/NewsExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/news/service/NewsService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/news/service/impl/NewsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/notice/controller/NoticeController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/notice/dao/NoticeMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/notice/dto/NoticeDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/notice/entity/Notice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/project/controller/ClueController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/project/controller/ProjectController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/project/controller/ProjectRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/project/dao/ProjectMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/project/dto/ProjectCustomer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/project/dto/ProjectDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/project/entity/Project.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/project/entity/ProjectContacts.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/project/entity/ProjectExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/project/entity/ProjectExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/project/entity/ProjectExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/project/entity/ProjectExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/project/entity/ProjectUser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/project/service/ProjectService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/project/service/impl/ProjectServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/projectAttach/controller/ProjectAttachController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/projectAttach/dao/ProjectAttachDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/projectAttach/entity/AttachType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/projectAttach/entity/PType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/projectAttach/entity/ProjectPtype.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/projectComments/controller/ProjectCommentsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/projectComments/controller/ProjectCommentsRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/projectComments/dao/ProjectCommentsMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/projectComments/dto/ProjectCommentsDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/projectComments/entity/ProjectComments.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/projectComments/entity/ProjectCommentsExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/projectComments/entity/ProjectCommentsExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/projectComments/entity/ProjectCommentsExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/projectComments/entity/ProjectCommentsExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/projectComments/service/ProjectCommentsService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/projectComments/service/impl/ProjectCommentsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/ConLabController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/ConLabRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/DataBakController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/DingtalkDeptController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/DingtalkDeptRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/DingtalkUserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/DingtalkUserDeptController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/DingtalkUserDeptRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/DingtalkUserRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/ExtConController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/ExtConLabController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/ExtConLabRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/ExtConRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/LabGroupController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/LabGroupRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/SysMenuController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/SysMenuRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/SysRoleController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/SysRoleGroupController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/SysRoleGroupRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/SysRoleMenuController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/SysRoleMenuRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/SysRoleRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/SysUserRoleController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/controller/SysUserRoleRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dao/ConLabMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dao/DingtalkDeptMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dao/DingtalkUserDeptMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dao/DingtalkUserMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dao/ExtConLabMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dao/ExtConMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dao/LabGroupMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dao/SysMenuMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dao/SysRoleGroupMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dao/SysRoleMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dao/SysRoleMenuMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dao/SysUserRoleMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dto/ConLabDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dto/ContactsDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dto/DeptTreeUser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dto/DeptUserDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dto/DingtalkDeptDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dto/DingtalkUserDeptDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dto/DingtalkUserDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dto/ExtConDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dto/ExtConLabDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dto/LabGroupDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dto/SysMenuDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dto/SysRoleDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dto/SysRoleGroupDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dto/SysRoleMenuDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/dto/SysUserRoleDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/ConLab.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/ConLabExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/ConLabExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/ConLabExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/ConLabExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/DingtalkDept.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/DingtalkDeptExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/DingtalkDeptExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/DingtalkDeptExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/DingtalkDeptExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/DingtalkUser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/DingtalkUserDept.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/DingtalkUserDeptExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/DingtalkUserDeptExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/DingtalkUserDeptExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/DingtalkUserDeptExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/DingtalkUserExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/DingtalkUserExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/DingtalkUserExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/DingtalkUserExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/ExtCon.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/ExtConExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/ExtConExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/ExtConExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/ExtConExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/ExtConLab.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/ExtConLabExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/ExtConLabExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/ExtConLabExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/ExtConLabExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/LabGroup.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/LabGroupExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/LabGroupExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/LabGroupExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/LabGroupExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysMenu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysMenuExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysMenuExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysMenuExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysMenuExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysMenuVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysRole.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysRoleExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysRoleExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysRoleExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysRoleExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysRoleGroup.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysRoleGroupExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysRoleGroupExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysRoleGroupExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysRoleGroupExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysRoleMenu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysRoleMenuExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysRoleMenuExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysRoleMenuExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysRoleMenuExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysUserRole.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysUserRoleExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysUserRoleExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysUserRoleExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/entity/SysUserRoleExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/ConLabService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/DingtalkDeptService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/DingtalkUserDeptService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/DingtalkUserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/ExtConLabService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/ExtConService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/LabGroupService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/SysMenuService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/SysRoleGroupService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/SysRoleMenuService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/SysRoleService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/SysUserRoleService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/impl/ConLabServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/impl/DingtalkDeptServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/impl/DingtalkUserDeptServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/impl/DingtalkUserServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/impl/ExtConLabServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/impl/ExtConServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/impl/LabGroupServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/impl/SysMenuServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/impl/SysRoleGroupServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/impl/SysRoleMenuServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/impl/SysRoleServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/sys/service/impl/SysUserRoleServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic/controller/TopicController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic/controller/TopicRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic/dao/TopicMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic/dto/TopicDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic/entity/Topic.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic/entity/TopicExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic/entity/TopicExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic/entity/TopicExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic/entity/TopicExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic/service/TopicService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic/service/impl/TopicServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic_comments/controller/TopicCommentsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic_comments/controller/TopicCommentsRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic_comments/dao/TopicCommentsMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic_comments/dto/TopicCommentsDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic_comments/entity/TopicComments.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic_comments/entity/TopicCommentsExample$Criteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic_comments/entity/TopicCommentsExample$Criterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic_comments/entity/TopicCommentsExample$GeneratedCriteria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic_comments/entity/TopicCommentsExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic_comments/service/TopicCommentsService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/topic_comments/service/impl/TopicCommentsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/unit/ResponseEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/utils/CommonUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/utils/FileUpload.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/utils/FileUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/utils/GsonUtils$Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/utils/GsonUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/utils/HttpServletUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/utils/SpringUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/utils/UserUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/utils/WxUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/utils/XmlUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/WxApiHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/msg/ImageMsg.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/msg/ImageMsgContent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/msg/ImageText2Msg.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/msg/ImageText2MsgContent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/msg/ImageTextMsg.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/msg/ImageTextMsgContent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/msg/ImageTextMsgContentArticle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/msg/MediaMsg.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/msg/Msg.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/msg/TextMsg.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/msg/TextMsgContent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/msg/VideoMsg.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/msg/VideoMsgContent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/msg/VoiceMsg.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/msg/VoiceMsgContent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/news/WxNews.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/news/WxNewsContent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/request/MaterialRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/response/AccessTokenResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/response/OpenIdInner.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/response/OpenIdResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/response/ResponseStatus.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/response/SubmitResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/api/response/UploadResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/base/BaseDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/base/BaseEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/base/BaseService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/base/BaseServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/dao/WxMaterialDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/dao/WxMessageDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/dao/WxPublicDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/dao/WxUserDetailDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/dao/WxUserOpenIdDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/doc/WxDocumentation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/dto/NewsDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/dto/NewsDTOUT.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/dto/VideoDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/entity/WxMaterial.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/entity/WxMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/entity/WxMessageType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/entity/WxPublic.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/entity/WxUserDetail.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/entity/WxUserOpenId.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/platform/PlatFormController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/platform/Token.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/platform/TokenUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/service/WxMaterialService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/service/WxMaterialServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/service/WxMessageService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/service/WxMessageServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/service/WxPublicService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/service/WxPublicServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/service/WxUserDetailService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/service/WxUserDetailServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/web/WxMaterialController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/web/WxMenuController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/web/WxMessageController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/web/WxPublicController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/web/WxUserDetailController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/wx/WxCommonController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/wx/WxCommonRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jianpanmao/wechat/wx/WxDeviceController.class" beforeDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,7 +457,7 @@
           <file leaf-file-name="device_detail.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/resources/templates/device/device_detail.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2000">
+                <state relative-caret-position="2400">
                   <caret line="80" column="9" selection-start-line="80" selection-start-column="9" selection-end-line="80" selection-end-column="9" />
                 </state>
               </provider>
@@ -31,8 +466,8 @@
           <file leaf-file-name="project_edit.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/resources/templates/project/project_edit.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="272">
-                  <caret line="422" column="38" selection-start-line="422" selection-start-column="23" selection-end-line="422" selection-end-column="38" />
+                <state relative-caret-position="30">
+                  <caret line="422" column="38" selection-start-line="422" selection-start-column="38" selection-end-line="422" selection-end-column="38" />
                 </state>
               </provider>
             </entry>
@@ -40,7 +475,7 @@
           <file leaf-file-name="device_add.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/resources/templates/device/device_add.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="145">
+                <state relative-caret-position="1170">
                   <caret line="105" column="34" selection-start-line="105" selection-start-column="34" selection-end-line="105" selection-end-column="34" />
                   <folding>
                     <element signature="n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
@@ -53,8 +488,8 @@
           <file leaf-file-name="project_EditDevice.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/resources/templates/project/project_EditDevice.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="400">
-                  <caret line="439" column="31" selection-start-line="439" selection-start-column="31" selection-end-line="439" selection-end-column="31" />
+                <state relative-caret-position="13260">
+                  <caret line="442" column="22" selection-start-line="442" selection-start-column="22" selection-end-line="442" selection-end-column="22" />
                 </state>
               </provider>
             </entry>
@@ -62,17 +497,12 @@
           <file leaf-file-name="project_add.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/resources/templates/project/project_add.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="725">
-                  <caret line="434" column="60" lean-forward="true" selection-start-line="434" selection-start-column="46" selection-end-line="434" selection-end-column="60" />
+                <state relative-caret-position="12090">
+                  <caret line="432" column="42" selection-start-line="432" selection-start-column="42" selection-end-line="432" selection-end-column="42" />
                   <folding>
                     <element signature="e#13010#13559#0" />
                     <element signature="e#13689#13745#0" />
                     <element signature="e#14196#14866#0" />
-                    <element signature="e#15543#15652#0" />
-                    <element signature="e#16233#17404#0" />
-                    <element signature="e#17036#17394#0" />
-                    <element signature="e#18946#19815#0" />
-                    <element signature="e#19838#20346#0" />
                   </folding>
                 </state>
               </provider>
@@ -85,7 +515,7 @@
           <file leaf-file-name="device_list.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/resources/templates/device/device_list.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="542">
+                <state relative-caret-position="17340">
                   <caret line="837" selection-start-line="837" selection-end-line="837" />
                   <folding>
                     <element signature="n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" />
@@ -96,7 +526,6 @@
                     <element signature="e#12789#13100#0" />
                     <element signature="e#13250#20443#0" />
                     <element signature="e#13500#14141#0" />
-                    <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
                     <element signature="e#27606#29262#0" />
                     <element signature="e#29367#29589#0" />
                   </folding>
@@ -107,8 +536,8 @@
           <file leaf-file-name="device_edit.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/resources/templates/device/device_edit.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="325">
-                  <caret line="126" column="25" lean-forward="true" selection-start-line="126" selection-start-column="25" selection-end-line="126" selection-end-column="25" />
+                <state relative-caret-position="720">
+                  <caret line="126" column="25" selection-start-line="126" selection-start-column="25" selection-end-line="126" selection-end-column="25" />
                   <folding>
                     <element signature="n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
                     <element signature="n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
@@ -141,11 +570,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="clue_edit.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="clue_edit.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/resources/templates/clue/clue_edit.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="531">
-                  <caret line="426" column="34" lean-forward="true" selection-start-line="426" selection-start-column="34" selection-end-line="426" selection-end-column="34" />
+                  <caret line="426" column="34" selection-start-line="426" selection-start-column="34" selection-end-line="426" selection-end-column="34" />
                   <folding>
                     <element signature="e#22858#26373#0" />
                     <element signature="e#26413#27388#0" />
@@ -161,7 +590,7 @@
           <file leaf-file-name="clue_detail.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/resources/templates/clue/clue_detail.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="7050">
+                <state relative-caret-position="794">
                   <caret line="282" column="8" selection-start-line="282" selection-start-column="8" selection-end-line="282" selection-end-column="8" />
                   <folding>
                     <element signature="e#18831#19993#0" />
@@ -172,10 +601,19 @@
               </provider>
             </entry>
           </file>
+          <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/.gitignore">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="30">
+                  <caret line="1" column="6" lean-forward="true" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+                </state>
+              </provider>
+            </entry>
+          </file>
           <file leaf-file-name="device_detail.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/resources/templates/device/device_detail.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="27050">
+                <state relative-caret-position="32460">
                   <caret line="1084" selection-start-line="1084" selection-end-line="1085" />
                 </state>
               </provider>
@@ -267,6 +705,7 @@
         <option value="$PROJECT_DIR$/src/main/resources/templates/project/project_add.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/project/project_edit.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/clue/clue_edit.html" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -319,9 +758,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -375,6 +813,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -423,28 +862,6 @@
         <value defaultName="singleModule" />
       </option>
       <patterns />
-    </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG">
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <properties />
-      <listeners />
     </configuration>
     <configuration name="Unnamed" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.0.53" ALTERNATIVE_JRE_ENABLED="false">
       <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
@@ -523,6 +940,28 @@
         </option>
       </method>
     </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <properties />
+      <listeners />
+    </configuration>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -589,42 +1028,45 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32997763" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info anchor="bottom" id="Java Enterprise" order="7" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.2457356" side_tool="true" weight="0.061521254" />
-      <window_info anchor="bottom" id="Application Servers" order="8" weight="0.32997763" />
       <window_info anchor="right" id="Maven Projects" order="3" weight="0.23560767" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info id="Capture Tool" order="2" />
-      <window_info id="Designer" order="2" />
-      <window_info anchor="right" id="Database" order="3" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.7542644" visible="true" weight="0.23825504" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32997763" />
-      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.49520257" weight="0.45525727" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info id="Image Layers" order="2" />
-      <window_info anchor="bottom" id="Java Enterprise" order="7" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32918397" />
       <window_info anchor="bottom" id="Spring" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10341151" />
-      <window_info anchor="right" id="Bean Validation" order="3" />
+      <window_info id="Designer" order="2" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.104477614" />
       <window_info id="Web" order="2" side_tool="true" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.7542644" weight="0.23825504" />
+      <window_info anchor="bottom" id="Application Servers" order="8" weight="0.32997763" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Remote Host" order="4" weight="0.3299356" />
+      <window_info anchor="bottom" id="Database Console" order="14" weight="0.3329646" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="RESTClient" order="8" />
+      <window_info id="UI Designer" order="2" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.49520257" weight="0.45525727" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="right" id="Bean Validation" order="3" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -635,13 +1077,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/main/resources/templates/device/device_edit.html</url>
-          <line>396</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="19" />
     </breakpoint-manager>
   </component>
@@ -650,20 +1085,7 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Desktop/编辑/select.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="8" column="25" lean-forward="true" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Desktop/编辑/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="31" column="11" lean-forward="true" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Desktop/编辑/index.html" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/static/ace/assets/js/jquery-ui.custom.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
@@ -699,13 +1121,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Desktop/编辑/js/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="93" lean-forward="true" selection-start-line="93" selection-end-line="93" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Desktop/编辑/js/index.js" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/static/plugins/zTree_v3/js/jquery.ztree.all.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="229">
@@ -744,23 +1160,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../飞创图片/控制说明.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="13" column="23" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../飞创图片/控制说明.txt" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/intermediary/intermediary_detail1.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://D:/software/apache-tomcat-8.0.53/conf/server.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="132" column="27" lean-forward="true" selection-start-line="132" selection-start-column="27" selection-end-line="132" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://D:/software/apache-tomcat-8.0.53/conf/server.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/project/project_list.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="10625">
@@ -931,7 +1335,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/device/device_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="542">
+        <state relative-caret-position="17340">
           <caret line="837" selection-start-line="837" selection-end-line="837" />
           <folding>
             <element signature="n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" />
@@ -942,35 +1346,22 @@
             <element signature="e#12789#13100#0" />
             <element signature="e#13250#20443#0" />
             <element signature="e#13500#14141#0" />
-            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
             <element signature="e#27606#29262#0" />
             <element signature="e#29367#29589#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/clue/clue_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7050">
-          <caret line="282" column="8" selection-start-line="282" selection-start-column="8" selection-end-line="282" selection-end-column="8" />
-          <folding>
-            <element signature="e#18831#19993#0" />
-            <element signature="e#20156#21228#0" />
-            <element signature="e#21266#22333#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/device/device_detail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27050">
+        <state relative-caret-position="32460">
           <caret line="1084" selection-start-line="1084" selection-end-line="1085" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/device/device_add.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
+        <state relative-caret-position="1170">
           <caret line="105" column="34" selection-start-line="105" selection-start-column="34" selection-end-line="105" selection-end-column="34" />
           <folding>
             <element signature="n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
@@ -981,8 +1372,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/project/project_EditDevice.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="439" column="31" selection-start-line="439" selection-start-column="31" selection-end-line="439" selection-end-column="31" />
+        <state relative-caret-position="13260">
+          <caret line="442" column="22" selection-start-line="442" selection-start-column="22" selection-end-line="442" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -990,18 +1381,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="387">
           <caret line="298" column="11" selection-start-line="298" selection-start-column="11" selection-end-line="298" selection-end-column="11" />
-          <folding>
-            <element signature="e#24701#26144#0" />
-            <element signature="e#24890#26127#0" />
-            <element signature="e#26282#28116#0" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/device/device_edit.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="126" column="25" lean-forward="true" selection-start-line="126" selection-start-column="25" selection-end-line="126" selection-end-column="25" />
+        <state relative-caret-position="720">
+          <caret line="126" column="25" selection-start-line="126" selection-start-column="25" selection-end-line="126" selection-end-column="25" />
           <folding>
             <element signature="n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
             <element signature="n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
@@ -1035,32 +1421,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/project/project_add.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="725">
-          <caret line="434" column="60" lean-forward="true" selection-start-line="434" selection-start-column="46" selection-end-line="434" selection-end-column="60" />
+        <state relative-caret-position="12090">
+          <caret line="432" column="42" selection-start-line="432" selection-start-column="42" selection-end-line="432" selection-end-column="42" />
           <folding>
             <element signature="e#13010#13559#0" />
             <element signature="e#13689#13745#0" />
             <element signature="e#14196#14866#0" />
-            <element signature="e#15543#15652#0" />
-            <element signature="e#16233#17404#0" />
-            <element signature="e#17036#17394#0" />
-            <element signature="e#18946#19815#0" />
-            <element signature="e#19838#20346#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/project/project_edit.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="422" column="38" selection-start-line="422" selection-start-column="23" selection-end-line="422" selection-end-column="38" />
+        <state relative-caret-position="30">
+          <caret line="422" column="38" selection-start-line="422" selection-start-column="38" selection-end-line="422" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/clue/clue_edit.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="531">
-          <caret line="426" column="34" lean-forward="true" selection-start-line="426" selection-start-column="34" selection-end-line="426" selection-end-column="34" />
+          <caret line="426" column="34" selection-start-line="426" selection-start-column="34" selection-end-line="426" selection-end-column="34" />
           <folding>
             <element signature="e#22858#26373#0" />
             <element signature="e#26413#27388#0" />
@@ -1069,6 +1450,25 @@
             <element signature="e#31172#31472#0" />
             <element signature="e#31506#35774#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/clue/clue_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="794">
+          <caret line="282" column="8" selection-start-line="282" selection-start-column="8" selection-end-line="282" selection-end-column="8" />
+          <folding>
+            <element signature="e#18831#19993#0" />
+            <element signature="e#20156#21228#0" />
+            <element signature="e#21266#22333#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="1" column="6" lean-forward="true" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
         </state>
       </provider>
     </entry>
