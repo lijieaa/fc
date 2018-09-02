@@ -234,7 +234,7 @@
                                                                     </label>
                                                                 </th>
                                                                 <th class="center">姓名</th>
-                                                                <th class="center">部门</th>
+                                                                <th class="center">职位</th>
                                                                 <th class="center">工号</th>
                                                             </tr>
                                                         </thead>
@@ -1031,14 +1031,129 @@
                 }
 
             }
+
+            var roleGroupPersonListDataTableStatus = false, roleGroupPersonListDataTableId = "";
             function roleOnClick(event, treeId, treeNode) {
                 if (!treeNode.isParent) {
                     roleContainer.find("h3, .role-group-person-list").removeClass("display-none");
                     roleContainer.find(".defaultHtml").remove();
                     $("#role-person-name").text(treeNode.roleName);
-                    var id = treeNode.roleId;
+                    roleGroupPersonListDataTableId = treeNode.roleId;
                     $("#edit-role-person-btn").attr("data-roleId", treeNode.roleId).attr("data-isDel", treeNode.isDel);
-                    $.ajax({
+                    if (roleGroupPersonListDataTableStatus) {
+                        roleGroupPersonListDataTable.draw();
+                    } else {
+                        roleGroupPersonListDataTable = $('#role-group-person-list').DataTable({
+                            bAutoWidth: false,
+                            "language": {
+                                "url": contextPath+"ace/assets/js/zh_CN.json"
+                            },
+                            'order': [],
+                            "ordering": false,
+                            "processing": true,
+                            'paging': true,
+                            "serverSide": true,
+                            'searching': false,
+                            "ajax": function (data, callback, settings) {
+                                var pageNum=data.start/data.length+1;
+                                var pageSize=data.length;
+                                var draw=data.draw;
+                                roleGroupPersonListDataTableStatus = true;
+                                $.ajax({
+                                    "url": contextPath+"api/dingtalkuser/role?roleid="+ roleGroupPersonListDataTableId +"&pageNum="+ pageNum +"&pageSize="+ pageSize +"&draw="+draw,
+                                    "type": "get",
+                                    dataType:"json",
+                                    contentType:'application/json',
+                                    "success": function (json) {
+                                        if (json.status == 200) {
+                                            var data = {};
+                                            data.recordsTotal = json.content.recordsTotal;
+                                            data.recordsFiltered = json.content.recordsFiltered;
+                                            data.data = json.content.data;
+
+                                            callback(data);
+                                            /*if (json.content.data.length) {
+                                                callback(data);
+                                            } else {
+                                                $("#role-group-person-list>tbody").html('');
+                                                var roleGroupPersonListHtml = '<tr><td colspan="4">'+
+                                                    '<div class="alert alert-info">'+
+                                                    '<button type="button" class="close" data-dismiss="alert">'+
+                                                    '<i class="ace-icon fa fa-times"></i>'+
+                                                    '</button>'+
+                                                    '当前角色暂无人员，请添加成员'+
+                                                    '</div>'+
+                                                    '</td>' +
+                                                    '</tr>';
+                                                $("#role-group-person-list>tbody").append(roleGroupPersonListHtml);
+                                            }*/
+                                        }
+                                    },
+                                    "error": function (XMLHttpRequest, textStatus, errorThrown) {
+                                        console.log(errorThrown);
+                                    }
+                                });
+                            },
+                            "columns": [
+                                {"data": null},
+                                {"data": "name"},
+                                {"data": "position"},
+                                {"data": "jobnumber"}
+                            ],
+                            "columnDefs": [
+                                {
+                                    "targets": 0,
+                                    'searchable': false,
+                                    'orderable': false,
+                                    "data": null,
+                                    "render": function (data, type, row) {
+                                        var checkedDisabled = "";
+                                        if (data.isAdmin) {
+                                            checkedDisabled = "disabled";
+                                        }
+                                        return '<label class="pos-rel">'+
+                                            '<input type="checkbox" '+ checkedDisabled +' data-id="'+ data.userid +'" class="ace">'+
+                                            '<span class="lbl"></span>'+
+                                            '</label>';
+                                    },
+                                    "className": "center"
+
+                                },
+                                {
+                                    "targets": 1,
+                                    "orderable": true,
+                                    "searchable": true,
+                                    "render": function (data, type, row) {
+                                        return '<td>' + data + '</td>';
+                                    }
+
+                                },
+                                {
+                                    "targets": 2,
+                                    "orderable": true,
+                                    "searchable": true,
+                                    "render": function (data, type, row) {
+                                        return '<td>' + data + '</td>';
+                                    }
+
+                                },
+                                {
+                                    "targets": 3,
+                                    "orderable": true,
+                                    "searchable": true,
+                                    "render": function (data, type, row) {
+                                        return '<td>' + data + '</td>';
+                                    }
+
+                                }
+                            ],
+                            select: {
+                                style: 'multi'
+                            }
+                        });
+                    }
+
+                    /*$.ajax({
                         async : false,
                         cache:false,
                         type: 'get',
@@ -1085,7 +1200,7 @@
                         error: function () {
 //                        alert('请求失败');
                         }
-                    });
+                    });*/
                 }
 
             }
@@ -1326,7 +1441,7 @@
                                             data.data = json.content.users.data;
                                             //默认子级部门列表
                                             var subDepartmentOlBox = $("#sub-department>ol"), departmentStaffBodyBox = $(".department-staff-body");
-                                            subDepartmentOlBox.html('');
+                                            subDepartmentOlBox.html(''); departmentStaffBodyBox.html('');
                                             if (json.content.depts.length) {
                                                 var subDepartmentHtml = '';
                                                 $(".sub-department-queue").removeClass("display-none");
@@ -1345,8 +1460,8 @@
                                                     '</div>';
                                             }
                                             subDepartmentOlBox.append(subDepartmentHtml);
-
-                                            if (json.content.users.data.length) {
+                                            callback(data);
+                                            /*if (json.content.users.data.length) {
                                                 callback(data);
                                             } else {
                                                 var departmentStaffUserListHtml = '<tr><td colspan="7">'+
@@ -1358,7 +1473,7 @@
                                                     '</div>'+
                                                     '</td></tr>';
                                                 departmentStaffBodyBox.append(departmentStaffUserListHtml);
-                                            }
+                                            }*/
 
                                         }
                                     },
@@ -1445,7 +1560,6 @@
                                     "orderable": false,
                                     data: null,
                                     "render": function (data, type, row) {
-                                        console.log(data.userid);
                                         return '<td>'
                                             [# sec:authorize="hasAuthority('dingtalkuser:edit')"]
                                         + '<i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-btn" data-id="'+ data.userid +'" data-isAdmin="'+ data.isAdmin +'"  title="编辑信息"></i>' +
@@ -1469,7 +1583,6 @@
             var id = treeNode.id;
             $(".department-name").text(treeNode.name).attr("data-id", id).attr("data-parentid", treeNode.parentid).attr("data-parentname", treeNode.getParentNode()?treeNode.getParentNode().name:"");
             $("#edit-department-name").attr("data-parentid", treeNode.parentid);
-            console.log(departmentStaffTable.ajax);
             departmentStaffTable.treeid=id;
             departmentStaffTable.draw();
         }
@@ -3168,6 +3281,7 @@
                 onClick: tagOnClick
             }
         };
+        var outcontactsListTable;
         function tagOnAsyncSuccessFn(event, treeId, treeNode, msg) {
             if (msg.content.length) {
                 $(".company-name").text((msg.content[0].cusName));
@@ -3175,9 +3289,154 @@
                 $("#customer-company-phone").text(msg.content[0].cusComTel);
                 $("#customer-company-email").text(msg.content[0].cusComEmail);
                 $("#customer-company-address").text(msg.content[0].cusComAdr)
+                var id = msg.content[0].cusId;
 
                 $("#edit-customer-btn").attr("data-cusId", msg.content[0].cusId);
-                $.ajax({
+                outcontactsListTable = $('#outcontacts-list').DataTable({
+                    bAutoWidth: false,
+                    "language": {
+                        "url": contextPath+"ace/assets/js/zh_CN.json"
+                    },
+                    'order': [],
+                    "ordering": false,
+                    "processing": true,
+                    'paging': true,
+                    "serverSide": true,
+                    'searching': false,
+                    "ajax": function (data, callback, settings) {
+                        var pageNum=data.start/data.length+1;
+                        var pageSize=data.length;
+                        var draw=data.draw;
+                        if(outcontactsListTable.id){
+                            id=outcontactsListTable.id
+                        }
+                        $.ajax({
+                        "url": contextPath+"api/contacts/cid?cid="+ id +"&pageNum="+ pageNum +"&pageSize="+ pageSize +"&draw="+draw,
+                        "type": "get",
+                        dataType:"json",
+                        contentType:'application/json',
+                        "success": function (json) {
+                            if (json.status == 200) {
+                                var data = {};
+                                data.recordsTotal = json.content.recordsTotal;
+                                data.recordsFiltered = json.content.recordsFiltered;
+                                data.data = json.content.data;
+
+                                callback(data);
+                                /*if (json.content.data.length) {
+                                    callback(data);
+                                } else {
+                                    $("#outcontacts-list>tbody").html("");
+                                    var outcontactsListHtml = '<tr><td colspan="7">'+
+                                        '<div class="alert alert-info">'+
+                                        '<button type="button" class="close" data-dismiss="alert">'+
+                                        '<i class="ace-icon fa fa-times"></i>'+
+                                        '</button>'+
+                                        '当前暂无人员，请添加成员'+
+                                        '</div>'+
+                                        '</td>' +
+                                        '</tr>';
+                                    $("#outcontacts-list>tbody").append(outcontactsListHtml);
+                                    $(".dataTables_processing").addClass("display-none")
+                                }*/
+
+                            }
+                        },
+                        "error": function (XMLHttpRequest, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                        }
+                    });
+                    },
+                    "columns": [
+                        {"data": null},
+                        {"data": "conName"},
+                        {"data": "conTel"},
+                        {"data": "conQq"},
+                        {"data": "conWechat"},
+                        {"data": "conEmail"},
+                        {"data": null}
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": 0,
+                            'searchable': false,
+                            'orderable': false,
+                            "data": null,
+                            "render": function (data, type, row) {
+                                return '<label class="pos-rel">'+
+                                    '<input type="checkbox" class="ace" data-id="'+ data.conId +'">'+
+                                    '<span class="lbl"></span>'+
+                                    '</label>';
+                            },
+                            "className": "center"
+
+                        },
+                        {
+                            "targets": 1,
+                            "orderable": true,
+                            "searchable": true,
+                            "render": function (data, type, row) {
+                                return '<td>' + data + '</td>';
+                            }
+
+                        },
+                        {
+                            "targets": 2,
+                            "orderable": true,
+                            "searchable": true,
+                            "render": function (data, type, row) {
+                                return '<td>' + data + '</td>';
+                            }
+
+                        },
+                        {
+                            "targets": 3,
+                            "orderable": true,
+                            "searchable": true,
+                            "render": function (data, type, row) {
+                                return '<td>' + data + '</td>';
+                            }
+
+                        },
+                        {
+                            "targets": 4,
+                            "orderable": true,
+                            "searchable": true,
+                            "render": function (data, type, row) {
+                                return '<td>' + data + '</td>';
+                            }
+
+                        },
+                        {
+                            "targets": 5,
+                            "orderable": true,
+                            "searchable": true,
+                            "render": function (data, type, row) {
+                                return '<td>' + data + '</td>';
+                            }
+
+                        },
+                        {
+                            "targets": -1,
+                            "orderable": false,
+                            data: null,
+                            "render": function (data, type, row) {
+                                return '<td>'
+                                    [# sec:authorize="hasAuthority('contacts:edit')"]
+                                '<i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" data-id="'+ data.conId +'" title="编辑信息"></i>' +
+                                '&nbsp;&nbsp;'+
+                                '<i class="ace-icon fa fa-key bigger-110 icon-only outcontacts-change-password-btn" data-id="'+ data.conId +'" title="修改密码"></i>' +
+                                [/]
+                                    '</td>';
+                            }
+
+                        }
+                    ],
+                    select: {
+                        style: 'multi'
+                    }
+                });
+                /*$.ajax({
                     async : false,
                     cache:false,
                     type: 'get',
@@ -3239,7 +3498,7 @@
                     error: function () {
 //                        alert('请求失败');
                     }
-                });
+                });*/
             }
         }
         function tagOnClick(event, treeId, treeNode) {
@@ -3251,7 +3510,9 @@
 
             $(".outcontacts-container .widget-header, .outcontacts-container .widget-body").removeClass("display-none");
             $("#edit-customer-btn").attr("data-cusId", treeNode.cusId);
-            $.ajax({
+            outcontactsListTable.id=treeNode.cusId;
+            outcontactsListTable.draw();
+            /*$.ajax({
                 async : false,
                 cache:false,
                 type: 'get',
@@ -3306,7 +3567,7 @@
                 error: function () {
 //                        alert('请求失败');
                 }
-            });
+            });*/
 
 
         }
@@ -3315,6 +3576,15 @@
             zTree.reAsyncChildNodes(null, "refresh");
         }
         $.fn.zTree.init($("#customer-list"), customerSettings);
+
+        //编辑外部联系人
+        $("#outcontacts-list").on("click", ".edit-outcontacts-btn", function () {
+            editOutcontacts($(this).attr("data-id"));
+        });
+        //修改用户密码
+        $("#outcontacts-list").on("click", ".outcontacts-change-password-btn", function () {
+            changePasswordOutcontacts($(this).attr("data-id"))
+        });
 
         //新增客户
         var $formAddCustomer = $('#add-customer-container>form').validate({
