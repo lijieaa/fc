@@ -1017,6 +1017,11 @@
                     $("#role-person-name").text(treeNode.roleName);
                     roleGroupPersonListDataTableId = treeNode.roleId;
                     $("#edit-role-person-btn").attr("data-roleId", treeNode.roleId).attr("data-isDel", treeNode.isDel);
+                    if (treeNode.isDel == "1") {
+                        $("#edit-role-person-btn").css("display", "none")
+                    } else {
+                        $("#edit-role-person-btn").css("display", "inline-block")
+                    }
                     if (roleGroupPersonListDataTableStatus) {
                         roleGroupPersonListDataTable.draw();
                     } else {
