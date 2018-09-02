@@ -93,5 +93,15 @@ public class SysMenuDto {
     public void setOd(String od) {
         this.od = od;
     }
+
+    public Integer getIsPlat() {
+        return isPlat;
+    }
+
+    public void setIsPlat(Integer isPlat) {
+        this.isPlat = isPlat;
+    }
+
+    private Integer isPlat;
 }
 
