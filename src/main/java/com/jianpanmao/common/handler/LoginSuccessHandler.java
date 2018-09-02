@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 @Component
@@ -28,7 +30,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         DingtalkUser user = (DingtalkUser)authentication.getPrincipal();
 
 
-        List<SysMenu> menusArr=new ArrayList<>();
+        Collection<SysMenu> menusArr=new LinkedHashSet<>();
 
 
         List<SysRole> roles = user.getRoles();

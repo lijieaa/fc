@@ -4,6 +4,7 @@ import com.jianpanmao.common.entity.BaseEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
@@ -129,5 +130,19 @@ public class SysMenu extends BaseEntity implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SysMenu menu = (SysMenu) o;
+        return Objects.equals(menuName, menu.menuName);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(menuName);
     }
 }
