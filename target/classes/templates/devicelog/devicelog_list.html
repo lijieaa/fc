@@ -129,6 +129,30 @@
         </div>
     </div>
     <script type="text/javascript" th:inline="javascript">
+        function getName(postData) {
+
+            var name;
+            var name1;
+            var off;
+            for(var i in postData) {
+                // if(i == 'p_switch') {
+                //     name = '行程开关'
+                // }
+                if (i == 'unit1') {
+                    name1 = "单元1"
+                }
+                if(postData[i] == 0){
+                    off = '关闭'
+                }
+                else {
+                    off = "开启"
+                }
+                return name + ":" + off + name1
+
+            }
+
+
+        }
         jQuery(function ($) {
             $("#backList").click(function(){
                 location.href=contextPath+"device/list";
@@ -199,8 +223,17 @@
                                     {"data": null},
                                     {"data": "user.name"},
                                     {"data": "operateCommand"},
-                                    {"data": "deviceLogCreateTime"},
-                                    {"data": "deviceLogUpdateTime"},
+                                    {"data": "deviceProductionNum"},
+                                    {"data": "deviceOperationContent","render": function (data, type, row) {
+                                        var postData =  {
+                                                "p_switch": 0,
+                                                "unit1": 1
+                                            };
+
+                                            return  getName(postData);
+                                          // console.log(JSON.stringify(data));
+
+                                        }},
                                     {"data": null},
                                 ],
                                 "columnDefs": [

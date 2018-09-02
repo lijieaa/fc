@@ -383,7 +383,7 @@
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 for(var i=0;i<treeNode.length;i++){
                     var v = treeNode[i];
-                    if(v.id == id && v.type == null){
+                    if(v.id == id && v.type == ""){
                         treeObj.checkNode(v, false, true);
                     }
                 }
