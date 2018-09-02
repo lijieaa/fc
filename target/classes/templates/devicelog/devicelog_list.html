@@ -12,6 +12,19 @@
         /*.btn-info, .btn-info.focus, .btn-info:focus {*/
             /*background: #1595E6!important;*/
         /*}*/
+        table.dataTable {
+            clear: both;
+            max-width: none!important;
+            table-layout: fixed;
+        }
+        .table-bordered>thead>tr>th, .table-bordered>tbody>tr>th,
+        .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td,
+        .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+            border: 1px solid #d2d6de;
+            border-bottom: none;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
     </style>
 </head>
 <div class="page-header">
@@ -130,24 +143,45 @@
     </div>
     <script type="text/javascript" th:inline="javascript">
         function getName(postData) {
-
             var name;
             var name1;
+            var name2;
             var off;
+            var count;
             for(var i in postData) {
-                // if(i == 'p_switch') {
-                //     name = '行程开关'
-                // }
+                // console.log(i);
+                if(i == 'p_switch') {
+                    if(postData[i] == 0){
+                        off = '模拟'
+                    }else {
+                        off = '数字'
+                    }
+                    count = "压差开关" + off
+                    console.log(count);
+                }
                 if (i == 'unit1') {
                     name1 = "单元1"
+                    if(postData[i] == 0){
+                        off = '关闭'
+                    }else {
+                        off = '开启'
+                    }
+                    count += "单元1" + off
+                }
+                if(i == 'motor') {
+                    name2 = "电机"
                 }
                 if(postData[i] == 0){
                     off = '关闭'
                 }
+
                 else {
                     off = "开启"
                 }
-                return name + ":" + off + name1
+                // console.log(name2);
+                // console.log(name);
+                console.log(count)
+                return count
 
             }
 
@@ -225,16 +259,17 @@
                                     {"data": "operateCommand"},
                                     {"data": "deviceProductionNum"},
                                     {"data": "deviceOperationContent","render": function (data, type, row) {
+                                        // console.log(data);
                                         var postData =  {
-                                                "p_switch": 0,
-                                                "unit1": 1
-                                            };
+                                            "p_switch": 0,
+                                            "unit1": 1,
+                                            "motor": 0
+                                         };
+                                        // console.log(JSON.parse(data));
 
-                                            return  getName(postData);
-                                          // console.log(JSON.stringify(data));
-
-                                        }},
-                                    {"data": null},
+                                        return "<span title="+data+">"+getName(JSON.parse(data))+"</span>";
+                                    }},
+                                    {"data": null}
                                 ],
                                 "columnDefs": [
                                     {
