@@ -343,30 +343,6 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody class="outcontacts-list-body center">
-                                                        <!--<tr>
-                                                            <td>
-                                                                <label class="pos-rel">
-                                                                    <input type="checkbox" class="ace">
-                                                                    <span class="lbl"></span>
-                                                                </label>
-                                                            </td>
-                                                            <td>彭松涛</td>
-                                                            <td>1782232131</td>
-                                                            <td>天马公司</td>
-                                                            <td>天马</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <label class="pos-rel">
-                                                                    <input type="checkbox" class="ace">
-                                                                    <span class="lbl"></span>
-                                                                </label>
-                                                            </td>
-                                                            <td>彭松涛</td>
-                                                            <td>1782232131</td>
-                                                            <td>天马公司</td>
-                                                            <td>天马</td>
-                                                        </tr>-->
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -991,6 +967,7 @@
         $(".organization-menu").on("click", function () {
             organizationContainer.removeClass("display-none").siblings().removeClass("display-block").addClass("display-none");
         });
+        var roleGroupPersonListDataTable, roleGroupPersonListDataTableId = "";
         $(".role-menu").on("click", function () {
             //获取角色列表
             var roleSettings = {
@@ -1032,7 +1009,7 @@
 
             }
 
-            var roleGroupPersonListDataTableStatus = false, roleGroupPersonListDataTableId = "";
+            var roleGroupPersonListDataTableStatus = false;
             function roleOnClick(event, treeId, treeNode) {
                 if (!treeNode.isParent) {
                     roleContainer.find("h3, .role-group-person-list").removeClass("display-none");
@@ -1400,6 +1377,7 @@
             return responseData.content
 
         }
+        var departmentStaffTable;
         function organizationOnAsyncSuccessFn(event, treeId, treeNode, msg) {
             // 默认展示第一条数据
             if (msg.content.length) {
@@ -2662,70 +2640,8 @@
                         url: contextPath + "api/dingtalkdept/pid?pid="+$(".department-name").attr("data-id"),
                         success:function(data){
                             if (data.status == "200") {
-                                //默认子级部门列表
-                                var subDepartmentOlBox = $("#sub-department>ol"), departmentStaffBodyBox = $(".department-staff-body");
-                                subDepartmentOlBox.html('');
-                                if (data.content.depts.length) {
-                                    var subDepartmentHtml = '';
-                                    $(".sub-department-queue").removeClass("display-none");
-                                    $.each(data.content.depts, function (i, item) {
-                                        subDepartmentHtml += '<li class="dd-item" data-id='+ item.id +'>'+
-                                                '<div class="dd-handle"><i></i>&nbsp;'+ item.name + '（'+ item.memberCount +'人）</div>'+
-                                                '</li>';
-                                    });
-                                } else {
-                                    $(".sub-department-queue").addClass("display-none");
-                                    subDepartmentHtml = '<div class="alert alert-info center">'+
-                                            '<button type="button" class="close" data-dismiss="alert">'+
-                                            '<i class="ace-icon fa fa-times"></i>'+
-                                            '</button>'+
-                                            '当前部门不包含下级部门，请添加子部门'+
-                                            '</div>';
-                                }
-                                subDepartmentOlBox.append(subDepartmentHtml);
-                                //默认部门人员列表
-                                departmentStaffBodyBox.html('');
-                                if (data.content.users.length) {
-                                    var departmentStaffUserListHtml = '';
-                                    $.each(data.content.users, function (i, item) {
-                                        var checkedDisabled = "";
-                                        if (item.isAdmin) {
-                                            checkedDisabled = "disabled";
-                                        }
-                                        departmentStaffUserListHtml += '<tr>'+
-                                                '<td>'+
-                                                '<label class="pos-rel">'+
-                                                '<input type="checkbox" '+ checkedDisabled +' data-id="'+ item.userid +'" data-del="'+ item.isAdmin +'" class="ace">'+
-                                                '<span class="lbl"></span>'+
-                                                '</label>'+
-                                                '</td>'+
-                                                '<td>'+ item.name +'</td>'+
-                                                '<td>'+ item.position +'</td>'+
-                                                '<td>'+ item.jobnumber +'</td>'+
-                                                '<td>'+ item.mobile +'</td>'+
-                                                '<td>'+ item.email +'</td>'+
-                                                '<td data-id="'+ item.userid +'" data-isAdmin="'+ item.isAdmin +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-btn" title="编辑信息"></i>&nbsp;&nbsp;<i class="ace-icon fa fa-key bigger-110 icon-only change-password-btn" title="修改密码"></i></td>'+
-                                                '</tr>';
-                                    });
-                                } else {
-                                    departmentStaffUserListHtml = '<tr><td colspan="7">'+
-                                            '<div class="alert alert-info">'+
-                                            '<button type="button" class="close" data-dismiss="alert">'+
-                                            '<i class="ace-icon fa fa-times"></i>'+
-                                            '</button>'+
-                                            '当前部门暂无人员，请添加成员'+
-                                            '</div>'+
-                                            '</td></tr>';
-                                }
-                                departmentStaffBodyBox.append(departmentStaffUserListHtml);
-                                $("#department-staff .edit-btn").on("click", function () {
-                                    var _this = $(this);
-                                    editDepartmentStaffInfo(_this.parents("td").attr("data-id"), _this.parents("td").attr("data-isAdmin"));
-                                });
-                                $(".change-password-btn").on("click", function () {
-                                    var _this = $(this);
-                                    changePassword(_this.parents("td").attr("data-id"))
-                                });
+                                departmentStaffTable.treeid = $(".department-name").attr("data-id");
+                                departmentStaffTable.draw();
                             }
                         },
                         error: function () {
@@ -2778,40 +2694,9 @@
                         url: contextPath + "api/dingtalkuser/role?roleid="+$("#role-person-name").siblings("button").attr("data-roleid"),
                         success:function(data){
                             if (data.status == "200") {
-                                //角色人员列表
-                                $("#role-group-person-list>tbody").html('');
-                                if (data.content.length) {
-                                    var roleGroupPersonListHtml = '';
-                                    $.each(data.content, function (i, item) {
-                                        var checkedDisabled = "";
-                                        if (item.isAdmin) {
-                                            checkedDisabled = "disabled";
-                                        }
-                                        roleGroupPersonListHtml += '<tr class="align-center">'+
-                                                '<td>'+
-                                                '<label class="pos-rel">'+
-                                                '<input type="checkbox" class="ace" data-id="'+ item.userid +'" '+ checkedDisabled +'>'+
-                                                '<span class="lbl"></span>'+
-                                                '</label>'+
-                                                '</td>'+
-                                                '<td>'+ item.name +'</td>'+
-                                                '<td>'+ item.position +'</td>'+
-                                                '<td>'+ item.jobnumber +'</td>'+
-                                                '</tr>';
-                                    });
-                                } else {
-                                    roleGroupPersonListHtml = '<tr><td colspan="4">'+
-                                            '<div class="alert alert-info">'+
-                                            '<button type="button" class="close" data-dismiss="alert">'+
-                                            '<i class="ace-icon fa fa-times"></i>'+
-                                            '</button>'+
-                                            '当前角色暂无人员，请添加成员'+
-                                            '</div>'+
-                                            '</td>' +
-                                            '</tr>';
+                                roleGroupPersonListDataTableId = $("#edit-role-person-btn").attr("data-roleid");
+                                roleGroupPersonListDataTable.draw()
                                 }
-                                $("#role-group-person-list>tbody").append(roleGroupPersonListHtml);
-                            }
                         },
                         error: function () {
 //                            alert('请求失败');
@@ -3323,6 +3208,9 @@
                                 data.data = json.content.data;
 
                                 callback(data);
+                                if (json.content.data.length == 0) {
+                                    $("#outcontacts-list>tbody>tr>td").attr("colspan", "7");
+                                }
                                 /*if (json.content.data.length) {
                                     callback(data);
                                 } else {
@@ -3337,7 +3225,7 @@
                                         '</td>' +
                                         '</tr>';
                                     $("#outcontacts-list>tbody").append(outcontactsListHtml);
-                                    $(".dataTables_processing").addClass("display-none")
+                                    $(".dataTables_processing").css("display", "none")
                                 }*/
 
                             }
@@ -3436,69 +3324,6 @@
                         style: 'multi'
                     }
                 });
-                /*$.ajax({
-                    async : false,
-                    cache:false,
-                    type: 'get',
-                    dataType : "json",
-                    contentType: "application/json",
-                    url: contextPath + "api/contacts/cid?cid="+msg.content[0].cusId,
-                    success:function(data){
-                        if (data.status == "200") {
-                            //人员列表
-                            $("#outcontacts-list>tbody").html('');
-                            if (data.content.length) {
-                                var outcontactsListHtml = '';
-                                $.each(data.content, function (i, item) {
-                                    outcontactsListHtml += '<tr class="align-center">'+
-                                            '<td>'+
-                                            '<label class="pos-rel">'+
-                                            '<input type="checkbox" class="ace" data-id="'+ item.conId +'">'+
-                                            '<span class="lbl"></span>'+
-                                            '</label>'+
-                                            '</td>'+
-                                            '<td>'+ item.conName +'</td>'+
-                                            '<td>'+ item.conTel +'</td>'+
-                                            '<td>'+ item.conQq +'</td>'+
-                                            '<td>'+ item.conWechat +'</td>'+
-                                            '<td>'+ item.conEmail +'</td>'+
-                                            '<td data-id="'+ item.conId +'">' +
-                                        [# sec:authorize="hasAuthority('contacts:edit')"]
-                                        '<i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" title="编辑信息"></i>' +
-                                        '&nbsp;&nbsp;'+
-                                        '<i class="ace-icon fa fa-key bigger-110 icon-only outcontacts-change-password-btn" title="修改密码"></i>' +
-                                        [/]
-                                        '</td>'+
-                                            '</tr>';
-                                });
-                            } else {
-                                outcontactsListHtml = '<tr><td colspan="7">'+
-                                        '<div class="alert alert-info">'+
-                                        '<button type="button" class="close" data-dismiss="alert">'+
-                                        '<i class="ace-icon fa fa-times"></i>'+
-                                        '</button>'+
-                                        '当前暂无人员，请添加成员'+
-                                        '</div>'+
-                                        '</td>' +
-                                        '</tr>';
-                            }
-                            $("#outcontacts-list>tbody").append(outcontactsListHtml);
-
-                            //编辑外部联系人
-                            $(".edit-outcontacts-btn").on("click", function () {
-                                editOutcontacts($(this).parent().attr("data-id"));
-                            });
-
-                            //修改用户密码
-                            $(".outcontacts-change-password-btn").on("click", function () {
-                                changePasswordOutcontacts($(this).parent().attr("data-id"))
-                            });
-                        }
-                    },
-                    error: function () {
-//                        alert('请求失败');
-                    }
-                });*/
             }
         }
         function tagOnClick(event, treeId, treeNode) {
@@ -4245,44 +4070,9 @@
                         url: contextPath + "api/contacts/cid?cid="+$("#edit-customer-btn").attr("data-cusId"),
                         success:function(data){
                             if (data.status == "200") {
-                                //人员列表
-                                $("#outcontacts-list>tbody").html('');
-                                if (data.content.length) {
-                                    var outcontactsListHtml = '';
-                                    $.each(data.content, function (i, item) {
-                                        outcontactsListHtml += '<tr class="align-center">'+
-                                                '<td>'+
-                                                '<label class="pos-rel">'+
-                                                '<input type="checkbox" class="ace" data-id="'+ item.conId +'">'+
-                                                '<span class="lbl"></span>'+
-                                                '</label>'+
-                                                '</td>'+
-                                                '<td>'+ item.conName +'</td>'+
-                                                '<td>'+ item.conTel +'</td>'+
-                                                '<td>'+ item.conQq +'</td>'+
-                                                '<td>'+ item.conWechat +'</td>'+
-                                                '<td>'+ item.conEmail +'</td>'+
-                                                '<td data-id="'+ item.conId +'"><i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" title="编辑信息"></i></td>'+
-                                                '</tr>';
-                                    });
-                                } else {
-                                    outcontactsListHtml = '<tr><td colspan="7">'+
-                                            '<div class="alert alert-info">'+
-                                            '<button type="button" class="close" data-dismiss="alert">'+
-                                            '<i class="ace-icon fa fa-times"></i>'+
-                                            '</button>'+
-                                            '当前暂无人员，请添加成员'+
-                                            '</div>'+
-                                            '</td>' +
-                                            '</tr>';
+                                outcontactsListTable.id=$("#edit-customer-btn").attr("data-cusid");
+                                outcontactsListTable.draw();
                                 }
-                                $("#outcontacts-list>tbody").append(outcontactsListHtml);
-
-                                //编辑外部联系人
-                                $(".edit-outcontacts-btn").on("click", function () {
-                                    editOutcontacts($(this).parent().attr("data-id"));
-                                });
-                            }
                         },
                         error: function () {
 //                            alert('请求失败');

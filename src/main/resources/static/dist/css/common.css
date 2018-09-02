@@ -120,7 +120,7 @@ html,body{
     border: none;
 }
 .display-none {
-    display: none !important;
+    display: none;
 }
 .display-block {
     display: block;
