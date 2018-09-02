@@ -107,7 +107,7 @@
         <div class="clubs-header back-f8"  v-if="model.projectCommentsParent !=null && model.projectCommentsParent == 0">
             <div class="left-clubs float-left padding-left-6">
                 <img :src="imgPath+model.user.headPic" class="" alt="">
-                <span>{{model.user.name}}</span>
+                <span>{{model.user.name || model.wxUserDetail.nickname}}</span>
             </div>
             <div class="right-clubs float-right padding-right-6">
                 <span class="bd-r">第 <span>{{model.count}}</span>条留言</span>

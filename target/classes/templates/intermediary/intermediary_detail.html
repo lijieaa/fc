@@ -51,6 +51,7 @@
             text-align: center;
             border: 1px solid #d3d7df;
             height: 50px;
+            table-layout: fixed;
         }
         .relation table thead{
             background: #f4f4f4;
@@ -68,6 +69,16 @@
             margin-top: 14px;
             border: 1px solid #d3d7df;
             overflow: auto;
+        }
+        .relation table tr td{
+            height: 50px;
+            border: 1px solid #d3d7df;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .relation table .bj td{
+            background: #fff;
         }
         .padding-top-five{
             padding-top: 13px!important;
@@ -187,8 +198,8 @@
                         <div class="row relation">
                             <div class="col-md-12" style="padding: 0 15px 0px 15px;">
                                 <div class="font">平台对接人</div>
-                                <div style="background: #f4f4f4; padding: 14px 0;">
-                                    <table>
+                                <div style="background: #f4f4f4; padding: 14px 0;width: 100%">
+                                    <table  style="width: 100%">
                                         <thead>
                                         <tr>
                                             <td>姓名</td>
