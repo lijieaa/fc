@@ -182,18 +182,25 @@ public class Contacts implements Serializable,UserDetails {
         return sb.toString();
     }
 
+
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
+    private Collection<? extends GrantedAuthority> authorities;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SysRole> roles = this.getRoles();
-        Collection<SimpleGrantedAuthority> authorities=new HashSet<>();
-        for (SysRole role : roles) {
+       /* List<SysRole> roles = this.getRoles();*/
+        //Collection<SimpleGrantedAuthority> authorities=new HashSet<>();
+        /*for (SysRole role : roles) {
             List<SysMenu> menus = role.getMenus();
             for (SysMenu menu : menus) {
                 if(menu.getMenuPrmission()!=null&&menu.getMenuPrmission().length()>0){
                     authorities.add(new SimpleGrantedAuthority(menu.getMenuPrmission().trim()));
                 }
             }
-        }
+        }*/
         return authorities;
     }
 
