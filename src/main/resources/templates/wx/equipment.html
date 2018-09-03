@@ -23,6 +23,8 @@
         var port=/*[[${#request.getServerPort()}]]*/;
         var absolutePath = scheme+"://"+serverName+":"+port;
         var imgPath=absolutePath+"/uploadimg/"
+        var id = [[${id}]];
+        alert(id);
     </script>
     <script th:src="@{/js/framework7.min.js}"></script>
     <script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
