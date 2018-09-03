@@ -967,7 +967,7 @@
         $(".organization-menu").on("click", function () {
             organizationContainer.removeClass("display-none").siblings().removeClass("display-block").addClass("display-none");
         });
-        var roleGroupPersonListDataTable, roleGroupPersonListDataTableId = "";
+        var roleGroupPersonListDataTable, roleGroupPersonListDataTableId = "", roleRefreshNode;
         $(".role-menu").on("click", function () {
             //获取角色列表
             var roleSettings = {
@@ -1186,10 +1186,7 @@
                 }
 
             }
-            function roleRefreshNode() {
-                var zTree = $.fn.zTree.getZTreeObj("role-list");
-                zTree.reAsyncChildNodes(null, "refresh");
-            }
+
             var $formEditRoleGroup = $('#edit-role-group-container>form').validate({
                 errorElement: 'span',
                 errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
@@ -1315,7 +1312,10 @@
                 $("#diyBtn_space_" +treeNode.roleId).unbind().remove();
             }
             $.fn.zTree.init($("#role-list"), roleSettings);
-
+            roleRefreshNode = function () {
+                var zTree = $.fn.zTree.getZTreeObj("role-list");
+                zTree.reAsyncChildNodes(null, "refresh");
+            }
 
             roleContainer.removeClass("display-none").siblings().removeClass("display-block").addClass("display-none");
             var defaultHtml = '<div class="alert alert-info defaultHtml" style="margin: 0;"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>请选择角色</div>';
