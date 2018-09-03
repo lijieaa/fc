@@ -143,47 +143,226 @@
     </div>
     <script type="text/javascript" th:inline="javascript">
         function getName(postData) {
-            var name;
-            var name1;
-            var name2;
-            var off;
-            var count;
-            for(var i in postData) {
-                // console.log(i);
-                if(i == 'p_switch') {
-                    if(postData[i] == 0){
-                        off = '模拟'
-                    }else {
-                        off = '数字'
-                    }
-                    count = "压差开关" + off
-                    console.log(count);
-                }
-                if (i == 'unit1') {
-                    name1 = "单元1"
-                    if(postData[i] == 0){
-                        off = '关闭'
-                    }else {
-                        off = '开启'
-                    }
-                    count += "单元1" + off
-                }
-                if(i == 'motor') {
-                    name2 = "电机"
-                }
-                if(postData[i] == 0){
-                    off = '关闭'
-                }
+            // console.log(postData)
+            postData["生产编号"] = postData['device_production_num'];
+            delete postData['device_production_num']
 
-                else {
-                    off = "开启"
-                }
-                // console.log(name2);
-                // console.log(name);
-                console.log(count)
-                return count
+            postData["清洗周期"] = postData['clear_cyc'];
+            delete postData['clear_cyc'];
+            console.log(postData["清洗周期"]);
 
+            if(postData["清洗周期"] != undefined) {
+                postData["清洗周期"] = 10 + "分钟"
             }
+
+            postData["设备远程启停"] = postData['action'];
+            delete postData['action'];
+            if(postData["设备远程启停"] == 0) {
+                postData["设备远程启停"] = "关闭"
+            }else {
+                postData["设备远程启停"] = "开启"
+            }
+
+
+            postData["设备型号"] = postData['device_type'];
+            delete postData['device_type'];
+
+            if(postData["设备型号"] == 0) {
+                postData["设备型号"] = "水动自清洗过滤器"
+            }else if(postData["设备型号"] == 1) {
+                postData["设备型号"] = "电动刷式过滤器"
+            } else if(postData["设备型号"] == 2) {
+                postData["设备型号"] = "电动吸式过滤器"
+            } else if(postData["设备型号"] == 3) {
+                postData["设备型号"] = "电动刷吸式过滤器"
+            }else if(postData["设备型号"] == 4) {
+                postData["设备型号"] = "自动反冲洗砂滤系统"
+            }else if(postData["设备型号"] == 5) {
+                postData["设备型号"] = "自动反冲洗叠片过滤系统"
+            }else if(postData["设备型号"] == 6) {
+                postData["设备型号"] = "水处理控制器"
+            }
+
+            postData["电机"] = postData['motor'];
+            delete postData['motor'];
+            if(postData["电机"] == 0) {
+                postData["电机"] = "关闭"
+            }else {
+                postData["电机"] = "开启"
+            }
+
+            postData["行程开关"] = postData['stroke_switch'];
+            delete postData['stroke_switch'];
+            if(postData["行程开关"] == 0) {
+                postData["行程开关"] = "关闭"
+            }else {
+                postData["行程开关"] = "开启"
+            }
+
+            postData["电机动作时间"] = postData['motor_time'];
+            delete postData['motor_time'];
+            if(postData["电机动作时间"] != undefined) {
+                postData["电机动作时间"] =  postData["电机动作时间"] + "秒"
+            }
+
+            postData["压差开关"] = postData['p_switch'];
+            delete postData['p_switch'];
+            if(postData["压差开关"] == 0) {
+                postData["压差开关"] = "关闭"
+            }else {
+                postData["压差开关"] = "开启"
+            }
+
+            postData["电压告警值"] = postData['voltage_warning'];
+            delete postData['voltage_warning'];
+            if(postData["电压告警值"] != undefined) {
+                postData["电压告警值"] =  postData["电压告警值"] + "V"
+            }
+
+
+            postData["主阀"] = postData['main_valve'];
+            delete postData['main_valve'];
+            if(postData["主阀"] == 0) {
+                postData["主阀"] = "关闭"
+            }else {
+                postData["主阀"] = "开启"
+            }
+
+            postData["单元1"] = postData['unit1'];
+            delete postData['unit1'];
+            if(postData["单元1"] == 0) {
+                postData["单元1"] = "关闭"
+            }else {
+                postData["单元1"] = "开启"
+            }
+
+            postData["单元2"] = postData['unit2'];
+            delete postData['unit2'];
+            if(postData["单元2"] == 0) {
+                postData["单元2"] = "关闭"
+            }else {
+                postData["单元2"] = "开启"
+            }
+
+            postData["单元3"] = postData['unit3'];
+            delete postData['unit3'];
+            if(postData["单元3"] == 0) {
+                postData["单元3"] = "关闭"
+            }else {
+                postData["单元3"] = "开启"
+            }
+
+            postData["单元4"] = postData['unit4'];
+            delete postData['unit4'];
+            if(postData["单元4"] == 0) {
+                postData["单元4"] = "关闭"
+            }else {
+                postData["单元4"] = "开启"
+            }
+
+            postData["单元5"] = postData['unit5'];
+            delete postData['unit5'];
+            if(postData["单元5"] == 0) {
+                postData["单元5"] = "关闭"
+            }else {
+                postData["单元5"] = "开启"
+            }
+
+            postData["单元6"] = postData['unit6'];
+            delete postData['unit6'];
+            if(postData["单元6"] == 0) {
+                postData["单元6"] = "关闭"
+            }else {
+                postData["单元6"] = "开启"
+            }
+
+            postData["单元7"] = postData['unit7'];
+            delete postData['unit7'];
+            if(postData["单元7"] == 0) {
+                postData["单元7"] = "关闭"
+            }else {
+                postData["单元7"] = "开启"
+            }
+
+            postData["单元8"] = postData['unit8'];
+            delete postData['unit8'];
+            if(postData["单元8"] == 0) {
+                postData["单元8"] = "关闭"
+            }else {
+                postData["单元8"] = "开启"
+            }
+
+            postData["单元9"] = postData['unit9'];
+            delete postData['unit9'];
+            if(postData["单元9"] == 0) {
+                postData["单元9"] = "关闭"
+            }else {
+                postData["单元9"] = "开启"
+            }
+
+            postData["单元10"] = postData['unit10'];
+            delete postData['unit10'];
+            if(postData["单元10"] == 0) {
+                postData["单元10"] = "关闭"
+            }else {
+                postData["单元10"] = "开启"
+            }
+
+            postData["单元冲洗时间"] = postData['clear_time'];
+            delete postData['clear_time'];
+            if(postData["单元冲洗时间"] != undefined) {
+                postData["单元冲洗时间"] =  postData["单元冲洗时间"] + "秒"
+            }
+
+            postData["单元间隔时间"] = postData['unit_interval'];
+            delete postData['unit_interval'];
+            if(postData["单元间隔时间"] != undefined) {
+                postData["单元间隔时间"] =  postData["单元间隔时间"] + "秒"
+            }
+
+            postData["主阀延时时间"] = postData['main_valve_delay_time'];
+            delete postData['main_valve_delay_time'];
+            if(postData["主阀延时时间"] != undefined) {
+                postData["主阀延时时间"] =  postData["主阀延时时间"] + "秒"
+            }
+
+            postData["压差延时时间"] = postData['p_delay_time'];
+            delete postData['p_delay_time'];
+            if(postData["压差延时时间"] != undefined) {
+                postData["压差延时时间"] =  postData["压差延时时间"] + "秒"
+            }
+
+            postData["压差清洗启动门限"] = postData['p_threshold'];
+            delete postData['p_threshold'];
+            if(postData["压差清洗启动门限"] != undefined) {
+                postData["压差清洗启动门限"] =  postData["压差清洗启动门限"] + "Mpa"
+            }
+
+            postData["压差连续清洗告警次数"] = postData['p_warning'];
+            delete postData['p_warning'];
+            if(postData["压差连续清洗告警次数"] != undefined) {
+                postData["压差连续清洗告警次数"] =  postData["压差连续清洗告警次数"] + "次"
+            }
+
+            postData["电机动作周期"] = postData['power_cyc'];
+            delete postData['power_cyc'];
+            if(postData["电机动作周期"] != undefined) {
+                postData["电机动作周期"] =  postData["电机动作周期"] + "分"
+            }
+
+            postData["压差电机启动门限"] = postData['p_power_threshold'];
+            delete postData['p_power_threshold'];
+            if(postData["压差电机启动门限"] != undefined) {
+                postData["压差电机启动门限"] =  postData["压差电机启动门限"] + "Mpa"
+            }
+
+            postData["压差清洗次数清零时间"] = postData['p_clear_time'];
+            delete postData['p_clear_time'];
+            if(postData["压差清洗次数清零时间"] != undefined) {
+                postData["压差清洗次数清零时间"] =  postData["压差清洗次数清零时间"] + "秒"
+            }
+
+            return JSON.stringify(postData)
 
 
         }
@@ -259,15 +438,7 @@
                                     {"data": "operateCommand"},
                                     {"data": "deviceProductionNum"},
                                     {"data": "deviceOperationContent","render": function (data, type, row) {
-                                        // console.log(data);
-                                        var postData =  {
-                                            "p_switch": 0,
-                                            "unit1": 1,
-                                            "motor": 0
-                                         };
-                                        // console.log(JSON.parse(data));
-
-                                        return "<span title="+data+">"+getName(JSON.parse(data))+"</span>";
+                                        return "<span title="+getName(JSON.parse(data))+">"+getName(JSON.parse(data))+"</span>";
                                     }},
                                     {"data": null}
                                 ],
