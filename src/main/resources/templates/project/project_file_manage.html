@@ -31,7 +31,7 @@
                 <div class="col-xs-4 padding-right">
                     <div class="page-file-left">
                         <div class="file-jg">文件结构</div>
-                        <div style="background: #fff;height: 648px">
+                        <div style="background: #fff;height: 648px;overflow: hidden">
                             <div id="addFile" sec:authorize="hasAuthority('projectAttachTree:add')">新增文件夹</div>
                             <ul id="treeDemoCheck" class="ztree"></ul>
                         </div>
@@ -264,7 +264,8 @@
                 ignore: "",
                 rules: {
                     namefile: {
-                        required: true
+                        required: true,
+                        maxlength: 32,
                     }
                 },
                 highlight: function (e) {

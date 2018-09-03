@@ -311,9 +311,8 @@
     <if test="icon!=null and '' neq icon">
       and icon=#{icon}
     </if>
-
-    <if test="isPlat==null">
-      and is_plat!=1
+    <if test="order!=null and order neq ''">
+      order by ${order}
     </if>
   </select>
 </mapper>

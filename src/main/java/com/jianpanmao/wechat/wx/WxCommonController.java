@@ -27,12 +27,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.savedrequest.DefaultSavedRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
@@ -81,12 +79,7 @@ public class WxCommonController {
     @GetMapping("project")
     public String project(String sourceId, Model model,String code,HttpSession session){
         WxPublic wxPublic = publicService.findBySourceId(sourceId);
-        HttpResponse httpResponse = null;
-        DefaultHttpClient httpClient=null;
-
-        HttpResponse httpResponse2 = null;
-        DefaultHttpClient httpClient2=null;
-        try {
+      /*  try {
             //获取token
             System.out.println("code:"+code);
             String apiUrl="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
@@ -128,7 +121,7 @@ public class WxCommonController {
 
             try {
                 ((CloseableHttpResponse) httpResponse).close();
-                httpClient.close();
+                 httpClient.close();
                 ((CloseableHttpResponse) httpResponse2).close();
                 httpClient2.close();
             } catch (IOException e1) {
@@ -136,16 +129,8 @@ public class WxCommonController {
             }
 
             e.printStackTrace();
-        }finally {
-            try {
-                ((CloseableHttpResponse) httpResponse).close();
-                httpClient.close();
-                ((CloseableHttpResponse) httpResponse2).close();
-                httpClient2.close();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
+        }*/
+
         return "wx/project";
     }
 
@@ -186,22 +171,6 @@ public class WxCommonController {
     @PostMapping("login")
     public String loginAction(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) throws Exception{
 
-
-        DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) session.getAttribute("SPRING_SECURITY_SAVED_REQUEST");
-
-
-
-        /*System.out.println("-----------------defaultSavedRequest:"+defaultSavedRequest);
-        System.out.println("-----------------getQueryString:"+defaultSavedRequest.getQueryString());
-        System.out.println("-----------------getRequestURI:"+defaultSavedRequest.getRequestURI());
-        System.out.println("-----------------getRequestURL:"+defaultSavedRequest.getRequestURL());
-        System.out.println("-----------------getParameterMap:"+defaultSavedRequest.getParameterMap());
-        System.out.println("-----------------getPathInfo:"+defaultSavedRequest.getPathInfo());
-        System.out.println("-----------------getParameterValues:"+defaultSavedRequest.getParameterValues("id"));
-
-
-        System.out.println("------------------"+defaultSavedRequest.getServletPath()+"?"+defaultSavedRequest.getQueryString()+"-----------------------");
-*/
         UsernamePasswordAuthenticationToken authRequest=new UsernamePasswordAuthenticationToken(username,password);
 
         try {
@@ -209,7 +178,7 @@ public class WxCommonController {
             System.out.println(authentication);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext()); // 这个非常重要，否则验证后将无法登陆
-            return "redirect:"+defaultSavedRequest.getServletPath()+"?"+defaultSavedRequest.getQueryString();
+            return "redirect:/wd/equipment";
         } catch (AuthenticationException ex) {
            ex.printStackTrace();
             return "redirect:/wx/common/loginwx";

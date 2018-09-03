@@ -73,25 +73,10 @@ public class ContactsRestController {
 
     @PreAuthorize("hasAuthority('contacts:view')")
     @RequestMapping(method = RequestMethod.GET,value = "cid")
-    public Object getByCustomerId(
-            @RequestParam("cid") Integer cid,
-            @RequestParam(value = "pageNum", defaultValue = "1", required = true) Integer pageNum,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
-            @RequestParam(value = "draw", required = false) Integer draw
-    ) {
+    public List<Contacts> getByCustomerId(@RequestParam("cid") Integer cid) {
         ContactsDto dto=new ContactsDto();
         dto.setCusId(cid);
-        PageHelper.startPage(pageNum, pageSize);
-        List<Contacts> list = contactsService.getByDto(dto);
-        PageInfo pageInfo = new PageInfo(list);
-
-//draw 不等于空是datatables分页
-        if (draw != null) {
-            DataTablesResponseEntity<Contacts> responseEntity = new DataTablesResponseEntity(draw, pageInfo.getTotal(), pageInfo.getTotal(), pageInfo.getList());
-            return responseEntity;
-        } else {
-            return pageInfo;
-        }
+        return  contactsService.getByDto(dto);
     }
 
 
