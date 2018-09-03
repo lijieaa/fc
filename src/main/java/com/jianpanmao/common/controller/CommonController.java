@@ -199,10 +199,21 @@ public class CommonController {
 
     private final Log logger =  LogFactory.getLog(SessionListener.class);
 
+
+    public void saveLog(String productionNum,String content){
+        DingtalkUser user = UserUtils.getUser();
+
+        DeviceLog deviceLog = new DeviceLog();
+        deviceLog.setDeviceProductionNum(productionNum);
+        deviceLog.setDeviceOperationContent(content);
+        deviceLog.setUser(user);
+        deviceLogMapper.insert(deviceLog);
+    }
+
     /**
      * 设备参数
      * @param data
-     * @throws JsonProcessingException
+     * @throws JsonProcessingException·
      * @throws IllegalAccessException
      * @throws ParseException
      */
@@ -222,11 +233,7 @@ public class CommonController {
 
         gateway.sendToMqtt(s,"/DevTab/json/"+device_production_num);
 
-
-        //saveDeviceLog(data);
-
-
-
+        saveLog(device_production_num,s);
     }
 
     /**
@@ -252,11 +259,7 @@ public class CommonController {
 
         gateway.sendToMqtt(s,"/UserTab/json/"+device_production_num);
 
-
-        //saveDeviceLog(data);
-
-
-
+        saveLog(device_production_num,s);
     }
 
 
@@ -283,11 +286,7 @@ public class CommonController {
 
         gateway.sendToMqtt(s,"/Control/json/"+device_production_num);
 
-
-        //saveDeviceLog(data);
-
-
-
+        saveLog(device_production_num,s);
     }
 
 
@@ -307,10 +306,9 @@ public class CommonController {
         ObjectMapper mapper=new ObjectMapper();
         String s = mapper.writeValueAsString(data);
         logger.info(s);
-        //String device_production_num= (String) data.get("device_production_num");
+        String device_production_num=data.get("device_production_num").toString();
         gateway.sendToMqtt(s,"/SvrAddr/json/");
-
-        //saveDeviceLog(data);
+        saveLog(device_production_num,s);
     }
 
 
@@ -332,8 +330,8 @@ public class CommonController {
         String s = mapper.writeValueAsString(data);
         logger.info(s);
         gateway.sendToMqtt(s,"/ReportPeriod/json/");
-
-        //saveDeviceLog(data);
+        String device_production_num=data.get("device_production_num").toString();
+        saveLog(device_production_num,s);
     }
 
 
