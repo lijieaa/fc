@@ -27,6 +27,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.savedrequest.DefaultSavedRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -186,13 +187,13 @@ public class WxCommonController {
     public String loginAction(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) throws Exception{
 
         UsernamePasswordAuthenticationToken authRequest=new UsernamePasswordAuthenticationToken(username,password);
-
+        DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) session.getAttribute("SPRING_SECURITY_SAVED_REQUEST");
         try {
             Authentication authentication = wxAuthenticationManager.authenticate(authRequest); //调用loadUserByUsername
             System.out.println(authentication);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext()); // 这个非常重要，否则验证后将无法登陆
-            return "redirect:/wd/equipment";
+            return "redirect:"+defaultSavedRequest.getServletPath()+"?"+defaultSavedRequest.getQueryString();
         } catch (AuthenticationException ex) {
            ex.printStackTrace();
             return "redirect:/wx/common/loginwx";
