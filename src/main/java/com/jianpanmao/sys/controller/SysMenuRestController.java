@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 @RestController
@@ -54,8 +56,9 @@ public class SysMenuRestController {
 
     @PreAuthorize("hasAuthority('sysmenu:view')")
     @RequestMapping(method = RequestMethod.GET, value = "list")
-    public List<SysMenu> getAll() {
-        return sysmenuService.getAll(null);
+    public LinkedHashSet<SysMenu> getAll(HttpSession session) {
+        LinkedHashSet<SysMenu> menus = (LinkedHashSet<SysMenu>) session.getAttribute("menus");
+        return menus;
     }
 
     @PreAuthorize("hasAuthority('sysmenu:view')")

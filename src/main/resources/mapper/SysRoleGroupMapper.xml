@@ -253,9 +253,11 @@
     <if test="roleGroupUpdateTime!=null">
       and role_group_update_time=#{roleGroupUpdateTime}
     </if>
-    <if test="isDel!=null">
-      and is_del=#{isDel}
-    </if>
+    <choose>
+      <when test="isDel==null ">
+        and is_del!=1
+      </when >
+    </choose>
     <if test="od!=null and od neq ''">
       order by ${od}
     </if>
