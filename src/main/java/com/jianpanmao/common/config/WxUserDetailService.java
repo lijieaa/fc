@@ -63,7 +63,7 @@ public class WxUserDetailService implements UserDetailsService {
                 }
         }
 
-        user.setAuthorities(authorities);
+       // user.setAuthorities(authorities);
         logger.error("----------------------"+user.getAuthorities());
         return user;
     }

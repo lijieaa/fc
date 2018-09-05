@@ -39,7 +39,7 @@ public class Contacts implements Serializable,UserDetails {
     //中间商外键
     private Integer intermediaryId;
 
-    @JsonIgnore
+    //@JsonIgnore
     public String getPwd() {
         return pwd;
     }
@@ -183,16 +183,16 @@ public class Contacts implements Serializable,UserDetails {
     }
 
 
-    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+   /* public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
         this.authorities = authorities;
-    }
+    }*/
 
-    private Collection<? extends GrantedAuthority> authorities;
+    //private Collection<? extends GrantedAuthority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
        /* List<SysRole> roles = this.getRoles();*/
-        //Collection<SimpleGrantedAuthority> authorities=new HashSet<>();
+        Collection<SimpleGrantedAuthority> authorities=new HashSet<>();
         /*for (SysRole role : roles) {
             List<SysMenu> menus = role.getMenus();
             for (SysMenu menu : menus) {
@@ -201,6 +201,7 @@ public class Contacts implements Serializable,UserDetails {
                 }
             }
         }*/
+        authorities.add(new SimpleGrantedAuthority("deviceControl:view"));
         return authorities;
     }
 

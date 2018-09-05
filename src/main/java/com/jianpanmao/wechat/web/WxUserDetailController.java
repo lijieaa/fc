@@ -43,8 +43,8 @@ public class WxUserDetailController  {
                                              WxUserDetail wxUserDetail,
                                              HttpSession session) throws Exception{
         WxUtils.checkParam(session, wxUserDetail.getWxPublicId());
-        PageHelper.startPage(page, rows);
         wxUserDetail.setWxPublic(wxPublicService.selectByPrimaryKey(wxPublicId));
+        PageHelper.startPage(page, rows);
         List<WxUserDetail> list = wxUserDetailService.selectAll(wxUserDetail);
         PageInfo pageInfo = new PageInfo(list);
         if (draw != null) {
