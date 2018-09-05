@@ -13,10 +13,7 @@
     <result column="intermediary_id" jdbcType="INTEGER" property="intermediaryId" />
     <result column="con_create_time" jdbcType="TIMESTAMP" property="conCreateTime" />
     <result column="con_update_time" jdbcType="TIMESTAMP" property="conUpdateTime" />
-    <collection property="roles" ofType="com.jianpanmao.sys.entity.SysRole">
-      <id property="roleId" column="role_id" />
-      <result property="roleName" column="role_name" />
-    </collection>
+    <!--<collection property="roles" ofType="com.jianpanmao.sys.entity.SysRole" select="com.jianpanmao.sys.dao.SysRoleMapper.findByConId" column="conId"/>-->
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>

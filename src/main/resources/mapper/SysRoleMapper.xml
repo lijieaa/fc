@@ -333,6 +333,10 @@
     select * from dingtalk_user u,sys_user_role ur,sys_role r where u.userid=ur.user_id AND r.role_id=ur.role_id and u.userid=#{0}
   </select>
 
+  <select id="findByConId" resultMap="BaseResultMap">
+    select * from contacts u,contact_2_role ur,sys_role r where u.con_id=ur.con_id AND r.role_id=ur.rol_id and u.con_id=#{0}
+  </select>
+
   <select id="findByIsCon" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

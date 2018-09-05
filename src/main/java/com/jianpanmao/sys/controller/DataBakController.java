@@ -48,6 +48,7 @@ public class DataBakController {
         response.setHeader("Content-Disposition", "attachment; filename=" + "fc_bak_"+format + ".sql");
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Expires", "0");
+        response.setCharacterEncoding("utf-8");
 
 
         InputStream resource = this.getClass().getClassLoader().getResourceAsStream("export.properties");
@@ -64,7 +65,7 @@ public class DataBakController {
         String databaseName=properties.getProperty("db");
         String path=properties.getProperty("path");
 
-        String command=path+"mysqldump -h" + hostIP +" -P"+port+" -u" + userName + " -p" + password + " --set-charset=UTF8 " + databaseName;
+        String command=path+"mysqldump -h" + hostIP +" -P"+port+" -u" + userName + " -p" + password + " --set-charset=utf8 " + databaseName;
         logger.info(command);
 
         Process process = null;

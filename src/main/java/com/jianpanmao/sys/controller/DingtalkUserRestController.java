@@ -157,23 +157,8 @@ public class DingtalkUserRestController {
 
     @PreAuthorize("hasAuthority('dingtalkuser:view')")
     @RequestMapping(method = RequestMethod.GET, value = "role")
-    public Object findByRoleId(
-            @RequestParam(value = "roleid", required = true) Integer roleId,
-            @RequestParam(value = "pageNum", defaultValue = "1", required = true) Integer pageNum,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
-            @RequestParam(value = "draw", required = false) Integer draw
-    ) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<DingtalkUser> list = dao.selectByRoleId(roleId);
-        PageInfo pageInfo = new PageInfo(list);
-
-//draw 不等于空是datatables分页
-        if (draw != null) {
-            DataTablesResponseEntity<DingtalkUser> responseEntity = new DataTablesResponseEntity(draw, pageInfo.getTotal(), pageInfo.getTotal(), pageInfo.getList());
-            return responseEntity;
-        } else {
-            return pageInfo;
-        }
+    public List<DingtalkUser> findByRoleId(@RequestParam(value = "roleid", required = true) Integer roleId) {
+        return dao.selectByRoleId(roleId);
     }
 
     /****
