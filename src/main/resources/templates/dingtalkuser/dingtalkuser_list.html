@@ -3059,6 +3059,13 @@
                         success: function (data) {
                             roleRefreshNode();
                             _this.dialog( "close" );
+
+                            roleContainer.removeClass("display-none").siblings().removeClass("display-block").addClass("display-none");
+                            var defaultHtml = '<div class="alert alert-info defaultHtml" style="margin: 0;"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>请选择角色</div>';
+                            roleContainer.find("h3, .role-group-person-list").addClass("display-none");
+                            if (!roleContainer.find(".alert").hasClass("defaultHtml")) {
+                                roleContainer.append(defaultHtml);
+                            }
                         },
                         error: function (data) {
 //                                        console.log(data);
@@ -3088,6 +3095,13 @@
                     success: function (data) {
                         roleRefreshNode();
                         _this.dialog( "close" );
+
+                        roleContainer.removeClass("display-none").siblings().removeClass("display-block").addClass("display-none");
+                        var defaultHtml = '<div class="alert alert-info defaultHtml" style="margin: 0;"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>请选择角色</div>';
+                        roleContainer.find("h3, .role-group-person-list").addClass("display-none");
+                        if (!roleContainer.find(".alert").hasClass("defaultHtml")) {
+                            roleContainer.append(defaultHtml);
+                        }
                     },
                     error: function (data) {
 //                                    console.log(data);
@@ -3404,6 +3418,10 @@
             invalidHandler: function (form) {
             }
         });
+        function tagRefreshNode() {
+            var zTree = $.fn.zTree.getZTreeObj("customer-list");
+            zTree.reAsyncChildNodes(null, "refresh");
+        }
         $(".add-customer-btn").on("click", function () {
             validateResetForm($formAddCustomer, $('#add-customer-container>form'));
             var dialog = $( "#add-customer-container" ).removeClass('hide').dialog({
