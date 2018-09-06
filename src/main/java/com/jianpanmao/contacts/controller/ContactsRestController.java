@@ -73,10 +73,25 @@ public class ContactsRestController {
 
     @PreAuthorize("hasAuthority('contacts:view')")
     @RequestMapping(method = RequestMethod.GET,value = "cid")
-    public List<Contacts> getByCustomerId(@RequestParam("cid") Integer cid) {
+    public Object getByCustomerId(
+            @RequestParam("cid") Integer cid,
+            @RequestParam(value = "pageNum", defaultValue = "1", required = true) Integer pageNum,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
+            @RequestParam(value = "draw", required = false) Integer draw
+    ) {
         ContactsDto dto=new ContactsDto();
         dto.setCusId(cid);
-        return  contactsService.getByDto(dto);
+        PageHelper.startPage(pageNum, pageSize);
+        List<Contacts> list = contactsService.getByDto(dto);
+        PageInfo pageInfo = new PageInfo(list);
+
+//draw 不等于空是datatables分页
+        if (draw != null) {
+            DataTablesResponseEntity<Contacts> responseEntity = new DataTablesResponseEntity(draw, pageInfo.getTotal(), pageInfo.getTotal(), pageInfo.getList());
+            return responseEntity;
+        } else {
+            return pageInfo;
+        }
     }
 
 
@@ -110,9 +125,9 @@ public class ContactsRestController {
     }
     @PreAuthorize("hasAuthority('contacts:view')")
     @GetMapping("transcribeContacts")
-   public List<Contacts> transcribeContacts(){
+    public List<Contacts> transcribeContacts(){
         return dao.transcribeContacts(UserUtils.getUser().getIntermediaryId());
-   }
+    }
 
     @PreAuthorize("hasAuthority('contacts:view')")
     @GetMapping("operateContacts")
