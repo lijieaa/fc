@@ -253,7 +253,7 @@
     sourceId =sourceId||'gh_f5a46974c0f6';
     var t = window.setInterval(function(){
         window.location.reload()
-    },10000);
+    },60000);
     var status=1;
     function  initList(){
         $.ajax({
@@ -436,7 +436,7 @@
         }else{
             t = window.setInterval(function(){
                 window.location.reload()
-            },10000);
+            },60000);
             status=1
             $("#lock").text("锁定更新")
         }
