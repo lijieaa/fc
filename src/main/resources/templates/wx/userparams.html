@@ -184,7 +184,11 @@
                         </div>
                     </form>
 
-                    <div class="col" id="bud"><a class="button convert-form-to-data" href="#">提交</a></div>
+                    <div class="col">
+                        <p class="segmented ">
+                            <button  id="bud" class="button  button-outline convert-form-to-data">提交修改</button>
+                             <button id="lock" class="button  button-outline">锁定更新</button>
+                        </p>
                 </div>
             </div>
 
@@ -205,7 +209,7 @@
         return theRequest;
     }
     var projectid= GetRequest().projectid
-    console.log(GetRequest())
+
 </script>
 <script th:src="@{/ace/assets/js/jquery-2.1.4.min.js}"></script>
 <script th:src="@{/ace/assets/js/jquery.validate.min.js}"></script>
@@ -242,11 +246,15 @@
         return theRequest;
     }
     var equipnum= GetRequest().equipnum
-    console.log(GetRequest())
+
 </script>
 <script type="text/javascript" th:inline="javascript">
     var sourceId = [[${sourceId}]];
     sourceId =sourceId||'gh_f5a46974c0f6';
+    var t = window.setInterval(function(){
+        window.location.reload()
+    },10000);
+    var status=1;
     function  initList(){
         $.ajax({
             url: "/wd/getDeviceParams",
@@ -270,7 +278,7 @@
                             o[pro]=o[pro]
                         }
                     }
-                    console.log(o)
+
                     app.form.fillFromData('#form', o);
 
                 }
@@ -307,7 +315,7 @@
                             submitHandler:function(form){
 
                                 var formData = app.form.convertToData('#form');
-                                console.log(formData);
+
 
                                 $.ajax({
                                     url: contextPath+"api/UserTab/json/",
@@ -315,6 +323,9 @@
                                     data : JSON.stringify(formData),
                                     contentType: "application/json",
                                     dataType : "json",
+                                    success:function(){
+                                        window.location.reload()
+                                    }
 
                                 })
                             },
@@ -408,10 +419,30 @@
                         $("#bud").on("click",function(){
                             $('#form').submit()
                         })
+
+
                     }
                 }
             }
     )
+
+    $("#lock").on("click",function(){
+
+        if(status==1){
+            $("#lock").text("开始更新")
+            status=0
+            window.clearInterval(t)
+
+        }else{
+            t = window.setInterval(function(){
+                window.location.reload()
+            },10000);
+            status=1
+            $("#lock").text("锁定更新")
+        }
+
+    })
+
 
 
 </script>
