@@ -2030,7 +2030,7 @@
                                     contentType: "application/json",
                                     dataType : "json",
                                     success: function (data) {
-                                        $.ajax({
+                                        /*$.ajax({
                                             async : false,
                                             cache:false,
                                             type: 'get',
@@ -2061,7 +2061,9 @@
                                                     }
                                                     subDepartmentOlBox.append(subDepartmentHtml);
                                                     //默认部门人员列表
-                                                    departmentStaffBodyBox.html('');
+                                                    departmentStaffTable.treeid = $(".department-name").attr("data-id");
+                                                    departmentStaffTable.draw();
+                                                    /!*departmentStaffBodyBox.html('');
                                                     if (data.content.users.length) {
                                                         var departmentStaffUserListHtml = '';
                                                         $.each(data.content.users, function (i, item) {
@@ -2094,7 +2096,7 @@
                                                             '</div>'+
                                                             '</td></tr>';
                                                     }
-                                                    departmentStaffBodyBox.append(departmentStaffUserListHtml);
+                                                    departmentStaffBodyBox.append(departmentStaffUserListHtml);*!/
                                                     $("#department-staff .edit-btn").on("click", function () {
                                                         var _this = $(this);
                                                         editDepartmentStaffInfo(_this.parents("td").attr("data-id"), _this.parents("td").attr("data-isAdmin"));
@@ -2108,7 +2110,9 @@
                                             error: function () {
 //                                                alert('请求失败');
                                             }
-                                        });
+                                        });*/
+                                        departmentStaffTable.treeid = $(".department-name").attr("data-id");
+                                        departmentStaffTable.draw();
                                         _this.dialog( "close" );
                                     },
                                     error: function (data) {
@@ -2369,7 +2373,7 @@
                                     contentType: "application/json",
                                     dataType : "json",
                                     success: function (data) {
-                                        $.ajax({
+                                        /*$.ajax({
                                             async : false,
                                             cache:false,
                                             type: 'get',
@@ -2447,7 +2451,9 @@
                                             error: function () {
 //                                                alert('请求失败');
                                             }
-                                        });
+                                        });*/
+                                        departmentStaffTable.treeid = $(".department-name").attr("data-id");
+                                        departmentStaffTable.draw();
                                         _this.dialog( "close" );
                                     },
                                     error: function (data) {
@@ -2598,23 +2604,8 @@
                 contentType: "application/json",
                 dataType : "json",
                 success: function (data) {
-                    $.ajax({
-                        async : false,
-                        cache:false,
-                        type: 'get',
-                        dataType : "json",
-                        contentType: "application/json",
-                        url: contextPath + "api/dingtalkdept/pid?pid="+$(".department-name").attr("data-id"),
-                        success:function(data){
-                            if (data.status == "200") {
-                                departmentStaffTable.treeid = $(".department-name").attr("data-id");
-                                departmentStaffTable.draw();
-                            }
-                        },
-                        error: function () {
-//                            alert('请求失败');
-                        }
-                    });
+                    departmentStaffTable.treeid = $(".department-name").attr("data-id");
+                    departmentStaffTable.draw();
                 },
                 error: function (data) {
 //                    console.log(data);
