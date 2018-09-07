@@ -163,13 +163,13 @@
       mobile, tel, workPlace, 
       remark, email, orgEmail, 
       jobnumber, isHide, isSenior, 
-      intermediary_id, `password`, extattr,head_pic
+      intermediary_id, `password`, extattr,head_pic,is_admin
       )
     values (#{userid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
       #{mobile,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{workplace,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{orgemail,jdbcType=VARCHAR}, 
       #{jobnumber,jdbcType=VARCHAR}, #{ishide,jdbcType=BIT}, #{issenior,jdbcType=BIT}, 
-      #{intermediaryId,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{extattr,jdbcType=LONGVARCHAR},#{headPic,jdbcType=VARCHAR}
+      #{intermediaryId,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{extattr,jdbcType=LONGVARCHAR},#{headPic,jdbcType=VARCHAR},#{isAdmin,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.jianpanmao.sys.entity.DingtalkUser">

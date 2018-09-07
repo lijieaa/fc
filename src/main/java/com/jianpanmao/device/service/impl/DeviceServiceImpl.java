@@ -71,7 +71,10 @@ public class DeviceServiceImpl extends BaseServiceImpl<Device, DeviceExample, De
     @Override
     @Transactional
     public int update(Device record) {
-
+        if (record.getIntermediary()==null){
+            Intermediary intermediary = intermediaryMapper.byIsPlat();
+            record.setIntermediary(intermediary);
+        }
         deviceMapper.deleteByDId(record.getDeviceId());
         //操作员
         String operateIds = record.getOperateUserStr();

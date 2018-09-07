@@ -145,6 +145,7 @@ public class IntermediaryServiceImpl extends BaseServiceImpl<Intermediary, Inter
         user.setName(intermediary.getIntermediaryContact());
         String tel = intermediary.getIntermediaryContactTel();
         user.setMobile(tel);
+        user.setIsAdmin(1);
         String password = tel.substring(tel.length() - 6, tel.length());
         String encode = passwordEncoder.encode(password);
         user.setPassword(encode);
