@@ -6,7 +6,6 @@ import com.jianpanmao.sys.entity.*;
 import com.jianpanmao.sys.dto.*;
 import com.jianpanmao.sys.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,17 +23,6 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenu,SysMenuExample,S
     public int remove(Integer id) {
 
         return super.remove(id);
-    }
-
-    @Override
-    public List<SysMenu> getAll(SysMenu record) {
-
-        SysMenuDto dto =new SysMenuDto();
-        DingtalkUser cuser = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(cuser.getIntermediaryId()==1){
-            dto.setIsPlat(1);
-        }
-        return super.getByDto(dto);
     }
 
     @Override

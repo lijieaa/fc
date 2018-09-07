@@ -125,9 +125,9 @@ public class ContactsRestController {
     }
     @PreAuthorize("hasAuthority('contacts:view')")
     @GetMapping("transcribeContacts")
-   public List<Contacts> transcribeContacts(){
+    public List<Contacts> transcribeContacts(){
         return dao.transcribeContacts(UserUtils.getUser().getIntermediaryId());
-   }
+    }
 
     @PreAuthorize("hasAuthority('contacts:view')")
     @GetMapping("operateContacts")

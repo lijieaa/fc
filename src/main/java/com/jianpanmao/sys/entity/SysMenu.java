@@ -145,14 +145,4 @@ public class SysMenu extends BaseEntity implements Serializable {
 
         return Objects.hash(menuName);
     }
-
-    public Integer getIsPlat() {
-        return isPlat;
-    }
-
-    public void setIsPlat(Integer isPlat) {
-        this.isPlat = isPlat;
-    }
-
-    private Integer isPlat;
 }

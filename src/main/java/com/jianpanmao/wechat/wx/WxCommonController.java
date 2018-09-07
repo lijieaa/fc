@@ -32,7 +32,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
@@ -146,6 +145,7 @@ public class WxCommonController {
                 e1.printStackTrace();
             }
         }
+
         return "wx/project";
     }
 
@@ -186,24 +186,8 @@ public class WxCommonController {
     @PostMapping("login")
     public String loginAction(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) throws Exception{
 
-
-        DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) session.getAttribute("SPRING_SECURITY_SAVED_REQUEST");
-
-
-
-        /*System.out.println("-----------------defaultSavedRequest:"+defaultSavedRequest);
-        System.out.println("-----------------getQueryString:"+defaultSavedRequest.getQueryString());
-        System.out.println("-----------------getRequestURI:"+defaultSavedRequest.getRequestURI());
-        System.out.println("-----------------getRequestURL:"+defaultSavedRequest.getRequestURL());
-        System.out.println("-----------------getParameterMap:"+defaultSavedRequest.getParameterMap());
-        System.out.println("-----------------getPathInfo:"+defaultSavedRequest.getPathInfo());
-        System.out.println("-----------------getParameterValues:"+defaultSavedRequest.getParameterValues("id"));
-
-
-        System.out.println("------------------"+defaultSavedRequest.getServletPath()+"?"+defaultSavedRequest.getQueryString()+"-----------------------");
-*/
         UsernamePasswordAuthenticationToken authRequest=new UsernamePasswordAuthenticationToken(username,password);
-
+        DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) session.getAttribute("SPRING_SECURITY_SAVED_REQUEST");
         try {
             Authentication authentication = wxAuthenticationManager.authenticate(authRequest); //调用loadUserByUsername
             System.out.println(authentication);

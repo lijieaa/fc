@@ -4,9 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jianpanmao.common.entity.DataTablesResponseEntity;
 import com.jianpanmao.sys.dto.SysRoleGroupDto;
+import com.jianpanmao.sys.entity.DingtalkUser;
 import com.jianpanmao.sys.entity.SysRoleGroup;
 import com.jianpanmao.sys.service.SysRoleGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -77,7 +79,14 @@ public class SysRoleGroupRestController {
     @PreAuthorize("hasAuthority('sysrolegroup:view')")
     @RequestMapping(method = RequestMethod.GET, value = "list")
     public List<SysRoleGroup> list() {
-        List<SysRoleGroup> all = sysrolegroupService.getAll(null);
+        DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Integer intermediaryId = user.getIntermediaryId();
+        SysRoleGroupDto dto=new SysRoleGroupDto();
+        dto.setIntermediaryId(user.getIntermediaryId());
+        if(intermediaryId==1){
+            dto.setIsDel(1);
+        }
+        List<SysRoleGroup> all = sysrolegroupService.getByDto(dto);
         return all;
     }
 }
