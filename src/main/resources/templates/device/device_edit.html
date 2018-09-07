@@ -34,6 +34,7 @@
                         <div class="clearfix">
                             <!--<input type="text" name="deviceType" id="deviceType" class="col-xs-12 col-sm-6" />-->
                             <select class="form-control" name="projectName" v-model="selectProject">
+                                <option value=""></option>
                                 <option :value="item1.projectId" v-for="item1 in projectName">{{item1.projectName}}</option>
                             </select>
                         </div>
@@ -91,6 +92,7 @@
                         <div class="clearfix">
                             <!--<input type="text" name="deviceStatus" id="deviceStatus" class="col-xs-12 col-sm-6" />-->
                             <select class="form-control" name="intermediaryName"  v-model="selectIntermediary">
+                                <option value=""></option>
                                 <option :value="item.intermediaryId" v-for="item in intermediaryName">{{item.intermediaryName}}</option>
                             </select>
                         </div>
@@ -191,6 +193,10 @@
         watch:{
             nodes: function () {
                 var _this = this;
+                // console.log(_this.nodes);
+                if(_this.nodes.length == 0) {
+                    return false
+                }
                 _this.nodes[0].open = true;
                 $.fn.zTree.init($("#treeDemoCheck"), _this.setting(),
                     _this.nodes);
@@ -203,12 +209,13 @@
             },
             list: function(){
                 var _this = this;
+                if(_this.list.length == 0) {
+                    return false
+                }
                 var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 treeNode.map(function(v){
                     _this.list.map(function(s){
-                        console.log(s);
-                        console.log(v);
                         if(v.conId == s.conId){
                             treeObj.checkNode(v, true, true);
                         }
@@ -280,6 +287,9 @@
         watch:{
             nodes: function () {
                 var _this = this;
+                if(_this.nodes.length == 0) {
+                    return false
+                }
                 _this.nodes[0].open = true;
                 $.fn.zTree.init($("#treeDemoCustom"), _this.setting(),
                     _this.nodes);
@@ -293,6 +303,9 @@
             },
             list: function(){
                 var _this = this;
+                if(_this.list.length == 0) {
+                    return false
+                }
                 var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
                 var treeNode = treeObj.transformToArray(treeObj.getNodes());
                 treeNode.map(function(v){
@@ -471,20 +484,20 @@
                     errorClass: 'help-block',
                     focusInvalid: false,
                     ignore: "",
-                    rules: {
-                        projectName: {
-                            required: true
-                        },
-                        operateUserName: {
-                            required: true
-                        },
-                        transcribeUserName: {
-                            required: true
-                        },
-                        intermediaryName: {
-                            required: true
-                        }
-                    },
+                    // rules: {
+                    //     projectName: {
+                    //         required: true
+                    //     },
+                    //     operateUserName: {
+                    //         required: true
+                    //     },
+                    //     transcribeUserName: {
+                    //         required: true
+                    //     },
+                    //     intermediaryName: {
+                    //         required: true
+                    //     }
+                    // },
                     highlight: function (e) {
                         $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
                     },
