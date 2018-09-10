@@ -34,4 +34,6 @@ public interface DeviceMapper extends BaseDao<Device, DeviceExample, DeviceDto, 
     DeviceUserParam selectDeviceUserParam(String num);
     void deleteByDId(Integer did);
     void addContacts(List<DeviceContacts> list);
+
+    void setFree(Integer deviceId);
 }

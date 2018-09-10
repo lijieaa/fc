@@ -3,6 +3,7 @@ package com.jianpanmao.project.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jianpanmao.common.entity.DataTablesResponseEntity;
+import com.jianpanmao.device.dao.DeviceMapper;
 import com.jianpanmao.project.dao.ProjectMapper;
 import com.jianpanmao.project.dto.ProjectDto;
 import com.jianpanmao.project.entity.Project;
@@ -27,6 +28,9 @@ public class ProjectRestController {
 
     @Autowired
     private ProjectMapper dao;
+
+    @Autowired
+    private DeviceMapper deviceMapper;
 
     @PreAuthorize("hasAuthority('project:add')")
     @RequestMapping(method = RequestMethod.POST)
@@ -104,5 +108,14 @@ public class ProjectRestController {
         }else {
             return false;
         }
+    }
+
+    /**
+     * 取消项目设备关联
+     */
+    @PreAuthorize("hasAuthority('project:edit')")
+    @PutMapping("freeDevice")
+    public void freeDevice(Integer deviceId){
+        deviceMapper.setFree(deviceId);
     }
 }

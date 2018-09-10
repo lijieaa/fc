@@ -580,4 +580,8 @@ DELETE FROM device_contacts WHERE device_contacts_did=#{0}
 
   </insert>
 
+  <update id="setFree">
+    UPDATE device SET project_id  = NULL WHERE device_id = #{0}
+  </update>
+
 </mapper>

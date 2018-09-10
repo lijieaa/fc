@@ -158,6 +158,11 @@ public class ProjectAttachController {
                                    @RequestParam(value = "draw",required = false) Integer draw,Integer tid) {
         PageHelper.startPage(pageNum, pageSize);
         List<Attach> attachTypes = attachMapper.typeAttach(tid);
+        for (Attach attach:attachTypes){
+            if (attach.getSize()!=null&&attach.getSize().longValue()!=0){
+                attach.setSize(attach.getSize()/(1024*1024));
+            }
+        }
         PageInfo pageInfo = new PageInfo(attachTypes);
 
 //draw 不等于空是datatables分页
