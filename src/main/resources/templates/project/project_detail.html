@@ -591,12 +591,12 @@
                             // project:{
                             //     projectId:""
                             // },
-                            operateUserStr: operateUserId,
-                            transcribeUserStr:transcribeUserId,
+                            // operateUserStr: operateUserId,
+                            // transcribeUserStr:transcribeUserId,
                             deviceId:deviceId
                         };
                         $.ajax({
-                            url: contextPath+"api/device/updateProjectId",
+                            url: contextPath+"api/project/freeDevice",
                             method: "put",
                             data : JSON.stringify(postData),
                             contentType: "application/json",
