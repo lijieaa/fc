@@ -22,6 +22,9 @@ public class ProjectCommentsServiceImpl extends BaseServiceImpl<ProjectComments,
     @Autowired
     NoticeMapper noticeMapper;
 
+    @Autowired
+    private ProjectCommentsMapper projectCommentsMapper;
+
     @Override
     @Transactional
     public int add(ProjectComments record) {
@@ -31,7 +34,8 @@ public class ProjectCommentsServiceImpl extends BaseServiceImpl<ProjectComments,
         record.setUser(user);
         record.setProjectCommentsStatus(project.getProjectStatus());
         record.setProjectCommentsType(new Byte("0"));
-        Integer commentsId = super.add(record);
+        projectCommentsMapper.insert(record);
+        Integer commentsId = record.getProjectCommentsId();
         //添加通知
         Notice notice = new Notice();
         //评论项目 获取项目创建人id
