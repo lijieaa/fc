@@ -1391,7 +1391,8 @@
                                                     $(".sub-department-queue").removeClass("display-none");
                                                     $.each(json.content.depts, function (i, item) {
                                                         subDepartmentHtml += '<li class="dd-item" data-id='+ item.id +'>'+
-                                                            '<div class="dd-handle"><i></i>&nbsp;'+ item.name + '（'+ item.memberCount +'人）</div>'+
+                                                            // '<div class="dd-handle"><i></i>&nbsp;'+ item.name + '（'+ item.memberCount +'人）</div>'+
+                                                            '<div class="dd-handle"><i></i>&nbsp;'+ item.name + '</div>'+
                                                             '</li>';
                                                     });
                                                 } else {
@@ -3288,9 +3289,9 @@
                                 "render": function (data, type, row) {
                                     return '<td>'
                                         [# sec:authorize="hasAuthority('contacts:edit')"]
-                                    '<i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" data-id="'+ data.conId +'" title="编辑信息"></i>' +
-                                    '&nbsp;&nbsp;'+
-                                    '<i class="ace-icon fa fa-key bigger-110 icon-only outcontacts-change-password-btn" data-id="'+ data.conId +'" title="修改密码"></i>' +
+                                    + '<i class="ace-icon fa fa-pencil-square-o bigger-110 icon-only edit-outcontacts-btn" data-id="'+ data.conId +'"   title="编辑信息"></i>' +
+                                    '&nbsp;&nbsp;'
+                                    +'<i class="ace-icon fa fa-key bigger-110 icon-only change-password-btn outcontacts-change-password-btn"  data-id="'+ data.conId +'"  onclick="" title="修改密码"></i>' +
                                     [/]
                                         '</td>';
                                 }
