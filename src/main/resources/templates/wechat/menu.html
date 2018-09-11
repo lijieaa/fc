@@ -82,7 +82,7 @@
                         <ul class="sub-menu-select">
                             <li :type="menu.button[selectedMenuIndex].key"
                                 :class="{active:currentSelect()==1}"
-                                @click="subMenu(selectedMenuLevel(),'mpnews')"><i class="glyphicon glyphicon-film"></i>图文消息</li>
+                                @click="subMenu(selectedMenuLevel(),'mpnews')" style="display: none;"><i class="glyphicon glyphicon-film"></i>图文消息</li>
                             <li :type="menu.button[selectedMenuIndex].key"
                                 :class="{active:currentSelect()==2}"
                                 @click="subMenu(selectedMenuLevel(),'video')"><i class="glyphicon glyphicon-hd-video"></i>视频</li>
@@ -161,7 +161,7 @@
                         <ul class="sub-menu-select">
                             <li :type="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==1}"
-                                @click="subMenu(selectedMenuLevel(),'mpnews')"><i class="glyphicon glyphicon-film"></i>图文消息</li>
+                                @click="subMenu(selectedMenuLevel(),'mpnews')" style="display: none;"><i class="glyphicon glyphicon-film"></i>图文消息</li>
                             <li :type="menu.button[selectedMenuIndex].sub_button[selectedSubMenuIndex].type"
                                 :class="{active:currentSubSelect()==2}"
                                 @click="subMenu(selectedMenuLevel(),'video')"><i class="glyphicon glyphicon-hd-video"></i>视频</li>
