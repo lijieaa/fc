@@ -33,6 +33,8 @@ public class MyUserDetailService implements UserDetailsService {
         if(user == null){
             throw new UsernameNotFoundException("用户名不存在！");
         }
+
+
         logger.error(user.getAuthorities());
         return user;
     }
