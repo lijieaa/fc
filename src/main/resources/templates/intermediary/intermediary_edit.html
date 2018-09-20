@@ -709,14 +709,16 @@
                         _this.editList = data.content;
                         _this.contacts = data.content.contacts;
                         //中间商联系人
-                        _this.relaion.zTreeList =  _this.contacts.filter(function(v){
-                            return v.status == 1
-                        });
+                        if(_this.contacts.length != 0){
+                            _this.relaion.zTreeList =  _this.contacts.filter(function(v){
+                                return v.status == 1
+                            });
 
-                        //平台联系人
-                        _this.flatRelation.zTreeList =  _this.contacts.filter(function(v){
-                            return v.status == 0
-                        });
+                            //平台联系人
+                            _this.flatRelation.zTreeList =  _this.contacts.filter(function(v){
+                                return v.status == 0
+                            });
+                        }
 
                         $("#imgInter").attr("src",imgPath+data.content.intermediaryLogoUrl);
                         $("#responseUrl").val(data.content.intermediaryLogoUrl);
