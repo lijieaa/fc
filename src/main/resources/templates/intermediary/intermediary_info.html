@@ -101,15 +101,8 @@
         <div class="row">
             <div class="col-md-9 col-sm-9">
                 <div class="float-left">
-                    <span class="font-size-18 border-left-blue">编辑中间商</span>
+                    <span class="font-size-18 border-left-blue">公司信息</span>
                 </div>
-            </div>
-            <div class="col-md-3 col-sm-3 text-align-right">
-                <button type="button" data-toggle="modal" @click="backList"
-                        class="btn btn-info padding-right-15">
-                    <i class="ace-icon fa fa-reply icon-only"></i>
-                    返回
-                </button>
             </div>
         </div>
     </div>
@@ -147,23 +140,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">联系人:</label>
-                        <ztree-list :list = "relaion.zTreeList"
-                                    :nodes="relaion.zNodes"
-                                    :dataid="1"
-                                    :listshow="relaion.ztreeFlag"
-                                    @showcontain="handleAdd(1)"
-                                    @ztreeclick="handleClick(1)"
-                                    @del="delCurrent"></ztree-list>
-                        <label class="col-xs-12 col-sm-3 no-padding-right"></label>
-                        <div class="col-xs-12 col-sm-9">
-                            <div class="clearfix">
-                                <input type="hidden" name="userName"
-                                       class="col-xs-12 col-sm-8" v-model="intermediaryContact"/>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-3 no-padding-right">LOGO:</label>
                         <div class="col-xs-12 col-sm-9">
@@ -180,35 +157,9 @@
 
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="userId">平台联系人:</label>
-                        <flat-list :list = "flatRelation.zTreeList"
-                                    :nodes="flatRelation.zNodes"
-                                   :dataid="2"
-                                   :listshow="flatRelation.ztreeFlag"
-                                    @showcontain="handleAdd(2)"
-                                    @ztreeclick="handleClick(2)"
-                                    @del="delCurrent"></flat-list>
-
-                        <label class="col-xs-12 col-sm-3 no-padding-right"></label>
-                        <div class="col-xs-12 col-sm-9">
-                            <div class="clearfix">
-                                <input type="hidden" name="userNamerelation" id="userId"
-                                       class="col-xs-12 col-sm-8" v-model="ptrelation"/>
-                            </div>
-                        </div>
-                    </div>
-                    <!--<div class="form-group">-->
-                        <!--<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="userId">平台联系方式:</label>-->
-                        <!--<div class="col-xs-12 col-sm-9">-->
-                            <!--<div class="clearfix">-->
-                                <!--<input type="text" name="userId"  class="col-xs-12 col-sm-8" v-model="editList.user.mobile"/>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
 
                     <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="userId">企业代码:</label>
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">企业代码:</label>
                         <div class="col-xs-12 col-sm-9">
                             <div class="clearfix">
                                 <input type="text" name="eCode"  class="col-xs-12 col-sm-8" v-model="editList.eCode"/>
@@ -282,181 +233,6 @@
     }
 
 
-    Vue.component('ztreeList',{
-        props:['list','nodes','listshow','dataid'],
-        data() {
-            return {
-                nodesArr:this.list
-            }
-        },
-        template:'<div class="col-xs-12 col-sm-9">' +
-        '<div class="ztree-page ztree-box col-xs-12 col-sm-8"> ' +
-        '<span v-for="item in list" data-id="item.id"  class="ztreeName" ' +
-        '@click="delCurrent(item.userId)">{{item.name}}</span> ' +
-        '<span class="add" id="addCustom" @click="handleAdd">+</span> ' +
-        '</div>' +
-        '<div class="ztreeContain col-xs-12 col-sm-8" id="ztreeContain" v-show="listshow">' +
-        ' <ul id="treeDemoCheck" class="ztree"></ul> ' +
-        '</div></div>',
-        methods:{
-            delCurrent:function(id){
-                var _this = this;
-                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
-                var nodes = treeObj.getNodes();
-                var treeNode = treeObj.transformToArray(treeObj.getNodes());
-                for(var i=0;i<treeNode.length;i++){
-                    var v = treeNode[i];
-                    if(v.id == id && v.type == 'person'){
-                        treeObj.checkNode(treeNode[i], false, true);
-                    }
-                }
-                _this.$emit('del',id , _this.dataid)
-            },
-            handleAdd: function(){
-                this.$emit('showcontain')
-            },
-            zTreeOnCheck: function(){
-                this.$emit('ztreeclick')
-            },
-            setting : function(){
-                return settingCheck = {
-                    check: {
-                        enable: true
-                    },
-                    callback:{
-                        onCheck: this.zTreeOnCheck
-                    },
-                    view: {
-                        showLine: false
-                    }
-                };
-            }
-        },
-        watch:{
-            nodes: function () {
-                var _this = this;
-                _this.nodes[0].open = true;
-                // console.log(_this.nodes)
-                $.fn.zTree.init($("#treeDemoCheck"), _this.setting(),
-                    _this.nodes);
-
-                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
-                var treeNode = treeObj.transformToArray(treeObj.getNodes());
-                treeNode.map(function(v){
-                    if(v.type == 'person'){
-                        v.icon = contextPath +'images/person.png'
-                    }else {
-                        v.icon = contextPath +'images/company.png'
-                    }
-                });
-                treeObj.refresh();
-            },
-            list: function(){
-                var _this = this;
-                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCheck");
-                var treeNode = treeObj.transformToArray(treeObj.getNodes());
-                treeNode.map(function(v){
-                    _this.list.map(function(s){
-                        if(v.id == s.userId && v.type == 'person'){
-                            treeObj.checkNode(v, true, true);
-                        }
-                    })
-                })
-            }
-        },
-        mounted: function(){
-
-
-        }
-    });
-
-
-
-    Vue.component('flatList',{
-        props:['list','nodes','listshow','dataid'],
-        data() {
-            return {
-                nodesArr:this.list
-            }
-        },
-        template:'<div class="col-xs-12 col-sm-9">' +
-        '<div class="ztree-page ztree-box col-xs-12 col-sm-8"> ' +
-        '<span v-for="item in list" data-id="item.id"  class="ztreeName" ' +
-        '@click="delCurrent(item.userId)">{{item.name}}</span> ' +
-        '<span class="add" id="addCustom" @click="handleAdd">+</span> ' +
-        '</div>' +
-        '<div class="ztreeContain col-xs-12 col-sm-8" id="ztreeContain" v-show="listshow">' +
-        ' <ul id="treeDemoCustom" class="ztree"></ul> ' +
-        '</div></div>',
-        methods:{
-            delCurrent:function(id){
-                var _this = this;
-                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
-                var nodes = treeObj.getNodes();
-                var treeNode = treeObj.transformToArray(treeObj.getNodes());
-                for(var i=0;i<treeNode.length;i++){
-                    var v = treeNode[i];
-                    if(v.id == id && v.type == 'person'){
-                        treeObj.checkNode(treeNode[i], false, true);
-                    }
-                }
-                _this.$emit('del',id , _this.dataid)
-            },
-            handleAdd: function(){
-                this.$emit('showcontain')
-            },
-            zTreeOnCheck: function(){
-                this.$emit('ztreeclick')
-            },
-            setting : function(){
-                return settingCheck = {
-                    check: {
-                        enable: true
-                    },
-                    callback:{
-                        onCheck: this.zTreeOnCheck
-                    },
-                    view: {
-                        showLine: false
-                    }
-                };
-            }
-        },
-        watch:{
-            nodes: function () {
-                var _this = this;
-                _this.nodes[0].open = true;
-                $.fn.zTree.init($("#treeDemoCustom"), _this.setting(),
-                    _this.nodes);
-                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
-                var treeNode = treeObj.transformToArray(treeObj.getNodes());
-                treeNode.map(function(v){
-                    if(v.type == 'person'){
-                        v.icon = contextPath +'images/person.png'
-                    }else {
-                        v.icon = contextPath +'images/company.png'
-                    }
-                });
-                treeObj.refresh();
-            },
-            list: function(){
-                var _this = this;
-                var treeObj =  $.fn.zTree.getZTreeObj("treeDemoCustom");
-                var treeNode = treeObj.transformToArray(treeObj.getNodes());
-                treeNode.map(function(v){
-                    _this.list.map(function(s){
-                        if(v.id == s.userId && v.type == 'person'){
-                            treeObj.checkNode(v, true, true);
-                        }
-                    })
-                })
-            }
-        },
-        mounted: function(){
-        }
-    });
-
-
 
     jQuery(function($) {
         var id=[[${id}]];
@@ -464,16 +240,6 @@
         var vue1 =new Vue({
             el:"#myMediary",
             data:{
-                relaion:{
-                    ztreeFlag:false,
-                    zNodes:[],
-                    zTreeList:[]
-                },
-                flatRelation:{
-                    ztreeFlag:false,
-                    zNodes:[],
-                    zTreeList:[]
-                },
                 searchVal:"",
                 contacts:[],
                 editList:{
@@ -494,64 +260,7 @@
                     updateTime: "",
                 }
             },
-            computed:{
-                intermediaryContact: function(){
-                    if(this.relaion.zTreeList.length == 0){
-                        return null
-                    }else {
-                        return 'string'
-                    }
-                },
-                ptrelation: function(){
-                    if(this.flatRelation.zTreeList.length == 0){
-                        return null
-                    }else {
-                        return 'string'
-                    }
-                }
-            },
             methods:{
-                handleAdd:function(postId){
-                    if(postId == 1) {
-                        this.relaion.ztreeFlag = true;
-                    }else{
-                        this.flatRelation.ztreeFlag = true;
-                    }
-                },
-                delCurrent: function(id,postId){
-                    var _this = this;
-                    if(postId == 1){
-                        for(var i=0;i<_this.relaion.zTreeList.length;i++){
-                            if(_this.relaion.zTreeList[i].userId == id){
-                                _this.relaion.zTreeList.splice(i,1)
-                            }
-                        }
-                    }else{
-                        for(var i=0;i<_this.flatRelation.zTreeList.length;i++){
-                            if(_this.flatRelation.zTreeList[i].userId == id){
-                                _this.flatRelation.zTreeList.splice(i,1)
-                            }
-                        }
-                    }
-
-
-                },
-                handleClick: function(postId) {
-                    var _this = this;
-                    if(postId == 1){
-                        var treeObj = $.fn.zTree.getZTreeObj("treeDemoCheck");
-                        var checkTrue = treeObj.getCheckedNodes(true);
-                        _this.relaion.zTreeList = checkTrue.filter(function(v){
-                            return v.type == 'person'
-                        });
-                    }else{
-                        var treeObj1 = $.fn.zTree.getZTreeObj("treeDemoCustom");
-                        var checkTrue1 = treeObj1.getCheckedNodes(true);
-                        _this.flatRelation.zTreeList = checkTrue1.filter(function(v){
-                            return v.type == 'person'
-                        });
-                    }
-                },
 
                 backList:function(){
                     location.href=contextPath+"intermediary/list";
@@ -649,24 +358,6 @@
                 },
                 sureSubmit:function () {
                     var _this = this;
-                    var relation = [];
-                    var ptRelation = [];
-
-                    _this.relaion.zTreeList.map(function (v) {
-                        if(v.id == undefined){
-                            relation.push(v.userId);
-                        }else{
-                            relation.push(v.id);
-                        }
-
-                    });
-                    _this.flatRelation.zTreeList.map(function (v) {
-                        if(v.id == undefined){
-                            ptRelation.push(v.userId);
-                        }else{
-                            ptRelation.push(v.id);
-                        }
-                    });
                     var data = {
                         intermediaryName:_this.editList.intermediaryName, //中间商名称
                         // intermediaryContact:_this.editList.intermediaryContact,//中间商联系人
@@ -677,8 +368,6 @@
                         area:{
                             id:_this.editList.area.id
                         },
-                        myUser: relation.join(","),
-                        fcUser: ptRelation.join(","),
                         intermediaryId:id
                     };
                     $.ajax({
@@ -689,7 +378,8 @@
                         dataType : "json",
                         success: function (data) {
                             if(data.status == 200 && data.content == 1) {
-                                location.href=contextPath+"intermediary/list";
+                                location.reload();
+                                // location.href=contextPath+"intermediary/list";
                             }else {
                                 bootbox.alert({
                                     message: data.content.content
@@ -708,15 +398,8 @@
                     $.axspost(contextPath + "api/intermediary/"+id+"","get","",function(data){
                         _this.editList = data.content;
                         _this.contacts = data.content.contacts;
-                        //中间商联系人
-                        _this.relaion.zTreeList =  _this.contacts.filter(function(v){
-                            return v.status == 1
-                        });
 
-                        //平台联系人
-                        _this.flatRelation.zTreeList =  _this.contacts.filter(function(v){
-                            return v.status == 0
-                        });
+
 
                         $("#imgInter").attr("src",imgPath+data.content.intermediaryLogoUrl);
                         $("#responseUrl").val(data.content.intermediaryLogoUrl);
@@ -730,16 +413,6 @@
             },
             mounted:function () {
                 var _this = this;
-                //给数状菜单添加数据
-                $.axspost(contextPath+'api/dingtalkuser/deptUser?iId=1','get','',function (data) {
-                    _this.flatRelation.zNodes = data.content;
-                },function(data){});
-
-                //联系人树状菜单添加数据
-                $.axspost(contextPath+'api/dingtalkuser/deptUser?iId='+id+'','get','',function (data) {
-                    _this.relaion.zNodes = data.content;
-                },function(data){});
-
 
                 _this.editorFun(); //初始化生成编辑器
                 _this.interDetail();
@@ -883,14 +556,7 @@
                 }
             });
         });
-        $(document).bind("click",function(e){
-            onBodyDown(e) ;
-            if(!(e.target.id == 'add' || e.target.id == 'addCustom' || e.target.id =='ztreeContain' || e.target.className == 'ztreeName' ||
-                $(event.target).parents("#ztreeContain").length>0)){
-                vue1.$data.relaion.ztreeFlag = false
-                vue1.$data.flatRelation.ztreeFlag = false
-            }
-        });
+
 
         setTimeout(function(){
             $(".webuploader-pick").css("display","inline-block");
