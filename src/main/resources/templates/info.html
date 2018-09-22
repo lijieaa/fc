@@ -100,7 +100,7 @@
                         <div class="form-group col-sm-12 col-md-12">
                             <label class="col-sm-2 control-label no-padding-right align-right" for="add-department-staff-phone">手机号:</label>
                             <div class="col-sm-9">
-                                <input type="text" id="add-department-staff-phone" name="phone" placeholder="请输入手机号" class="form-control" readonly>
+                                <input type="text" id="add-department-staff-phone" name="phone" placeholder="请输入手机号" class="form-control">
                             </div>
                         </div>
                         <div class="form-group col-sm-12 col-md-12">
@@ -171,7 +171,6 @@
             contentType: "application/json",
             dataType : "json",
             success: function (data) {
-                console.log(data);
                 var result = data.content, departmentnameArr = [], departmentname = "无", roleArr = [], role = "无";
                 userid = result.userid;
                 imgSrc = result.headPic;
@@ -245,23 +244,25 @@
                 username: {
                     required: true
                 },
-                /*phone: {
+                phone: {
                     required: true,
                     remote: function() {
                         var phone = $("#add-department-staff-phone").val();
                         var r = {
                             url: contextPath+"api/dingtalkuser/mobile",
                             type: "get",
-                            data: "mobile="+phone
+                            data: "mobile="+phone+"&id="+userid
                         };
                         return r;
-                    }
-                },*/
+                    },
+                    isMobile: true
+                },
             },
             messages: {
-               /* phone:{
+                phone:{
+                    isMobile: "请填写正确的手机号码",
                     remote: "该电话已经存在"
-                }*/
+                }
             },
             highlight: function (e) {
                 $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
@@ -284,7 +285,7 @@
             if (flag) {
                 var data = {
                     "name": $("#add-department-staff-username").val(),
-//                    "phone": $("#add-department-staff-phone"),
+                    "phone": $("#add-department-staff-phone"),
                     "email": $("#add-department-staff-email").val(),
                     "headPic": headPic
                 };
