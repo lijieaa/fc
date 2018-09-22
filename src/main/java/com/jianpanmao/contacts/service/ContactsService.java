@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public interface ContactsService extends BaseService<Contacts, ContactsExample,ContactsDto,Integer>{
-    public Contacts findeByTel(String tel);
+    public Contacts findeByTel(String tel,Integer id);
 
     public List<Contacts> findByCusId(Integer cusId);
 

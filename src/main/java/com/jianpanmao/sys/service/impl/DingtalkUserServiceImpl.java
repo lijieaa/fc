@@ -24,8 +24,8 @@ public class DingtalkUserServiceImpl extends BaseServiceImpl<DingtalkUser, Dingt
     DingtalkUserMapper dingtalkUserMapper;
 
     @Override
-    public DingtalkUser findByMobile(String mobile) {
-        return dingtalkUserMapper.findByMobile(mobile);
+    public DingtalkUser findByMobile(String mobile,Integer id) {
+        return dingtalkUserMapper.findByMobile(mobile,id);
     }
 
     @Override

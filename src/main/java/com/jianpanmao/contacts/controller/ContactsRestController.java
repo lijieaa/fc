@@ -61,9 +61,9 @@ public class ContactsRestController {
     @PreAuthorize("hasAuthority('contacts:view')")
     @RequestMapping(method = RequestMethod.GET,value = "tel")
     @NoResultEntity
-    public Boolean get(HttpServletRequest request) {
-        String tel = request.getParameter("tel");
-        Contacts contacts = contactsService.findeByTel(tel);
+    public Boolean get(@RequestParam String tel,@RequestParam(required = false) Integer id) {
+        //String tel = request.getParameter("tel");
+        Contacts contacts = contactsService.findeByTel(tel,id);
         if (null == contacts) {
             return true;
         } else {

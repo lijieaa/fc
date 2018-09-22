@@ -235,6 +235,14 @@
             });
         });
 
+        //验证手机
+        jQuery.validator.addMethod("isMobile", function(value, element) {
+            var length = value.length;
+            var mobile = /^1[0-9]{10}$/;
+            return this.optional(element) || (length == 11 && mobile.test(value));
+        }, "手机号码格式错误");
+
+
         var $formUserInfo = $('#user-info>form').validate({
             errorElement: 'span',
             errorClass: 'help-block col-sm-9 col-sm-offset-2 align-left control-label no-padding-right',
@@ -251,7 +259,7 @@
                         var r = {
                             url: contextPath+"api/dingtalkuser/mobile",
                             type: "get",
-                            data: "mobile="+phone+"&id="+userid
+                            data: "eqname="+phone+"&id="+userid
                         };
                         return r;
                     },

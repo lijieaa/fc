@@ -114,13 +114,12 @@ public class DingtalkUserRestController {
     @NoResultEntity
     @PreAuthorize("hasAuthority('dingtalkuser:view')")
     @RequestMapping(value = "mobile")
-    public Boolean findByMobile(HttpServletRequest request) {
-        String mobile = request.getParameter("mobile");
-        DingtalkUser byMobile = dingtalkuserService.findByMobile(mobile);
+    public Boolean findByMobile(@RequestParam String eqname,@RequestParam(required = false) Integer id) {
+        //String mobile = request.getParameter("mobile");
+        DingtalkUser byMobile = dingtalkuserService.findByMobile(eqname,id);
         if (null == byMobile) {
             return true;
         } else {
-
             return false;
         }
     }

@@ -39,7 +39,7 @@ public class WxUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
-        Contacts user = contactsService.findeByTel(s);
+        Contacts user = contactsService.findeByTel(s,null);
 
 
 

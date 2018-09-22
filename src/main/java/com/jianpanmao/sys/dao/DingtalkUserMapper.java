@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper
 public interface DingtalkUserMapper extends BaseDao<DingtalkUser, DingtalkUserExample, DingtalkUserDto, Integer> {
 
-    DingtalkUser findByMobile(String mobile);
+    DingtalkUser findByMobile(@Param("mobile") String mobile,@Param("id") Integer id);
 
     List<DingtalkUser> idNameList(Integer intermediaryId);
 
