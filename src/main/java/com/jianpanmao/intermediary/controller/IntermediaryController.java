@@ -1,7 +1,9 @@
 package com.jianpanmao.intermediary.controller;
 
 import com.jianpanmao.intermediary.service.IntermediaryService;
+import com.jianpanmao.sys.entity.DingtalkUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
@@ -33,6 +35,16 @@ public class IntermediaryController {
     public String edit(@RequestParam("id") Integer id, Model model) {
         model.addAttribute("id", id);
         return "intermediary/intermediary_edit";
+    }
+
+    @PreAuthorize("hasAuthority('intermediary:edit')")
+    @RequestMapping(method = RequestMethod.GET, value = "info")
+    public String editInfo(Model model) {
+        DingtalkUser user = (DingtalkUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Integer intermediaryId = user.getIntermediaryId();
+        model.addAttribute("id", intermediaryId);
+        //model.addAttribute("id", id);
+        return "intermediary/intermediary_info";
     }
 
     @PreAuthorize("hasAuthority('intermediary:view')")

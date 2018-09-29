@@ -28,7 +28,7 @@ public class MyUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
-        DingtalkUser user = dingtalkUserService.findByMobile(s);
+        DingtalkUser user = dingtalkUserService.findByMobile(s,null);
 
         if(user == null){
             throw new UsernameNotFoundException("用户名不存在！");

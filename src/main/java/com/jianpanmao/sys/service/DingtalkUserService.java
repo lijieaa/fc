@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public interface DingtalkUserService extends BaseService<DingtalkUser, DingtalkUserExample,DingtalkUserDto,Integer>{
-    DingtalkUser findByMobile(String mobile);
+    DingtalkUser findByMobile(String mobile,Integer id);
 
     List<DingtalkUser> selectByDeptId(Integer deptId);
 

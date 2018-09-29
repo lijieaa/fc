@@ -6,6 +6,7 @@ import com.jianpanmao.contacts.entity.Contacts;
 import com.jianpanmao.contacts.entity.ContactsExample;
 import com.jianpanmao.customer.dto.CustomerContactDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface ContactsMapper extends BaseDao<Contacts, ContactsExample, Conta
 
     public int deleteContact2SysRole(Integer conId);
 
-    public Contacts selectByTel(String tel);
+    public Contacts selectByTel(@Param("tel") String tel,@Param("id") Integer id);
 
     public List<Contacts> selectByCusId(Integer cusId);
 

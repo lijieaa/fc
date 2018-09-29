@@ -141,7 +141,12 @@
     ,
     <include refid="Blob_Column_List" />
     from dingtalk_user
-    where mobile = #{mobile,jdbcType=VARCHAR}
+    where mobile = #{mobile}
+    <choose>
+      <when test="id !=null and id != ''">
+        and userid!=#{id}
+      </when>
+    </choose>
   </select>
 
 

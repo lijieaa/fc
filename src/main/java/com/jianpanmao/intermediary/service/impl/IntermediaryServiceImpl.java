@@ -109,7 +109,6 @@ public class IntermediaryServiceImpl extends BaseServiceImpl<Intermediary, Inter
         }
         return record.getIntermediaryId();
     }
-
     //添加联系人(status 0:平台；1：中间商)
     private void addContacts(String str, Integer iId, Integer status) {
         List<IntermediaryUser> intermediaryUsers = new ArrayList<>();

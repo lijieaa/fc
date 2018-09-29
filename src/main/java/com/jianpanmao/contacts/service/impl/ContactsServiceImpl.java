@@ -74,8 +74,8 @@ public class ContactsServiceImpl extends BaseServiceImpl<Contacts,ContactsExampl
     }
 
     @Override
-    public Contacts findeByTel(String tel) {
-        return contactsMapper.selectByTel(tel);
+    public Contacts findeByTel(String tel,Integer id) {
+        return contactsMapper.selectByTel(tel,id);
     }
 
     @Override

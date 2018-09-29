@@ -530,7 +530,7 @@
         <div class="form-group col-sm-12 col-md-12">
             <label class="col-sm-2 control-label no-padding-right" for="edit-department-staff-phone">手机号:</label>
             <div class="col-sm-9">
-                <input type="text" id="edit-department-staff-phone" name="phone" placeholder="请输入手机号" maxlength="11" class="form-control" readonly>
+                <input type="text" id="edit-department-staff-phone" name="phone" placeholder="请输入手机号" maxlength="11" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
@@ -874,7 +874,7 @@
         <div class="form-group col-sm-12 col-md-12">
             <label class="col-sm-2 control-label no-padding-right" for="edit-outcontacts-phone">联系电话:</label>
             <div class="col-sm-9">
-                <input type="text" id="edit-outcontacts-phone" name="phone" placeholder="请输入联系电话" maxlength="11" class="form-control" readonly>
+                <input type="text" id="edit-outcontacts-phone" name="phone" placeholder="请输入联系电话" maxlength="11" class="form-control">
             </div>
         </div>
         <div class="form-group col-sm-12 col-md-12">
@@ -1017,11 +1017,11 @@
                     $("#role-person-name").text(treeNode.roleName);
                     roleGroupPersonListDataTableId = treeNode.roleId;
                     $("#edit-role-person-btn").attr("data-roleId", treeNode.roleId).attr("data-isDel", treeNode.isDel);
-                    /*if (treeNode.isDel == "1") {
+                    if (treeNode.isDel == "1") {
                         $("#edit-role-person-btn").css("display", "none")
                     } else {
                         $("#edit-role-person-btn").css("display", "inline-block")
-                    }*/
+                    }
                     if (roleGroupPersonListDataTableStatus) {
                         roleGroupPersonListDataTable.draw();
                     } else {
@@ -2150,23 +2150,25 @@
                 role: {
                     required: true
                 },
-                /*phone: {
-                    equired: true,
+                phone: {
+                    required: true,
                     remote: function() {
                         var mobile = $("#edit-department-staff-phone").val();
                         var r = {
                             url: contextPath+"api/dingtalkuser/mobile",
                             type: "get",
-                            data: "eqname="+mobile
+                            data: "eqname="+mobile+"&id="+$("#edit-department-staff-container").attr("data-id")
                         };
                         return r;
-                    }
-                }*/
+                    },
+                    isMobile: true
+                }
             },
             messages: {
-                /*phone: {
+                phone: {
+                    isMobile: "请填写正确的手机号码",
                     remote: "该用户已经存在"
-                }*/
+                }
             },
             highlight: function (e) {
                 $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
@@ -2182,6 +2184,7 @@
             }
         });
         function editDepartmentStaffInfo(id, isAdmin) {
+            $("#edit-department-staff-container").attr("data-id", id);
             validateResetForm($formEditDepartmentStaff, $('#edit-department-staff-container>form'));
             var displayStyle = "display-none";
             if (isAdmin == "0") {
@@ -3767,19 +3770,19 @@
                 username: {
                     required: true
                 },
-                /*phone: {
+                phone: {
                     required: true,
                     remote: function() {
                         var mobile = $("#edit-outcontacts-phone").val();
                         var r = {
                             url: contextPath+"api/contacts/tel",
                             type: "get",
-                            data: "tel="+mobile
+                            data: "tel="+mobile+"&id="+$("#edit-outcontacts-container").attr("data-id")
                         };
                         return r;
                     },
                     isMobile: true
-                },*/
+                },
                 email: {
                     email: true
                 },
@@ -3788,10 +3791,10 @@
                 }
             },
             messages: {
-                /*phone: {
+                phone: {
                     remote: "该用户已经存在",
                     isMobile: "请填写正确的手机号码"
-                }*/
+                }
             },
             highlight: function (e) {
                 $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
@@ -3807,6 +3810,7 @@
             }
         });
         function editOutcontacts(id) {
+            $("#edit-outcontacts-container").attr("data-id", id);
             validateResetForm($formEditOutcontacts, $('#edit-outcontacts-container>form'));
             $.ajax({
                 url: contextPath+"api/contacts/?id="+id,
