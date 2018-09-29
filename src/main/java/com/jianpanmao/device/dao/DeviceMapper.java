@@ -22,7 +22,7 @@ public interface DeviceMapper extends BaseDao<Device, DeviceExample, DeviceDto, 
 
     void updateProjectId(DpDto dpDto);
 
-    List<Device> homePageDevice(Integer intermediaryId);
+    List<Device> homePageDevice(@Param("intermediaryId") Integer intermediaryId);
 
     Device byNum(String num);
 

@@ -496,7 +496,9 @@
   valid = 0
   and device_location_x !=''
   and device.device_location_y !=''
-  and device.intermediary_id = #{0}
+  <if test="intermediaryId!=null and intermediaryId != 1">
+    and device.intermediary_id = #{intermediaryId}
+  </if>
 </select>
 
   <!--通过编号查询设备-->
