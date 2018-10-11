@@ -155,8 +155,12 @@
                                     <h5 style="padding-left: 12px">控制操作</h5>
                                     <div class="border-contain device-contain" style="background: none">
                                         <div class="form-group overflow-hidden">
-                                            <label class="control-label col-xs-3 col-sm-3 no-padding-right">
-                                                设备远程启停</label>
+
+                                            <label class="control-label col-xs-3 col-sm-3 no-padding-right" v-if ="remoteBoot == true">
+                                                启动清洗
+                                            </label>
+                                            <label class="control-label col-xs-3 col-sm-3 no-padding-right" v-else>
+                                                停止清洗</label>
                                             <div class="col-xs-4 col-sm-4">
                                                 <input  checked="" type="checkbox" v-model="remoteBoot"
                                                         class="ace ace-switch ace-switch-5">
